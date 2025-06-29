@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@import "@vaneui/ui/vars";
+@import "./code-theme.css";
+
+@source "./../node_modules/@vaneui/ui";
+
+@theme inline {
+    --font-mono: var(--font-jetbrains-mono);
+    --font-sans: var(--font-inter);
+}
+
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}
+
+.styled-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #eaeaea transparent;
+    scrollbar-gutter: stable;
+}

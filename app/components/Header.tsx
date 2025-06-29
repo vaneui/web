@@ -4,7 +4,7 @@ import { Title, Row, Text, Button, Section } from '@vaneui/ui';
 import { PRODUCT } from '../constants';
 import Image from 'next/image'
 import Link from 'next/link'
-import vaneui from './../../../public/vaneui.svg'
+import vaneui from './../../public/vaneui.svg'
 import { ArrowRight, GitHub } from "react-feather";
 
 export function Header() {

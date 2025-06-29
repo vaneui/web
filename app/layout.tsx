@@ -1,7 +1,7 @@
 'use client';
 
 import { Inter, JetBrains_Mono } from 'next/font/google';
-import '../styles/globals.css';
+import './globals.css';
 import React from 'react';
 import { ThemeProvider } from '@vaneui/ui';
 

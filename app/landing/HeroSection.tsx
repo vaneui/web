@@ -19,8 +19,8 @@ import { PRODUCT } from '../constants';
 import { CodeBlock } from "../components/CodeBlock";
 import Link from "next/link";
 import Image from "next/image";
-import githubMark from './../../../public/github-mark.svg'
-import { ArrowRight, Play } from "react-feather";
+import githubMark from './../../public/github-mark.svg'
+import { Play } from "react-feather";
 
 const dog = {
   name: "Luka",
