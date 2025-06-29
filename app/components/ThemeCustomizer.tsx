@@ -2,9 +2,8 @@
 
 import React, { useState } from 'react';
 import {
-  Button, Card, Title, Text, Row, Stack, ThemeProvider, PartialTheme
+  Button, Card, Title, Text, Row, Stack, ThemeProvider, PartialTheme, ThemeProps
 } from '@vaneui/ui';
-import { ThemeProps } from "../../../../src";
 
 const customTheme: PartialTheme = {
   button: {
