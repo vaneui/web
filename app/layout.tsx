@@ -1,9 +1,8 @@
-'use client';
-
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import React from 'react';
-import { ThemeProvider } from '@vaneui/ui';
+import ThemeWrapper from "./themeWrapper";
+import { Metadata } from "next";
 
 const inter = Inter({
   subsets: ['latin'],
@@ -17,10 +16,10 @@ const jetBrainsMono = JetBrains_Mono({
   variable: '--font-jetbrains-mono',
 })
 
-//export const metadata: Metadata = {
-//  title: 'VaneUI Documentation',
-//  description: 'Documentation and component showcase for VaneUI library',
-//};
+export const metadata: Metadata = {
+  title: 'VaneUI - Deliver clean UI without complex code',
+  description: 'VaneUI is a React component library powered by Tailwind CSS. Designed for building beautiful and responsive user interfaces.',
+};
 
 export default function RootLayout({
                                      children,
@@ -38,9 +37,9 @@ export default function RootLayout({
       <script src="https://analytics.ahrefs.com/analytics.js" data-key="+JtunyPZi10uLSHXMP+3ug" async></script>
     </head>
     <body className={`${inter.className} ${jetBrainsMono.variable}`}>
-    <ThemeProvider>
+    <ThemeWrapper>
       {children}
-    </ThemeProvider>
+    </ThemeWrapper>
     </body>
     </html>
   );
