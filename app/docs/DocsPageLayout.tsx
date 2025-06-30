@@ -16,17 +16,21 @@ export function DocsPageLayout({children}: ComponentLayoutProps) {
   return (
     <Col noGap className="h-screen">
       <Header/>
-      <Row className="flex-1 overflow-hidden" style={{alignItems: 'normal'}}>
-        <Col className="flex-shrink-0 overflow-y-auto styled-scrollbar max-w-xs py-6 px-8 lg:pr-10 border-r">
+      <Row noGap className="w-full flex-1 overflow-hidden" style={{alignItems: 'normal'}}>
+        <Col className="flex-shrink-0 overflow-y-auto styled-scrollbar max-w-xs py-6 px-8 lg:pr-10 border-r z-10 bg-white">
           <DocsNav currentPath={pathname}/>
         </Col>
-        <Container default lg className="border-x px-10 flex-1 overflow-y-auto styled-scrollbar">
-          <Container sm>
-            <Col className="py-10 w-full">
-              {children}
-            </Col>
+        <Col relative className="flex-1 overflow-y-auto styled-scrollbar">
+          <Row fixed
+               className="inset-0 bg-[linear-gradient(to_right,var(--color-gray-100)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-gray-100)_1px,transparent_1px)] bg-[size:calc(var(--spacing)*6)_calc(var(--spacing)*6)]"/>
+          <Container default lg ring className="z-10 px-10 my-4 rounded-2xl">
+            <Container sm>
+              <Col className="py-10 w-full">
+                {children}
+              </Col>
+            </Container>
           </Container>
-        </Container>
+        </Col>
       </Row>
     </Col>
   );

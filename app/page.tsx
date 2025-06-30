@@ -13,9 +13,9 @@ import {
 
 export default function Home() {
   return (
-    <Col noGap className="min-h-screen">
+    <Col noGap className="h-screen">
       <Header />
-      <Col noGap className="flex-grow">
+      <Col noGap>
         <HeroSection />
         <ThemeCustomizationSection />
         <FeaturesSection />
