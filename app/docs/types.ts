@@ -20,10 +20,9 @@ export type ComponentExample = {
   component: React.ReactNode;
 };
 
-export interface ComponentDocsProps {
-  componentName: string;
+export interface DocsPageProps {
+  pageTitle: string;
   description: string;
   propCategories: PropCategory[];
   examples: ComponentExample[];
-  importStatement: string;
 } 
