@@ -1,28 +1,36 @@
 import { Link, Text, Title, Section, Container, Col, Row, Grid3 } from '@vaneui/ui';
 import { PRODUCT } from '../constants';
+import Image from "next/image";
+import vaneui from "../../public/vaneui.svg";
 
 export function Footer() {
   return (
     <Section tag={'footer'} secondary className="border-t">
-      <Container xl>
-        <Row xl justifyBetween mdCol>
-          <Col className="max-w-1/2 max-md:max-w-full">
-            <Text secondary uppercase>
-              About
-            </Text>
+      <Container xl itemsStart>
+        <Row xl justifyBetween mdCol itemsStart className="w-full">
+          <Col xl className="max-w-1/2 max-md:max-w-full">
+            <Row xs>
+              <Image src={vaneui} alt={PRODUCT.title} className="h-[27px] w-[36px]"/>
+              <Title sm>
+                {PRODUCT.title}
+              </Title>
+            </Row>
             <Text>
               {PRODUCT.description}
+            </Text>
+            <Text secondary sm>
+              {PRODUCT.copyright}
             </Text>
           </Col>
           {
             [
               {
                 text: 'Resources',
-                links: [{ text: 'Documentation', href: '/docs' }, { text: 'Components', href: '/components' }, { text: 'GitHub', href: PRODUCT.githubUrl }]
+                links: [{text: 'Documentation', href: '/docs'}, {text: 'GitHub', href: PRODUCT.githubUrl}]
               },
               {
-                text: 'Legal',
-                links: [{ text: 'Privacy Policy', href: '/privacy' }, { text: 'Terms of Service', href: '/terms' }]
+                text: 'Social',
+                links: [{text: 'GitHub', href: PRODUCT.githubUrl},]
               }
             ].map((item, index) => (
               <Col key={index}>
@@ -40,9 +48,6 @@ export function Footer() {
             ))
           }
         </Row>
-        <Text muted sm>
-          {PRODUCT.copyright}
-        </Text>
       </Container>
     </Section>
   );

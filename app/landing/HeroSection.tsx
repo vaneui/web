@@ -57,7 +57,7 @@ export async function HeroSection() {
       </Container>
       <Container sm itemsCenter className="z-10">
         <Col itemsCenter className="w-full">
-          <Col className="max-w-xl max-sm:max-w-80 z-20 border-8 rounded-3xl border-gray-400/10 backdrop-blur-sm">
+          <Col className="max-w-xl max-sm:max-w-80 z-20 border-8 rounded-[calc(8px+var(--radius-xl))] border-gray-400/10 backdrop-blur-sm">
             <Card row smCol noPadding noGap>
               <img src={dog.image} alt="puppy" className="object-cover w-44 max-sm:w-80"/>
               <Stack sm>
@@ -74,7 +74,7 @@ export async function HeroSection() {
               </Stack>
             </Card>
           </Col>
-          <CodeBlock className="z-0 lg:-mt-[calc(var(--spacing)*20)] shadow-xl"
+          <CodeBlock className="z-0 lg:-mt-[calc(var(--spacing)*18)] shadow-xl"
                      fileName="DogCard.tsx"
                      language="tsx"
                      code={`import { Card, Row, Stack, Title, Text, Chip, Divider, Button } from '@vaneui/ui';
