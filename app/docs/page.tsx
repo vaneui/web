@@ -14,14 +14,14 @@ export default function DocsPage() {
           applications.
         </Text>
 
-        {docsSections.map((group, groupIndex) => (
+        {docsSections.map((section, groupIndex) => (
           <Col xl key={groupIndex} className="mt-12">
-            <Text lg semibold>{group.name}</Text>
-            <Text secondary className="mb-4">{group.description}</Text>
+            <Text lg semibold>{section.name}</Text>
+            <Text secondary className="mb-4">{section.description}</Text>
 
             <Grid3>
-              {group.components.map((component, componentIndex) => (
-                <VaneLink secondary href={`/docs/${component.name.toLowerCase()}`} tag={Link}
+              {section.components.map((component, componentIndex) => (
+                <VaneLink secondary href={`/docs/${section.slug}/${component.name.toLowerCase()}`} tag={Link}
                           className="hover:no-underline w-full"
                           key={componentIndex}>
                   <Card shadow className="gap-3 h-full">
