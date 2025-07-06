@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import { Col, Text, Title, PageTitle, Badge, Container } from '@vaneui/ui';
+import { Col, Text, Title, PageTitle, Container, Card } from '@vaneui/ui';
 import { DocsPageProps } from './types';
 import { CodeBlock } from '../components/CodeBlock';
 
@@ -16,26 +16,26 @@ export function DocsPageContent(
 
   return (
     <Container xs className="w-full py-10">
-      <Col xl className="w-full">
+      <Col className="w-full gap-10">
         <Col>
-          <Badge sm secondary normal>{category}</Badge>
+          <Text sm uppercase secondary mono>{category}</Text>
           <PageTitle>{pageTitle}</PageTitle>
-          <Text lg>{description}</Text>
+          <Text>{description}</Text>
         </Col>
 
         {/* Examples */}
         {examples.map((example, index) => (
-          <Col xl key={index} className="pb-8">
+          <Col key={index}>
             <Title>{example.title}</Title>
             <Text>{example.description}</Text>
-            <Col itemsCenter className="px-4 py-8 border rounded-md overflow-x-auto w-full">
+            <Card sharp itemsCenter className="gap-8">
               {example.component}
-            </Col>
-            <CodeBlock
-              code={example.code}
-              language="tsx"
-              fileName={`${pageTitle}${example.title ? ' - ' + example.title : ''}.tsx`}
-            />
+              <CodeBlock
+                code={example.code}
+                language="tsx"
+                fileName={`${pageTitle}${example.title ? ' - ' + example.title : ''}.tsx`}
+              />
+            </Card>
           </Col>
         ))}
 

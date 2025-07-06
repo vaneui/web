@@ -123,14 +123,14 @@ ${TEXT_APPEARANCE_KEYS.map((key: string) => `  <Button ${key}>Button ${key}</But
         <Row flexWrap>
           <Button outline>Outline Default</Button>
           <Button outline primary>Outline Primary</Button>
-          <Button outline danger>Outline Danger</Button>
           <Button outline success>Outline Success</Button>
+          <Button outline danger>Outline Danger</Button>
         </Row>
         <Row flexWrap>
           <Button filled>Filled Default</Button>
           <Button filled primary>Filled Primary</Button>
-          <Button filled danger>Filled Danger</Button>
           <Button filled success>Filled Success</Button>
+          <Button filled danger>Filled Danger</Button>
         </Row>
       </>
     ),
