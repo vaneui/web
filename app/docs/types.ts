@@ -21,6 +21,7 @@ export type ComponentExample = {
 };
 
 export interface DocsPageProps {
+  category: string;
   pageTitle: string;
   description: string;
   propCategories: PropCategory[];

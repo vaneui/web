@@ -1,5 +1,5 @@
 import { DocsPageLayout } from "../../DocsPageLayout";
-import { DocsPageComponentContent } from "../../DocsPageComponentContent";
+import { DocsPageContent } from "../../DocsPageContent";
 import React from "react";
 import { Metadata } from "next";
 import { docsSections } from "../../docsSections";
@@ -15,7 +15,7 @@ export async function generateMetadata({params}: DocsPageProps): Promise<Metadat
   const element = docsCategory?.components.find(c => c.name.toLowerCase() === slug.toLowerCase());
 
   return {
-    title: `${element?.name || slug} | ${docsCategory?.name || category}`,
+    title: `VaneUI | ${element?.name || slug} | ${docsCategory?.name || category}`,
     description: `${element?.description || docsCategory?.description || category}`,
   }
 }
@@ -33,7 +33,8 @@ export default async function Page({params}: DocsPageProps) {
   return (
     <DocsPageLayout>
       {element !== undefined ?
-        <DocsPageComponentContent
+        <DocsPageContent
+          category={docsCategory.name}
           pageTitle={element.name}
           description={element.description}
           propCategories={[]}

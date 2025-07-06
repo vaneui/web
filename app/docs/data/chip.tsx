@@ -1,5 +1,6 @@
 import { Chip, Row } from "@vaneui/ui";
 import { DocsComponentExample } from "../docsSections";
+import { CheckSquare, Crosshair, Heart, X } from "react-feather";
 
 export const chipExamples: DocsComponentExample[] = [
   {
@@ -11,7 +12,7 @@ export const chipExamples: DocsComponentExample[] = [
   {
     title: 'Chip Sizes',
     description: 'Chips come in different sizes.',
-    code: `<Row>
+    code: `<Row flexWrap>
   <Chip xs>XS</Chip>
   <Chip sm>SM</Chip>
   <Chip>MD</Chip>
@@ -19,7 +20,7 @@ export const chipExamples: DocsComponentExample[] = [
   <Chip xl>XL</Chip>
 </Row>`,
     component: (
-      <Row>
+      <Row flexWrap>
         <Chip xs>XS</Chip>
         <Chip sm>SM</Chip>
         <Chip>MD</Chip>
@@ -31,7 +32,7 @@ export const chipExamples: DocsComponentExample[] = [
   {
     title: 'Chip Appearances',
     description: 'Chips come in different appearances to convey purpose.',
-    code: `<Row className="flex-wrap">
+    code: `<Row flexWrap>
   <Chip>Default</Chip>
   <Chip primary>Primary</Chip>
   <Chip secondary>Secondary</Chip>
@@ -42,7 +43,7 @@ export const chipExamples: DocsComponentExample[] = [
   <Chip info>Info</Chip>
 </Row>`,
     component: (
-      <Row className="flex-wrap">
+      <Row flexWrap>
         <Chip>Default</Chip>
         <Chip primary>Primary</Chip>
         <Chip secondary>Secondary</Chip>
@@ -57,37 +58,33 @@ export const chipExamples: DocsComponentExample[] = [
   {
     title: 'Chip with Icon',
     description: 'Chips can contain icons along with text.',
-    code: `<Row>
+    code: `<Row flexWrap>
   <Chip primary>
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" 
-      stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-    </svg>
+    <Heart className="size-4"/>
     With Icon
   </Chip>
   <Chip success>
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" 
-      stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="20 6 9 17 4 12"></polyline>
-    </svg>
+    <CheckSquare className="size-4"/>
     Approved
+  </Chip>
+  <Chip danger>
+    <X className="size-4"/>
+    Failed
   </Chip>
 </Row>`,
     component: (
-      <Row>
+      <Row flexWrap>
         <Chip primary>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-          </svg>
+          <Heart className="size-4"/>
           With Icon
         </Chip>
         <Chip success>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
+          <CheckSquare className="size-4"/>
           Approved
+        </Chip>
+        <Chip danger>
+          <X className="size-4"/>
+          Failed
         </Chip>
       </Row>
     ),
