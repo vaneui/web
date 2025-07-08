@@ -32,7 +32,7 @@ const dog = {
 export async function HeroSection() {
   return (
     <Section xl relative
-             className="border-b bg-gradient-to-r from-slate-100 via-white to-slate-100">
+             className="border-b bg-gradient-to-r from-slate-100 via-white to-slate-100 pb-0 overflow-hidden">
       <Row absolute
            className="inset-0 bg-[radial-gradient(var(--color-slate-200)_1px,transparent_1px)] [background-size:calc(var(--spacing)*4)_calc(var(--spacing)*4)]"/>
       <Container xs className="z-10">
@@ -55,7 +55,7 @@ export async function HeroSection() {
           </Row>
         </Col>
       </Container>
-      <Container sm itemsCenter className="z-10">
+      <Container sm itemsCenter className="z-10 -mb-2">
         <Col itemsCenter className="w-full">
           <Col
             className="max-w-xl max-sm:max-w-80 z-20 border-8 rounded-[calc(8px+var(--radius-xl))] border-gray-400/10 backdrop-blur-sm">

@@ -3,7 +3,7 @@ import { Footer } from './components/Footer';
 import { Col } from '@vaneui/ui';
 import {
   HeroSection,
-  FeaturesSection,
+  BasicComponentsSection,
   TailwindSection,
   ResponsiveSection,
   LayoutSection,
@@ -17,8 +17,8 @@ export default function Home() {
       <Header />
       <Col noGap>
         <HeroSection />
+        <BasicComponentsSection />
         <ThemeCustomizationSection />
-        <FeaturesSection />
         <TailwindSection />
         <ResponsiveSection />
         <LayoutSection />
