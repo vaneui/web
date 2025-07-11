@@ -18,10 +18,10 @@ export function Header() {
           {PRODUCT.title}
         </Title>
       </Row>
-      <Row lg>
-        <Text sm tag={Link} href="/docs">
+      <Row>
+        <Button sm normal default noShadow noRing tag={Link} href="/docs">
           Documentation
-        </Text>
+        </Button>
         <Button sm normal tag={Link} href={PRODUCT.githubUrl}>
           <GitHub className="size-4"/>
           GitHub

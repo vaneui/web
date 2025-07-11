@@ -15,7 +15,7 @@ export function BasicComponentsSection() {
   return (
     <Section>
       <Container xl>
-        <Card xl className="w-full">
+        <Card xl className="w-full overflow-hidden">
           <Row xl smCol itemsStart className="w-full">
             <Card sm secondary justifyCenter itemsCenter className="overflow-clip">
               <Box className="size-8"/>
@@ -26,17 +26,17 @@ export function BasicComponentsSection() {
                 component library, giving you the best of both worlds.</Text>
             </Col>
           </Row>
-          <Card secondary xl className="-ml-16 opacity-75 hover:opacity-100 transition-opacity duration-300">
+          <Card secondary xl className="-ml-16 opacity-75 hover:opacity-100 transition-opacity duration-300 overflow-hidden">
             <Row xl lgCol className="ml-8">
-              <Card className="w-full">
-                  <Col>
-                    <Text>Use the default UI components, like Buttons:</Text>
-                    <Row>
-                      <Button filled>Filled button</Button>
-                      <Button outline>Outline button</Button>
-                      <Button link>Link button</Button>
-                    </Row>
-                  </Col>
+              <Card overflowHidden className="w-full">
+                <Col>
+                  <Text>Use the default UI components, like Buttons:</Text>
+                  <Row>
+                    <Button filled>Filled button</Button>
+                    <Button outline>Outline button</Button>
+                    <Button link>Link button</Button>
+                  </Row>
+                </Col>
               </Card>
               <CodeBlock className="shadow-lg -mb-12"
                          fileName="BasicComponents.tsx"
