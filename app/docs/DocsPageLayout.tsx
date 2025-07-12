@@ -22,7 +22,7 @@ export function DocsPageLayout({children}: ComponentLayoutProps) {
           <DocsNav currentPath={pathname}/>
         </Col>
         <Col relative
-             className="flex-1 overflow-y-auto styled-scrollbar bg-[linear-gradient(to_right,var(--color-gray-100)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-gray-100)_1px,transparent_1px)] bg-[size:calc(var(--spacing)*6)_calc(var(--spacing)*6)]"
+             className="flex-1 overflow-y-auto styled-scrollbar bg-[linear-gradient(to_right,var(--color-gray-50)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-gray-50)_1px,transparent_1px)] bg-[size:calc(var(--spacing)*6)_calc(var(--spacing)*6)]"
         >
           <Container default lg className="border-x flex-1">
             {children}
