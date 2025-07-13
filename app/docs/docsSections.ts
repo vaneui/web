@@ -7,7 +7,6 @@ import { chipExamples } from "./data/chip";
 export interface DocsComponentExample {
   title: string;
   description: string;
-  code: string;
   component: JSX.Element;
 }
 

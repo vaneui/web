@@ -4,6 +4,7 @@ import React from 'react';
 import { Col, Text, Title, PageTitle, Container, Card } from '@vaneui/ui';
 import { DocsPageProps } from './types';
 import { CodeBlock } from '../components/CodeBlock';
+import { prepareComponentString } from "../utils/stringUtils";
 
 export function DocsPageContent(
   {
@@ -31,7 +32,7 @@ export function DocsPageContent(
             <Card sharp itemsCenter className="gap-8">
               {example.component}
               <CodeBlock
-                code={example.code}
+                code={prepareComponentString(example.component)}
                 language="tsx"
                 fileName={`${pageTitle}${example.title ? ' - ' + example.title : ''}.tsx`}
               />

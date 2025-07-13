@@ -8,9 +8,6 @@ export const buttonExamples: DocsComponentExample[] = [
   {
     title: 'Basic Usage',
     description: 'Default button styles and variants.',
-    code: `<Row flexWrap>
-${TEXT_APPEARANCE_KEYS.map((key: string) => `  <Button ${key}>Button ${key}</Button>`).join('\r\n')}      
-</Row>`,
     component: (
       <Row flexWrap>
         {
@@ -24,13 +21,6 @@ ${TEXT_APPEARANCE_KEYS.map((key: string) => `  <Button ${key}>Button ${key}</But
   {
     title: 'Sizes',
     description: 'Buttons come in different sizes.',
-    code: `<Row flexWrap>
-  <Button xs>Extra Small</Button>
-  <Button sm>Small</Button>
-  <Button md>Medium</Button>
-  <Button lg>Large</Button>
-  <Button xl>Extra Large</Button>
-</Row>`,
     component: (
       <Row flexWrap>
         <Button xs>Extra Small</Button>
@@ -44,13 +34,6 @@ ${TEXT_APPEARANCE_KEYS.map((key: string) => `  <Button ${key}>Button ${key}</But
   {
     title: 'Sizes with Icon',
     description: 'Buttons come in different sizes.',
-    code: `<Row flexWrap>
-  <Button xs>Extra Small</Button>
-  <Button sm>Small</Button>
-  <Button md>Medium</Button>
-  <Button lg>Large</Button>
-  <Button xl>Extra Large</Button>
-</Row>`,
     component: (
       <Row flexWrap>
         <Button xs><span className="rounded-full size-4 bg-gray-300"/> Extra Small</Button>
@@ -64,16 +47,6 @@ ${TEXT_APPEARANCE_KEYS.map((key: string) => `  <Button ${key}>Button ${key}</But
   {
     title: 'Font Weights',
     description: 'Buttons support different font weights.',
-    code: `<Row flexWrap>
-  <Button thin>Thin</Button>
-  <Button light>Light</Button>
-  <Button normal>Normal</Button>
-  <Button medium>Medium</Button>
-  <Button semibold>Semibold</Button>
-  <Button bold>Bold</Button>
-  <Button extrabold>Extra Bold</Button>
-  <Button black>Black</Button>
-</Row>`,
     component: (
       <Row flexWrap>
         <Button thin>Thin</Button>
@@ -90,11 +63,6 @@ ${TEXT_APPEARANCE_KEYS.map((key: string) => `  <Button ${key}>Button ${key}</But
   {
     title: 'Border Radius Options',
     description: 'Button supports three border radius styles: rounded (default), pill, and sharp.',
-    code: `<Row flexWrap>
-  <Button>Default Rounded</Button>
-  <Button pill>Pill Shaped</Button>
-  <Button sharp>Sharp Corners</Button>
-</Row>`,
     component: (
       <Row flexWrap>
         <Button>Default Rounded</Button>
@@ -106,18 +74,6 @@ ${TEXT_APPEARANCE_KEYS.map((key: string) => `  <Button ${key}>Button ${key}</But
   {
     title: 'Button Styles',
     description: 'Buttons can be styled as outline (default) or filled.',
-    code: `<Row flexWrap>
-  <Button outline>Outline Default</Button>
-  <Button outline primary>Outline Primary</Button>
-  <Button outline danger>Outline Danger</Button>
-  <Button outline success>Outline Success</Button>
-</Row>
-<Row flexWrap>
-  <Button filled>Filled Default</Button>
-  <Button filled primary>Filled Primary</Button>
-  <Button filled danger>Filled Danger</Button>
-  <Button filled success>Filled Success</Button>
-</Row>`,
     component: (
       <>
         <Row flexWrap>
