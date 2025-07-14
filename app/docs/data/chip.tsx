@@ -2,7 +2,7 @@
 
 import { Chip, Row } from "@vaneui/ui";
 import { DocsComponentExample } from "../docsSections";
-import { CheckSquare, Crosshair, Heart, X } from "react-feather";
+import { CheckSquare, Heart, X } from "react-feather";
 
 export const chipExamples: DocsComponentExample[] = [
   {
@@ -45,16 +45,13 @@ export const chipExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         <Chip primary>
-          <Heart className="size-4"/>
-          With Icon
+          <Heart className="size-4"/> With Icon
         </Chip>
         <Chip success>
-          <CheckSquare className="size-4"/>
-          Approved
+          <CheckSquare className="size-4"/> Approved
         </Chip>
         <Chip danger>
-          <X className="size-4"/>
-          Failed
+          <X className="size-4"/> Failed
         </Chip>
       </Row>
     ),

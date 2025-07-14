@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import { Col, Text, Title, PageTitle, Container, Card } from '@vaneui/ui';
+import { Col, Text, Title, PageTitle, Container, Card, Stack } from '@vaneui/ui';
 import { DocsPageProps } from './types';
 import { CodeBlock } from '../components/CodeBlock';
 import { prepareComponentString } from "../utils/stringUtils";
@@ -26,11 +26,13 @@ export function DocsPageContent(
 
         {/* Examples */}
         {examples.map((example, index) => (
-          <Col key={index}>
+          <Col key={index} className="w-full">
             <Title>{example.title}</Title>
             <Text>{example.description}</Text>
-            <Card sharp itemsCenter className="gap-8">
-              {example.component}
+            <Card sharp itemsCenter className="gap-8 w-full">
+              <Stack xs noPadding itemsCenter className="overflow-x-auto w-full">
+                {example.component}
+              </Stack>
               <CodeBlock
                 code={prepareComponentString(example.component)}
                 language="tsx"

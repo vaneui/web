@@ -14,7 +14,7 @@ export const badgeExamples: DocsComponentExample[] = [
     title: 'Badge Sizes',
     description: 'Badges come in different sizes.',
     component: (
-      <Row>
+      <Row flexWrap>
         <Badge xs>XS</Badge>
         <Badge sm>SM</Badge>
         <Badge>MD</Badge>
@@ -27,7 +27,7 @@ export const badgeExamples: DocsComponentExample[] = [
     title: 'Badge Appearances',
     description: 'Badges come in different appearances to convey purpose.',
     component: (
-      <Row className="flex-wrap">
+      <Row flexWrap>
         <Badge>Default</Badge>
         <Badge primary>Primary</Badge>
         <Badge secondary>Secondary</Badge>

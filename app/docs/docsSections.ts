@@ -3,6 +3,20 @@ import { JSX } from "react";
 import { buttonExamples } from "./data/button";
 import { badgeExamples } from "./data/badge";
 import { chipExamples } from "./data/chip";
+import { gridExamples } from "./data/grid";
+import { rowExamples } from "./data/row";
+import { colExamples } from "./data/col";
+import { cardExamples } from "./data/card";
+import { stackExamples } from "./data/stack";
+import { containerExamples } from "./data/container";
+import { sectionExamples } from "./data/section";
+import { dividerExamples } from "./data/divider";
+import { textExamples } from "./data/text";
+import { titleExamples } from "./data/title";
+import { pageTitleExamples } from "./data/pagetitle";
+import { sectionTitleExamples } from "./data/sectiontitle";
+import { linkExamples } from "./data/link";
+import { listExamples } from "./data/list";
 
 export interface DocsComponentExample {
   title: string;
@@ -60,7 +74,8 @@ export const docsSections: DocsSection[] = [
       },
       {
         name: 'Divider',
-        description: 'Renders a thin line to separate content and create a clear visual hierarchy. Dividers can be used to group related items in lists and layouts.'
+        description: 'Renders a thin line to separate content and create a clear visual hierarchy. Dividers can be used to group related items in lists and layouts.',
+        examples: dividerExamples
       },
     ]
   },
@@ -72,27 +87,43 @@ export const docsSections: DocsSection[] = [
     components: [
       {
         name: 'Section',
-        description: 'A semantic container used to group related content within a page. This component helps to create a clear document outline and improve accessibility.'
+        description: 'A semantic container used to group related content within a page. This component helps to create a clear document outline and improve accessibility.',
+        examples: sectionExamples
       },
       {
         name: 'Container',
-        description: 'Manages the main content area by centering it and applying a max-width. It ensures a consistent and readable layout across different screen sizes.'
+        description: 'Manages the main content area by centering it and applying a max-width. It ensures a consistent and readable layout across different screen sizes.',
+        examples: containerExamples
       },
       {
         name: 'Row',
-        description: 'A fundamental layout component that arranges its children in a horizontal line. It is built on the flexbox model and is used to create columns.'
+        description: 'A fundamental layout component that arranges its children in a horizontal line. It is built on the flexbox model and is used to create columns.',
+        examples: rowExamples
       },
       {
         name: 'Col',
-        description: 'A container that organizes content vertically within a Row. It provides a simple way to create flexible and responsive column-based layouts.'
+        description: 'A container that organizes content vertically within a Row. It provides a simple way to create flexible and responsive column-based layouts.',
+        examples: colExamples
+      },
+      {
+        name: 'Stack',
+        description: 'A flexible layout component that arranges its children with consistent spacing. It can be used for both vertical and horizontal layouts.',
+        examples: stackExamples
+      },
+      {
+        name: 'Card',
+        description: 'A flexible container component that groups related content with consistent styling. Cards can contain text, images, and other components.',
+        examples: cardExamples
       },
       {
         name: 'Grid3',
-        description: 'A specialized layout component for creating a responsive three-column grid. It simplifies the arrangement of content into a balanced and organized structure.'
+        description: 'A specialized layout component for creating a responsive three-column grid. It simplifies the arrangement of content into a balanced and organized structure.',
+        examples: gridExamples
       },
       {
         name: 'Grid4',
-        description: 'A responsive layout component that arranges its children into a four-column grid. This is ideal for displaying a collection of items or features.'
+        description: 'A responsive layout component that arranges its children into a four-column grid. This is ideal for displaying a collection of items or features.',
+        examples: gridExamples
       },
     ]
   },
@@ -104,31 +135,38 @@ export const docsSections: DocsSection[] = [
     components: [
       {
         name: 'Text',
-        description: 'The primary component for rendering all text content. It provides props to control typographic properties like size, weight, color, and alignment.'
+        description: 'The primary component for rendering all text content. It provides props to control typographic properties like size, weight, color, and alignment.',
+        examples: textExamples
       },
       {
         name: 'Title',
-        description: 'Renders a heading to establish a semantic hierarchy on the page. Use this component for the main titles of pages or sections.'
+        description: 'Renders a heading to establish a semantic hierarchy on the page. Use this component for the main titles of pages or sections.',
+        examples: titleExamples
       },
       {
         name: 'PageTitle',
-        description: 'A specialized component for the primary heading of a page. It ensures consistent styling for top-level titles across your application.'
+        description: 'A specialized component for the primary heading of a page. It ensures consistent styling for top-level titles across your application.',
+        examples: pageTitleExamples
       },
       {
         name: 'SectionTitle',
-        description: 'A component for rendering headings of major sections within a page. It helps to create a clear and accessible document structure.'
+        description: 'A component for rendering headings of major sections within a page. It helps to create a clear and accessible document structure.',
+        examples: sectionTitleExamples
       },
       {
         name: 'Link',
-        description: 'Renders an accessible and themeable anchor link for navigation. Use this to direct users to other pages or external websites.'
+        description: 'Renders an accessible and themeable anchor link for navigation. Use this to direct users to other pages or external websites.',
+        examples: linkExamples
       },
       {
         name: 'List',
-        description: 'A container for displaying a series of related items in an ordered or unordered fashion. It provides consistent styling for list elements.'
+        description: 'A container for displaying a series of related items in an ordered or unordered fashion. It provides consistent styling for list elements.',
+        examples: listExamples
       },
       {
         name: 'ListItem',
-        description: 'Represents a single item within a List component. It can contain text, icons, or other components to create complex list structures.'
+        description: 'Represents a single item within a List component. It can contain text, icons, or other components to create complex list structures.',
+        examples: listExamples
       },
     ]
   }

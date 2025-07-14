@@ -5,6 +5,18 @@ export function prepareComponentString(node: React.ReactNode): string {
   let nodeString = reactElementToJSXString(node,
     {
       maxInlineAttributesLineLength: 80,
+      //displayName: node => {
+      //  let name = "";
+      //  if(typeof node?.type === "string") {
+      //    return node.type;
+      //  }
+      //  name = node?.type.name ?? node?.type.displayName ?? "";
+      //  if(name === ""){
+      //    console.log("node", node);
+      //    console.log("type", node?.type);
+      //  }
+      //  return name;
+      //}
     }
   );
   nodeString = inlineTags(nodeString);
@@ -12,38 +24,53 @@ export function prepareComponentString(node: React.ReactNode): string {
   return nodeString;
 }
 
-export function inlineTags(inputString: string): string {
-  const lines: string[] = inputString.split('\n');
-  const resultLines: string[] = [];
+export function inlineTags(input: string): string {
+  const lines = input.split('\n');
+  const out: string[] = [];
   let i = 0;
 
   while (i < lines.length) {
-    const currentLine = lines[i];
-    // In strict TS configurations, these might be (string | undefined).
-    // The checks in isPattern handle this.
-    const nextLine = lines[i + 1];
-    const thirdLine = lines[i + 2];
+    const line = lines[i];
+    const trimmed = line.trim();
 
-    // Check if we have a pattern of: <tag>, content, </tag>
-    const isPattern =
-      nextLine &&                                  // The next line exists
-      thirdLine &&                                 // The third line exists
-      currentLine.trim().endsWith('>') &&          // Line 1 ends with >
-      !currentLine.trim().startsWith('</') &&      // Line 1 is not a closing tag
-      thirdLine.trim().startsWith('</') &&         // Line 3 is a closing tag
-      !nextLine.trim().startsWith('<');            // Line 2 is just content
+    // Quick check: must be an opening tag on its own line
+    if (trimmed.startsWith('<') &&
+      !trimmed.startsWith('</') &&
+      trimmed.endsWith('>')) {
 
-    if (isPattern) {
-      // Combine the lines. nextLine and thirdLine are safe here due to the checks in isPattern.
-      const combined = `${currentLine}${nextLine.trim()}${thirdLine.trim()}`;
-      resultLines.push(combined);
-      i += 3; // Advance the loop by 3 since we processed three lines
-    } else {
-      // It's not the pattern we're looking for, so just add the line
-      resultLines.push(currentLine);
-      i += 1; // Advance the loop by 1
+      // Extract tag name (everything after '<' up to space or '>')
+      const tagNameEnd = (() => {
+        const spaceIdx = trimmed.indexOf(' ');
+        const closeIdx = trimmed.indexOf('>');
+        if (spaceIdx !== -1 && spaceIdx < closeIdx) return spaceIdx;
+        return closeIdx;
+      })();
+      const tagName = trimmed.slice(1, tagNameEnd);
+
+      // Peek at next two lines
+      const nextLine   = lines[i + 1]?.trim();
+      const thirdLine  = lines[i + 2]?.trim();
+
+      // Check that middle is plain text and third is the matching closing tag
+      if (
+        nextLine     && !nextLine.startsWith('<') &&
+        thirdLine    === `</${tagName}>`
+      ) {
+        // Preserve the original indentation
+        const indentMatch = line.match(/^\s*/);
+        const indent = indentMatch ? indentMatch[0] : '';
+
+        // Combine into one line
+        out.push(`${indent}${trimmed}${nextLine}${thirdLine}`);
+        i += 3;
+        continue;
+      }
     }
+
+    // Fallback: not a match, just copy the line
+    out.push(line);
+    i += 1;
   }
 
-  return resultLines.join('\n');
+  return out.join('\n');
 }
