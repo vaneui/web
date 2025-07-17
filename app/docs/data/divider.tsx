@@ -1,8 +1,8 @@
 'use client'
 
-import { Divider, Text, Col } from "@vaneui/ui";
+import { Divider, Text } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../docsSections";
+import { DocsComponentExample } from "../types";
 
 export const dividerExamples: DocsComponentExample[] = [
   {

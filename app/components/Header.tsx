@@ -1,6 +1,6 @@
 'use client'
 
-import { Title, Row, Text, Button } from '@vaneui/ui';
+import { Title, Row, Button } from '@vaneui/ui';
 import { PRODUCT } from '../constants';
 import Image from 'next/image'
 import Link from 'next/link'

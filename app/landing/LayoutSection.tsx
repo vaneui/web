@@ -17,7 +17,7 @@ export function LayoutSection() {
           <Col md itemsCenter>
             <SectionTitle>Flexible Layout System</SectionTitle>
             <Text lg textCenter>
-              VaneUI's layout system is built around Row and Col components, making complex layouts
+              VaneUI layout system is built around Row and Col components, making complex layouts
               simple and intuitive.
             </Text>
           </Col>
@@ -54,7 +54,7 @@ export function LayoutSection() {
             <CodeBlock
               fileName="LayoutExample.tsx"
               language="tsx"
-              code={`import { Section, Container, Row, Col } from '@vaneui/ui';
+              code={`import { Section, Container, Row, Col } from "@vaneui/ui";
 
 function LayoutExample() {
   return (

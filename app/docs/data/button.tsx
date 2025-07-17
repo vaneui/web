@@ -2,7 +2,7 @@
 
 import { Button, Row, TEXT_APPEARANCE_KEYS } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../docsSections";
+import { DocsComponentExample } from "../types";
 
 export const buttonExamples: DocsComponentExample[] = [
   {

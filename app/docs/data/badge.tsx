@@ -2,7 +2,7 @@
 
 import { Badge, Row } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../docsSections";
+import { DocsComponentExample } from "../types";
 
 export const badgeExamples: DocsComponentExample[] = [
   {

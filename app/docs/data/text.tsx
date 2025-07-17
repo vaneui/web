@@ -1,8 +1,8 @@
 'use client'
 
-import { Text, Row } from "@vaneui/ui";
+import { Text } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../docsSections";
+import { DocsComponentExample } from "../types";
 
 export const textExamples: DocsComponentExample[] = [
   {

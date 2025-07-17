@@ -1,9 +1,8 @@
-import { BookOpen, Box, FileText, Icon, Layers } from "react-feather";
-import { JSX } from "react";
+import { BookOpen, Box, FileText, Layers } from "react-feather";
+import { DocsSection } from "./types";
 import { buttonExamples } from "./data/button";
 import { badgeExamples } from "./data/badge";
 import { chipExamples } from "./data/chip";
-import { gridExamples } from "./data/grid";
 import { rowExamples } from "./data/row";
 import { colExamples } from "./data/col";
 import { cardExamples } from "./data/card";
@@ -17,26 +16,9 @@ import { pageTitleExamples } from "./data/pagetitle";
 import { sectionTitleExamples } from "./data/sectiontitle";
 import { linkExamples } from "./data/link";
 import { listExamples } from "./data/list";
+import { grid3Examples } from "./data/grid3";
+import { grid4Examples } from "./data/grid4";
 
-export interface DocsComponentExample {
-  title: string;
-  description: string;
-  component: JSX.Element;
-}
-
-export interface DocsComponent {
-  name: string;
-  description: string;
-  examples?: DocsComponentExample[];
-}
-
-export interface DocsSection {
-  name: string;
-  slug: string;
-  icon: Icon;
-  description: string;
-  components: DocsComponent[];
-}
 
 export const docsSections: DocsSection[] = [
   {
@@ -118,12 +100,12 @@ export const docsSections: DocsSection[] = [
       {
         name: 'Grid3',
         description: 'A specialized layout component for creating a responsive three-column grid. It simplifies the arrangement of content into a balanced and organized structure.',
-        examples: gridExamples
+        examples: grid3Examples
       },
       {
         name: 'Grid4',
         description: 'A responsive layout component that arranges its children into a four-column grid. This is ideal for displaying a collection of items or features.',
-        examples: gridExamples
+        examples: grid4Examples
       },
     ]
   },

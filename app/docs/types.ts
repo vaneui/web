@@ -1,29 +1,29 @@
-import React from 'react';
+import React, { JSX } from 'react';
+import { Icon } from "react-feather";
 
-export type PropDefinition = {
+export interface DocsComponentExample {
+  title: string;
+  description: string;
+  component: JSX.Element;
+}
+
+export interface DocsComponent {
   name: string;
-  type: string;
-  defaultValue?: string;
   description: string;
-  required?: boolean;
-};
+  examples?: DocsComponentExample[];
+}
 
-export type PropCategory = {
-  title: string;
-  props: PropDefinition[];
-};
-
-export type ComponentExample = {
-  title: string;
+export interface DocsSection {
+  name: string;
+  slug: string;
+  icon: Icon;
   description: string;
-  code: string;
-  component: React.ReactNode;
-};
+  components: DocsComponent[];
+}
 
 export interface DocsPageProps {
   category: string;
   pageTitle: string;
   description: string;
-  propCategories: PropCategory[];
-  examples: ComponentExample[];
+  examples: DocsComponentExample[];
 } 

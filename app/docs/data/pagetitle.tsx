@@ -1,8 +1,8 @@
 'use client'
 
-import { PageTitle, Row } from "@vaneui/ui";
+import { PageTitle } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../docsSections";
+import { DocsComponentExample } from "../types";
 
 export const pageTitleExamples: DocsComponentExample[] = [
   {

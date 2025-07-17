@@ -37,7 +37,6 @@ export default async function Page({params}: DocsPageProps) {
           category={docsCategory.name}
           pageTitle={element.name}
           description={element.description}
-          propCategories={[]}
           examples={element.examples || []}
         />
         :

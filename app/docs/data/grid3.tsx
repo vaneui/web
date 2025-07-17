@@ -1,10 +1,10 @@
 'use client'
 
-import { Grid3, Grid4, Text, Row } from "@vaneui/ui";
+import { Grid3, Text } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../docsSections";
+import { DocsComponentExample } from "../types";
 
-export const gridExamples: DocsComponentExample[] = [
+export const grid3Examples: DocsComponentExample[] = [
   {
     title: 'Basic Grid3',
     description: 'A three-column grid layout.',
@@ -13,19 +13,10 @@ export const gridExamples: DocsComponentExample[] = [
         <div className="p-4 bg-gray-100 rounded">Item 1</div>
         <div className="p-4 bg-gray-100 rounded">Item 2</div>
         <div className="p-4 bg-gray-100 rounded">Item 3</div>
-      </Grid3>
-    ),
-  },
-  {
-    title: 'Basic Grid4',
-    description: 'A four-column grid layout.',
-    component: (
-      <Grid4>
-        <div className="p-4 bg-gray-100 rounded">Item 1</div>
-        <div className="p-4 bg-gray-100 rounded">Item 2</div>
-        <div className="p-4 bg-gray-100 rounded">Item 3</div>
         <div className="p-4 bg-gray-100 rounded">Item 4</div>
-      </Grid4>
+        <div className="p-4 bg-gray-100 rounded">Item 5</div>
+        <div className="p-4 bg-gray-100 rounded">Item 6</div>
+      </Grid3>
     ),
   },
   {

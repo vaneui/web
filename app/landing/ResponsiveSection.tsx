@@ -18,7 +18,7 @@ export function ResponsiveSection() {
             <CodeBlock
               fileName="ResponsiveExample.tsx"
               language="tsx"
-              code={`import { Row, Col, Text, Title } from '@vaneui/ui';
+              code={`import { Row, Col, Text, Title } from "@vaneui/ui";
 
 function ResponsiveLayout() {
   return (
@@ -48,7 +48,7 @@ function ResponsiveLayout() {
 
           <Col md className="order-1 md:order-2 mb-6 md:mb-0">
             <SectionTitle>Responsive Design Built In</SectionTitle>
-            <Text lg className="mb-4">Build interfaces that look great on any device with VaneUI's responsive
+            <Text lg className="mb-4">Build interfaces that look great on any device with VaneUI responsive
               components.</Text>
             <Text className="mb-6">Every component in VaneUI is designed with responsiveness in mind. Our grid system
               based on Row and Col components makes building responsive layouts intuitive.</Text>
