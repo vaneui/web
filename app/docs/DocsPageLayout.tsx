@@ -28,37 +28,26 @@ export function DocsPageLayout({children}: ComponentLayoutProps) {
 
         {/* Mobile sidebar overlay */}
         {isMobileMenuOpen && (
-          <div className="fixed inset-0 z-50 lg:hidden">
-            <div
-              className="absolute inset-0 bg-gray-600/10 bg-opacity-50 backdrop-blur-lg"
-              onClick={() => setIsMobileMenuOpen(false)}
-            />
-            <Stack xs overflowYAuto flexNoWrap
-                   className="absolute styled-scrollbar w-full h-screen bg-default">
-              <Col xs>
-                <Row itemsCenter justifyBetween className="w-full">
-                  <Logo/>
-                  <Button secondary sm noShadow onClick={() => setIsMobileMenuOpen(false)}>
-                    <X className="size-5"/>
-                  </Button>
-                </Row>
-                <Divider/>
-              </Col>
+          <Col className="fixed inset-0 z-50 lg:hidden">
+            <Col overflowYAuto flexNoWrap absolute default
+                 className="styled-scrollbar w-full bg-default h-screen">
+              <Stack xs row justifyBetween className="w-full border-b border-default">
+                <Logo/>
+                <Button secondary sm noShadow onClick={() => setIsMobileMenuOpen(false)}>
+                  <X className="size-5"/>
+                </Button>
+              </Stack>
               <DocsNav currentPath={pathname}/>
-            </Stack>
-          </div>
+            </Col>
+          </Col>
         )}
 
         <Col noGap relative overflowYAuto
              className="flex-1 bg-[linear-gradient(to_right,var(--color-gray-50)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-gray-50)_1px,transparent_1px)] bg-[size:calc(var(--spacing)*4)_calc(var(--spacing)*4)]"
         >
           <Stack row sm className="w-full border-b border-default lg:hidden">
-            <Button
-              secondary
-              sm
-              noShadow
-              pill
-              onClick={() => setIsMobileMenuOpen(true)}
+            <Button secondary sm noShadow pill
+                    onClick={() => setIsMobileMenuOpen(true)}
             >
               MENU <ChevronRight className="size-5"/>
             </Button>
