@@ -24,7 +24,7 @@ export function CodeBlockActions({ code, fileName = '' }: CodeBlockActionsProps)
     <>
       <Row xs>
         <Image src="/react-icon.svg" alt="react-icon" width={56} height={36} className="h-5 w-5" />
-        {fileName && <Text sm>{fileName}</Text>}
+        {fileName && <Text sm mono secondary>{fileName}</Text>}
       </Row>
       <Button xs onClick={copyToClipboard} default={!copied} success={copied}>
         {copied ? <Check className="size-4" /> : <Copy className="size-4" />}

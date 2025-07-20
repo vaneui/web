@@ -1,23 +1,17 @@
 'use client'
 
-import { Title, Row, Button } from '@vaneui/ui';
+import { Row, Button, Stack } from '@vaneui/ui';
 import { PRODUCT } from '../constants';
-import Image from 'next/image'
 import Link from 'next/link'
-import vaneui from './../../public/vaneui.svg'
 import { ArrowRight, GitHub } from "react-feather";
+import { Logo } from "./Logo";
 
 export function Header() {
 
   return (
-    <Row lg justifyBetween tag={'header'}
-         className="flex-shrink-0 bg-white/70 backdrop-blur-md border-b z-40 w-full px-5 py-2">
-      <Row xs tag={Link} href="/">
-        <Image src={vaneui} alt={PRODUCT.title} className="h-[27px] w-[36px]"/>
-        <Title sm>
-          {PRODUCT.title}
-        </Title>
-      </Row>
+    <Stack xs row lg justifyBetween tag={'header'}
+           className="flex-shrink-0 bg-white/70 backdrop-blur-md border-b z-40 w-full border-default">
+      <Logo/>
       <Row>
         <Button sm normal default noShadow noRing tag={Link} href="/docs">
           Documentation
@@ -28,6 +22,6 @@ export function Header() {
           <ArrowRight className="size-4"/>
         </Button>
       </Row>
-    </Row>
+    </Stack>
   );
 }

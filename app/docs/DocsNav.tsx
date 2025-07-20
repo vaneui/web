@@ -38,8 +38,9 @@ export function DocsNav({currentPath}: { currentPath?: string }) {
                   key={i}
                   href={path}
                   semibold={isActive}
-                  secondary
-                  className={`w-full ${isActive ? 'border-gray-600 text-gray-900 bg-gray-50' : 'hover:border-gray-400'} border-l-2 pl-4 py-1 hover:no-underline hover:text-gray-900 hover:bg-gray-100`}
+                  secondary={!isActive}
+                  default={isActive}
+                  className={`w-full ${isActive ? 'border-gray-600 bg-gray-50' : 'border-default  hover:border-gray-400'} border-l pl-4 py-1 hover:no-underline hover:text-gray-900 hover:bg-gray-100`}
                 >
                   {component.name}
                 </Lnk>

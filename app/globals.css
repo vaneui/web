@@ -9,13 +9,9 @@
     --font-sans: var(--font-inter);
 }
 
-@layer base {
-    *,
-    ::after,
-    ::before,
-    ::backdrop,
-    ::file-selector-button {
-        border-color: var(--color-gray-200, currentColor);
+@layer theme {
+    :root, :host {
+        --border-color-default: var(--color-gray-200);
     }
 }
 

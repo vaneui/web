@@ -16,7 +16,7 @@ export function DocsPageContent(
 
   return (
     <Container xs className="w-full py-10">
-      <Col className="w-full gap-10">
+      <Col xl className="w-full">
         <Col>
           <Text sm uppercase secondary mono>{category}</Text>
           <PageTitle>{pageTitle}</PageTitle>
@@ -35,7 +35,7 @@ export function DocsPageContent(
               <CodeBlock
                 code={prepareComponentString(example.component)}
                 language="tsx"
-                fileName={`${pageTitle}${example.title ? ' - ' + example.title : ''}.tsx`}
+                fileName={`${example.title.replaceAll(" ", "")}.tsx`}
               />
             </Card>
           </Col>
