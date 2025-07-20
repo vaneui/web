@@ -1,6 +1,6 @@
 'use client'
 
-import { PageTitle } from "@vaneui/ui";
+import { PageTitle, Col } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -16,20 +16,20 @@ export const pageTitleExamples: DocsComponentExample[] = [
     title: 'PageTitle Sizes',
     description: 'Page titles come in different sizes.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <PageTitle xs>Extra Small Page Title</PageTitle>
         <PageTitle sm>Small Page Title</PageTitle>
         <PageTitle md>Medium Page Title</PageTitle>
         <PageTitle lg>Large Page Title</PageTitle>
         <PageTitle xl>Extra Large Page Title</PageTitle>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'PageTitle Font Weights',
     description: 'Page titles support different font weights.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <PageTitle thin>Thin Page Title</PageTitle>
         <PageTitle light>Light Page Title</PageTitle>
         <PageTitle normal>Normal Page Title</PageTitle>
@@ -38,14 +38,14 @@ export const pageTitleExamples: DocsComponentExample[] = [
         <PageTitle bold>Bold Page Title</PageTitle>
         <PageTitle extrabold>Extra Bold Page Title</PageTitle>
         <PageTitle black>Black Page Title</PageTitle>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'PageTitle Appearances',
     description: 'Page titles can have different color appearances.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <PageTitle>Default Page Title</PageTitle>
         <PageTitle primary>Primary Page Title</PageTitle>
         <PageTitle secondary>Secondary Page Title</PageTitle>
@@ -55,42 +55,42 @@ export const pageTitleExamples: DocsComponentExample[] = [
         <PageTitle warning>Warning Page Title</PageTitle>
         <PageTitle info>Info Page Title</PageTitle>
         <PageTitle muted>Muted Page Title</PageTitle>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'PageTitle Font Families',
     description: 'Page titles support different font families.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <PageTitle sans>Sans Serif Page Title</PageTitle>
         <PageTitle serif>Serif Page Title</PageTitle>
         <PageTitle mono>Monospace Page Title</PageTitle>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'PageTitle Styles',
     description: 'Page titles support different styles and decorations.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <PageTitle italic>Italic Page Title</PageTitle>
         <PageTitle underline>Underlined Page Title</PageTitle>
         <PageTitle lineThrough>Line Through Page Title</PageTitle>
         <PageTitle overline>Overlined Page Title</PageTitle>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'PageTitle Transformations',
     description: 'Page titles support different case transformations.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <PageTitle uppercase>uppercase page title</PageTitle>
         <PageTitle lowercase>LOWERCASE PAGE TITLE</PageTitle>
         <PageTitle capitalize>capitalize page title</PageTitle>
         <PageTitle normalCase>Normal Case Page Title</PageTitle>
-      </div>
+      </Col>
     ),
   },
   {
@@ -108,13 +108,13 @@ export const pageTitleExamples: DocsComponentExample[] = [
     title: 'PageTitle Combinations',
     description: 'Combining multiple page title properties.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <PageTitle lg bold primary>Large Bold Primary Page Title</PageTitle>
         <PageTitle sm italic secondary>Small Italic Secondary Page Title</PageTitle>
         <PageTitle md semibold success underline>Medium Semibold Success Underlined Page Title</PageTitle>
         <PageTitle xs light muted uppercase>Extra Small Light Muted Uppercase Page Title</PageTitle>
         <PageTitle xl extrabold danger textCenter>Extra Large Extra Bold Danger Centered Page Title</PageTitle>
-      </div>
+      </Col>
     ),
   },
 ];

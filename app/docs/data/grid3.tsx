@@ -1,6 +1,6 @@
 'use client'
 
-import { Grid3, Text } from "@vaneui/ui";
+import { Grid3, Text, Col } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -23,7 +23,7 @@ export const grid3Examples: DocsComponentExample[] = [
     title: 'Grid Sizes',
     description: 'Grids come in different sizes.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <div>
           <Text semibold>Extra Small Grid3</Text>
           <Grid3 xs>
@@ -40,14 +40,14 @@ export const grid3Examples: DocsComponentExample[] = [
             <div className="p-6 bg-gray-100 rounded">Item 3</div>
           </Grid3>
         </div>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Grid with Gap',
     description: 'Control spacing between grid items.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <div>
           <Text semibold>No Gap</Text>
           <Grid3 noGap>
@@ -64,14 +64,14 @@ export const grid3Examples: DocsComponentExample[] = [
             <div className="p-4 bg-gray-100 rounded">Item 3</div>
           </Grid3>
         </div>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Grid Appearances',
     description: 'Grids can have different background appearances.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <Grid3 primary>
           <div className="p-4 bg-white rounded">Item 1</div>
           <div className="p-4 bg-white rounded">Item 2</div>
@@ -82,7 +82,7 @@ export const grid3Examples: DocsComponentExample[] = [
           <div className="p-4 bg-white rounded">Item 2</div>
           <div className="p-4 bg-white rounded">Item 3</div>
         </Grid3>
-      </div>
+      </Col>
     ),
   },
 ];

@@ -1,6 +1,6 @@
 'use client'
 
-import { Container, Text } from "@vaneui/ui";
+import { Container, Text, Col } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -20,7 +20,7 @@ export const containerExamples: DocsComponentExample[] = [
     title: 'Container Sizes',
     description: 'Containers come in different sizes.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <div>
           <Text semibold>Extra Small Container</Text>
           <Container xs>
@@ -37,14 +37,14 @@ export const containerExamples: DocsComponentExample[] = [
             </div>
           </Container>
         </div>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Container Appearances',
     description: 'Containers can have different background appearances.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <Container primary>
           <div className="p-4 bg-white rounded">
             <Text>Primary container</Text>
@@ -60,14 +60,14 @@ export const containerExamples: DocsComponentExample[] = [
             <Text>Success container</Text>
           </div>
         </Container>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Container Borders',
     description: 'Control container border appearance.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <Container border>
           <div className="p-4 bg-gray-100 rounded">
             <Text>Container with border</Text>
@@ -78,14 +78,14 @@ export const containerExamples: DocsComponentExample[] = [
             <Text>Container without border</Text>
           </div>
         </Container>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Container Shapes',
     description: 'Containers support different border radius styles.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <Container>
           <div className="p-4 bg-gray-100 rounded">
             <Text>Default rounded container</Text>
@@ -101,14 +101,14 @@ export const containerExamples: DocsComponentExample[] = [
             <Text>Sharp cornered container</Text>
           </div>
         </Container>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Container with Shadow',
     description: 'Containers can have drop shadows.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <Container shadow>
           <div className="p-4 bg-gray-100 rounded">
             <Text>Container with shadow</Text>
@@ -119,14 +119,14 @@ export const containerExamples: DocsComponentExample[] = [
             <Text>Container without shadow</Text>
           </div>
         </Container>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Container with Ring',
     description: 'Containers can have focus rings.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <Container ring>
           <div className="p-4 bg-gray-100 rounded">
             <Text>Container with ring</Text>
@@ -137,14 +137,14 @@ export const containerExamples: DocsComponentExample[] = [
             <Text>Container without ring</Text>
           </div>
         </Container>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Container with Gap',
     description: 'Control spacing between container content.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <Container gap>
           <div className="p-4 bg-gray-100 rounded">
             <Text>First item</Text>
@@ -161,7 +161,7 @@ export const containerExamples: DocsComponentExample[] = [
             <Text>Second item</Text>
           </div>
         </Container>
-      </div>
+      </Col>
     ),
   },
 ];

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Container, Row, Col, Stack, Button, Divider } from '@vaneui/ui';
+import { Container, Row, Col, Stack, Button } from '@vaneui/ui';
 import { DocsNav } from './DocsNav';
 import { Header } from '../components/Header';
 import { usePathname } from 'next/navigation';

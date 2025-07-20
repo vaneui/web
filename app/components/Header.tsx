@@ -1,6 +1,6 @@
 'use client'
 
-import { Row, Button, Stack, Col, Divider } from '@vaneui/ui';
+import { Row, Button, Stack } from '@vaneui/ui';
 import { PRODUCT } from '../constants';
 import Link from 'next/link'
 import { ArrowRight, GitHub, Menu, X } from "react-feather";

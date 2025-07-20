@@ -20,7 +20,7 @@ export const rowExamples: DocsComponentExample[] = [
     title: 'Row Sizes',
     description: 'Rows come in different sizes.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <div>
           <Text semibold>Extra Small Row</Text>
           <Row xs>
@@ -37,14 +37,14 @@ export const rowExamples: DocsComponentExample[] = [
             <div className="p-6 bg-gray-100 rounded">Item 3</div>
           </Row>
         </div>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Row with Gap',
     description: 'Control spacing between row items.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <div>
           <Text semibold>No Gap</Text>
           <Row noGap>
@@ -61,14 +61,14 @@ export const rowExamples: DocsComponentExample[] = [
             <div className="p-4 bg-gray-100 rounded">Item 3</div>
           </Row>
         </div>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Row Wrap Options',
     description: 'Control how items wrap within the row.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <div>
           <Text semibold>Flex Wrap</Text>
           <Row flexWrap className="max-w-md">
@@ -86,7 +86,7 @@ export const rowExamples: DocsComponentExample[] = [
             <div className="p-4 bg-gray-100 rounded">Long Item 3</div>
           </Row>
         </div>
-      </div>
+      </Col>
     ),
   },
   {
@@ -122,7 +122,7 @@ export const rowExamples: DocsComponentExample[] = [
     title: 'Row Appearances',
     description: 'Rows can have different background appearances.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <Row primary>
           <div className="p-4 bg-white rounded">Item 1</div>
           <div className="p-4 bg-white rounded">Item 2</div>
@@ -133,14 +133,14 @@ export const rowExamples: DocsComponentExample[] = [
           <div className="p-4 bg-white rounded">Item 2</div>
           <div className="p-4 bg-white rounded">Item 3</div>
         </Row>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Row Reverse',
     description: 'Reverse the order of items in the row.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <div>
           <Text semibold>Normal Order</Text>
           <Row>
@@ -157,7 +157,7 @@ export const rowExamples: DocsComponentExample[] = [
             <div className="p-4 bg-gray-300 rounded">Third</div>
           </Row>
         </div>
-      </div>
+      </Col>
     ),
   },
 ];

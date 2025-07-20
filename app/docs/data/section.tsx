@@ -1,6 +1,6 @@
 'use client'
 
-import { Section, Text } from "@vaneui/ui";
+import { Section, Text, Col } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -19,7 +19,7 @@ export const sectionExamples: DocsComponentExample[] = [
     title: 'Section Sizes',
     description: 'Sections come in different sizes.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <Section xs>
           <Text semibold>Extra Small Section</Text>
           <Text>Compact section content</Text>
@@ -28,14 +28,14 @@ export const sectionExamples: DocsComponentExample[] = [
           <Text semibold>Large Section</Text>
           <Text>Large section with more space</Text>
         </Section>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Section Appearances',
     description: 'Sections can have different background appearances.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <Section primary>
           <Text semibold>Primary Section</Text>
           <Text>Section with primary background</Text>
@@ -52,14 +52,14 @@ export const sectionExamples: DocsComponentExample[] = [
           <Text semibold>Danger Section</Text>
           <Text>Section with danger background</Text>
         </Section>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Section Flex Direction',
     description: 'Control the direction of section content.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <Section column>
           <Text semibold>Column Direction</Text>
           <Text>Content flows vertically</Text>
@@ -70,14 +70,14 @@ export const sectionExamples: DocsComponentExample[] = [
           <Text>Content flows horizontally</Text>
           <Text>Another line</Text>
         </Section>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Section with Padding',
     description: 'Control section internal padding.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <Section padding className="border-2 border-dashed border-gray-300">
           <Text semibold>With Padding</Text>
           <Text>Section with internal padding</Text>
@@ -88,14 +88,14 @@ export const sectionExamples: DocsComponentExample[] = [
             <Text>Section without internal padding</Text>
           </div>
         </Section>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Section with Gap',
     description: 'Control spacing between section content.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <Section gap>
           <Text semibold>With Gap</Text>
           <Text>Content with spacing</Text>
@@ -106,14 +106,14 @@ export const sectionExamples: DocsComponentExample[] = [
           <Text>Content without spacing</Text>
           <Text>Another line</Text>
         </Section>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Section Borders',
     description: 'Control section border appearance.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <Section border>
           <Text semibold>With Border</Text>
           <Text>Section with border</Text>
@@ -122,14 +122,14 @@ export const sectionExamples: DocsComponentExample[] = [
           <Text semibold>No Border</Text>
           <Text>Section without border</Text>
         </Section>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Section Shapes',
     description: 'Sections support different border radius styles.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <Section>
           <Text semibold>Default Rounded</Text>
           <Text>Default rounded corners</Text>
@@ -142,14 +142,14 @@ export const sectionExamples: DocsComponentExample[] = [
           <Text semibold>Sharp Corners</Text>
           <Text>Sharp cornered section</Text>
         </Section>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Section with Shadow',
     description: 'Sections can have drop shadows.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <Section shadow>
           <Text semibold>With Shadow</Text>
           <Text>Section with drop shadow</Text>
@@ -158,14 +158,14 @@ export const sectionExamples: DocsComponentExample[] = [
           <Text semibold>No Shadow</Text>
           <Text>Section without shadow</Text>
         </Section>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Section with Ring',
     description: 'Sections can have focus rings.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <Section ring>
           <Text semibold>With Ring</Text>
           <Text>Section with focus ring</Text>
@@ -174,14 +174,14 @@ export const sectionExamples: DocsComponentExample[] = [
           <Text semibold>No Ring</Text>
           <Text>Section without ring</Text>
         </Section>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Section Reverse',
     description: 'Reverse the order of items in the section.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <Section>
           <Text semibold>Normal Order</Text>
           <Text>First item</Text>
@@ -194,7 +194,7 @@ export const sectionExamples: DocsComponentExample[] = [
           <Text>Second item</Text>
           <Text>Third item</Text>
         </Section>
-      </div>
+      </Col>
     ),
   },
 ];

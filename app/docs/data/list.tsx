@@ -1,6 +1,6 @@
 'use client'
 
-import { List, ListItem, Text } from "@vaneui/ui";
+import { List, ListItem, Text, Col } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -20,7 +20,7 @@ export const listExamples: DocsComponentExample[] = [
     title: 'List Sizes',
     description: 'Lists come in different sizes.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <div>
           <Text semibold>Extra Small List</Text>
           <List xs>
@@ -37,14 +37,14 @@ export const listExamples: DocsComponentExample[] = [
             <ListItem>Large item 3</ListItem>
           </List>
         </div>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'List Font Weights',
     description: 'Lists support different font weights.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <List thin>
           <ListItem>Thin list item</ListItem>
           <ListItem>Another thin item</ListItem>
@@ -57,14 +57,14 @@ export const listExamples: DocsComponentExample[] = [
           <ListItem>Semibold list item</ListItem>
           <ListItem>Another semibold item</ListItem>
         </List>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'List Appearances',
     description: 'Lists can have different color appearances.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <List primary>
           <ListItem>Primary list item</ListItem>
           <ListItem>Another primary item</ListItem>
@@ -81,14 +81,14 @@ export const listExamples: DocsComponentExample[] = [
           <ListItem>Danger list item</ListItem>
           <ListItem>Another danger item</ListItem>
         </List>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'List Font Families',
     description: 'Lists support different font families.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <List sans>
           <ListItem>Sans serif list item</ListItem>
           <ListItem>Another sans serif item</ListItem>
@@ -101,14 +101,14 @@ export const listExamples: DocsComponentExample[] = [
           <ListItem>Monospace list item</ListItem>
           <ListItem>Another monospace item</ListItem>
         </List>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'List Styles',
     description: 'Lists support different styles and decorations.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <List italic>
           <ListItem>Italic list item</ListItem>
           <ListItem>Another italic item</ListItem>
@@ -117,14 +117,14 @@ export const listExamples: DocsComponentExample[] = [
           <ListItem>Underlined list item</ListItem>
           <ListItem>Another underlined item</ListItem>
         </List>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'List Transformations',
     description: 'Lists support different case transformations.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <List uppercase>
           <ListItem>uppercase list item</ListItem>
           <ListItem>another uppercase item</ListItem>
@@ -137,7 +137,7 @@ export const listExamples: DocsComponentExample[] = [
           <ListItem>capitalize list item</ListItem>
           <ListItem>another capitalize item</ListItem>
         </List>
-      </div>
+      </Col>
     ),
   },
   {

@@ -1,6 +1,6 @@
 'use client'
 
-import { Divider, Text } from "@vaneui/ui";
+import { Divider, Text, Col } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -20,7 +20,7 @@ export const dividerExamples: DocsComponentExample[] = [
     title: 'Divider Sizes',
     description: 'Dividers come in different sizes.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <div>
           <Text semibold>Extra Small Divider</Text>
           <Divider xs />
@@ -46,14 +46,14 @@ export const dividerExamples: DocsComponentExample[] = [
           <Divider xl />
           <Text>Content after XL divider</Text>
         </div>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Divider Appearances',
     description: 'Dividers can have different appearances.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <div>
           <Text semibold>Default Divider</Text>
           <Divider />
@@ -84,14 +84,14 @@ export const dividerExamples: DocsComponentExample[] = [
           <Divider warning />
           <Text>Content after warning divider</Text>
         </div>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Divider in Lists',
     description: 'Dividers used to separate list items.',
     component: (
-      <div className="space-y-2">
+      <Col>
         <div className="p-4 bg-gray-50 rounded">
           <Text semibold>First List Item</Text>
           <Text>Description of first item</Text>
@@ -106,14 +106,14 @@ export const dividerExamples: DocsComponentExample[] = [
           <Text semibold>Third List Item</Text>
           <Text>Description of third item</Text>
         </div>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Divider in Sections',
     description: 'Dividers used to separate content sections.',
     component: (
-      <div className="space-y-4">
+      <Col lg>
         <div>
           <Text semibold lg>Section 1</Text>
           <Text>This is the first section with some content that demonstrates how dividers can be used to separate different sections of content.</Text>
@@ -128,7 +128,7 @@ export const dividerExamples: DocsComponentExample[] = [
           <Text semibold lg>Section 3</Text>
           <Text>This is the third and final section, demonstrating consistent use of dividers throughout the content.</Text>
         </div>
-      </div>
+      </Col>
     ),
   },
 ];

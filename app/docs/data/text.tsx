@@ -1,6 +1,6 @@
 'use client'
 
-import { Text } from "@vaneui/ui";
+import { Text, Col } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -16,20 +16,20 @@ export const textExamples: DocsComponentExample[] = [
     title: 'Text Sizes',
     description: 'Text comes in different sizes.',
     component: (
-      <div className="space-y-2">
+      <Col>
         <Text xs>Extra Small Text</Text>
         <Text sm>Small Text</Text>
         <Text md>Medium Text</Text>
         <Text lg>Large Text</Text>
         <Text xl>Extra Large Text</Text>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Text Font Weights',
     description: 'Text supports different font weights.',
     component: (
-      <div className="space-y-2">
+      <Col>
         <Text thin>Thin Text</Text>
         <Text extralight>Extra Light Text</Text>
         <Text light>Light Text</Text>
@@ -39,14 +39,14 @@ export const textExamples: DocsComponentExample[] = [
         <Text bold>Bold Text</Text>
         <Text extrabold>Extra Bold Text</Text>
         <Text black>Black Text</Text>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Text Appearances',
     description: 'Text can have different color appearances.',
     component: (
-      <div className="space-y-2">
+      <Col>
         <Text>Default Text</Text>
         <Text primary>Primary Text</Text>
         <Text secondary>Secondary Text</Text>
@@ -57,44 +57,44 @@ export const textExamples: DocsComponentExample[] = [
         <Text info>Info Text</Text>
         <Text muted>Muted Text</Text>
         <Text link>Link Text</Text>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Text Font Families',
     description: 'Text supports different font families.',
     component: (
-      <div className="space-y-2">
+      <Col>
         <Text sans>Sans Serif Text</Text>
         <Text serif>Serif Text</Text>
         <Text mono>Monospace Text</Text>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Text Styles',
     description: 'Text supports different styles and decorations.',
     component: (
-      <div className="space-y-2">
+      <Col>
         <Text italic>Italic Text</Text>
         <Text notItalic>Not Italic Text</Text>
         <Text underline>Underlined Text</Text>
         <Text lineThrough>Line Through Text</Text>
         <Text overline>Overlined Text</Text>
         <Text noUnderline>No Underline Text</Text>
-      </div>
+      </Col>
     ),
   },
   {
     title: 'Text Transformations',
     description: 'Text supports different case transformations.',
     component: (
-      <div className="space-y-2">
+      <Col>
         <Text uppercase>uppercase text</Text>
         <Text lowercase>LOWERCASE TEXT</Text>
         <Text capitalize>capitalize text</Text>
         <Text normalCase>Normal Case Text</Text>
-      </div>
+      </Col>
     ),
   },
   {
@@ -113,13 +113,13 @@ export const textExamples: DocsComponentExample[] = [
     title: 'Text Combinations',
     description: 'Combining multiple text properties.',
     component: (
-      <div className="space-y-2">
+      <Col>
         <Text lg bold primary>Large Bold Primary Text</Text>
         <Text sm italic secondary>Small Italic Secondary Text</Text>
         <Text md semibold success underline>Medium Semibold Success Underlined Text</Text>
         <Text xs light muted uppercase>Extra Small Light Muted Uppercase Text</Text>
         <Text xl extrabold danger textCenter>Extra Large Extra Bold Danger Centered Text</Text>
-      </div>
+      </Col>
     ),
   },
 ];
