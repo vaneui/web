@@ -29,9 +29,7 @@ export function Header() {
         </Row>
 
         {/* Mobile menu button - shown only on mobile */}
-        <Button sm secondary noShadow className="lg:hidden"
-                onClick={() => setIsMobileMenuOpen(true)}
-        >
+        <Button sm secondary noShadow className="lg:hidden" onClick={() => setIsMobileMenuOpen(true)}>
           <Menu className="size-5"/>
         </Button>
       </Stack>
@@ -39,49 +37,32 @@ export function Header() {
       {/* Mobile menu overlay */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
-          <div
-            className="absolute inset-0 bg-gray-600/10 bg-opacity-50 backdrop-blur-lg"
-            onClick={() => setIsMobileMenuOpen(false)}
-          />
-          <Stack xs overflowYAuto flexNoWrap
-                 className="absolute styled-scrollbar w-full h-screen bg-default">
-            <Col xs>
-              <Row itemsCenter justifyBetween className="w-full">
-                <Logo/>
-                <Button secondary sm noShadow onClick={() => setIsMobileMenuOpen(false)}>
-                  <X className="size-5"/>
-                </Button>
-              </Row>
-              <Divider/>
-            </Col>
-            <Col lg>
-              <Button
-                sm
-                normal
-                default
-                noShadow
-                noRing
-                tag={Link}
-                href="/docs"
-                className="w-full"
-                onClick={() => setIsMobileMenuOpen(false)}
+          <div className="absolute left-0 top-0 h-full w-full bg-default flex flex-col">
+            {/* Fixed header */}
+            <Stack xs row justifyBetween className="w-full border-b border-default flex-shrink-0">
+              <Logo/>
+              <Button secondary sm noShadow onClick={() => setIsMobileMenuOpen(false)}>
+                <X className="size-5"/>
+              </Button>
+            </Stack>
+
+            {/* Scrollable content */}
+            <Stack className="flex-1 overflow-y-auto styled-scrollbar" lg>
+              <Button sm normal default noShadow noRing
+                      tag={Link} href="/docs" className="w-full"
+                      onClick={() => setIsMobileMenuOpen(false)}
               >
                 Documentation
               </Button>
-              <Button
-                sm
-                normal
-                tag={Link}
-                href={PRODUCT.githubUrl}
-                className="w-full"
-                onClick={() => setIsMobileMenuOpen(false)}
+              <Button sm normal tag={Link} href={PRODUCT.githubUrl}
+                      className="w-full" onClick={() => setIsMobileMenuOpen(false)}
               >
                 <GitHub className="size-4"/>
                 GitHub
                 <ArrowRight className="size-4"/>
               </Button>
-            </Col>
-          </Stack>
+            </Stack>
+          </div>
         </div>
       )}
     </>

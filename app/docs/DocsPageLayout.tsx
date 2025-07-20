@@ -28,18 +28,22 @@ export function DocsPageLayout({children}: ComponentLayoutProps) {
 
         {/* Mobile sidebar overlay */}
         {isMobileMenuOpen && (
-          <Col className="fixed inset-0 z-50 lg:hidden">
-            <Col overflowYAuto flexNoWrap absolute default
-                 className="styled-scrollbar w-full bg-default h-screen">
-              <Stack xs row justifyBetween className="w-full border-b border-default">
+          <div className="fixed inset-0 z-50 lg:hidden">
+            <div className="absolute left-0 top-0 h-full w-full bg-default flex flex-col">
+              {/* Fixed header */}
+              <Stack xs row justifyBetween className="w-full border-b border-default flex-shrink-0">
                 <Logo/>
                 <Button secondary sm noShadow onClick={() => setIsMobileMenuOpen(false)}>
                   <X className="size-5"/>
                 </Button>
               </Stack>
-              <DocsNav currentPath={pathname}/>
-            </Col>
-          </Col>
+              
+              {/* Scrollable content */}
+              <Stack className="flex-1 overflow-y-auto styled-scrollbar">
+                <DocsNav currentPath={pathname}/>
+              </Stack>
+            </div>
+          </div>
         )}
 
         <Col noGap relative overflowYAuto
