@@ -8,11 +8,11 @@ import { usePathname } from 'next/navigation';
 import { ChevronRight, X } from "react-feather";
 import { Logo } from "../components/Logo";
 
-interface ComponentLayoutProps {
+interface DocsLayoutProps {
   children: React.ReactNode;
 }
 
-export function DocsPageLayout({children}: ComponentLayoutProps) {
+export default function DocsLayout({children}: DocsLayoutProps) {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -37,7 +37,7 @@ export function DocsPageLayout({children}: ComponentLayoutProps) {
                   <X className="size-5"/>
                 </Button>
               </Stack>
-              
+
               {/* Scrollable content */}
               <Stack className="flex-1 overflow-y-auto styled-scrollbar">
                 <DocsNav currentPath={pathname}/>

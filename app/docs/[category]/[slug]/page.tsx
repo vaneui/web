@@ -1,4 +1,3 @@
-import { DocsPageLayout } from "../../DocsPageLayout";
 import { DocsPageContent } from "../../DocsPageContent";
 import React from "react";
 import { Metadata } from "next";
@@ -31,7 +30,7 @@ export default async function Page({params}: DocsPageProps) {
   const element = docsCategory.components.find(c => c.name.toLowerCase() === slug.toLowerCase());
 
   return (
-    <DocsPageLayout>
+    <>
       {element !== undefined ?
         <DocsPageContent
           category={docsCategory.name}
@@ -44,6 +43,6 @@ export default async function Page({params}: DocsPageProps) {
           Element ${slug} not found
         </div>
       }
-    </DocsPageLayout>
+    </>
   );
 }
