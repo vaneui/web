@@ -6,9 +6,6 @@ import { DocsNav } from './DocsNav';
 import { Header } from '../components/Header';
 import { usePathname } from 'next/navigation';
 import { ChevronRight, X } from "react-feather";
-import Image from "next/image";
-import vaneui from "../../public/vaneui.svg";
-import { PRODUCT } from "../constants";
 import { Logo } from "../components/Logo";
 
 interface ComponentLayoutProps {
