@@ -37,14 +37,16 @@ export function DocsPageLayout({children}: ComponentLayoutProps) {
               onClick={() => setIsMobileMenuOpen(false)}
             />
             <Stack xs overflowYAuto flexNoWrap
-                   className="absolute left-0 top-0 h-full w-full bg-white border-r border-default styled-scrollbar">
-              <Row itemsCenter justifyBetween className="w-full">
-                <Logo/>
-                <Button secondary sm noShadow onClick={() => setIsMobileMenuOpen(false)}>
-                  <X className="size-5"/>
-                </Button>
-              </Row>
-              <Divider />
+                   className="absolute styled-scrollbar w-full h-screen bg-default">
+              <Col xs>
+                <Row itemsCenter justifyBetween className="w-full">
+                  <Logo/>
+                  <Button secondary sm noShadow onClick={() => setIsMobileMenuOpen(false)}>
+                    <X className="size-5"/>
+                  </Button>
+                </Row>
+                <Divider/>
+              </Col>
               <DocsNav currentPath={pathname}/>
             </Stack>
           </div>
