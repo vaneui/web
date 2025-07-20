@@ -20,7 +20,7 @@ export function DocsPageContent(
         <Col>
           <Text sm uppercase secondary mono>{category}</Text>
           <PageTitle>{pageTitle}</PageTitle>
-          <Text>{description}</Text>
+          <Text default>{description}</Text>
         </Col>
 
         {/* Examples */}
@@ -29,7 +29,7 @@ export function DocsPageContent(
             <Title>{example.title}</Title>
             <Text>{example.description}</Text>
             <Card sharp itemsCenter className="gap-8 w-full">
-              <Stack xs noPadding itemsCenter className="overflow-x-auto w-full">
+              <Stack xs itemsCenter className="overflow-x-auto w-full overflow-y-visible py-8">
                 {example.component}
               </Stack>
               <CodeBlock

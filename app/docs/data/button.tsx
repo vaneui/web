@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Row, TEXT_APPEARANCE_KEYS } from "@vaneui/ui";
+import { Button, Col, Row, TEXT_APPEARANCE_KEYS } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -75,7 +75,7 @@ export const buttonExamples: DocsComponentExample[] = [
     title: 'Button Styles',
     description: 'Buttons can be styled as outline (default) or filled.',
     component: (
-      <>
+      <Col>
         <Row flexWrap>
           <Button outline>Outline Default</Button>
           <Button outline primary>Outline Primary</Button>
@@ -88,7 +88,7 @@ export const buttonExamples: DocsComponentExample[] = [
           <Button filled success>Filled Success</Button>
           <Button filled danger>Filled Danger</Button>
         </Row>
-      </>
+      </Col>
     ),
   },
 ];

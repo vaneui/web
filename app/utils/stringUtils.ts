@@ -5,18 +5,6 @@ export function prepareComponentString(node: React.ReactNode): string {
   let nodeString = reactElementToJSXString(node,
     {
       maxInlineAttributesLineLength: 80,
-      //displayName: node => {
-      //  let name = "";
-      //  if(typeof node?.type === "string") {
-      //    return node.type;
-      //  }
-      //  name = node?.type.name ?? node?.type.displayName ?? "";
-      //  if(name === ""){
-      //    console.log("node", node);
-      //    console.log("type", node?.type);
-      //  }
-      //  return name;
-      //}
     }
   );
   nodeString = inlineTags(nodeString);
