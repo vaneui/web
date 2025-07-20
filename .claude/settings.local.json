@@ -4,7 +4,8 @@
       "Bash(npm install:*)",
       "Bash(npm view:*)",
       "Bash(npm run build:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(npm run lint)"
     ],
     "deny": []
   }
