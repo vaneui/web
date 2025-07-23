@@ -20,7 +20,7 @@ export const buttonExamples: DocsComponentExample[] = [
   },
   {
     title: 'Sizes',
-    description: 'Buttons come in different sizes.',
+    description: 'Buttons come in different sizes - xs, sm, md, lg, xl.',
     component: (
       <Row flexWrap>
         <Button xs>Extra Small</Button>
