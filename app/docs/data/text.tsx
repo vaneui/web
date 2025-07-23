@@ -1,6 +1,6 @@
 'use client'
 
-import { Text, Col } from "@vaneui/ui";
+import { Text, Col, Row } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -16,20 +16,20 @@ export const textExamples: DocsComponentExample[] = [
     title: 'Text Sizes',
     description: 'Text comes in different sizes.',
     component: (
-      <Col>
+      <Row flexWrap>
         <Text xs>Extra Small Text</Text>
         <Text sm>Small Text</Text>
         <Text md>Medium Text</Text>
         <Text lg>Large Text</Text>
         <Text xl>Extra Large Text</Text>
-      </Col>
+      </Row>
     ),
   },
   {
     title: 'Text Font Weights',
     description: 'Text supports different font weights.',
     component: (
-      <Col>
+      <Row flexWrap>
         <Text thin>Thin Text</Text>
         <Text extralight>Extra Light Text</Text>
         <Text light>Light Text</Text>
@@ -39,14 +39,14 @@ export const textExamples: DocsComponentExample[] = [
         <Text bold>Bold Text</Text>
         <Text extrabold>Extra Bold Text</Text>
         <Text black>Black Text</Text>
-      </Col>
+      </Row>
     ),
   },
   {
     title: 'Text Appearances',
     description: 'Text can have different color appearances.',
     component: (
-      <Col>
+      <Row flexWrap>
         <Text>Default Text</Text>
         <Text primary>Primary Text</Text>
         <Text secondary>Secondary Text</Text>
@@ -57,44 +57,44 @@ export const textExamples: DocsComponentExample[] = [
         <Text info>Info Text</Text>
         <Text muted>Muted Text</Text>
         <Text link>Link Text</Text>
-      </Col>
+      </Row>
     ),
   },
   {
     title: 'Text Font Families',
     description: 'Text supports different font families.',
     component: (
-      <Col>
+      <Row flexWrap>
         <Text sans>Sans Serif Text</Text>
         <Text serif>Serif Text</Text>
         <Text mono>Monospace Text</Text>
-      </Col>
+      </Row>
     ),
   },
   {
     title: 'Text Styles',
     description: 'Text supports different styles and decorations.',
     component: (
-      <Col>
+      <Row flexWrap>
         <Text italic>Italic Text</Text>
         <Text notItalic>Not Italic Text</Text>
         <Text underline>Underlined Text</Text>
         <Text lineThrough>Line Through Text</Text>
         <Text overline>Overlined Text</Text>
         <Text noUnderline>No Underline Text</Text>
-      </Col>
+      </Row>
     ),
   },
   {
     title: 'Text Transformations',
     description: 'Text supports different case transformations.',
     component: (
-      <Col>
+      <Row flexWrap>
         <Text uppercase>uppercase text</Text>
         <Text lowercase>LOWERCASE TEXT</Text>
         <Text capitalize>capitalize text</Text>
         <Text normalCase>Normal Case Text</Text>
-      </Col>
+      </Row>
     ),
   },
   {

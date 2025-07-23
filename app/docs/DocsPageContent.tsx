@@ -28,8 +28,8 @@ export function DocsPageContent(
           <Col key={index} className="w-full">
             <Title>{example.title}</Title>
             <Text>{example.description}</Text>
-            <Card sharp itemsCenter className="gap-8 w-full">
-              <Stack xs itemsCenter className="overflow-x-auto w-full overflow-y-visible py-8">
+            <Card xs sharp itemsCenter className="w-full">
+              <Stack xl itemsCenter className="overflow-x-auto w-full overflow-y-visible">
                 {example.component}
               </Stack>
               <CodeBlock
