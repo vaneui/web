@@ -170,7 +170,6 @@ export const listExamples: DocsComponentExample[] = [
         <ListItem secondary bold>Secondary bold list item</ListItem>
         <ListItem success italic>Success italic list item</ListItem>
         <ListItem danger underline>Danger underlined list item</ListItem>
-        <ListItem muted>Muted list item</ListItem>
       </List>
     ),
   },

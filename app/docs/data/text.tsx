@@ -55,7 +55,6 @@ export const textExamples: DocsComponentExample[] = [
         <Text danger>Danger Text</Text>
         <Text warning>Warning Text</Text>
         <Text info>Info Text</Text>
-        <Text muted>Muted Text</Text>
         <Text link>Link Text</Text>
       </Row>
     ),
@@ -117,7 +116,7 @@ export const textExamples: DocsComponentExample[] = [
         <Text lg bold primary>Large Bold Primary Text</Text>
         <Text sm italic secondary>Small Italic Secondary Text</Text>
         <Text md semibold success underline>Medium Semibold Success Underlined Text</Text>
-        <Text xs light muted uppercase>Extra Small Light Muted Uppercase Text</Text>
+        <Text xs light uppercase>Extra Small Light Uppercase Text</Text>
         <Text xl extrabold danger textCenter>Extra Large Extra Bold Danger Centered Text</Text>
       </Col>
     ),

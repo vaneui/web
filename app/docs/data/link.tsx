@@ -54,7 +54,6 @@ export const linkExamples: DocsComponentExample[] = [
         <Link href="#danger-link" danger>Danger Link</Link>
         <Link href="#warning-link" warning>Warning Link</Link>
         <Link href="#info-link" info>Info Link</Link>
-        <Link href="#muted-link" muted>Muted Link</Link>
         <Link href="#link-link" link>Link Appearance</Link>
       </Row>
     ),
@@ -114,7 +113,7 @@ export const linkExamples: DocsComponentExample[] = [
         <Link href="#combo1" lg bold primary>Large Bold Primary Link</Link>
         <Link href="#combo2" sm italic secondary>Small Italic Secondary Link</Link>
         <Link href="#combo3" md semibold success underline>Medium Semibold Success Underlined Link</Link>
-        <Link href="#combo4" xs light muted uppercase>Extra Small Light Muted Uppercase Link</Link>
+        <Link href="#combo4" xs light uppercase>Extra Small Light Uppercase Link</Link>
         <Link href="#combo5" xl extrabold danger textCenter>Extra Large Extra Bold Danger Centered Link</Link>
       </Col>
     ),

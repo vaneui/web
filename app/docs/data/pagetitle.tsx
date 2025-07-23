@@ -54,7 +54,6 @@ export const pageTitleExamples: DocsComponentExample[] = [
         <PageTitle danger>Danger Page Title</PageTitle>
         <PageTitle warning>Warning Page Title</PageTitle>
         <PageTitle info>Info Page Title</PageTitle>
-        <PageTitle muted>Muted Page Title</PageTitle>
       </Col>
     ),
   },
@@ -112,7 +111,7 @@ export const pageTitleExamples: DocsComponentExample[] = [
         <PageTitle lg bold primary>Large Bold Primary Page Title</PageTitle>
         <PageTitle sm italic secondary>Small Italic Secondary Page Title</PageTitle>
         <PageTitle md semibold success underline>Medium Semibold Success Underlined Page Title</PageTitle>
-        <PageTitle xs light muted uppercase>Extra Small Light Muted Uppercase Page Title</PageTitle>
+        <PageTitle xs light uppercase>Extra Small Light Uppercase Page Title</PageTitle>
         <PageTitle xl extrabold danger textCenter>Extra Large Extra Bold Danger Centered Page Title</PageTitle>
       </Col>
     ),

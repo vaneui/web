@@ -54,7 +54,6 @@ export const sectionTitleExamples: DocsComponentExample[] = [
         <SectionTitle danger>Danger Section Title</SectionTitle>
         <SectionTitle warning>Warning Section Title</SectionTitle>
         <SectionTitle info>Info Section Title</SectionTitle>
-        <SectionTitle muted>Muted Section Title</SectionTitle>
       </Col>
     ),
   },
@@ -112,7 +111,7 @@ export const sectionTitleExamples: DocsComponentExample[] = [
         <SectionTitle lg bold primary>Large Bold Primary Section Title</SectionTitle>
         <SectionTitle sm italic secondary>Small Italic Secondary Section Title</SectionTitle>
         <SectionTitle md semibold success underline>Medium Semibold Success Underlined Section Title</SectionTitle>
-        <SectionTitle xs light muted uppercase>Extra Small Light Muted Uppercase Section Title</SectionTitle>
+        <SectionTitle xs light uppercase>Extra Small Light Uppercase Section Title</SectionTitle>
         <SectionTitle xl extrabold danger textCenter>Extra Large Extra Bold Danger Centered Section Title</SectionTitle>
       </Col>
     ),

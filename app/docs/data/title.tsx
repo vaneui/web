@@ -54,7 +54,6 @@ export const titleExamples: DocsComponentExample[] = [
         <Title danger>Danger Title</Title>
         <Title warning>Warning Title</Title>
         <Title info>Info Title</Title>
-        <Title muted>Muted Title</Title>
       </Col>
     ),
   },
@@ -112,7 +111,7 @@ export const titleExamples: DocsComponentExample[] = [
         <Title lg bold primary>Large Bold Primary Title</Title>
         <Title sm italic secondary>Small Italic Secondary Title</Title>
         <Title md semibold success underline>Medium Semibold Success Underlined Title</Title>
-        <Title xs light muted uppercase>Extra Small Light Muted Uppercase Title</Title>
+        <Title xs light uppercase>Extra Small Light Uppercase Title</Title>
         <Title xl extrabold danger textCenter>Extra Large Extra Bold Danger Centered Title</Title>
       </Col>
     ),
