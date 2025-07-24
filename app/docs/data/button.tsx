@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Col, Row, BG_APPEARANCE_KEYS } from "@vaneui/ui";
+import { Button, Col, Row, APPEARANCE_KEYS } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -11,7 +11,7 @@ export const buttonExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          BG_APPEARANCE_KEYS.map((key: string) => (
+          APPEARANCE_KEYS.map((key: string) => (
             <Button key={key} {...{[key]: true}}>Button {key}</Button>
           ))
         }

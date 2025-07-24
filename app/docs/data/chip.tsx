@@ -1,14 +1,22 @@
 'use client'
 
-import { Chip, Row } from "@vaneui/ui";
+import { Chip, Row, APPEARANCE_KEYS } from "@vaneui/ui";
 import { DocsComponentExample } from "../types";
 import { CheckSquare, Heart, X } from "react-feather";
 
 export const chipExamples: DocsComponentExample[] = [
   {
-    title: 'Basic Chip',
-    description: 'Default chip with default styling.',
-    component: <Chip>Default</Chip>,
+    title: 'Basic Usage',
+    description: 'Default chip styles and variants.',
+    component: (
+      <Row flexWrap>
+        {
+          APPEARANCE_KEYS.map((key: string) => (
+            <Chip key={key} {...{[key]: true}}>Chip {key}</Chip>
+          ))
+        }
+      </Row>
+    ),
   },
   {
     title: 'Chip Sizes',
@@ -20,22 +28,6 @@ export const chipExamples: DocsComponentExample[] = [
         <Chip>MD</Chip>
         <Chip lg>LG</Chip>
         <Chip xl>XL</Chip>
-      </Row>
-    ),
-  },
-  {
-    title: 'Chip Appearances',
-    description: 'Chips come in different appearances to convey purpose.',
-    component: (
-      <Row flexWrap>
-        <Chip>Default</Chip>
-        <Chip primary>Primary</Chip>
-        <Chip secondary>Secondary</Chip>
-        <Chip accent>Accent</Chip>
-        <Chip success>Success</Chip>
-        <Chip danger>Danger</Chip>
-        <Chip warning>Warning</Chip>
-        <Chip info>Info</Chip>
       </Row>
     ),
   },
