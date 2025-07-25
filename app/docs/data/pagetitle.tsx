@@ -1,6 +1,6 @@
 'use client'
 
-import { PageTitle, Col } from "@vaneui/ui";
+import { PageTitle, Col, APPEARANCE_KEYS, SIZE_KEYS, FONT_WEIGHT_KEYS, FONT_FAMILY_KEYS, TEXT_DECORATION_KEYS, TEXT_TRANSFORM_KEYS } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -17,11 +17,11 @@ export const pageTitleExamples: DocsComponentExample[] = [
     description: 'Page titles come in different sizes.',
     component: (
       <Col lg>
-        <PageTitle xs>Extra Small Page Title</PageTitle>
-        <PageTitle sm>Small Page Title</PageTitle>
-        <PageTitle md>Medium Page Title</PageTitle>
-        <PageTitle lg>Large Page Title</PageTitle>
-        <PageTitle xl>Extra Large Page Title</PageTitle>
+        {
+          SIZE_KEYS.map((key: string) => (
+            <PageTitle key={key} {...{[key]: true}}>PageTitle {key}</PageTitle>
+          ))
+        }
       </Col>
     ),
   },
@@ -30,14 +30,11 @@ export const pageTitleExamples: DocsComponentExample[] = [
     description: 'Page titles support different font weights.',
     component: (
       <Col lg>
-        <PageTitle thin>Thin Page Title</PageTitle>
-        <PageTitle light>Light Page Title</PageTitle>
-        <PageTitle normal>Normal Page Title</PageTitle>
-        <PageTitle medium>Medium Page Title</PageTitle>
-        <PageTitle semibold>Semibold Page Title</PageTitle>
-        <PageTitle bold>Bold Page Title</PageTitle>
-        <PageTitle extrabold>Extra Bold Page Title</PageTitle>
-        <PageTitle black>Black Page Title</PageTitle>
+        {
+          FONT_WEIGHT_KEYS.map((key: string) => (
+            <PageTitle key={key} {...{[key]: true}}>PageTitle {key}</PageTitle>
+          ))
+        }
       </Col>
     ),
   },
@@ -46,14 +43,11 @@ export const pageTitleExamples: DocsComponentExample[] = [
     description: 'Page titles can have different color appearances.',
     component: (
       <Col lg>
-        <PageTitle>Default Page Title</PageTitle>
-        <PageTitle primary>Primary Page Title</PageTitle>
-        <PageTitle secondary>Secondary Page Title</PageTitle>
-        <PageTitle accent>Accent Page Title</PageTitle>
-        <PageTitle success>Success Page Title</PageTitle>
-        <PageTitle danger>Danger Page Title</PageTitle>
-        <PageTitle warning>Warning Page Title</PageTitle>
-        <PageTitle info>Info Page Title</PageTitle>
+        {
+          APPEARANCE_KEYS.map((key: string) => (
+            <PageTitle key={key} {...{[key]: true}}>PageTitle {key}</PageTitle>
+          ))
+        }
       </Col>
     ),
   },
@@ -62,9 +56,11 @@ export const pageTitleExamples: DocsComponentExample[] = [
     description: 'Page titles support different font families.',
     component: (
       <Col lg>
-        <PageTitle sans>Sans Serif Page Title</PageTitle>
-        <PageTitle serif>Serif Page Title</PageTitle>
-        <PageTitle mono>Monospace Page Title</PageTitle>
+        {
+          FONT_FAMILY_KEYS.map((key: string) => (
+            <PageTitle key={key} {...{[key]: true}}>PageTitle {key}</PageTitle>
+          ))
+        }
       </Col>
     ),
   },
@@ -73,10 +69,11 @@ export const pageTitleExamples: DocsComponentExample[] = [
     description: 'Page titles support different styles and decorations.',
     component: (
       <Col lg>
-        <PageTitle italic>Italic Page Title</PageTitle>
-        <PageTitle underline>Underlined Page Title</PageTitle>
-        <PageTitle lineThrough>Line Through Page Title</PageTitle>
-        <PageTitle overline>Overlined Page Title</PageTitle>
+        {
+          TEXT_DECORATION_KEYS.map((key: string) => (
+            <PageTitle key={key} {...{[key]: true}}>PageTitle {key}</PageTitle>
+          ))
+        }
       </Col>
     ),
   },
@@ -85,10 +82,11 @@ export const pageTitleExamples: DocsComponentExample[] = [
     description: 'Page titles support different case transformations.',
     component: (
       <Col lg>
-        <PageTitle uppercase>uppercase page title</PageTitle>
-        <PageTitle lowercase>LOWERCASE PAGE TITLE</PageTitle>
-        <PageTitle capitalize>capitalize page title</PageTitle>
-        <PageTitle normalCase>Normal Case Page Title</PageTitle>
+        {
+          TEXT_TRANSFORM_KEYS.map((key: string) => (
+            <PageTitle key={key} {...{[key]: true}}>PageTitle {key}</PageTitle>
+          ))
+        }
       </Col>
     ),
   },

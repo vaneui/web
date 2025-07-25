@@ -1,6 +1,6 @@
 'use client'
 
-import { Text, Col, Row } from "@vaneui/ui";
+import { Text, Col, Row, APPEARANCE_KEYS, SIZE_KEYS, FONT_WEIGHT_KEYS, FONT_FAMILY_KEYS, TEXT_DECORATION_KEYS, TEXT_TRANSFORM_KEYS, FONT_STYLE_KEYS } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -17,11 +17,11 @@ export const textExamples: DocsComponentExample[] = [
     description: 'Text comes in different sizes.',
     component: (
       <Row flexWrap>
-        <Text xs>Extra Small Text</Text>
-        <Text sm>Small Text</Text>
-        <Text md>Medium Text</Text>
-        <Text lg>Large Text</Text>
-        <Text xl>Extra Large Text</Text>
+        {
+          SIZE_KEYS.map((key: string) => (
+            <Text key={key} {...{[key]: true}}>Text {key}</Text>
+          ))
+        }
       </Row>
     ),
   },
@@ -30,15 +30,11 @@ export const textExamples: DocsComponentExample[] = [
     description: 'Text supports different font weights.',
     component: (
       <Row flexWrap>
-        <Text thin>Thin Text</Text>
-        <Text extralight>Extra Light Text</Text>
-        <Text light>Light Text</Text>
-        <Text normal>Normal Text</Text>
-        <Text medium>Medium Text</Text>
-        <Text semibold>Semibold Text</Text>
-        <Text bold>Bold Text</Text>
-        <Text extrabold>Extra Bold Text</Text>
-        <Text black>Black Text</Text>
+        {
+          FONT_WEIGHT_KEYS.map((key: string) => (
+            <Text key={key} {...{[key]: true}}>Text {key}</Text>
+          ))
+        }
       </Row>
     ),
   },
@@ -47,15 +43,11 @@ export const textExamples: DocsComponentExample[] = [
     description: 'Text can have different color appearances.',
     component: (
       <Row flexWrap>
-        <Text>Default Text</Text>
-        <Text primary>Primary Text</Text>
-        <Text secondary>Secondary Text</Text>
-        <Text accent>Accent Text</Text>
-        <Text success>Success Text</Text>
-        <Text danger>Danger Text</Text>
-        <Text warning>Warning Text</Text>
-        <Text info>Info Text</Text>
-        <Text link>Link Text</Text>
+        {
+          APPEARANCE_KEYS.map((key: string) => (
+            <Text key={key} {...{[key]: true}}>Text {key}</Text>
+          ))
+        }
       </Row>
     ),
   },
@@ -64,23 +56,37 @@ export const textExamples: DocsComponentExample[] = [
     description: 'Text supports different font families.',
     component: (
       <Row flexWrap>
-        <Text sans>Sans Serif Text</Text>
-        <Text serif>Serif Text</Text>
-        <Text mono>Monospace Text</Text>
+        {
+          FONT_FAMILY_KEYS.map((key: string) => (
+            <Text key={key} {...{[key]: true}}>Text {key}</Text>
+          ))
+        }
       </Row>
     ),
   },
   {
-    title: 'Text Styles',
-    description: 'Text supports different styles and decorations.',
+    title: 'Text Decorations',
+    description: 'Text supports different text decorations.',
     component: (
       <Row flexWrap>
-        <Text italic>Italic Text</Text>
-        <Text notItalic>Not Italic Text</Text>
-        <Text underline>Underlined Text</Text>
-        <Text lineThrough>Line Through Text</Text>
-        <Text overline>Overlined Text</Text>
-        <Text noUnderline>No Underline Text</Text>
+        {
+          TEXT_DECORATION_KEYS.map((key: string) => (
+            <Text key={key} {...{[key]: true}}>Text {key}</Text>
+          ))
+        }
+      </Row>
+    ),
+  },
+  {
+    title: 'Text Font Styles',
+    description: 'Text supports different font styles.',
+    component: (
+      <Row flexWrap>
+        {
+          FONT_STYLE_KEYS.map((key: string) => (
+            <Text key={key} {...{[key]: true}}>Text {key}</Text>
+          ))
+        }
       </Row>
     ),
   },
@@ -89,10 +95,11 @@ export const textExamples: DocsComponentExample[] = [
     description: 'Text supports different case transformations.',
     component: (
       <Row flexWrap>
-        <Text uppercase>uppercase text</Text>
-        <Text lowercase>LOWERCASE TEXT</Text>
-        <Text capitalize>capitalize text</Text>
-        <Text normalCase>Normal Case Text</Text>
+        {
+          TEXT_TRANSFORM_KEYS.map((key: string) => (
+            <Text key={key} {...{[key]: true}}>Text {key}</Text>
+          ))
+        }
       </Row>
     ),
   },

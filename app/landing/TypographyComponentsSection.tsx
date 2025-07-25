@@ -1,12 +1,10 @@
 import {
   Text,
-  Section,
   Container,
   Col,
   SectionTitle,
   Row,
-  Card,
-  Button
+  Card
 } from '@vaneui/ui';
 import { Box } from "react-feather";
 import { CodeBlock } from "../components/CodeBlock";

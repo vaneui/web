@@ -1,14 +1,13 @@
 import {
   Text,
-  Section,
   Container,
   Col,
   SectionTitle,
   Row,
-  Title,
-  Grid3, Stack, Card, Button, Divider, Badge, Chip
+  Card,
+  Button
 } from '@vaneui/ui';
-import { Box, Settings, Sliders, Zap } from "react-feather";
+import { Box } from "react-feather";
 import { CodeBlock } from "../components/CodeBlock";
 
 export function BasicComponentsSection() {

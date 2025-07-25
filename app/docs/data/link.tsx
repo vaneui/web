@@ -1,6 +1,6 @@
 'use client'
 
-import { Link, Col, Row } from "@vaneui/ui";
+import { Link, Col, Row, APPEARANCE_KEYS, SIZE_KEYS, FONT_WEIGHT_KEYS, FONT_FAMILY_KEYS, TEXT_DECORATION_KEYS, TEXT_TRANSFORM_KEYS, FONT_STYLE_KEYS } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -17,11 +17,11 @@ export const linkExamples: DocsComponentExample[] = [
     description: 'Links come in different sizes.',
     component: (
       <Row flexWrap>
-        <Link href="#xs-link" xs>Extra Small Link</Link>
-        <Link href="#sm-link" sm>Small Link</Link>
-        <Link href="#md-link" md>Medium Link</Link>
-        <Link href="#lg-link" lg>Large Link</Link>
-        <Link href="#xl-link" xl>Extra Large Link</Link>
+        {
+          SIZE_KEYS.map((key: string) => (
+            <Link key={key} href={`#${key}-link`} {...{[key]: true}}>Link {key}</Link>
+          ))
+        }
       </Row>
     ),
   },
@@ -30,14 +30,11 @@ export const linkExamples: DocsComponentExample[] = [
     description: 'Links support different font weights.',
     component: (
       <Row flexWrap>
-        <Link href="#thin-link" thin>Thin Link</Link>
-        <Link href="#light-link" light>Light Link</Link>
-        <Link href="#normal-link" normal>Normal Link</Link>
-        <Link href="#medium-link" medium>Medium Link</Link>
-        <Link href="#semibold-link" semibold>Semibold Link</Link>
-        <Link href="#bold-link" bold>Bold Link</Link>
-        <Link href="#extrabold-link" extrabold>Extra Bold Link</Link>
-        <Link href="#black-link" black>Black Link</Link>
+        {
+          FONT_WEIGHT_KEYS.map((key: string) => (
+            <Link key={key} href={`#${key}-link`} {...{[key]: true}}>Link {key}</Link>
+          ))
+        }
       </Row>
     ),
   },
@@ -46,15 +43,11 @@ export const linkExamples: DocsComponentExample[] = [
     description: 'Links can have different color appearances.',
     component: (
       <Row flexWrap>
-        <Link href="#default-link">Default Link</Link>
-        <Link href="#primary-link" primary>Primary Link</Link>
-        <Link href="#secondary-link" secondary>Secondary Link</Link>
-        <Link href="#accent-link" accent>Accent Link</Link>
-        <Link href="#success-link" success>Success Link</Link>
-        <Link href="#danger-link" danger>Danger Link</Link>
-        <Link href="#warning-link" warning>Warning Link</Link>
-        <Link href="#info-link" info>Info Link</Link>
-        <Link href="#link-link" link>Link Appearance</Link>
+        {
+          APPEARANCE_KEYS.map((key: string) => (
+            <Link key={key} href={`#${key}-link`} {...{[key]: true}}>Link {key}</Link>
+          ))
+        }
       </Row>
     ),
   },
@@ -63,22 +56,37 @@ export const linkExamples: DocsComponentExample[] = [
     description: 'Links support different font families.',
     component: (
       <Row flexWrap>
-        <Link href="#sans-link" sans>Sans Serif Link</Link>
-        <Link href="#serif-link" serif>Serif Link</Link>
-        <Link href="#mono-link" mono>Monospace Link</Link>
+        {
+          FONT_FAMILY_KEYS.map((key: string) => (
+            <Link key={key} href={`#${key}-link`} {...{[key]: true}}>Link {key}</Link>
+          ))
+        }
       </Row>
     ),
   },
   {
-    title: 'Link Styles',
-    description: 'Links support different styles and decorations.',
+    title: 'Link Text Decorations',
+    description: 'Links support different text decorations.',
     component: (
       <Row flexWrap>
-        <Link href="#italic-link" italic>Italic Link</Link>
-        <Link href="#underline-link" underline>Underlined Link</Link>
-        <Link href="#linethrough-link" lineThrough>Line Through Link</Link>
-        <Link href="#overline-link" overline>Overlined Link</Link>
-        <Link href="#nounderline-link" noUnderline>No Underline Link</Link>
+        {
+          TEXT_DECORATION_KEYS.map((key: string) => (
+            <Link key={key} href={`#${key}-link`} {...{[key]: true}}>Link {key}</Link>
+          ))
+        }
+      </Row>
+    ),
+  },
+  {
+    title: 'Link Font Styles',
+    description: 'Links support different font styles.',
+    component: (
+      <Row flexWrap>
+        {
+          FONT_STYLE_KEYS.map((key: string) => (
+            <Link key={key} href={`#${key}-link`} {...{[key]: true}}>Link {key}</Link>
+          ))
+        }
       </Row>
     ),
   },
@@ -87,10 +95,11 @@ export const linkExamples: DocsComponentExample[] = [
     description: 'Links support different case transformations.',
     component: (
       <Row flexWrap>
-        <Link href="#uppercase-link" uppercase>uppercase link</Link>
-        <Link href="#lowercase-link" lowercase>LOWERCASE LINK</Link>
-        <Link href="#capitalize-link" capitalize>capitalize link</Link>
-        <Link href="#normalcase-link" normalCase>Normal Case Link</Link>
+        {
+          TEXT_TRANSFORM_KEYS.map((key: string) => (
+            <Link key={key} href={`#${key}-link`} {...{[key]: true}}>Link {key}</Link>
+          ))
+        }
       </Row>
     ),
   },

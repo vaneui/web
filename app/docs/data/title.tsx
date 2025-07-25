@@ -1,6 +1,6 @@
 'use client'
 
-import { Title, Col } from "@vaneui/ui";
+import { Title, Col, APPEARANCE_KEYS, SIZE_KEYS, FONT_WEIGHT_KEYS, FONT_FAMILY_KEYS, TEXT_DECORATION_KEYS, TEXT_TRANSFORM_KEYS } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -17,11 +17,11 @@ export const titleExamples: DocsComponentExample[] = [
     description: 'Titles come in different sizes.',
     component: (
       <Col lg>
-        <Title xs>Extra Small Title</Title>
-        <Title sm>Small Title</Title>
-        <Title md>Medium Title</Title>
-        <Title lg>Large Title</Title>
-        <Title xl>Extra Large Title</Title>
+        {
+          SIZE_KEYS.map((key: string) => (
+            <Title key={key} {...{[key]: true}}>Title {key}</Title>
+          ))
+        }
       </Col>
     ),
   },
@@ -30,14 +30,11 @@ export const titleExamples: DocsComponentExample[] = [
     description: 'Titles support different font weights.',
     component: (
       <Col lg>
-        <Title thin>Thin Title</Title>
-        <Title light>Light Title</Title>
-        <Title normal>Normal Title</Title>
-        <Title medium>Medium Title</Title>
-        <Title semibold>Semibold Title</Title>
-        <Title bold>Bold Title</Title>
-        <Title extrabold>Extra Bold Title</Title>
-        <Title black>Black Title</Title>
+        {
+          FONT_WEIGHT_KEYS.map((key: string) => (
+            <Title key={key} {...{[key]: true}}>Title {key}</Title>
+          ))
+        }
       </Col>
     ),
   },
@@ -46,14 +43,11 @@ export const titleExamples: DocsComponentExample[] = [
     description: 'Titles can have different color appearances.',
     component: (
       <Col lg>
-        <Title>Default Title</Title>
-        <Title primary>Primary Title</Title>
-        <Title secondary>Secondary Title</Title>
-        <Title accent>Accent Title</Title>
-        <Title success>Success Title</Title>
-        <Title danger>Danger Title</Title>
-        <Title warning>Warning Title</Title>
-        <Title info>Info Title</Title>
+        {
+          APPEARANCE_KEYS.map((key: string) => (
+            <Title key={key} {...{[key]: true}}>Title {key}</Title>
+          ))
+        }
       </Col>
     ),
   },
@@ -62,9 +56,11 @@ export const titleExamples: DocsComponentExample[] = [
     description: 'Titles support different font families.',
     component: (
       <Col lg>
-        <Title sans>Sans Serif Title</Title>
-        <Title serif>Serif Title</Title>
-        <Title mono>Monospace Title</Title>
+        {
+          FONT_FAMILY_KEYS.map((key: string) => (
+            <Title key={key} {...{[key]: true}}>Title {key}</Title>
+          ))
+        }
       </Col>
     ),
   },
@@ -73,10 +69,11 @@ export const titleExamples: DocsComponentExample[] = [
     description: 'Titles support different styles and decorations.',
     component: (
       <Col lg>
-        <Title italic>Italic Title</Title>
-        <Title underline>Underlined Title</Title>
-        <Title lineThrough>Line Through Title</Title>
-        <Title overline>Overlined Title</Title>
+        {
+          TEXT_DECORATION_KEYS.map((key: string) => (
+            <Title key={key} {...{[key]: true}}>Title {key}</Title>
+          ))
+        }
       </Col>
     ),
   },
@@ -85,10 +82,11 @@ export const titleExamples: DocsComponentExample[] = [
     description: 'Titles support different case transformations.',
     component: (
       <Col lg>
-        <Title uppercase>uppercase title</Title>
-        <Title lowercase>LOWERCASE TITLE</Title>
-        <Title capitalize>capitalize title</Title>
-        <Title normalCase>Normal Case Title</Title>
+        {
+          TEXT_TRANSFORM_KEYS.map((key: string) => (
+            <Title key={key} {...{[key]: true}}>Title {key}</Title>
+          ))
+        }
       </Col>
     ),
   },

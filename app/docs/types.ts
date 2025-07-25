@@ -1,4 +1,4 @@
-import React, { JSX } from 'react';
+import { JSX } from 'react';
 import { Icon } from "react-feather";
 
 export interface DocsComponentExample {

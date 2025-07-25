@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Col, Row, APPEARANCE_KEYS } from "@vaneui/ui";
+import { Button, Col, Row, APPEARANCE_KEYS, SIZE_KEYS, FONT_WEIGHT_KEYS, VARIANT_KEYS, SHAPE_KEYS } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -23,11 +23,11 @@ export const buttonExamples: DocsComponentExample[] = [
     description: 'Buttons come in different sizes - xs, sm, md, lg, xl.',
     component: (
       <Row flexWrap>
-        <Button xs>Extra Small</Button>
-        <Button sm>Small</Button>
-        <Button md>Medium</Button>
-        <Button lg>Large</Button>
-        <Button xl>Extra Large</Button>
+        {
+          SIZE_KEYS.map((key: string) => (
+            <Button key={key} {...{[key]: true}}>Button {key}</Button>
+          ))
+        }
       </Row>
     ),
   },
@@ -49,14 +49,11 @@ export const buttonExamples: DocsComponentExample[] = [
     description: 'Buttons support different font weights.',
     component: (
       <Row flexWrap>
-        <Button thin>Thin</Button>
-        <Button light>Light</Button>
-        <Button normal>Normal</Button>
-        <Button medium>Medium</Button>
-        <Button semibold>Semibold</Button>
-        <Button bold>Bold</Button>
-        <Button extrabold>Extra Bold</Button>
-        <Button black>Black</Button>
+        {
+          FONT_WEIGHT_KEYS.map((key: string) => (
+            <Button key={key} {...{[key]: true}}>Button {key}</Button>
+          ))
+        }
       </Row>
     ),
   },
@@ -65,9 +62,11 @@ export const buttonExamples: DocsComponentExample[] = [
     description: 'Button supports three border radius styles: rounded (default), pill, and sharp.',
     component: (
       <Row flexWrap>
-        <Button>Default Rounded</Button>
-        <Button pill>Pill Shaped</Button>
-        <Button sharp>Sharp Corners</Button>
+        {
+          SHAPE_KEYS.map((key: string) => (
+            <Button key={key} {...{[key]: true}}>Button {key}</Button>
+          ))
+        }
       </Row>
     ),
   },
@@ -76,18 +75,19 @@ export const buttonExamples: DocsComponentExample[] = [
     description: 'Buttons can be styled as outline (default) or filled.',
     component: (
       <Col>
-        <Row flexWrap>
-          <Button outline>Outline Default</Button>
-          <Button outline primary>Outline Primary</Button>
-          <Button outline success>Outline Success</Button>
-          <Button outline danger>Outline Danger</Button>
-        </Row>
-        <Row flexWrap>
-          <Button filled>Filled Default</Button>
-          <Button filled primary>Filled Primary</Button>
-          <Button filled success>Filled Success</Button>
-          <Button filled danger>Filled Danger</Button>
-        </Row>
+        {
+          VARIANT_KEYS.map((variant: string) => (
+            <Row key={variant} flexWrap>
+              {
+                APPEARANCE_KEYS.slice(0, 4).map((appearance: string) => (
+                  <Button key={`${variant}-${appearance}`} {...{[variant]: true, [appearance]: true}}>
+                    {variant} {appearance}
+                  </Button>
+                ))
+              }
+            </Row>
+          ))
+        }
       </Col>
     ),
   },

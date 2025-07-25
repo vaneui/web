@@ -1,6 +1,6 @@
 'use client'
 
-import { SectionTitle, Col } from "@vaneui/ui";
+import { SectionTitle, Col, APPEARANCE_KEYS, SIZE_KEYS, FONT_WEIGHT_KEYS, FONT_FAMILY_KEYS, TEXT_DECORATION_KEYS, TEXT_TRANSFORM_KEYS } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -17,11 +17,11 @@ export const sectionTitleExamples: DocsComponentExample[] = [
     description: 'Section titles come in different sizes.',
     component: (
       <Col lg>
-        <SectionTitle xs>Extra Small Section Title</SectionTitle>
-        <SectionTitle sm>Small Section Title</SectionTitle>
-        <SectionTitle md>Medium Section Title</SectionTitle>
-        <SectionTitle lg>Large Section Title</SectionTitle>
-        <SectionTitle xl>Extra Large Section Title</SectionTitle>
+        {
+          SIZE_KEYS.map((key: string) => (
+            <SectionTitle key={key} {...{[key]: true}}>SectionTitle {key}</SectionTitle>
+          ))
+        }
       </Col>
     ),
   },
@@ -30,14 +30,11 @@ export const sectionTitleExamples: DocsComponentExample[] = [
     description: 'Section titles support different font weights.',
     component: (
       <Col lg>
-        <SectionTitle thin>Thin Section Title</SectionTitle>
-        <SectionTitle light>Light Section Title</SectionTitle>
-        <SectionTitle normal>Normal Section Title</SectionTitle>
-        <SectionTitle medium>Medium Section Title</SectionTitle>
-        <SectionTitle semibold>Semibold Section Title</SectionTitle>
-        <SectionTitle bold>Bold Section Title</SectionTitle>
-        <SectionTitle extrabold>Extra Bold Section Title</SectionTitle>
-        <SectionTitle black>Black Section Title</SectionTitle>
+        {
+          FONT_WEIGHT_KEYS.map((key: string) => (
+            <SectionTitle key={key} {...{[key]: true}}>SectionTitle {key}</SectionTitle>
+          ))
+        }
       </Col>
     ),
   },
@@ -46,14 +43,11 @@ export const sectionTitleExamples: DocsComponentExample[] = [
     description: 'Section titles can have different color appearances.',
     component: (
       <Col lg>
-        <SectionTitle>Default Section Title</SectionTitle>
-        <SectionTitle primary>Primary Section Title</SectionTitle>
-        <SectionTitle secondary>Secondary Section Title</SectionTitle>
-        <SectionTitle accent>Accent Section Title</SectionTitle>
-        <SectionTitle success>Success Section Title</SectionTitle>
-        <SectionTitle danger>Danger Section Title</SectionTitle>
-        <SectionTitle warning>Warning Section Title</SectionTitle>
-        <SectionTitle info>Info Section Title</SectionTitle>
+        {
+          APPEARANCE_KEYS.map((key: string) => (
+            <SectionTitle key={key} {...{[key]: true}}>SectionTitle {key}</SectionTitle>
+          ))
+        }
       </Col>
     ),
   },
@@ -62,9 +56,11 @@ export const sectionTitleExamples: DocsComponentExample[] = [
     description: 'Section titles support different font families.',
     component: (
       <Col lg>
-        <SectionTitle sans>Sans Serif Section Title</SectionTitle>
-        <SectionTitle serif>Serif Section Title</SectionTitle>
-        <SectionTitle mono>Monospace Section Title</SectionTitle>
+        {
+          FONT_FAMILY_KEYS.map((key: string) => (
+            <SectionTitle key={key} {...{[key]: true}}>SectionTitle {key}</SectionTitle>
+          ))
+        }
       </Col>
     ),
   },
@@ -73,10 +69,11 @@ export const sectionTitleExamples: DocsComponentExample[] = [
     description: 'Section titles support different styles and decorations.',
     component: (
       <Col lg>
-        <SectionTitle italic>Italic Section Title</SectionTitle>
-        <SectionTitle underline>Underlined Section Title</SectionTitle>
-        <SectionTitle lineThrough>Line Through Section Title</SectionTitle>
-        <SectionTitle overline>Overlined Section Title</SectionTitle>
+        {
+          TEXT_DECORATION_KEYS.map((key: string) => (
+            <SectionTitle key={key} {...{[key]: true}}>SectionTitle {key}</SectionTitle>
+          ))
+        }
       </Col>
     ),
   },
@@ -85,10 +82,11 @@ export const sectionTitleExamples: DocsComponentExample[] = [
     description: 'Section titles support different case transformations.',
     component: (
       <Col lg>
-        <SectionTitle uppercase>uppercase section title</SectionTitle>
-        <SectionTitle lowercase>LOWERCASE SECTION TITLE</SectionTitle>
-        <SectionTitle capitalize>capitalize section title</SectionTitle>
-        <SectionTitle normalCase>Normal Case Section Title</SectionTitle>
+        {
+          TEXT_TRANSFORM_KEYS.map((key: string) => (
+            <SectionTitle key={key} {...{[key]: true}}>SectionTitle {key}</SectionTitle>
+          ))
+        }
       </Col>
     ),
   },

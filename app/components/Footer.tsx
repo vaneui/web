@@ -1,4 +1,4 @@
-import { Link, Text, Title, Section, Container, Col, Row, Grid3 } from '@vaneui/ui';
+import { Link, Text, Title, Section, Container, Col, Row } from '@vaneui/ui';
 import { PRODUCT } from '../constants';
 import Image from "next/image";
 import vaneui from "../../public/vaneui.svg";

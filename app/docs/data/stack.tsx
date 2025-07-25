@@ -1,6 +1,6 @@
 'use client'
 
-import { Stack, Row, Text, Col } from "@vaneui/ui";
+import { Stack, Row, Text, Col, APPEARANCE_KEYS } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -147,16 +147,15 @@ export const stackExamples: DocsComponentExample[] = [
     description: 'Stacks can have different background appearances.',
     component: (
       <Row flexWrap>
-        <Stack primary>
-          <div className="p-4 bg-white rounded">Item 1</div>
-          <div className="p-4 bg-white rounded">Item 2</div>
-          <div className="p-4 bg-white rounded">Item 3</div>
-        </Stack>
-        <Stack secondary>
-          <div className="p-4 bg-white rounded">Item 1</div>
-          <div className="p-4 bg-white rounded">Item 2</div>
-          <div className="p-4 bg-white rounded">Item 3</div>
-        </Stack>
+        {
+          APPEARANCE_KEYS.map((key: string) => (
+            <Stack key={key} {...{[key]: true}}>
+              <div className="p-4 bg-white rounded">Item 1</div>
+              <div className="p-4 bg-white rounded">Item 2</div>
+              <div className="p-4 bg-white rounded">Item 3</div>
+            </Stack>
+          ))
+        }
       </Row>
     ),
   },

@@ -1,6 +1,6 @@
 'use client'
 
-import { Divider, Text, Col } from "@vaneui/ui";
+import { Divider, Text, Col, SIZE_KEYS, APPEARANCE_KEYS } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -21,31 +21,15 @@ export const dividerExamples: DocsComponentExample[] = [
     description: 'Dividers come in different sizes.',
     component: (
       <Col lg>
-        <div>
-          <Text semibold>Extra Small Divider</Text>
-          <Divider xs />
-          <Text>Content after XS divider</Text>
-        </div>
-        <div>
-          <Text semibold>Small Divider</Text>
-          <Divider sm />
-          <Text>Content after small divider</Text>
-        </div>
-        <div>
-          <Text semibold>Medium Divider</Text>
-          <Divider md />
-          <Text>Content after medium divider</Text>
-        </div>
-        <div>
-          <Text semibold>Large Divider</Text>
-          <Divider lg />
-          <Text>Content after large divider</Text>
-        </div>
-        <div>
-          <Text semibold>Extra Large Divider</Text>
-          <Divider xl />
-          <Text>Content after XL divider</Text>
-        </div>
+        {
+          SIZE_KEYS.map((key: string) => (
+            <div key={key}>
+              <Text semibold>Divider {key}</Text>
+              <Divider {...{[key]: true}} />
+              <Text>Content after {key} divider</Text>
+            </div>
+          ))
+        }
       </Col>
     ),
   },
@@ -54,36 +38,15 @@ export const dividerExamples: DocsComponentExample[] = [
     description: 'Dividers can have different appearances.',
     component: (
       <Col lg>
-        <div>
-          <Text semibold>Default Divider</Text>
-          <Divider />
-          <Text>Content after default divider</Text>
-        </div>
-        <div>
-          <Text semibold>Primary Divider</Text>
-          <Divider primary />
-          <Text>Content after primary divider</Text>
-        </div>
-        <div>
-          <Text semibold>Secondary Divider</Text>
-          <Divider secondary />
-          <Text>Content after secondary divider</Text>
-        </div>
-        <div>
-          <Text semibold>Success Divider</Text>
-          <Divider success />
-          <Text>Content after success divider</Text>
-        </div>
-        <div>
-          <Text semibold>Danger Divider</Text>
-          <Divider danger />
-          <Text>Content after danger divider</Text>
-        </div>
-        <div>
-          <Text semibold>Warning Divider</Text>
-          <Divider warning />
-          <Text>Content after warning divider</Text>
-        </div>
+        {
+          APPEARANCE_KEYS.slice(0, 6).map((key: string) => (
+            <div key={key}>
+              <Text semibold>Divider {key}</Text>
+              <Divider {...{[key]: true}} />
+              <Text>Content after {key} divider</Text>
+            </div>
+          ))
+        }
       </Col>
     ),
   },

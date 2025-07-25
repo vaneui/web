@@ -60,7 +60,7 @@ export async function HeroSection() {
           <Col
             className="max-w-xl max-sm:max-w-80 z-20 border-8 rounded-[calc(8px+var(--radius-xl))] border-gray-400/10 backdrop-blur-sm">
             <Card row smCol noPadding noGap overflowHidden>
-              <img src={dog.image} alt="puppy" className="object-cover w-44 max-sm:w-80"/>
+              <Image src={dog.image} alt="puppy" width={176} height={176} className="object-cover w-44 max-sm:w-80"/>
               <Stack sm>
                 <Row justifyBetween>
                   <Title>{dog.name}</Title>
