@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Col, Row, APPEARANCE_KEYS, SIZE_KEYS, FONT_WEIGHT_KEYS, VARIANT_KEYS, SHAPE_KEYS } from "@vaneui/ui";
+import { Button, Col, Row, UI_ELEMENT_APPEARANCE_KEYS, SIZE_KEYS, FONT_WEIGHT_KEYS, VARIANT_KEYS, SHAPE_KEYS } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -11,7 +11,7 @@ export const buttonExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          APPEARANCE_KEYS.map((key: string) => (
+          UI_ELEMENT_APPEARANCE_KEYS.map((key: string) => (
             <Button key={key} {...{[key]: true}}>Button {key}</Button>
           ))
         }
@@ -79,7 +79,7 @@ export const buttonExamples: DocsComponentExample[] = [
           VARIANT_KEYS.map((variant: string) => (
             <Row key={variant} flexWrap>
               {
-                APPEARANCE_KEYS.slice(0, 4).map((appearance: string) => (
+                UI_ELEMENT_APPEARANCE_KEYS.slice(0, 4).map((appearance: string) => (
                   <Button key={`${variant}-${appearance}`} {...{[variant]: true, [appearance]: true}}>
                     {variant} {appearance}
                   </Button>

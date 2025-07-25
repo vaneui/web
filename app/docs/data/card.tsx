@@ -68,14 +68,14 @@ export const cardExamples: DocsComponentExample[] = [
     description: 'Cards support different border radius styles.',
     component: (
       <Row flexWrap>
-        {
-          SHAPE_KEYS.map((key: string) => (
-            <Card key={key} {...{[key]: true}}>
-              <Text semibold>Card {key}</Text>
-              <Text>Card with {key} corners</Text>
-            </Card>
-          ))
-        }
+        <Card rounded>
+          <Text semibold>Card rounded</Text>
+          <Text>Card with rounded corners</Text>
+        </Card>
+        <Card sharp>
+          <Text semibold>Card sharp</Text>
+          <Text>Card with sharp corners</Text>
+        </Card>
       </Row>
     ),
   },
