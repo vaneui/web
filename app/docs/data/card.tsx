@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, Row, Text, APPEARANCE_KEYS, BORDER_KEYS, SHAPE_KEYS, SHADOW_KEYS, RING_KEYS, PADDING_KEYS, GAP_KEYS } from "@vaneui/ui";
+import { Card, Row, Text, APPEARANCE_KEYS, SIZE_KEYS, BORDER_KEYS, SHADOW_KEYS, RING_KEYS, PADDING_KEYS, GAP_KEYS } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -20,14 +20,14 @@ export const cardExamples: DocsComponentExample[] = [
     description: 'Cards come in different sizes.',
     component: (
       <Row flexWrap>
-        <Card xs className="max-w-xs">
-          <Text semibold>Extra Small Card</Text>
-          <Text>Compact card content</Text>
-        </Card>
-        <Card lg className="max-w-md">
-          <Text semibold>Large Card</Text>
-          <Text>This is a larger card with more content space.</Text>
-        </Card>
+        {
+          SIZE_KEYS.map((key: string) => (
+            <Card key={key} {...{[key]: true}}>
+              <Text semibold>Card {key}</Text>
+              <Text>Content for {key} size</Text>
+            </Card>
+          ))
+        }
       </Row>
     ),
   },
