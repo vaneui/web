@@ -4,11 +4,7 @@ import { Col, Section } from '@vaneui/ui';
 import {
   HeroSection,
   BasicComponentsSection,
-  TailwindSection,
-  ResponsiveSection,
-  LayoutSection,
-  ThemingSection,
-  GetStartedSection, ThemeCustomizationSection
+  ThemeCustomizationSection
 } from './landing';
 import { TypographyComponentsSection } from "./landing/TypographyComponentsSection";
 
@@ -23,11 +19,6 @@ export default function Home() {
           <TypographyComponentsSection/>
         </Section>
         <ThemeCustomizationSection/>
-        <TailwindSection/>
-        <ResponsiveSection/>
-        <LayoutSection/>
-        <ThemingSection/>
-        <GetStartedSection/>
       </Col>
       <Footer/>
     </Col>

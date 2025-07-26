@@ -1,6 +1,6 @@
 'use client'
 
-import { Section, Text, Col } from "@vaneui/ui";
+import { Section, Text, Col, SIZE_KEYS } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -20,14 +20,14 @@ export const sectionExamples: DocsComponentExample[] = [
     description: 'Sections come in different sizes.',
     component: (
       <Col lg>
-        <Section xs>
-          <Text semibold>Extra Small Section</Text>
-          <Text>Compact section content</Text>
-        </Section>
-        <Section lg>
-          <Text semibold>Large Section</Text>
-          <Text>Large section with more space</Text>
-        </Section>
+        {
+          SIZE_KEYS.map((key: string) => (
+            <Section key={key} {...{[key]: true}}>
+              <Text semibold>Section {key}</Text>
+              <Text>Section {key} content</Text>
+            </Section>
+          ))
+        }
       </Col>
     ),
   },

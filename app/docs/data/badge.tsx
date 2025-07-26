@@ -23,11 +23,11 @@ export const badgeExamples: DocsComponentExample[] = [
     description: 'Badges come in different sizes.',
     component: (
       <Row flexWrap>
-        <Badge xs>XS</Badge>
-        <Badge sm>SM</Badge>
-        <Badge>MD</Badge>
-        <Badge lg>LG</Badge>
-        <Badge xl>XL</Badge>
+        {
+          SIZE_KEYS.map((key: string) => (
+            <Badge key={key} {...{[key]: true}}>Badge {key}</Badge>
+          ))
+        }
       </Row>
     ),
   },

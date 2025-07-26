@@ -60,7 +60,8 @@ export async function HeroSection() {
           <Col
             className="max-w-xl max-sm:max-w-80 z-20 border-8 rounded-[calc(8px+var(--radius-xl))] border-gray-400/10 backdrop-blur-sm">
             <Card row smCol noPadding noGap overflowHidden>
-              <Image src={dog.image} alt="puppy" width={176} height={176} className="object-cover w-44 max-sm:w-80"/>
+              <Image src={dog.image} alt="puppy" width={185} height={185}
+                     className="shrink-0 max-sm:w-full "/>
               <Stack sm>
                 <Row justifyBetween>
                   <Title>{dog.name}</Title>
@@ -68,9 +69,9 @@ export async function HeroSection() {
                 </Row>
                 <Divider/>
                 <Text sm>{dog.description}</Text>
-                <Row sm justifyEnd>
-                  <Button sm success filled>Adopt</Button>
-                  <Button sm secondary>Learn more</Button>
+                <Row sm smCol justifyEnd>
+                  <Button sm success filled className="max-sm:w-full">Adopt</Button>
+                  <Button sm secondary className="max-sm:w-full">Learn more</Button>
                 </Row>
               </Stack>
             </Card>
@@ -84,17 +85,17 @@ import dog from './data/dog.json';
 export function DogCard() {
   return (
     <Card row smCol noPadding noGap overflowHidden>
-      <img src={dog.image} alt="puppy" className="object-cover w-44 max-sm:w-80"/>
+      <img src={dog.image} alt="puppy" className="w-[185px] max-sm:w-full"/>
       <Stack sm>
         <Row justifyBetween>
           <Title>{dog.name}</Title>
           <Chip sm bold>{dog.gender}</Chip>
         </Row>
-        <Divider />
+        <Divider/>
         <Text sm>{dog.description}</Text>
-        <Row sm justifyEnd>
-          <Button sm success filled>Adopt</Button>
-          <Button sm secondary>Learn more</Button>
+        <Row sm smCol justifyEnd>
+          <Button sm success filled className="max-sm:w-full">Adopt</Button>
+          <Button sm secondary className="max-sm:w-full">Learn more</Button>
         </Row>
       </Stack>
     </Card>

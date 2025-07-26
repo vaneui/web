@@ -1,6 +1,6 @@
 'use client'
 
-import { Container, Text, Col } from "@vaneui/ui";
+import { Container, Text, Col, SIZE_KEYS } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -21,22 +21,18 @@ export const containerExamples: DocsComponentExample[] = [
     description: 'Containers come in different sizes.',
     component: (
       <Col lg>
-        <div>
-          <Text semibold>Extra Small Container</Text>
-          <Container xs>
-            <div className="p-2 bg-gray-100 rounded text-sm">
-              <Text>Extra small container content</Text>
+        {
+          SIZE_KEYS.map((key: string) => (
+            <div key={key}>
+              <Text semibold>Container {key}</Text>
+              <Container {...{[key]: true}}>
+                <div className="p-4 bg-gray-100 rounded">
+                  <Text>Container {key} content</Text>
+                </div>
+              </Container>
             </div>
-          </Container>
-        </div>
-        <div>
-          <Text semibold>Large Container</Text>
-          <Container lg>
-            <div className="p-6 bg-gray-100 rounded">
-              <Text>Large container content</Text>
-            </div>
-          </Container>
-        </div>
+          ))
+        }
       </Col>
     ),
   },
