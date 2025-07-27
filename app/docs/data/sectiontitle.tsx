@@ -1,6 +1,6 @@
 'use client'
 
-import { SectionTitle, Col, APPEARANCE_KEYS, SIZE_KEYS, FONT_WEIGHT_KEYS, FONT_FAMILY_KEYS, TEXT_DECORATION_KEYS, TEXT_TRANSFORM_KEYS } from "@vaneui/ui";
+import { SectionTitle, Col, ComponentKeys } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -18,7 +18,7 @@ export const sectionTitleExamples: DocsComponentExample[] = [
     component: (
       <Col lg>
         {
-          SIZE_KEYS.map((key: string) => (
+          ComponentKeys.size.map((key: string) => (
             <SectionTitle key={key} {...{[key]: true}}>SectionTitle {key}</SectionTitle>
           ))
         }
@@ -31,7 +31,7 @@ export const sectionTitleExamples: DocsComponentExample[] = [
     component: (
       <Col lg>
         {
-          FONT_WEIGHT_KEYS.map((key: string) => (
+          ComponentKeys.fontWeight.map((key: string) => (
             <SectionTitle key={key} {...{[key]: true}}>SectionTitle {key}</SectionTitle>
           ))
         }
@@ -44,7 +44,7 @@ export const sectionTitleExamples: DocsComponentExample[] = [
     component: (
       <Col lg>
         {
-          APPEARANCE_KEYS.map((key: string) => (
+          ComponentKeys.appearance.map((key: string) => (
             <SectionTitle key={key} {...{[key]: true}}>SectionTitle {key}</SectionTitle>
           ))
         }
@@ -57,7 +57,7 @@ export const sectionTitleExamples: DocsComponentExample[] = [
     component: (
       <Col lg>
         {
-          FONT_FAMILY_KEYS.map((key: string) => (
+          ComponentKeys.fontFamily.map((key: string) => (
             <SectionTitle key={key} {...{[key]: true}}>SectionTitle {key}</SectionTitle>
           ))
         }
@@ -70,7 +70,7 @@ export const sectionTitleExamples: DocsComponentExample[] = [
     component: (
       <Col lg>
         {
-          TEXT_DECORATION_KEYS.map((key: string) => (
+          ComponentKeys.textDecoration.map((key: string) => (
             <SectionTitle key={key} {...{[key]: true}}>SectionTitle {key}</SectionTitle>
           ))
         }
@@ -83,7 +83,7 @@ export const sectionTitleExamples: DocsComponentExample[] = [
     component: (
       <Col lg>
         {
-          TEXT_TRANSFORM_KEYS.map((key: string) => (
+          ComponentKeys.textTransform.map((key: string) => (
             <SectionTitle key={key} {...{[key]: true}}>SectionTitle {key}</SectionTitle>
           ))
         }

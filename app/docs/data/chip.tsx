@@ -1,6 +1,6 @@
 'use client'
 
-import { Chip, Row, UI_ELEMENT_APPEARANCE_KEYS, SIZE_KEYS } from "@vaneui/ui";
+import { Chip, Row, ComponentKeys } from "@vaneui/ui";
 import { DocsComponentExample } from "../types";
 import { CheckSquare, Heart, X } from "react-feather";
 
@@ -11,7 +11,7 @@ export const chipExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          UI_ELEMENT_APPEARANCE_KEYS.map((key: string) => (
+          ComponentKeys.appearance.map((key: string) => (
             <Chip key={key} {...{[key]: true}}>Chip {key}</Chip>
           ))
         }
@@ -24,7 +24,7 @@ export const chipExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          SIZE_KEYS.map((key: string) => (
+          ComponentKeys.size.map((key: string) => (
             <Chip key={key} {...{[key]: true}}>Chip {key}</Chip>
           ))
         }

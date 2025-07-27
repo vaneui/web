@@ -1,6 +1,6 @@
 'use client'
 
-import { Divider, Text, Col, SIZE_KEYS, APPEARANCE_KEYS } from "@vaneui/ui";
+import { Divider, Text, Col, ComponentKeys } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -22,7 +22,7 @@ export const dividerExamples: DocsComponentExample[] = [
     component: (
       <Col lg>
         {
-          SIZE_KEYS.map((key: string) => (
+          ComponentKeys.size.map((key: string) => (
             <div key={key}>
               <Text semibold>Divider {key}</Text>
               <Divider {...{[key]: true}} />
@@ -39,7 +39,7 @@ export const dividerExamples: DocsComponentExample[] = [
     component: (
       <Col lg>
         {
-          APPEARANCE_KEYS.slice(0, 6).map((key: string) => (
+          ComponentKeys.appearance.slice(0, 6).map((key: string) => (
             <div key={key}>
               <Text semibold>Divider {key}</Text>
               <Divider {...{[key]: true}} />

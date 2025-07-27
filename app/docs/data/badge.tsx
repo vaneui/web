@@ -1,6 +1,6 @@
 'use client'
 
-import { Badge, Row, UI_ELEMENT_APPEARANCE_KEYS, SIZE_KEYS } from "@vaneui/ui";
+import { Badge, Row, ComponentKeys } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -11,7 +11,7 @@ export const badgeExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          UI_ELEMENT_APPEARANCE_KEYS.map((key: string) => (
+          ComponentKeys.appearance.map((key: string) => (
             <Badge key={key} {...{[key]: true}}>Badge {key}</Badge>
           ))
         }
@@ -24,7 +24,7 @@ export const badgeExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          SIZE_KEYS.map((key: string) => (
+          ComponentKeys.size.map((key: string) => (
             <Badge key={key} {...{[key]: true}}>Badge {key}</Badge>
           ))
         }

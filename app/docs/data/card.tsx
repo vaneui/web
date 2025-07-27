@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, Row, Text, APPEARANCE_KEYS, SIZE_KEYS, BORDER_KEYS, SHADOW_KEYS, RING_KEYS, PADDING_KEYS, GAP_KEYS } from "@vaneui/ui";
+import { Card, Row, Text, ComponentKeys } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -21,7 +21,7 @@ export const cardExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          SIZE_KEYS.map((key: string) => (
+          ComponentKeys.size.map((key: string) => (
             <Card key={key} {...{[key]: true}}>
               <Text semibold>Card {key}</Text>
               <Text>Content for {key} size</Text>
@@ -37,7 +37,7 @@ export const cardExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          APPEARANCE_KEYS.map((key: string) => (
+          ComponentKeys.appearance.map((key: string) => (
             <Card key={key} {...{[key]: true}}>
               <Text semibold>{key} Card</Text>
               <Text>Card with {key} background</Text>
@@ -53,7 +53,7 @@ export const cardExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          BORDER_KEYS.map((key: string) => (
+          ComponentKeys.border.map((key: string) => (
             <Card key={key} {...{[key]: true}}>
               <Text semibold>Card {key}</Text>
               <Text>Card with {key}</Text>
@@ -85,7 +85,7 @@ export const cardExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          SHADOW_KEYS.map((key: string) => (
+          ComponentKeys.shadow.map((key: string) => (
             <Card key={key} {...{[key]: true}}>
               <Text semibold>Card {key}</Text>
               <Text>Card with {key}</Text>
@@ -101,7 +101,7 @@ export const cardExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          RING_KEYS.map((key: string) => (
+          ComponentKeys.ring.map((key: string) => (
             <Card key={key} {...{[key]: true}}>
               <Text semibold>Card {key}</Text>
               <Text>Card with {key}</Text>
@@ -117,7 +117,7 @@ export const cardExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          PADDING_KEYS.map((key: string) => (
+          ComponentKeys.padding.map((key: string) => (
             <Card key={key} {...{[key]: true}}>
               <Text semibold>Card {key}</Text>
               <Text>Card with {key}</Text>
@@ -150,7 +150,7 @@ export const cardExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          GAP_KEYS.map((key: string) => (
+          ComponentKeys.gap.map((key: string) => (
             <Card key={key} {...{[key]: true}}>
               <Text semibold>Card {key}</Text>
               <Text>Content with {key}</Text>

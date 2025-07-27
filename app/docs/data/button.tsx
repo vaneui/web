@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Col, Row, UI_ELEMENT_APPEARANCE_KEYS, SIZE_KEYS, FONT_WEIGHT_KEYS, VARIANT_KEYS, SHAPE_KEYS } from "@vaneui/ui";
+import { Button, Col, Row, ComponentKeys } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -11,7 +11,7 @@ export const buttonExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          UI_ELEMENT_APPEARANCE_KEYS.map((key: string) => (
+          ComponentKeys.appearance.map((key: string) => (
             <Button key={key} {...{[key]: true}}>Button {key}</Button>
           ))
         }
@@ -24,7 +24,7 @@ export const buttonExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          SIZE_KEYS.map((key: string) => (
+          ComponentKeys.size.map((key: string) => (
             <Button key={key} {...{[key]: true}}>Button {key}</Button>
           ))
         }
@@ -50,7 +50,7 @@ export const buttonExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          FONT_WEIGHT_KEYS.map((key: string) => (
+          ComponentKeys.fontWeight.map((key: string) => (
             <Button key={key} {...{[key]: true}}>Button {key}</Button>
           ))
         }
@@ -63,7 +63,7 @@ export const buttonExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          SHAPE_KEYS.map((key: string) => (
+          ComponentKeys.shape.map((key: string) => (
             <Button key={key} {...{[key]: true}}>Button {key}</Button>
           ))
         }
@@ -76,10 +76,10 @@ export const buttonExamples: DocsComponentExample[] = [
     component: (
       <Col>
         {
-          VARIANT_KEYS.map((variant: string) => (
+          ComponentKeys.variant.map((variant: string) => (
             <Row key={variant} flexWrap>
               {
-                UI_ELEMENT_APPEARANCE_KEYS.slice(0, 4).map((appearance: string) => (
+                ComponentKeys.appearance.slice(0, 4).map((appearance: string) => (
                   <Button key={`${variant}-${appearance}`} {...{[variant]: true, [appearance]: true}}>
                     {variant} {appearance}
                   </Button>

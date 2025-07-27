@@ -1,6 +1,6 @@
 'use client'
 
-import { Text, Col, Row, APPEARANCE_KEYS, SIZE_KEYS, FONT_WEIGHT_KEYS, FONT_FAMILY_KEYS, TEXT_DECORATION_KEYS, TEXT_TRANSFORM_KEYS, FONT_STYLE_KEYS } from "@vaneui/ui";
+import { Text, Col, Row, ComponentKeys } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -18,7 +18,7 @@ export const textExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          SIZE_KEYS.map((key: string) => (
+          ComponentKeys.size.map((key: string) => (
             <Text key={key} {...{[key]: true}}>Text {key}</Text>
           ))
         }
@@ -31,7 +31,7 @@ export const textExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          FONT_WEIGHT_KEYS.map((key: string) => (
+          ComponentKeys.fontWeight.map((key: string) => (
             <Text key={key} {...{[key]: true}}>Text {key}</Text>
           ))
         }
@@ -44,7 +44,7 @@ export const textExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          APPEARANCE_KEYS.map((key: string) => (
+          ComponentKeys.appearance.map((key: string) => (
             <Text key={key} {...{[key]: true}}>Text {key}</Text>
           ))
         }
@@ -57,7 +57,7 @@ export const textExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          FONT_FAMILY_KEYS.map((key: string) => (
+          ComponentKeys.fontFamily.map((key: string) => (
             <Text key={key} {...{[key]: true}}>Text {key}</Text>
           ))
         }
@@ -70,7 +70,7 @@ export const textExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          TEXT_DECORATION_KEYS.map((key: string) => (
+          ComponentKeys.textDecoration.map((key: string) => (
             <Text key={key} {...{[key]: true}}>Text {key}</Text>
           ))
         }
@@ -83,7 +83,7 @@ export const textExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          FONT_STYLE_KEYS.map((key: string) => (
+          ComponentKeys.fontStyle.map((key: string) => (
             <Text key={key} {...{[key]: true}}>Text {key}</Text>
           ))
         }
@@ -96,7 +96,7 @@ export const textExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          TEXT_TRANSFORM_KEYS.map((key: string) => (
+          ComponentKeys.textTransform.map((key: string) => (
             <Text key={key} {...{[key]: true}}>Text {key}</Text>
           ))
         }

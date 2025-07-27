@@ -42,7 +42,7 @@ export function DocsNav({currentPath}: { currentPath?: string }) {
               const path = `/docs/${section.slug}/${component.name.toLowerCase()}`;
               const isActive = currentPath === path;
               return (
-                <Lnk
+                <Text
                   tag={Link}
                   key={i}
                   href={path}
@@ -52,7 +52,7 @@ export function DocsNav({currentPath}: { currentPath?: string }) {
                   className={`w-full ${isActive ? 'border-gray-600 bg-gray-50' : 'border-default  hover:border-gray-400'} border-l pl-4 py-1 hover:no-underline hover:text-gray-900 hover:bg-gray-100`}
                 >
                   {component.name}
-                </Lnk>
+                </Text>
               );
             })}
           </Col>

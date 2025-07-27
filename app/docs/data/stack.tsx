@@ -1,6 +1,6 @@
 'use client'
 
-import { Stack, Row, Text, Col, APPEARANCE_KEYS } from "@vaneui/ui";
+import { Stack, Row, Text, Col, ComponentKeys } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
@@ -148,7 +148,7 @@ export const stackExamples: DocsComponentExample[] = [
     component: (
       <Row flexWrap>
         {
-          APPEARANCE_KEYS.map((key: string) => (
+          ComponentKeys.appearance.map((key: string) => (
             <Stack key={key} {...{[key]: true}}>
               <div className="p-4 bg-white rounded">Item 1</div>
               <div className="p-4 bg-white rounded">Item 2</div>
