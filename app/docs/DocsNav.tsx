@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Text, Col, Row, Card, Link as Lnk, Divider } from '@vaneui/ui';
+import { Text, Col, Row, Card, Divider } from '@vaneui/ui';
 import { docsSections } from "./docsSections";
 import { BookOpen, GitHub } from "react-feather";
 import Link from "next/link";
