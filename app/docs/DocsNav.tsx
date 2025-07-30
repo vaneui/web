@@ -38,7 +38,7 @@ export function DocsNav({currentPath}: { currentPath?: string }) {
             {section.name}
           </Text>
           <Col noGap>
-            {section.components.map((component, i) => {
+            {section.pages.map((component, i) => {
               const path = `/docs/${section.slug}/${component.name.toLowerCase()}`;
               const isActive = currentPath === path;
               return (

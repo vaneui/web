@@ -7,10 +7,11 @@ export interface DocsComponentExample {
   component: JSX.Element;
 }
 
-export interface DocsComponent {
+export interface DocsPage {
   name: string;
   description: string;
   examples?: DocsComponentExample[];
+  mdPath?: string;
 }
 
 export interface DocsSection {
@@ -18,7 +19,7 @@ export interface DocsSection {
   slug: string;
   icon: Icon;
   description: string;
-  components: DocsComponent[];
+  pages: DocsPage[];
 }
 
 export interface DocsPageProps {
@@ -26,4 +27,5 @@ export interface DocsPageProps {
   pageTitle: string;
   description: string;
   examples: DocsComponentExample[];
+  md?: string;
 } 

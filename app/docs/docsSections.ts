@@ -26,10 +26,11 @@ export const docsSections: DocsSection[] = [
     slug: 'getting-started',
     description: 'An overview of the library and instructions on how to install and configure it in your project.',
     icon: BookOpen,
-    components: [
+    pages: [
       {
         name: 'Installation',
-        description: 'Follow these steps to get the library installed and ready to use in your application.'
+        description: 'Follow these steps to get the library installed and ready to use in your application.',
+        mdPath: 'installation.md',
       },
     ]
   },
@@ -38,7 +39,7 @@ export const docsSections: DocsSection[] = [
     slug: 'basic-components',
     icon: Box,
     description: 'A collection of fundamental and interactive components for building user interfaces.',
-    components: [
+    pages: [
       {
         name: 'Button',
         description: 'Triggers an action or event when the user clicks on it. Buttons are a primary way for users to interact with the application and can contain text, an icon, or both.',
@@ -66,7 +67,7 @@ export const docsSections: DocsSection[] = [
     slug: 'layout-components',
     icon: Layers,
     description: 'A set of components designed to help structure and organize your page content.',
-    components: [
+    pages: [
       {
         name: 'Section',
         description: 'A semantic container used to group related content within a page. This component helps to create a clear document outline and improve accessibility.',
@@ -114,7 +115,7 @@ export const docsSections: DocsSection[] = [
     slug: 'typography-components',
     icon: FileText,
     description: 'A suite of components for rendering text and establishing a clear typographic hierarchy.',
-    components: [
+    pages: [
       {
         name: 'Text',
         description: 'The primary component for rendering all text content. It provides props to control typographic properties like size, weight, color, and alignment.',

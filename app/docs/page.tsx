@@ -19,7 +19,7 @@ export default function DocsPage() {
             <SectionTitle sm semibold>{section.name}</SectionTitle>
             <Text>{section.description}</Text>
             <Grid3>
-              {section.components.map((component, componentIndex) => (
+              {section.pages.map((component, componentIndex) => (
                 <VaneLink secondary href={`/docs/${section.slug}/${component.name.toLowerCase()}`} tag={Link}
                           className="hover:no-underline w-full"
                           key={componentIndex}>

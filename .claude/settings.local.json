@@ -13,7 +13,8 @@
       "Bash(do sed -i 's/TEXT_DECORATION_KEYS\\.map(/ComponentKeys.textDecoration.map(/g' \"$file\")",
       "Bash(done)",
       "Bash(do sed -i 's/TEXT_TRANSFORM_KEYS\\.map(/ComponentKeys.textTransform.map(/g; s/FONT_STYLE_KEYS\\.map(/ComponentKeys.fontStyle.map(/g; s/APPEARANCE_KEYS\\.map(/ComponentKeys.appearance.map(/g; s/SIZE_KEYS\\.map(/ComponentKeys.size.map(/g; s/FONT_WEIGHT_KEYS\\.map(/ComponentKeys.fontWeight.map(/g' \"$file\")",
-      "Bash(do sed -i 's/import { \\([^}]*\\), [A-Z_]*KEYS[^}]* } from \"\"@vaneui\\/ui\"\";/import { \\1, ComponentKeys } from \"\"@vaneui\\/ui\"\";/g' \"$file\")"
+      "Bash(do sed -i 's/import { \\([^}]*\\), [A-Z_]*KEYS[^}]* } from \"\"@vaneui\\/ui\"\";/import { \\1, ComponentKeys } from \"\"@vaneui\\/ui\"\";/g' \"$file\")",
+      "Bash(npm version:*)"
     ],
     "deny": []
   }

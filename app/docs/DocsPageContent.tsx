@@ -1,10 +1,11 @@
 'use client'
 
 import React from 'react';
-import { Col, Text, Title, PageTitle, Container, Card, Stack } from '@vaneui/ui';
+import { Col, Text, Title, PageTitle, Container, Card, Stack, ThemeProvider } from '@vaneui/ui';
 import { DocsPageProps } from './types';
 import { CodeBlock } from '../components/CodeBlock';
 import { prepareComponentString } from "../utils/stringUtils";
+import { Md } from "@vaneui/md";
 
 export function DocsPageContent(
   {
@@ -12,6 +13,7 @@ export function DocsPageContent(
     pageTitle,
     description,
     examples,
+    md
   }: DocsPageProps) {
 
   return (
@@ -22,6 +24,12 @@ export function DocsPageContent(
           <PageTitle>{pageTitle}</PageTitle>
           <Text default>{description}</Text>
         </Col>
+
+        {md !== "" &&
+          <ThemeProvider>
+            <Md content={md ?? ""}/>
+          </ThemeProvider>
+        }
 
         {/* Examples */}
         {examples.map((example, index) => (
