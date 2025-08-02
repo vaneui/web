@@ -6,7 +6,7 @@ import { docsSections } from "./docsSections";
 import { BookOpen, GitHub } from "react-feather";
 import Link from "next/link";
 
-export function DocsNav({currentPath}: { currentPath?: string }) {
+export function DocsNav({currentPath, onMenuItemClick}: { currentPath?: string, onMenuItemClick?: () => void }) {
   return (
     <Col lg>
       <Col xs>
@@ -22,7 +22,7 @@ export function DocsNav({currentPath}: { currentPath?: string }) {
               <Text secondary>{item.text}</Text>
             </Row>
           ) : (
-            <Row sm tag={Link} href={item.href} key={index} className="hover:bg-secondary">
+            <Row sm tag={Link} href={item.href} key={index} className="hover:bg-secondary" onClick={onMenuItemClick}>
               <Card xs secondary tag="span" justifyCenter>
                 <item.icon className="size-5"/>
               </Card>
@@ -50,6 +50,7 @@ export function DocsNav({currentPath}: { currentPath?: string }) {
                   secondary={!isActive}
                   default={isActive}
                   className={`w-full ${isActive ? 'border-gray-600 bg-gray-50' : 'border-default  hover:border-gray-400'} border-l pl-4 py-1 hover:no-underline hover:text-gray-900 hover:bg-gray-100`}
+                  onClick={onMenuItemClick}
                 >
                   {component.name}
                 </Text>

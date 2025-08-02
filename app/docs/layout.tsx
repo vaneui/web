@@ -40,7 +40,7 @@ export default function DocsLayout({children}: DocsLayoutProps) {
 
               {/* Scrollable content */}
               <Stack className="flex-1 overflow-y-auto styled-scrollbar">
-                <DocsNav currentPath={pathname}/>
+                <DocsNav currentPath={pathname} onMenuItemClick={() => setIsMobileMenuOpen(false)}/>
               </Stack>
             </div>
           </div>
