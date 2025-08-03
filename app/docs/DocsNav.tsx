@@ -38,8 +38,8 @@ export function DocsNav({currentPath, onMenuItemClick}: { currentPath?: string, 
             {section.name}
           </Text>
           <Col noGap>
-            {section.pages.map((component, i) => {
-              const path = `/docs/${section.slug}/${component.name.toLowerCase()}`;
+            {section.pages.map((page, i) => {
+              const path = `/docs/${section.slug}/${page.slug}`;
               const isActive = currentPath === path;
               return (
                 <Text
@@ -52,7 +52,7 @@ export function DocsNav({currentPath, onMenuItemClick}: { currentPath?: string, 
                   className={`w-full ${isActive ? 'border-gray-600 bg-gray-50' : 'border-default  hover:border-gray-400'} border-l pl-4 py-1 hover:no-underline hover:text-gray-900 hover:bg-gray-100`}
                   onClick={onMenuItemClick}
                 >
-                  {component.name}
+                  {page.name}
                 </Text>
               );
             })}

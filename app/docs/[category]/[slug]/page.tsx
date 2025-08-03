@@ -13,7 +13,7 @@ interface DocsPageProps {
 export async function generateMetadata({params}: DocsPageProps): Promise<Metadata> {
   const {category, slug} = await params
   const docsCategory = docsSections.find(c => c.slug === category);
-  const docsPage = docsCategory?.pages.find(c => c.name.toLowerCase() === slug.toLowerCase());
+  const docsPage = docsCategory?.pages.find(page => page.slug === slug);
 
   return {
     title: `VaneUI | ${docsPage?.name || slug} | ${docsCategory?.name || category}`,
@@ -29,14 +29,10 @@ export default async function Page({params}: DocsPageProps) {
   if (!docsCategory)
     return notFound();
 
-  const docsPage = docsCategory.pages.find(c => c.name.toLowerCase() === slug.toLowerCase());
+  const docsPage = docsCategory.pages.find(page => page.slug === slug);
 
   if (!docsPage) {
-    return (
-      <div>
-        Element {slug} not found
-      </div>
-    );
+    return notFound();
   }
 
   let md = "";

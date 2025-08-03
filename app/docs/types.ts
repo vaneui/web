@@ -8,6 +8,7 @@ export interface DocsComponentExample {
 }
 
 export interface DocsPage {
+  slug: string;
   name: string;
   description: string;
   examples?: DocsComponentExample[];
