@@ -1,22 +1,22 @@
-Learn the fundamental patterns and concepts for using VaneUI components effectively in your React applications.
+Learn the fundamental patterns for using VaneUI components.
 
-## Component Props System
+## Component Props
 
-VaneUI components use a consistent prop system based on design tokens and utility classes. Most components accept size, appearance, and layout props.
+VaneUI components use boolean props for styling. Most components support size, appearance, and layout props.
 
 ### Size Props
 
-All components support standardized size props:
+Components support five sizes:
 
 ```tsx
-import { Button, Text, Stack } from '@vaneui/ui';
+import { Button, Stack } from '@vaneui/ui';
 
 function SizeExample() {
   return (
     <Stack>
       <Button xs>Extra Small</Button>
       <Button sm>Small</Button>
-      <Button md>Medium (default)</Button>
+      <Button md>Medium</Button>
       <Button lg>Large</Button>
       <Button xl>Extra Large</Button>
     </Stack>
@@ -26,10 +26,10 @@ function SizeExample() {
 
 ### Appearance Props
 
-Control visual appearance with semantic color props:
+Control visual appearance with semantic props:
 
 ```tsx
-import { Button, Badge, Row } from '@vaneui/ui';
+import { Button, Row } from '@vaneui/ui';
 
 function AppearanceExample() {
   return (
@@ -45,70 +45,87 @@ function AppearanceExample() {
 }
 ```
 
-## Layout Components
+### Shape Props
 
-VaneUI provides flexible layout components for structuring your UI.
-
-### Container and Stack
-
-Use Container for page-level layout and Stack for content organization:
+Control border radius:
 
 ```tsx
-import { Container, Stack, Title, Text } from '@vaneui/ui';
+import { Button, Card, Row } from '@vaneui/ui';
 
-function LayoutExample() {
+function ShapeExample() {
   return (
-    <Container>
-      <Stack lg>
-        <Title>Page Title</Title>
-        <Text>Page content goes here</Text>
-        <Stack sm row>
-          <Button primary>Action</Button>
-          <Button secondary>Cancel</Button>
-        </Stack>
-      </Stack>
-    </Container>
+    <Row>
+      <Button sharp>Sharp</Button>
+      <Button rounded>Rounded</Button>
+      <Button pill>Pill</Button>
+    </Row>
   );
 }
 ```
 
-### Grid Layouts
+## Layout Components
 
-Create responsive grids with Row and Col:
+### Stack
+
+Arrange children with consistent spacing:
 
 ```tsx
-import { Row, Col, Card, Text } from '@vaneui/ui';
+import { Stack, Text } from '@vaneui/ui';
+
+function StackExample() {
+  return (
+    <Stack lg>
+      <Text>Item 1</Text>
+      <Text>Item 2</Text>
+      <Text>Item 3</Text>
+    </Stack>
+  );
+}
+```
+
+### Row and Col
+
+Create flexible layouts:
+
+```tsx
+import { Row, Col, Card } from '@vaneui/ui';
 
 function GridExample() {
   return (
     <Row>
       <Col>
-        <Card>
-          <Text>Column 1</Text>
-        </Card>
+        <Card>Column 1</Card>
       </Col>
       <Col>
-        <Card>
-          <Text>Column 2</Text>
-        </Card>
-      </Col>
-      <Col>
-        <Card>
-          <Text>Column 3</Text>
-        </Card>
+        <Card>Column 2</Card>
       </Col>
     </Row>
   );
 }
 ```
 
-## Responsive Design
+## Typography
 
-VaneUI components include responsive props for different screen sizes.
+VaneUI provides typography components with consistent hierarchy:
 
-### Responsive Visibility
+```tsx
+import { PageTitle, SectionTitle, Title, Text } from '@vaneui/ui';
 
-Hide components on specific screen sizes:
+function TypographyExample() {
+  return (
+    <Stack>
+      <PageTitle>Page Title</PageTitle>
+      <SectionTitle>Section Title</SectionTitle>
+      <Title>Subsection Title</Title>
+      <Text>Body text</Text>
+    </Stack>
+  );
+}
+```
+
+## Responsive Props
+
+Hide components on specific breakpoints:
 
 ```tsx
 import { Text, Stack } from '@vaneui/ui';
@@ -125,183 +142,20 @@ function ResponsiveExample() {
 }
 ```
 
-### Responsive Layouts
+## Custom HTML Tags
 
-Adapt layouts for different screen sizes:
-
-```tsx
-import { Stack, Row, Card } from '@vaneui/ui';
-
-function ResponsiveLayout() {
-  return (
-    <Stack lgRow>
-      <Card>Mobile: stacked, Desktop: side by side</Card>
-      <Card>Second card</Card>
-    </Stack>
-  );
-}
-```
-
-## Typography Hierarchy
-
-Establish clear visual hierarchy with typography components:
+Use the `tag` prop to render different HTML elements:
 
 ```tsx
-import { PageTitle, SectionTitle, Title, Text } from '@vaneui/ui';
+import { Text, Button } from '@vaneui/ui';
 
-function TypographyExample() {
+function TagExample() {
   return (
-    <Stack>
-      <PageTitle>Page Title</PageTitle>
-      <Text secondary>Page description</Text>
-      
-      <SectionTitle>Section Title</SectionTitle>
-      <Text>Section content</Text>
-      
-      <Title>Subsection Title</Title>
-      <Text>Subsection content</Text>
-    </Stack>
-  );
-}
-```
-
-## Interactive Components
-
-Handle user interactions with event handlers:
-
-```tsx
-import { Button, Stack } from '@vaneui/ui';
-import { useState } from 'react';
-
-function InteractiveExample() {
-  const [count, setCount] = useState(0);
-  
-  return (
-    <Stack>
-      <Text>Count: {count}</Text>
-      <Stack row>
-        <Button onClick={() => setCount(count + 1)} primary>
-          Increment
-        </Button>
-        <Button onClick={() => setCount(count - 1)} secondary>
-          Decrement
-        </Button>
-        <Button onClick={() => setCount(0)} danger>
-          Reset
-        </Button>
-      </Stack>
-    </Stack>
-  );
-}
-```
-
-## Accessibility
-
-VaneUI components include built-in accessibility features:
-
-### Semantic HTML
-
-Components render appropriate HTML elements:
-
-```tsx
-import { Button, Link, Text } from '@vaneui/ui';
-
-function SemanticExample() {
-  return (
-    <Stack>
-      {/* Renders as <button> */}
-      <Button onClick={handleClick}>Button</Button>
-      
-      {/* Renders as <a> */}
-      <Link href="/about">Link</Link>
-      
-      {/* Renders as <p> by default */}
-      <Text>Paragraph text</Text>
-      
-      {/* Custom semantic element */}
+    <div>
+      <Text tag="h1">Heading</Text>
       <Text tag="span">Span text</Text>
-    </Stack>
+      <Button tag="a" href="/link">Link Button</Button>
+    </div>
   );
 }
 ```
-
-### ARIA Labels
-
-Add accessibility labels when needed:
-
-```tsx
-import { Button } from '@vaneui/ui';
-import { Search } from 'react-feather';
-
-function AccessibilityExample() {
-  return (
-    <Button aria-label="Search products">
-      <Search />
-    </Button>
-  );
-}
-```
-
-## Best Practices
-
-### Component Composition
-
-Combine components to create complex UI patterns:
-
-```tsx
-import { Card, Stack, Title, Text, Button, Row } from '@vaneui/ui';
-
-function ProductCard({ product }) {
-  return (
-    <Card>
-      <Stack>
-        <Title>{product.name}</Title>
-        <Text secondary>{product.description}</Text>
-        <Text lg semibold>${product.price}</Text>
-        <Row>
-          <Button primary>Add to Cart</Button>
-          <Button secondary>View Details</Button>
-        </Row>
-      </Stack>
-    </Card>
-  );
-}
-```
-
-### Consistent Spacing
-
-Use Stack components for consistent spacing:
-
-```tsx
-// ✅ Good - Consistent spacing
-<Stack lg>
-  <Component1 />
-  <Component2 />
-  <Component3 />
-</Stack>
-
-// ❌ Avoid - Manual spacing
-<div>
-  <Component1 style={{ marginBottom: '1rem' }} />
-  <Component2 style={{ marginBottom: '2rem' }} />
-  <Component3 />
-</div>
-```
-
-### Performance Optimization
-
-Import only what you need for better tree shaking:
-
-```tsx
-// ✅ Good - Tree shakeable
-import { Button, Stack } from '@vaneui/ui';
-
-// ❌ Avoid - Imports everything
-import * as VaneUI from '@vaneui/ui';
-```
-
-## Next Steps
-
-- **Theming Overview**: Learn about VaneUI's theming system
-- **Using ThemeProvider**: Configure custom themes
-- **Component Examples**: Explore individual component documentation
