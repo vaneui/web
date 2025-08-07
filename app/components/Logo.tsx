@@ -9,11 +9,13 @@ import vaneui from './../../public/vaneui.svg'
 export function Logo() {
 
   return (
-    <Row xs tag={Link} href="/">
-      <Image src={vaneui} alt={PRODUCT.title} className="h-[27px] w-[36px]"/>
-      <Title sm>
-        {PRODUCT.title}
-      </Title>
-    </Row>
+    <Link href="/">
+      <Row xs>
+        <Image src={vaneui} alt={PRODUCT.title} className="h-[27px] w-[36px]"/>
+        <Title sm>
+          {PRODUCT.title}
+        </Title>
+      </Row>
+    </Link>
   );
 }

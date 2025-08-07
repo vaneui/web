@@ -19,7 +19,23 @@ export function DocsMarkdown({md}: DocsMarkdownProps) {
           md: "pt-4",
           lg: "pt-5",
           xl: "pt-6"
+        },
+        list: {
+          xs: "gap-1",
+          sm: "gap-1",
+          md: "gap-2",
+          lg: "gap-3",
+          xl: "gap-3"
         }
+      }}
+      themeDefaults={{
+        list: {
+          md: true,
+          flex: true,
+        }
+      }}
+      theme={{
+        list: {base: "flex-col"}
       }}
     >
       <Md

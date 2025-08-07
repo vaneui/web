@@ -1,8 +1,11 @@
-import { BookOpen, Box, FileText, Layers } from "react-feather";
+import { BookOpen, Box, FileText, Layers, Settings } from "react-feather";
 import { DocsSection } from "./types";
 import { buttonExamples } from "./data/button";
 import { badgeExamples } from "./data/badge";
 import { chipExamples } from "./data/chip";
+import { checkboxExamples } from "./data/checkbox";
+import { labelExamples } from "./data/label";
+import { codeExamples } from "./data/code";
 import { rowExamples } from "./data/row";
 import { colExamples } from "./data/col";
 import { cardExamples } from "./data/card";
@@ -28,6 +31,12 @@ export const docsSections: DocsSection[] = [
     icon: BookOpen,
     pages: [
       {
+        slug: 'core-concepts',
+        name: 'Core Concepts',
+        description: 'Understand VaneUI\'s philosophy of boolean props, Tailwind CSS integration, and component customization.',
+        mdPath: 'core-concepts.md',
+      },
+      {
         slug: 'installation',
         name: 'Installation',
         description: 'Follow these steps to get the library installed and ready to use in your application.',
@@ -38,18 +47,6 @@ export const docsSections: DocsSection[] = [
         name: 'Usage Basics',
         description: 'Learn fundamental patterns and concepts for using VaneUI components effectively.',
         mdPath: 'usage-basics.md',
-      },
-      {
-        slug: 'theming-overview',
-        name: 'Theming Overview',
-        description: 'Understand VaneUI\'s powerful theming system and design token architecture.',
-        mdPath: 'theming-overview.md',
-      },
-      {
-        slug: 'using-theme-provider',
-        name: 'Using ThemeProvider',
-        description: 'Configure and customize themes throughout your application with ThemeProvider.',
-        mdPath: 'using-themeprovider.md',
       },
     ]
   },
@@ -76,6 +73,24 @@ export const docsSections: DocsSection[] = [
         name: 'Chip',
         description: 'Represents a complex entity in a compact form, such as an attribute, tag, or contact. Chips can be interactive, allowing for user input or triggering actions.',
         examples: chipExamples
+      },
+      {
+        slug: 'checkbox',
+        name: 'Checkbox',
+        description: 'Allows users to select one or more options from a set. Checkboxes are ideal for binary choices and multiple selections within forms.',
+        examples: checkboxExamples
+      },
+      {
+        slug: 'label',
+        name: 'Label',
+        description: 'Displays text with various styling options for categorization, status indicators, or highlighting important information. Labels can be styled with different colors, sizes, and variants.',
+        examples: labelExamples
+      },
+      {
+        slug: 'code',
+        name: 'Code',
+        description: 'Renders inline code snippets with syntax highlighting. Perfect for displaying code examples, commands, file paths, or technical terms within text content.',
+        examples: codeExamples
       },
       {
         slug: 'divider',
@@ -190,5 +205,49 @@ export const docsSections: DocsSection[] = [
         examples: listExamples
       },
     ]
-  }
+  },
+  {
+    name: 'Customization',
+    slug: 'customization',
+    description: 'Learn how to customize and theme VaneUI components to match your design requirements.',
+    icon: Settings,
+    pages: [
+      {
+        slug: 'theming-overview',
+        name: 'Theming Overview',
+        description: 'Understand VaneUI\'s powerful theming system and design token architecture.',
+        mdPath: 'theming-overview.md',
+      },
+      {
+        slug: 'using-theme-provider',
+        name: 'Using ThemeProvider',
+        description: 'Configure and customize themes throughout your application with ThemeProvider.',
+        mdPath: 'using-themeprovider.md',
+      },
+      {
+        slug: 'theme-and-override',
+        name: 'Theme & ThemeOverride',
+        description: 'Customize component themes using the theme and themeOverride properties.',
+        mdPath: 'theme-and-override.md',
+      },
+      {
+        slug: 'theme-defaults',
+        name: 'ThemeDefaults',
+        description: 'Set default theme values across your application using themeDefaults.',
+        mdPath: 'theme-defaults.md',
+      },
+      {
+        slug: 'extra-classes',
+        name: 'ExtraClasses',
+        description: 'Apply additional CSS classes to components using extraClasses.',
+        mdPath: 'extra-classes.md',
+      },
+      {
+        slug: 'css-variables',
+        name: 'CSS Variables',
+        description: 'Customize VaneUI components using CSS custom properties and variables.',
+        mdPath: 'css-variables.md',
+      },
+    ]
+  },
 ];

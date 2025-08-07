@@ -19,10 +19,12 @@ export default function NotFound() {
             <ArrowLeft className="size-5" />
             Go Back
           </Button>
-          <Button tag={Link} href="/" primary>
-            <Home className="size-5" />
-            Go Home
-          </Button>
+          <Link href="/">
+            <Button primary>
+              <Home className="size-5" />
+              Go Home
+            </Button>
+          </Link>
         </Row>
       </Col>
     </Container>

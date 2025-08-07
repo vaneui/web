@@ -18,14 +18,18 @@ export function Header() {
 
         {/* Desktop menu items - hidden on mobile */}
         <Row className="hidden lg:flex">
-          <Button sm normal default noShadow noRing tag={Link} href="/docs">
-            Documentation
-          </Button>
-          <Button sm normal tag={Link} href={PRODUCT.githubUrl}>
-            <GitHub className="size-4"/>
-            GitHub
-            <ArrowRight className="size-4"/>
-          </Button>
+          <Link href="/docs">
+            <Button sm normal default noShadow noRing>
+              Documentation
+            </Button>
+          </Link>
+          <Link href={PRODUCT.githubUrl} target="_blank">
+            <Button sm normal>
+              <GitHub className="size-4"/>
+              GitHub
+              <ArrowRight className="size-4"/>
+            </Button>
+          </Link>
         </Row>
 
         {/* Mobile menu button - shown only on mobile */}
@@ -48,19 +52,23 @@ export function Header() {
 
             {/* Scrollable content */}
             <Stack className="flex-1 overflow-y-auto styled-scrollbar" lg>
-              <Button sm normal default noShadow noRing
-                      tag={Link} href="/docs" className="w-full"
-                      onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Documentation
-              </Button>
-              <Button sm normal tag={Link} href={PRODUCT.githubUrl}
-                      className="w-full" onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <GitHub className="size-4"/>
-                GitHub
-                <ArrowRight className="size-4"/>
-              </Button>
+              <Link href="/docs" className="w-full">
+                <Button sm normal default noShadow noRing
+                        className="w-full"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Documentation
+                </Button>
+              </Link>
+              <Link href={PRODUCT.githubUrl} target="_blank" className="w-full">
+                <Button sm normal
+                        className="w-full" onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <GitHub className="size-4"/>
+                  GitHub
+                  <ArrowRight className="size-4"/>
+                </Button>
+              </Link>
             </Stack>
           </div>
         </div>
