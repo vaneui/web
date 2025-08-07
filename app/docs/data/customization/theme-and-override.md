@@ -1,6 +1,6 @@
 # Theme & ThemeOverride
 
-The `theme` and `themeOverride` properties provide powerful ways to customize VaneUI components at the individual component level. These properties allow you to apply specific theming configurations without affecting other components in your application.
+The `theme` and `themeOverride` properties are applied via ThemeProvider (not on individual components). You can scope changes globally or to any subtree by wrapping that part of your UI with a ThemeProvider, leaving the rest of the app unaffected.
 
 ## Understanding Theme Properties
 
@@ -51,7 +51,7 @@ type ThemeOverride = (theme: ThemeProps) => ThemeProps;
 Override specific colors for individual components:
 
 ```jsx
-import { Button, Badge, Card } from '@vaneui/ui';
+import { ThemeProvider, Button, Badge, Card } from '@vaneui/ui';
 
 function CustomThemedComponents() {
   const customTheme = {
@@ -63,19 +63,21 @@ function CustomThemedComponents() {
   };
 
   return (
-    <div>
-      <Button theme={customTheme} filled primary>
-        Custom Purple Button
-      </Button>
-      
-      <Badge theme={customTheme} success>
-        Custom Green Badge
-      </Badge>
-      
-      <Card theme={customTheme} danger>
-        Custom Red Card
-      </Card>
-    </div>
+    <ThemeProvider theme={customTheme}>
+      <div>
+        <Button filled primary>
+          Custom Purple Button
+        </Button>
+        
+        <Badge success>
+          Custom Green Badge
+        </Badge>
+        
+        <Card danger>
+          Custom Red Card
+        </Card>
+      </div>
+    </ThemeProvider>
   );
 }
 ```
@@ -85,7 +87,7 @@ function CustomThemedComponents() {
 Modify sizing and border radius values:
 
 ```jsx
-import { Button, Chip } from '@vaneui/ui';
+import { ThemeProvider, Button, Chip } from '@vaneui/ui';
 
 function CustomSizedComponents() {
   const sizeTheme = {
@@ -101,15 +103,17 @@ function CustomSizedComponents() {
   };
 
   return (
-    <div>
-      <Button theme={sizeTheme} sm>
-        Custom Button
-      </Button>
-      
-      <Chip theme={sizeTheme} md>
-        Custom Chip
-      </Chip>
-    </div>
+    <ThemeProvider theme={sizeTheme}>
+      <div>
+        <Button sm>
+          Custom Button
+        </Button>
+        
+        <Chip md>
+          Custom Chip
+        </Chip>
+      </div>
+    </ThemeProvider>
   );
 }
 ```
@@ -145,18 +149,22 @@ function ThemedInterface() {
   return (
     <div>
       {/* Brand-themed components */}
-      <Button theme={brandTheme} primary>
-        Brand Button
-      </Button>
-      
-      <Badge theme={brandTheme} accent>
-        Brand Badge
-      </Badge>
+      <ThemeProvider theme={brandTheme}>
+        <Button primary>
+          Brand Button
+        </Button>
+        
+        <Badge accent>
+          Brand Badge
+        </Badge>
+      </ThemeProvider>
       
       {/* Warning-themed components */}
-      <Button theme={warningTheme} warning>
-        Warning Button
-      </Button>
+      <ThemeProvider theme={warningTheme}>
+        <Button warning>
+          Warning Button
+        </Button>
+      </ThemeProvider>
     </div>
   );
 }
@@ -169,7 +177,7 @@ function ThemedInterface() {
 Transform themes based on conditions or calculations:
 
 ```jsx
-import { Button } from '@vaneui/ui';
+import { ThemeProvider, Button } from '@vaneui/ui';
 
 function DynamicThemedButton({ isHighContrast = false }) {
   const themeOverride = (theme) => {
@@ -194,9 +202,11 @@ function DynamicThemedButton({ isHighContrast = false }) {
   };
 
   return (
-    <Button themeOverride={themeOverride} primary>
-      Adaptive Button
-    </Button>
+    <ThemeProvider themeOverride={themeOverride}>
+      <Button primary>
+        Adaptive Button
+      </Button>
+    </ThemeProvider>
   );
 }
 ```
@@ -206,7 +216,7 @@ function DynamicThemedButton({ isHighContrast = false }) {
 Create sophisticated theme modifications:
 
 ```jsx
-import { Card, Text } from '@vaneui/ui';
+import { ThemeProvider, Card, Text } from '@vaneui/ui';
 
 function GradientCard({ baseColor = '#3b82f6' }) {
   const gradientThemeOverride = (theme) => {
@@ -228,9 +238,11 @@ function GradientCard({ baseColor = '#3b82f6' }) {
   };
 
   return (
-    <Card themeOverride={gradientThemeOverride} primary>
-      <Text>Gradient themed card</Text>
-    </Card>
+    <ThemeProvider themeOverride={gradientThemeOverride}>
+      <Card primary>
+        <Text>Gradient themed card</Text>
+      </Card>
+    </ThemeProvider>
   );
 }
 
@@ -270,13 +282,14 @@ function ConditionalThemedButton({ variant, disabled }) {
   };
 
   return (
-    <Button 
-      themeOverride={conditionalOverride} 
-      primary
-      disabled={disabled}
-    >
-      Conditional Button
-    </Button>
+    <ThemeProvider themeOverride={conditionalOverride}>
+      <Button 
+        primary
+        disabled={disabled}
+      >
+        Conditional Button
+      </Button>
+    </ThemeProvider>
   );
 }
 ```
@@ -304,13 +317,11 @@ function CombinedThemeButton() {
   });
 
   return (
-    <Button 
-      theme={baseTheme}
-      themeOverride={override}
-      primary
-    >
-      Combined Theming
-    </Button>
+    <ThemeProvider theme={baseTheme} themeOverride={override}>
+      <Button primary>
+        Combined Theming
+      </Button>
+    </ThemeProvider>
   );
 }
 ```
@@ -341,17 +352,17 @@ function ThemeHierarchy() {
   });
 
   return (
-    <Card theme={parentTheme} secondary>
-      <Text primary>Parent themed text</Text>
-      
-      <Button 
-        theme={parentTheme}
-        themeOverride={childOverride}
-        accent
-      >
-        Child with override
-      </Button>
-    </Card>
+    <ThemeProvider theme={parentTheme}>
+      <Card secondary>
+        <Text primary>Parent themed text</Text>
+        
+        <ThemeProvider theme={parentTheme} themeOverride={childOverride}>
+          <Button accent>
+            Child with override
+          </Button>
+        </ThemeProvider>
+      </Card>
+    </ThemeProvider>
   );
 }
 ```
@@ -380,9 +391,11 @@ function ResponsiveThemedButton() {
   });
 
   return (
-    <Button themeOverride={responsiveOverride} md>
-      Responsive Button
-    </Button>
+    <ThemeProvider themeOverride={responsiveOverride}>
+      <Button md>
+        Responsive Button
+      </Button>
+    </ThemeProvider>
   );
 }
 ```
@@ -413,15 +426,13 @@ function OptimizedThemedButton({ color, isActive }) {
   }), [color]);
 
   return (
-    <Button 
-      theme={theme}
-      themeOverride={themeOverride}
-      primary
-    >
-      Optimized Button
-    </Button>
+    <ThemeProvider theme={theme} themeOverride={themeOverride}>
+      <Button primary>
+        Optimized Button
+      </Button>
+    </ThemeProvider>
   );
 }
 ```
 
-The `theme` and `themeOverride` properties provide flexible, component-level customization options that complement VaneUI's global theming system, allowing for precise control over individual component appearances while maintaining consistency across your application.
+The `theme` and `themeOverride` properties are provided by ThemeProvider and can be scoped to any part of your UI by wrapping with a ThemeProvider. This enables precise control over specific areas while maintaining consistent theming elsewhere.

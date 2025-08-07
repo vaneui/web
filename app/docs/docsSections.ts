@@ -227,7 +227,7 @@ export const docsSections: DocsSection[] = [
       {
         slug: 'theme-and-override',
         name: 'Theme & ThemeOverride',
-        description: 'Customize component themes using the theme and themeOverride properties.',
+        description: 'Customize themes using ThemeProvider\'s theme and themeOverride properties (applied to providers, not components).',
         mdPath: 'theme-and-override.md',
       },
       {

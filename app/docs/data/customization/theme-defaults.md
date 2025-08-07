@@ -332,7 +332,7 @@ Understanding how defaults interact with component props:
 ### Priority Order
 
 1. **Component props** (highest priority)
-2. **Component theme/themeOverride**
+2. **ThemeProvider theme/themeOverride**
 3. **ThemeDefaults component-specific**
 4. **ThemeDefaults global**
 5. **VaneUI built-in defaults** (lowest priority)
@@ -355,14 +355,15 @@ function OverrideExample() {
       {/* Uses: success flag (prop), size=lg (component default) */}
       <Button success>Override Color</Button>
       
-      {/* Uses: danger flag (theme override), size=sm (prop) */}
-      <Button 
-        theme={{ colors: { primary: '#ef4444' } }}
-        primary
-        sm
-      >
-        Theme Override
-      </Button>
+      {/* Uses: danger flag from a ThemeProvider override, size=sm (prop) */}
+      <ThemeProvider theme={{ colors: { primary: '#ef4444' } }}>
+        <Button 
+          primary
+          sm
+        >
+          Theme Override
+        </Button>
+      </ThemeProvider>
     </ThemeProvider>
   );
 }

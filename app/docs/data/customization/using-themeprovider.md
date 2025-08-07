@@ -254,7 +254,7 @@ function CustomComponent() {
 
 For more detailed information about specific ThemeProvider properties, see these dedicated guides:
 
-- **[Theme & ThemeOverride](./theme-and-override)** - Learn about the `theme` and `themeOverride` properties for component-level theming
+- **[Theme & ThemeOverride](./theme-and-override)** - Learn how to use ThemeProvider's `theme` and `themeOverride` to scope theming to parts of your UI
 - **[ThemeDefaults](./theme-defaults)** - Understand how to set application-wide default values using `themeDefaults`
 - **[ExtraClasses](./extra-classes)** - Discover how to add custom CSS classes with `extraClasses`
 - **[CSS Variables](./css-variables)** - Customize components using CSS custom properties
