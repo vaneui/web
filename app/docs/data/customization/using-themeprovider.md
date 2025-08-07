@@ -44,9 +44,9 @@ function App() {
   return (
     <ThemeProvider theme={customTheme}>
       <div>
-        <Button color="primary">Purple Button</Button>
-        <Badge color="success">Green Badge</Badge>
-        <Button color="danger">Red Button</Button>
+        <Button primary>Purple Button</Button>
+        <Badge success>Green Badge</Badge>
+        <Button danger>Red Button</Button>
       </div>
     </ThemeProvider>
   );
@@ -82,7 +82,7 @@ function App() {
         <Badge>Default Styled Badge</Badge>
         
         {/* Override specific props while keeping other defaults */}
-        <Button color="success" size="sm">
+        <Button success sm>
           Custom Button
         </Button>
       </div>
@@ -117,9 +117,9 @@ function BrandedApp() {
   return (
     <ThemeProvider theme={brandTheme} themeDefaults={brandDefaults}>
       <nav>
-        <Button color="primary">Home</Button>
-        <Button color="secondary">About</Button>
-        <Badge color="accent">New</Badge>
+        <Button primary>Home</Button>
+        <Button secondary>About</Button>
+        <Badge accent>New</Badge>
       </nav>
     </ThemeProvider>
   );
@@ -158,8 +158,8 @@ function DarkModeApp() {
           {isDark ? 'Light Mode' : 'Dark Mode'}
         </Button>
         
-        <Button color="primary">Primary Action</Button>
-        <Text color="secondary">Secondary text</Text>
+        <Button primary>Primary Action</Button>
+        <Text secondary>Secondary text</Text>
       </div>
     </ThemeProvider>
   );
@@ -218,12 +218,12 @@ function NestedThemeApp() {
   return (
     <ThemeProvider theme={globalTheme}>
       <div>
-        <Button color="primary">Global Blue Button</Button>
+        <Button primary>Global Blue Button</Button>
         
         <aside>
           <ThemeProvider theme={sidebarTheme}>
-            <Button color="primary">Sidebar Purple Button</Button>
-            <Badge color="primary">Purple Badge</Badge>
+            <Button primary>Sidebar Purple Button</Button>
+            <Badge primary>Purple Badge</Badge>
           </ThemeProvider>
         </aside>
       </div>
@@ -303,13 +303,13 @@ function ThemeSwitcherApp() {
           <Button 
             key={theme} 
             onClick={() => setCurrentTheme(theme)}
-            variant={currentTheme === theme ? 'filled' : 'outline'}
+            {...(currentTheme === theme ? { filled: true } : { outline: true })}
           >
             {theme}
           </Button>
         ))}
         
-        <Button color="primary">Themed Button</Button>
+        <Button primary>Themed Button</Button>
       </div>
     </ThemeProvider>
   );

@@ -10,7 +10,7 @@ Instead of writing verbose prop configurations, VaneUI uses intuitive boolean pr
 
 ```tsx
 // Traditional approach
-<Button variant="filled" color="primary" size="large" />
+<Button variant="filled" color="primary" size="lg" />
 
 // VaneUI approach  
 <Button primary lg filled />
@@ -254,7 +254,7 @@ The boolean props make the code self-documenting - you can immediately understan
 
 ## Key Benefits
 
-**Shorter Syntax**: `<Button primary lg />` instead of `<Button color="primary" size="lg" />`
+**Shorter Syntax**: `<Button primary lg />` instead of `<Button color="primary" lg />`
 
 **Natural Language**: Props read like descriptions - "primary large button"
 

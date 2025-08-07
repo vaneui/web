@@ -352,14 +352,14 @@ function OverrideExample() {
       {/* Uses: color=primary (component default), size=lg (component default) */}
       <Button>Default Button</Button>
       
-      {/* Uses: color=success (prop), size=lg (component default) */}
-      <Button color="success">Override Color</Button>
+      {/* Uses: success flag (prop), size=lg (component default) */}
+      <Button success>Override Color</Button>
       
-      {/* Uses: color=danger (theme override), size=sm (prop) */}
+      {/* Uses: danger flag (theme override), size=sm (prop) */}
       <Button 
         theme={{ colors: { primary: '#ef4444' } }}
-        color="primary"
-        size="sm"
+        primary
+        sm
       >
         Theme Override
       </Button>

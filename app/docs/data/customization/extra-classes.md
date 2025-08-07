@@ -94,9 +94,9 @@ function ComponentSpecificClasses() {
         <Button>Enhanced Button</Button>
         <Badge>Pulsing Badge</Badge>
         <Card>
-          <Card.Header>Styled Card Header</Card.Header>
-          <Card.Body>Card content with padding</Card.Body>
-          <Card.Footer>Card footer</Card.Footer>
+          <div className="border-b border-gray-200">Styled Card Header</div>
+          <div className="p-6">Card content with padding</div>
+          <div className="bg-gray-50 rounded-b-lg">Card footer</div>
         </Card>
       </div>
     </ThemeProvider>
@@ -167,7 +167,7 @@ function CSSModulesIntegration() {
   return (
     <ThemeProvider extraClasses={moduleExtraClasses}>
       <Card>
-        <Card.Header>CSS Module Styled Header</Card.Header>
+        <div className={styles.cardHeader}>CSS Module Styled Header</div>
         <Button>CSS Module Button</Button>
       </Card>
     </ThemeProvider>
@@ -312,11 +312,11 @@ function AnimatedComponents() {
     <ThemeProvider extraClasses={animationClasses}>
       <div className="space-y-6">
         <Card>
-          <Card.Header>Interactive Card</Card.Header>
-          <Card.Body>
+          <div className="font-semibold group-hover:bg-blue-50">Interactive Card</div>
+          <div className="group-hover:text-gray-800">
             <Button>Animated Button</Button>
             <Badge>Bouncing Badge</Badge>
-          </Card.Body>
+          </div>
         </Card>
       </div>
     </ThemeProvider>

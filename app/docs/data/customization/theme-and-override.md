@@ -64,15 +64,15 @@ function CustomThemedComponents() {
 
   return (
     <div>
-      <Button theme={customTheme} variant="filled" color="primary">
+      <Button theme={customTheme} filled primary>
         Custom Purple Button
       </Button>
       
-      <Badge theme={customTheme} color="success">
+      <Badge theme={customTheme} success>
         Custom Green Badge
       </Badge>
       
-      <Card theme={customTheme} color="danger">
+      <Card theme={customTheme} danger>
         Custom Red Card
       </Card>
     </div>
@@ -102,11 +102,11 @@ function CustomSizedComponents() {
 
   return (
     <div>
-      <Button theme={sizeTheme} size="sm" radius="lg">
+      <Button theme={sizeTheme} sm>
         Custom Button
       </Button>
       
-      <Chip theme={sizeTheme} size="md" radius="md">
+      <Chip theme={sizeTheme} md>
         Custom Chip
       </Chip>
     </div>
@@ -145,16 +145,16 @@ function ThemedInterface() {
   return (
     <div>
       {/* Brand-themed components */}
-      <Button theme={brandTheme} color="primary">
+      <Button theme={brandTheme} primary>
         Brand Button
       </Button>
       
-      <Badge theme={brandTheme} color="accent">
+      <Badge theme={brandTheme} accent>
         Brand Badge
       </Badge>
       
       {/* Warning-themed components */}
-      <Button theme={warningTheme} color="warning">
+      <Button theme={warningTheme} warning>
         Warning Button
       </Button>
     </div>
@@ -194,7 +194,7 @@ function DynamicThemedButton({ isHighContrast = false }) {
   };
 
   return (
-    <Button themeOverride={themeOverride} color="primary">
+    <Button themeOverride={themeOverride} primary>
       Adaptive Button
     </Button>
   );
@@ -228,7 +228,7 @@ function GradientCard({ baseColor = '#3b82f6' }) {
   };
 
   return (
-    <Card themeOverride={gradientThemeOverride} color="primary">
+    <Card themeOverride={gradientThemeOverride} primary>
       <Text>Gradient themed card</Text>
     </Card>
   );
@@ -272,7 +272,7 @@ function ConditionalThemedButton({ variant, disabled }) {
   return (
     <Button 
       themeOverride={conditionalOverride} 
-      color="primary"
+      primary
       disabled={disabled}
     >
       Conditional Button
@@ -307,7 +307,7 @@ function CombinedThemeButton() {
     <Button 
       theme={baseTheme}
       themeOverride={override}
-      color="primary"
+      primary
     >
       Combined Theming
     </Button>
@@ -341,13 +341,13 @@ function ThemeHierarchy() {
   });
 
   return (
-    <Card theme={parentTheme} color="secondary">
-      <Text color="primary">Parent themed text</Text>
+    <Card theme={parentTheme} secondary>
+      <Text primary>Parent themed text</Text>
       
       <Button 
         theme={parentTheme}
         themeOverride={childOverride}
-        color="accent"
+        accent
       >
         Child with override
       </Button>
@@ -380,7 +380,7 @@ function ResponsiveThemedButton() {
   });
 
   return (
-    <Button themeOverride={responsiveOverride} size="md">
+    <Button themeOverride={responsiveOverride} md>
       Responsive Button
     </Button>
   );
@@ -416,7 +416,7 @@ function OptimizedThemedButton({ color, isActive }) {
     <Button 
       theme={theme}
       themeOverride={themeOverride}
-      color="primary"
+      primary
     >
       Optimized Button
     </Button>
