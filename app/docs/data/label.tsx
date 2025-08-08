@@ -10,12 +10,12 @@ export const labelExamples: DocsComponentExample[] = [
     description: 'Default label styles and text.',
     component: (
       <Row flexWrap>
-        <Label>Default Label</Label>
-        <Label primary>Primary Label</Label>
-        <Label secondary>Secondary Label</Label>
-        <Label success>Success Label</Label>
-        <Label warning>Warning Label</Label>
-        <Label danger>Danger Label</Label>
+        <Label>Default</Label>
+        <Label primary>Primary Action</Label>
+        <Label secondary>Secondary Info</Label>
+        <Label success>Success</Label>
+        <Label warning>Warning</Label>
+        <Label danger>Error</Label>
       </Row>
     ),
   },

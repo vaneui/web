@@ -55,7 +55,7 @@ export const stackExamples: DocsComponentExample[] = [
         </Col>
         <Col lg>
           <Text semibold>With Gap</Text>
-          <Stack gap>
+          <Stack>
             <div className="p-4 bg-gray-100 rounded">Item 1</div>
             <div className="p-4 bg-gray-100 rounded">Item 2</div>
             <div className="p-4 bg-gray-100 rounded">Item 3</div>

@@ -55,7 +55,7 @@ export const colExamples: DocsComponentExample[] = [
         </Col>
         <Col lg>
           <Text semibold>With Gap</Text>
-          <Col gap>
+          <Col>
             <div className="p-4 bg-gray-100 rounded">Item 1</div>
             <div className="p-4 bg-gray-100 rounded">Item 2</div>
             <div className="p-4 bg-gray-100 rounded">Item 3</div>

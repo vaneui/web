@@ -1,43 +1,53 @@
 'use client'
 
-import { Checkbox, Col, Row, ComponentKeys } from "@vaneui/ui";
+import { Checkbox, Col, Row, ComponentKeys, Label, Text } from "@vaneui/ui";
 import React from "react";
 import { DocsComponentExample } from "../types";
 
 export const checkboxExamples: DocsComponentExample[] = [
   {
     title: 'Basic Usage',
-    description: 'Default checkbox with label.',
+    description: 'Checkbox should be used inside a Label with matching id/htmlFor.',
     component: (
-      <Row flexWrap>
-        <Checkbox defaultChecked>Accept terms and conditions</Checkbox>
-        <Checkbox>Subscribe to newsletter</Checkbox>
-        <Checkbox disabled>Disabled checkbox</Checkbox>
-        <Checkbox disabled defaultChecked>Disabled checked</Checkbox>
-      </Row>
+      <Col>
+        <Label primary htmlFor="demo6">
+          <Checkbox primary id="demo6" />
+          I agree to the Terms of Service and Privacy Policy.
+        </Label>
+
+        <Label primary htmlFor="demo1">
+          <Checkbox primary id="demo1" />
+          <Col noGap tag="span">
+            <Text primary>Receive product updates</Text>
+            <Text xs secondary>Occasional emails about new features</Text>
+          </Col>
+        </Label>
+      </Col>
     ),
   },
   {
-    title: 'Controlled Checkbox',
-    description: 'Checkbox with controlled state.',
+    title: 'Pre-checked Checkbox',
+    description: 'Use defaultChecked on the input; wrap in Label for accessible click target.',
     component: (
       <Col>
-        <Checkbox defaultChecked>
-          Controlled checkbox
-        </Checkbox>
+        <Label htmlFor="prechecked-1">
+          <Checkbox id="prechecked-1" defaultChecked />
+          Pre-checked checkbox
+        </Label>
       </Col>
     ),
   },
   {
     title: 'Sizes',
-    description: 'Checkboxes come in different sizes - xs, sm, md, lg, xl.',
+    description: 'Checkboxes in different sizes (xs, sm, md, lg, xl), each wrapped in a Label.',
     component: (
       <Row flexWrap>
         {
           ComponentKeys.size.map((key: string) => (
-            <Checkbox key={key} {...{[key]: true}} defaultChecked>
-              Checkbox {key}
-            </Checkbox>
+            <Label key={key} htmlFor={`size-${key}`} tag="span" className="mr-4">
+              <Checkbox id={`size-${key}`} {...{[key]: true}} defaultChecked />
+              Size: {key}
+            </Label>
           ))
         }
       </Row>
@@ -45,14 +55,15 @@ export const checkboxExamples: DocsComponentExample[] = [
   },
   {
     title: 'Appearances',
-    description: 'Different checkbox color variants.',
+    description: 'Different color appearances applied to the Checkbox; always place inside a Label.',
     component: (
       <Row flexWrap>
         {
           ComponentKeys.appearance.map((key: string) => (
-            <Checkbox key={key} {...{[key]: true}} defaultChecked>
-              {key} checkbox
-            </Checkbox>
+            <Label key={key} htmlFor={`appearance-${key}`} tag="span" className="mr-4">
+              <Checkbox id={`appearance-${key}`} {...{[key]: true}} defaultChecked />
+              Enable {key} style
+            </Label>
           ))
         }
       </Row>
@@ -60,18 +71,21 @@ export const checkboxExamples: DocsComponentExample[] = [
   },
   {
     title: 'Checkbox Group',
-    description: 'Multiple checkboxes working together.',
+    description: 'Multiple labeled checkboxes working together.',
     component: (
       <Col>
-        <Checkbox defaultChecked>
-          Option 1
-        </Checkbox>
-        <Checkbox>
-          Option 2
-        </Checkbox>
-        <Checkbox>
-          Option 3
-        </Checkbox>
+        <Label htmlFor="opt-1">
+          <Checkbox id="opt-1" defaultChecked />
+          Email notifications
+        </Label>
+        <Label htmlFor="opt-2">
+          <Checkbox id="opt-2" />
+          SMS alerts
+        </Label>
+        <Label htmlFor="opt-3">
+          <Checkbox id="opt-3" />
+          Push notifications
+        </Label>
       </Col>
     ),
   },

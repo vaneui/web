@@ -55,7 +55,7 @@ export const rowExamples: DocsComponentExample[] = [
         </div>
         <div>
           <Text semibold>With Gap</Text>
-          <Row gap>
+          <Row>
             <div className="p-4 bg-gray-100 rounded">Item 1</div>
             <div className="p-4 bg-gray-100 rounded">Item 2</div>
             <div className="p-4 bg-gray-100 rounded">Item 3</div>
