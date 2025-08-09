@@ -2,9 +2,9 @@
 
 import { Card, Row, Text, ComponentKeys } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 
-export const cardExamples: DocsComponentExample[] = [
+export const cardExamples: DocsPagePart[] = [
   {
     title: 'Basic Card',
     md: 'A simple card container.',
@@ -17,7 +17,7 @@ export const cardExamples: DocsComponentExample[] = [
   },
   {
     title: 'Card Sizes',
-    md: 'Cards come in different sizes.',
+    md: 'Cards come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.',
     component: (
       <Row flexWrap>
         {

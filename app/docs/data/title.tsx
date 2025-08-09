@@ -2,9 +2,9 @@
 
 import { Title, Col, ComponentKeys } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 
-export const titleExamples: DocsComponentExample[] = [
+export const titleExamples: DocsPagePart[] = [
   {
     title: 'Basic Title',
     md: 'Default title styling.',

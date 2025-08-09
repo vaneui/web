@@ -2,9 +2,9 @@
 
 import { Text, Col, Row, ComponentKeys } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 
-export const textExamples: DocsComponentExample[] = [
+export const textExamples: DocsPagePart[] = [
   {
     title: 'Basic Text',
     md: 'Default text styling.',

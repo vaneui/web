@@ -2,9 +2,9 @@
 
 import { Button, Col, Row, ComponentKeys } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 
-export const buttonExamples: DocsComponentExample[] = [
+export const buttonExamples: DocsPagePart[] = [
   {
     title: 'Basic Usage',
     md: 'Default button styles and variants.',
@@ -20,7 +20,7 @@ export const buttonExamples: DocsComponentExample[] = [
   },
   {
     title: 'Sizes',
-    md: 'Buttons come in different sizes - xs, sm, md, lg, xl.',
+    md: 'Buttons come in different sizes - `xs`, `sm`, `md`, `lg`, `xl`.',
     component: (
       <Row flexWrap>
         {
@@ -33,7 +33,7 @@ export const buttonExamples: DocsComponentExample[] = [
   },
   {
     title: 'Sizes with Icon',
-    md: 'Buttons come in different sizes.',
+    md: 'Buttons come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.',
     component: (
       <Row flexWrap>
         <Button xs><span className="rounded-full size-4 bg-gray-300"/> Extra Small</Button>
@@ -59,7 +59,7 @@ export const buttonExamples: DocsComponentExample[] = [
   },
   {
     title: 'Border Radius Options',
-    md: 'Button supports three border radius styles: rounded (default), pill, and sharp.',
+    md: 'Button supports three border radius styles: `rounded` (default), `pill`, and `sharp`.',
     component: (
       <Row flexWrap>
         {
@@ -72,7 +72,7 @@ export const buttonExamples: DocsComponentExample[] = [
   },
   {
     title: 'Button Styles',
-    md: 'Buttons can be styled as outline (default) or filled.',
+    md: 'Buttons can be styled as `outline` (default) or `filled`.',
     component: (
       <Col>
         {

@@ -2,12 +2,12 @@
 
 import { Checkbox, Col, Row, ComponentKeys, Label, Text } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 
-export const checkboxExamples: DocsComponentExample[] = [
+export const checkboxExamples: DocsPagePart[] = [
   {
     title: 'Basic Usage',
-    md: 'Checkbox should be used inside a Label with matching id/htmlFor.',
+    md: 'Checkbox should be used inside a Label with matching `id`/`htmlFor`.',
     component: (
       <Col>
         <Label primary htmlFor="demo6">
@@ -39,7 +39,7 @@ export const checkboxExamples: DocsComponentExample[] = [
   },
   {
     title: 'Sizes',
-    md: 'Checkboxes in different sizes (xs, sm, md, lg, xl), each wrapped in a Label.',
+    md: 'Checkboxes in different sizes (`xs`, `sm`, `md`, `lg`, `xl`), each wrapped in a Label.',
     component: (
       <Row flexWrap>
         {

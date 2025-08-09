@@ -2,9 +2,9 @@
 
 import { Stack, Row, Text, Col, ComponentKeys } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 
-export const stackExamples: DocsComponentExample[] = [
+export const stackExamples: DocsPagePart[] = [
   {
     title: 'Basic Stack',
     md: 'A flexible layout container.',
@@ -18,7 +18,7 @@ export const stackExamples: DocsComponentExample[] = [
   },
   {
     title: 'Stack Sizes',
-    md: 'Stacks come in different sizes.',
+    md: 'Stacks come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.',
     component: (
       <Row flexWrap>
         <Col lg>

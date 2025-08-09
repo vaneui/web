@@ -2,9 +2,9 @@
 
 import { Code, Col, Row, ComponentKeys } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 
-export const codeExamples: DocsComponentExample[] = [
+export const codeExamples: DocsPagePart[] = [
   {
     title: 'Basic Usage',
     md: 'Inline code snippets with default styling.',
@@ -17,7 +17,7 @@ export const codeExamples: DocsComponentExample[] = [
   },
   {
     title: 'Sizes',
-    md: 'Code elements in different sizes - xs, sm, md, lg, xl.',
+    md: 'Code elements in different sizes - `xs`, `sm`, `md`, `lg`, `xl`.',
     component: (
       <Col>
         {

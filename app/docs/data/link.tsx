@@ -2,9 +2,9 @@
 
 import { Link, Col, Row, ComponentKeys } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 
-export const linkExamples: DocsComponentExample[] = [
+export const linkExamples: DocsPagePart[] = [
   {
     title: 'Basic Link',
     md: 'Default link styling.',
@@ -14,7 +14,7 @@ export const linkExamples: DocsComponentExample[] = [
   },
   {
     title: 'Link Sizes',
-    md: 'Links come in different sizes.',
+    md: 'Links come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.',
     component: (
       <Row flexWrap>
         {

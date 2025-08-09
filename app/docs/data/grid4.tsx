@@ -2,9 +2,9 @@
 
 import { Grid4, Text, Col } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 
-export const grid4Examples: DocsComponentExample[] = [
+export const grid4Examples: DocsPagePart[] = [
   {
     title: 'Basic Grid4',
     md: 'A four-column grid layout.',
@@ -23,7 +23,7 @@ export const grid4Examples: DocsComponentExample[] = [
   },
   {
     title: 'Grid Sizes',
-    md: 'Grids come in different sizes.',
+    md: 'Grids come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.',
     component: (
       <Col lg>
         <div>

@@ -1,7 +1,7 @@
 import { JSX } from 'react';
 import { Icon } from "react-feather";
 
-export interface DocsComponentExample {
+export interface DocsPagePart {
   title: string;
   md: string;
   component: JSX.Element;
@@ -11,7 +11,7 @@ export interface DocsPage {
   slug: string;
   name: string;
   description: string;
-  examples?: DocsComponentExample[];
+  parts?: DocsPagePart[];
   mdPath?: string;
 }
 
@@ -27,6 +27,6 @@ export interface DocsPageProps {
   category: string;
   pageTitle: string;
   description: string;
-  examples: DocsComponentExample[];
+  examples: DocsPagePart[];
   md?: string;
 } 

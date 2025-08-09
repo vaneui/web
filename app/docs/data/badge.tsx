@@ -2,9 +2,9 @@
 
 import { Badge, Row, ComponentKeys } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 
-export const badgeExamples: DocsComponentExample[] = [
+export const badgeExamples: DocsPagePart[] = [
   {
     title: 'Basic Usage',
     md: 'Default badge styles and variants.',
@@ -20,7 +20,7 @@ export const badgeExamples: DocsComponentExample[] = [
   },
   {
     title: 'Badge Sizes',
-    md: 'Badges come in different sizes.',
+    md: 'Badges come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.',
     component: (
       <Row flexWrap>
         {

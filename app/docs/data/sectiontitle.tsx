@@ -2,9 +2,9 @@
 
 import { SectionTitle, Col, ComponentKeys } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 
-export const sectionTitleExamples: DocsComponentExample[] = [
+export const sectionTitleExamples: DocsPagePart[] = [
   {
     title: 'Basic SectionTitle',
     md: 'Default section title styling.',

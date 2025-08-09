@@ -2,9 +2,9 @@
 
 import { PageTitle, Col, ComponentKeys } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 
-export const pageTitleExamples: DocsComponentExample[] = [
+export const pageTitleExamples: DocsPagePart[] = [
   {
     title: 'Basic PageTitle',
     md: 'Default page title styling.',
@@ -14,7 +14,7 @@ export const pageTitleExamples: DocsComponentExample[] = [
   },
   {
     title: 'PageTitle Sizes',
-    md: 'Page titles come in different sizes.',
+    md: 'Page titles come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.',
     component: (
       <Col lg>
         {

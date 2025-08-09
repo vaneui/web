@@ -2,9 +2,9 @@
 
 import { Col, Row, Text } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 
-export const colExamples: DocsComponentExample[] = [
+export const colExamples: DocsPagePart[] = [
   {
     title: 'Basic Col',
     md: 'A vertical flex container.',
@@ -18,7 +18,7 @@ export const colExamples: DocsComponentExample[] = [
   },
   {
     title: 'Col Sizes',
-    md: 'Cols come in different sizes.',
+    md: 'Cols come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.',
     component: (
       <Row>
         <Col lg>

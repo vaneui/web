@@ -2,9 +2,9 @@
 
 import { Section, Text, Col, ComponentKeys } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 
-export const sectionExamples: DocsComponentExample[] = [
+export const sectionExamples: DocsPagePart[] = [
   {
     title: 'Basic Section',
     md: 'A semantic container for grouping related content.',
@@ -17,7 +17,7 @@ export const sectionExamples: DocsComponentExample[] = [
   },
   {
     title: 'Section Sizes',
-    md: 'Sections come in different sizes.',
+    md: 'Sections come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.',
     component: (
       <Col lg>
         {

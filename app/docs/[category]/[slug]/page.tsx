@@ -52,7 +52,7 @@ export default async function Page({params}: DocsPageProps) {
       category={docsCategory.name}
       pageTitle={docsPage.name}
       description={docsPage.description}
-      examples={docsPage.examples || []}
+      examples={docsPage.parts || []}
       md={md}
     />
   );

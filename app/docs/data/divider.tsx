@@ -2,9 +2,9 @@
 
 import { Divider, Text, Col, ComponentKeys } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 
-export const dividerExamples: DocsComponentExample[] = [
+export const dividerExamples: DocsPagePart[] = [
   {
     title: 'Basic Divider',
     md: 'A simple horizontal divider.',
@@ -18,7 +18,7 @@ export const dividerExamples: DocsComponentExample[] = [
   },
   {
     title: 'Divider Sizes',
-    md: 'Dividers come in different sizes.',
+    md: 'Dividers come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.',
     component: (
       <Col lg>
         {

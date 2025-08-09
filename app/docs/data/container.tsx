@@ -2,9 +2,9 @@
 
 import { Container, Text, Col, ComponentKeys } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 
-export const containerExamples: DocsComponentExample[] = [
+export const containerExamples: DocsPagePart[] = [
   {
     title: 'Basic Container',
     md: 'A centered container with max-width.',
@@ -18,7 +18,7 @@ export const containerExamples: DocsComponentExample[] = [
   },
   {
     title: 'Container Sizes',
-    md: 'Containers come in different sizes.',
+    md: 'Containers come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.',
     component: (
       <Col lg>
         {

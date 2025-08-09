@@ -2,9 +2,9 @@
 
 import { Row, Col, Text } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 
-export const rowExamples: DocsComponentExample[] = [
+export const rowExamples: DocsPagePart[] = [
   {
     title: 'Basic Row',
     md: 'A horizontal flex container.',

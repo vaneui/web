@@ -1,10 +1,10 @@
 'use client'
 
 import { Chip, Row, ComponentKeys } from "@vaneui/ui";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 import { CheckSquare, Heart, X } from "react-feather";
 
-export const chipExamples: DocsComponentExample[] = [
+export const chipExamples: DocsPagePart[] = [
   {
     title: 'Basic Usage',
     md: 'Default chip styles and variants.',
@@ -20,7 +20,7 @@ export const chipExamples: DocsComponentExample[] = [
   },
   {
     title: 'Chip Sizes',
-    md: 'Chips come in different sizes.',
+    md: 'Chips come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.',
     component: (
       <Row flexWrap>
         {

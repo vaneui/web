@@ -2,9 +2,9 @@
 
 import { List, ListItem, Text, Col } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 
-export const listExamples: DocsComponentExample[] = [
+export const listExamples: DocsPagePart[] = [
   {
     title: 'Basic List',
     md: 'A simple list with items.',

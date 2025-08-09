@@ -2,9 +2,9 @@
 
 import { Label, Row, ComponentKeys } from "@vaneui/ui";
 import React from "react";
-import { DocsComponentExample } from "../types";
+import { DocsPagePart } from "../types";
 
-export const labelExamples: DocsComponentExample[] = [
+export const labelExamples: DocsPagePart[] = [
   {
     title: 'Basic Usage',
     md: 'Default label styles and text.',
@@ -21,7 +21,7 @@ export const labelExamples: DocsComponentExample[] = [
   },
   {
     title: 'Sizes',
-    md: 'Labels come in different sizes - xs, sm, md, lg, xl.',
+    md: 'Labels come in different sizes - `xs`, `sm`, `md`, `lg`, `xl`.',
     component: (
       <Row flexWrap >
         {
