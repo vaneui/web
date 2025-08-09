@@ -21,11 +21,10 @@ export function DocsMarkdown({md}: DocsMarkdownProps) {
           xl: "pt-6"
         },
         list: {
-          xs: "gap-1",
-          sm: "gap-1",
           md: "gap-2",
-          lg: "gap-3",
-          xl: "gap-3"
+        },
+        text: {
+          md: "text-base/7",
         }
       }}
       themeDefaults={{
@@ -35,7 +34,7 @@ export function DocsMarkdown({md}: DocsMarkdownProps) {
         }
       }}
       theme={{
-        list: {base: "flex-col"}
+        list: {base: "flex-col"},
       }}
     >
       <Md

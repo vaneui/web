@@ -1,8 +1,8 @@
 'use client'
 
-import { Checkbox, Col, Row, ComponentKeys, Label, Text } from "@vaneui/ui";
+import { Checkbox, Col, Row, ComponentKeys, Label, Text, Link } from "@vaneui/ui";
 import React from "react";
-import { DocsPagePart } from "../types";
+import { DocsPagePart } from '../../types';
 
 export const checkboxExamples: DocsPagePart[] = [
   {
@@ -10,15 +10,15 @@ export const checkboxExamples: DocsPagePart[] = [
     md: 'Checkbox should be used inside a Label with matching `id`/`htmlFor`.',
     component: (
       <Col>
-        <Label primary htmlFor="demo6">
-          <Checkbox primary id="demo6" />
-          I agree to the Terms of Service and Privacy Policy.
+        <Label htmlFor="terms">
+          <Checkbox id="terms" />
+          I agree to the <Link href="#">Terms of Service</Link> and <Link href="#">Privacy Policy</Link>.
         </Label>
 
-        <Label primary htmlFor="demo1">
-          <Checkbox primary id="demo1" />
+        <Label htmlFor="emails">
+          <Checkbox defaultChecked id="emails" />
           <Col noGap tag="span">
-            <Text primary>Receive product updates</Text>
+            <Text>Receive product updates</Text>
             <Text xs secondary>Occasional emails about new features</Text>
           </Col>
         </Label>
@@ -39,12 +39,12 @@ export const checkboxExamples: DocsPagePart[] = [
   },
   {
     title: 'Sizes',
-    md: 'Checkboxes in different sizes (`xs`, `sm`, `md`, `lg`, `xl`), each wrapped in a Label.',
+    md: 'Checkboxes in different sizes - `xs`, `sm`, `md`, `lg`, `xl`, each wrapped in a Label. Use labels with same `size` as Checkboxes',
     component: (
       <Row flexWrap>
         {
           ComponentKeys.size.map((key: string) => (
-            <Label key={key} htmlFor={`size-${key}`} tag="span" className="mr-4">
+            <Label key={key} {...{[key]: true}} htmlFor={`size-${key}`}>
               <Checkbox id={`size-${key}`} {...{[key]: true}} defaultChecked />
               Size: {key}
             </Label>
@@ -60,8 +60,8 @@ export const checkboxExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.appearance.map((key: string) => (
-            <Label key={key} htmlFor={`appearance-${key}`} tag="span" className="mr-4">
-              <Checkbox id={`appearance-${key}`} {...{[key]: true}} defaultChecked />
+            <Label key={key} {...{[key]: true}} htmlFor={`appearance-${key}`}>
+              <Checkbox {...{[key]: true}} id={`appearance-${key}`} defaultChecked />
               Enable {key} style
             </Label>
           ))

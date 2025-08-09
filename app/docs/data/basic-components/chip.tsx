@@ -1,7 +1,7 @@
 'use client'
 
 import { Chip, Row, ComponentKeys } from "@vaneui/ui";
-import { DocsPagePart } from "../types";
+import { DocsPagePart } from '../../types';
 import { CheckSquare, Heart, X } from "react-feather";
 
 export const chipExamples: DocsPagePart[] = [

@@ -1,24 +1,22 @@
 'use client'
 
-import { Grid4, Text, Col } from "@vaneui/ui";
+import { Grid3, Text, Col } from "@vaneui/ui";
 import React from "react";
-import { DocsPagePart } from "../types";
+import { DocsPagePart } from '../../types';
 
-export const grid4Examples: DocsPagePart[] = [
+export const grid3Examples: DocsPagePart[] = [
   {
-    title: 'Basic Grid4',
-    md: 'A four-column grid layout.',
+    title: 'Basic Grid3',
+    md: 'A three-column grid layout.',
     component: (
-      <Grid4>
+      <Grid3>
         <div className="p-4 bg-gray-100 rounded">Item 1</div>
         <div className="p-4 bg-gray-100 rounded">Item 2</div>
         <div className="p-4 bg-gray-100 rounded">Item 3</div>
         <div className="p-4 bg-gray-100 rounded">Item 4</div>
         <div className="p-4 bg-gray-100 rounded">Item 5</div>
         <div className="p-4 bg-gray-100 rounded">Item 6</div>
-        <div className="p-4 bg-gray-100 rounded">Item 7</div>
-        <div className="p-4 bg-gray-100 rounded">Item 8</div>
-      </Grid4>
+      </Grid3>
     ),
   },
   {
@@ -27,22 +25,20 @@ export const grid4Examples: DocsPagePart[] = [
     component: (
       <Col lg>
         <div>
-          <Text semibold>Extra Small Grid4</Text>
-          <Grid4 xs>
+          <Text semibold>Extra Small Grid3</Text>
+          <Grid3 xs>
             <div className="p-2 bg-gray-100 rounded text-sm">Item 1</div>
             <div className="p-2 bg-gray-100 rounded text-sm">Item 2</div>
             <div className="p-2 bg-gray-100 rounded text-sm">Item 3</div>
-            <div className="p-2 bg-gray-100 rounded text-sm">Item 4</div>
-          </Grid4>
+          </Grid3>
         </div>
         <div>
-          <Text semibold>Large Grid4</Text>
-          <Grid4 lg>
+          <Text semibold>Large Grid3</Text>
+          <Grid3 lg>
             <div className="p-6 bg-gray-100 rounded">Item 1</div>
             <div className="p-6 bg-gray-100 rounded">Item 2</div>
             <div className="p-6 bg-gray-100 rounded">Item 3</div>
-            <div className="p-6 bg-gray-100 rounded">Item 4</div>
-          </Grid4>
+          </Grid3>
         </div>
       </Col>
     ),
@@ -54,21 +50,19 @@ export const grid4Examples: DocsPagePart[] = [
       <Col lg>
         <div>
           <Text semibold>No Gap</Text>
-          <Grid4 noGap>
+          <Grid3 noGap>
             <div className="p-4 bg-gray-100 border">Item 1</div>
             <div className="p-4 bg-gray-100 border">Item 2</div>
             <div className="p-4 bg-gray-100 border">Item 3</div>
-            <div className="p-4 bg-gray-100 border">Item 4</div>
-          </Grid4>
+          </Grid3>
         </div>
         <div>
           <Text semibold>With Gap</Text>
-          <Grid4 gap>
+          <Grid3 gap>
             <div className="p-4 bg-gray-100 rounded">Item 1</div>
             <div className="p-4 bg-gray-100 rounded">Item 2</div>
             <div className="p-4 bg-gray-100 rounded">Item 3</div>
-            <div className="p-4 bg-gray-100 rounded">Item 4</div>
-          </Grid4>
+          </Grid3>
         </div>
       </Col>
     ),
@@ -78,18 +72,16 @@ export const grid4Examples: DocsPagePart[] = [
     md: 'Grids can have different background appearances.',
     component: (
       <Col lg>
-        <Grid4 primary>
+        <Grid3 primary>
           <div className="p-4 bg-white rounded">Item 1</div>
           <div className="p-4 bg-white rounded">Item 2</div>
           <div className="p-4 bg-white rounded">Item 3</div>
-          <div className="p-4 bg-white rounded">Item 4</div>
-        </Grid4>
-        <Grid4 secondary>
+        </Grid3>
+        <Grid3 secondary>
           <div className="p-4 bg-white rounded">Item 1</div>
           <div className="p-4 bg-white rounded">Item 2</div>
           <div className="p-4 bg-white rounded">Item 3</div>
-          <div className="p-4 bg-white rounded">Item 4</div>
-        </Grid4>
+        </Grid3>
       </Col>
     ),
   },

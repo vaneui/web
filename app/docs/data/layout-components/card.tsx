@@ -2,7 +2,7 @@
 
 import { Card, Row, Text, ComponentKeys } from "@vaneui/ui";
 import React from "react";
-import { DocsPagePart } from "../types";
+import { DocsPagePart } from '../../types';
 
 export const cardExamples: DocsPagePart[] = [
   {

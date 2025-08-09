@@ -2,7 +2,7 @@
 
 import { List, ListItem, Text, Col } from "@vaneui/ui";
 import React from "react";
-import { DocsPagePart } from "../types";
+import { DocsPagePart } from '../../types';
 
 export const listExamples: DocsPagePart[] = [
   {

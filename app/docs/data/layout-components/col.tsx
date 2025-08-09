@@ -1,163 +1,163 @@
 'use client'
 
-import { Row, Col, Text } from "@vaneui/ui";
+import { Col, Row, Text } from "@vaneui/ui";
 import React from "react";
-import { DocsPagePart } from "../types";
+import { DocsPagePart } from '../../types';
 
-export const rowExamples: DocsPagePart[] = [
+export const colExamples: DocsPagePart[] = [
   {
-    title: 'Basic Row',
-    md: 'A horizontal flex container.',
+    title: 'Basic Col',
+    md: 'A vertical flex container.',
     component: (
-      <Row>
+      <Col>
         <div className="p-4 bg-gray-100 rounded">Item 1</div>
         <div className="p-4 bg-gray-100 rounded">Item 2</div>
         <div className="p-4 bg-gray-100 rounded">Item 3</div>
+      </Col>
+    ),
+  },
+  {
+    title: 'Col Sizes',
+    md: 'Cols come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.',
+    component: (
+      <Row>
+        <Col lg>
+          <Text semibold>Extra Small Col</Text>
+          <Col xs>
+            <div className="p-2 bg-gray-100 rounded text-sm">Item 1</div>
+            <div className="p-2 bg-gray-100 rounded text-sm">Item 2</div>
+            <div className="p-2 bg-gray-100 rounded text-sm">Item 3</div>
+          </Col>
+        </Col>
+        <Col lg>
+          <Text semibold>Large Col</Text>
+          <Col lg>
+            <div className="p-6 bg-gray-100 rounded">Item 1</div>
+            <div className="p-6 bg-gray-100 rounded">Item 2</div>
+            <div className="p-6 bg-gray-100 rounded">Item 3</div>
+          </Col>
+        </Col>
       </Row>
     ),
   },
   {
-    title: 'Row Sizes',
-    md: 'Rows come in different sizes.',
+    title: 'Col with Gap',
+    md: 'Control spacing between col items.',
     component: (
-      <Col lg>
-        <div>
-          <Text semibold>Extra Small Row</Text>
-          <Row xs>
-            <div className="p-2 bg-gray-100 rounded text-sm">Item 1</div>
-            <div className="p-2 bg-gray-100 rounded text-sm">Item 2</div>
-            <div className="p-2 bg-gray-100 rounded text-sm">Item 3</div>
-          </Row>
-        </div>
-        <div>
-          <Text semibold>Large Row</Text>
-          <Row lg>
-            <div className="p-6 bg-gray-100 rounded">Item 1</div>
-            <div className="p-6 bg-gray-100 rounded">Item 2</div>
-            <div className="p-6 bg-gray-100 rounded">Item 3</div>
-          </Row>
-        </div>
-      </Col>
-    ),
-  },
-  {
-    title: 'Row with Gap',
-    md: 'Control spacing between row items.',
-    component: (
-      <Col lg>
-        <div>
+      <Row>
+        <Col lg>
           <Text semibold>No Gap</Text>
-          <Row noGap>
+          <Col noGap>
             <div className="p-4 bg-gray-100 border">Item 1</div>
             <div className="p-4 bg-gray-100 border">Item 2</div>
             <div className="p-4 bg-gray-100 border">Item 3</div>
-          </Row>
-        </div>
-        <div>
+          </Col>
+        </Col>
+        <Col lg>
           <Text semibold>With Gap</Text>
-          <Row>
+          <Col>
             <div className="p-4 bg-gray-100 rounded">Item 1</div>
             <div className="p-4 bg-gray-100 rounded">Item 2</div>
             <div className="p-4 bg-gray-100 rounded">Item 3</div>
-          </Row>
-        </div>
-      </Col>
+          </Col>
+        </Col>
+      </Row>
     ),
   },
   {
-    title: 'Row Wrap Options',
-    md: 'Control how items wrap within the row.',
+    title: 'Col Wrap Options',
+    md: 'Control how items wrap within the col.',
     component: (
-      <Col lg>
-        <div>
+      <Row>
+        <Col lg>
           <Text semibold>Flex Wrap</Text>
-          <Row flexWrap className="max-w-md">
-            <div className="p-4 bg-gray-100 rounded">Long Item 1</div>
-            <div className="p-4 bg-gray-100 rounded">Long Item 2</div>
-            <div className="p-4 bg-gray-100 rounded">Long Item 3</div>
-            <div className="p-4 bg-gray-100 rounded">Long Item 4</div>
-          </Row>
-        </div>
-        <div>
+          <Col flexWrap className="max-h-40">
+            <div className="p-4 bg-gray-100 rounded">Tall Item 1</div>
+            <div className="p-4 bg-gray-100 rounded">Tall Item 2</div>
+            <div className="p-4 bg-gray-100 rounded">Tall Item 3</div>
+            <div className="p-4 bg-gray-100 rounded">Tall Item 4</div>
+          </Col>
+        </Col>
+        <Col lg>
           <Text semibold>No Wrap</Text>
-          <Row flexNoWrap className="max-w-md">
-            <div className="p-4 bg-gray-100 rounded">Long Item 1</div>
-            <div className="p-4 bg-gray-100 rounded">Long Item 2</div>
-            <div className="p-4 bg-gray-100 rounded">Long Item 3</div>
-          </Row>
-        </div>
-      </Col>
+          <Col flexNoWrap className="max-h-40">
+            <div className="p-4 bg-gray-100 rounded">Tall Item 1</div>
+            <div className="p-4 bg-gray-100 rounded">Tall Item 2</div>
+            <div className="p-4 bg-gray-100 rounded">Tall Item 3</div>
+          </Col>
+        </Col>
+      </Row>
     ),
   },
   {
-    title: 'Row Justification',
+    title: 'Col Justification',
     md: 'Control how items are distributed along the main axis.',
     component: (
-      <div className="space-y-4 min-w-80">
-        <Col>
+      <Row>
+        <Col lg>
           <Text semibold>Justify Start</Text>
-          <Row justifyStart className="w-full border-2 border-dashed border-gray-300">
+          <Col justifyStart className="h-40 border-2 border-dashed border-gray-300">
             <div className="p-4 bg-gray-100 rounded">Item 1</div>
             <div className="p-4 bg-gray-100 rounded">Item 2</div>
-          </Row>
+          </Col>
         </Col>
-        <Col>
+        <Col lg>
           <Text semibold>Justify Center</Text>
-          <Row justifyCenter className="w-full border-2 border-dashed border-gray-300">
+          <Col justifyCenter className="h-40 border-2 border-dashed border-gray-300">
             <div className="p-4 bg-gray-100 rounded">Item 1</div>
             <div className="p-4 bg-gray-100 rounded">Item 2</div>
-          </Row>
+          </Col>
         </Col>
-        <Col>
+        <Col lg>
           <Text semibold>Justify Between</Text>
-          <Row justifyBetween className="w-full border-2 border-dashed border-gray-300">
+          <Col justifyBetween className="h-40 border-2 border-dashed border-gray-300">
             <div className="p-4 bg-gray-100 rounded">Item 1</div>
             <div className="p-4 bg-gray-100 rounded">Item 2</div>
-          </Row>
+          </Col>
         </Col>
-      </div>
+      </Row>
     ),
   },
   {
-    title: 'Row Appearances',
-    md: 'Rows can have different background appearances.',
+    title: 'Col Appearances',
+    md: 'Cols can have different background appearances.',
     component: (
-      <Col lg>
-        <Row primary>
+      <Row>
+        <Col primary>
           <div className="p-4 bg-white rounded">Item 1</div>
           <div className="p-4 bg-white rounded">Item 2</div>
           <div className="p-4 bg-white rounded">Item 3</div>
-        </Row>
-        <Row secondary>
+        </Col>
+        <Col secondary>
           <div className="p-4 bg-white rounded">Item 1</div>
           <div className="p-4 bg-white rounded">Item 2</div>
           <div className="p-4 bg-white rounded">Item 3</div>
-        </Row>
-      </Col>
+        </Col>
+      </Row>
     ),
   },
   {
-    title: 'Row Reverse',
-    md: 'Reverse the order of items in the row.',
+    title: 'Col Reverse',
+    md: 'Reverse the order of items in the col.',
     component: (
-      <Col lg>
-        <div>
+      <Row>
+        <Col lg>
           <Text semibold>Normal Order</Text>
-          <Row>
+          <Col>
             <div className="p-4 bg-gray-100 rounded">First</div>
             <div className="p-4 bg-gray-200 rounded">Second</div>
             <div className="p-4 bg-gray-300 rounded">Third</div>
-          </Row>
-        </div>
-        <div>
+          </Col>
+        </Col>
+        <Col lg>
           <Text semibold>Reverse Order</Text>
-          <Row reverse>
+          <Col reverse>
             <div className="p-4 bg-gray-100 rounded">First</div>
             <div className="p-4 bg-gray-200 rounded">Second</div>
             <div className="p-4 bg-gray-300 rounded">Third</div>
-          </Row>
-        </div>
-      </Col>
+          </Col>
+        </Col>
+      </Row>
     ),
   },
 ];

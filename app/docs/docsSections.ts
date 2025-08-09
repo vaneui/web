@@ -1,26 +1,26 @@
 import { BookOpen, Box, FileText, Layers, Settings } from "react-feather";
 import { DocsSection } from "./types";
-import { buttonExamples } from "./data/button";
-import { badgeExamples } from "./data/badge";
-import { chipExamples } from "./data/chip";
-import { checkboxExamples } from "./data/checkbox";
-import { labelExamples } from "./data/label";
-import { codeExamples } from "./data/code";
-import { rowExamples } from "./data/row";
-import { colExamples } from "./data/col";
-import { cardExamples } from "./data/card";
-import { stackExamples } from "./data/stack";
-import { containerExamples } from "./data/container";
-import { sectionExamples } from "./data/section";
-import { dividerExamples } from "./data/divider";
-import { textExamples } from "./data/text";
-import { titleExamples } from "./data/title";
-import { pageTitleExamples } from "./data/pagetitle";
-import { sectionTitleExamples } from "./data/sectiontitle";
-import { linkExamples } from "./data/link";
-import { listExamples } from "./data/list";
-import { grid3Examples } from "./data/grid3";
-import { grid4Examples } from "./data/grid4";
+import { buttonExamples } from "./data/basic-components/button";
+import { badgeExamples } from "./data/basic-components/badge";
+import { chipExamples } from "./data/basic-components/chip";
+import { checkboxExamples } from "./data/basic-components/checkbox";
+import { labelExamples } from "./data/basic-components/label";
+import { codeExamples } from "./data/basic-components/code";
+import { rowExamples } from "./data/layout-components/row";
+import { colExamples } from "./data/layout-components/col";
+import { cardExamples } from "./data/layout-components/card";
+import { stackExamples } from "./data/layout-components/stack";
+import { containerExamples } from "./data/layout-components/container";
+import { sectionExamples } from "./data/layout-components/section";
+import { dividerExamples } from "./data/basic-components/divider";
+import { textExamples } from "./data/typography-components/text";
+import { titleExamples } from "./data/typography-components/title";
+import { pageTitleExamples } from "./data/typography-components/pagetitle";
+import { sectionTitleExamples } from "./data/typography-components/sectiontitle";
+import { linkExamples } from "./data/typography-components/link";
+import { listExamples } from "./data/typography-components/list";
+import { grid3Examples } from "./data/layout-components/grid3";
+import { grid4Examples } from "./data/layout-components/grid4";
 
 
 export const docsSections: DocsSection[] = [

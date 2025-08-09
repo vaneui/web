@@ -2,7 +2,7 @@
 
 import { Container, Text, Col, ComponentKeys } from "@vaneui/ui";
 import React from "react";
-import { DocsPagePart } from "../types";
+import { DocsPagePart } from '../../types';
 
 export const containerExamples: DocsPagePart[] = [
   {
