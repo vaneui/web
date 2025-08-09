@@ -33,7 +33,7 @@ export function DocsPageContent(
         {examples.map((example, index) => (
           <Col key={index} className="w-full">
             <Title>{example.title}</Title>
-            <Text>{example.description}</Text>
+            <DocsMarkdown md={example.md}/>
             <Card xs sharp itemsCenter className="w-full">
               <Stack xl itemsCenter className="overflow-x-auto w-full overflow-y-visible">
                 {example.component}

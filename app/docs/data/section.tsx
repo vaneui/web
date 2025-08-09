@@ -7,7 +7,7 @@ import { DocsComponentExample } from "../types";
 export const sectionExamples: DocsComponentExample[] = [
   {
     title: 'Basic Section',
-    description: 'A semantic container for grouping related content.',
+    md: 'A semantic container for grouping related content.',
     component: (
       <Section>
         <Text semibold>Section Title</Text>
@@ -17,7 +17,7 @@ export const sectionExamples: DocsComponentExample[] = [
   },
   {
     title: 'Section Sizes',
-    description: 'Sections come in different sizes.',
+    md: 'Sections come in different sizes.',
     component: (
       <Col lg>
         {
@@ -33,7 +33,7 @@ export const sectionExamples: DocsComponentExample[] = [
   },
   {
     title: 'Section Appearances',
-    description: 'Sections can have different background appearances.',
+    md: 'Sections can have different background appearances.',
     component: (
       <Col lg>
         <Section primary>
@@ -57,7 +57,7 @@ export const sectionExamples: DocsComponentExample[] = [
   },
   {
     title: 'Section Flex Direction',
-    description: 'Control the direction of section content.',
+    md: 'Control the direction of section content.',
     component: (
       <Col lg>
         <Section column>
@@ -75,7 +75,7 @@ export const sectionExamples: DocsComponentExample[] = [
   },
   {
     title: 'Section with Padding',
-    description: 'Control section internal padding.',
+    md: 'Control section internal padding.',
     component: (
       <Col lg>
         <Section padding className="border-2 border-dashed border-gray-300">
@@ -93,7 +93,7 @@ export const sectionExamples: DocsComponentExample[] = [
   },
   {
     title: 'Section with Gap',
-    description: 'Control spacing between section content.',
+    md: 'Control spacing between section content.',
     component: (
       <Col lg>
         <Section gap>
@@ -111,7 +111,7 @@ export const sectionExamples: DocsComponentExample[] = [
   },
   {
     title: 'Section Borders',
-    description: 'Control section border appearance.',
+    md: 'Control section border appearance.',
     component: (
       <Col lg>
         <Section border>
@@ -127,7 +127,7 @@ export const sectionExamples: DocsComponentExample[] = [
   },
   {
     title: 'Section Shapes',
-    description: 'Sections support different border radius styles.',
+    md: 'Sections support different border radius styles.',
     component: (
       <Col lg>
         <Section>
@@ -147,7 +147,7 @@ export const sectionExamples: DocsComponentExample[] = [
   },
   {
     title: 'Section with Shadow',
-    description: 'Sections can have drop shadows.',
+    md: 'Sections can have drop shadows.',
     component: (
       <Col lg>
         <Section shadow>
@@ -163,7 +163,7 @@ export const sectionExamples: DocsComponentExample[] = [
   },
   {
     title: 'Section with Ring',
-    description: 'Sections can have focus rings.',
+    md: 'Sections can have focus rings.',
     component: (
       <Col lg>
         <Section ring>
@@ -179,7 +179,7 @@ export const sectionExamples: DocsComponentExample[] = [
   },
   {
     title: 'Section Reverse',
-    description: 'Reverse the order of items in the section.',
+    md: 'Reverse the order of items in the section.',
     component: (
       <Col lg>
         <Section>

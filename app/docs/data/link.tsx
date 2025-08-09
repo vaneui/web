@@ -7,14 +7,14 @@ import { DocsComponentExample } from "../types";
 export const linkExamples: DocsComponentExample[] = [
   {
     title: 'Basic Link',
-    description: 'Default link styling.',
+    md: 'Default link styling.',
     component: (
       <Link href="#basic-link">This is a Basic Link</Link>
     ),
   },
   {
     title: 'Link Sizes',
-    description: 'Links come in different sizes.',
+    md: 'Links come in different sizes.',
     component: (
       <Row flexWrap>
         {
@@ -27,7 +27,7 @@ export const linkExamples: DocsComponentExample[] = [
   },
   {
     title: 'Link Font Weights',
-    description: 'Links support different font weights.',
+    md: 'Links support different font weights.',
     component: (
       <Row flexWrap>
         {
@@ -40,7 +40,7 @@ export const linkExamples: DocsComponentExample[] = [
   },
   {
     title: 'Link Appearances',
-    description: 'Links can have different color appearances.',
+    md: 'Links can have different color appearances.',
     component: (
       <Row flexWrap>
         {
@@ -53,7 +53,7 @@ export const linkExamples: DocsComponentExample[] = [
   },
   {
     title: 'Link Font Families',
-    description: 'Links support different font families.',
+    md: 'Links support different font families.',
     component: (
       <Row flexWrap>
         {
@@ -66,7 +66,7 @@ export const linkExamples: DocsComponentExample[] = [
   },
   {
     title: 'Link Text Decorations',
-    description: 'Links support different text decorations.',
+    md: 'Links support different text decorations.',
     component: (
       <Row flexWrap>
         {
@@ -79,7 +79,7 @@ export const linkExamples: DocsComponentExample[] = [
   },
   {
     title: 'Link Font Styles',
-    description: 'Links support different font styles.',
+    md: 'Links support different font styles.',
     component: (
       <Row flexWrap>
         {
@@ -92,7 +92,7 @@ export const linkExamples: DocsComponentExample[] = [
   },
   {
     title: 'Link Transformations',
-    description: 'Links support different case transformations.',
+    md: 'Links support different case transformations.',
     component: (
       <Row flexWrap>
         {
@@ -105,7 +105,7 @@ export const linkExamples: DocsComponentExample[] = [
   },
   {
     title: 'Link Alignment',
-    description: 'Links can be aligned differently.',
+    md: 'Links can be aligned differently.',
     component: (
       <Col className="border-2 border-dashed border-gray-300 p-4 min-w-80">
         <Link className="w-full" href="#left-link" textLeft>Left Aligned</Link>
@@ -116,7 +116,7 @@ export const linkExamples: DocsComponentExample[] = [
   },
   {
     title: 'Link Combinations',
-    description: 'Combining multiple link properties.',
+    md: 'Combining multiple link properties.',
     component: (
       <Col>
         <Link href="#combo1" lg bold primary>Large Bold Primary Link</Link>

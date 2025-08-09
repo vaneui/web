@@ -7,7 +7,7 @@ import { DocsComponentExample } from "../types";
 export const rowExamples: DocsComponentExample[] = [
   {
     title: 'Basic Row',
-    description: 'A horizontal flex container.',
+    md: 'A horizontal flex container.',
     component: (
       <Row>
         <div className="p-4 bg-gray-100 rounded">Item 1</div>
@@ -18,7 +18,7 @@ export const rowExamples: DocsComponentExample[] = [
   },
   {
     title: 'Row Sizes',
-    description: 'Rows come in different sizes.',
+    md: 'Rows come in different sizes.',
     component: (
       <Col lg>
         <div>
@@ -42,7 +42,7 @@ export const rowExamples: DocsComponentExample[] = [
   },
   {
     title: 'Row with Gap',
-    description: 'Control spacing between row items.',
+    md: 'Control spacing between row items.',
     component: (
       <Col lg>
         <div>
@@ -66,7 +66,7 @@ export const rowExamples: DocsComponentExample[] = [
   },
   {
     title: 'Row Wrap Options',
-    description: 'Control how items wrap within the row.',
+    md: 'Control how items wrap within the row.',
     component: (
       <Col lg>
         <div>
@@ -91,7 +91,7 @@ export const rowExamples: DocsComponentExample[] = [
   },
   {
     title: 'Row Justification',
-    description: 'Control how items are distributed along the main axis.',
+    md: 'Control how items are distributed along the main axis.',
     component: (
       <div className="space-y-4 min-w-80">
         <Col>
@@ -120,7 +120,7 @@ export const rowExamples: DocsComponentExample[] = [
   },
   {
     title: 'Row Appearances',
-    description: 'Rows can have different background appearances.',
+    md: 'Rows can have different background appearances.',
     component: (
       <Col lg>
         <Row primary>
@@ -138,7 +138,7 @@ export const rowExamples: DocsComponentExample[] = [
   },
   {
     title: 'Row Reverse',
-    description: 'Reverse the order of items in the row.',
+    md: 'Reverse the order of items in the row.',
     component: (
       <Col lg>
         <div>

@@ -7,7 +7,7 @@ import { DocsComponentExample } from "../types";
 export const checkboxExamples: DocsComponentExample[] = [
   {
     title: 'Basic Usage',
-    description: 'Checkbox should be used inside a Label with matching id/htmlFor.',
+    md: 'Checkbox should be used inside a Label with matching id/htmlFor.',
     component: (
       <Col>
         <Label primary htmlFor="demo6">
@@ -27,7 +27,7 @@ export const checkboxExamples: DocsComponentExample[] = [
   },
   {
     title: 'Pre-checked Checkbox',
-    description: 'Use defaultChecked on the input; wrap in Label for accessible click target.',
+    md: 'Use defaultChecked on the input; wrap in Label for accessible click target.',
     component: (
       <Col>
         <Label htmlFor="prechecked-1">
@@ -39,7 +39,7 @@ export const checkboxExamples: DocsComponentExample[] = [
   },
   {
     title: 'Sizes',
-    description: 'Checkboxes in different sizes (xs, sm, md, lg, xl), each wrapped in a Label.',
+    md: 'Checkboxes in different sizes (xs, sm, md, lg, xl), each wrapped in a Label.',
     component: (
       <Row flexWrap>
         {
@@ -55,7 +55,7 @@ export const checkboxExamples: DocsComponentExample[] = [
   },
   {
     title: 'Appearances',
-    description: 'Different color appearances applied to the Checkbox; always place inside a Label.',
+    md: 'Different color appearances applied to the Checkbox; always place inside a Label.',
     component: (
       <Row flexWrap>
         {
@@ -71,7 +71,7 @@ export const checkboxExamples: DocsComponentExample[] = [
   },
   {
     title: 'Checkbox Group',
-    description: 'Multiple labeled checkboxes working together.',
+    md: 'Multiple labeled checkboxes working together.',
     component: (
       <Col>
         <Label htmlFor="opt-1">

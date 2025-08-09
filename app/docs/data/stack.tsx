@@ -7,7 +7,7 @@ import { DocsComponentExample } from "../types";
 export const stackExamples: DocsComponentExample[] = [
   {
     title: 'Basic Stack',
-    description: 'A flexible layout container.',
+    md: 'A flexible layout container.',
     component: (
       <Stack>
         <div className="p-4 bg-gray-100 rounded">Item 1</div>
@@ -18,7 +18,7 @@ export const stackExamples: DocsComponentExample[] = [
   },
   {
     title: 'Stack Sizes',
-    description: 'Stacks come in different sizes.',
+    md: 'Stacks come in different sizes.',
     component: (
       <Row flexWrap>
         <Col lg>
@@ -42,7 +42,7 @@ export const stackExamples: DocsComponentExample[] = [
   },
   {
     title: 'Stack with Gap',
-    description: 'Control spacing between stack items.',
+    md: 'Control spacing between stack items.',
     component: (
       <Row flexWrap>
         <Col lg>
@@ -66,7 +66,7 @@ export const stackExamples: DocsComponentExample[] = [
   },
   {
     title: 'Stack Flex Direction',
-    description: 'Control the direction of stack content.',
+    md: 'Control the direction of stack content.',
     component: (
       <Row flexWrap>
         <Col lg>
@@ -90,7 +90,7 @@ export const stackExamples: DocsComponentExample[] = [
   },
   {
     title: 'Stack Wrap Options',
-    description: 'Control how items wrap within the stack.',
+    md: 'Control how items wrap within the stack.',
     component: (
       <Row flexWrap>
         <Col lg>
@@ -115,7 +115,7 @@ export const stackExamples: DocsComponentExample[] = [
   },
   {
     title: 'Stack Justification',
-    description: 'Control how items are distributed along the main axis.',
+    md: 'Control how items are distributed along the main axis.',
     component: (
       <Row flexWrap>
         <Col lg>
@@ -144,7 +144,7 @@ export const stackExamples: DocsComponentExample[] = [
   },
   {
     title: 'Stack Appearances',
-    description: 'Stacks can have different background appearances.',
+    md: 'Stacks can have different background appearances.',
     component: (
       <Row flexWrap>
         {
@@ -161,7 +161,7 @@ export const stackExamples: DocsComponentExample[] = [
   },
   {
     title: 'Stack Reverse',
-    description: 'Reverse the order of items in the stack.',
+    md: 'Reverse the order of items in the stack.',
     component: (
       <Row flexWrap>
         <Col lg>
@@ -185,7 +185,7 @@ export const stackExamples: DocsComponentExample[] = [
   },
   {
     title: 'Stack with Padding',
-    description: 'Control stack internal padding.',
+    md: 'Control stack internal padding.',
     component: (
       <Row flexWrap>
         <Stack padding className="border-2 border-dashed border-gray-300">

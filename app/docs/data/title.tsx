@@ -7,14 +7,14 @@ import { DocsComponentExample } from "../types";
 export const titleExamples: DocsComponentExample[] = [
   {
     title: 'Basic Title',
-    description: 'Default title styling.',
+    md: 'Default title styling.',
     component: (
       <Title>This is a Basic Title</Title>
     ),
   },
   {
     title: 'Title Sizes',
-    description: 'Titles come in different sizes.',
+    md: 'Titles come in different sizes.',
     component: (
       <Col lg>
         {
@@ -27,7 +27,7 @@ export const titleExamples: DocsComponentExample[] = [
   },
   {
     title: 'Title Font Weights',
-    description: 'Titles support different font weights.',
+    md: 'Titles support different font weights.',
     component: (
       <Col lg>
         {
@@ -40,7 +40,7 @@ export const titleExamples: DocsComponentExample[] = [
   },
   {
     title: 'Title Appearances',
-    description: 'Titles can have different color appearances.',
+    md: 'Titles can have different color appearances.',
     component: (
       <Col lg>
         {
@@ -53,7 +53,7 @@ export const titleExamples: DocsComponentExample[] = [
   },
   {
     title: 'Title Font Families',
-    description: 'Titles support different font families.',
+    md: 'Titles support different font families.',
     component: (
       <Col lg>
         {
@@ -66,7 +66,7 @@ export const titleExamples: DocsComponentExample[] = [
   },
   {
     title: 'Title Styles',
-    description: 'Titles support different styles and decorations.',
+    md: 'Titles support different styles and decorations.',
     component: (
       <Col lg>
         {
@@ -79,7 +79,7 @@ export const titleExamples: DocsComponentExample[] = [
   },
   {
     title: 'Title Transformations',
-    description: 'Titles support different case transformations.',
+    md: 'Titles support different case transformations.',
     component: (
       <Col lg>
         {
@@ -92,7 +92,7 @@ export const titleExamples: DocsComponentExample[] = [
   },
   {
     title: 'Title Alignment',
-    description: 'Titles can be aligned differently.',
+    md: 'Titles can be aligned differently.',
     component: (
       <div className="space-y-4 border-2 border-dashed border-gray-300 p-4">
         <Title textLeft>Left Aligned Title</Title>
@@ -103,7 +103,7 @@ export const titleExamples: DocsComponentExample[] = [
   },
   {
     title: 'Title Combinations',
-    description: 'Combining multiple title properties.',
+    md: 'Combining multiple title properties.',
     component: (
       <Col lg>
         <Title lg bold primary>Large Bold Primary Title</Title>

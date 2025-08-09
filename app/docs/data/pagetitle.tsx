@@ -7,14 +7,14 @@ import { DocsComponentExample } from "../types";
 export const pageTitleExamples: DocsComponentExample[] = [
   {
     title: 'Basic PageTitle',
-    description: 'Default page title styling.',
+    md: 'Default page title styling.',
     component: (
       <PageTitle>This is a Basic Page Title</PageTitle>
     ),
   },
   {
     title: 'PageTitle Sizes',
-    description: 'Page titles come in different sizes.',
+    md: 'Page titles come in different sizes.',
     component: (
       <Col lg>
         {
@@ -27,7 +27,7 @@ export const pageTitleExamples: DocsComponentExample[] = [
   },
   {
     title: 'PageTitle Font Weights',
-    description: 'Page titles support different font weights.',
+    md: 'Page titles support different font weights.',
     component: (
       <Col lg>
         {
@@ -40,7 +40,7 @@ export const pageTitleExamples: DocsComponentExample[] = [
   },
   {
     title: 'PageTitle Appearances',
-    description: 'Page titles can have different color appearances.',
+    md: 'Page titles can have different color appearances.',
     component: (
       <Col lg>
         {
@@ -53,7 +53,7 @@ export const pageTitleExamples: DocsComponentExample[] = [
   },
   {
     title: 'PageTitle Font Families',
-    description: 'Page titles support different font families.',
+    md: 'Page titles support different font families.',
     component: (
       <Col lg>
         {
@@ -66,7 +66,7 @@ export const pageTitleExamples: DocsComponentExample[] = [
   },
   {
     title: 'PageTitle Styles',
-    description: 'Page titles support different styles and decorations.',
+    md: 'Page titles support different styles and decorations.',
     component: (
       <Col lg>
         {
@@ -79,7 +79,7 @@ export const pageTitleExamples: DocsComponentExample[] = [
   },
   {
     title: 'PageTitle Transformations',
-    description: 'Page titles support different case transformations.',
+    md: 'Page titles support different case transformations.',
     component: (
       <Col lg>
         {
@@ -92,7 +92,7 @@ export const pageTitleExamples: DocsComponentExample[] = [
   },
   {
     title: 'PageTitle Alignment',
-    description: 'Page titles can be aligned differently.',
+    md: 'Page titles can be aligned differently.',
     component: (
       <div className="space-y-4 border-2 border-dashed border-gray-300 p-4">
         <PageTitle textLeft>Left Aligned Page Title</PageTitle>
@@ -103,7 +103,7 @@ export const pageTitleExamples: DocsComponentExample[] = [
   },
   {
     title: 'PageTitle Combinations',
-    description: 'Combining multiple page title properties.',
+    md: 'Combining multiple page title properties.',
     component: (
       <Col lg>
         <PageTitle lg bold primary>Large Bold Primary Page Title</PageTitle>

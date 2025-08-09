@@ -7,7 +7,7 @@ import { DocsComponentExample } from "../types";
 export const badgeExamples: DocsComponentExample[] = [
   {
     title: 'Basic Usage',
-    description: 'Default badge styles and variants.',
+    md: 'Default badge styles and variants.',
     component: (
       <Row flexWrap>
         {
@@ -20,7 +20,7 @@ export const badgeExamples: DocsComponentExample[] = [
   },
   {
     title: 'Badge Sizes',
-    description: 'Badges come in different sizes.',
+    md: 'Badges come in different sizes.',
     component: (
       <Row flexWrap>
         {

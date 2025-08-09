@@ -7,7 +7,7 @@ import { DocsComponentExample } from "../types";
 export const dividerExamples: DocsComponentExample[] = [
   {
     title: 'Basic Divider',
-    description: 'A simple horizontal divider.',
+    md: 'A simple horizontal divider.',
     component: (
       <div>
         <Text>Content above the divider</Text>
@@ -18,7 +18,7 @@ export const dividerExamples: DocsComponentExample[] = [
   },
   {
     title: 'Divider Sizes',
-    description: 'Dividers come in different sizes.',
+    md: 'Dividers come in different sizes.',
     component: (
       <Col lg>
         {
@@ -35,7 +35,7 @@ export const dividerExamples: DocsComponentExample[] = [
   },
   {
     title: 'Divider Appearances',
-    description: 'Dividers can have different appearances.',
+    md: 'Dividers can have different appearances.',
     component: (
       <Col lg>
         {
@@ -52,7 +52,7 @@ export const dividerExamples: DocsComponentExample[] = [
   },
   {
     title: 'Divider in Lists',
-    description: 'Dividers used to separate list items.',
+    md: 'Dividers used to separate list items.',
     component: (
       <Col>
         <div className="p-4 bg-gray-50 rounded">
@@ -74,7 +74,7 @@ export const dividerExamples: DocsComponentExample[] = [
   },
   {
     title: 'Divider in Sections',
-    description: 'Dividers used to separate content sections.',
+    md: 'Dividers used to separate content sections.',
     component: (
       <Col lg>
         <div>

@@ -7,7 +7,7 @@ import { DocsComponentExample } from "../types";
 export const listExamples: DocsComponentExample[] = [
   {
     title: 'Basic List',
-    description: 'A simple list with items.',
+    md: 'A simple list with items.',
     component: (
       <List>
         <ListItem>First list item</ListItem>
@@ -18,7 +18,7 @@ export const listExamples: DocsComponentExample[] = [
   },
   {
     title: 'List Sizes',
-    description: 'Lists come in different sizes.',
+    md: 'Lists come in different sizes.',
     component: (
       <Col lg>
         <div>
@@ -42,7 +42,7 @@ export const listExamples: DocsComponentExample[] = [
   },
   {
     title: 'List Font Weights',
-    description: 'Lists support different font weights.',
+    md: 'Lists support different font weights.',
     component: (
       <Col lg>
         <List thin>
@@ -62,7 +62,7 @@ export const listExamples: DocsComponentExample[] = [
   },
   {
     title: 'List Appearances',
-    description: 'Lists can have different color appearances.',
+    md: 'Lists can have different color appearances.',
     component: (
       <Col lg>
         <List primary>
@@ -86,7 +86,7 @@ export const listExamples: DocsComponentExample[] = [
   },
   {
     title: 'List Font Families',
-    description: 'Lists support different font families.',
+    md: 'Lists support different font families.',
     component: (
       <Col lg>
         <List sans>
@@ -106,7 +106,7 @@ export const listExamples: DocsComponentExample[] = [
   },
   {
     title: 'List Styles',
-    description: 'Lists support different styles and decorations.',
+    md: 'Lists support different styles and decorations.',
     component: (
       <Col lg>
         <List italic>
@@ -122,7 +122,7 @@ export const listExamples: DocsComponentExample[] = [
   },
   {
     title: 'List Transformations',
-    description: 'Lists support different case transformations.',
+    md: 'Lists support different case transformations.',
     component: (
       <Col lg>
         <List uppercase>
@@ -142,7 +142,7 @@ export const listExamples: DocsComponentExample[] = [
   },
   {
     title: 'List Alignment',
-    description: 'Lists can be aligned differently.',
+    md: 'Lists can be aligned differently.',
     component: (
       <div className="space-y-4 border-2 border-dashed border-gray-300 p-4">
         <List textLeft>
@@ -162,7 +162,7 @@ export const listExamples: DocsComponentExample[] = [
   },
   {
     title: 'Mixed List Items',
-    description: 'List items can have different individual styling.',
+    md: 'List items can have different individual styling.',
     component: (
       <List>
         <ListItem>Regular list item</ListItem>
@@ -175,7 +175,7 @@ export const listExamples: DocsComponentExample[] = [
   },
   {
     title: 'Nested Lists',
-    description: 'Lists can contain nested sublists for hierarchical content.',
+    md: 'Lists can contain nested sublists for hierarchical content.',
     component: (
       <List>
         <ListItem>First level item 1</ListItem>

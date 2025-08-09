@@ -7,7 +7,7 @@ import { DocsComponentExample } from "../types";
 export const containerExamples: DocsComponentExample[] = [
   {
     title: 'Basic Container',
-    description: 'A centered container with max-width.',
+    md: 'A centered container with max-width.',
     component: (
       <Container>
         <div className="p-4 bg-gray-100 rounded">
@@ -18,7 +18,7 @@ export const containerExamples: DocsComponentExample[] = [
   },
   {
     title: 'Container Sizes',
-    description: 'Containers come in different sizes.',
+    md: 'Containers come in different sizes.',
     component: (
       <Col lg>
         {
@@ -38,7 +38,7 @@ export const containerExamples: DocsComponentExample[] = [
   },
   {
     title: 'Container Appearances',
-    description: 'Containers can have different background appearances.',
+    md: 'Containers can have different background appearances.',
     component: (
       <Col lg>
         <Container primary>
@@ -61,7 +61,7 @@ export const containerExamples: DocsComponentExample[] = [
   },
   {
     title: 'Container Borders',
-    description: 'Control container border appearance.',
+    md: 'Control container border appearance.',
     component: (
       <Col lg>
         <Container border>
@@ -79,7 +79,7 @@ export const containerExamples: DocsComponentExample[] = [
   },
   {
     title: 'Container Shapes',
-    description: 'Containers support different border radius styles.',
+    md: 'Containers support different border radius styles.',
     component: (
       <Col lg>
         <Container>
@@ -102,7 +102,7 @@ export const containerExamples: DocsComponentExample[] = [
   },
   {
     title: 'Container with Shadow',
-    description: 'Containers can have drop shadows.',
+    md: 'Containers can have drop shadows.',
     component: (
       <Col lg>
         <Container shadow>
@@ -120,7 +120,7 @@ export const containerExamples: DocsComponentExample[] = [
   },
   {
     title: 'Container with Ring',
-    description: 'Containers can have focus rings.',
+    md: 'Containers can have focus rings.',
     component: (
       <Col lg>
         <Container ring>
@@ -138,7 +138,7 @@ export const containerExamples: DocsComponentExample[] = [
   },
   {
     title: 'Container with Gap',
-    description: 'Control spacing between container content.',
+    md: 'Control spacing between container content.',
     component: (
       <Col lg>
         <Container gap>

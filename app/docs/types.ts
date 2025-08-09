@@ -3,7 +3,7 @@ import { Icon } from "react-feather";
 
 export interface DocsComponentExample {
   title: string;
-  description: string;
+  md: string;
   component: JSX.Element;
 }
 

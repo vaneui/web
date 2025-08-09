@@ -7,14 +7,14 @@ import { DocsComponentExample } from "../types";
 export const sectionTitleExamples: DocsComponentExample[] = [
   {
     title: 'Basic SectionTitle',
-    description: 'Default section title styling.',
+    md: 'Default section title styling.',
     component: (
       <SectionTitle>This is a Basic Section Title</SectionTitle>
     ),
   },
   {
     title: 'SectionTitle Sizes',
-    description: 'Section titles come in different sizes.',
+    md: 'Section titles come in different sizes.',
     component: (
       <Col lg>
         {
@@ -27,7 +27,7 @@ export const sectionTitleExamples: DocsComponentExample[] = [
   },
   {
     title: 'SectionTitle Font Weights',
-    description: 'Section titles support different font weights.',
+    md: 'Section titles support different font weights.',
     component: (
       <Col lg>
         {
@@ -40,7 +40,7 @@ export const sectionTitleExamples: DocsComponentExample[] = [
   },
   {
     title: 'SectionTitle Appearances',
-    description: 'Section titles can have different color appearances.',
+    md: 'Section titles can have different color appearances.',
     component: (
       <Col lg>
         {
@@ -53,7 +53,7 @@ export const sectionTitleExamples: DocsComponentExample[] = [
   },
   {
     title: 'SectionTitle Font Families',
-    description: 'Section titles support different font families.',
+    md: 'Section titles support different font families.',
     component: (
       <Col lg>
         {
@@ -66,7 +66,7 @@ export const sectionTitleExamples: DocsComponentExample[] = [
   },
   {
     title: 'SectionTitle Styles',
-    description: 'Section titles support different styles and decorations.',
+    md: 'Section titles support different styles and decorations.',
     component: (
       <Col lg>
         {
@@ -79,7 +79,7 @@ export const sectionTitleExamples: DocsComponentExample[] = [
   },
   {
     title: 'SectionTitle Transformations',
-    description: 'Section titles support different case transformations.',
+    md: 'Section titles support different case transformations.',
     component: (
       <Col lg>
         {
@@ -92,7 +92,7 @@ export const sectionTitleExamples: DocsComponentExample[] = [
   },
   {
     title: 'SectionTitle Alignment',
-    description: 'Section titles can be aligned differently.',
+    md: 'Section titles can be aligned differently.',
     component: (
       <div className="space-y-4 border-2 border-dashed border-gray-300 p-4">
         <SectionTitle textLeft>Left Aligned Section Title</SectionTitle>
@@ -103,7 +103,7 @@ export const sectionTitleExamples: DocsComponentExample[] = [
   },
   {
     title: 'SectionTitle Combinations',
-    description: 'Combining multiple section title properties.',
+    md: 'Combining multiple section title properties.',
     component: (
       <Col lg>
         <SectionTitle lg bold primary>Large Bold Primary Section Title</SectionTitle>

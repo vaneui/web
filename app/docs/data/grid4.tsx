@@ -7,7 +7,7 @@ import { DocsComponentExample } from "../types";
 export const grid4Examples: DocsComponentExample[] = [
   {
     title: 'Basic Grid4',
-    description: 'A four-column grid layout.',
+    md: 'A four-column grid layout.',
     component: (
       <Grid4>
         <div className="p-4 bg-gray-100 rounded">Item 1</div>
@@ -23,7 +23,7 @@ export const grid4Examples: DocsComponentExample[] = [
   },
   {
     title: 'Grid Sizes',
-    description: 'Grids come in different sizes.',
+    md: 'Grids come in different sizes.',
     component: (
       <Col lg>
         <div>
@@ -49,7 +49,7 @@ export const grid4Examples: DocsComponentExample[] = [
   },
   {
     title: 'Grid with Gap',
-    description: 'Control spacing between grid items.',
+    md: 'Control spacing between grid items.',
     component: (
       <Col lg>
         <div>
@@ -75,7 +75,7 @@ export const grid4Examples: DocsComponentExample[] = [
   },
   {
     title: 'Grid Appearances',
-    description: 'Grids can have different background appearances.',
+    md: 'Grids can have different background appearances.',
     component: (
       <Col lg>
         <Grid4 primary>

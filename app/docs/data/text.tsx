@@ -7,14 +7,14 @@ import { DocsComponentExample } from "../types";
 export const textExamples: DocsComponentExample[] = [
   {
     title: 'Basic Text',
-    description: 'Default text styling.',
+    md: 'Default text styling.',
     component: (
       <Text>This is basic text content with default styling.</Text>
     ),
   },
   {
     title: 'Text Sizes',
-    description: 'Text comes in different sizes.',
+    md: 'Text comes in different sizes.',
     component: (
       <Row flexWrap>
         {
@@ -27,7 +27,7 @@ export const textExamples: DocsComponentExample[] = [
   },
   {
     title: 'Text Font Weights',
-    description: 'Text supports different font weights.',
+    md: 'Text supports different font weights.',
     component: (
       <Row flexWrap>
         {
@@ -40,7 +40,7 @@ export const textExamples: DocsComponentExample[] = [
   },
   {
     title: 'Text Appearances',
-    description: 'Text can have different color appearances.',
+    md: 'Text can have different color appearances.',
     component: (
       <Row flexWrap>
         {
@@ -53,7 +53,7 @@ export const textExamples: DocsComponentExample[] = [
   },
   {
     title: 'Text Font Families',
-    description: 'Text supports different font families.',
+    md: 'Text supports different font families.',
     component: (
       <Row flexWrap>
         {
@@ -66,7 +66,7 @@ export const textExamples: DocsComponentExample[] = [
   },
   {
     title: 'Text Decorations',
-    description: 'Text supports different text decorations.',
+    md: 'Text supports different text decorations.',
     component: (
       <Row flexWrap>
         {
@@ -79,7 +79,7 @@ export const textExamples: DocsComponentExample[] = [
   },
   {
     title: 'Text Font Styles',
-    description: 'Text supports different font styles.',
+    md: 'Text supports different font styles.',
     component: (
       <Row flexWrap>
         {
@@ -92,7 +92,7 @@ export const textExamples: DocsComponentExample[] = [
   },
   {
     title: 'Text Transformations',
-    description: 'Text supports different case transformations.',
+    md: 'Text supports different case transformations.',
     component: (
       <Row flexWrap>
         {
@@ -105,7 +105,7 @@ export const textExamples: DocsComponentExample[] = [
   },
   {
     title: 'Text Alignment',
-    description: 'Text can be aligned differently.',
+    md: 'Text can be aligned differently.',
     component: (
       <div className="space-y-2 border-2 border-dashed border-gray-300 p-4">
         <Text textLeft>Left aligned text</Text>
@@ -117,7 +117,7 @@ export const textExamples: DocsComponentExample[] = [
   },
   {
     title: 'Text Combinations',
-    description: 'Combining multiple text properties.',
+    md: 'Combining multiple text properties.',
     component: (
       <Col>
         <Text lg bold primary>Large Bold Primary Text</Text>

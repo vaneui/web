@@ -7,7 +7,7 @@ import { DocsComponentExample } from "../types";
 export const cardExamples: DocsComponentExample[] = [
   {
     title: 'Basic Card',
-    description: 'A simple card container.',
+    md: 'A simple card container.',
     component: (
       <Card>
         <Text semibold>Card Title</Text>
@@ -17,7 +17,7 @@ export const cardExamples: DocsComponentExample[] = [
   },
   {
     title: 'Card Sizes',
-    description: 'Cards come in different sizes.',
+    md: 'Cards come in different sizes.',
     component: (
       <Row flexWrap>
         {
@@ -33,7 +33,7 @@ export const cardExamples: DocsComponentExample[] = [
   },
   {
     title: 'Card Appearances',
-    description: 'Cards can have different background appearances.',
+    md: 'Cards can have different background appearances.',
     component: (
       <Row flexWrap>
         {
@@ -49,7 +49,7 @@ export const cardExamples: DocsComponentExample[] = [
   },
   {
     title: 'Card Borders',
-    description: 'Control card border appearance.',
+    md: 'Control card border appearance.',
     component: (
       <Row flexWrap>
         {
@@ -65,7 +65,7 @@ export const cardExamples: DocsComponentExample[] = [
   },
   {
     title: 'Card Shapes',
-    description: 'Cards support different border radius styles.',
+    md: 'Cards support different border radius styles.',
     component: (
       <Row flexWrap>
         <Card rounded>
@@ -81,7 +81,7 @@ export const cardExamples: DocsComponentExample[] = [
   },
   {
     title: 'Card with Shadow',
-    description: 'Cards can have drop shadows.',
+    md: 'Cards can have drop shadows.',
     component: (
       <Row flexWrap>
         {
@@ -97,7 +97,7 @@ export const cardExamples: DocsComponentExample[] = [
   },
   {
     title: 'Card with Ring',
-    description: 'Cards can have focus rings.',
+    md: 'Cards can have focus rings.',
     component: (
       <Row flexWrap>
         {
@@ -113,7 +113,7 @@ export const cardExamples: DocsComponentExample[] = [
   },
   {
     title: 'Card Padding',
-    description: 'Control card internal padding.',
+    md: 'Control card internal padding.',
     component: (
       <Row flexWrap>
         {
@@ -129,7 +129,7 @@ export const cardExamples: DocsComponentExample[] = [
   },
   {
     title: 'Card Flex Direction',
-    description: 'Control the direction of card content.',
+    md: 'Control the direction of card content.',
     component: (
       <Row flexWrap>
         <Card column>
@@ -146,7 +146,7 @@ export const cardExamples: DocsComponentExample[] = [
   },
   {
     title: 'Card with Gap',
-    description: 'Control spacing between card content.',
+    md: 'Control spacing between card content.',
     component: (
       <Row flexWrap>
         {

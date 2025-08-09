@@ -7,7 +7,7 @@ import { DocsComponentExample } from "../types";
 export const labelExamples: DocsComponentExample[] = [
   {
     title: 'Basic Usage',
-    description: 'Default label styles and text.',
+    md: 'Default label styles and text.',
     component: (
       <Row flexWrap>
         <Label>Default</Label>
@@ -21,7 +21,7 @@ export const labelExamples: DocsComponentExample[] = [
   },
   {
     title: 'Sizes',
-    description: 'Labels come in different sizes - xs, sm, md, lg, xl.',
+    md: 'Labels come in different sizes - xs, sm, md, lg, xl.',
     component: (
       <Row flexWrap >
         {
@@ -36,7 +36,7 @@ export const labelExamples: DocsComponentExample[] = [
   },
   {
     title: 'Appearances',
-    description: 'Different label color variants for various states.',
+    md: 'Different label color variants for various states.',
     component: (
       <Row flexWrap>
         {
@@ -51,7 +51,7 @@ export const labelExamples: DocsComponentExample[] = [
   },
   {
     title: 'Font Weights',
-    description: 'Labels support different font weights.',
+    md: 'Labels support different font weights.',
     component: (
       <Row flexWrap >
         {
@@ -66,7 +66,7 @@ export const labelExamples: DocsComponentExample[] = [
   },
   {
     title: 'With Icons',
-    description: 'Labels can include icons or other elements.',
+    md: 'Labels can include icons or other elements.',
     component: (
       <Row flexWrap >
         <Label xs primary>
@@ -89,7 +89,7 @@ export const labelExamples: DocsComponentExample[] = [
   },
   {
     title: 'Text Decorations',
-    description: 'Labels with different text decorations.',
+    md: 'Labels with different text decorations.',
     component: (
       <Row flexWrap>
         {
@@ -104,7 +104,7 @@ export const labelExamples: DocsComponentExample[] = [
   },
   {
     title: 'Complex Labels',
-    description: 'Labels with multiple elements and custom content.',
+    md: 'Labels with multiple elements and custom content.',
     component: (
       <Row flexWrap >
         <Label primary  >

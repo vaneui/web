@@ -7,7 +7,7 @@ import { CheckSquare, Heart, X } from "react-feather";
 export const chipExamples: DocsComponentExample[] = [
   {
     title: 'Basic Usage',
-    description: 'Default chip styles and variants.',
+    md: 'Default chip styles and variants.',
     component: (
       <Row flexWrap>
         {
@@ -20,7 +20,7 @@ export const chipExamples: DocsComponentExample[] = [
   },
   {
     title: 'Chip Sizes',
-    description: 'Chips come in different sizes.',
+    md: 'Chips come in different sizes.',
     component: (
       <Row flexWrap>
         {
@@ -33,7 +33,7 @@ export const chipExamples: DocsComponentExample[] = [
   },
   {
     title: 'Chip with Icon',
-    description: 'Chips can contain icons along with text.',
+    md: 'Chips can contain icons along with text.',
     component: (
       <Row flexWrap>
         <Chip primary>

@@ -7,7 +7,7 @@ import { DocsComponentExample } from "../types";
 export const colExamples: DocsComponentExample[] = [
   {
     title: 'Basic Col',
-    description: 'A vertical flex container.',
+    md: 'A vertical flex container.',
     component: (
       <Col>
         <div className="p-4 bg-gray-100 rounded">Item 1</div>
@@ -18,7 +18,7 @@ export const colExamples: DocsComponentExample[] = [
   },
   {
     title: 'Col Sizes',
-    description: 'Cols come in different sizes.',
+    md: 'Cols come in different sizes.',
     component: (
       <Row>
         <Col lg>
@@ -42,7 +42,7 @@ export const colExamples: DocsComponentExample[] = [
   },
   {
     title: 'Col with Gap',
-    description: 'Control spacing between col items.',
+    md: 'Control spacing between col items.',
     component: (
       <Row>
         <Col lg>
@@ -66,7 +66,7 @@ export const colExamples: DocsComponentExample[] = [
   },
   {
     title: 'Col Wrap Options',
-    description: 'Control how items wrap within the col.',
+    md: 'Control how items wrap within the col.',
     component: (
       <Row>
         <Col lg>
@@ -91,7 +91,7 @@ export const colExamples: DocsComponentExample[] = [
   },
   {
     title: 'Col Justification',
-    description: 'Control how items are distributed along the main axis.',
+    md: 'Control how items are distributed along the main axis.',
     component: (
       <Row>
         <Col lg>
@@ -120,7 +120,7 @@ export const colExamples: DocsComponentExample[] = [
   },
   {
     title: 'Col Appearances',
-    description: 'Cols can have different background appearances.',
+    md: 'Cols can have different background appearances.',
     component: (
       <Row>
         <Col primary>
@@ -138,7 +138,7 @@ export const colExamples: DocsComponentExample[] = [
   },
   {
     title: 'Col Reverse',
-    description: 'Reverse the order of items in the col.',
+    md: 'Reverse the order of items in the col.',
     component: (
       <Row>
         <Col lg>

@@ -7,7 +7,7 @@ import { DocsComponentExample } from "../types";
 export const codeExamples: DocsComponentExample[] = [
   {
     title: 'Basic Usage',
-    description: 'Inline code snippets with default styling.',
+    md: 'Inline code snippets with default styling.',
     component: (
       <Row flexWrap >
         <span>Use the <Code>npm install</Code> command to install packages.</span>
@@ -17,7 +17,7 @@ export const codeExamples: DocsComponentExample[] = [
   },
   {
     title: 'Sizes',
-    description: 'Code elements in different sizes - xs, sm, md, lg, xl.',
+    md: 'Code elements in different sizes - xs, sm, md, lg, xl.',
     component: (
       <Col>
         {
@@ -32,7 +32,7 @@ export const codeExamples: DocsComponentExample[] = [
   },
   {
     title: 'Appearances',
-    description: 'Different code color variants for syntax highlighting.',
+    md: 'Different code color variants for syntax highlighting.',
     component: (
       <Row flexWrap >
         {
@@ -47,7 +47,7 @@ export const codeExamples: DocsComponentExample[] = [
   },
   {
     title: 'Font Weights',
-    description: 'Code elements with different font weights.',
+    md: 'Code elements with different font weights.',
     component: (
       <Row flexWrap >
         {
@@ -62,7 +62,7 @@ export const codeExamples: DocsComponentExample[] = [
   },
   {
     title: 'Language Examples',
-    description: 'Code snippets for different programming languages.',
+    md: 'Code snippets for different programming languages.',
     component: (
       <Col>
         <Row >
@@ -88,7 +88,7 @@ export const codeExamples: DocsComponentExample[] = [
   },
   {
     title: 'Code in Context',
-    description: 'Code elements used within text content.',
+    md: 'Code elements used within text content.',
     component: (
       <Col className="space-y-4">
         <p>
@@ -112,7 +112,7 @@ export const codeExamples: DocsComponentExample[] = [
   },
   {
     title: 'Keyboard Shortcuts',
-    description: 'Code elements for displaying keyboard shortcuts and commands.',
+    md: 'Code elements for displaying keyboard shortcuts and commands.',
     component: (
       <Row flexWrap >
         <Code  >Ctrl</Code>
@@ -131,7 +131,7 @@ export const codeExamples: DocsComponentExample[] = [
   },
   {
     title: 'File Paths and URLs',
-    description: 'Code elements for displaying file paths and URLs.',
+    md: 'Code elements for displaying file paths and URLs.',
     component: (
       <Col className="space-y-2">
         <Row >

@@ -7,7 +7,7 @@ import { DocsComponentExample } from "../types";
 export const buttonExamples: DocsComponentExample[] = [
   {
     title: 'Basic Usage',
-    description: 'Default button styles and variants.',
+    md: 'Default button styles and variants.',
     component: (
       <Row flexWrap>
         {
@@ -20,7 +20,7 @@ export const buttonExamples: DocsComponentExample[] = [
   },
   {
     title: 'Sizes',
-    description: 'Buttons come in different sizes - xs, sm, md, lg, xl.',
+    md: 'Buttons come in different sizes - xs, sm, md, lg, xl.',
     component: (
       <Row flexWrap>
         {
@@ -33,7 +33,7 @@ export const buttonExamples: DocsComponentExample[] = [
   },
   {
     title: 'Sizes with Icon',
-    description: 'Buttons come in different sizes.',
+    md: 'Buttons come in different sizes.',
     component: (
       <Row flexWrap>
         <Button xs><span className="rounded-full size-4 bg-gray-300"/> Extra Small</Button>
@@ -46,7 +46,7 @@ export const buttonExamples: DocsComponentExample[] = [
   },
   {
     title: 'Font Weights',
-    description: 'Buttons support different font weights.',
+    md: 'Buttons support different font weights.',
     component: (
       <Row flexWrap>
         {
@@ -59,7 +59,7 @@ export const buttonExamples: DocsComponentExample[] = [
   },
   {
     title: 'Border Radius Options',
-    description: 'Button supports three border radius styles: rounded (default), pill, and sharp.',
+    md: 'Button supports three border radius styles: rounded (default), pill, and sharp.',
     component: (
       <Row flexWrap>
         {
@@ -72,7 +72,7 @@ export const buttonExamples: DocsComponentExample[] = [
   },
   {
     title: 'Button Styles',
-    description: 'Buttons can be styled as outline (default) or filled.',
+    md: 'Buttons can be styled as outline (default) or filled.',
     component: (
       <Col>
         {
