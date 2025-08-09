@@ -18,7 +18,7 @@ export function DocsPageContent(
 
   return (
     <Container xs className="w-full py-10">
-      <Col xl className="w-full">
+      <Col className="w-full">
         <Col>
           <Text sm uppercase secondary mono>{category}</Text>
           <PageTitle>{pageTitle}</PageTitle>
