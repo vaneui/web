@@ -1,7 +1,10 @@
 'use client'
 
 import React from 'react';
-import { Col, Text, Title, PageTitle, Container, Card, Stack } from '@vaneui/ui';
+import {
+  Col, Text, Title, PageTitle, Container, Card, Stack, Divider,
+  ComponentCategories, ComponentKeys, ListItem
+} from '@vaneui/ui';
 import { DocsPageProps } from './types';
 import { CodeBlock } from '../components/CodeBlock';
 import { prepareComponentString } from "../utils/stringUtils";
@@ -13,17 +16,20 @@ export function DocsPageContent(
     pageTitle,
     description,
     examples,
-    md
+    md,
+    componentKey
   }: DocsPageProps) {
 
   return (
     <Container xs className="w-full py-10">
-      <Col className="w-full">
+      <Col xl className="w-full">
         <Col>
           <Text sm uppercase secondary mono>{category}</Text>
           <PageTitle>{pageTitle}</PageTitle>
           <Text default>{description}</Text>
         </Col>
+
+        <Divider/>
 
         {md !== "" && md !== undefined &&
           <DocsMarkdown md={md}/>
@@ -34,7 +40,7 @@ export function DocsPageContent(
           <Col key={index} className="w-full">
             <Title>{example.title}</Title>
             <DocsMarkdown md={example.md}/>
-            <Card xs sharp itemsCenter className="w-full">
+            <Card xs sharp itemsCenter className="w-full mb-6">
               <Stack xl itemsCenter className="overflow-x-auto w-full overflow-y-visible">
                 {example.component}
               </Stack>
@@ -48,7 +54,20 @@ export function DocsPageContent(
         ))}
 
         {/* Props Documentation */}
-
+        {
+          componentKey && ComponentCategories[componentKey].map((key, index) => (
+            <Col key={index} className="w-full">
+              <Title sm>{key}</Title>
+              <Col xs>
+                {
+                  ComponentKeys[key as keyof typeof ComponentKeys].map((k: string, index: number) => (
+                    <ListItem key={index}>{k}</ListItem>
+                  ))
+                }
+              </Col>
+            </Col>
+          ))
+        }
 
       </Col>
     </Container>

@@ -32,7 +32,7 @@ export function BasicComponentsSection() {
                 <Row>
                   <Button filled>Filled button</Button>
                   <Button outline>Outline button</Button>
-                  <Button>Default button</Button>
+                  <Button success>Default button</Button>
                 </Row>
               </Col>
             </Card>
@@ -44,7 +44,7 @@ export function BasicComponentsSection() {
   <Row>
     <Button filled>Filled button</Button>
     <Button outline>Outline button</Button>
-    <Button>Default button</Button>
+    <Button success>Default button</Button>
   </Row>
 </Col>
 

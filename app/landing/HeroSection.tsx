@@ -46,7 +46,7 @@ export async function HeroSection() {
           </PageTitle>
           <Text lg textCenter>{PRODUCT.description}</Text>
           <Row lg smCol justifyCenter className="w-full">
-            <Button lg filled className="max-sm:w-full">
+            <Button lg filled className="max-sm:w-full" tag={Link} href="/docs/getting-started/installation">
               Get Started <Play/>
             </Button>
             <Button lg className="max-sm:w-full" target="_blank" href={PRODUCT.githubUrl} tag={Link}>

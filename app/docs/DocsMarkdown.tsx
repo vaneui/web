@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import { ThemeProvider } from '@vaneui/ui';
+import { ThemeProps, ThemeProvider } from '@vaneui/ui';
 import { CodeBlock } from '../components/CodeBlock';
 import { Md } from "@vaneui/md";
 
@@ -9,9 +9,15 @@ interface DocsMarkdownProps {
   md: string;
 }
 
+const overrideFunc = (theme: ThemeProps) => {
+  theme.list.themes.size.text.md = "text-base/7";
+  return theme;
+};
+
 export function DocsMarkdown({md}: DocsMarkdownProps) {
   return (
     <ThemeProvider
+      themeOverride={overrideFunc}
       extraClasses={{
         title: {
           xs: "pt-2",
@@ -20,21 +26,9 @@ export function DocsMarkdown({md}: DocsMarkdownProps) {
           lg: "pt-5",
           xl: "pt-6"
         },
-        list: {
-          md: "gap-2",
-        },
         text: {
           md: "text-base/7",
         }
-      }}
-      themeDefaults={{
-        list: {
-          md: true,
-          flex: true,
-        }
-      }}
-      theme={{
-        list: {base: "flex-col"},
       }}
     >
       <Md

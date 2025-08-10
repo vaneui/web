@@ -1,4 +1,4 @@
-import { Link, Text, Title, Section, Container, Col, Row } from '@vaneui/ui';
+import { Text, Title, Section, Container, Col, Row } from '@vaneui/ui';
 import { PRODUCT } from '../constants';
 import Image from "next/image";
 import vaneui from "../../public/vaneui.svg";
@@ -26,22 +26,28 @@ export function Footer() {
             [
               {
                 text: 'Resources',
-                links: [{text: 'Documentation', href: '/docs'}, {text: 'GitHub', href: PRODUCT.githubUrl}]
+                links: [
+                  {text: 'Documentation', href: '/docs'},
+                  {text: 'Core Concepts', href: '/docs/getting-started/core-concepts'},
+                  {text: 'Installation', href: '/docs/getting-started/installation'},
+                ]
               },
               {
                 text: 'Social',
-                links: [{text: 'GitHub', href: PRODUCT.githubUrl},]
+                links: [
+                  {text: 'GitHub', href: PRODUCT.githubUrl},
+                ]
               }
             ].map((item, index) => (
               <Col key={index}>
-                <Text secondary uppercase>
+                <Text tertiary uppercase medium>
                   {item.text}
                 </Text>
                 <Col sm>
                   {item.links.map((link, index) => (
-                    <Link key={index} href={link.href}>
+                    <Text sm tag="a" key={index} href={link.href} className="hover:opacity-75">
                       {link.text}
-                    </Link>
+                    </Text>
                   ))}
                 </Col>
               </Col>

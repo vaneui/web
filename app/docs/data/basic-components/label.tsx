@@ -23,7 +23,7 @@ export const labelExamples: DocsPagePart[] = [
     title: 'Sizes',
     md: 'Labels come in different sizes - `xs`, `sm`, `md`, `lg`, `xl`.',
     component: (
-      <Row flexWrap >
+      <Row flexWrap>
         {
           ComponentKeys.size.map((key: string) => (
             <Label key={key} {...{[key]: true}} primary>
@@ -53,7 +53,7 @@ export const labelExamples: DocsPagePart[] = [
     title: 'Font Weights',
     md: 'Labels support different font weights.',
     component: (
-      <Row flexWrap >
+      <Row flexWrap>
         {
           ComponentKeys.fontWeight.map((key: string) => (
             <Label key={key} {...{[key]: true}} lg>
@@ -61,29 +61,6 @@ export const labelExamples: DocsPagePart[] = [
             </Label>
           ))
         }
-      </Row>
-    ),
-  },
-  {
-    title: 'With Icons',
-    md: 'Labels can include icons or other elements.',
-    component: (
-      <Row flexWrap >
-        <Label xs primary>
-          <span className="rounded-full size-3 bg-primary-500 mr-1"/> Extra Small
-        </Label>
-        <Label sm secondary>
-          <span className="rounded-full size-3.5 bg-secondary-500 mr-1"/> Small
-        </Label>
-        <Label md success>
-          <span className="rounded-full size-4 bg-success-500 mr-1.5"/> Medium
-        </Label>
-        <Label lg warning>
-          <span className="rounded-full size-5 bg-warning-500 mr-2"/> Large
-        </Label>
-        <Label xl danger>
-          <span className="rounded-full size-6 bg-danger-500 mr-2"/> Extra Large
-        </Label>
       </Row>
     ),
   },
@@ -99,30 +76,6 @@ export const labelExamples: DocsPagePart[] = [
             </Label>
           ))
         }
-      </Row>
-    ),
-  },
-  {
-    title: 'Complex Labels',
-    md: 'Labels with multiple elements and custom content.',
-    component: (
-      <Row flexWrap >
-        <Label primary  >
-          <span className="mr-1">📊</span> Analytics
-        </Label>
-        <Label success  >
-          <span className="mr-1">✓</span> Completed
-        </Label>
-        <Label warning   lg>
-          <span className="mr-1">⚠️</span> Warning Message
-        </Label>
-        <Label secondary  >
-          Status: <span className="font-bold ml-1">Active</span>
-        </Label>
-        <Label danger  >
-          <span className="size-2 bg-danger-500 rounded-full mr-2 animate-pulse"/>
-          Live
-        </Label>
       </Row>
     ),
   },

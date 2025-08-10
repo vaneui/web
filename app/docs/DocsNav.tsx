@@ -5,6 +5,7 @@ import { Text, Col, Row, Card, Divider } from '@vaneui/ui';
 import { docsSections } from "./docsSections";
 import { BookOpen, GitHub } from "react-feather";
 import Link from "next/link";
+import { PRODUCT } from "../constants";
 
 export function DocsNav({currentPath, onMenuItemClick}: { currentPath?: string, onMenuItemClick?: () => void }) {
   return (
@@ -12,7 +13,7 @@ export function DocsNav({currentPath, onMenuItemClick}: { currentPath?: string, 
       <Col xs>
         {[
           {icon: BookOpen, text: "Documentation", href: "/docs", external: false},
-          {icon: GitHub, text: "GitHub", href: "https://github.com", external: true},
+          {icon: GitHub, text: "GitHub", href: PRODUCT.githubUrl, external: true},
         ].map((item, index) => (
           item.external ? (
             <a href={item.href} target="_blank" rel="noopener noreferrer" key={index}>

@@ -11,12 +11,12 @@ export const checkboxExamples: DocsPagePart[] = [
     component: (
       <Col>
         <Label htmlFor="terms">
-          <Checkbox id="terms" />
-          I agree to the <Link href="#">Terms of Service</Link> and <Link href="#">Privacy Policy</Link>.
+          <Checkbox id="terms"/>
+          <span>I agree to the <Link href="#">Terms of Service</Link> and <Link href="#">Privacy Policy</Link>.</span>
         </Label>
 
         <Label htmlFor="emails">
-          <Checkbox defaultChecked id="emails" />
+          <Checkbox defaultChecked id="emails"/>
           <Col noGap tag="span">
             <Text>Receive product updates</Text>
             <Text xs secondary>Occasional emails about new features</Text>
@@ -31,7 +31,7 @@ export const checkboxExamples: DocsPagePart[] = [
     component: (
       <Col>
         <Label htmlFor="prechecked-1">
-          <Checkbox id="prechecked-1" defaultChecked />
+          <Checkbox id="prechecked-1" defaultChecked/>
           Pre-checked checkbox
         </Label>
       </Col>
@@ -45,7 +45,7 @@ export const checkboxExamples: DocsPagePart[] = [
         {
           ComponentKeys.size.map((key: string) => (
             <Label key={key} {...{[key]: true}} htmlFor={`size-${key}`}>
-              <Checkbox id={`size-${key}`} {...{[key]: true}} defaultChecked />
+              <Checkbox id={`size-${key}`} {...{[key]: true}} defaultChecked/>
               Size: {key}
             </Label>
           ))
@@ -61,7 +61,7 @@ export const checkboxExamples: DocsPagePart[] = [
         {
           ComponentKeys.appearance.map((key: string) => (
             <Label key={key} {...{[key]: true}} htmlFor={`appearance-${key}`}>
-              <Checkbox {...{[key]: true}} id={`appearance-${key}`} defaultChecked />
+              <Checkbox {...{[key]: true}} id={`appearance-${key}`} defaultChecked/>
               Enable {key} style
             </Label>
           ))
@@ -75,15 +75,15 @@ export const checkboxExamples: DocsPagePart[] = [
     component: (
       <Col>
         <Label htmlFor="opt-1">
-          <Checkbox id="opt-1" defaultChecked />
+          <Checkbox id="opt-1" defaultChecked/>
           Email notifications
         </Label>
         <Label htmlFor="opt-2">
-          <Checkbox id="opt-2" />
+          <Checkbox id="opt-2"/>
           SMS alerts
         </Label>
         <Label htmlFor="opt-3">
-          <Checkbox id="opt-3" />
+          <Checkbox id="opt-3"/>
           Push notifications
         </Label>
       </Col>

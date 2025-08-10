@@ -6,8 +6,8 @@ pre[class*="language-"] {
   white-space: pre;
   word-spacing: normal;
   word-break: normal;
-  /*font-size: .9em;
-  line-height: 1.4em;*/
+  font-size: .9em;
+  line-height: 1.4em;
 
   -moz-tab-size: 4;
   -o-tab-size: 4;
@@ -20,7 +20,7 @@ pre[class*="language-"] {
 }
 
 pre>code[class*="language-"] {
-  /*font-size: .9em;*/
+  font-size: .9em;
 }
 
 pre[class*="language-"]::-moz-selection,
@@ -39,20 +39,13 @@ code[class*="language-"] ::selection {
 
 /* Code blocks */
 pre:has(code[class*="language"]) {
-  /*padding: 1em;
-	margin: .5em 0;
-	border: 1px solid #dddddd;*/
   overflow: auto;
   background-color: #1e1e2e;
 }
 
 /* Inline code */
 :not(pre)>code[class*="language-"] {
-  /*padding: .2em;
-  padding-top: 1px;
-  padding-bottom: 1px;*/
   background: #2d2d3a;
-  /*border: 1px solid #dddddd;*/
 }
 
 .token.comment,

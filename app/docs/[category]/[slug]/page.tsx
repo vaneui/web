@@ -54,6 +54,7 @@ export default async function Page({params}: DocsPageProps) {
       description={docsPage.description}
       examples={docsPage.parts || []}
       md={md}
+      componentKey={docsPage.componentKey}
     />
   );
 }
