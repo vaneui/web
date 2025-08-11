@@ -9,7 +9,7 @@
     "dev": "npm run check:all && next dev",
     "build": "npm run check:all && next build",
     "start": "npm run check:all && next start",
-    "lint": "npm run check:all && next lint",
+    "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "check:all": "npm run typecheck && npm run lint",
     "prebuild": "npm run check:all"
