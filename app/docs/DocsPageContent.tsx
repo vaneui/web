@@ -20,13 +20,13 @@ export function DocsPageContent(
 
   const titleClasses = "after:content-['#'] after:invisible hover:after:visible after:ml-2 after:opacity-50";
   const componentKey = pageData.componentKey;
-  const pageTitleId = toHtmlId(pageData.name)
-
-  const propsTitle = pageData.name + " Props";
-  const propsTitleId = toHtmlId(propsTitle)
 
   // Build sections for OnThisPage navigation
   const sections = React.useMemo(() => {
+    const pageTitleId = toHtmlId(pageData.name);
+    const propsTitle = pageData.name + " Props";
+    const propsTitleId = toHtmlId(propsTitle);
+    
     const navSections: Array<{
       title: string;
       id: string;
@@ -67,7 +67,11 @@ export function DocsPageContent(
     }
 
     return navSections;
-  }, [pageData.parts, componentKey]);
+  }, [pageData.name, pageData.parts, componentKey]);
+
+  const pageTitleId = toHtmlId(pageData.name);
+  const propsTitle = pageData.name + " Props";
+  const propsTitleId = toHtmlId(propsTitle);
 
   return (
     <ThemeProvider extraClasses={{
@@ -139,7 +143,7 @@ export function DocsPageContent(
           </Col>
 
           {/* On This Page Navigation */}
-          <Col sticky lgHide className="styled-scrollbar top-10 w-48 flex-shrink-0 max-h-[calc(100vh-148px)]">
+          <Col sticky lgHide className="styled-scrollbar top-10 w-48 flex-shrink-0 max-h-[calc(100vh-128px)]">
             <OnThisPage sections={sections}/>
           </Col>
         </Row>

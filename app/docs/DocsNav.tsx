@@ -23,14 +23,13 @@ export function DocsNav({currentPath, onMenuItemClick}: { currentPath?: string, 
           {icon: GitHub, text: "GitHub", href: PRODUCT.githubUrl, external: true},
         ].map((item, index) => (
           item.external ? (
-            <a href={item.href} target="_blank" rel="noopener noreferrer" key={index}>
-              <Row sm className="hover:bg-secondary">
-                <Card xs secondary tag="span" justifyCenter>
-                  <item.icon className="size-5"/>
-                </Card>
-                <Text secondary>{item.text}</Text>
-              </Row>
-            </a>
+            <Row sm className="hover:bg-secondary" href={item.href} target="_blank" rel="noopener noreferrer"
+                 key={index}>
+              <Card xs secondary tag="span" justifyCenter>
+                <item.icon className="size-5"/>
+              </Card>
+              <Text secondary>{item.text}</Text>
+            </Row>
           ) : (
             <Row sm tag={Link} href={item.href} key={index} className="hover:bg-secondary" onClick={onMenuItemClick}>
               <Card xs secondary tag="span" justifyCenter>
