@@ -16,7 +16,9 @@
       "Bash(do sed -i 's/import { \\([^}]*\\), [A-Z_]*KEYS[^}]* } from \"\"@vaneui\\/ui\"\";/import { \\1, ComponentKeys } from \"\"@vaneui\\/ui\"\";/g' \"$file\")",
       "Bash(npm version:*)",
       "Bash(mkdir:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(npm run typecheck:*)",
+      "Bash(npm run check:all:*)"
     ],
     "deny": []
   }
