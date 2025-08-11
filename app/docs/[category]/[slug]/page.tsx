@@ -24,12 +24,12 @@ export async function generateMetadata({params}: DocsPageProps): Promise<Metadat
 export default async function Page({params}: DocsPageProps) {
   const {category, slug} = await params
 
-  const docsCategory = docsSections.find(c => c.slug === category);
+  const docsSection = docsSections.find(c => c.slug === category);
 
-  if (!docsCategory)
+  if (!docsSection)
     return notFound();
 
-  const docsPage = docsCategory.pages.find(page => page.slug === slug);
+  const docsPage = docsSection.pages.find(page => page.slug === slug);
 
   if (!docsPage) {
     return notFound();
@@ -39,7 +39,7 @@ export default async function Page({params}: DocsPageProps) {
   // If the page has an mdPath, read the markdown file
   if (docsPage.mdPath) {
     try {
-      const filePath = path.join(process.cwd(), "./app/docs/data/", docsCategory.slug, docsPage.mdPath);
+      const filePath = path.join(process.cwd(), "./app/docs/data/", docsSection.slug, docsPage.mdPath);
       md = await fs.readFile(filePath, 'utf8');
     } catch (error) {
       console.error(`Error reading markdown file: ${docsPage.mdPath}`, error);
@@ -49,12 +49,9 @@ export default async function Page({params}: DocsPageProps) {
 
   return (
     <DocsPageContent
-      category={docsCategory.name}
-      pageTitle={docsPage.name}
-      description={docsPage.description}
-      examples={docsPage.parts || []}
+      pageData={docsPage}
+      section={docsSection}
       md={md}
-      componentKey={docsPage.componentKey}
     />
   );
 }

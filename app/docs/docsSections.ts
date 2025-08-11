@@ -1,4 +1,3 @@
-import { BookOpen, Box, FileText, Layers, Settings } from "react-feather";
 import { DocsSection } from "./types";
 import { buttonExamples } from "./data/basic-components/button";
 import { badgeExamples } from "./data/basic-components/badge";
@@ -28,32 +27,33 @@ export const docsSections: DocsSection[] = [
     name: 'Getting Started',
     slug: 'getting-started',
     description: 'An overview of the library and instructions on how to install and configure it in your project.',
-    icon: BookOpen,
     pages: [
       {
         slug: 'core-concepts',
         name: 'Core Concepts',
         description: 'Understand VaneUI\'s philosophy of boolean props, Tailwind CSS integration, and component customization.',
         mdPath: 'core-concepts.md',
+        parts: [],
       },
       {
         slug: 'installation',
         name: 'Installation',
         description: 'Follow these steps to get the library installed and ready to use in your application.',
         mdPath: 'installation.md',
+        parts: [],
       },
       {
         slug: 'usage-basics',
         name: 'Usage Basics',
         description: 'Learn fundamental patterns and concepts for using VaneUI components effectively.',
         mdPath: 'usage-basics.md',
+        parts: [],
       },
     ]
   },
   {
     name: 'Basic Components',
     slug: 'basic-components',
-    icon: Box,
     description: 'A collection of fundamental and interactive components for building user interfaces.',
     pages: [
       {
@@ -110,7 +110,6 @@ export const docsSections: DocsSection[] = [
   {
     name: 'Layout Components',
     slug: 'layout-components',
-    icon: Layers,
     description: 'A set of components designed to help structure and organize your page content.',
     pages: [
       {
@@ -174,7 +173,6 @@ export const docsSections: DocsSection[] = [
   {
     name: 'Typography Components',
     slug: 'typography-components',
-    icon: FileText,
     description: 'A suite of components for rendering text and establishing a clear typographic hierarchy.',
     pages: [
       {
@@ -232,43 +230,48 @@ export const docsSections: DocsSection[] = [
     name: 'Customization',
     slug: 'customization',
     description: 'Learn how to customize and theme VaneUI components to match your design requirements.',
-    icon: Settings,
     pages: [
       {
         slug: 'theming-overview',
         name: 'Theming Overview',
         description: 'Understand VaneUI\'s powerful theming system and design token architecture.',
         mdPath: 'theming-overview.md',
+        parts: [],
       },
       {
         slug: 'using-theme-provider',
         name: 'Using ThemeProvider',
         description: 'Configure and customize themes throughout your application with ThemeProvider.',
         mdPath: 'using-themeprovider.md',
+        parts: [],
       },
       {
         slug: 'theme-and-override',
         name: 'Theme & ThemeOverride',
         description: 'Customize themes using ThemeProvider\'s theme and themeOverride properties (applied to providers, not components).',
         mdPath: 'theme-and-override.md',
+        parts: [],
       },
       {
         slug: 'theme-defaults',
         name: 'ThemeDefaults',
         description: 'Set default theme values across your application using themeDefaults.',
         mdPath: 'theme-defaults.md',
+        parts: [],
       },
       {
         slug: 'extra-classes',
         name: 'ExtraClasses',
         description: 'Apply additional CSS classes to components using extraClasses.',
         mdPath: 'extra-classes.md',
+        parts: [],
       },
       {
         slug: 'css-variables',
         name: 'CSS Variables',
         description: 'Customize VaneUI components using CSS custom properties and variables.',
         mdPath: 'css-variables.md',
+        parts: [],
       },
     ]
   },

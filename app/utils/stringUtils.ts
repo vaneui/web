@@ -1,6 +1,17 @@
 import React from "react";
 import reactElementToJSXString from "react-element-to-jsx-string";
 
+export function toHtmlId(title: string): string {
+  const base = title
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase().trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+  // Ensure it starts with a letter (nicer for CSS selectors)
+  return /^[a-z]/.test(base) ? (base || 'x') : `id-${base || 'x'}`;
+}
+
 export function prepareComponentString(node: React.ReactNode): string {
   let nodeString = reactElementToJSXString(node,
     {

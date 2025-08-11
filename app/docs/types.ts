@@ -1,5 +1,4 @@
 import { JSX } from 'react';
-import { Icon } from "react-feather";
 import { ComponentKey } from "@vaneui/ui";
 
 export interface DocsPagePart {
@@ -12,7 +11,7 @@ export interface DocsPage {
   slug: string;
   name: string;
   description: string;
-  parts?: DocsPagePart[];
+  parts: DocsPagePart[];
   mdPath?: string;
   componentKey?: ComponentKey;
 }
@@ -20,16 +19,12 @@ export interface DocsPage {
 export interface DocsSection {
   name: string;
   slug: string;
-  icon: Icon;
   description: string;
   pages: DocsPage[];
 }
 
 export interface DocsPageProps {
-  category: string;
-  pageTitle: string;
-  description: string;
-  examples: DocsPagePart[];
+  pageData: DocsPage;
+  section: DocsSection;
   md?: string;
-  componentKey?: ComponentKey;
 } 

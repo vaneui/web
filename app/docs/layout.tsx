@@ -28,8 +28,8 @@ export default function DocsLayout({children}: DocsLayoutProps) {
 
         {/* Mobile sidebar overlay */}
         {isMobileMenuOpen && (
-          <div className="fixed inset-0 z-50 lg:hidden">
-            <div className="absolute left-0 top-0 h-full w-full bg-default flex flex-col">
+          <Col fixed className="inset-0 z-50 lg:hidden">
+            <Col noGap className="absolute left-0 top-0 h-full w-full bg-default flex flex-col">
               {/* Fixed header */}
               <Stack xs row justifyBetween className="w-full border-b border-default flex-shrink-0">
                 <Logo/>
@@ -39,25 +39,28 @@ export default function DocsLayout({children}: DocsLayoutProps) {
               </Stack>
 
               {/* Scrollable content */}
-              <Stack className="flex-1 overflow-y-auto styled-scrollbar">
+              <Stack overflowYAuto className="flex-1 styled-scrollbar">
                 <DocsNav currentPath={pathname} onMenuItemClick={() => setIsMobileMenuOpen(false)}/>
               </Stack>
-            </div>
-          </div>
+            </Col>
+          </Col>
         )}
 
         <Col noGap relative overflowYAuto
              className="flex-1 bg-[linear-gradient(to_right,var(--color-gray-50)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-gray-50)_1px,transparent_1px)] bg-[size:calc(var(--spacing)*4)_calc(var(--spacing)*4)]"
+             data-scroll-container
         >
           <Stack row sm className="w-full border-b border-default lg:hidden">
-            <Button secondary sm noShadow pill
+            <Button secondary sm noShadow
                     onClick={() => setIsMobileMenuOpen(true)}
             >
               MENU <ChevronRight className="size-5"/>
             </Button>
           </Stack>
-          <Container default lg className="border-x flex-1 px-3">
-            {children}
+          <Container xl default className="border-x flex-1">
+            <Stack xl relative className="w-full py-10">
+              {children}
+            </Stack>
           </Container>
         </Col>
       </Row>
