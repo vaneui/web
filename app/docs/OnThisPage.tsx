@@ -12,7 +12,7 @@ interface OnThisPageProps {
   }>;
 }
 
-export function OnThisPage({ sections }: OnThisPageProps) {
+export function OnThisPage({sections}: OnThisPageProps) {
   const [activeSection, setActiveSection] = useState<string>('');
   const containerRef = useRef<HTMLDivElement>(null);
   const isClickNavigating = useRef(false);
@@ -102,7 +102,7 @@ export function OnThisPage({ sections }: OnThisPageProps) {
     const element = document.getElementById(sectionId);
     if (element) {
       // Position element near the top but not at the very top
-      element.scrollIntoView({ behavior: 'auto', block: 'start' });
+      element.scrollIntoView({behavior: 'auto', block: 'start'});
       window.history.pushState(null, '', `#${sectionId}`);
 
       // Re-enable observer after a short delay
@@ -113,28 +113,26 @@ export function OnThisPage({ sections }: OnThisPageProps) {
   };
 
   return (
-    <div ref={containerRef} className="overflow-y-auto h-fit">
-      <Col sm>
-        <Text sm uppercase secondary mono>On this page</Text>
-        <Col noGap>
-          {sections.map((section, index) => {
-            const isActive = activeSection === section.id;
-            return (
-              <Link
-                key={index}
-                href={`#${section.id}`}
-                onClick={(e) => handleClick(e, section.id)}
+    <Col ref={containerRef} overflowYAuto sm className="h-fit">
+      <Text sm uppercase secondary mono>On this page</Text>
+      <Col noGap>
+        {sections.map((section, index) => {
+          const isActive = activeSection === section.id;
+          return (
+            <Link
+              key={index}
+              href={`#${section.id}`}
+              onClick={(e) => handleClick(e, section.id)}
+            >
+              <Text sm secondary={!isActive} primary={isActive} semibold={isActive}
+                    className={`py-1.5 ${section.level === 1 ? 'pl-4' : ''}`}
               >
-                <Text sm secondary={!isActive} primary={isActive} semibold={isActive}
-                      className={`py-1.5 ${section.level === 1 ? 'pl-4' : ''}`}
-                >
-                  {section.title}
-                </Text>
-              </Link>
-            );
-          })}
-        </Col>
+                {section.title}
+              </Text>
+            </Link>
+          );
+        })}
       </Col>
-    </div>
+    </Col>
   );
 }
