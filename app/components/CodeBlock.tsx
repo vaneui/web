@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Button, Col, Row, Stack, Text } from '@vaneui/ui';
 import Image from "next/image";
-import { Check, Copy } from "react-feather";
+import { Check, Copy, Terminal } from "react-feather";
 import Prism from "prismjs";
 import 'prismjs/components/prism-jsx';
 import 'prismjs/components/prism-tsx';
@@ -19,9 +19,22 @@ interface CodeBlockProps {
   language: string;
   className?: string;
   fileName: string;
+  theme?: 'light' | 'dark';
 }
 
-export function CodeBlock({code, language, className = '', fileName = ''}: CodeBlockProps) {
+function getLanguageIcon(language: string) {
+  const imgClasses = "w-5 h-5 greyscale";
+  switch (language) {
+    case 'tsx':
+      return <Image src="/logo/react-icon.svg" width={20} height={20} className={imgClasses} alt="react-icon"/>
+    case 'css':
+      return <Image src="/logo/css.svg" width={20} height={20} className={imgClasses} alt="css-icon"/>
+    default:
+      return <Terminal className={imgClasses}/>
+  }
+}
+
+export function CodeBlock({code, language, className = '', fileName = '', theme = 'dark'}: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = () => {
@@ -31,11 +44,16 @@ export function CodeBlock({code, language, className = '', fileName = ''}: CodeB
     });
   };
 
+  const Icon = getLanguageIcon(language);
+  const themeClass = `code-theme-${theme}`;
+
   return (
-    <Col default rounded noGap border overflowHidden className={`w-full ${className}`}>
+    <Col default rounded noGap border overflowHidden className={`w-full ${className} ${themeClass}`}>
       <Stack xs row justifyBetween>
         <Row xs>
-          <Image src="/react-icon.svg" alt="react-icon" width={20} height={20} className="w-5 h-5"/>
+          <span className="w-5 h-5 grayscale">
+            {Icon}
+          </span>
           {fileName && <Text sm mono secondary>{fileName}</Text>}
         </Row>
         <Button xs onClick={copyToClipboard} default={!copied} success={copied}>
@@ -43,10 +61,9 @@ export function CodeBlock({code, language, className = '', fileName = ''}: CodeB
           {copied ? "Copied!" : "Copy"}
         </Button>
       </Stack>
-      <Stack xs noPadding rounded className="overflow-x-auto">
+      <Stack xs default noPadding overflowXAuto className="border-t">
           <pre className={`m-0 py-4 px-6 flex-1 overflow-visible language-${language}`} tabIndex={0}>
             <code className={`mono language-${language}`}
-                  style={{fontSize: '14px'}}
                   dangerouslySetInnerHTML={{
                     __html: Prism.highlight(
                       code,

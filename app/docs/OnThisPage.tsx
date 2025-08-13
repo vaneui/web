@@ -123,9 +123,16 @@ export function OnThisPage({sections}: OnThisPageProps) {
               key={index}
               href={`#${section.id}`}
               onClick={(e) => handleClick(e, section.id)}
+              className={isActive ? "border-l-2 border-primary bg-primary" : "border-l-2 border-default"}
             >
               <Text sm secondary={!isActive} primary={isActive} semibold={isActive}
-                    className={`py-1.5 ${section.level === 1 ? 'pl-4' : ''}`}
+                    className={`py-1.5 ${
+                      section.level === 0 ? 'pl-3' :
+                      section.level === 1 ? 'pl-6' :
+                      section.level === 2 ? 'pl-9' :
+                      section.level === 3 ? 'pl-12' :
+                      'pl-12'
+                    }`}
               >
                 {section.title}
               </Text>

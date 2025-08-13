@@ -18,7 +18,8 @@
       "Bash(mkdir:*)",
       "Bash(mv:*)",
       "Bash(npm run typecheck:*)",
-      "Bash(npm run check:all:*)"
+      "Bash(npm run check:all:*)",
+      "Bash(grep:*)"
     ],
     "deny": []
   }

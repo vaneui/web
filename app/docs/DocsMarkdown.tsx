@@ -1,52 +1,82 @@
 'use client'
 
 import React from 'react';
-import { ThemeProps, ThemeProvider } from '@vaneui/ui';
 import { CodeBlock } from '../components/CodeBlock';
+import { Title } from '@vaneui/ui';
 import { Md } from "@vaneui/md";
+import { toHtmlId } from '../utils/stringUtils';
 
 interface DocsMarkdownProps {
   md: string;
 }
 
-const overrideFunc = (theme: ThemeProps) => {
-  theme.list.themes.size.text.md = "text-base/7";
-  return theme;
-};
+interface MdHeadingProps {
+  level: number;
+  children: React.ReactNode;
+}
+
+function CustomMdHeading({ level, children }: MdHeadingProps) {
+  const titleText = typeof children === 'string' ? children : 
+    React.Children.toArray(children).join('');
+  const id = toHtmlId(titleText);
+  
+  const titleClasses = "after:content-['#'] after:invisible hover:after:visible after:ml-2 after:opacity-25";
+  
+  let sizeProps = {};
+  switch (level) {
+    case 1:
+      sizeProps = { xl: true };
+      break;
+    case 2:
+      sizeProps = { lg: true };
+      break;
+    case 3:
+      sizeProps = { md: true };
+      break;
+    case 4:
+      sizeProps = { sm: true };
+      break;
+    case 5:
+      sizeProps = { xs: true };
+      break;
+    case 6:
+      sizeProps = { xs: true };
+      break;
+    default:
+      sizeProps = { md: true };
+  }
+
+  return (
+    <Title 
+      {...sizeProps}
+      href={`#${id}`} 
+      id={id}
+      className={titleClasses}
+    >
+      {children}
+    </Title>
+  );
+}
 
 export function DocsMarkdown({md}: DocsMarkdownProps) {
   return (
-    <ThemeProvider
-      themeOverride={overrideFunc}
-      extraClasses={{
-        title: {
-          xs: "pt-2",
-          sm: "pt-3",
-          md: "pt-4",
-          lg: "pt-5",
-          xl: "pt-6"
-        },
-        text: {
-          md: "text-base/7",
+    <Md
+      content={md}
+      config={{
+        components: {
+          MdFence: ({content = "", language = "text"}: { content?: string; language?: string }) => {
+            return (
+              <CodeBlock
+                code={content}
+                theme="light"
+                language={language}
+                fileName=""
+              />
+            );
+          },
+          MdHeading: CustomMdHeading
         }
       }}
-    >
-      <Md
-        content={md}
-        config={{
-          components: {
-            MdFence: ({content = "", language = "text"}: { content?: string; language?: string }) => {
-              return (
-                <CodeBlock
-                  code={content}
-                  language={language}
-                  fileName=""
-                />
-              );
-            }
-          }
-        }}
-      />
-    </ThemeProvider>
+    />
   );
 }

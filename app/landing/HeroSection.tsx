@@ -13,7 +13,7 @@ import {
   Stack,
   Chip,
   Divider,
-  Badge
+  Badge, ThemeProvider
 } from '@vaneui/ui';
 import { PRODUCT } from '../constants';
 import { CodeBlock } from "../components/CodeBlock";
@@ -59,22 +59,24 @@ export async function HeroSection() {
         <Col itemsCenter className="w-full">
           <Col
             className="max-w-xl max-sm:max-w-80 z-20 border-8 rounded-[calc(8px+var(--radius-xl))] border-gray-400/10 backdrop-blur-sm">
-            <Card row smCol noPadding noGap overflowHidden>
-              <Image src={dog.image} alt="puppy" width={185} height={185}
-                     className="shrink-0 max-sm:w-full "/>
-              <Stack sm>
-                <Row justifyBetween>
-                  <Title>{dog.name}</Title>
-                  <Chip sm bold>{dog.gender}</Chip>
-                </Row>
-                <Divider/>
-                <Text sm>{dog.description}</Text>
-                <Row sm smCol justifyEnd>
-                  <Button sm success filled className="max-sm:w-full">Adopt</Button>
-                  <Button sm secondary className="max-sm:w-full">Learn more</Button>
-                </Row>
-              </Stack>
-            </Card>
+            <ThemeProvider>
+              <Card row smCol noPadding noGap overflowHidden>
+                <Image src={dog.image} alt="puppy" width={185} height={185}
+                       className="shrink-0 max-sm:w-full "/>
+                <Stack sm>
+                  <Row justifyBetween>
+                    <Title>{dog.name}</Title>
+                    <Chip sm bold>{dog.gender}</Chip>
+                  </Row>
+                  <Divider/>
+                  <Text sm>{dog.description}</Text>
+                  <Row sm smCol justifyEnd>
+                    <Button sm success filled className="max-sm:w-full">Adopt</Button>
+                    <Button sm secondary className="max-sm:w-full">Learn more</Button>
+                  </Row>
+                </Stack>
+              </Card>
+            </ThemeProvider>
           </Col>
           <CodeBlock className="z-0 lg:-mt-[calc(var(--spacing)*18)] shadow-xl"
                      fileName="DogCard.tsx"

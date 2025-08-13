@@ -3,11 +3,11 @@
 import React from 'react';
 import {
   Col, Text, Title, PageTitle, Container, Card, Stack, Divider,
-  ComponentCategories, ComponentKeys, ListItem, ThemeProvider, Row
+  ComponentCategories, ComponentKeys, ListItem, ThemeProvider, Row, ThemeProps
 } from '@vaneui/ui';
 import { DocsPageProps } from './types';
 import { CodeBlock } from '../components/CodeBlock';
-import { prepareComponentString, toHtmlId } from "../utils/stringUtils";
+import { prepareComponentString, toHtmlId, extractMarkdownHeadings } from "../utils/stringUtils";
 import { DocsMarkdown } from "./DocsMarkdown";
 import { OnThisPage } from './OnThisPage';
 
@@ -18,7 +18,6 @@ export function DocsPageContent(
     md,
   }: DocsPageProps) {
 
-  const titleClasses = "after:content-['#'] after:invisible hover:after:visible after:ml-2 after:opacity-50";
   const componentKey = pageData.componentKey;
 
   // Build sections for OnThisPage navigation
@@ -26,7 +25,7 @@ export function DocsPageContent(
     const pageTitleId = toHtmlId(pageData.name);
     const propsTitle = pageData.name + " Props";
     const propsTitleId = toHtmlId(propsTitle);
-    
+
     const navSections: Array<{
       title: string;
       id: string;
@@ -38,6 +37,18 @@ export function DocsPageContent(
       id: pageTitleId,
       level: 0
     });
+
+    // Add markdown headings if md content exists
+    if (md && md.trim()) {
+      const markdownHeadings = extractMarkdownHeadings(md);
+      markdownHeadings.forEach(heading => {
+        navSections.push({
+          title: heading.title,
+          id: heading.id,
+          level: heading.level + 1 // Adjust level to account for page title being level 0
+        });
+      });
+    }
 
     // Add example sections
     pageData.parts.forEach(part => {
@@ -67,19 +78,35 @@ export function DocsPageContent(
     }
 
     return navSections;
-  }, [pageData.name, pageData.parts, componentKey]);
+  }, [pageData.name, pageData.parts, componentKey, md]);
 
-  const pageTitleId = toHtmlId(pageData.name);
-  const propsTitle = pageData.name + " Props";
+  const pageTitle = pageData.name;
+  const pageTitleId = toHtmlId(pageTitle);
+
+  const propsTitle = pageTitle + " Props";
   const propsTitleId = toHtmlId(propsTitle);
 
+  const overrideFunc = (theme: ThemeProps) => {
+    theme.list.themes.size.text.md = "text-base/7";
+    return theme;
+  };
+
+  const titleClasses = "after:content-['#'] after:invisible hover:after:visible after:ml-2 after:opacity-25";
+
   return (
-    <ThemeProvider extraClasses={{
+    <ThemeProvider themeOverride={overrideFunc} extraClasses={{
       title: {
-        md: titleClasses
+        xs: "pt-2 " + titleClasses,
+        sm: "pt-3 " + titleClasses,
+        md: "pt-4 " + titleClasses,
+        lg: "pt-5 " + titleClasses,
+        xl: "pt-6 " + titleClasses
       },
       pageTitle: {
         md: titleClasses
+      },
+      text: {
+        md: "text-base/7",
       }
     }}>
       <Container className="w-full">
@@ -88,7 +115,7 @@ export function DocsPageContent(
           <Col xl className="flex-1 min-w-0">
             <Col>
               <Text sm uppercase secondary mono>{section.name}</Text>
-              <PageTitle href={`#${pageTitleId}`} id={pageTitleId}>{pageData.name}</PageTitle>
+              <PageTitle href={`#${pageTitleId}`} id={pageTitleId}>{pageTitle}</PageTitle>
               <Text default>{pageData.description}</Text>
             </Col>
 
@@ -113,6 +140,7 @@ export function DocsPageContent(
                       code={prepareComponentString(example.component)}
                       language="tsx"
                       fileName={`${example.title.replaceAll(" ", "")}.tsx`}
+                      theme="light"
                     />
                   </Card>
                 </Col>
@@ -121,6 +149,7 @@ export function DocsPageContent(
 
             {/* Props Documentation */}
             {
+              componentKey &&
               <Title xl href={`#${propsTitleId}`} id={propsTitleId}>{propsTitle}</Title>
             }
             {
@@ -143,7 +172,7 @@ export function DocsPageContent(
           </Col>
 
           {/* On This Page Navigation */}
-          <Col sticky lgHide className="styled-scrollbar top-10 w-48 flex-shrink-0 max-h-[calc(100vh-128px)]">
+          <Col sticky lgHide className="styled-scrollbar top-10 w-56 flex-shrink-0 max-h-[calc(100vh-128px)]">
             <OnThisPage sections={sections}/>
           </Col>
         </Row>

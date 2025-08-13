@@ -1,6 +1,34 @@
 import React from "react";
 import reactElementToJSXString from "react-element-to-jsx-string";
 
+export interface MarkdownHeading {
+  title: string;
+  id: string;
+  level: number;
+}
+
+export function extractMarkdownHeadings(markdown: string): MarkdownHeading[] {
+  if (!markdown) return [];
+  
+  const headingRegex = /^(#{1,6})\s+(.+)$/gm;
+  const headings: MarkdownHeading[] = [];
+  let match;
+
+  while ((match = headingRegex.exec(markdown)) !== null) {
+    const level = match[1].length - 1; // Convert to 0-based level (# = 0, ## = 1, etc.)
+    const title = match[2].trim();
+    const id = toHtmlId(title);
+    
+    headings.push({
+      title,
+      id,
+      level
+    });
+  }
+
+  return headings;
+}
+
 export function toHtmlId(title: string): string {
   const base = title
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')

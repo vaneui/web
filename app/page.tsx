@@ -1,6 +1,6 @@
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { Col, Section } from '@vaneui/ui';
+import { Card, Col, Container, Grid2, Section } from '@vaneui/ui';
 import {
   HeroSection,
   BasicComponentsSection,
@@ -14,9 +14,17 @@ export default function Home() {
       <Header/>
       <Col xl>
         <HeroSection/>
-        <Section>
+        <Section secondary xs className="py-10 border-y">
           <BasicComponentsSection/>
           <TypographyComponentsSection/>
+          <Container xl>
+            <Grid2 sm className="w-full">
+              <Card xl className="h-96 w-full"></Card>
+              <Card xl className="h-96 w-full"></Card>
+              <Card xl className="h-96 w-full"></Card>
+              <Card xl className="h-96 w-full"></Card>
+            </Grid2>
+          </Container>
         </Section>
         <ThemeCustomizationSection/>
       </Col>

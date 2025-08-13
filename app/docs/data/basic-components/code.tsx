@@ -64,19 +64,19 @@ export const codeExamples: DocsPagePart[] = [
     title: 'Code in Context',
     md: 'Code elements used within text content.',
     component: (
-      <Col className="space-y-4">
-        <p>
+      <Col>
+        <Text>
           To create a new React component, use <Code>{"function Component() {}"}</Code> or
           the arrow function syntax <Code>{"const Component = () => {}"}</Code>.
-        </p>
+        </Text>
         <p>
           Install the package with <Code primary>npm i @vaneui/ui</Code> and then
           import it using <Code secondary>{'import { Button } from "@vaneui/ui"'}</Code>.
         </p>
-        <p>
+        <Text>
           The <Code info>useState</Code> hook returns an array with two elements:
           the current state value and a setter function like <Code info>[state, setState]</Code>.
-        </p>
+        </Text>
         <p>
           Configure your environment by setting <Code warning>{"NODE_ENV='production'"}</Code> in
           your <Code>.env</Code> file.
@@ -103,7 +103,7 @@ export const codeExamples: DocsPagePart[] = [
     title: 'File Paths and URLs',
     md: 'Code elements for displaying file paths and URLs.',
     component: (
-      <Col className="space-y-2">
+      <Col sm>
         <Row>
           File path: <Code>/usr/local/bin/node</Code>
         </Row>
