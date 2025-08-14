@@ -9,7 +9,7 @@ export const linkExamples: DocsPagePart[] = [
     title: 'Basic Link',
     md: 'Default link styling.',
     component: (
-      <Link href="#basic-link">This is a Basic Link</Link>
+      <Link href="#">This is a Basic Link</Link>
     ),
   },
   {
@@ -19,7 +19,7 @@ export const linkExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.size.map((key: string) => (
-            <Link key={key} href={`#${key}-link`} {...{[key]: true}}>Link {key}</Link>
+            <Link key={key} href="#" {...{[key]: true}}>Link {key}</Link>
           ))
         }
       </Row>
@@ -32,7 +32,7 @@ export const linkExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.fontWeight.map((key: string) => (
-            <Link key={key} href={`#${key}-link`} {...{[key]: true}}>Link {key}</Link>
+            <Link key={key} href="#" {...{[key]: true}}>Link {key}</Link>
           ))
         }
       </Row>
@@ -45,7 +45,7 @@ export const linkExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.appearance.map((key: string) => (
-            <Link key={key} href={`#${key}-link`} {...{[key]: true}}>Link {key}</Link>
+            <Link key={key} href="#" {...{[key]: true}}>Link {key}</Link>
           ))
         }
       </Row>
@@ -58,7 +58,7 @@ export const linkExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.fontFamily.map((key: string) => (
-            <Link key={key} href={`#${key}-link`} {...{[key]: true}}>Link {key}</Link>
+            <Link key={key} href="#" {...{[key]: true}}>Link {key}</Link>
           ))
         }
       </Row>
@@ -71,7 +71,7 @@ export const linkExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.textDecoration.map((key: string) => (
-            <Link key={key} href={`#${key}-link`} {...{[key]: true}}>Link {key}</Link>
+            <Link key={key} {...{[key]: true}} href="#" >Link {key}</Link>
           ))
         }
       </Row>
@@ -84,7 +84,7 @@ export const linkExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.fontStyle.map((key: string) => (
-            <Link key={key} href={`#${key}-link`} {...{[key]: true}}>Link {key}</Link>
+            <Link key={key} {...{[key]: true}} href="#" >Link {key}</Link>
           ))
         }
       </Row>
@@ -97,7 +97,7 @@ export const linkExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.textTransform.map((key: string) => (
-            <Link key={key} href={`#${key}-link`} {...{[key]: true}}>Link {key}</Link>
+            <Link key={key} href="#" {...{[key]: true}}>Link {key}</Link>
           ))
         }
       </Row>
@@ -108,9 +108,9 @@ export const linkExamples: DocsPagePart[] = [
     md: 'Links can be aligned differently.',
     component: (
       <Col className="border-2 border-dashed border-gray-300 p-4 min-w-80">
-        <Link className="w-full" href="#left-link" textLeft>Left Aligned</Link>
-        <Link className="w-full" href="#center-link" textCenter>Center Aligned</Link>
-        <Link className="w-full" href="#right-link" textRight>Right Aligned</Link>
+        <Link className="w-full" href="#" textLeft>Left Aligned</Link>
+        <Link className="w-full" href="#" textCenter>Center Aligned</Link>
+        <Link className="w-full" href="#" textRight>Right Aligned</Link>
       </Col>
     ),
   },
@@ -119,11 +119,11 @@ export const linkExamples: DocsPagePart[] = [
     md: 'Combining multiple link properties.',
     component: (
       <Col>
-        <Link href="#combo1" lg bold primary>Large Bold Primary Link</Link>
-        <Link href="#combo2" sm italic secondary>Small Italic Secondary Link</Link>
-        <Link href="#combo3" md semibold success underline>Medium Semibold Success Underlined Link</Link>
-        <Link href="#combo4" xs light uppercase>Extra Small Light Uppercase Link</Link>
-        <Link href="#combo5" xl extrabold danger textCenter>Extra Large Extra Bold Danger Centered Link</Link>
+        <Link href="#" lg bold primary>Large Bold Primary Link</Link>
+        <Link href="#" sm italic secondary>Small Italic Secondary Link</Link>
+        <Link href="#" md semibold success underline>Medium Semibold Success Underlined Link</Link>
+        <Link href="#" xs light uppercase>Extra Small Light Uppercase Link</Link>
+        <Link href="#" xl extrabold danger textCenter>Extra Large Extra Bold Danger Centered Link</Link>
       </Col>
     ),
   },

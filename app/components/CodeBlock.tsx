@@ -36,6 +36,17 @@ function getLanguageIcon(language: string) {
 
 export function CodeBlock({code, language, className = '', fileName = '', theme = 'dark'}: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
+  const [highlightedHtml, setHighlightedHtml] = useState('');
+
+  // Update highlighted HTML when code or language changes
+  React.useEffect(() => {
+    const highlighted = Prism.highlight(
+      code,
+      Prism.languages[language] || Prism.languages.typescript,
+      language
+    );
+    setHighlightedHtml(highlighted);
+  }, [code, language]);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(code).then(() => {
@@ -65,11 +76,7 @@ export function CodeBlock({code, language, className = '', fileName = '', theme 
           <pre className={`m-0 py-4 px-6 flex-1 overflow-visible language-${language}`} tabIndex={0}>
             <code className={`mono language-${language}`}
                   dangerouslySetInnerHTML={{
-                    __html: Prism.highlight(
-                      code,
-                      Prism.languages[language] || Prism.languages.typescript,
-                      language
-                    )
+                    __html: highlightedHtml
                   }}
             />
           </pre>

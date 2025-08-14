@@ -5,14 +5,13 @@ import {
   Text,
   Container,
   Col,
-  SectionTitle,
   Row,
   Card,
-  Title
+  Title, Link
 } from '@vaneui/ui';
-import { BookOpen } from "react-feather";
 import { CodeBlock } from "../components/CodeBlock";
 import { VerticalCarousel, type CarouselItem } from "../components/VerticalCarousel";
+import { FeatureTitle } from "../components/FeatureTitle";
 import { prepareComponentString } from "../utils/stringUtils";
 
 export function TypographyComponentsSection() {
@@ -23,7 +22,7 @@ export function TypographyComponentsSection() {
   const carouselItems: CarouselItem[] = React.useMemo(() => [
     {
       id: 'text',
-      title: 'Text Components',
+      title: 'Text components',
       component: (
         <Col xs>
           <Text xl>{text}</Text>
@@ -36,27 +35,27 @@ export function TypographyComponentsSection() {
     },
     {
       id: 'title',
-      title: 'Title Components',
+      title: 'Title components',
       component: (
         <Col xs>
-          <Title xl>Title xl</Title>
-          <Title lg>Title lg</Title>
-          <Title md>Title md</Title>
-          <Title sm>Title sm</Title>
-          <Title xs>Title xs</Title>
+          <Title xl>This is a title example</Title>
+          <Title lg>This is a title example</Title>
+          <Title md>This is a title example</Title>
+          <Title sm>This is a title example</Title>
+          <Title xs>This is a title example</Title>
         </Col>
       )
     },
     {
-      id: 'section-title',
-      title: 'SectionTitle Components',
+      id: 'link',
+      title: 'Link components',
       component: (
         <Col xs>
-          <SectionTitle xl>Section title xl</SectionTitle>
-          <SectionTitle lg>Section title lg</SectionTitle>
-          <SectionTitle md>Section title md</SectionTitle>
-          <SectionTitle sm>Section title sm</SectionTitle>
-          <SectionTitle xs>Section title xs</SectionTitle>
+          <Link xl primary href="#">Extra large primary link</Link>
+          <Link lg semibold href="#">Large link with semibold font</Link>
+          <Link md success href="#">Medium link with success color</Link>
+          <Link sm warning href="#">Small link with warning color</Link>
+          <Link xs danger href="#">Extra small link with danger color</Link>
         </Col>
       )
     }
@@ -64,38 +63,34 @@ export function TypographyComponentsSection() {
 
   const [activeItem, setActiveItem] = React.useState<CarouselItem | null>(carouselItems[0]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleActiveItemChange = React.useCallback((item: CarouselItem, _index: number) => {
+  const handleActiveItemChange = React.useCallback((item: CarouselItem) => {
     setActiveItem(item);
   }, []);
 
   return (
     <Container xl>
-      <Card xl className="w-full overflow-hidden">
-        <Row lg smCol itemsStart className="w-full">
-          <Card sm secondary justifyCenter itemsCenter className="overflow-clip">
-            <BookOpen className="size-8"/>
-          </Card>
-          <Col xs>
-            <SectionTitle sm>Typography</SectionTitle>
-            <Text>Scalable text system with built-in hierarchy. From headings to body text, maintain perfect readability across all screen sizes.</Text>
-          </Col>
-        </Row>
-        <Card secondary overflowHidden className="-ml-16">
-          <Row xl lgCol className="ml-12">
-            <VerticalCarousel className="w-full -mb-8"
-                              items={carouselItems}
-                              onActiveItemChange={handleActiveItemChange}
-            />
+      <Col lg className="w-full">
+        <FeatureTitle
+          icon="BookOpen"
+          title="Typography"
+          description="Scalable text system with built-in hierarchy. From headings to body text, maintain perfect readability across all screen sizes."
+        />
+        <Card lg overflowHidden className="inset-shadow-sm">
+          <Row xl lgCol>
             <CodeBlock
               className="shadow-lg"
               fileName={`${activeItem?.title?.replace(' ', '') || 'Typography'}.tsx`}
               language="tsx"
               code={activeItem ? prepareComponentString(activeItem.component) : ''}
             />
+            <VerticalCarousel
+              className="w-full -mb-8"
+              items={carouselItems}
+              onActiveItemChange={handleActiveItemChange}
+            />
           </Row>
         </Card>
-      </Card>
+      </Col>
     </Container>
   );
 } 

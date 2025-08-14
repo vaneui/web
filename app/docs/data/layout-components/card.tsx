@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, Row, Text, ComponentKeys } from "@vaneui/ui";
+import { Card, Row, Text, Title, ComponentKeys } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
@@ -10,7 +10,7 @@ export const cardExamples: DocsPagePart[] = [
     md: 'A simple card container.',
     component: (
       <Card>
-        <Text semibold>Card Title</Text>
+        <Title>Card Title</Title>
         <Text>This is a basic card with some content inside.</Text>
       </Card>
     ),
@@ -21,12 +21,15 @@ export const cardExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         {
-          ComponentKeys.size.map((key: string) => (
-            <Card key={key} {...{[key]: true}}>
-              <Text semibold>Card {key}</Text>
-              <Text>Content for {key} size</Text>
-            </Card>
-          ))
+          ComponentKeys.size.map((key: string) => {
+            const sizeProps = key !== 'md' ? {[key]: true} : {};
+            return (
+              <Card key={key} {...{[key]: true}}>
+                <Title {...sizeProps}>Card {key}</Title>
+                <Text {...sizeProps}>Content for {key} size</Text>
+              </Card>
+            );
+          })
         }
       </Row>
     ),
@@ -39,7 +42,7 @@ export const cardExamples: DocsPagePart[] = [
         {
           ComponentKeys.appearance.map((key: string) => (
             <Card key={key} {...{[key]: true}}>
-              <Text semibold>{key} Card</Text>
+              <Title>{key} Card</Title>
               <Text>Card with {key} background</Text>
             </Card>
           ))
@@ -55,7 +58,7 @@ export const cardExamples: DocsPagePart[] = [
         {
           ComponentKeys.border.map((key: string) => (
             <Card key={key} {...{[key]: true}}>
-              <Text semibold>Card {key}</Text>
+              <Title>Card {key}</Title>
               <Text>Card with {key}</Text>
             </Card>
           ))
@@ -69,11 +72,11 @@ export const cardExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         <Card rounded>
-          <Text semibold>Card rounded</Text>
+          <Title>Card rounded</Title>
           <Text>Card with rounded corners</Text>
         </Card>
         <Card sharp>
-          <Text semibold>Card sharp</Text>
+          <Title>Card sharp</Title>
           <Text>Card with sharp corners</Text>
         </Card>
       </Row>
@@ -87,7 +90,7 @@ export const cardExamples: DocsPagePart[] = [
         {
           ComponentKeys.shadow.map((key: string) => (
             <Card key={key} {...{[key]: true}}>
-              <Text semibold>Card {key}</Text>
+              <Title>Card {key}</Title>
               <Text>Card with {key}</Text>
             </Card>
           ))
@@ -103,7 +106,7 @@ export const cardExamples: DocsPagePart[] = [
         {
           ComponentKeys.ring.map((key: string) => (
             <Card key={key} {...{[key]: true}}>
-              <Text semibold>Card {key}</Text>
+              <Title>Card {key}</Title>
               <Text>Card with {key}</Text>
             </Card>
           ))
@@ -119,7 +122,7 @@ export const cardExamples: DocsPagePart[] = [
         {
           ComponentKeys.padding.map((key: string) => (
             <Card key={key} {...{[key]: true}}>
-              <Text semibold>Card {key}</Text>
+              <Title>Card {key}</Title>
               <Text>Card with {key}</Text>
             </Card>
           ))
@@ -133,12 +136,12 @@ export const cardExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         <Card column>
-          <Text semibold>Column Direction</Text>
+          <Title>Column Direction</Title>
           <Text>Content flows vertically</Text>
           <Text>Another line</Text>
         </Card>
         <Card row>
-          <Text semibold>Row Direction</Text>
+          <Title>Row Direction</Title>
           <Text>Content flows horizontally</Text>
         </Card>
       </Row>
@@ -152,7 +155,7 @@ export const cardExamples: DocsPagePart[] = [
         {
           ComponentKeys.gap.map((key: string) => (
             <Card key={key} {...{[key]: true}}>
-              <Text semibold>Card {key}</Text>
+              <Title>Card {key}</Title>
               <Text>Content with {key}</Text>
               <Text>Another line</Text>
             </Card>

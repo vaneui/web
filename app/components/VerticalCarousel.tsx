@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import { Col, Stack, Divider, Title } from '@vaneui/ui';
+import { Col, Divider, Title, Card } from '@vaneui/ui';
 
 export interface CarouselItem {
   id: string;
@@ -43,7 +43,7 @@ export function VerticalCarousel({ items, onActiveItemChange, className = '' }: 
     <Col relative className={className}>
 
       {/* Carousel container with sliding animation */}
-      <Col relative overflowHidden className="h-64">
+      <Col relative className="h-64">
 
         {/* Items container that moves vertically */}
         <div
@@ -56,18 +56,14 @@ export function VerticalCarousel({ items, onActiveItemChange, className = '' }: 
           {/* Render all items stacked vertically */}
           {items.map((item, index) => {
             const isActive = index === currentIndex;
-            const isPrev = index === (currentIndex - 1 + items.length) % items.length;
-            const isNext = index === (currentIndex + 1) % items.length;
             
             return (
-              <Stack lg flex itemsStart justifyStart primary border rounded default
+              <Card lg shadow overflowHidden
                 key={item.id}
-                className={`h-64 w-full transition-all duration-700 ease-in-out
+                className={`h-64 w-full transition-all duration-200 ease-in-out 
                   ${isActive 
-                    ? 'opacity-100 scale-100' 
-                    : isPrev || isNext
-                      ? 'opacity-30 scale-90'
-                      : 'opacity-0 scale-85'
+                    ? 'opacity-100 scale-100 z-10' 
+                    : 'opacity-0 scale-90'
                   }
                 `}
               >
@@ -78,8 +74,8 @@ export function VerticalCarousel({ items, onActiveItemChange, className = '' }: 
                 </Col>
 
                 {/* Gradient overlays for fade effect */}
-                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none z-10" />
-              </Stack>
+                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none z-10" />
+              </Card>
             );
           })}
         </div>

@@ -133,9 +133,11 @@ export function DocsPageContent(
                   <Title href={`#${id}`} id={id}>{example.title}</Title>
                   <DocsMarkdown md={example.md}/>
                   <Card xs sharp itemsCenter className="w-full mb-6">
-                    <Stack xl itemsCenter className="overflow-x-auto w-full overflow-y-visible">
-                      {example.component}
-                    </Stack>
+                    <ThemeProvider mergeStrategy="replace">
+                      <Stack xl itemsCenter overflowXAuto overflowYVisible className="w-full">
+                        {example.component}
+                      </Stack>
+                    </ThemeProvider>
                     <CodeBlock
                       code={prepareComponentString(example.component)}
                       language="tsx"
