@@ -128,7 +128,7 @@ export function LiveSection() {
         // Update the rendered component only after typing is complete
         setRenderedStep(currentStep);
       }
-    }, 150);
+    }, 100);
 
     return () => clearInterval(typeInterval);
   }, [textToType, currentStep]);
@@ -218,7 +218,7 @@ export function LiveSection() {
     if (!isTyping) {
       const timer = setTimeout(() => {
         setCurrentStep((prev) => (prev + 1) % animationConfig.steps.length);
-      }, currentStep === 0 ? 1000 : 2500); // Increased delay between steps
+      }, 1000);
 
       return () => clearTimeout(timer);
     }
