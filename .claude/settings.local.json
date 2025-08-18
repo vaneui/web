@@ -19,7 +19,11 @@
       "Bash(mv:*)",
       "Bash(npm run typecheck:*)",
       "Bash(npm run check:all:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npm test:*)",
+      "Bash(npm run:*)",
+      "Bash(npx ts-node:*)"
     ],
     "deny": []
   }

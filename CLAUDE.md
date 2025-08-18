@@ -19,7 +19,7 @@ This is a Next.js 15 documentation website for the VaneUI React component librar
 - **@vaneui/ui** (v0.2.1-alpha) as the primary component library
 - **@vaneui/md** (v0.0.3-alpha) for markdown rendering
 - **MDX** for documentation content via @mdx-js/react
-- **Prism.js** for syntax highlighting
+- **prism-react-renderer** for syntax highlighting (supports TSX)
 - **React Feather** for icons
 - **react-element-to-jsx-string** for component demo generation
 
@@ -37,7 +37,7 @@ This is a Next.js 15 documentation website for the VaneUI React component librar
   - `utils/` - Utility functions including React component string processing
   - `constants.ts` - Product branding (title, slogan, GitHub URL)
   - `globals.css` - Global styles with Tailwind imports and theme variables
-  - `code-theme.css` - Prism.js dark syntax highlighting theme
+  - `code-theme.css` - Additional styling for code blocks
 - `public/` - Static assets
   - Favicon suite (ICO, SVG, PNG variations)
   - Apple touch icons and PWA manifest icons
@@ -55,7 +55,7 @@ This is a Next.js 15 documentation website for the VaneUI React component librar
 
 4. **Dynamic Routing**: Documentation uses Next.js dynamic routes `[category]/[slug]` to generate pages based on the docsSections configuration.
 
-5. **Code Display**: Uses CodeBlock components with Prism.js for syntax highlighting of code examples. Custom utility functions in `utils/stringUtils.ts` convert React components to JSX strings for display.
+5. **Code Display**: Uses CodeBlock components with prism-react-renderer for syntax highlighting of code examples (with full TSX support). Custom utility functions in `utils/stringUtils.ts` convert React components to JSX strings for display.
 
 6. **Styling System**: Tailwind CSS 4.0 with `@source` directive pointing to VaneUI components. Custom CSS variables defined in `globals.css` for theme overrides, border colors, and font families (JetBrains Mono, Inter).
 

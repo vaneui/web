@@ -13,216 +13,194 @@ import {
   Section,
   Button,
   Stack,
-  Divider, Img
+  Divider, 
+  Img
 } from '@vaneui/ui';
 import { CodeBlock } from '../components/CodeBlock';
 import { FeatureTitle } from "../components/FeatureTitle";
 import { dog } from "./data/dog";
+import { AnimationStep } from './utils/typingTypes';
+import { getTypingInfo, getCurrentWordInfo, getDisplayCode, getCurrentCodeLines } from './utils/typingLogic';
+
+// Base code template as array of lines - moved outside component since it's static
+const BASE_CODE_LINES = [
+  '<Card row smCol overflowHidden>',
+  '  <Img src="/puppy.png" alt="puppy" width={185} height={185}',
+  '       className="shrink-0 max-sm:w-full"/>',
+  '  <Stack sm>',
+  '    <Row justifyBetween>',
+  '      <Title>{dog.name}</Title>',
+  '      <Chip sm>{dog.gender}</Chip>',
+  '    </Row>',
+  '    <Divider/>',
+  '    <Text sm>{dog.description}</Text>',
+  '    <Row smCol>',
+  '      <Button className="max-sm:w-full">Adopt</Button>',
+  '      <Button className="max-sm:w-full">Learn more</Button>',
+  '    </Row>',
+  '  </Stack>',
+  '</Card>'
+];
+
+// Animation steps - each step modifies a specific line - moved outside component since it's static
+const ANIMATION_STEPS: AnimationStep[] = [
+  { lineIndex: 1, text: '  <Img src="/puppy.png" alt="puppy" sharp width={185} height={185}' },
+  { lineIndex: 0, text: '<Card row smCol noPadding overflowHidden>' },
+  { lineIndex: 0, text: '<Card row smCol noPadding noGap overflowHidden>' },
+  { lineIndex: 6, text: '      <Chip sm bold>{dog.gender}</Chip>' },
+  { lineIndex: 6, text: '      <Chip sm bold primary>{dog.gender}</Chip>' },
+  { lineIndex: 6, text: '      <Chip sm bold primary pill>{dog.gender}</Chip>' },
+  { lineIndex: 11, text: '      <Button sm className="max-sm:w-full">Adopt</Button>' },
+  { lineIndex: 12, text: '      <Button sm className="max-sm:w-full">Learn more</Button>' },
+  { lineIndex: 11, text: '      <Button sm success className="max-sm:w-full">Adopt</Button>' },
+  { lineIndex: 11, text: '      <Button sm success filled className="max-sm:w-full">Adopt</Button>' },
+  { lineIndex: 10, text: '    <Row smCol sm>' },
+  { lineIndex: 10, text: '    <Row smCol sm justifyEnd>' },
+  { lineIndex: 11, text: '      <Button sm success filled pill className="max-sm:w-full">Adopt</Button>' },
+  { lineIndex: 12, text: '      <Button sm pill className="max-sm:w-full">Learn more</Button>' },
+];
 
 export function LiveSection() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [typingText, setTypingText] = useState('');
+  const [typingProgress, setTypingProgress] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
-  const [renderedStep, setRenderedStep] = useState(0); // What the component shows
+  
+  // Track props for each component based on completed steps
+  const [componentProps, setComponentProps] = useState({
+    card: {} as Record<string, boolean>,
+    img: {} as Record<string, boolean>,
+    chip: {} as Record<string, boolean>,
+    adoptButton: {} as Record<string, boolean>,
+    learnButton: {} as Record<string, boolean>,
+    row: {} as Record<string, boolean>
+  });
 
-  type PropKey = 'CARD_PROPS' | 'IMAGE_PROPS' | 'CHIP_PROPS' | 'ADOPT_BTN_PROPS' | 'ROW_PROPS' | 'LEARN_BTN_PROPS';
-  type PropStep = Partial<Record<PropKey, string>>;
 
-  const animationConfig = React.useMemo(() => {
-    const steps: PropStep[] = [
-      {CHIP_PROPS: '', ADOPT_BTN_PROPS: '', ROW_PROPS: '', CARD_PROPS: '', IMAGE_PROPS: '', LEARN_BTN_PROPS: ''},
-      {IMAGE_PROPS: ' sharp'},
-      {CARD_PROPS: ' noPadding'},
-      {CARD_PROPS: ' noPadding noGap'},
-      {CHIP_PROPS: ' bold'},
-      {CHIP_PROPS: ' bold primary'},
-      {CHIP_PROPS: ' bold primary pill'},
-      {ADOPT_BTN_PROPS: ' sm'},
-      {LEARN_BTN_PROPS: ' sm'},
-      {ADOPT_BTN_PROPS: ' sm success'},
-      {ADOPT_BTN_PROPS: ' sm success filled'},
-      {ROW_PROPS: ' sm'},
-      {ROW_PROPS: ' sm justifyEnd'},
-      {ADOPT_BTN_PROPS: ' sm success filled pill'},
-      {LEARN_BTN_PROPS: ' sm pill'},
-    ]
-    return {
-      steps: steps,
-      template: `<Card row smCol{{CARD_PROPS}} overflowHidden>
-  <Img src="/puppy.png" alt="puppy"{{IMAGE_PROPS}} width={185} height={185}
-         className="shrink-0 max-sm:w-full"/>
-  <Stack sm>
-    <Row justifyBetween>
-      <Title>{dog.name}</Title>
-      <Chip sm{{CHIP_PROPS}}>{dog.gender}</Chip>
-    </Row>
-    <Divider/>
-    <Text sm>{dog.description}</Text>
-    <Row smCol{{ROW_PROPS}}>
-      <Button{{ADOPT_BTN_PROPS}} className="max-sm:w-full">Adopt</Button>
-      <Button{{LEARN_BTN_PROPS}} className="max-sm:w-full">Learn more</Button>
-    </Row>
-  </Stack>
-</Card>`,
-    };
-  }, []);
-
-  // Compute cumulative props by merging each step with all previous steps
-  const propSteps = React.useMemo(() => {
-    return animationConfig.steps.reduce((acc: Required<PropStep>[], step, index) => {
-      if (index === 0) {
-        acc.push(step as Required<PropStep>);
-      } else {
-        // Merge current step with previous accumulated state
-        acc.push({...acc[index - 1], ...step} as Required<PropStep>);
-      }
-      return acc;
-    }, []);
-  }, [animationConfig.steps]);
-
-  const propKeys = Object.keys(animationConfig.steps[0]);
-  const codeTemplate = animationConfig.template;
-  const defaultProps = animationConfig.steps[0]; // First step is the default
-
-  // Calculate what to type for animation
-  const textToType = React.useMemo(() => {
-    if (currentStep === 0) return '';
-
-    // Find which prop changed in this step
-    const stepChanges = animationConfig.steps[currentStep];
-    const changedPropKey = Object.keys(stepChanges)[0] as PropKey; // Get the first (and only) changed prop
-
-    if (!changedPropKey) return '';
-
-    const prev = propSteps[currentStep - 1];
-    const curr = propSteps[currentStep];
-
-    return curr[changedPropKey].replace(prev[changedPropKey] || '', '').trim();
-  }, [currentStep, propSteps, animationConfig.steps]);
-
-  // Typing effect - update component only after completion
+  // Update component props as words finish typing
   useEffect(() => {
-    if (!textToType || currentStep === 0) {
-      setTypingText('');
-      setIsTyping(false);
-      if (currentStep === 0) {
-        setRenderedStep(0); // Reset component to initial state
+    if (isTyping && currentStep > 0 && currentStep <= ANIMATION_STEPS.length) {
+      const step = ANIMATION_STEPS[currentStep - 1];
+      const typingInfo = getTypingInfo(BASE_CODE_LINES, ANIMATION_STEPS, currentStep);
+      const currentWordInfo = getCurrentWordInfo(typingInfo, typingProgress);
+      
+      if (currentWordInfo?.isComplete) {
+        const word = currentWordInfo.word.trim();
+        if (!word) return;
+        
+        setComponentProps(prev => {
+          const newProps = { ...prev };
+          
+          // Apply the prop based on line index
+          switch (step.lineIndex) {
+            case 0: // Card component
+              newProps.card[word] = true;
+              break;
+            case 1: // Img component  
+              newProps.img[word] = true;
+              break;
+            case 6: // Chip component
+              newProps.chip[word] = true;
+              break;
+            case 10: // Row component
+              newProps.row[word] = true;
+              break;
+            case 11: // Adopt Button
+              newProps.adoptButton[word] = true;
+              break;
+            case 12: // Learn Button
+              newProps.learnButton[word] = true;
+              break;
+          }
+          
+          return newProps;
+        });
       }
+    }
+  }, [isTyping, currentStep, typingProgress]);
+
+
+
+  // Typing animation effect
+  useEffect(() => {
+    if (currentStep === 0 || currentStep > ANIMATION_STEPS.length) {
+      setTypingProgress(0);
+      setIsTyping(false);
       return;
     }
 
-    // Clear any existing typing text before starting new typing
-    setTypingText('');
-    setIsTyping(true);
-    let charIndex = 0;
+    const typingInfo = getTypingInfo(BASE_CODE_LINES, ANIMATION_STEPS, currentStep);
+    if (!typingInfo.insertText) {
+      // No text to type, skip to next
+      setTypingProgress(0);
+      setIsTyping(false);
+      return;
+    }
 
-    // Start typing immediately without delay to prevent visual reset
+    // Start typing animation
+    setTypingProgress(0);
+    setIsTyping(true);
+    
+    let charIndex = 0;
     const typeInterval = setInterval(() => {
-      if (charIndex <= textToType.length) {
-        setTypingText(textToType.slice(0, charIndex));
+      if (charIndex <= typingInfo.insertText.length) {
+        setTypingProgress(charIndex);
         charIndex++;
       } else {
         clearInterval(typeInterval);
         setIsTyping(false);
-
-        // Update the rendered component only after typing is complete
-        setRenderedStep(currentStep);
       }
-    }, 100);
+    }, 150); // Typing speed
 
     return () => clearInterval(typeInterval);
-  }, [textToType, currentStep]);
-
-  // Props for code display (shows typing animation)
-  const displayProps = React.useMemo(() => {
-    if (currentStep === 0) return defaultProps as Required<PropStep>;
-
-    // Always start with the previously rendered step (what was actually completed)
-    const baseProps = propSteps[renderedStep] || defaultProps;
-    const result = {...baseProps} as Required<PropStep>;
-
-    // Only when actively typing, add the typing animation
-    if (isTyping && typingText && currentStep > 0) {
-      const stepChanges = animationConfig.steps[currentStep];
-      const changedPropKey = Object.keys(stepChanges)[0] as PropKey;
-
-      if (changedPropKey) {
-        const currentValue = baseProps[changedPropKey] || '';
-        // Always add a space before the typed text (since props are always preceded by a space)
-        result[changedPropKey] = currentValue + ' ' + typingText;
-      }
-    }
-
-    return result;
-  }, [currentStep, propSteps, typingText, isTyping, renderedStep, defaultProps, animationConfig.steps]);
-
-  // Props for rendered component (only updates after typing is complete)
-  const renderedProps = React.useMemo(() => {
-    return propSteps[renderedStep] || defaultProps;
-  }, [renderedStep, propSteps, defaultProps]);
-
-  // Helper function to convert space-separated props string to props object
-  const parseProps = React.useCallback((propsString: string) => {
-    return propsString.trim().split(' ').reduce((acc, prop) => {
-      if (prop) acc[prop] = true;
-      return acc;
-    }, {} as Record<string, boolean>);
-  }, []);
-
-  // Dynamic component based on rendered props (only updates after typing completes)
-  const DynamicComponent = React.useMemo(() => {
-    const cardProps = parseProps(renderedProps['CARD_PROPS'] || '');
-    const imgProps = parseProps(renderedProps['IMAGE_PROPS'] || '');
-    const chipProps = parseProps(renderedProps['CHIP_PROPS'] || '');
-    const adoptProps = parseProps(renderedProps['ADOPT_BTN_PROPS'] || '');
-    const learnProps = parseProps(renderedProps['LEARN_BTN_PROPS'] || '');
-    const rowProps = parseProps(renderedProps['ROW_PROPS'] || '');
-
-    return (
-      <Card row smCol overflowHidden {...cardProps} className="transition-all duration-500">
-        <Img tag={Image} src="/puppy.png" alt="puppy" width={185} height={185}
-             {...imgProps} className="shrink-0 max-sm:w-full"/>
-        <Stack sm>
-          <Row justifyBetween>
-            <Title>{dog.name}</Title>
-            <Chip sm {...chipProps}>{dog.gender}</Chip>
-          </Row>
-          <Divider/>
-          <Text sm>{dog.description}</Text>
-          <Row smCol {...rowProps}>
-            <Button {...adoptProps} className="max-sm:w-full">Adopt</Button>
-            <Button secondary {...learnProps} className="max-sm:w-full">Learn more</Button>
-          </Row>
-        </Stack>
-      </Card>
-    );
-  }, [renderedProps, parseProps, animationConfig]);
-
-  // Helper function to replace placeholders in template (clean, no HTML)
-  const formatCodeTemplate = React.useCallback((template: string, props: Required<PropStep>) => {
-    return propKeys.reduce((code, propKey) => {
-      const placeholder = `{{${propKey}}}`;
-      const value = props[propKey as PropKey] || '';
-      return code.replace(placeholder, value);
-    }, template);
-  }, [propKeys]);
-
-  // Format code for display
-  const displayCode = React.useMemo(() => {
-    return formatCodeTemplate(codeTemplate, displayProps);
-  }, [formatCodeTemplate, codeTemplate, displayProps]);
-
+  }, [currentStep]);
 
   // Auto-advance to next step
   useEffect(() => {
     if (!isTyping) {
       const timer = setTimeout(() => {
-        setCurrentStep((prev) => (prev + 1) % animationConfig.steps.length);
+        setCurrentStep((prev) => {
+          // Reset to 1 after reaching the end
+          if (prev >= ANIMATION_STEPS.length) {
+            // Reset props when restarting
+            setComponentProps({
+              card: {},
+              img: {},
+              chip: {},
+              adoptButton: {},
+              learnButton: {},
+              row: {}
+            });
+            return 1;
+          }
+          return prev + 1;
+        });
       }, 1000);
-
       return () => clearTimeout(timer);
     }
-  }, [isTyping, currentStep, animationConfig.steps.length]);
+  }, [isTyping]);
+
+  // Get typing info and current word
+  const typingInfo = getTypingInfo(BASE_CODE_LINES, ANIMATION_STEPS, currentStep);
+  const currentWordInfo = getCurrentWordInfo(typingInfo, typingProgress);
+  
+  // Calculate highlight ranges directly
+  const highlightRanges = React.useMemo(() => {
+    if (!isTyping || !currentWordInfo || currentWordInfo.wordProgress <= 0) return [];
+    
+    // Get position in full code string
+    const previousLines = getCurrentCodeLines(BASE_CODE_LINES, ANIMATION_STEPS, currentStep - 1);
+    let lineStartPos = 0;
+    for (let i = 0; i < typingInfo.lineIndex; i++) {
+      lineStartPos += previousLines[i].length + 1;
+    }
+    
+    const wordStart = lineStartPos + typingInfo.insertPosition + currentWordInfo.wordStart;
+    const wordEnd = wordStart + currentWordInfo.wordProgress;
+    
+    return [{ start: wordStart, end: wordEnd }];
+  }, [isTyping, currentWordInfo, typingInfo, currentStep]);
+  
+  const displayCode = getDisplayCode(BASE_CODE_LINES, ANIMATION_STEPS, currentStep, isTyping, typingProgress);
 
   return (
     <Section lg relative>
@@ -240,11 +218,28 @@ export function LiveSection() {
               fileName="CardExample.tsx"
               language="tsx"
               code={displayCode}
+              highlightRanges={highlightRanges}
+              cursorPosition={isTyping && highlightRanges[0] ? highlightRanges[0].end - 1 : undefined}
               className="w-[800px] max-lg:w-full"
             />
             <Col
                  className="max-w-xl absolute max-lg:relative right-0 max-sm:max-w-80 z-20 border-8 rounded-[calc(8px+var(--radius-xl))] border-gray-400/10 backdrop-blur-sm">
-              {DynamicComponent}
+              <Card row smCol overflowHidden {...componentProps.card} className="transition-all duration-500">
+                <Img tag={Image} src="/puppy.png" alt="puppy" width={185} height={185}
+                     {...componentProps.img} className="shrink-0 max-sm:w-full"/>
+                <Stack sm>
+                  <Row justifyBetween>
+                    <Title>{dog.name}</Title>
+                    <Chip sm {...componentProps.chip}>{dog.gender}</Chip>
+                  </Row>
+                  <Divider/>
+                  <Text sm>{dog.description}</Text>
+                  <Row smCol {...componentProps.row}>
+                    <Button {...componentProps.adoptButton} className="max-sm:w-full">Adopt</Button>
+                    <Button secondary {...componentProps.learnButton} className="max-sm:w-full">Learn more</Button>
+                  </Row>
+                </Stack>
+              </Card>
             </Col>
           </Row>
         </Col>

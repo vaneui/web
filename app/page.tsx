@@ -1,7 +1,6 @@
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { Card, Col, Container, Grid2, Section, Text, Title, Code } from '@vaneui/ui';
-import { Zap, Package, Droplet, Layout } from "react-feather";
+import { Card, Col, Container, Grid2, Section, Code } from '@vaneui/ui';
 import {
   HeroSection,
   AboutSection,
