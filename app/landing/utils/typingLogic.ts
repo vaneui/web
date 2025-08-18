@@ -140,7 +140,8 @@ export function getDisplayCode(
   animationSteps: AnimationStep[],
   currentStep: number,
   isTyping: boolean,
-  typingProgress: number
+  typingProgress: number,
+  hasTypingCompleted?: boolean
 ): string {
   if (isTyping && currentStep > 0 && currentStep <= animationSteps.length) {
     const typingInfo = getTypingInfo(baseCodeLines, animationSteps, currentStep);
@@ -159,7 +160,9 @@ export function getDisplayCode(
     return lines.join('\n');
   }
   
-  // When not typing, show the completed current step
-  const lines = getCurrentCodeLines(baseCodeLines, animationSteps, Math.min(currentStep, animationSteps.length));
+  // When not typing, show completed state only if typing has completed for this step
+  // Otherwise show the previous step to prevent blinking
+  const displayStep = hasTypingCompleted ? currentStep : Math.max(0, currentStep - 1);
+  const lines = getCurrentCodeLines(baseCodeLines, animationSteps, Math.min(displayStep, animationSteps.length));
   return lines.join('\n');
 }

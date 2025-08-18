@@ -64,6 +64,7 @@ export function LiveSection() {
   const [currentStep, setCurrentStep] = useState(0);
   const [typingProgress, setTypingProgress] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
+  const [typingCompletedForStep, setTypingCompletedForStep] = useState(0);
   
   // Track props for each component based on completed steps
   const [componentProps, setComponentProps] = useState({
@@ -148,6 +149,7 @@ export function LiveSection() {
       } else {
         clearInterval(typeInterval);
         setIsTyping(false);
+        setTypingCompletedForStep(currentStep);
       }
     }, 150); // Typing speed
 
@@ -200,7 +202,7 @@ export function LiveSection() {
     return [{ start: wordStart, end: wordEnd }];
   }, [isTyping, currentWordInfo, typingInfo, currentStep]);
   
-  const displayCode = getDisplayCode(BASE_CODE_LINES, ANIMATION_STEPS, currentStep, isTyping, typingProgress);
+  const displayCode = getDisplayCode(BASE_CODE_LINES, ANIMATION_STEPS, currentStep, isTyping, typingProgress, typingCompletedForStep >= currentStep);
 
   return (
     <Section lg relative>
