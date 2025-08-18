@@ -22,7 +22,6 @@ import { dog } from "./data/dog";
 import { AnimationStep } from './utils/typingTypes';
 import { getTypingInfo, getCurrentWordInfo, getDisplayCode, getCurrentCodeLines } from './utils/typingLogic';
 
-// Base code template as array of lines - moved outside component since it's static
 const BASE_CODE_LINES = [
   '<Card row smCol overflowHidden>',
   '  <Img src="/puppy.png" alt="puppy" width={185} height={185}',
@@ -42,7 +41,6 @@ const BASE_CODE_LINES = [
   '</Card>'
 ];
 
-// Animation steps - each step modifies a specific line - moved outside component since it's static
 const ANIMATION_STEPS: AnimationStep[] = [
   { lineIndex: 1, text: '  <Img src="/puppy.png" alt="puppy" sharp width={185} height={185}' },
   { lineIndex: 0, text: '<Card row smCol noPadding overflowHidden>' },
@@ -65,8 +63,6 @@ export function LiveSection() {
   const [typingProgress, setTypingProgress] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
   const [typingCompletedForStep, setTypingCompletedForStep] = useState(0);
-  
-  // Track props for each component based on completed steps
   const [componentProps, setComponentProps] = useState({
     card: {} as Record<string, boolean>,
     img: {} as Record<string, boolean>,
@@ -75,9 +71,6 @@ export function LiveSection() {
     learnButton: {} as Record<string, boolean>,
     row: {} as Record<string, boolean>
   });
-
-
-  // Update component props as words finish typing
   useEffect(() => {
     if (isTyping && currentStep > 0 && currentStep <= ANIMATION_STEPS.length) {
       const step = ANIMATION_STEPS[currentStep - 1];
@@ -91,24 +84,23 @@ export function LiveSection() {
         setComponentProps(prev => {
           const newProps = { ...prev };
           
-          // Apply the prop based on line index
           switch (step.lineIndex) {
-            case 0: // Card component
+            case 0:
               newProps.card[word] = true;
               break;
-            case 1: // Img component  
+            case 1:
               newProps.img[word] = true;
               break;
-            case 6: // Chip component
+            case 6:
               newProps.chip[word] = true;
               break;
-            case 10: // Row component
+            case 10:
               newProps.row[word] = true;
               break;
-            case 11: // Adopt Button
+            case 11:
               newProps.adoptButton[word] = true;
               break;
-            case 12: // Learn Button
+            case 12:
               newProps.learnButton[word] = true;
               break;
           }
@@ -118,10 +110,6 @@ export function LiveSection() {
       }
     }
   }, [isTyping, currentStep, typingProgress]);
-
-
-
-  // Typing animation effect
   useEffect(() => {
     if (currentStep === 0 || currentStep > ANIMATION_STEPS.length) {
       setTypingProgress(0);
@@ -131,13 +119,10 @@ export function LiveSection() {
 
     const typingInfo = getTypingInfo(BASE_CODE_LINES, ANIMATION_STEPS, currentStep);
     if (!typingInfo.insertText) {
-      // No text to type, skip to next
       setTypingProgress(0);
       setIsTyping(false);
       return;
     }
-
-    // Start typing animation
     setTypingProgress(0);
     setIsTyping(true);
     
@@ -151,19 +136,16 @@ export function LiveSection() {
         setIsTyping(false);
         setTypingCompletedForStep(currentStep);
       }
-    }, 150); // Typing speed
+    }, 150);
 
     return () => clearInterval(typeInterval);
   }, [currentStep]);
 
-  // Auto-advance to next step
   useEffect(() => {
     if (!isTyping) {
       const timer = setTimeout(() => {
         setCurrentStep((prev) => {
-          // Reset to 1 after reaching the end
           if (prev >= ANIMATION_STEPS.length) {
-            // Reset props when restarting
             setComponentProps({
               card: {},
               img: {},
@@ -181,15 +163,11 @@ export function LiveSection() {
     }
   }, [isTyping]);
 
-  // Get typing info and current word
   const typingInfo = getTypingInfo(BASE_CODE_LINES, ANIMATION_STEPS, currentStep);
   const currentWordInfo = getCurrentWordInfo(typingInfo, typingProgress);
-  
-  // Calculate highlight ranges directly
   const highlightRanges = React.useMemo(() => {
     if (!isTyping || !currentWordInfo || currentWordInfo.wordProgress <= 0) return [];
     
-    // Get position in full code string
     const previousLines = getCurrentCodeLines(BASE_CODE_LINES, ANIMATION_STEPS, currentStep - 1);
     let lineStartPos = 0;
     for (let i = 0; i < typingInfo.lineIndex; i++) {

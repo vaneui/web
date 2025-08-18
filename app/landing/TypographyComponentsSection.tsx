@@ -55,7 +55,7 @@ export function TypographyComponentsSection() {
           <Link lg semibold href="#">Large link with semibold font</Link>
           <Link md success href="#">Medium link with success color</Link>
           <Link sm warning href="#">Small link with warning color</Link>
-          <Link xs danger href="#">Extra small link with danger color</Link>
+          <Link xs danger href="#">Extra small link, danger color</Link>
         </Col>
       )
     }
