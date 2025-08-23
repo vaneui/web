@@ -1,45 +1,40 @@
 VaneUI helps you build beautiful, consistent UIs faster by turning common design decisions into expressive, readable boolean props. Instead of memorizing property names and values, you compose intent: `primary`, `lg`, `outline`, `rounded`. The result is cleaner code, fewer decisions per component, and a smoother path from wireframe to production.
 
-> TL;DR
-> - Describe UI with intent-driven boolean props like `primary`, `lg`, and `outline`
-> - Built on Tailwind CSS for performance, consistency, and familiarity
-> - Fully customizable via CSS variables, Tailwind utilities, and theming
-> - Consistent API across all components for rapid muscle memory
-
 ## How VaneUI works
 
-At its core, VaneUI maps boolean props to thoughtfully curated class sets and design tokens.
+At its core, VaneUI maps boolean props to thoughtfully curated CSS classes. You write the JSX using booleans like this:
 
-1. You write intent in JSX using booleans
-   ```tsx
-   <Button primary lg pill filled />
-   ```
-2. The component resolves those booleans to semantic styles
-   - `primary` → semantic color token
-   - `lg` → size scale for paddings, radius, typography
-   - `pill` → shape preset
-   - `filled` → variant preset
-3. Tailwind classes and CSS variables power the final styles
-   - Tailwind utilities for performance and composability
-   - CSS variables for theming and per-app overrides
+```tsx
+<Button primary lg pill filled>
+  Get started
+</Button>
+```
+The component resolves those booleans to semantic styles:
+- `primary` → semantic color token
+- `lg` → size scale for paddings, border radius, typography size
+- `pill` → shape preset
+- `filled` → variant preset
 
-> Note: You can always mix in your own Tailwind classes via className to fine‑tune any edge case.
+Tailwind classes and CSS variables power the final styles:
+- Tailwind utilities for performance and composability
+- CSS variables for theming and per-app overrides
+- Each CSS class can be changed using ThemeProvider
+- Each component has a customizable set of default values for boolean props
 
-## When to use VaneUI
+You can always mix in your own Tailwind classes via className to fine‑tune any edge case:
+```tsx
+<Button primary lg pill filled className="hover:opacity-80">
+  Get started
+</Button>
+```
 
-- You want to ship quickly with consistent styling across components
-- Your team uses or knows Tailwind
-- You need clarity and discoverability over deep theme files
-
-## The Boolean props
-
-### Traditional approach vs VaneUI
+## Traditional approach vs VaneUI
 
 Instead of writing verbose prop configurations, VaneUI uses intuitive boolean props that make your code cleaner and more readable:
 
 ```tsx
 // Traditional approach
-<Button variant="filled" appearance="primary" size="lg" />
+<Button appearance="primary" size="lg" variant="filled" />
 
 // VaneUI approach  
 <Button primary lg filled />
@@ -63,88 +58,63 @@ Boolean props can be combined naturally to create the exact styling you need:
 </Stack>
 ```
 
-## Powered by Tailwind CSS
+## Every Class is Customizable
 
-VaneUI components are built on top of Tailwind CSS, which means:
+Behind each boolean prop are carefully crafted CSS classes that you can completely override.
 
-- *Consistent design system*: All styling follows Tailwind's design tokens
-- *Optimized bundle size*: Only used classes are included in your build
-- *Familiar patterns*: If you know Tailwind, you understand VaneUI's styling
+### CSS Variables
 
-### Tailwind compatibility
+You can customize the VaneUI by overriding the CSS variables:
 
-VaneUI components work seamlessly with additional Tailwind classes:
-
-```tsx
-<Button primary lg className="mt-4 shadow-xl hover:shadow-2xl">
-  Enhanced Button
-</Button>
-
-<Card secondary className="max-w-md mx-auto backdrop-blur-sm">
-  Styled Card
-</Card>
-```
-
-## Complete Customizability
-
-### Every Class is Customizable
-
-Behind each boolean prop are carefully crafted CSS classes that you can completely override:
-
-**CSS Custom Properties:**
 ```css
 :root {
-  /* Use the actual VaneUI variables (see Docs → Customization → CSS Variables) */
   --text-color-primary: #8b5cf6;      /* Primary text color */
-  --filled-background-color-primary: #8b5cf6; /* Primary filled bg */
   --ui-border-radius-md: 1rem;        /* Medium UI radius */
 }
 ```
 
-**Tailwind Overrides:**
+### Tailwind Overrides
+
+Each component can be changed by using the regular Tailwind CSS classes:
+
 ```tsx
-<Button 
-  primary 
-  className="!bg-purple-600 !hover:bg-purple-700"
->
+<Button primary className="bg-purple-600 hover:bg-purple-700">
   Custom Primary
 </Button>
 ```
 
-**Theme System:**
-> Note: ThemeProvider does not expose a `colors` property. Use CSS variables for color customization. ThemeProvider can still set defaults and add extra classes per component via `themeDefaults` and `extraClasses`. See the Customization docs for details.
+### Theme Overrides
 
-## Design System Benefits
-
-### Consistent Naming
-
-All components use the same boolean props for consistent experiences:
+You can set up default values of all boolean props by providing `themeDefaults` in ThemeProvider:
 
 ```tsx
-// Same props work across all components
-<Button primary lg />
-<Badge primary lg />
-<Card primary />
-<Text primary lg />
+const defaults: ThemeDefaults = {
+  button: {
+    pill: true,
+    lg: true,
+  },
+};
+
+return (
+  <ThemeProvider themeDefaults={defaults}>
+    <Button>This button is large and pill-shaped</Button>
+  </ThemeProvider>
+);
 ```
 
-### Semantic Colors
-
-Color names have consistent meaning across components:
+You can change default CSS classes of all components by providing `themeOverride` in ThemeProvider:
 
 ```tsx
-<Button success>Success Action</Button>
-<Badge success>Success Status</Badge>
-<Text success>Success Message</Text>
-```
+const overrideFunc = (theme: ThemeProps) => {
+  theme.button.themes.appearance.text.outline.default.base = 'text-blue-200';
+  theme.button.themes.appearance.text.outline.default.hover = 'hover:text-blue-700';
+  theme.button.themes.appearance.text.outline.default.active = 'active:text-blue-900';
+  return theme;
+};
 
-### Flexible Layout System
-
-Layout components provide powerful flexbox controls:
-
-```tsx
-<Row justifyBetween itemsCenter>
-  <Text lg bold>Title</Text>
-  <Button primary sm>Action</Button>
-</Row>
+return (
+  <ThemeProvider themeOverride={overrideFunc}>
+    <Button>This button has blue colors</Button>
+  </ThemeProvider>
+);
 ```

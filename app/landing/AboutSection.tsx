@@ -7,8 +7,9 @@ import {
   Col,
   SectionTitle,
   Chip,
-  Section,
+  Section, Grid3, Card, Title, Divider, Button,
 } from '@vaneui/ui';
+import { ArrowRight } from "react-feather";
 
 export function AboutSection() {
 
@@ -16,7 +17,7 @@ export function AboutSection() {
     <Section lg relative className="border-b">
       <Container xl>
         <Col>
-          <Chip lg secondary pill semibold>What is VaneUI?</Chip>
+          <Chip default pill semibold sm shadow>What is VaneUI?</Chip>
           <SectionTitle xl>
             A modern React component library powered by Tailwind CSS.
           </SectionTitle>
@@ -25,6 +26,31 @@ export function AboutSection() {
             Write less code, build faster, and maintain consistency across your entire application.
           </Text>
         </Col>
+        <Divider/>
+        <Grid3 xl className="w-full">
+          {
+            [
+              {
+                title: "Build faster with ready components",
+                description: "Start your project with a collection of prebuilt React components. Each component is designed to save development time and help you focus on building features instead of basic UI."
+              },
+              {
+                title: "Customize easily to fit your brand",
+                description: "Quickly adjust colors, styles, spacing, and appearance to match your product’s look and feel. VaneUI makes it simple to create a consistent design system without extra effort."
+              },
+              {
+                title: "Developer-friendly from the start",
+                description: "Enjoy a smooth developer experience with TypeScript support, clean APIs, and utility-first styling. VaneUI helps you write reliable code while keeping development efficient."
+              },
+            ].map((item, index) => (
+              <Card lg noBorder noPadding key={index} className="w-full">
+                <Title sm>{item.title}</Title>
+                <Text tertiary>{item.description}</Text>
+                <Button hidden>Learn more <ArrowRight/></Button>
+              </Card>
+            ))
+          }
+        </Grid3>
       </Container>
     </Section>
   );

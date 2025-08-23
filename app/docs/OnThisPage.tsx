@@ -123,7 +123,7 @@ export function OnThisPage({sections}: OnThisPageProps) {
               key={index}
               href={`#${section.id}`}
               onClick={(e) => handleClick(e, section.id)}
-              className={isActive ? "border-l-2 border-(--filled-border-color-primary) bg-primary" : "border-l-2 border-default"}
+              className={isActive ? "border-l-2 border-(--filled-border-color-primary) bg-primary" : "border-l-2 border-default hover:bg-secondary"}
             >
               <Text sm secondary={!isActive} primary={isActive} semibold={isActive}
                     className={`py-1.5 ${

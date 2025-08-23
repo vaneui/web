@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { CodeBlock } from '../components/CodeBlock';
-import { Title } from '@vaneui/ui';
+import { Card, Title } from '@vaneui/ui';
 import { Md } from "@vaneui/md";
 import { toHtmlId } from '../utils/stringUtils';
 
@@ -58,6 +58,14 @@ function CustomMdHeading({ level, children }: MdHeadingProps) {
   );
 }
 
+function CustomMdBlockquote({ children }: { children: React.ReactNode }) {
+  return (
+    <Card noGap shadow>
+      {children}
+    </Card>
+  )
+}
+
 export function DocsMarkdown({md}: DocsMarkdownProps) {
   return (
     <Md
@@ -74,7 +82,8 @@ export function DocsMarkdown({md}: DocsMarkdownProps) {
               />
             );
           },
-          MdHeading: CustomMdHeading
+          MdHeading: CustomMdHeading,
+          MdBlockquote: CustomMdBlockquote,
         }
       }}
     />

@@ -45,7 +45,7 @@ export function DocsPageContent(
         navSections.push({
           title: heading.title,
           id: heading.id,
-          level: heading.level + 1 // Adjust level to account for page title being level 0
+          level: heading.level
         });
       });
     }
