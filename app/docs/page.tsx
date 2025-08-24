@@ -20,10 +20,10 @@ export default function DocsPage() {
             <Text>{section.description}</Text>
             <Grid3>
               {section.pages.map((component, componentIndex) => (
-                <VaneLink secondary href={`/docs/${section.slug}/${component.slug}`} tag={Link}
-                          className="hover:no-underline w-full"
+                <VaneLink secondary noUnderline href={`/docs/${section.slug}/${component.slug}`} tag={Link}
+                          className="w-full hover:no-underline hover:bg-secondary"
                           key={componentIndex}>
-                  <Card shadow className="gap-3 h-full">
+                  <Card shadow transparent className="gap-3 h-full">
                     <Text lg semibold>{component.name}</Text>
                     <Text sm secondary>{component.description}</Text>
                   </Card>
