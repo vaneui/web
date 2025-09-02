@@ -36,7 +36,7 @@ interface ThemeExtraClasses {
 }
 ```
 
-## Basic Usage
+## ExtraClasses Usage
 
 ### Global Extra Classes
 
@@ -175,7 +175,7 @@ function CSSModulesIntegration() {
 }
 ```
 
-## Advanced Patterns
+## Advanced ExtraClasses Patterns
 
 ### Conditional Extra Classes
 
@@ -406,7 +406,7 @@ function EmotionIntegration() {
 }
 ```
 
-## Performance Considerations
+## ExtraClasses Performance
 
 ### Class Name Optimization
 
@@ -471,7 +471,7 @@ function DynamicClasses() {
 }
 ```
 
-## Best Practices
+## ExtraClasses Best Practices
 
 ### Consistent Naming
 

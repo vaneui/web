@@ -15,8 +15,8 @@ export const playfulOverrideFunc = (theme: ThemeProps) => {
   theme.button.themes.appearance.ring.filled.secondary.base = 'ring-blue-100';
   theme.button.themes.appearance.text.filled.secondary.base = 'text-white';
 
-  theme.card.themes.appearance.background.default.base = 'bg-gradient-to-br from-pink-50 to-purple-50';
-  theme.card.themes.appearance.border.default.base = 'border-pink-300';
+  theme.card.themes.appearance.background.outline.default.base = 'bg-gradient-to-br from-pink-50 to-purple-50';
+  theme.card.themes.appearance.border.outline.default.base = 'border-pink-300';
   theme.card.themes.layout.border.base = 'border-4';
   theme.card.themes.layout.radius.rounded.xl = 'rounded-3xl';
 

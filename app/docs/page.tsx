@@ -19,15 +19,15 @@ export default function DocsPage() {
             <SectionTitle sm semibold>{section.name}</SectionTitle>
             <Text>{section.description}</Text>
             <Grid3>
-              {section.pages.map((component, componentIndex) => (
-                <VaneLink secondary noUnderline href={`/docs/${section.slug}/${component.slug}`} tag={Link}
-                          className="w-full hover:no-underline hover:bg-secondary"
-                          key={componentIndex}>
-                  <Card shadow transparent className="gap-3 h-full">
-                    <Text lg semibold>{component.name}</Text>
-                    <Text sm secondary>{component.description}</Text>
-                  </Card>
-                </VaneLink>
+              {section.pages.map((component, i) => (
+                <Card key={i} shadow transparent relative overflowHidden
+                      className="gap-3 cursor-pointer hover:bg-secondary">
+                  <VaneLink absolute secondary noUnderline href={`/docs/${section.slug}/${component.slug}`} tag={Link}
+                            className="w-full inset-0"
+                  />
+                  <Text lg default semibold>{component.name}</Text>
+                  <Text sm secondary>{component.description}</Text>
+                </Card>
               ))}
             </Grid3>
           </Col>

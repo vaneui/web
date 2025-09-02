@@ -20,7 +20,7 @@ export function FeatureTitle({icon, title, description, className = ''}: Feature
         <Icon className="size-8"/>
       </Card>
       <Col xs>
-        <SectionTitle sm>{title}</SectionTitle>
+        <SectionTitle sm default>{title}</SectionTitle>
         <Text secondary>{description}</Text>
       </Col>
     </Row>

@@ -6,8 +6,8 @@ export const strictTheme: PartialTheme = {
 };
 
 export const strictOverrideFunc = (theme: ThemeProps) => {
-  theme.card.themes.appearance.background.default.base = 'bg-gray-100'
-  theme.card.themes.appearance.border.default.base = 'border-gray-900'
+  theme.card.themes.appearance.background.outline.default.base = 'bg-gray-100'
+  theme.card.themes.appearance.border.outline.default.base = 'border-gray-900'
   theme.card.themes.layout.border.base = 'border-2'
 
   theme.divider.themes.appearance.background.default.base = 'bg-gray-900';

@@ -1,6 +1,6 @@
 'use client'
 
-import { Section, Text, Col, ComponentKeys } from "@vaneui/ui";
+import { Section, Text, Col, ComponentKeys, Title } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
@@ -193,6 +193,26 @@ export const sectionExamples: DocsPagePart[] = [
           <Text>First item</Text>
           <Text>Second item</Text>
           <Text>Third item</Text>
+        </Section>
+      </Col>
+    ),
+  },
+  {
+    title: 'Filled and Outline Sections',
+    md: 'Sections support filled and outline variants with typography color inheritance.',
+    component: (
+      <Col lg>
+        <Section filled primary lg>
+          <Title primary>Filled Primary Section</Title>
+          <Text primary>Typography inherits primary color from filled section</Text>
+        </Section>
+        <Section outline secondary lg>
+          <Title secondary>Outline Secondary Section</Title>
+          <Text secondary>Typography inherits secondary color from outline section</Text>
+        </Section>
+        <Section filled warning lg>
+          <Title warning>Filled Warning Section</Title>
+          <Text warning>Typography inherits warning color from section</Text>
         </Section>
       </Col>
     ),

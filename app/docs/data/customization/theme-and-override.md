@@ -326,7 +326,7 @@ function CombinedThemeButton() {
 }
 ```
 
-## Advanced Patterns
+## Advanced Theme Patterns
 
 ### Theme Inheritance
 
@@ -400,7 +400,7 @@ function ResponsiveThemedButton() {
 }
 ```
 
-## Performance Considerations
+## Theme Performance
 
 ### Theme Memoization
 

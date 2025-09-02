@@ -45,6 +45,40 @@ function AppearanceExample() {
 }
 ```
 
+### Filled and Outline Variants
+
+All components now support `filled` and `outline` variants, including layout components:
+
+```tsx
+import { Button, Card, Stack, Container, Row } from '@vaneui/ui';
+
+function FilledOutlineExample() {
+  return (
+    <Stack lg>
+      {/* Buttons */}
+      <Row>
+        <Button filled primary>Filled Button</Button>
+        <Button outline primary>Outline Button</Button>
+      </Row>
+      
+      {/* Cards */}
+      <Row>
+        <Card filled success lg>Filled Card</Card>
+        <Card outline danger lg>Outline Card</Card>
+      </Row>
+      
+      {/* Layout Components */}
+      <Container filled secondary>
+        <Stack lg>Filled Container</Stack>
+      </Container>
+      <Container outline warning>
+        <Stack lg>Outline Container</Stack>
+      </Container>
+    </Stack>
+  );
+}
+```
+
 ### Shape Props
 
 Control border radius:
@@ -118,6 +152,38 @@ function TypographyExample() {
       <SectionTitle>Section Title</SectionTitle>
       <Title>Subsection Title</Title>
       <Text>Body text</Text>
+    </Stack>
+  );
+}
+```
+
+### Typography Color Inheritance
+
+Typography components with appearance props inherit colors from their parent components:
+
+```tsx
+import { Card, Container, Text, Title, Stack } from '@vaneui/ui';
+
+function ColorInheritanceExample() {
+  return (
+    <Stack lg>
+      {/* Typography inherits from Card appearance */}
+      <Card filled primary lg>
+        <Title primary>This title inherits primary color</Title>
+        <Text primary>This text inherits primary color from the card</Text>
+      </Card>
+      
+      {/* Typography inherits from Container appearance */}
+      <Container filled success>
+        <Title success>Success colored title</Title>
+        <Text success>Success colored text</Text>
+      </Container>
+      
+      {/* Independent typography colors */}
+      <Stack>
+        <Title danger>Independent danger title</Title>
+        <Text secondary>Independent secondary text</Text>
+      </Stack>
     </Stack>
   );
 }

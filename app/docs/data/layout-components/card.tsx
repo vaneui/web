@@ -164,4 +164,24 @@ export const cardExamples: DocsPagePart[] = [
       </Row>
     ),
   },
+  {
+    title: 'Filled and Outline Cards',
+    md: 'Cards support filled and outline variants with typography color inheritance.',
+    component: (
+      <Row flexWrap>
+        <Card filled primary lg>
+          <Title primary>Filled Primary Card</Title>
+          <Text primary>Typography inherits primary color</Text>
+        </Card>
+        <Card outline success lg>
+          <Title success>Outline Success Card</Title>
+          <Text success>Typography inherits success color</Text>
+        </Card>
+        <Card filled danger lg>
+          <Title danger>Filled Danger Card</Title>
+          <Text danger>Typography inherits danger color</Text>
+        </Card>
+      </Row>
+    ),
+  },
 ];

@@ -419,7 +419,7 @@ function DynamicDefaults() {
 }
 ```
 
-## Best Practices
+## ThemeDefaults Best Practices
 
 ### Consistent Defaults
 

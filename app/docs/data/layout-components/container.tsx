@@ -1,6 +1,6 @@
 'use client'
 
-import { Container, Text, Col, ComponentKeys } from "@vaneui/ui";
+import { Container, Text, Col, ComponentKeys, Title } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
@@ -156,6 +156,26 @@ export const containerExamples: DocsPagePart[] = [
           <div className="p-4 bg-gray-100 rounded">
             <Text>Second item</Text>
           </div>
+        </Container>
+      </Col>
+    ),
+  },
+  {
+    title: 'Filled and Outline Containers',
+    md: 'Containers support filled and outline variants with typography color inheritance.',
+    component: (
+      <Col lg>
+        <Container filled primary lg>
+          <Title primary>Filled Primary Container</Title>
+          <Text primary>Typography inherits primary color from filled container</Text>
+        </Container>
+        <Container outline success lg>
+          <Title success>Outline Success Container</Title>
+          <Text success>Typography inherits success color from outline container</Text>
+        </Container>
+        <Container filled warning lg>
+          <Title warning>Filled Warning Container</Title>
+          <Text warning>Typography inherits warning color from container</Text>
         </Container>
       </Col>
     ),

@@ -1,6 +1,6 @@
 'use client'
 
-import { Title, Col, ComponentKeys } from "@vaneui/ui";
+import { Title, Col, ComponentKeys, Card, Container } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
@@ -111,6 +111,23 @@ export const titleExamples: DocsPagePart[] = [
         <Title md semibold success underline>Medium Semibold Success Underlined Title</Title>
         <Title xs light uppercase>Extra Small Light Uppercase Title</Title>
         <Title xl extrabold danger textCenter>Extra Large Extra Bold Danger Centered Title</Title>
+      </Col>
+    ),
+  },
+  {
+    title: 'Color Inheritance from Parent',
+    md: 'Titles inherit colors from parent components with appearance props.',
+    component: (
+      <Col lg>
+        <Card filled warning lg>
+          <Title warning>Title inheriting warning color from filled card</Title>
+        </Card>
+        <Container filled primary>
+          <Title primary>Title inheriting primary color from container</Title>
+        </Container>
+        <Card outline secondary lg>
+          <Title secondary>Title inheriting secondary from outline card</Title>
+        </Card>
       </Col>
     ),
   },

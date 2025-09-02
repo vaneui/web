@@ -1,6 +1,6 @@
 'use client'
 
-import { Text, Col, Row, ComponentKeys } from "@vaneui/ui";
+import { Text, Col, Row, ComponentKeys, Card, Container } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
@@ -125,6 +125,23 @@ export const textExamples: DocsPagePart[] = [
         <Text md semibold success underline>Medium Semibold Success Underlined Text</Text>
         <Text xs light uppercase>Extra Small Light Uppercase Text</Text>
         <Text xl extrabold danger textCenter>Extra Large Extra Bold Danger Centered Text</Text>
+      </Col>
+    ),
+  },
+  {
+    title: 'Color Inheritance',
+    md: 'Text inherits colors from parent components with appearance props.',
+    component: (
+      <Col>
+        <Card filled primary lg>
+          <Text primary>This text inherits primary color from the filled card</Text>
+        </Card>
+        <Card filled success lg>
+          <Text success>This text inherits success color from the card</Text>
+        </Card>
+        <Container outline danger>
+          <Text danger>Text inheriting danger color from outline container</Text>
+        </Container>
       </Col>
     ),
   },
