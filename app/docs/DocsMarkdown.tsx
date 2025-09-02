@@ -5,6 +5,7 @@ import { CodeBlock } from '../components/CodeBlock';
 import { Card, Title } from '@vaneui/ui';
 import { Md } from "@vaneui/md";
 import { toHtmlId } from '../utils/stringUtils';
+import Link from "next/link";
 
 interface DocsMarkdownProps {
   md: string;
@@ -15,50 +16,50 @@ interface MdHeadingProps {
   children: React.ReactNode;
 }
 
-function CustomMdHeading({ level, children }: MdHeadingProps) {
-  const titleText = typeof children === 'string' ? children : 
+function CustomMdHeading({level, children}: MdHeadingProps) {
+  const titleText = typeof children === 'string' ? children :
     React.Children.toArray(children).join('');
   const id = toHtmlId(titleText);
-  
+
   const titleClasses = "after:content-['#'] after:invisible hover:after:visible after:ml-2 after:opacity-25";
-  
+
   let sizeProps = {};
   switch (level) {
     case 1:
-      sizeProps = { xl: true };
+      sizeProps = {xl: true};
       break;
     case 2:
-      sizeProps = { lg: true };
+      sizeProps = {lg: true};
       break;
     case 3:
-      sizeProps = { md: true };
+      sizeProps = {md: true};
       break;
     case 4:
-      sizeProps = { sm: true };
+      sizeProps = {sm: true};
       break;
     case 5:
-      sizeProps = { xs: true };
+      sizeProps = {xs: true};
       break;
     case 6:
-      sizeProps = { xs: true };
+      sizeProps = {xs: true};
       break;
     default:
-      sizeProps = { md: true };
+      sizeProps = {md: true};
   }
 
   return (
-    <Title 
+    <Title
       {...sizeProps}
-      href={`#${id}`} 
-      id={id}
       className={titleClasses}
     >
-      {children}
+      <Link href={`#${id}`} id={id}>
+        {children}
+      </Link>
     </Title>
   );
 }
 
-function CustomMdBlockquote({ children }: { children: React.ReactNode }) {
+function CustomMdBlockquote({children}: { children: React.ReactNode }) {
   return (
     <Card noGap shadow>
       {children}

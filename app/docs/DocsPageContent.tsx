@@ -10,6 +10,7 @@ import { CodeBlock } from '../components/CodeBlock';
 import { prepareComponentString, toHtmlId, extractMarkdownHeadings } from "../utils/stringUtils";
 import { DocsMarkdown } from "./DocsMarkdown";
 import { OnThisPage } from './OnThisPage';
+import Link from "next/link";
 
 export function DocsPageContent(
   {
@@ -103,7 +104,7 @@ export function DocsPageContent(
         xl: "pt-6 " + titleClasses
       },
       pageTitle: {
-        md: titleClasses
+        md: titleClasses,
       },
       text: {
         md: "text-base/7",
@@ -115,7 +116,9 @@ export function DocsPageContent(
           <Col xl className="flex-1 min-w-0">
             <Col>
               <Text sm uppercase secondary mono>{section.name}</Text>
-              <PageTitle href={`#${pageTitleId}`} id={pageTitleId}>{pageTitle}</PageTitle>
+              <PageTitle>
+                <Link href={`#${pageTitleId}`} id={pageTitleId}>{pageTitle}</Link>
+              </PageTitle>
               <Text default>{pageData.description}</Text>
             </Col>
 
@@ -130,7 +133,9 @@ export function DocsPageContent(
               const id = toHtmlId(example.title);
               return (
                 <Col key={index} className="w-full">
-                  <Title href={`#${id}`} id={id}>{example.title}</Title>
+                  <Title>
+                    <Link href={`#${id}`} id={id}>{example.title}</Link>
+                  </Title>
                   <DocsMarkdown md={example.md}/>
                   <Card xs sharp itemsCenter className="w-full mb-6">
                     <ThemeProvider mergeStrategy="replace">
@@ -152,14 +157,18 @@ export function DocsPageContent(
             {/* Props Documentation */}
             {
               componentKey &&
-              <Title xl href={`#${propsTitleId}`} id={propsTitleId}>{propsTitle}</Title>
+              <Title xl>
+                <Link href={`#${propsTitleId}`} id={propsTitleId}>{propsTitle}</Link>
+              </Title>
             }
             {
               componentKey && ComponentCategories[componentKey].map((key, index) => {
                 const id = toHtmlId(key);
                 return (
                   <Col key={index} className="w-full">
-                    <Title href={`#${id}`} id={id}>{key}</Title>
+                    <Title>
+                      <Link href={`#${id}`} id={id}>{key}</Link>
+                    </Title>
                     <Col xs>
                       {
                         ComponentKeys[key as keyof typeof ComponentKeys].map((k: string, index: number) => (
