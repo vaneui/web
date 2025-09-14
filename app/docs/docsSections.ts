@@ -20,6 +20,9 @@ import { linkExamples } from "./data/typography-components/link";
 import { listExamples } from "./data/typography-components/list";
 import { grid3Examples } from "./data/layout-components/grid3";
 import { grid4Examples } from "./data/layout-components/grid4";
+import { grid5Examples } from "./data/layout-components/grid5";
+import { grid6Examples } from "./data/layout-components/grid6";
+import { inputExamples } from "./data/basic-components/input";
 
 
 export const docsSections: DocsSection[] = [
@@ -105,6 +108,13 @@ export const docsSections: DocsSection[] = [
         parts: dividerExamples,
         componentKey: "divider",
       },
+      {
+        slug: 'input',
+        name: 'Input',
+        description: 'Allows users to enter text, numbers, and other data. Inputs are essential form elements with support for various types, validation states, and styling options.',
+        parts: inputExamples,
+        componentKey: "input",
+      },
     ]
   },
   {
@@ -167,6 +177,20 @@ export const docsSections: DocsSection[] = [
         description: 'A responsive layout component that arranges its children into a four-column grid. This is ideal for displaying a collection of items or features.',
         parts: grid4Examples,
         componentKey: "grid4",
+      },
+      {
+        slug: 'grid5',
+        name: 'Grid5',
+        description: 'A responsive layout component that creates a five-column grid. Perfect for organizing content into balanced, visually appealing arrangements.',
+        parts: grid5Examples,
+        componentKey: "grid5",
+      },
+      {
+        slug: 'grid6',
+        name: 'Grid6',
+        description: 'A six-column grid layout component for creating compact, organized displays. Ideal for icon grids, feature collections, and detailed content arrangements.',
+        parts: grid6Examples,
+        componentKey: "grid6",
       },
     ]
   },

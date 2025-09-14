@@ -12,8 +12,8 @@ export function Header() {
 
   return (
     <>
-      <Stack xs row justifyBetween tag={'header'}
-             className="flex-shrink-0 bg-white/70 backdrop-blur-md border-b z-40 w-full border-default">
+      <Stack xs row justifyBetween itemsCenter tag={'header'} default borderB
+             className="flex-shrink-0 bg-white/70 backdrop-blur-md z-40 w-full">
         <Logo/>
 
         {/* Desktop menu items - hidden on mobile */}
@@ -41,9 +41,9 @@ export function Header() {
       {/* Mobile menu overlay */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
-          <div className="absolute left-0 top-0 h-full w-full bg-default flex flex-col">
+          <div className="absolute left-0 top-0 h-full w-full bg-bg-default flex flex-col">
             {/* Fixed header */}
-            <Stack xs row justifyBetween className="w-full border-b border-default flex-shrink-0">
+            <Stack xs row justifyBetween default borderB className="w-full flex-shrink-0">
               <Logo/>
               <Button secondary sm noShadow onClick={() => setIsMobileMenuOpen(false)}>
                 <X className="size-5"/>

@@ -51,7 +51,7 @@ export default function Home() {
         <HeroSection/>
         <AboutSection/>
         <LiveSection/>
-        <Section secondary lg className="py-10 border-y">
+        <Section secondary lg borderY className="py-10">
           <BasicComponentsSection/>
           <TypographyComponentsSection/>
           <Container xl>

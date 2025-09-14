@@ -14,7 +14,7 @@ import { ArrowRight } from "react-feather";
 export function AboutSection() {
 
   return (
-    <Section lg relative className="border-b">
+    <Section lg relative borderB>
       <Container xl>
         <Col>
           <Chip default pill semibold sm shadow>What is VaneUI?</Chip>

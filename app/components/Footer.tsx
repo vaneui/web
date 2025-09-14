@@ -5,7 +5,7 @@ import vaneui from "../../public/vaneui.svg";
 
 export function Footer() {
   return (
-    <Section tag={'footer'} secondary className="border-t">
+    <Section tag={'footer'} secondary borderT>
       <Container xl itemsStart>
         <Row xl justifyBetween mdCol itemsStart className="w-full">
           <Col xl className="max-w-1/2 max-md:max-w-full">

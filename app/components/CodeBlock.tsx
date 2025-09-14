@@ -69,7 +69,7 @@ export function CodeBlock({
           {copied ? "Copied!" : "Copy"}
         </Button>
       </Stack>
-      <Stack xs default noPadding overflowXAuto className="border-t">
+      <Stack xs default noPadding overflowXAuto borderT>
         <Highlight
           theme={currentTheme}
           code={code.trim()}

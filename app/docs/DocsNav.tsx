@@ -7,7 +7,7 @@ import { BookOpen, Box, FileText, GitHub, Layers, Settings } from "react-feather
 import Link from "next/link";
 import { PRODUCT } from "../constants";
 
-export function DocsNav({currentPath, onMenuItemClick}: { currentPath?: string, onMenuItemClick?: () => void }) {
+export function DocsNav({currentPath, onMenuItemClickAction}: { currentPath?: string, onMenuItemClickAction?: () => void }) {
   const icons = [
     {slug: 'getting-started', icon: BookOpen},
     {slug: 'basic-components', icon: Box},
@@ -17,27 +17,24 @@ export function DocsNav({currentPath, onMenuItemClick}: { currentPath?: string, 
   ]
   return (
     <Col lg>
-      <Col xs>
+      <Col noGap>
         {[
           {icon: BookOpen, text: "Documentation", href: "/docs", external: false},
           {icon: GitHub, text: "GitHub", href: PRODUCT.githubUrl, external: true},
         ].map((item, index) => (
-          item.external ? (
-            <Row sm className="hover:bg-secondary" href={item.href} target="_blank" rel="noopener noreferrer"
-                 key={index}>
-              <Card xs secondary tag="span" justifyCenter>
-                <item.icon className="size-5"/>
-              </Card>
-              <Text secondary>{item.text}</Text>
-            </Row>
-          ) : (
-            <Row sm tag={Link} href={item.href} key={index} className="hover:bg-secondary" onClick={onMenuItemClick}>
-              <Card xs secondary tag="span" justifyCenter>
-                <item.icon className="size-5"/>
-              </Card>
-              <Text secondary>{item.text}</Text>
-            </Row>
-          )
+          <Row sm relative key={index} className="hover:bg-bg-tertiary p-1 rounded-xl ">
+            <Link
+              href={item.href}
+              target={item.external ? "_blank" : "_self"}
+              rel="noopener noreferrer"
+              className="absolute inset-0 z-10"
+              aria-label={item.text}
+            />
+            <Card noPadding secondary tag="span" justifyCenter className="p-2">
+              <item.icon className="size-5"/>
+            </Card>
+            <Text secondary>{item.text}</Text>
+          </Row>
         ))}
       </Col>
       <Divider/>
@@ -60,8 +57,8 @@ export function DocsNav({currentPath, onMenuItemClick}: { currentPath?: string, 
                     sm noShadow noRing sharp justifyStart
                     tag={Link} key={i} href={path}
                     semibold={isActive}
-                    className={`w-full border-l-2 pl-4 ${isActive && "border-text"}`}
-                    onClick={onMenuItemClick}
+                    className={`w-full border-l-2 border-border-default pl-4 ${isActive && "border-text-default"}`}
+                    onClick={onMenuItemClickAction}
                   >
                     {page.name}
                   </Button>

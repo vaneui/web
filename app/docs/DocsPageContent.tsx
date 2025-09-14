@@ -3,7 +3,7 @@
 import React from 'react';
 import {
   Col, Text, Title, PageTitle, Container, Card, Stack, Divider,
-  ComponentCategories, ComponentKeys, ListItem, ThemeProvider, Row, ThemeProps
+  ComponentCategories, ComponentKeys, ListItem, ThemeProvider, Row, ThemeProps, defaultTheme
 } from '@vaneui/ui';
 import { DocsPageProps } from './types';
 import { CodeBlock } from '../components/CodeBlock';
@@ -164,6 +164,53 @@ export function DocsPageContent(
             {
               componentKey && ComponentCategories[componentKey].map((key, index) => {
                 const id = toHtmlId(key);
+                const theme = defaultTheme[componentKey];
+                // Find all theme keys that contain all fields from ComponentKeys[key]
+                const keyFields = ComponentKeys[key as keyof typeof ComponentKeys];
+                const matchingThemes: string[] = [];
+                
+                if (theme && keyFields) {
+                  const findMatchingThemes = (themeObj: unknown, prefix = ''): void => {
+                    if (!themeObj || typeof themeObj !== 'object') return;
+                    
+                    const obj = themeObj as Record<string, unknown>;
+                    
+                    // Check if this object has a 'themes' property (ComponentTheme structure)
+                    if ('themes' in obj && obj.themes && typeof obj.themes === 'object') {
+                      const themes = obj.themes as Record<string, unknown>;
+                      Object.keys(themes).forEach(themeKey => {
+                        const themeObject = themes[themeKey];
+                        if (themeObject && typeof themeObject === 'object') {
+                          const themeProps = themeObject as Record<string, unknown>;
+                          // Check if this theme contains all the key fields
+                          const hasAllFields = keyFields.every((field: string) => 
+                            field in themeProps
+                          );
+                          if (hasAllFields) {
+                            const fullThemeName = prefix ? `${prefix}.${themeKey}` : themeKey;
+                            matchingThemes.push(fullThemeName);
+                          }
+                        }
+                      });
+                    } else {
+                      // Check for nested structures (like checkbox with input, check, wrapper)
+                      Object.keys(obj).forEach(subKey => {
+                        const subObj = obj[subKey];
+                        if (typeof subObj === 'object' && subObj !== null) {
+                          const newPrefix = prefix ? `${prefix}.${subKey}` : subKey;
+                          findMatchingThemes(subObj, newPrefix);
+                        }
+                      });
+                    }
+                  };
+                  
+                  try {
+                    findMatchingThemes(theme);
+                  } catch (error) {
+                    // Silently handle any theme access errors
+                    console.warn('Error accessing theme structure:', error);
+                  }
+                }
                 return (
                   <Col key={index} className="w-full">
                     <Title>
@@ -176,6 +223,14 @@ export function DocsPageContent(
                         ))
                       }
                     </Col>
+                    {matchingThemes.length > 0 && (
+                      <Col xs>
+                        <Text sm secondary>Controlled themes:</Text>
+                        {matchingThemes.map((themeKey: string, index: number) => (
+                          <ListItem key={index} secondary>{themeKey}</ListItem>
+                        ))}
+                      </Col>
+                    )}
                   </Col>
                 );
               })
