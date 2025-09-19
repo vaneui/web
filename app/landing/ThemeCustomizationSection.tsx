@@ -90,13 +90,13 @@ export function ThemeCustomizationSection() {
   "/>
               <ThemeProvider theme={currentTheme.config} themeDefaults={currentTheme.defaults}
                              themeOverride={currentTheme.overrideFunc}>
-                <Card row smCol overflowHidden className="max-w-xl max-sm:max-w-80 z-10">
+                <Card sm row smCol overflowHidden className="max-w-2xl max-sm:max-w-80 z-10">
                   <Img
                     tag={Image}
                     src="/puppy.png"
                     alt="puppy"
-                    width={185}
-                    height={185}
+                    width={200}
+                    height={200}
                     className="shrink-0 max-sm:w-full"
                   />
                   <Stack sm>

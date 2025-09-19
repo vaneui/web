@@ -17,8 +17,8 @@
   "dependencies": {
     "@mdx-js/react": "^3.0.1",
     "@tailwindcss/postcss": "^4.0.14",
-    "@vaneui/md": "^0.0.3-alpha.20250807150626.4231a8a",
-    "@vaneui/ui": "^0.3.1-alpha.20250914202143.38eda80",
+    "@vaneui/md": "^0.3.1-alpha.20250916152826.fb70c71",
+    "@vaneui/ui": "^0.3.1-alpha.20250917170051.b819c80",
     "autoprefixer": "^10.4.19",
     "next": "15.4.7",
     "postcss": "^8.4.35",

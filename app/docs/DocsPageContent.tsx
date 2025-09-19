@@ -113,7 +113,7 @@ export function DocsPageContent(
       <Container className="w-full">
         <Row noGap relative itemsStart className="gap-10 w-full">
           {/* Main Content */}
-          <Col xl className="flex-1 min-w-0">
+          <Col className="flex-1 min-w-0">
             <Col>
               <Text sm uppercase secondary mono>{section.name}</Text>
               <PageTitle>

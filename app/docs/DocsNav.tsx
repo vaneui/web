@@ -16,13 +16,13 @@ export function DocsNav({currentPath, onMenuItemClickAction}: { currentPath?: st
     {slug: 'customization', icon: Settings},
   ]
   return (
-    <Col lg>
+    <Col>
       <Col noGap>
         {[
           {icon: BookOpen, text: "Documentation", href: "/docs", external: false},
           {icon: GitHub, text: "GitHub", href: PRODUCT.githubUrl, external: true},
         ].map((item, index) => (
-          <Row sm relative key={index} className="hover:bg-bg-tertiary p-1 rounded-xl ">
+          <Row xs relative key={index} className="hover:bg-bg-tertiary p-1 rounded-[calc(2px+var(--layout-br-xs))]">
             <Link
               href={item.href}
               target={item.external ? "_blank" : "_self"}
@@ -30,7 +30,7 @@ export function DocsNav({currentPath, onMenuItemClickAction}: { currentPath?: st
               className="absolute inset-0 z-10"
               aria-label={item.text}
             />
-            <Card noPadding secondary tag="span" justifyCenter className="p-2">
+            <Card xs noPadding secondary tag="span" justifyCenter className="p-2">
               <item.icon className="size-5"/>
             </Card>
             <Text secondary>{item.text}</Text>
@@ -57,7 +57,7 @@ export function DocsNav({currentPath, onMenuItemClickAction}: { currentPath?: st
                     sm noShadow noRing sharp justifyStart
                     tag={Link} key={i} href={path}
                     semibold={isActive}
-                    className={`w-full border-l-2 border-border-default pl-4 ${isActive && "border-text-default"}`}
+                    className={`w-full border-l-2 border-border-default hover:border-gray-400 pl-4 ${isActive && "border-text-default"}`}
                     onClick={onMenuItemClickAction}
                   >
                     {page.name}

@@ -8,7 +8,7 @@ export function Footer() {
     <Section tag={'footer'} secondary borderT>
       <Container xl itemsStart>
         <Row xl justifyBetween mdCol itemsStart className="w-full">
-          <Col xl className="max-w-1/2 max-md:max-w-full">
+          <Col className="max-w-1/2 max-md:max-w-full">
             <Row xs>
               <Image src={vaneui} alt={PRODUCT.title} className="h-[27px] w-[36px]"/>
               <Title sm>
@@ -39,11 +39,11 @@ export function Footer() {
                 ]
               }
             ].map((item, index) => (
-              <Col key={index}>
+              <Col sm key={index}>
                 <Text tertiary uppercase medium>
                   {item.text}
                 </Text>
-                <Col sm>
+                <Col xs>
                   {item.links.map((link, index) => (
                     <Text sm tag="a" key={index} href={link.href} className="hover:opacity-75">
                       {link.text}

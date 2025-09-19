@@ -56,7 +56,7 @@ export function CodeBlock({
   const currentTheme = theme === 'dark' ? darkTheme : lightTheme;
 
   return (
-    <Col default rounded noGap border overflowHidden className={`w-full ${className}`}>
+    <Col sm default rounded noGap border overflowHidden className={`w-full ${className}`}>
       <Stack xs row justifyBetween>
         <Row xs>
           <span className="w-5 h-5 grayscale">

@@ -21,7 +21,7 @@ export default function DocsLayout({children}: DocsLayoutProps) {
       <Header/>
       <Row noGap overflowHidden className="w-full flex-1" style={{alignItems: 'normal'}}>
         {/* Desktop sidebar - always visible on xl screens */}
-        <Stack xl overflowYAuto
+        <Stack overflowYAuto
                className="flex-shrink-0 styled-scrollbar border-border-default xl:border-r hidden lg:flex">
           <DocsNav currentPath={pathname}/>
         </Stack>

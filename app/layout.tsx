@@ -21,9 +21,7 @@ export const metadata: Metadata = {
   description: 'VaneUI is a React component library powered by Tailwind CSS. Designed for building beautiful and responsive user interfaces.',
 };
 
-export default function RootLayout({
-                                     children,
-                                   }: {
+export default function RootLayout({children}: {
   children: React.ReactNode;
 }) {
   return (
@@ -36,7 +34,7 @@ export default function RootLayout({
       <link rel="manifest" href="/site.webmanifest"/>
       <script src="https://analytics.ahrefs.com/analytics.js" data-key="+JtunyPZi10uLSHXMP+3ug" async></script>
     </head>
-    <body className={`${inter.className} ${jetBrainsMono.variable}`}>
+    <body className={`${inter.className} ${jetBrainsMono.variable} min-w-xs`}>
     <ThemeWrapper>
       {children}
     </ThemeWrapper>

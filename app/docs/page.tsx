@@ -23,8 +23,7 @@ export default function DocsPage() {
                 <Card key={i} shadow transparent relative overflowHidden
                       className="gap-3 cursor-pointer hover:bg-secondary">
                   <VaneLink absolute secondary noUnderline href={`/docs/${section.slug}/${component.slug}`} tag={Link}
-                            className="w-full inset-0"
-                  />
+                            className="w-full inset-0"/>
                   <Text lg default semibold>{component.name}</Text>
                   <Text sm secondary>{component.description}</Text>
                 </Card>

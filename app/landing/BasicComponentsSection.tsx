@@ -77,7 +77,7 @@ export function BasicComponentsSection() {
         <Card lg overflowHidden className="inset-shadow-sm">
           <Row xl lgCol>
             <VerticalCarousel
-              className="w-full -mb-8 max-lg:mb-0"
+              className="w-full -mb-14 max-lg:mb-0"
               items={carouselItems}
               onActiveItemChange={handleActiveItemChange}
             />

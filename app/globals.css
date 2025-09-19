@@ -23,5 +23,5 @@
 .styled-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: #e0e0e0 transparent;
-    scrollbar-gutter: stable;
+    scrollbar-gutter: auto;
 }

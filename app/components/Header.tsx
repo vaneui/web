@@ -51,7 +51,7 @@ export function Header() {
             </Stack>
 
             {/* Scrollable content */}
-            <Stack lg className="flex-1 overflow-y-auto styled-scrollbar">
+            <Stack xs className="flex-1 overflow-y-auto styled-scrollbar">
               <Link href="/docs" className="w-full">
                 <Button sm normal default noShadow noRing
                         className="w-full"

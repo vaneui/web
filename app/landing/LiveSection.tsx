@@ -203,9 +203,9 @@ export function LiveSection() {
               className="w-[800px] max-lg:w-full"
             />
             <Col
-                 className="max-w-xl absolute max-lg:relative right-0 max-sm:max-w-80 z-20 border-8 rounded-[calc(8px+var(--radius-xl))] border-gray-400/10 backdrop-blur-sm">
+                 className="max-w-xl shadow-2xl absolute max-lg:relative right-0 max-sm:max-w-80 z-20 border-8 rounded-[calc(8px+var(--layout-br-md))] border-gray-400/10 backdrop-blur-sm">
               <Card row smCol overflowHidden {...componentProps.card} className="transition-all duration-500">
-                <Img tag={Image} src="/puppy.png" alt="puppy" width={185} height={185}
+                <Img tag={Image} src="/puppy.png" alt="puppy" width={200} height={200}
                      {...componentProps.img} className="shrink-0 max-sm:w-full"/>
                 <Stack sm>
                   <Row justifyBetween>
