@@ -69,7 +69,7 @@ export function HeroSection() {
           </Row>
         </Col>
       </Container>
-      <Container sm itemsCenter className="z-10 -mb-6">
+      <Container sm itemsCenter className="z-10 -mb-6 pt-8">
         <Col itemsCenter className="w-full">
           <Col
             className="max-w-xl max-sm:max-w-80 z-20 border-8 rounded-[calc(8px+var(--layout-br-sm))] border-gray-400/10 backdrop-blur-sm">
@@ -77,7 +77,7 @@ export function HeroSection() {
               {card}
             </ThemeProvider>
           </Col>
-          <CodeBlock className="z-0 lg:-mt-[calc(var(--spacing)*18)] shadow-xl"
+          <CodeBlock className="z-0 lg:-mt-[calc(var(--spacing)*20)] shadow-xl"
                      fileName="DogCard.tsx"
                      language="tsx"
                      code={prepareComponentString(card)}
