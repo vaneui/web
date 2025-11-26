@@ -37,9 +37,8 @@ export default function Home() {
       title: "Responsive by default",
       description:
         <span>
-          Every component adapts to screen size automatically.
-          Use responsive props like <Code primary>xs</Code>, <Code primary>sm</Code>,
-          <Code primary>md</Code>, <Code primary>lg</Code>, <Code primary>xl</Code> to fine-tune layouts for any device.
+          Every component adapts to screen size automatically. Use responsive props like <Code primary>xs</Code>, <Code
+          primary>sm</Code>, <Code primary>md</Code>, <Code primary>lg</Code>, <Code primary>xl</Code> to fine-tune layouts for any device.
         </span>,
     },
   ]
@@ -51,13 +50,13 @@ export default function Home() {
         <HeroSection/>
         <AboutSection/>
         <LiveSection/>
-        <Section secondary lg borderY className="py-10">
+        <Section secondary xl borderY>
           <BasicComponentsSection/>
           <TypographyComponentsSection/>
           <Container xl>
             <Grid2 lg className="w-full">
               {features.map((item, key) => (
-                <Card lg row smCol key={key}>
+                <Card lg row mobileCol key={key}>
                   <FeatureTitle icon={item.icon} title={item.title} description={item.description}/>
                 </Card>
               ))}

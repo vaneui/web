@@ -74,15 +74,19 @@ export function BasicComponentsSection() {
           title="Basic components"
           description="Essential UI elements like buttons, badges, and chips."
         />
-        <Card lg overflowHidden className="inset-shadow-sm">
-          <Row xl lgCol>
+        <Card lg overflowHidden relative>
+          <Row absolute className="
+    inset-0 pointer-events-none
+    bg-[repeating-linear-gradient(-45deg,theme(colors.slate.50)_0_1px,transparent_1px_calc(var(--spacing)*4))]
+  "/>
+          <Row xl laptopCol>
             <VerticalCarousel
               className="w-full -mb-14 max-lg:mb-0"
               items={carouselItems}
               onActiveItemChange={handleActiveItemChange}
             />
             <CodeBlock
-              className="shadow-lg"
+              className="shadow-lg z-10"
               fileName={`${activeItem?.title?.replace(' ', '') || 'BasicComponents'}.tsx`}
               language="tsx"
               code={activeItem ? prepareComponentString(activeItem.component) : ''}

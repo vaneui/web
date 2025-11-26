@@ -183,7 +183,7 @@ export function LiveSection() {
   const displayCode = getDisplayCode(BASE_CODE_LINES, ANIMATION_STEPS, currentStep, isTyping, typingProgress, typingCompletedForStep >= currentStep);
 
   return (
-    <Section lg relative>
+    <Section xl relative>
       <Row absolute
            className="inset-0 bg-[linear-gradient(to_right,var(--color-gray-50)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-gray-50)_1px,transparent_1px)] bg-[size:calc(var(--spacing)*4)_calc(var(--spacing)*4)]"/>
       <Container xl>
@@ -193,7 +193,7 @@ export function LiveSection() {
             title="See it in action"
             description="Watch how changing props instantly transforms components."
           />
-          <Row xl lgCol relative className="w-full">
+          <Row xl laptopCol relative className="w-full">
             <CodeBlock
               fileName="CardExample.tsx"
               language="tsx"
@@ -203,8 +203,8 @@ export function LiveSection() {
               className="w-[800px] max-lg:w-full"
             />
             <Col
-                 className="max-w-xl shadow-2xl absolute max-lg:relative right-0 max-sm:max-w-80 z-20 border-8 rounded-[calc(8px+var(--layout-br-md))] border-gray-400/10 backdrop-blur-sm">
-              <Card row smCol overflowHidden {...componentProps.card} className="transition-all duration-500">
+                 className="[--b:8px] max-w-xl max-sm:max-w-80 z-20 border-(length:--b) [--br-unit:5] rounded-[calc(var(--b)+var(--br))] shadow-2xl absolute max-lg:relative right-0 border-gray-400/10 backdrop-blur-sm">
+              <Card row mobileCol overflowHidden {...componentProps.card} className="transition-all duration-500">
                 <Img tag={Image} src="/puppy.png" alt="puppy" width={200} height={200}
                      {...componentProps.img} className="shrink-0 max-sm:w-full"/>
                 <Stack sm>
@@ -214,7 +214,7 @@ export function LiveSection() {
                   </Row>
                   <Divider/>
                   <Text sm>{dog.description}</Text>
-                  <Row smCol {...componentProps.row}>
+                  <Row mobileCol {...componentProps.row}>
                     <Button {...componentProps.adoptButton} className="max-sm:w-full">Adopt</Button>
                     <Button secondary {...componentProps.learnButton} className="max-sm:w-full">Learn more</Button>
                   </Row>

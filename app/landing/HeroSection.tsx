@@ -28,16 +28,16 @@ import { prepareComponentString } from "../utils/stringUtils";
 export function HeroSection() {
 
   const card =
-    <Card sm row smCol noPadding noGap overflowHidden>
-      <Img sm sharp src={dog.image} className="shrink-0 max-sm:w-full w-[185px]"/>
-      <Stack xs>
+    <Card sm row mobileCol noPadding noGap overflowHidden>
+      <Img sm sharp src={dog.image} className="max-sm:w-full"/>
+      <Stack sm className="max-sm:max-w-56">
         <Row justifyBetween>
           <Title>{dog.name}</Title>
           <Chip sm bold>{dog.gender}</Chip>
         </Row>
         <Divider/>
         <Text sm>{dog.description}</Text>
-        <Row xs smCol justifyEnd>
+        <Row sm mobileCol justifyEnd>
           <Button sm success filled className="max-sm:w-full">Adopt</Button>
           <Button sm secondary className="max-sm:w-full">Learn more</Button>
         </Row>
@@ -45,7 +45,7 @@ export function HeroSection() {
     </Card>;
 
   return (
-    <Section lg relative borderB
+    <Section xl relative borderB
              className="bg-gradient-to-r from-slate-100 via-white to-slate-100 pb-0 overflow-hidden">
       <Row absolute
            className="inset-0 bg-[radial-gradient(var(--color-slate-200)_1px,transparent_1px)] [background-size:calc(var(--spacing)*4)_calc(var(--spacing)*4)]"/>
@@ -59,7 +59,7 @@ export function HeroSection() {
             {PRODUCT.slogan}
           </PageTitle>
           <Text lg textCenter>{PRODUCT.description}</Text>
-          <Row smCol justifyCenter className="w-full">
+          <Row mobileCol justifyCenter className="w-full">
             <Button lg filled className="max-sm:w-full" tag={Link} href="/docs/getting-started/installation">
               Get Started <Play/>
             </Button>
@@ -69,15 +69,15 @@ export function HeroSection() {
           </Row>
         </Col>
       </Container>
-      <Container sm itemsCenter className="z-10 -mb-6 pt-8">
+      <Container sm itemsCenter className="z-10 -mb-4 pt-8">
         <Col itemsCenter className="w-full">
           <Col
-            className="max-w-xl max-sm:max-w-80 z-20 border-8 rounded-[calc(8px+var(--layout-br-sm))] border-gray-400/10 backdrop-blur-sm">
+            className="[--b:8px] max-w-xl max-sm:max-w-80 z-20 border-(length:--b) [--br-unit:4] rounded-[calc(var(--b)+var(--br))] border-gray-400/10 backdrop-blur-sm">
             <ThemeProvider mergeStrategy="replace">
               {card}
             </ThemeProvider>
           </Col>
-          <CodeBlock className="z-0 lg:-mt-[calc(var(--spacing)*20)] shadow-xl"
+          <CodeBlock className="z-0 lg:-mt-[calc(var(--spacing)*16)] shadow-xl"
                      fileName="DogCard.tsx"
                      language="tsx"
                      code={prepareComponentString(card)}

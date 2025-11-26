@@ -31,7 +31,7 @@ export default function DocsLayout({children}: DocsLayoutProps) {
           <Col fixed default className="inset-0 z-50 lg:hidden">
             <Col noGap className="absolute left-0 top-0 h-full w-full bg-default flex flex-col">
               {/* Fixed header */}
-              <Stack xs row justifyBetween className="w-full border-b border-border-default flex-shrink-0">
+              <Stack sm row justifyBetween itemsCenter className="w-full border-b border-border-default flex-shrink-0">
                 <Logo/>
                 <Button secondary sm noShadow onClick={() => setIsMobileMenuOpen(false)}>
                   <X className="size-5"/>

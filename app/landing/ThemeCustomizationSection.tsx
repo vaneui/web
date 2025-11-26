@@ -90,7 +90,7 @@ export function ThemeCustomizationSection() {
   "/>
               <ThemeProvider theme={currentTheme.config} themeDefaults={currentTheme.defaults}
                              themeOverride={currentTheme.overrideFunc}>
-                <Card sm row smCol overflowHidden className="max-w-2xl max-sm:max-w-80 z-10">
+                <Card sm row mobileCol overflowHidden className="max-w-2xl max-sm:max-w-80 z-10">
                   <Img
                     tag={Image}
                     src="/puppy.png"
@@ -108,7 +108,7 @@ export function ThemeCustomizationSection() {
                     </Row>
                     <Divider/>
                     <Text sm>{dog.description}</Text>
-                    <Row smCol justifyEnd>
+                    <Row mobileCol justifyEnd>
                       <Button success filled className="max-sm:w-full">
                         Adopt
                       </Button>

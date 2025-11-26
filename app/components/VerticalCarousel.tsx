@@ -58,9 +58,9 @@ export function VerticalCarousel({ items, onActiveItemChange, className = '' }: 
             const isActive = index === currentIndex;
             
             return (
-              <Card lg shadow overflowHidden
+              <Card lg overflowHidden
                 key={item.id}
-                className={`h-64 w-full transition-all duration-200 ease-in-out 
+                className={`h-64 shadow-xl w-full transition-all duration-200 ease-in-out 
                   ${isActive 
                     ? 'opacity-100 scale-100 z-10' 
                     : 'opacity-0 scale-90'

@@ -12,7 +12,7 @@ export function Header() {
 
   return (
     <>
-      <Stack xs row justifyBetween itemsCenter tag={'header'} default borderB
+      <Stack sm row justifyBetween itemsCenter tag={'header'} default borderB
              className="flex-shrink-0 bg-white/70 backdrop-blur-md z-40 w-full">
         <Logo/>
 
@@ -43,7 +43,7 @@ export function Header() {
         <div className="fixed inset-0 z-50 lg:hidden">
           <div className="absolute left-0 top-0 h-full w-full bg-bg-default flex flex-col">
             {/* Fixed header */}
-            <Stack xs row justifyBetween default borderB className="w-full flex-shrink-0">
+            <Stack sm row justifyBetween itemsCenter default borderB className="w-full flex-shrink-0">
               <Logo/>
               <Button secondary sm noShadow onClick={() => setIsMobileMenuOpen(false)}>
                 <X className="size-5"/>
@@ -51,7 +51,7 @@ export function Header() {
             </Stack>
 
             {/* Scrollable content */}
-            <Stack xs className="flex-1 overflow-y-auto styled-scrollbar">
+            <Stack sm className="flex-1 overflow-y-auto styled-scrollbar">
               <Link href="/docs" className="w-full">
                 <Button sm normal default noShadow noRing
                         className="w-full"

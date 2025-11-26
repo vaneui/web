@@ -22,7 +22,7 @@ export function TypographyComponentsSection() {
   const carouselItems: CarouselItem[] = React.useMemo(() => [
     {
       id: 'text',
-      title: 'Text components',
+      title: 'Text Components',
       component: (
         <Col xs>
           <Text xl>{text}</Text>
@@ -35,7 +35,7 @@ export function TypographyComponentsSection() {
     },
     {
       id: 'title',
-      title: 'Title components',
+      title: 'Title Components',
       component: (
         <Col xs>
           <Title xl>This is a title example</Title>
@@ -48,7 +48,7 @@ export function TypographyComponentsSection() {
     },
     {
       id: 'link',
-      title: 'Link components',
+      title: 'Link Components',
       component: (
         <Col xs>
           <Link xl primary href="#">Extra large primary link</Link>
@@ -75,10 +75,14 @@ export function TypographyComponentsSection() {
           title="Typography"
           description="Scalable text system with built-in hierarchy. From headings to body text, maintain perfect readability across all screen sizes."
         />
-        <Card lg overflowHidden className="inset-shadow-sm">
-          <Row xl lgCol>
+        <Card lg overflowHidden relative>
+          <Row absolute className="
+    inset-0 pointer-events-none
+    bg-[repeating-linear-gradient(-45deg,theme(colors.slate.50)_0_1px,transparent_1px_calc(var(--spacing)*4))]
+  "/>
+          <Row xl laptopCol>
             <CodeBlock
-              className="shadow-lg"
+              className="shadow-lg z-10"
               fileName={`${activeItem?.title?.replace(' ', '') || 'Typography'}.tsx`}
               language="tsx"
               code={activeItem ? prepareComponentString(activeItem.component) : ''}

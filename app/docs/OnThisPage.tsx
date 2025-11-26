@@ -123,9 +123,9 @@ export function OnThisPage({sections}: OnThisPageProps) {
               key={index}
               href={`#${section.id}`}
               onClick={(e) => handleClick(e, section.id)}
-              className={isActive ? "border-l-2 border-(--color-text-primary) bg-primary" : "border-l-2 border-border-default hover:bg-secondary"}
+              className={`border-l-2 hover:bg-bg-hover-default ${isActive ? "border-(--color-text-default) bg-primary" : "border-border-default hover:border-text-tertiary"}`}
             >
-              <Text sm secondary={!isActive} primary={isActive} semibold={isActive}
+              <Text sm secondary={!isActive} semibold={isActive}
                     className={`py-1.5 ${
                       section.level === 0 ? 'pl-3' :
                       section.level === 1 ? 'pl-6' :

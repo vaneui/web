@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import { Row, Card, Col, SectionTitle, Text } from '@vaneui/ui';
+import { Row, Card, Col, Text, Title } from '@vaneui/ui';
 import * as Icons from 'react-feather';
 
 export interface FeatureTitleProps {
@@ -15,12 +15,12 @@ export function FeatureTitle({icon, title, description, className = ''}: Feature
   const Icon = Icons[icon];
 
   return (
-    <Row lg smCol itemsStart className={`w-full ${className}`}>
+    <Row lg mobileCol itemsStart className={`w-full ${className}`}>
       <Card sm shadow justifyCenter itemsCenter>
         <Icon className="size-8"/>
       </Card>
       <Col xs>
-        <SectionTitle sm default>{title}</SectionTitle>
+        <Title lg default>{title}</Title>
         <Text secondary>{description}</Text>
       </Col>
     </Row>

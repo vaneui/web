@@ -238,7 +238,7 @@ export function DocsPageContent(
           </Col>
 
           {/* On This Page Navigation */}
-          <Col sticky lgHide className="styled-scrollbar top-10 w-56 flex-shrink-0 max-h-[calc(100vh-128px)]">
+          <Col sticky laptopHide className="styled-scrollbar top-10 w-56 flex-shrink-0 max-h-[calc(100vh-128px)]">
             <OnThisPage sections={sections}/>
           </Col>
         </Row>
