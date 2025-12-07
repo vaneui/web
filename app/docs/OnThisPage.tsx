@@ -13,17 +13,18 @@ interface OnThisPageProps {
 }
 
 export function OnThisPage({sections}: OnThisPageProps) {
-  const [activeSection, setActiveSection] = useState<string>('');
+  const [activeSection, setActiveSection] = useState<string>(() => {
+    // Set initial active section from URL hash on mount
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.substring(1);
+      if (hash && sections.some(section => section.id === hash)) {
+        return hash;
+      }
+    }
+    return '';
+  });
   const containerRef = useRef<HTMLDivElement>(null);
   const isClickNavigating = useRef(false);
-
-  // Set initial active section from URL hash
-  useEffect(() => {
-    const hash = window.location.hash.substring(1); // Remove the # symbol
-    if (hash && sections.some(section => section.id === hash)) {
-      setActiveSection(hash);
-    }
-  }, [sections]);
 
   useEffect(() => {
     const observerOptions = {
