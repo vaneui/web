@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Col, Grid3, Link as VaneLink, PageTitle, Text, Container, SectionTitle } from '@vaneui/ui';
+import { Card, Col, Grid3, PageTitle, Text, Container, SectionTitle } from '@vaneui/ui';
 import { docsSections } from "./docsSections";
 import Link from "next/link";
 
@@ -20,13 +20,13 @@ export default function DocsPage() {
             <Text>{section.description}</Text>
             <Grid3>
               {section.pages.map((component, i) => (
-                <Card key={i} shadow transparent relative overflowHidden
-                      className="gap-3 cursor-pointer hover:bg-secondary">
-                  <VaneLink absolute secondary noUnderline href={`/docs/${section.slug}/${component.slug}`} tag={Link}
-                            className="w-full inset-0"/>
-                  <Text lg default semibold>{component.name}</Text>
-                  <Text sm secondary>{component.description}</Text>
-                </Card>
+                <Link key={i} href={`/docs/${section.slug}/${component.slug}`} className="no-underline">
+                  <Card shadow transparent relative overflowHidden
+                        className="gap-3 cursor-pointer hover:bg-secondary">
+                    <Text lg default semibold>{component.name}</Text>
+                    <Text sm secondary>{component.description}</Text>
+                  </Card>
+                </Link>
               ))}
             </Grid3>
           </Col>

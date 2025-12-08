@@ -1,14 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  webpack(webpackConfig) {
-    return {
-      ...webpackConfig,
-      optimization: {
-        minimize: false,
-      },
-    };
-  },
+  // Enable Turbopack (Next.js 16 default)
+  turbopack: {},
 };
 
 export default nextConfig; 
