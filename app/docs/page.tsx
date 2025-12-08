@@ -22,7 +22,7 @@ export default function DocsPage() {
               {section.pages.map((component, i) => (
                 <Link key={i} href={`/docs/${section.slug}/${component.slug}`} className="no-underline">
                   <Card shadow transparent relative overflowHidden
-                        className="gap-3 cursor-pointer hover:bg-secondary">
+                        className="gap-3 cursor-pointer hover:bg-secondary h-full">
                     <Text lg default semibold>{component.name}</Text>
                     <Text sm secondary>{component.description}</Text>
                   </Card>
@@ -34,4 +34,4 @@ export default function DocsPage() {
       </Col>
     </Container>
   );
-} 
+}
