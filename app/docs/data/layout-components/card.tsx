@@ -184,4 +184,20 @@ export const cardExamples: DocsPagePart[] = [
       </Row>
     ),
   },
+  {
+    title: 'Responsive Breakpoints',
+    md: 'Cards support responsive breakpoint props: `mobileCol`, `tabletCol`, `laptopCol`, `desktopCol`. The card switches from row to column layout at the specified breakpoint.',
+    component: (
+      <Card tabletCol gap padding border>
+        <div>
+          <Title>Image Area</Title>
+          <Text secondary>This could be an image or other content</Text>
+        </div>
+        <div>
+          <Title>Content Area</Title>
+          <Text>On tablets and below, this layout switches to column. Resize your browser to see the effect.</Text>
+        </div>
+      </Card>
+    ),
+  },
 ];

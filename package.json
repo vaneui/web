@@ -17,10 +17,10 @@
   "dependencies": {
     "@mdx-js/react": "^3.0.1",
     "@tailwindcss/postcss": "^4.0.14",
-    "@vaneui/md": "^0.3.1-alpha.20250916152826.fb70c71",
-    "@vaneui/ui": "^0.3.1-alpha.20251201144940.b3e097b",
+    "@vaneui/md": "^0.3.1-alpha.20251208195412.8f1e11c",
+    "@vaneui/ui": "^0.3.1-alpha.20251213103636.79707b4",
     "autoprefixer": "^10.4.19",
-    "next": "^16.0.7",
+    "next": "16.1.0-canary.19",
     "postcss": "^8.4.35",
     "prism-react-renderer": "^2.4.1",
     "react-element-to-jsx-string": "^17.0.1",

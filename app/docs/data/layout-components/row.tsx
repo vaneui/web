@@ -160,4 +160,60 @@ export const rowExamples: DocsPagePart[] = [
       </Col>
     ),
   },
+  {
+    title: 'Row Items Alignment',
+    md: 'Control cross-axis alignment of items with `itemsStart`, `itemsCenter`, `itemsEnd`, `itemsStretch`.',
+    component: (
+      <Col lg>
+        <div>
+          <Text semibold>Items Start</Text>
+          <Row itemsStart className="h-24 border-2 border-dashed border-gray-300">
+            <div className="p-4 bg-gray-100 rounded">Short</div>
+            <div className="p-4 bg-gray-100 rounded h-16">Tall</div>
+          </Row>
+        </div>
+        <div>
+          <Text semibold>Items Center</Text>
+          <Row itemsCenter className="h-24 border-2 border-dashed border-gray-300">
+            <div className="p-4 bg-gray-100 rounded">Short</div>
+            <div className="p-4 bg-gray-100 rounded h-16">Tall</div>
+          </Row>
+        </div>
+        <div>
+          <Text semibold>Items End</Text>
+          <Row itemsEnd className="h-24 border-2 border-dashed border-gray-300">
+            <div className="p-4 bg-gray-100 rounded">Short</div>
+            <div className="p-4 bg-gray-100 rounded h-16">Tall</div>
+          </Row>
+        </div>
+      </Col>
+    ),
+  },
+  {
+    title: 'Responsive Breakpoints',
+    md: 'Rows can switch to column layout at specific breakpoints using `mobileCol`, `tabletCol`, `laptopCol`, `desktopCol`.',
+    component: (
+      <Row tabletCol>
+        <div className="p-4 bg-primary-100 rounded flex-1">Column 1 - Switches to stacked on tablet and below</div>
+        <div className="p-4 bg-primary-100 rounded flex-1">Column 2</div>
+        <div className="p-4 bg-primary-100 rounded flex-1">Column 3</div>
+      </Row>
+    ),
+  },
+  {
+    title: 'Row Variants',
+    md: 'Rows support `filled` and `outline` variants for different visual styles.',
+    component: (
+      <Col lg>
+        <Row filled primary>
+          <div className="p-4 bg-white rounded">Filled Primary Row</div>
+          <div className="p-4 bg-white rounded">Item 2</div>
+        </Row>
+        <Row outline success>
+          <div className="p-4 rounded">Outline Success Row</div>
+          <div className="p-4 rounded">Item 2</div>
+        </Row>
+      </Col>
+    ),
+  },
 ];

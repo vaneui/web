@@ -217,4 +217,20 @@ export const sectionExamples: DocsPagePart[] = [
       </Col>
     ),
   },
+  {
+    title: 'Responsive Breakpoints',
+    md: 'Sections can switch direction at specific breakpoints using mobileCol, tabletCol, laptopCol, desktopCol.',
+    component: (
+      <Section tabletCol gap padding border>
+        <div className="p-4 bg-primary-100 rounded flex-1">
+          <Text semibold>Column 1</Text>
+          <Text>Switches to column on tablet and below</Text>
+        </div>
+        <div className="p-4 bg-primary-100 rounded flex-1">
+          <Text semibold>Column 2</Text>
+          <Text>Resize your browser to see the effect</Text>
+        </div>
+      </Section>
+    ),
+  },
 ];

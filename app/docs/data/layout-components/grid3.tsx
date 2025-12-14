@@ -85,4 +85,22 @@ export const grid3Examples: DocsPagePart[] = [
       </Col>
     ),
   },
+  {
+    title: 'Grid Variants',
+    md: 'Grids support filled and outline variants.',
+    component: (
+      <Col lg>
+        <Grid3 filled primary>
+          <div className="p-4 bg-white rounded">Filled Primary Grid</div>
+          <div className="p-4 bg-white rounded">Item 2</div>
+          <div className="p-4 bg-white rounded">Item 3</div>
+        </Grid3>
+        <Grid3 outline success>
+          <div className="p-4 rounded">Outline Success Grid</div>
+          <div className="p-4 rounded">Item 2</div>
+          <div className="p-4 rounded">Item 3</div>
+        </Grid3>
+      </Col>
+    ),
+  },
 ];

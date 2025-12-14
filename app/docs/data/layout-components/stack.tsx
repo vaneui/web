@@ -199,4 +199,31 @@ export const stackExamples: DocsPagePart[] = [
       </Row>
     ),
   },
+  {
+    title: 'Responsive Breakpoints',
+    md: 'Stacks can switch direction at specific breakpoints using mobileCol, tabletCol, laptopCol, desktopCol.',
+    component: (
+      <Stack tabletCol>
+        <div className="p-4 bg-primary-100 rounded flex-1">Column 1 - Switches to row on tablet and below</div>
+        <div className="p-4 bg-primary-100 rounded flex-1">Column 2</div>
+        <div className="p-4 bg-primary-100 rounded flex-1">Column 3</div>
+      </Stack>
+    ),
+  },
+  {
+    title: 'Stack Variants',
+    md: 'Stacks support filled and outline variants.',
+    component: (
+      <Row flexWrap>
+        <Stack filled primary>
+          <div className="p-4 bg-white rounded">Filled Primary Stack</div>
+          <div className="p-4 bg-white rounded">Item 2</div>
+        </Stack>
+        <Stack outline success>
+          <div className="p-4 rounded">Outline Success Stack</div>
+          <div className="p-4 rounded">Item 2</div>
+        </Stack>
+      </Row>
+    ),
+  },
 ];

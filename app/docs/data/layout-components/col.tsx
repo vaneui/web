@@ -160,4 +160,49 @@ export const colExamples: DocsPagePart[] = [
       </Row>
     ),
   },
+  {
+    title: 'Col Items Alignment',
+    md: 'Control cross-axis alignment of items.',
+    component: (
+      <Row>
+        <Col lg>
+          <Text semibold>Items Start</Text>
+          <Col itemsStart className="w-full border-2 border-dashed border-gray-300">
+            <div className="p-4 bg-gray-100 rounded">Short</div>
+            <div className="p-4 bg-gray-100 rounded w-48">Wider Item</div>
+          </Col>
+        </Col>
+        <Col lg>
+          <Text semibold>Items Center</Text>
+          <Col itemsCenter className="w-full border-2 border-dashed border-gray-300">
+            <div className="p-4 bg-gray-100 rounded">Short</div>
+            <div className="p-4 bg-gray-100 rounded w-48">Wider Item</div>
+          </Col>
+        </Col>
+        <Col lg>
+          <Text semibold>Items End</Text>
+          <Col itemsEnd className="w-full border-2 border-dashed border-gray-300">
+            <div className="p-4 bg-gray-100 rounded">Short</div>
+            <div className="p-4 bg-gray-100 rounded w-48">Wider Item</div>
+          </Col>
+        </Col>
+      </Row>
+    ),
+  },
+  {
+    title: 'Col Variants',
+    md: 'Cols support filled and outline variants.',
+    component: (
+      <Row>
+        <Col filled primary>
+          <div className="p-4 bg-white rounded">Filled Primary Col</div>
+          <div className="p-4 bg-white rounded">Item 2</div>
+        </Col>
+        <Col outline success>
+          <div className="p-4 rounded">Outline Success Col</div>
+          <div className="p-4 rounded">Item 2</div>
+        </Col>
+      </Row>
+    ),
+  },
 ];

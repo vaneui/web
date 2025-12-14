@@ -18,7 +18,7 @@ interface ThemeDefaults {
   button?: {
     color?: ThemeColor;
     size?: ThemeSize;
-    variant?: 'filled' | 'outline' | 'ghost';
+    variant?: 'filled' | 'outline';
     radius?: ThemeRadius;
   };
   badge?: {

@@ -17,6 +17,29 @@ export const listExamples: DocsPagePart[] = [
     ),
   },
   {
+    title: 'List Style Types',
+    md: 'Lists support disc (bullet points) and decimal (numbered) styles.',
+    component: (
+      <Col lg>
+        <div>
+          <Text semibold>Disc (Bullet) List</Text>
+          <List disc>
+            <ListItem>First bullet item</ListItem>
+            <ListItem>Second bullet item</ListItem>
+            <ListItem>Third bullet item</ListItem>
+          </List>
+        </div>
+        <div>
+          <Text semibold>Decimal (Numbered) List</Text>
+          <List decimal>
+            <ListItem>First numbered item</ListItem>
+            <ListItem>Second numbered item</ListItem>
+            <ListItem>Third numbered item</ListItem>
+          </List>
+        </div>
+      </Col>
+    ),
+  },  {
     title: 'List Sizes',
     md: 'Lists come in different sizes.',
     component: (
