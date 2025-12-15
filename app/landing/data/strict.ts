@@ -22,7 +22,9 @@ export const strictOverrideFunc = (theme: ThemeProps) => {
   theme.button.themes.appearance.ring.outline.secondary.base = 'ring-black';
   theme.button.themes.appearance.text.outline.secondary.base = 'text-gray-900';
 
-  theme.button.themes.size.px.sm = "px-4";
+  // Increase horizontal padding for sm buttons by adjusting aspect ratio
+  // PxTheme now reads from direct properties (xs, sm, md, lg, xl)
+  theme.button.themes.size.px.sm = "[--aspect-ratio:4]";
 
   return theme;
 };
@@ -48,12 +50,10 @@ export const strictDefaults: ThemeDefaults = {
     noShadow: true,
   },
   chip: {
-    outline: true,
     default: true,
     sharp: true,
     xs: true,
     uppercase: true,
-    black: true,
   },
   divider: {
     default: true,

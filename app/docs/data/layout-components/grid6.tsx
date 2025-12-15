@@ -73,8 +73,8 @@ export const grid6Examples: DocsPagePart[] = [
         </div>
         <div>
           <Text semibold>With Gap</Text>
-          <Grid6 gap>
-            <div className="p-2 bg-gray-100 rounded text-center">1</div>
+          <Grid6>
+            <div className="p-2 bg-gray-100 rounded text-center">1 (default)</div>
             <div className="p-2 bg-gray-100 rounded text-center">2</div>
             <div className="p-2 bg-gray-100 rounded text-center">3</div>
             <div className="p-2 bg-gray-100 rounded text-center">4</div>

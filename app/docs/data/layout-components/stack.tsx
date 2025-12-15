@@ -70,8 +70,8 @@ export const stackExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         <Col lg>
-          <Text semibold>Column Direction</Text>
-          <Stack column>
+          <Text semibold>Default (Column Direction)</Text>
+          <Stack>
             <div className="p-4 bg-gray-100 rounded">Item 1</div>
             <div className="p-4 bg-gray-100 rounded">Item 2</div>
             <div className="p-4 bg-gray-100 rounded">Item 3</div>
@@ -188,8 +188,8 @@ export const stackExamples: DocsPagePart[] = [
     md: 'Control stack internal padding.',
     component: (
       <Row flexWrap>
-        <Stack padding className="border-2 border-dashed border-gray-300">
-          <div className="p-4 bg-gray-100 rounded">Item 1</div>
+        <Stack className="border-2 border-dashed border-gray-300">
+          <div className="p-4 bg-gray-100 rounded">Item 1 (default with padding)</div>
           <div className="p-4 bg-gray-100 rounded">Item 2</div>
         </Stack>
         <Stack noPadding className="border-2 border-dashed border-gray-300">

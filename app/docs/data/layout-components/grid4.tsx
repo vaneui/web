@@ -63,8 +63,8 @@ export const grid4Examples: DocsPagePart[] = [
         </div>
         <div>
           <Text semibold>With Gap</Text>
-          <Grid4 gap>
-            <div className="p-4 bg-gray-100 rounded">Item 1</div>
+          <Grid4>
+            <div className="p-4 bg-gray-100 rounded">Item 1 (default with gap)</div>
             <div className="p-4 bg-gray-100 rounded">Item 2</div>
             <div className="p-4 bg-gray-100 rounded">Item 3</div>
             <div className="p-4 bg-gray-100 rounded">Item 4</div>

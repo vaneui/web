@@ -173,8 +173,8 @@ export const rowExamples: DocsPagePart[] = [
           </Row>
         </div>
         <div>
-          <Text semibold>Items Center</Text>
-          <Row itemsCenter className="h-24 border-2 border-dashed border-gray-300">
+          <Text semibold>Items Center (default)</Text>
+          <Row className="h-24 border-2 border-dashed border-gray-300">
             <div className="p-4 bg-gray-100 rounded">Short</div>
             <div className="p-4 bg-gray-100 rounded h-16">Tall</div>
           </Row>

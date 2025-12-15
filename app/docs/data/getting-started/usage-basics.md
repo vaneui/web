@@ -58,7 +58,7 @@ function FilledOutlineExample() {
       {/* Buttons */}
       <Row>
         <Button filled primary>Filled Button</Button>
-        <Button outline primary>Outline Button</Button>
+        <Button primary>Outline Button</Button>
       </Row>
       
       {/* Cards */}
@@ -90,7 +90,7 @@ function ShapeExample() {
   return (
     <Row>
       <Button sharp>Sharp</Button>
-      <Button rounded>Rounded</Button>
+      <Button>Rounded (default)</Button>
       <Button pill>Pill</Button>
     </Row>
   );

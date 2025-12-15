@@ -18,7 +18,7 @@ export const playfulOverrideFunc = (theme: ThemeProps) => {
   theme.card.themes.appearance.background.outline.default.base = 'bg-gradient-to-br from-pink-50 to-purple-50';
   theme.card.themes.appearance.border.outline.default.base = 'border-pink-300';
   theme.card.themes.layout.border.border = 'border-4';
-  theme.card.themes.layout.radius.rounded.sm = 'rounded-4xl';
+  theme.card.themes.layout.radius.rounded.sm = '[--br-unit:10]';
 
   theme.chip.themes.appearance.background.filled.primary.base = 'bg-gradient-to-r from-yellow-400 to-orange-400';
   theme.chip.themes.appearance.text.filled.primary.base = 'text-white';

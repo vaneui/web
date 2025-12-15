@@ -68,8 +68,8 @@ export const grid5Examples: DocsPagePart[] = [
         </div>
         <div>
           <Text semibold>With Gap</Text>
-          <Grid5 gap>
-            <div className="p-4 bg-gray-100 rounded">1</div>
+          <Grid5>
+            <div className="p-4 bg-gray-100 rounded">1 (default with gap)</div>
             <div className="p-4 bg-gray-100 rounded">2</div>
             <div className="p-4 bg-gray-100 rounded">3</div>
             <div className="p-4 bg-gray-100 rounded">4</div>

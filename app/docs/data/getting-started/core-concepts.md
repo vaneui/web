@@ -49,12 +49,12 @@ Boolean props can be combined naturally to create the exact styling you need:
   Large primary pill button with shadow
 </Button>
 
-<Card secondary padding border rounded>
-  Secondary card with padding, border and rounded corners
+<Card secondary>
+  Secondary card
 </Card>
 
-<Stack column itemsCenter>
-  Vertical stack with gap and centered items
+<Stack itemsCenter>
+  Stack with centered items
 </Stack>
 ```
 

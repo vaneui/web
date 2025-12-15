@@ -60,8 +60,8 @@ export const sectionExamples: DocsPagePart[] = [
     md: 'Control the direction of section content.',
     component: (
       <Col lg>
-        <Section column>
-          <Text semibold>Column Direction</Text>
+        <Section>
+          <Text semibold>Default (Column Direction)</Text>
           <Text>Content flows vertically</Text>
           <Text>Another line</Text>
         </Section>
@@ -78,8 +78,8 @@ export const sectionExamples: DocsPagePart[] = [
     md: 'Control section internal padding.',
     component: (
       <Col lg>
-        <Section padding className="border-2 border-dashed border-gray-300">
-          <Text semibold>With Padding</Text>
+        <Section className="border-2 border-dashed border-gray-300">
+          <Text semibold>Default (With Padding)</Text>
           <Text>Section with internal padding</Text>
         </Section>
         <Section noPadding className="border-2 border-dashed border-gray-300">
@@ -96,8 +96,8 @@ export const sectionExamples: DocsPagePart[] = [
     md: 'Control spacing between section content.',
     component: (
       <Col lg>
-        <Section gap>
-          <Text semibold>With Gap</Text>
+        <Section>
+          <Text semibold>Default (With Gap)</Text>
           <Text>Content with spacing</Text>
           <Text>Another line</Text>
         </Section>
@@ -221,7 +221,7 @@ export const sectionExamples: DocsPagePart[] = [
     title: 'Responsive Breakpoints',
     md: 'Sections can switch direction at specific breakpoints using mobileCol, tabletCol, laptopCol, desktopCol.',
     component: (
-      <Section tabletCol gap padding border>
+      <Section tabletCol border>
         <div className="p-4 bg-primary-100 rounded flex-1">
           <Text semibold>Column 1</Text>
           <Text>Switches to column on tablet and below</Text>

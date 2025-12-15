@@ -88,7 +88,8 @@ export function DocsPageContent(
   const propsTitleId = toHtmlId(propsTitle);
 
   const overrideFunc = (theme: ThemeProps) => {
-    theme.list.themes.size.text.md = "text-base/7";
+    theme.listItem.themes.size.lineHeight.md = "[--lh:1.7]";
+    theme.text.themes.size.lineHeight.md = "[--lh:1.7]";
     return theme;
   };
 
@@ -107,7 +108,6 @@ export function DocsPageContent(
         md: titleClasses,
       },
       text: {
-        md: "text-base/7",
       }
     }}>
       <Container className="w-full">

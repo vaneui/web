@@ -8,7 +8,6 @@ export const balancedDefaults: ThemeDefaults = {
     xs: true,
   },
   button: {
-    rounded: true,
     sm: true,
     noRing: true,
   },
@@ -16,7 +15,6 @@ export const balancedDefaults: ThemeDefaults = {
     shadow: true,
   },
   chip: {
-    rounded: true,
     sm: true,
     bold: true,
   },

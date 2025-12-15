@@ -68,12 +68,16 @@ export const cardExamples: DocsPagePart[] = [
   },
   {
     title: 'Card Shapes',
-    md: 'Cards support different border radius styles.',
+    md: 'Cards support different border radius styles: `rounded` (default), `pill`, and `sharp`.',
     component: (
       <Row flexWrap>
-        <Card rounded>
-          <Title>Card rounded</Title>
+        <Card>
+          <Title>Card default (rounded)</Title>
           <Text>Card with rounded corners</Text>
+        </Card>
+        <Card pill>
+          <Title>Card pill</Title>
+          <Text>Card with fully rounded corners</Text>
         </Card>
         <Card sharp>
           <Title>Card sharp</Title>
@@ -135,8 +139,8 @@ export const cardExamples: DocsPagePart[] = [
     md: 'Control the direction of card content.',
     component: (
       <Row flexWrap>
-        <Card column>
-          <Title>Column Direction</Title>
+        <Card>
+          <Title>Default (Column Direction)</Title>
           <Text>Content flows vertically</Text>
           <Text>Another line</Text>
         </Card>
@@ -188,7 +192,7 @@ export const cardExamples: DocsPagePart[] = [
     title: 'Responsive Breakpoints',
     md: 'Cards support responsive breakpoint props: `mobileCol`, `tabletCol`, `laptopCol`, `desktopCol`. The card switches from row to column layout at the specified breakpoint.',
     component: (
-      <Card tabletCol gap padding border>
+      <Card tabletCol>
         <div>
           <Title>Image Area</Title>
           <Text secondary>This could be an image or other content</Text>

@@ -1,6 +1,6 @@
 # CSS Variables (@vaneui/ui)
 
-VaneUI components read a small, semantic set of CSS custom properties. Override these variables to change colors and radii globally or for any subtree. This page lists only the variables used by @vaneui/ui and how to override them.
+VaneUI components read a small, semantic set of CSS custom properties. Override these variables to change colors globally or for any subtree. This page lists only the variables used by @vaneui/ui and how to override them.
 
 ## How it works
 - The library defines and consumes the variables listed below.
@@ -10,71 +10,59 @@ VaneUI components read a small, semantic set of CSS custom properties. Override 
 ## Variable groups
 
 Text colors
-- --text-color-default
-- --text-color-primary
-- --text-color-secondary
-- --text-color-tertiary
-- --text-color-link
-- --text-color-accent
-- --text-color-success
-- --text-color-danger
-- --text-color-warning
-- --text-color-info
+- --color-text-default
+- --color-text-primary
+- --color-text-secondary
+- --color-text-tertiary
+- --color-text-link
+- --color-text-accent
+- --color-text-success
+- --color-text-danger
+- --color-text-warning
+- --color-text-info
 
-Background colors
-- --background-color-default
-- --background-color-primary
-- --background-color-secondary
-- --background-color-tertiary
-- --background-color-accent
-- --background-color-success
-- --background-color-danger
-- --background-color-warning
-- --background-color-info
+Background colors (outline variant)
+- --color-bg-default
+- --color-bg-primary
+- --color-bg-secondary
+- --color-bg-tertiary
+- --color-bg-accent
+- --color-bg-success
+- --color-bg-danger
+- --color-bg-warning
+- --color-bg-info
 
-Filled variant colors
-- --filled-background-color-default
-- --filled-background-color-primary
-- --filled-background-color-secondary
-- --filled-background-color-success
-- --filled-background-color-danger
-- Optional hover variables may be used by some components, following:
-  - --filled-background-color-hover-{variant}
+Filled variant background colors
+- --color-bg-filled-default
+- --color-bg-filled-primary
+- --color-bg-filled-secondary
+- --color-bg-filled-success
+- --color-bg-filled-danger
+- --color-bg-filled-warning
+- --color-bg-filled-info
+- Hover variants: --color-bg-filled-hover-{variant}
+- Active variants: --color-bg-filled-active-{variant}
 
 Border colors
-- --border-color-default
-- --border-color-primary
-- --border-color-secondary
-- --border-color-success
-- --border-color-danger
-- --border-color-warning
-- --border-color-info
-
-Radii
-- --ui-border-radius-xs
-- --ui-border-radius-sm
-- --ui-border-radius-md
-- --ui-border-radius-lg
-- --ui-border-radius-xl
-- Layout containers may also use:
-  - --layout-border-radius-xs
-  - --layout-border-radius-sm
-  - --layout-border-radius-md
-  - --layout-border-radius-lg
-  - --layout-border-radius-xl
+- --color-border-default
+- --color-border-primary
+- --color-border-secondary
+- --color-border-tertiary
+- --color-border-success
+- --color-border-danger
+- --color-border-warning
+- --color-border-info
 
 ## Global override (site‑wide)
 ```css
 /* styles/globals.css */
 :root {
   /* brand text */
-  --text-color-primary: #8b5cf6;
+  --color-text-primary: #8b5cf6;
   /* brand surfaces */
-  --background-color-primary: #f3e8ff;
+  --color-bg-primary: #f3e8ff;
   /* borders */
-  --border-color-primary: #c4b5fd;
-  /* rounded controls */
-  --ui-border-radius-md: 0.75rem;
+  --color-border-primary: #c4b5fd;
 }
 ```
 
@@ -82,9 +70,9 @@ Radii
 ```css
 /* Only affects components inside .marketing */
 .marketing {
-  --text-color-primary: #059669;
-  --background-color-primary: #ecfdf5;
-  --border-color-primary: #6ee7b7;
+  --color-text-primary: #059669;
+  --color-bg-primary: #ecfdf5;
+  --color-border-primary: #6ee7b7;
 }
 ```
 
@@ -94,4 +82,4 @@ Radii
 - Prefer semantic overrides (primary, success, danger) for consistent theming.
 - ThemeProvider does not expose a `colors` field; use these CSS variables to change colors. You can still use ThemeProvider for defaults and extra classes.
 
-That’s it — override these variables to theme @vaneui/ui components simply and predictably.
+That's it — override these variables to theme @vaneui/ui components simply and predictably.

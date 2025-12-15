@@ -79,12 +79,12 @@ export const containerExamples: DocsPagePart[] = [
   },
   {
     title: 'Container Shapes',
-    md: 'Containers support different border radius styles.',
+    md: 'Containers support different border radius styles: `rounded` (default), `pill`, and `sharp`.',
     component: (
       <Col lg>
         <Container>
           <div className="p-4 bg-gray-100 rounded">
-            <Text>Default rounded container</Text>
+            <Text>Default (rounded) container</Text>
           </div>
         </Container>
         <Container pill>
@@ -141,9 +141,9 @@ export const containerExamples: DocsPagePart[] = [
     md: 'Control spacing between container content.',
     component: (
       <Col lg>
-        <Container gap>
+        <Container>
           <div className="p-4 bg-gray-100 rounded">
-            <Text>First item</Text>
+            <Text>First item (default with gap)</Text>
           </div>
           <div className="p-4 bg-gray-100 rounded">
             <Text>Second item</Text>

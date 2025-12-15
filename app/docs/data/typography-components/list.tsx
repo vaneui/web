@@ -23,8 +23,8 @@ export const listExamples: DocsPagePart[] = [
       <Col lg>
         <div>
           <Text semibold>Disc (Bullet) List</Text>
-          <List disc>
-            <ListItem>First bullet item</ListItem>
+          <List>
+            <ListItem>First bullet item (default is disc)</ListItem>
             <ListItem>Second bullet item</ListItem>
             <ListItem>Third bullet item</ListItem>
           </List>

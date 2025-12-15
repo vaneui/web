@@ -33,7 +33,7 @@ export const badgeExamples: DocsPagePart[] = [
   },
   {
     title: 'Badge Shapes',
-    md: 'Badges support different border radius styles: `rounded` (default), `pill`, and `sharp`.',
+    md: 'Badges support different border radius styles: `rounded`, `pill` (default), and `sharp`.',
     component: (
       <Row flexWrap>
         {
