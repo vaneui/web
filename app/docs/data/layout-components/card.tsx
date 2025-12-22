@@ -4,14 +4,30 @@ import { Card, Row, Text, Title, ComponentKeys } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
+const cardTitles = ['Getting Started', 'Documentation', 'Settings', 'Dashboard', 'Analytics'];
+const cardDescriptions = ['Learn the basics', 'Read the docs', 'Customize your app', 'View your data', 'Track performance'];
+
+const appearanceTitles: Record<string, {title: string, desc: string}> = {
+  default: { title: 'Default Card', desc: 'Standard neutral styling' },
+  primary: { title: 'Primary Card', desc: 'Uses primary color theme' },
+  secondary: { title: 'Secondary Card', desc: 'Subtle secondary styling' },
+  tertiary: { title: 'Tertiary Card', desc: 'Light tertiary background' },
+  accent: { title: 'Accent Card', desc: 'Eye-catching accent color' },
+  success: { title: 'Success Card', desc: 'Indicates positive status' },
+  danger: { title: 'Danger Card', desc: 'Signals errors or alerts' },
+  warning: { title: 'Warning Card', desc: 'Draws attention to cautions' },
+  info: { title: 'Info Card', desc: 'Provides information' },
+  link: { title: 'Link Card', desc: 'Styled for navigation' },
+};
+
 export const cardExamples: DocsPagePart[] = [
   {
     title: 'Basic Card',
     md: 'A simple card container.',
     component: (
       <Card>
-        <Title>Card Title</Title>
-        <Text>This is a basic card with some content inside.</Text>
+        <Title>Welcome to VaneUI</Title>
+        <Text>Build beautiful interfaces with ready-to-use components.</Text>
       </Card>
     ),
   },
@@ -21,12 +37,12 @@ export const cardExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         {
-          ComponentKeys.size.map((key: string) => {
+          ComponentKeys.size.map((key: string, i: number) => {
             const sizeProps = key !== 'md' ? {[key]: true} : {};
             return (
               <Card key={key} {...{[key]: true}}>
-                <Title {...sizeProps}>Card {key}</Title>
-                <Text {...sizeProps}>Content for {key} size</Text>
+                <Title {...sizeProps}>{cardTitles[i]}</Title>
+                <Text {...sizeProps}>{cardDescriptions[i]}</Text>
               </Card>
             );
           })
@@ -42,8 +58,8 @@ export const cardExamples: DocsPagePart[] = [
         {
           ComponentKeys.appearance.map((key: string) => (
             <Card key={key} {...{[key]: true}}>
-              <Title>{key} Card</Title>
-              <Text>Card with {key} background</Text>
+              <Title>{appearanceTitles[key]?.title}</Title>
+              <Text>{appearanceTitles[key]?.desc}</Text>
             </Card>
           ))
         }
@@ -56,10 +72,10 @@ export const cardExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         {
-          ComponentKeys.border.map((key: string) => (
+          ComponentKeys.border.map((key: string, i: number) => (
             <Card key={key} {...{[key]: true}}>
-              <Title>Card {key}</Title>
-              <Text>Card with {key}</Text>
+              <Title>Project Update</Title>
+              <Text>Your project is on track</Text>
             </Card>
           ))
         }
@@ -72,16 +88,16 @@ export const cardExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         <Card>
-          <Title>Card default (rounded)</Title>
-          <Text>Card with rounded corners</Text>
+          <Title>Rounded Corners</Title>
+          <Text>The default card style</Text>
         </Card>
         <Card pill>
-          <Title>Card pill</Title>
-          <Text>Card with fully rounded corners</Text>
+          <Title>Pill Shape</Title>
+          <Text>Fully rounded corners</Text>
         </Card>
         <Card sharp>
-          <Title>Card sharp</Title>
-          <Text>Card with sharp corners</Text>
+          <Title>Sharp Corners</Title>
+          <Text>No border radius</Text>
         </Card>
       </Row>
     ),
@@ -94,8 +110,8 @@ export const cardExamples: DocsPagePart[] = [
         {
           ComponentKeys.shadow.map((key: string) => (
             <Card key={key} {...{[key]: true}}>
-              <Title>Card {key}</Title>
-              <Text>Card with {key}</Text>
+              <Title>Elevated Card</Title>
+              <Text>This card has a shadow</Text>
             </Card>
           ))
         }
@@ -110,8 +126,8 @@ export const cardExamples: DocsPagePart[] = [
         {
           ComponentKeys.ring.map((key: string) => (
             <Card key={key} {...{[key]: true}}>
-              <Title>Card {key}</Title>
-              <Text>Card with {key}</Text>
+              <Title>Highlighted Card</Title>
+              <Text>This card has a ring</Text>
             </Card>
           ))
         }
@@ -126,8 +142,8 @@ export const cardExamples: DocsPagePart[] = [
         {
           ComponentKeys.padding.map((key: string) => (
             <Card key={key} {...{[key]: true}}>
-              <Title>Card {key}</Title>
-              <Text>Card with {key}</Text>
+              <Title>Padding Example</Title>
+              <Text>Different padding styles</Text>
             </Card>
           ))
         }
@@ -140,13 +156,13 @@ export const cardExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         <Card>
-          <Title>Default (Column Direction)</Title>
-          <Text>Content flows vertically</Text>
-          <Text>Another line</Text>
+          <Title>Vertical Layout</Title>
+          <Text>Content flows top to bottom</Text>
+          <Text>Like this second line</Text>
         </Card>
         <Card row>
-          <Title>Row Direction</Title>
-          <Text>Content flows horizontally</Text>
+          <Title>Horizontal Layout</Title>
+          <Text>Content flows left to right</Text>
         </Card>
       </Row>
     ),
@@ -159,9 +175,9 @@ export const cardExamples: DocsPagePart[] = [
         {
           ComponentKeys.gap.map((key: string) => (
             <Card key={key} {...{[key]: true}}>
-              <Title>Card {key}</Title>
-              <Text>Content with {key}</Text>
-              <Text>Another line</Text>
+              <Title>Spacing Demo</Title>
+              <Text>First paragraph</Text>
+              <Text>Second paragraph</Text>
             </Card>
           ))
         }
@@ -174,16 +190,16 @@ export const cardExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         <Card filled primary lg>
-          <Title primary>Filled Primary Card</Title>
-          <Text primary>Typography inherits primary color</Text>
+          <Title filled primary>Filled Primary Card</Title>
+          <Text filled primary>Solid background with primary color</Text>
         </Card>
         <Card outline success lg>
           <Title success>Outline Success Card</Title>
-          <Text success>Typography inherits success color</Text>
+          <Text success>Border only with success color</Text>
         </Card>
         <Card filled danger lg>
-          <Title danger>Filled Danger Card</Title>
-          <Text danger>Typography inherits danger color</Text>
+          <Title filled danger>Filled Danger Card</Title>
+          <Text filled danger>Solid background with danger color</Text>
         </Card>
       </Row>
     ),
@@ -192,13 +208,13 @@ export const cardExamples: DocsPagePart[] = [
     title: 'Responsive Breakpoints',
     md: 'Cards support responsive breakpoint props: `mobileCol`, `tabletCol`, `laptopCol`, `desktopCol`. The card switches from row to column layout at the specified breakpoint.',
     component: (
-      <Card tabletCol>
+      <Card row tabletCol>
         <div>
-          <Title>Image Area</Title>
-          <Text secondary>This could be an image or other content</Text>
+          <Title>Product Image</Title>
+          <Text secondary>Visual content goes here</Text>
         </div>
         <div>
-          <Title>Content Area</Title>
+          <Title>Product Details</Title>
           <Text>On tablets and below, this layout switches to column. Resize your browser to see the effect.</Text>
         </div>
       </Card>

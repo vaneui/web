@@ -4,6 +4,21 @@ import { Chip, Row, Col, ComponentKeys } from "@vaneui/ui";
 import { DocsPagePart } from '../../types';
 import { CheckSquare, Heart, X } from "react-feather";
 
+const appearanceLabels: Record<string, string> = {
+  default: 'Default',
+  primary: 'Primary',
+  secondary: 'Secondary',
+  tertiary: 'Tertiary',
+  accent: 'Accent',
+  success: 'Success',
+  danger: 'Danger',
+  warning: 'Warning',
+  info: 'Info',
+  link: 'Link',
+};
+
+const sizeLabels = ['Extra Small', 'Small', 'Medium', 'Large', 'Extra Large'];
+
 export const chipExamples: DocsPagePart[] = [
   {
     title: 'Basic Usage',
@@ -12,7 +27,7 @@ export const chipExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.appearance.map((key: string) => (
-            <Chip key={key} {...{[key]: true}}>Chip {key}</Chip>
+            <Chip key={key} {...{[key]: true}}>{appearanceLabels[key]}</Chip>
           ))
         }
       </Row>
@@ -24,8 +39,8 @@ export const chipExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         {
-          ComponentKeys.size.map((key: string) => (
-            <Chip key={key} {...{[key]: true}}>Chip {key}</Chip>
+          ComponentKeys.size.map((key: string, i: number) => (
+            <Chip key={key} {...{[key]: true}}>{sizeLabels[i]}</Chip>
           ))
         }
       </Row>
@@ -38,7 +53,7 @@ export const chipExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.shape.map((key: string) => (
-            <Chip key={key} {...{[key]: true}}>Chip {key}</Chip>
+            <Chip key={key} {...{[key]: true}}>JavaScript</Chip>
           ))
         }
       </Row>
@@ -53,11 +68,14 @@ export const chipExamples: DocsPagePart[] = [
           ComponentKeys.variant.map((variant: string) => (
             <Row key={variant} flexWrap>
               {
-                ComponentKeys.appearance.slice(0, 4).map((appearance: string) => (
-                  <Chip key={`${variant}-${appearance}`} {...{[variant]: true, [appearance]: true}}>
-                    {variant} {appearance}
-                  </Chip>
-                ))
+                ComponentKeys.appearance.slice(0, 4).map((appearance: string, i: number) => {
+                  const labels = ['Default', 'Primary', 'Secondary', 'Tertiary'];
+                  return (
+                    <Chip key={`${variant}-${appearance}`} {...{[variant]: true, [appearance]: true}}>
+                      {labels[i]}
+                    </Chip>
+                  );
+                })
               }
             </Row>
           ))
@@ -71,13 +89,13 @@ export const chipExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         <Chip primary>
-          <Heart className="size-4"/> With Icon
+          <Heart className="size-4"/> Primary with Icon
         </Chip>
         <Chip success>
-          <CheckSquare className="size-4"/> Approved
+          <CheckSquare className="size-4"/> Success with Icon
         </Chip>
         <Chip danger>
-          <X className="size-4"/> Failed
+          <X className="size-4"/> Danger with Icon
         </Chip>
       </Row>
     ),

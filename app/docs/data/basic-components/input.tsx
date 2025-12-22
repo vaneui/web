@@ -12,7 +12,7 @@ export const inputExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.appearance.map((key: string) => (
-            <Input key={key} {...{[key]: true}} placeholder={`${key} input`} />
+            <Input key={key} {...{[key]: true}} placeholder={`${key.charAt(0).toUpperCase() + key.slice(1)} appearance input`} />
           ))
         }
       </Row>
@@ -25,7 +25,7 @@ export const inputExamples: DocsPagePart[] = [
       <Col>
         {
           ComponentKeys.size.map((key: string) => (
-            <Input key={key} {...{[key]: true}} placeholder={`${key} input`} />
+            <Input key={key} {...{[key]: true}} placeholder={`${key.charAt(0).toUpperCase() + key.slice(1)} appearance input`} />
           ))
         }
       </Col>
@@ -36,13 +36,13 @@ export const inputExamples: DocsPagePart[] = [
     md: 'Various input types for different use cases.',
     component: (
       <Col>
-        <Input type="text" placeholder="Text input" />
-        <Input type="password" placeholder="Password input" />
-        <Input type="email" placeholder="Email input" />
-        <Input type="number" placeholder="Number input" />
-        <Input type="tel" placeholder="Phone input" />
-        <Input type="url" placeholder="URL input" />
-        <Input type="search" placeholder="Search input" />
+        <Input type="text" placeholder="Type: text" />
+        <Input type="password" placeholder="Type: password" />
+        <Input type="email" placeholder="Type: email" />
+        <Input type="number" placeholder="Type: number" />
+        <Input type="tel" placeholder="Type: tel" />
+        <Input type="url" placeholder="Type: url" />
+        <Input type="search" placeholder="Type: search" />
       </Col>
     ),
   },
@@ -51,10 +51,10 @@ export const inputExamples: DocsPagePart[] = [
     md: 'Different input states for user feedback.',
     component: (
       <Col>
-        <Input placeholder="Normal input" />
-        <Input placeholder="Disabled input" disabled />
-        <Input placeholder="Readonly input" readOnly />
-        <Input placeholder="Required input" required />
+        <Input placeholder="Normal state input" />
+        <Input placeholder="Disabled state input" disabled />
+        <Input placeholder="Readonly state input" readOnly />
+        <Input placeholder="Required state input" required />
       </Col>
     ),
   },
@@ -65,7 +65,7 @@ export const inputExamples: DocsPagePart[] = [
       <Col>
         {
           ComponentKeys.shape.map((key: string) => (
-            <Input key={key} {...{[key]: true}} placeholder={`${key} input`} />
+            <Input key={key} {...{[key]: true}} placeholder={`${key.charAt(0).toUpperCase() + key.slice(1)} appearance input`} />
           ))
         }
       </Col>
@@ -86,7 +86,7 @@ export const inputExamples: DocsPagePart[] = [
                     <Input
                       key={`${variant}-${appearance}`}
                       {...{[variant]: true, [appearance]: true}}
-                      placeholder={`${variant} ${appearance}`}
+                      placeholder={`${variant.charAt(0).toUpperCase() + variant.slice(1)} ${appearance} input`}
                     />
                   ))
                 }
@@ -123,16 +123,16 @@ export const inputExamples: DocsPagePart[] = [
     component: (
       <Col>
         <div>
-          <Label success>Valid Email</Label>
-          <Input success type="email" value="user@example.com" readOnly />
+          <Label success>Success State</Label>
+          <Input success type="email" placeholder="Input with success appearance" />
         </div>
         <div>
-          <Label warning>Username (Optional)</Label>
-          <Input warning type="text" placeholder="Enter username" />
+          <Label warning>Warning State</Label>
+          <Input warning type="text" placeholder="Input with warning appearance" />
         </div>
         <div>
-          <Label danger>Invalid Password</Label>
-          <Input danger type="password" placeholder="Password too short" />
+          <Label danger>Danger State</Label>
+          <Input danger type="text" placeholder="Input with danger appearance" />
         </div>
       </Col>
     ),

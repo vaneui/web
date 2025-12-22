@@ -23,9 +23,9 @@ import { AnimationStep } from './utils/typingTypes';
 import { getTypingInfo, getCurrentWordInfo, getDisplayCode, getCurrentCodeLines } from './utils/typingLogic';
 
 const BASE_CODE_LINES = [
-  '<Card row smCol overflowHidden>',
+  '<Card row mobileCol overflowHidden>',
   '  <Img src="/puppy.png" alt="puppy" width={185} height={185}',
-  '       className="shrink-0 max-sm:w-full"/>',
+  '       className="shrink-0 max-mobile:w-full"/>',
   '  <Stack sm>',
   '    <Row justifyBetween>',
   '      <Title>{dog.name}</Title>',
@@ -33,9 +33,9 @@ const BASE_CODE_LINES = [
   '    </Row>',
   '    <Divider/>',
   '    <Text sm>{dog.description}</Text>',
-  '    <Row smCol>',
-  '      <Button className="max-sm:w-full">Adopt</Button>',
-  '      <Button className="max-sm:w-full">Learn more</Button>',
+  '    <Row mobileCol>',
+  '      <Button className="max-mobile:w-full">Adopt</Button>',
+  '      <Button className="max-mobile:w-full">Learn more</Button>',
   '    </Row>',
   '  </Stack>',
   '</Card>'
@@ -43,19 +43,19 @@ const BASE_CODE_LINES = [
 
 const ANIMATION_STEPS: AnimationStep[] = [
   { lineIndex: 1, text: '  <Img src="/puppy.png" alt="puppy" sharp width={185} height={185}' },
-  { lineIndex: 0, text: '<Card row smCol noPadding overflowHidden>' },
-  { lineIndex: 0, text: '<Card row smCol noPadding noGap overflowHidden>' },
+  { lineIndex: 0, text: '<Card row mobileCol noPadding overflowHidden>' },
+  { lineIndex: 0, text: '<Card row mobileCol noPadding noGap overflowHidden>' },
   { lineIndex: 6, text: '      <Chip sm bold>{dog.gender}</Chip>' },
   { lineIndex: 6, text: '      <Chip sm bold primary>{dog.gender}</Chip>' },
   { lineIndex: 6, text: '      <Chip sm bold primary pill>{dog.gender}</Chip>' },
-  { lineIndex: 11, text: '      <Button sm className="max-sm:w-full">Adopt</Button>' },
-  { lineIndex: 12, text: '      <Button sm className="max-sm:w-full">Learn more</Button>' },
-  { lineIndex: 11, text: '      <Button sm success className="max-sm:w-full">Adopt</Button>' },
-  { lineIndex: 11, text: '      <Button sm success filled className="max-sm:w-full">Adopt</Button>' },
-  { lineIndex: 10, text: '    <Row smCol sm>' },
-  { lineIndex: 10, text: '    <Row smCol sm justifyEnd>' },
-  { lineIndex: 11, text: '      <Button sm success filled pill className="max-sm:w-full">Adopt</Button>' },
-  { lineIndex: 12, text: '      <Button sm pill className="max-sm:w-full">Learn more</Button>' },
+  { lineIndex: 11, text: '      <Button sm className="max-mobile:w-full">Adopt</Button>' },
+  { lineIndex: 12, text: '      <Button sm className="max-mobile:w-full">Learn more</Button>' },
+  { lineIndex: 11, text: '      <Button sm success className="max-mobile:w-full">Adopt</Button>' },
+  { lineIndex: 11, text: '      <Button sm success filled className="max-mobile:w-full">Adopt</Button>' },
+  { lineIndex: 10, text: '    <Row mobileCol sm>' },
+  { lineIndex: 10, text: '    <Row mobileCol sm justifyEnd>' },
+  { lineIndex: 11, text: '      <Button sm success filled pill className="max-mobile:w-full">Adopt</Button>' },
+  { lineIndex: 12, text: '      <Button sm pill className="max-mobile:w-full">Learn more</Button>' },
 ];
 
 export function LiveSection() {

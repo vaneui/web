@@ -1,6 +1,6 @@
 VaneUI is a React component library built with TypeScript and Tailwind CSS.
 
-## How to install VaneUI
+## Installation
 
 Install VaneUI using your preferred package manager:
 
@@ -16,25 +16,52 @@ yarn add @vaneui/ui
 pnpm add @vaneui/ui
 ```
 
-## Setup
+## CSS Setup
 
-VaneUI requires Tailwind CSS. Install it if you haven't already:
+VaneUI supports two CSS setup options depending on your project configuration.
+
+### Option 1: With Tailwind CSS (Recommended)
+
+If your project uses Tailwind CSS v4, VaneUI integrates seamlessly. Tailwind will scan VaneUI components and generate only the CSS classes you use.
+
+Install Tailwind CSS if you haven't already:
 
 ```bash
-npm install -D tailwindcss
+npm install -D tailwindcss @tailwindcss/postcss
 ```
 
-Add Tailwind directives to your CSS:
+Add the following to your main CSS file:
 
 ```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "@vaneui/ui/vars.css";
+@source "@vaneui/ui";
 ```
 
-## Getting Started
+This setup:
+- Imports Tailwind CSS base styles
+- Imports VaneUI CSS variables for theming
+- Tells Tailwind to scan VaneUI components for class generation
 
-Start using VaneUI components:
+### Option 2: Without Tailwind CSS
+
+If your project doesn't use Tailwind CSS, you can import VaneUI's pre-built CSS bundle which includes all component styles.
+
+Add the following to your main CSS file:
+
+```css
+@import "@vaneui/ui/css";
+@import "@vaneui/ui/vars.css";
+```
+
+This setup:
+- Imports the complete pre-built VaneUI stylesheet
+- Imports VaneUI CSS variables for theming
+- Works without any Tailwind configuration
+
+## Usage
+
+Start using VaneUI components in your React application:
 
 ```tsx
 import { Button, Stack } from '@vaneui/ui';

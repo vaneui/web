@@ -4,6 +4,21 @@ import { Button, Col, Row, ComponentKeys } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
+const appearanceLabels: Record<string, string> = {
+  default: 'Default',
+  primary: 'Primary',
+  secondary: 'Secondary',
+  tertiary: 'Tertiary',
+  accent: 'Accent',
+  success: 'Success',
+  danger: 'Danger',
+  warning: 'Warning',
+  info: 'Info',
+  link: 'Link',
+};
+
+const sizeLabels = ['Extra Small', 'Small', 'Medium', 'Large', 'Extra Large'];
+
 export const buttonExamples: DocsPagePart[] = [
   {
     title: 'Basic Usage',
@@ -12,7 +27,7 @@ export const buttonExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.appearance.map((key: string) => (
-            <Button key={key} {...{[key]: true}}>Button {key}</Button>
+            <Button key={key} {...{[key]: true}}>{appearanceLabels[key]}</Button>
           ))
         }
       </Row>
@@ -24,8 +39,8 @@ export const buttonExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         {
-          ComponentKeys.size.map((key: string) => (
-            <Button key={key} {...{[key]: true}}>Button {key}</Button>
+          ComponentKeys.size.map((key: string, i: number) => (
+            <Button key={key} {...{[key]: true}}>{sizeLabels[i]}</Button>
           ))
         }
       </Row>
@@ -51,7 +66,7 @@ export const buttonExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.fontWeight.map((key: string) => (
-            <Button key={key} {...{[key]: true}}>Button {key}</Button>
+            <Button key={key} {...{[key]: true}}>Submit</Button>
           ))
         }
       </Row>
@@ -64,7 +79,7 @@ export const buttonExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.shape.map((key: string) => (
-            <Button key={key} {...{[key]: true}}>Button {key}</Button>
+            <Button key={key} {...{[key]: true}}>Subscribe</Button>
           ))
         }
       </Row>
@@ -79,11 +94,14 @@ export const buttonExamples: DocsPagePart[] = [
           ComponentKeys.variant.map((variant: string) => (
             <Row key={variant} flexWrap>
               {
-                ComponentKeys.appearance.slice(0, 4).map((appearance: string) => (
-                  <Button key={`${variant}-${appearance}`} {...{[variant]: true, [appearance]: true}}>
-                    {variant} {appearance}
-                  </Button>
-                ))
+                ComponentKeys.appearance.slice(0, 4).map((appearance: string, i: number) => {
+                  const labels = ['Default', 'Primary', 'Secondary', 'Tertiary'];
+                  return (
+                    <Button key={`${variant}-${appearance}`} {...{[variant]: true, [appearance]: true}}>
+                      {labels[i]}
+                    </Button>
+                  );
+                })
               }
             </Row>
           ))

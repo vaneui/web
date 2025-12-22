@@ -29,8 +29,8 @@ export function HeroSection() {
 
   const card =
     <Card sm row mobileCol noPadding noGap overflowHidden>
-      <Img sm sharp src={dog.image} className="max-sm:w-full"/>
-      <Stack sm className="max-sm:max-w-56">
+      <Img sm sharp src={dog.image} className="max-mobile:w-full"/>
+      <Stack sm className="max-mobile:max-w-56">
         <Row justifyBetween>
           <Title>{dog.name}</Title>
           <Chip sm bold>{dog.gender}</Chip>
@@ -38,8 +38,8 @@ export function HeroSection() {
         <Divider/>
         <Text sm>{dog.description}</Text>
         <Row sm mobileCol justifyEnd>
-          <Button sm success filled className="max-sm:w-full">Adopt</Button>
-          <Button sm secondary className="max-sm:w-full">Learn more</Button>
+          <Button sm success filled className="max-mobile:w-full">Adopt</Button>
+          <Button sm secondary className="max-mobile:w-full">Learn more</Button>
         </Row>
       </Stack>
     </Card>;

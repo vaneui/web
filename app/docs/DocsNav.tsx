@@ -31,7 +31,7 @@ export function DocsNav({currentPath, onMenuItemClickAction}: { currentPath?: st
               aria-label={item.text}
             />
             <Card xs noPadding secondary tag="span" justifyCenter className="p-2">
-              <item.icon className="size-5"/>
+              <item.icon className="size-5 text-(--color-text-secondary)"/>
             </Card>
             <Text secondary>{item.text}</Text>
           </Row>
@@ -43,7 +43,7 @@ export function DocsNav({currentPath, onMenuItemClickAction}: { currentPath?: st
         return (
           <Col xs key={i}>
             <Row xs>
-              {Icon && <Icon.icon className="size-5 text-secondary"/>}
+              {Icon && <Icon.icon className="size-5 text-(--color-text-secondary)"/>}
               <Text uppercase sm mono secondary medium>
                 {section.name}
               </Text>

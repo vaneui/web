@@ -31,16 +31,16 @@ export function AboutSection() {
           {
             [
               {
-                title: "Build faster with ready components",
-                description: "Start your project with a collection of prebuilt React components. Each component is designed to save development time and help you focus on building features instead of basic UI."
+                title: "Clean, readable component syntax",
+                description: "Style components with simple words like primary, filled, or outline. No complicated settings or long property names."
               },
               {
-                title: "Customize easily to fit your brand",
-                description: "Quickly adjust colors, styles, spacing, and appearance to match your product’s look and feel. VaneUI makes it simple to create a consistent design system without extra effort."
+                title: "Automatically responsive typography",
+                description: "Headings and text scale down on smaller screens without any extra code. Your content looks great on every device right out of the box."
               },
               {
-                title: "Developer-friendly from the start",
-                description: "Enjoy a smooth developer experience with TypeScript support, clean APIs, and utility-first styling. VaneUI helps you write reliable code while keeping development efficient."
+                title: "Theme once, apply everywhere",
+                description: "Set default styles for your entire app or customize sections individually. Nest themes to create different looks for different areas."
               },
             ].map((item, index) => (
               <Card lg noBorder noPadding key={index} className="w-full">

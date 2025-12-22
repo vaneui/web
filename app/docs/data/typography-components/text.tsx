@@ -4,12 +4,33 @@ import { Text, Col, Row, ComponentKeys, Card, Container } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
+const sizeSentences = [
+  'Extra small text (xs)',
+  'Small text (sm)',
+  'Medium text (md)',
+  'Large text (lg)',
+  'Extra large text (xl)'
+];
+
+const appearanceSentences: Record<string, string> = {
+  default: 'Default text appearance',
+  primary: 'Primary text appearance',
+  secondary: 'Secondary text appearance',
+  tertiary: 'Tertiary text appearance',
+  accent: 'Accent text appearance',
+  success: 'Success text appearance',
+  danger: 'Danger text appearance',
+  warning: 'Warning text appearance',
+  info: 'Info text appearance',
+  link: 'Link text appearance',
+};
+
 export const textExamples: DocsPagePart[] = [
   {
     title: 'Basic Text',
     md: 'Default text styling.',
     component: (
-      <Text>This is basic text content with default styling.</Text>
+      <Text>Build beautiful user interfaces with VaneUI components.</Text>
     ),
   },
   {
@@ -18,8 +39,8 @@ export const textExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         {
-          ComponentKeys.size.map((key: string) => (
-            <Text key={key} {...{[key]: true}}>Text {key}</Text>
+          ComponentKeys.size.map((key: string, i: number) => (
+            <Text key={key} {...{[key]: true}}>{sizeSentences[i]}</Text>
           ))
         }
       </Row>
@@ -32,7 +53,7 @@ export const textExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.fontWeight.map((key: string) => (
-            <Text key={key} {...{[key]: true}}>Text {key}</Text>
+            <Text key={key} {...{[key]: true}}>The quick brown fox</Text>
           ))
         }
       </Row>
@@ -45,7 +66,7 @@ export const textExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.appearance.map((key: string) => (
-            <Text key={key} {...{[key]: true}}>Text {key}</Text>
+            <Text key={key} {...{[key]: true}}>{appearanceSentences[key]}</Text>
           ))
         }
       </Row>
@@ -58,7 +79,7 @@ export const textExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.fontFamily.map((key: string) => (
-            <Text key={key} {...{[key]: true}}>Text {key}</Text>
+            <Text key={key} {...{[key]: true}}>Typography matters</Text>
           ))
         }
       </Row>
@@ -71,7 +92,7 @@ export const textExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.textDecoration.map((key: string) => (
-            <Text key={key} {...{[key]: true}}>Text {key}</Text>
+            <Text key={key} {...{[key]: true}}>Decorated text</Text>
           ))
         }
       </Row>
@@ -84,7 +105,7 @@ export const textExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.fontStyle.map((key: string) => (
-            <Text key={key} {...{[key]: true}}>Text {key}</Text>
+            <Text key={key} {...{[key]: true}}>Styled text</Text>
           ))
         }
       </Row>
@@ -97,7 +118,7 @@ export const textExamples: DocsPagePart[] = [
       <Row flexWrap>
         {
           ComponentKeys.textTransform.map((key: string) => (
-            <Text key={key} {...{[key]: true}}>Text {key}</Text>
+            <Text key={key} {...{[key]: true}}>Transform this text</Text>
           ))
         }
       </Row>
@@ -108,10 +129,10 @@ export const textExamples: DocsPagePart[] = [
     md: 'Text can be aligned differently.',
     component: (
       <div className="space-y-2 border-2 border-dashed border-gray-300 p-4">
-        <Text textLeft>Left aligned text</Text>
-        <Text textCenter>Center aligned text</Text>
-        <Text textRight>Right aligned text</Text>
-        <Text textJustify>Justified text that should wrap to multiple lines to demonstrate the justification alignment. This text is long enough to show the justify effect.</Text>
+        <Text textLeft>Aligned to the left side</Text>
+        <Text textCenter>Centered in the middle</Text>
+        <Text textRight>Aligned to the right side</Text>
+        <Text textJustify>Justified text spreads evenly across the full width of its container, creating clean edges on both sides for a more formal appearance.</Text>
       </div>
     ),
   },
@@ -120,11 +141,11 @@ export const textExamples: DocsPagePart[] = [
     md: 'Combining multiple text properties.',
     component: (
       <Col>
-        <Text lg bold primary>Large Bold Primary Text</Text>
-        <Text sm italic secondary>Small Italic Secondary Text</Text>
-        <Text md semibold success underline>Medium Semibold Success Underlined Text</Text>
-        <Text xs light uppercase>Extra Small Light Uppercase Text</Text>
-        <Text xl extrabold danger textCenter>Extra Large Extra Bold Danger Centered Text</Text>
+        <Text lg bold primary>Large, bold, primary text</Text>
+        <Text sm italic secondary>Small, italic, secondary text</Text>
+        <Text md semibold success underline>Medium, semibold, success, underlined text</Text>
+        <Text xs light uppercase>Extra small, light, uppercase text</Text>
+        <Text xl extrabold danger textCenter>Extra large, extrabold, danger, centered text</Text>
       </Col>
     ),
   },
@@ -134,13 +155,13 @@ export const textExamples: DocsPagePart[] = [
     component: (
       <Col>
         <Card filled primary lg>
-          <Text primary>This text inherits primary color from the filled card</Text>
+          <Text filled primary>Text inside filled primary card</Text>
         </Card>
         <Card filled success lg>
-          <Text success>This text inherits success color from the card</Text>
+          <Text filled success>Text inside filled success card</Text>
         </Card>
         <Container outline danger>
-          <Text danger>Text inheriting danger color from outline container</Text>
+          <Text danger>Text inside outline danger container</Text>
         </Container>
       </Col>
     ),
