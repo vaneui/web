@@ -119,7 +119,7 @@ export function DocsPageContent(
               <PageTitle>
                 <Link href={`#${pageTitleId}`} id={pageTitleId}>{pageTitle}</Link>
               </PageTitle>
-              <Text default>{pageData.description}</Text>
+              <Text primary>{pageData.description}</Text>
             </Col>
 
             <Divider/>

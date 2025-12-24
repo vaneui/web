@@ -121,7 +121,7 @@ export const titleExamples: DocsPagePart[] = [
     md: 'Combining multiple title properties.',
     component: (
       <Col lg>
-        <Title lg bold primary>Large, Bold, Primary Title</Title>
+        <Title lg bold brand>Large, Bold, Primary Title</Title>
         <Title sm italic secondary>Small, Italic, Secondary Title</Title>
         <Title md semibold success underline>Medium, Semibold, Success, Underlined Title</Title>
         <Title xs light uppercase>Extra Small, Light, Uppercase Title</Title>
@@ -137,8 +137,8 @@ export const titleExamples: DocsPagePart[] = [
         <Card filled warning lg>
           <Title filled warning>Title in Filled Warning Card</Title>
         </Card>
-        <Container filled primary>
-          <Title filled primary>Title in Filled Primary Container</Title>
+        <Container filled brand>
+          <Title filled brand>Title in Filled Brand Container</Title>
         </Container>
         <Card outline secondary lg>
           <Title secondary>Title in Outline Secondary Card</Title>

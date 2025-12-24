@@ -22,7 +22,7 @@ const sizeLabels = ['Extra Small', 'Small', 'Medium', 'Large', 'Extra Large'];
 export const buttonExamples: DocsPagePart[] = [
   {
     title: 'Basic Usage',
-    md: 'Default button styles and variants.',
+    md: 'Button styles and variants.',
     component: (
       <Row flexWrap>
         {
@@ -95,7 +95,7 @@ export const buttonExamples: DocsPagePart[] = [
             <Row key={variant} flexWrap>
               {
                 ComponentKeys.appearance.slice(0, 4).map((appearance: string, i: number) => {
-                  const labels = ['Default', 'Primary', 'Secondary', 'Tertiary'];
+                  const labels = ['Primary', 'Brand', 'Accent', 'Secondary'];
                   return (
                     <Button key={`${variant}-${appearance}`} {...{[variant]: true, [appearance]: true}}>
                       {labels[i]}

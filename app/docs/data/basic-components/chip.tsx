@@ -22,7 +22,7 @@ const sizeLabels = ['Extra Small', 'Small', 'Medium', 'Large', 'Extra Large'];
 export const chipExamples: DocsPagePart[] = [
   {
     title: 'Basic Usage',
-    md: 'Default chip styles and variants.',
+    md: 'Chip styles and variants.',
     component: (
       <Row flexWrap>
         {
@@ -69,7 +69,7 @@ export const chipExamples: DocsPagePart[] = [
             <Row key={variant} flexWrap>
               {
                 ComponentKeys.appearance.slice(0, 4).map((appearance: string, i: number) => {
-                  const labels = ['Default', 'Primary', 'Secondary', 'Tertiary'];
+                  const labels = ['Primary', 'Brand', 'Accent', 'Secondary'];
                   return (
                     <Chip key={`${variant}-${appearance}`} {...{[variant]: true, [appearance]: true}}>
                       {labels[i]}
@@ -88,8 +88,8 @@ export const chipExamples: DocsPagePart[] = [
     md: 'Chips can contain icons along with text.',
     component: (
       <Row flexWrap>
-        <Chip primary>
-          <Heart className="size-4"/> Primary with Icon
+        <Chip brand>
+          <Heart className="size-4"/> Brand with Icon
         </Chip>
         <Chip success>
           <CheckSquare className="size-4"/> Success with Icon

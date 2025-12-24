@@ -6,14 +6,14 @@ export const strictTheme: PartialTheme = {
 };
 
 export const strictOverrideFunc = (theme: ThemeProps) => {
-  theme.card.themes.appearance.background.outline.default.base = 'bg-gray-100'
-  theme.card.themes.appearance.border.outline.default.base = 'border-gray-900'
+  theme.card.themes.appearance.background.outline.primary.base = 'bg-gray-100'
+  theme.card.themes.appearance.border.outline.primary.base = 'border-gray-900'
   theme.card.themes.layout.border.border = 'border-2'
 
-  theme.divider.themes.appearance.background.default.base = 'bg-gray-900';
+  theme.divider.themes.appearance.background.primary.base = 'bg-gray-900';
 
-  theme.chip.themes.appearance.text.outline.default.base = 'text-black';
-  theme.chip.themes.appearance.ring.outline.default.base = 'ring-gray-900';
+  theme.chip.themes.appearance.text.outline.primary.base = 'text-black';
+  theme.chip.themes.appearance.ring.outline.primary.base = 'ring-gray-900';
 
   theme.button.themes.appearance.background.filled.success.base = 'bg-gray-900';
   theme.button.themes.appearance.background.filled.success.active = 'active:bg-gray-700';
@@ -50,12 +50,12 @@ export const strictDefaults: ThemeDefaults = {
     noShadow: true,
   },
   chip: {
-    default: true,
+    primary: true,
     sharp: true,
     xs: true,
     uppercase: true,
   },
   divider: {
-    default: true,
+    primary: true,
   }
 }

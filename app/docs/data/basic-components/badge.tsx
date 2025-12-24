@@ -22,7 +22,7 @@ const sizeLabels = ['Extra Small', 'Small', 'Medium', 'Large', 'Extra Large'];
 export const badgeExamples: DocsPagePart[] = [
   {
     title: 'Basic Usage',
-    md: 'Default badge styles and variants.',
+    md: 'Badge styles and variants.',
     component: (
       <Row flexWrap>
         {
@@ -69,7 +69,7 @@ export const badgeExamples: DocsPagePart[] = [
             <Row key={variant} flexWrap>
               {
                 ComponentKeys.appearance.slice(0, 4).map((appearance: string, i: number) => {
-                  const labels = ['Default', 'Primary', 'Secondary', 'Tertiary'];
+                  const labels = ['Primary', 'Brand', 'Accent', 'Secondary'];
                   return (
                     <Badge key={`${variant}-${appearance}`} {...{[variant]: true, [appearance]: true}}>
                       {labels[i]}

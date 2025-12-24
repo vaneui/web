@@ -189,9 +189,9 @@ export const cardExamples: DocsPagePart[] = [
     md: 'Cards support filled and outline variants with typography color inheritance.',
     component: (
       <Row flexWrap>
-        <Card filled primary lg>
-          <Title filled primary>Filled Primary Card</Title>
-          <Text filled primary>Solid background with primary color</Text>
+        <Card filled brand lg>
+          <Title filled brand>Filled Brand Card</Title>
+          <Text filled brand>Solid background with brand color</Text>
         </Card>
         <Card outline success lg>
           <Title success>Outline Success Card</Title>

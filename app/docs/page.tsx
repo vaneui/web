@@ -23,7 +23,7 @@ export default function DocsPage() {
                 <Link key={i} href={`/docs/${section.slug}/${component.slug}`} className="no-underline">
                   <Card shadow transparent relative overflowHidden
                         className="gap-3 cursor-pointer hover:bg-secondary h-full">
-                    <Text lg default semibold>{component.name}</Text>
+                    <Text lg primary semibold>{component.name}</Text>
                     <Text sm secondary>{component.description}</Text>
                   </Card>
                 </Link>

@@ -18,7 +18,7 @@
     "@mdx-js/react": "^3.0.1",
     "@tailwindcss/postcss": "^4.0.14",
     "@vaneui/md": "^0.3.1-alpha.20251215182232.fb1f651",
-    "@vaneui/ui": "^0.3.1-alpha.20251215181324.24aaf05",
+    "@vaneui/ui": "^0.3.1-alpha.20251223141057.aeb1ff8",
     "autoprefixer": "^10.4.19",
     "next": "16.1.0-canary.19",
     "postcss": "^8.4.35",

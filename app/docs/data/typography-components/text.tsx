@@ -141,7 +141,7 @@ export const textExamples: DocsPagePart[] = [
     md: 'Combining multiple text properties.',
     component: (
       <Col>
-        <Text lg bold primary>Large, bold, primary text</Text>
+        <Text lg bold brand>Large, bold, primary text</Text>
         <Text sm italic secondary>Small, italic, secondary text</Text>
         <Text md semibold success underline>Medium, semibold, success, underlined text</Text>
         <Text xs light uppercase>Extra small, light, uppercase text</Text>
@@ -154,8 +154,8 @@ export const textExamples: DocsPagePart[] = [
     md: 'Text inherits colors from parent components with appearance props.',
     component: (
       <Col>
-        <Card filled primary lg>
-          <Text filled primary>Text inside filled primary card</Text>
+        <Card filled brand lg>
+          <Text filled brand>Text inside filled brand card</Text>
         </Card>
         <Card filled success lg>
           <Text filled success>Text inside filled success card</Text>

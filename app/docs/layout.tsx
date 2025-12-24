@@ -28,7 +28,7 @@ export default function DocsLayout({children}: DocsLayoutProps) {
 
         {/* Mobile sidebar overlay */}
         {isMobileMenuOpen && (
-          <Col fixed default className="inset-0 z-50 lg:hidden">
+          <Col fixed primary className="inset-0 z-50 lg:hidden">
             <Col noGap className="absolute left-0 top-0 h-full w-full bg-default flex flex-col">
               {/* Fixed header */}
               <Stack sm row justifyBetween itemsCenter className="w-full border-b border-border-default flex-shrink-0">
@@ -57,7 +57,7 @@ export default function DocsLayout({children}: DocsLayoutProps) {
               MENU <ChevronRight className="size-5"/>
             </Button>
           </Stack>
-          <Container xl default borderX className="flex-1">
+          <Container xl primary borderX className="flex-1">
             <Stack xl relative className="w-full py-10">
               {children}
             </Stack>
