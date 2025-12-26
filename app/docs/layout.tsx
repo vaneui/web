@@ -29,7 +29,7 @@ export default function DocsLayout({children}: DocsLayoutProps) {
         {/* Mobile sidebar overlay */}
         {isMobileMenuOpen && (
           <Col fixed primary className="inset-0 z-50 lg:hidden">
-            <Col noGap className="absolute left-0 top-0 h-full w-full bg-default flex flex-col">
+            <Col noGap className="absolute left-0 top-0 h-full w-full bg-primary flex flex-col">
               {/* Fixed header */}
               <Stack sm row justifyBetween itemsCenter className="w-full border-b border-border-primary flex-shrink-0">
                 <Logo/>

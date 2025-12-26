@@ -73,17 +73,14 @@ export const badgeExamples: DocsPagePart[] = [
     component: (
       <Col>
         {
-          ComponentKeys.variant.map((variant: string) => (
+          ComponentKeys.variant.map((variant) => (
             <Row key={variant} flexWrap>
               {
-                ComponentKeys.appearance.slice(0, 4).map((appearance: string, i: number) => {
-                  const labels = ['Primary', 'Brand', 'Accent', 'Secondary'];
-                  return (
-                    <Badge key={`${variant}-${appearance}`} {...{[variant]: true, [appearance]: true}}>
-                      {labels[i]}
-                    </Badge>
-                  );
-                })
+                ComponentKeys.appearance.slice(0, 4).map((appearance) => (
+                  <Badge key={`${variant}-${appearance}`} {...{[variant]: true, [appearance]: true}}>
+                    {appearanceLabels[appearance]}
+                  </Badge>
+                ))
               }
             </Row>
           ))

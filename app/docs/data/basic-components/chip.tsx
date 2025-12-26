@@ -73,17 +73,14 @@ export const chipExamples: DocsPagePart[] = [
     component: (
       <Col>
         {
-          ComponentKeys.variant.map((variant: string) => (
+          ComponentKeys.variant.map((variant) => (
             <Row key={variant} flexWrap>
               {
-                ComponentKeys.appearance.slice(0, 4).map((appearance: string, i: number) => {
-                  const labels = ['Primary', 'Brand', 'Accent', 'Secondary'];
-                  return (
-                    <Chip key={`${variant}-${appearance}`} {...{[variant]: true, [appearance]: true}}>
-                      {labels[i]}
-                    </Chip>
-                  );
-                })
+                ComponentKeys.appearance.slice(0, 4).map((appearance) => (
+                  <Chip key={`${variant}-${appearance}`} {...{[variant]: true, [appearance]: true}}>
+                    {appearanceLabels[appearance]}
+                  </Chip>
+                ))
               }
             </Row>
           ))

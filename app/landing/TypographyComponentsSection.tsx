@@ -51,11 +51,11 @@ export function TypographyComponentsSection() {
       title: 'Link Components',
       component: (
         <Col xs>
-          <Link xl primary href="#">Extra large primary link</Link>
+          <Link xl bold href="#">Extra large bold link</Link>
           <Link lg semibold href="#">Large semibold link</Link>
-          <Link md success href="#">Medium link ,success color</Link>
-          <Link sm warning href="#">Small link, warning color</Link>
-          <Link xs danger href="#">Extra small link, danger color</Link>
+          <Link md href="#">Medium link</Link>
+          <Link sm italic href="#">Small italic link</Link>
+          <Link xs underline href="#">Extra small underlined link</Link>
         </Col>
       )
     }

@@ -1,5 +1,3 @@
-# ExtraClasses
-
 The `extraClasses` property in VaneUI's ThemeProvider provides a flexible way to apply additional CSS classes to components throughout your application. This system allows you to inject custom styling, utility classes, or framework-specific classes while maintaining VaneUI's theming architecture.
 
 ## Understanding ExtraClasses

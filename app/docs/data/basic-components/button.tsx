@@ -99,17 +99,14 @@ export const buttonExamples: DocsPagePart[] = [
     component: (
       <Col>
         {
-          ComponentKeys.variant.map((variant: string) => (
+          ComponentKeys.variant.map((variant) => (
             <Row key={variant} flexWrap>
               {
-                ComponentKeys.appearance.slice(0, 4).map((appearance: string, i: number) => {
-                  const labels = ['Primary', 'Brand', 'Accent', 'Secondary'];
-                  return (
-                    <Button key={`${variant}-${appearance}`} {...{[variant]: true, [appearance]: true}}>
-                      {labels[i]}
-                    </Button>
-                  );
-                })
+                ComponentKeys.appearance.slice(0, 4).map((appearance) => (
+                  <Button key={`${variant}-${appearance}`} {...{[variant]: true, [appearance]: true}}>
+                    {appearanceLabels[appearance]}
+                  </Button>
+                ))
               }
             </Row>
           ))

@@ -1,8 +1,4 @@
-VaneUI is a React component library built with TypeScript and Tailwind CSS.
-
-## Installation
-
-Install VaneUI using your preferred package manager:
+VaneUI is a React component library built with TypeScript and Tailwind CSS. Install using your preferred package manager:
 
 ```bash
 npm install @vaneui/ui

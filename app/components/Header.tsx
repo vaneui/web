@@ -41,7 +41,7 @@ export function Header() {
       {/* Mobile menu overlay */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
-          <div className="absolute left-0 top-0 h-full w-full bg-bg-default flex flex-col">
+          <div className="absolute left-0 top-0 h-full w-full bg-bg-primary flex flex-col">
             {/* Fixed header */}
             <Stack sm row justifyBetween itemsCenter primary borderB className="w-full flex-shrink-0">
               <Logo/>

@@ -1,5 +1,3 @@
-# Using ThemeProvider
-
 The ThemeProvider is the foundation of VaneUI's theming system. It wraps your application and provides theme context to all child components, enabling consistent styling and customization throughout your app.
 
 ## Basic Setup

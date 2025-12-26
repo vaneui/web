@@ -39,19 +39,6 @@ export const linkExamples: DocsPagePart[] = [
     ),
   },
   {
-    title: 'Link Appearances',
-    md: 'Links can have different color appearances.',
-    component: (
-      <Row flexWrap>
-        {
-          ComponentKeys.appearance.map((key: string) => (
-            <Link key={key} href="#" {...{[key]: true}}>Link {key}</Link>
-          ))
-        }
-      </Row>
-    ),
-  },
-  {
     title: 'Link Font Families',
     md: 'Links support different font families.',
     component: (
@@ -119,11 +106,11 @@ export const linkExamples: DocsPagePart[] = [
     md: 'Combining multiple link properties.',
     component: (
       <Col>
-        <Link href="#" lg bold primary>Large Bold Primary Link</Link>
-        <Link href="#" sm italic secondary>Small Italic Secondary Link</Link>
-        <Link href="#" md semibold success underline>Medium Semibold Success Underlined Link</Link>
+        <Link href="#" lg bold>Large Bold Link</Link>
+        <Link href="#" sm italic serif>Small Italic Serif Link</Link>
+        <Link href="#" md semibold underline>Medium Semibold Underlined Link</Link>
         <Link href="#" xs light uppercase>Extra Small Light Uppercase Link</Link>
-        <Link href="#" xl extrabold danger textCenter>Extra Large Extra Bold Danger Centered Link</Link>
+        <Link href="#" xl extrabold mono textCenter>Extra Large Extrabold Mono Centered Link</Link>
       </Col>
     ),
   },

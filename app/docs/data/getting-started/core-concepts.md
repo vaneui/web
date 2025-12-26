@@ -106,15 +106,15 @@ You can change default CSS classes of all components by providing `themeOverride
 
 ```tsx
 const overrideFunc = (theme: ThemeProps) => {
-  theme.button.themes.appearance.text.outline.default.base = 'text-blue-200';
-  theme.button.themes.appearance.text.outline.default.hover = 'hover:text-blue-700';
-  theme.button.themes.appearance.text.outline.default.active = 'active:text-blue-900';
+  theme.button.themes.appearance.text.outline.primary.base = 'text-blue-200';
+  theme.button.themes.appearance.text.outline.primary.hover = 'hover:text-blue-700';
+  theme.button.themes.appearance.text.outline.primary.active = 'active:text-blue-900';
   return theme;
 };
 
 return (
   <ThemeProvider themeOverride={overrideFunc}>
-    <Button>This button has blue colors</Button>
+    <Button primary>This button has blue colors</Button>
   </ThemeProvider>
 );
 ```

@@ -1,5 +1,3 @@
-# Theme & ThemeOverride
-
 The `theme` and `themeOverride` properties are applied via ThemeProvider (not on individual components). You can scope changes globally or to any subtree by wrapping that part of your UI with a ThemeProvider, leaving the rest of the app unaffected.
 
 ## Understanding Theme Properties

@@ -1,5 +1,3 @@
-# ThemeDefaults
-
 The `themeDefaults` property in VaneUI's ThemeProvider allows you to set default theme values that will be applied across all components in your application. This provides a powerful way to establish consistent defaults while still allowing individual components to override these values when needed.
 
 ## Understanding ThemeDefaults
@@ -162,7 +160,7 @@ function LayoutDefaults() {
     },
     
     card: {
-      color: 'default',
+      color: 'primary',
       radius: 'lg',
       shadow: 'md'
     },
@@ -439,7 +437,7 @@ const designSystemDefaults = {
   },
   
   text: {
-    color: 'default',
+    color: 'primary',
     size: 'md'
   }
 };
@@ -460,7 +458,7 @@ const semanticDefaults = {
   label: { color: 'tertiary' },
   
   // Layout elements
-  card: { color: 'default', radius: 'lg' },
+  card: { color: 'primary', radius: 'lg' },
   section: { color: 'secondary' }
 };
 ```

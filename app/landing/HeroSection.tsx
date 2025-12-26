@@ -72,7 +72,7 @@ export function HeroSection() {
       <Container sm itemsCenter className="z-10 -mb-4 pt-8">
         <Col itemsCenter className="w-full">
           <Col
-            className="[--b:8px] max-w-xl max-sm:max-w-80 z-20 border-(length:--b) [--br-unit:4] rounded-[calc(var(--b)+var(--br))] border-gray-400/10 backdrop-blur-sm">
+            className="[--b:8px] max-w-xl max-sm:max-w-80 z-20 border-(length:--b) [--br-unit:4] rounded-[calc(var(--b)+var(--br))] border-gray-500/10 backdrop-blur-sm ring ring-gray-100/50">
             <ThemeProvider mergeStrategy="replace">
               {card}
             </ThemeProvider>

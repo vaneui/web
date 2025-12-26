@@ -34,8 +34,8 @@ import { Button, Row } from '@vaneui/ui';
 function AppearanceExample() {
   return (
     <Row>
-      <Button default>Default</Button>
       <Button primary>Primary</Button>
+      <Button brand>Brand</Button>
       <Button secondary>Secondary</Button>
       <Button success>Success</Button>
       <Button danger>Danger</Button>
