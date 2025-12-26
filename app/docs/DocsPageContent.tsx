@@ -3,7 +3,8 @@
 import React from 'react';
 import {
   Col, Text, Title, PageTitle, Container, Card, Stack, Divider,
-  ComponentCategories, ComponentKeys, ListItem, ThemeProvider, Row, ThemeProps, defaultTheme
+  ComponentCategories, ComponentKeys, ListItem, ThemeProvider, Row, ThemeProps, defaultTheme,
+  PropDescriptions, getCategoryName, getCategoryDescription
 } from '@vaneui/ui';
 import { DocsPageProps } from './types';
 import { CodeBlock } from '../components/CodeBlock';
@@ -70,8 +71,9 @@ export function DocsPageContent(
       });
 
       ComponentCategories[componentKey].forEach(key => {
+        const categoryName = getCategoryName(key) || key;
         navSections.push({
-          title: key,
+          title: categoryName,
           id: toHtmlId(key),
           level: 1
         });
@@ -164,17 +166,20 @@ export function DocsPageContent(
             {
               componentKey && ComponentCategories[componentKey].map((key, index) => {
                 const id = toHtmlId(key);
+                const categoryName = getCategoryName(key) || key;
+                const categoryDescription = getCategoryDescription(key);
+                const categoryProps = PropDescriptions[key]?.props || {};
                 const theme = defaultTheme[componentKey];
                 // Find all theme keys that contain all fields from ComponentKeys[key]
                 const keyFields = ComponentKeys[key as keyof typeof ComponentKeys];
                 const matchingThemes: string[] = [];
-                
+
                 if (theme && keyFields) {
                   const findMatchingThemes = (themeObj: unknown, prefix = ''): void => {
                     if (!themeObj || typeof themeObj !== 'object') return;
-                    
+
                     const obj = themeObj as Record<string, unknown>;
-                    
+
                     // Check if this object has a 'themes' property (ComponentTheme structure)
                     if ('themes' in obj && obj.themes && typeof obj.themes === 'object') {
                       const themes = obj.themes as Record<string, unknown>;
@@ -183,7 +188,7 @@ export function DocsPageContent(
                         if (themeObject && typeof themeObject === 'object') {
                           const themeProps = themeObject as Record<string, unknown>;
                           // Check if this theme contains all the key fields
-                          const hasAllFields = keyFields.every((field: string) => 
+                          const hasAllFields = keyFields.every((field: string) =>
                             field in themeProps
                           );
                           if (hasAllFields) {
@@ -203,7 +208,7 @@ export function DocsPageContent(
                       });
                     }
                   };
-                  
+
                   try {
                     findMatchingThemes(theme);
                   } catch (error) {
@@ -214,17 +219,28 @@ export function DocsPageContent(
                 return (
                   <Col key={index} className="w-full">
                     <Title>
-                      <Link href={`#${id}`} id={id}>{key}</Link>
+                      <Link href={`#${id}`} id={id}>{categoryName}</Link>
                     </Title>
-                    <Col xs>
+                    {categoryDescription && (
+                      <Text sm secondary>{categoryDescription}</Text>
+                    )}
+                    <Col xs className="mt-2">
                       {
-                        ComponentKeys[key as keyof typeof ComponentKeys].map((k: string, index: number) => (
-                          <ListItem key={index}>{k}</ListItem>
-                        ))
+                        ComponentKeys[key as keyof typeof ComponentKeys].map((k: string, index: number) => {
+                          const propDescription = categoryProps[k]?.description;
+                          return (
+                            <Row key={index} noGap itemsBaseline className="py-1">
+                              <Text mono brand className="min-w-24">{k}</Text>
+                              {propDescription && (
+                                <Text sm secondary className="ml-2">{propDescription}</Text>
+                              )}
+                            </Row>
+                          );
+                        })
                       }
                     </Col>
                     {matchingThemes.length > 0 && (
-                      <Col xs>
+                      <Col xs className="mt-2">
                         <Text sm secondary>Controlled themes:</Text>
                         {matchingThemes.map((themeKey: string, index: number) => (
                           <ListItem key={index} secondary>{themeKey}</ListItem>

@@ -4,20 +4,28 @@ import { Chip, Row, Col, ComponentKeys } from "@vaneui/ui";
 import { DocsPagePart } from '../../types';
 import { CheckSquare, Heart, X } from "react-feather";
 
-const appearanceLabels: Record<string, string> = {
-  default: 'Default',
+type AppearanceKey = typeof ComponentKeys.appearance[number];
+type SizeKey = typeof ComponentKeys.size[number];
+
+const appearanceLabels: Record<AppearanceKey, string> = {
   primary: 'Primary',
+  brand: 'Brand',
+  accent: 'Accent',
   secondary: 'Secondary',
   tertiary: 'Tertiary',
-  accent: 'Accent',
   success: 'Success',
   danger: 'Danger',
   warning: 'Warning',
   info: 'Info',
-  link: 'Link',
 };
 
-const sizeLabels = ['Extra Small', 'Small', 'Medium', 'Large', 'Extra Large'];
+const sizeLabels: Record<SizeKey, string> = {
+  xs: 'Extra Small',
+  sm: 'Small',
+  md: 'Medium',
+  lg: 'Large',
+  xl: 'Extra Large',
+};
 
 export const chipExamples: DocsPagePart[] = [
   {
@@ -26,7 +34,7 @@ export const chipExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         {
-          ComponentKeys.appearance.map((key: string) => (
+          ComponentKeys.appearance.map((key) => (
             <Chip key={key} {...{[key]: true}}>{appearanceLabels[key]}</Chip>
           ))
         }
@@ -39,8 +47,8 @@ export const chipExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         {
-          ComponentKeys.size.map((key: string, i: number) => (
-            <Chip key={key} {...{[key]: true}}>{sizeLabels[i]}</Chip>
+          ComponentKeys.size.map((key) => (
+            <Chip key={key} {...{[key]: true}}>{sizeLabels[key]}</Chip>
           ))
         }
       </Row>

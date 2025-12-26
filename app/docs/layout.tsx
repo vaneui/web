@@ -22,7 +22,7 @@ export default function DocsLayout({children}: DocsLayoutProps) {
       <Row noGap overflowHidden className="w-full flex-1" style={{alignItems: 'normal'}}>
         {/* Desktop sidebar - always visible on xl screens */}
         <Stack overflowYAuto
-               className="flex-shrink-0 styled-scrollbar border-border-default xl:border-r hidden lg:flex">
+               className="flex-shrink-0 styled-scrollbar border-border-primary xl:border-r hidden lg:flex">
           <DocsNav currentPath={pathname}/>
         </Stack>
 
@@ -31,7 +31,7 @@ export default function DocsLayout({children}: DocsLayoutProps) {
           <Col fixed primary className="inset-0 z-50 lg:hidden">
             <Col noGap className="absolute left-0 top-0 h-full w-full bg-default flex flex-col">
               {/* Fixed header */}
-              <Stack sm row justifyBetween itemsCenter className="w-full border-b border-border-default flex-shrink-0">
+              <Stack sm row justifyBetween itemsCenter className="w-full border-b border-border-primary flex-shrink-0">
                 <Logo/>
                 <Button secondary sm noShadow onClick={() => setIsMobileMenuOpen(false)}>
                   <X className="size-5"/>
@@ -50,7 +50,7 @@ export default function DocsLayout({children}: DocsLayoutProps) {
              className="flex-1 bg-[linear-gradient(to_right,var(--color-gray-50)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-gray-50)_1px,transparent_1px)] bg-[size:calc(var(--spacing)*4)_calc(var(--spacing)*4)]"
              data-scroll-container
         >
-          <Stack row sm borderB className="w-full border-border-default lg:hidden">
+          <Stack row sm borderB className="w-full border-border-primary lg:hidden">
             <Button secondary sm noShadow
                     onClick={() => setIsMobileMenuOpen(true)}
             >

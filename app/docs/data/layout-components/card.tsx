@@ -4,20 +4,27 @@ import { Card, Row, Text, Title, ComponentKeys } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
-const cardTitles = ['Getting Started', 'Documentation', 'Settings', 'Dashboard', 'Analytics'];
-const cardDescriptions = ['Learn the basics', 'Read the docs', 'Customize your app', 'View your data', 'Track performance'];
+type AppearanceKey = typeof ComponentKeys.appearance[number];
+type SizeKey = typeof ComponentKeys.size[number];
 
-const appearanceTitles: Record<string, {title: string, desc: string}> = {
-  default: { title: 'Default Card', desc: 'Standard neutral styling' },
+const cardContent: Record<SizeKey, {title: string, desc: string}> = {
+  xs: { title: 'Getting Started', desc: 'Learn the basics' },
+  sm: { title: 'Documentation', desc: 'Read the docs' },
+  md: { title: 'Settings', desc: 'Customize your app' },
+  lg: { title: 'Dashboard', desc: 'View your data' },
+  xl: { title: 'Analytics', desc: 'Track performance' },
+};
+
+const appearanceTitles: Record<AppearanceKey, {title: string, desc: string}> = {
   primary: { title: 'Primary Card', desc: 'Uses primary color theme' },
+  brand: { title: 'Brand Card', desc: 'Brand identity styling' },
+  accent: { title: 'Accent Card', desc: 'Eye-catching accent color' },
   secondary: { title: 'Secondary Card', desc: 'Subtle secondary styling' },
   tertiary: { title: 'Tertiary Card', desc: 'Light tertiary background' },
-  accent: { title: 'Accent Card', desc: 'Eye-catching accent color' },
   success: { title: 'Success Card', desc: 'Indicates positive status' },
   danger: { title: 'Danger Card', desc: 'Signals errors or alerts' },
   warning: { title: 'Warning Card', desc: 'Draws attention to cautions' },
   info: { title: 'Info Card', desc: 'Provides information' },
-  link: { title: 'Link Card', desc: 'Styled for navigation' },
 };
 
 export const cardExamples: DocsPagePart[] = [
@@ -37,12 +44,12 @@ export const cardExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         {
-          ComponentKeys.size.map((key: string, i: number) => {
+          ComponentKeys.size.map((key) => {
             const sizeProps = key !== 'md' ? {[key]: true} : {};
             return (
               <Card key={key} {...{[key]: true}}>
-                <Title {...sizeProps}>{cardTitles[i]}</Title>
-                <Text {...sizeProps}>{cardDescriptions[i]}</Text>
+                <Title {...sizeProps}>{cardContent[key].title}</Title>
+                <Text {...sizeProps}>{cardContent[key].desc}</Text>
               </Card>
             );
           })
@@ -56,10 +63,10 @@ export const cardExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         {
-          ComponentKeys.appearance.map((key: string) => (
+          ComponentKeys.appearance.map((key) => (
             <Card key={key} {...{[key]: true}}>
-              <Title>{appearanceTitles[key]?.title}</Title>
-              <Text>{appearanceTitles[key]?.desc}</Text>
+              <Title>{appearanceTitles[key].title}</Title>
+              <Text>{appearanceTitles[key].desc}</Text>
             </Card>
           ))
         }
@@ -72,7 +79,7 @@ export const cardExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         {
-          ComponentKeys.border.map((key: string, i: number) => (
+          ComponentKeys.border.map((key) => (
             <Card key={key} {...{[key]: true}}>
               <Title>Project Update</Title>
               <Text>Your project is on track</Text>

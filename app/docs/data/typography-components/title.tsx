@@ -4,19 +4,27 @@ import { Title, Col, ComponentKeys, Card, Container } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
-const sizeTitles = ['Extra Small Title (xs)', 'Small Title (sm)', 'Medium Title (md)', 'Large Title (lg)', 'Extra Large Title (xl)'];
+type AppearanceKey = typeof ComponentKeys.appearance[number];
+type SizeKey = typeof ComponentKeys.size[number];
 
-const appearanceTitles: Record<string, string> = {
-  default: 'Default Title',
+const sizeTitles: Record<SizeKey, string> = {
+  xs: 'Extra Small Title (xs)',
+  sm: 'Small Title (sm)',
+  md: 'Medium Title (md)',
+  lg: 'Large Title (lg)',
+  xl: 'Extra Large Title (xl)',
+};
+
+const appearanceTitles: Record<AppearanceKey, string> = {
   primary: 'Primary Title',
+  brand: 'Brand Title',
+  accent: 'Accent Title',
   secondary: 'Secondary Title',
   tertiary: 'Tertiary Title',
-  accent: 'Accent Title',
   success: 'Success Title',
   danger: 'Danger Title',
   warning: 'Warning Title',
   info: 'Info Title',
-  link: 'Link Title',
 };
 
 export const titleExamples: DocsPagePart[] = [
@@ -33,8 +41,8 @@ export const titleExamples: DocsPagePart[] = [
     component: (
       <Col lg>
         {
-          ComponentKeys.size.map((key: string, i: number) => (
-            <Title key={key} {...{[key]: true}}>{sizeTitles[i]}</Title>
+          ComponentKeys.size.map((key) => (
+            <Title key={key} {...{[key]: true}}>{sizeTitles[key]}</Title>
           ))
         }
       </Col>
@@ -59,7 +67,7 @@ export const titleExamples: DocsPagePart[] = [
     component: (
       <Col lg>
         {
-          ComponentKeys.appearance.map((key: string) => (
+          ComponentKeys.appearance.map((key) => (
             <Title key={key} {...{[key]: true}}>{appearanceTitles[key]}</Title>
           ))
         }

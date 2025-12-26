@@ -4,20 +4,28 @@ import { Button, Col, Row, ComponentKeys } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
-const appearanceLabels: Record<string, string> = {
-  default: 'Default',
+type AppearanceKey = typeof ComponentKeys.appearance[number];
+type SizeKey = typeof ComponentKeys.size[number];
+
+const appearanceLabels: Record<AppearanceKey, string> = {
   primary: 'Primary',
+  brand: 'Brand',
+  accent: 'Accent',
   secondary: 'Secondary',
   tertiary: 'Tertiary',
-  accent: 'Accent',
   success: 'Success',
   danger: 'Danger',
   warning: 'Warning',
   info: 'Info',
-  link: 'Link',
 };
 
-const sizeLabels = ['Extra Small', 'Small', 'Medium', 'Large', 'Extra Large'];
+const sizeLabels: Record<SizeKey, string> = {
+  xs: 'Extra Small',
+  sm: 'Small',
+  md: 'Medium',
+  lg: 'Large',
+  xl: 'Extra Large',
+};
 
 export const buttonExamples: DocsPagePart[] = [
   {
@@ -26,7 +34,7 @@ export const buttonExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         {
-          ComponentKeys.appearance.map((key: string) => (
+          ComponentKeys.appearance.map((key) => (
             <Button key={key} {...{[key]: true}}>{appearanceLabels[key]}</Button>
           ))
         }
@@ -39,8 +47,8 @@ export const buttonExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         {
-          ComponentKeys.size.map((key: string, i: number) => (
-            <Button key={key} {...{[key]: true}}>{sizeLabels[i]}</Button>
+          ComponentKeys.size.map((key) => (
+            <Button key={key} {...{[key]: true}}>{sizeLabels[key]}</Button>
           ))
         }
       </Row>

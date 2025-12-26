@@ -4,25 +4,27 @@ import { Text, Col, Row, ComponentKeys, Card, Container } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
-const sizeSentences = [
-  'Extra small text (xs)',
-  'Small text (sm)',
-  'Medium text (md)',
-  'Large text (lg)',
-  'Extra large text (xl)'
-];
+type AppearanceKey = typeof ComponentKeys.appearance[number];
+type SizeKey = typeof ComponentKeys.size[number];
 
-const appearanceSentences: Record<string, string> = {
-  default: 'Default text appearance',
+const sizeSentences: Record<SizeKey, string> = {
+  xs: 'Extra small text (xs)',
+  sm: 'Small text (sm)',
+  md: 'Medium text (md)',
+  lg: 'Large text (lg)',
+  xl: 'Extra large text (xl)',
+};
+
+const appearanceSentences: Record<AppearanceKey, string> = {
   primary: 'Primary text appearance',
+  brand: 'Brand text appearance',
+  accent: 'Accent text appearance',
   secondary: 'Secondary text appearance',
   tertiary: 'Tertiary text appearance',
-  accent: 'Accent text appearance',
   success: 'Success text appearance',
   danger: 'Danger text appearance',
   warning: 'Warning text appearance',
   info: 'Info text appearance',
-  link: 'Link text appearance',
 };
 
 export const textExamples: DocsPagePart[] = [
@@ -39,8 +41,8 @@ export const textExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         {
-          ComponentKeys.size.map((key: string, i: number) => (
-            <Text key={key} {...{[key]: true}}>{sizeSentences[i]}</Text>
+          ComponentKeys.size.map((key) => (
+            <Text key={key} {...{[key]: true}}>{sizeSentences[key]}</Text>
           ))
         }
       </Row>
@@ -65,7 +67,7 @@ export const textExamples: DocsPagePart[] = [
     component: (
       <Row flexWrap>
         {
-          ComponentKeys.appearance.map((key: string) => (
+          ComponentKeys.appearance.map((key) => (
             <Text key={key} {...{[key]: true}}>{appearanceSentences[key]}</Text>
           ))
         }

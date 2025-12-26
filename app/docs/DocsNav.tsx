@@ -57,7 +57,7 @@ export function DocsNav({currentPath, onMenuItemClickAction}: { currentPath?: st
                     sm noShadow noRing sharp justifyStart
                     tag={Link} key={i} href={path}
                     semibold={isActive}
-                    className={`w-full border-l-2 border-border-default ${!isActive && "hover:border-text-tertiary"} pl-4 ${isActive && "border-text-default"}`}
+                    className={`w-full border-l-2 border-border-primary ${!isActive && "hover:border-text-tertiary"} pl-4 ${isActive && "border-text-default"}`}
                     onClick={onMenuItemClickAction}
                   >
                     {page.name}
