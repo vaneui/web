@@ -24,20 +24,20 @@ interface CustomThemeProps {
 export const themes: Record<string, CustomThemeProps> = {
   playful: {
     config: playfulTheme,
-    label: '🎨 Playful',
+    label: 'Playful',
     description: 'Fun with pill shapes and large sizes.',
     defaults: playfulDefaults,
     overrideFunc: playfulOverrideFunc
   },
   balanced: {
     config: balancedTheme,
-    label: '⚖️ Balanced',
+    label: 'Balanced',
     description: 'Clean and modern with rounded corners.',
     defaults: balancedDefaults,
   },
   strict: {
     config: strictTheme,
-    label: '📐 Strict',
+    label: 'Strict',
     description: 'Sharp edges and minimalist design.',
     defaults: strictDefaults,
     overrideFunc: strictOverrideFunc,
@@ -63,19 +63,18 @@ export function ThemeCustomizationSection() {
 
           <Card lg noGap noPadding className="w-full transition-all">
             <Stack itemsCenter lg className="w-full">
-              <Row justifyCenter flexWrap>
+              <Stack row sm primary justifyCenter border padding rounded className="bg-bg-tertiary inset-shadow-xs">
                 {Object.entries(themes).map(([key, theme]) => (
-                  <Button
+                  <Button sm noRing
                     key={key}
                     onClick={() => setSelectedTheme(key as ThemeKey)}
                     filled={selectedTheme === key}
                     outline={selectedTheme !== key}
-                    sm
                   >
                     {theme.label}
                   </Button>
                 ))}
-              </Row>
+              </Stack>
               <Text secondary sm className="text-center">
                 Theme: {selectedTheme}. {currentTheme.description}
               </Text>
