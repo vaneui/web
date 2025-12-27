@@ -16,10 +16,11 @@ interface CodeBlockProps {
   code: string;
   language: string;
   className?: string;
-  fileName: string;
+  fileName?: string;
   theme?: 'light' | 'dark';
   highlightRanges?: HighlightRange[];
   cursorPosition?: number;
+  showHeader?: boolean;
 }
 
 function getLanguageIcon(language: string) {
@@ -41,7 +42,8 @@ export function CodeBlock({
                             fileName = '',
                             theme = 'dark',
                             highlightRanges = [],
-                            cursorPosition
+                            showHeader = true,
+                            cursorPosition,
                           }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
@@ -57,7 +59,7 @@ export function CodeBlock({
 
   return (
     <Col xs primary rounded noGap border overflowHidden className={`w-full ${className}`}>
-      <Stack xs row justifyBetween>
+      <Stack xs row justifyBetween hidden={!showHeader}>
         <Row xs>
           <span className="w-5 h-5 grayscale">
             {Icon}
