@@ -53,7 +53,7 @@ export default function Home() {
         <Section secondary xl borderY>
           <BasicComponentsSection/>
           <TypographyComponentsSection/>
-          <Container xl>
+          <Container xl hidden>
             <Grid2 lg className="w-full">
               {features.map((item, key) => (
                 <Card lg row mobileCol key={key}>

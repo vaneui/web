@@ -7,9 +7,8 @@ import {
   Col,
   SectionTitle,
   Chip,
-  Section, Grid3, Card, Title, Divider, Button,
+  Section, Grid3, Card, Title,
 } from '@vaneui/ui';
-import { ArrowRight } from "react-feather";
 import { CodeBlock } from "../components/CodeBlock";
 
 const cleanSyntaxExample = `// Other UI framework's button
@@ -64,18 +63,20 @@ export function AboutSection() {
           <SectionTitle xl>
             A modern React component library powered by Tailwind CSS.
           </SectionTitle>
-          <Text lg secondary className="max-w-3xl">
+          <Text secondary className="max-w-3xl">
             VaneUI bridges the gap between utility-first CSS and component-based development.
             Write less code, build faster, and maintain consistency across your entire application.
           </Text>
         </Col>
         <Grid3 xl className="w-full">
           {features.map((item, index) => (
-            <Card noBorder noPadding key={index} className="w-full group">
+            <Card xl noBorder noPadding key={index} className="w-full group">
               <CodeBlock code={item.code} language="tsx" showHeader={false} theme="light"
-                         className="text-xs grayscale-100 group-hover:grayscale-0 transition-all"/>
-              <Title sm>{item.title}</Title>
-              <Text secondary>{item.description}</Text>
+                         className="text-xs grayscale-100 group-hover:grayscale-0 group-hover:shadow-lg transition-all duration-500"/>
+              <Col sm>
+                <Title>{item.title}</Title>
+                <Text secondary>{item.description}</Text>
+              </Col>
             </Card>
           ))}
         </Grid3>

@@ -59,7 +59,7 @@ export function CodeBlock({
 
   return (
     <Col xs primary rounded noGap border overflowHidden className={`w-full ${className}`}>
-      <Stack xs row justifyBetween hidden={!showHeader}>
+      <Stack xs row justifyBetween hidden={!showHeader} borderB>
         <Row xs>
           <span className="w-5 h-5 grayscale">
             {Icon}
@@ -71,7 +71,7 @@ export function CodeBlock({
           {copied ? "Copied!" : "Copy"}
         </Button>
       </Stack>
-      <Stack xs primary noPadding overflowXAuto borderT>
+      <Stack xs primary noPadding overflowXAuto>
         <Highlight
           theme={currentTheme}
           code={code.trim()}
