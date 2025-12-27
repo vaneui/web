@@ -1,6 +1,6 @@
 export const dog = {
-  name: "Luka",
+  name: "Oliver",
   gender: "male",
   image: "/puppy.png",
-  description: "Luka is a 5 months old puppy who loves to play with his toys. He is a very friendly and playful puppy, and he is looking for a new home."
+  description: "Oliver is a shy, sweet pup learning to trust. He needs a calm, patient home. Older kids and a gentle dog will help him feel secure."
 }

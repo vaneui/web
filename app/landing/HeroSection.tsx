@@ -29,8 +29,8 @@ export function HeroSection() {
 
   const card =
     <Card sm row mobileCol noPadding noGap overflowHidden>
-      <Img sm sharp src={dog.image} className="max-mobile:w-full"/>
-      <Stack sm className="max-mobile:max-w-56">
+      <Img sm sharp src={dog.image} className="max-mobile:w-full w-[188px] h-full"/>
+      <Stack sm>
         <Row justifyBetween>
           <Title>{dog.name}</Title>
           <Chip sm bold>{dog.gender}</Chip>
