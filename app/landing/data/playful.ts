@@ -1,31 +1,29 @@
 import { PartialTheme, ThemeDefaults, ThemeProps } from '@vaneui/ui';
 
-export const playfulTheme: PartialTheme = {
-  button: {
-  },
-};
+export const playfulTheme: PartialTheme = {};
 
+// CSS variable overrides for playful theme - applied via wrapper className
+export const playfulCssVars = `
+  [--color-bg-filled-success:linear-gradient(to_right,#f472b6,#a78bfa)]
+  [--color-bg-filled-hover-success:linear-gradient(to_right,#ec4899,#8b5cf6)]
+  [--color-border-filled-success:#fce7f3]
+  [--color-bg-filled-secondary:linear-gradient(to_right,#60a5fa,#22d3ee)]
+  [--color-bg-filled-hover-secondary:linear-gradient(to_right,#3b82f6,#06b6d4)]
+  [--color-border-filled-secondary:#dbeafe]
+  [--color-text-filled-secondary:white]
+  [--color-bg-layout-primary:linear-gradient(to_bottom_right,#fdf2f8,#faf5ff)]
+  [--color-border-primary:#f9a8d4]
+  [--bw:4px]
+  [--color-bg-filled-primary:linear-gradient(to_right,#facc15,#fb923c)]
+  [--color-text-filled-primary:white]
+`;
+
+// Theme override for component-specific properties that can't use CSS variable inheritance
 export const playfulOverrideFunc = (theme: ThemeProps) => {
-  theme.button.themes.appearance.background.filled.success.base = 'bg-gradient-to-r from-pink-400 to-purple-400';
-  theme.button.themes.appearance.background.filled.success.hover = 'hover:from-pink-500 hover:to-purple-500';
-  theme.button.themes.appearance.ring.filled.success.base = 'ring-pink-100';
-  
-  theme.button.themes.appearance.background.filled.secondary.base = 'bg-gradient-to-r from-blue-400 to-cyan-400';
-  theme.button.themes.appearance.background.filled.secondary.hover = 'hover:from-blue-500 hover:to-cyan-500';
-  theme.button.themes.appearance.ring.filled.secondary.base = 'ring-blue-100';
-  theme.button.themes.appearance.text.filled.secondary.base = 'text-white';
-
-  theme.card.themes.appearance.background.outline.primary.base = 'bg-gradient-to-br from-pink-50 to-purple-50';
-  theme.card.themes.appearance.border.outline.primary.base = 'border-pink-300';
-  theme.card.themes.layout.border.border = 'border-4';
+  // Border radius is set per-component/size, so needs theme override
   theme.card.themes.layout.radius.rounded.sm = '[--br-unit:10]';
-
-  theme.chip.themes.appearance.background.filled.primary.base = 'bg-gradient-to-r from-yellow-400 to-orange-400';
-  theme.chip.themes.appearance.text.filled.primary.base = 'text-white';
-
-  theme.divider.themes.appearance.background.primary.base = 'bg-pink-300';
+  // Divider height would need a dedicated CSS variable
   theme.divider.extraClasses.primary = "h-[3px]";
-
   return theme;
 };
 

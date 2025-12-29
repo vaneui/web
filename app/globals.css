@@ -11,7 +11,7 @@
 
 @layer theme {
     :root, :host {
-        --border-color-primary: var(--color-gray-200);
+        /*--border-color-primary: var(--color-gray-200);*/
     }
 }
 

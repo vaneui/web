@@ -9,7 +9,6 @@ export const balancedDefaults: ThemeDefaults = {
   },
   button: {
     sm: true,
-    noRing: true,
   },
   card: {
     shadow: true,

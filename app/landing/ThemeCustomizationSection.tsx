@@ -9,9 +9,9 @@ import React, { useState } from "react";
 import { FeatureTitle } from "../components/FeatureTitle";
 import Image from "next/image";
 import { dog } from "./data/dog";
-import { strictDefaults, strictOverrideFunc, strictTheme } from "./data/strict";
+import { strictDefaults, strictTheme, strictCssVars, strictOverrideFunc } from "./data/strict";
 import { balancedDefaults, balancedTheme } from "./data/balanced";
-import { playfulDefaults, playfulOverrideFunc, playfulTheme } from "./data/playful";
+import { playfulDefaults, playfulOverrideFunc, playfulTheme, playfulCssVars } from "./data/playful";
 
 interface CustomThemeProps {
   config: PartialTheme;
@@ -19,6 +19,7 @@ interface CustomThemeProps {
   description: string;
   defaults: ThemeDefaults;
   overrideFunc?: (theme: ThemeProps) => ThemeProps;
+  cssVars?: string;
 }
 
 export const themes: Record<string, CustomThemeProps> = {
@@ -27,7 +28,8 @@ export const themes: Record<string, CustomThemeProps> = {
     label: 'Playful',
     description: 'Fun with pill shapes and large sizes.',
     defaults: playfulDefaults,
-    overrideFunc: playfulOverrideFunc
+    cssVars: playfulCssVars,
+    overrideFunc: playfulOverrideFunc,
   },
   balanced: {
     config: balancedTheme,
@@ -40,6 +42,7 @@ export const themes: Record<string, CustomThemeProps> = {
     label: 'Strict',
     description: 'Sharp edges and minimalist design.',
     defaults: strictDefaults,
+    cssVars: strictCssVars,
     overrideFunc: strictOverrideFunc,
   },
 };
@@ -63,9 +66,9 @@ export function ThemeCustomizationSection() {
 
           <Card lg noGap noPadding className="w-full transition-all">
             <Stack itemsCenter lg className="w-full">
-              <Stack row sm primary justifyCenter border padding rounded className="bg-bg-tertiary inset-shadow-xs">
+              <Stack row pill tertiary sm justifyCenter border padding rounded className="inset-shadow-xs">
                 {Object.entries(themes).map(([key, theme]) => (
-                  <Button sm noRing
+                  <Button sm noRing pill
                     key={key}
                     onClick={() => setSelectedTheme(key as ThemeKey)}
                     filled={selectedTheme === key}
@@ -89,7 +92,7 @@ export function ThemeCustomizationSection() {
   "/>
               <ThemeProvider theme={currentTheme.config} themeDefaults={currentTheme.defaults}
                              themeOverride={currentTheme.overrideFunc}>
-                <Card sm row mobileCol overflowHidden className="max-w-2xl max-sm:max-w-80 z-10">
+                <Card sm row mobileCol overflowHidden className={`max-w-2xl max-sm:max-w-80 z-10 ${currentTheme.cssVars || ''}`}>
                   <Img
                     tag={Image}
                     src="/puppy.png"
