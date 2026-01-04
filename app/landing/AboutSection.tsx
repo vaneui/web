@@ -72,7 +72,7 @@ export function AboutSection() {
           {features.map((item, index) => (
             <Card xl noBorder noPadding key={index} className="w-full group">
               <CodeBlock code={item.code} language="tsx" showHeader={false} theme="light"
-                         className="text-xs grayscale-100 group-hover:grayscale-0 group-hover:shadow-lg transition-all duration-500"/>
+                         className="text-xs grayscale-100 group-hover:grayscale-0 group-hover:shadow transition-all duration-500"/>
               <Col sm>
                 <Title>{item.title}</Title>
                 <Text secondary>{item.description}</Text>

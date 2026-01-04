@@ -1,4 +1,4 @@
-import { PartialTheme, ThemeDefaults, ThemeProps } from '@vaneui/ui';
+import { PartialTheme, ThemeDefaults } from '@vaneui/ui';
 
 export const playfulTheme: PartialTheme = {};
 
@@ -16,16 +16,8 @@ export const playfulCssVars = `
   [--bw:4px]
   [--color-bg-filled-primary:linear-gradient(to_right,#facc15,#fb923c)]
   [--color-text-filled-primary:white]
+  [--br-unit:8]
 `;
-
-// Theme override for component-specific properties that can't use CSS variable inheritance
-export const playfulOverrideFunc = (theme: ThemeProps) => {
-  // Border radius is set per-component/size, so needs theme override
-  theme.card.themes.layout.radius.rounded.sm = '[--br-unit:10]';
-  // Divider height would need a dedicated CSS variable
-  theme.divider.extraClasses.primary = "h-[3px]";
-  return theme;
-};
 
 export const playfulDefaults: ThemeDefaults = {
   button: {
@@ -40,6 +32,7 @@ export const playfulDefaults: ThemeDefaults = {
   chip: {
     pill: true,
     bold: true,
+    serif: true,
   },
   title: {
     serif: true,

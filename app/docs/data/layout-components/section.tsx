@@ -218,10 +218,26 @@ export const sectionExamples: DocsPagePart[] = [
     ),
   },
   {
-    title: 'Responsive Breakpoints',
-    md: 'Sections can switch direction at specific breakpoints using mobileCol, tabletCol, laptopCol, desktopCol.',
+    title: 'Responsive Padding and Gap',
+    md: 'By default, sections automatically scale their padding and gap on smaller screens. The `responsive` prop is enabled by default. Disable with `responsive={false}`.',
     component: (
-      <Section tabletCol border>
+      <Col lg>
+        <Section lg border>
+          <Text semibold>Responsive Section (default)</Text>
+          <Text>Padding and gap scale down on mobile</Text>
+        </Section>
+        <Section lg responsive={false} border>
+          <Text semibold>Non-Responsive Section</Text>
+          <Text>Fixed padding and gap across all screens</Text>
+        </Section>
+      </Col>
+    ),
+  },
+  {
+    title: 'Responsive Breakpoints',
+    md: 'Sections can switch direction at specific breakpoints using mobileCol, tabletCol, desktopCol.',
+    component: (
+      <Section mobileCol border>
         <div className="p-4 bg-primary-100 rounded flex-1">
           <Text semibold>Column 1</Text>
           <Text>Switches to column on tablet and below</Text>

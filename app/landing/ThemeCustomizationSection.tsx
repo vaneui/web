@@ -2,23 +2,21 @@
 
 import {
   Section,
-  Container, Stack, Card, Row, Button, Text, Divider, ThemeProvider, Img, Title, Chip, PartialTheme, ThemeDefaults,
-  ThemeProps
+  Container, Stack, Card, Row, Button, Text, Divider, ThemeProvider, Img, Title, Chip, PartialTheme, ThemeDefaults
 } from '@vaneui/ui';
 import React, { useState } from "react";
 import { FeatureTitle } from "../components/FeatureTitle";
 import Image from "next/image";
 import { dog } from "./data/dog";
-import { strictDefaults, strictTheme, strictCssVars, strictOverrideFunc } from "./data/strict";
+import { strictDefaults, strictTheme, strictCssVars } from "./data/strict";
 import { balancedDefaults, balancedTheme } from "./data/balanced";
-import { playfulDefaults, playfulOverrideFunc, playfulTheme, playfulCssVars } from "./data/playful";
+import { playfulDefaults, playfulTheme, playfulCssVars } from "./data/playful";
 
 interface CustomThemeProps {
   config: PartialTheme;
   label: string;
   description: string;
   defaults: ThemeDefaults;
-  overrideFunc?: (theme: ThemeProps) => ThemeProps;
   cssVars?: string;
 }
 
@@ -29,7 +27,6 @@ export const themes: Record<string, CustomThemeProps> = {
     description: 'Fun with pill shapes and large sizes.',
     defaults: playfulDefaults,
     cssVars: playfulCssVars,
-    overrideFunc: playfulOverrideFunc,
   },
   balanced: {
     config: balancedTheme,
@@ -43,7 +40,6 @@ export const themes: Record<string, CustomThemeProps> = {
     description: 'Sharp edges and minimalist design.',
     defaults: strictDefaults,
     cssVars: strictCssVars,
-    overrideFunc: strictOverrideFunc,
   },
 };
 
@@ -66,9 +62,10 @@ export function ThemeCustomizationSection() {
 
           <Card lg noGap noPadding className="w-full transition-all">
             <Stack itemsCenter lg className="w-full">
-              <Stack row pill tertiary sm justifyCenter border padding rounded className="inset-shadow-xs">
+              <Stack row pill tertiary xs justifyCenter border padding rounded className="inset-shadow-xs">
                 {Object.entries(themes).map(([key, theme]) => (
                   <Button sm noRing pill
+                    className="min-w-[80px]"
                     key={key}
                     onClick={() => setSelectedTheme(key as ThemeKey)}
                     filled={selectedTheme === key}
@@ -90,16 +87,16 @@ export function ThemeCustomizationSection() {
     inset-0 pointer-events-none
     bg-[repeating-linear-gradient(-45deg,theme(colors.slate.100)_0_1px,transparent_1px_calc(var(--spacing)*4))]
   "/>
-              <ThemeProvider theme={currentTheme.config} themeDefaults={currentTheme.defaults}
-                             themeOverride={currentTheme.overrideFunc}>
-                <Card sm row mobileCol overflowHidden className={`max-w-2xl max-sm:max-w-80 z-10 ${currentTheme.cssVars || ''}`}>
+              <ThemeProvider theme={currentTheme.config} themeDefaults={currentTheme.defaults}>
+                <Card sm row mobileCol overflowHidden
+                      className={`max-w-2xl max-mobile:max-w-80 z-10 ${currentTheme.cssVars || ''}`}>
                   <Img
                     tag={Image}
                     src="/puppy.png"
                     alt="puppy"
                     width={200}
                     height={200}
-                    className="shrink-0 max-sm:w-full"
+                    className="shrink-0 max-mobile:w-full"
                   />
                   <Stack sm>
                     <Row justifyBetween>
@@ -111,16 +108,22 @@ export function ThemeCustomizationSection() {
                     <Divider/>
                     <Text sm>{dog.description}</Text>
                     <Row mobileCol justifyEnd>
-                      <Button success filled className="max-sm:w-full">
+                      <Button success filled className="max-mobile:w-full">
                         Adopt
                       </Button>
-                      <Button secondary className="max-sm:w-full">
+                      <Button secondary className="max-mobile:w-full">
                         Learn more
                       </Button>
                     </Row>
                   </Stack>
                 </Card>
               </ThemeProvider>
+            </Stack>
+
+            <Divider/>
+
+            <Stack row mobileCol>
+
             </Stack>
           </Card>
         </Stack>

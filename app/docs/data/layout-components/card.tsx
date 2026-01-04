@@ -25,6 +25,7 @@ const appearanceTitles: Record<AppearanceKey, {title: string, desc: string}> = {
   danger: { title: 'Danger Card', desc: 'Signals errors or alerts' },
   warning: { title: 'Warning Card', desc: 'Draws attention to cautions' },
   info: { title: 'Info Card', desc: 'Provides information' },
+  link: { title: 'Link Card', desc: 'Link color appearance' },
 };
 
 export const cardExamples: DocsPagePart[] = [
@@ -213,9 +214,9 @@ export const cardExamples: DocsPagePart[] = [
   },
   {
     title: 'Responsive Breakpoints',
-    md: 'Cards support responsive breakpoint props: `mobileCol`, `tabletCol`, `laptopCol`, `desktopCol`. The card switches from row to column layout at the specified breakpoint.',
+    md: 'Cards support responsive breakpoint props: `mobileCol`, `tabletCol`, `desktopCol`. The card switches from row to column layout at the specified breakpoint.',
     component: (
-      <Card row tabletCol>
+      <Card row mobileCol>
         <div>
           <Title>Product Image</Title>
           <Text secondary>Visual content goes here</Text>

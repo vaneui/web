@@ -1,4 +1,4 @@
-import { PartialTheme, ThemeDefaults, ThemeProps } from '@vaneui/ui';
+import { PartialTheme, ThemeDefaults } from '@vaneui/ui';
 
 export const strictTheme: PartialTheme = {};
 
@@ -15,13 +15,6 @@ export const strictCssVars = `
   [--color-text-secondary:var(--color-gray-900)]
   [--bw:2px]
 `;
-
-// Theme override for component/size-specific properties that can't use CSS variable inheritance
-export const strictOverrideFunc = (theme: ThemeProps) => {
-  // Aspect ratio is set per-component, so inner components override parent CSS vars
-  theme.button.themes.size.px.sm = "[--aspect-ratio:4]";
-  return theme;
-};
 
 export const strictDefaults: ThemeDefaults = {
   title: {

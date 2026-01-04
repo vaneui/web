@@ -193,7 +193,7 @@ export function LiveSection() {
             title="See it in action"
             description="Watch how changing props instantly transforms components."
           />
-          <Row xl laptopCol relative className="w-full">
+          <Row xl tabletCol relative className="w-full">
             <CodeBlock
               fileName="CardExample.tsx"
               language="tsx"

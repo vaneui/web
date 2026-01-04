@@ -201,9 +201,9 @@ export const stackExamples: DocsPagePart[] = [
   },
   {
     title: 'Responsive Breakpoints',
-    md: 'Stacks can switch direction at specific breakpoints using mobileCol, tabletCol, laptopCol, desktopCol.',
+    md: 'Stacks can switch direction at specific breakpoints using mobileCol, tabletCol, desktopCol.',
     component: (
-      <Stack tabletCol>
+      <Stack mobileCol>
         <div className="p-4 bg-primary-100 rounded flex-1">Column 1 - Switches to row on tablet and below</div>
         <div className="p-4 bg-primary-100 rounded flex-1">Column 2</div>
         <div className="p-4 bg-primary-100 rounded flex-1">Column 3</div>

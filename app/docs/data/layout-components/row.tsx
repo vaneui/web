@@ -191,9 +191,9 @@ export const rowExamples: DocsPagePart[] = [
   },
   {
     title: 'Responsive Breakpoints',
-    md: 'Rows can switch to column layout at specific breakpoints using `mobileCol`, `tabletCol`, `laptopCol`, `desktopCol`.',
+    md: 'Rows can switch to column layout at specific breakpoints using `mobileCol`, `tabletCol`, `desktopCol`.',
     component: (
-      <Row tabletCol>
+      <Row mobileCol>
         <div className="p-4 bg-primary-100 rounded flex-1">Column 1 - Switches to stacked on tablet and below</div>
         <div className="p-4 bg-primary-100 rounded flex-1">Column 2</div>
         <div className="p-4 bg-primary-100 rounded flex-1">Column 3</div>

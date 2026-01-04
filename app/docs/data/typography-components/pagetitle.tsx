@@ -102,6 +102,16 @@ export const pageTitleExamples: DocsPagePart[] = [
     ),
   },
   {
+    title: 'Responsive Sizing',
+    md: 'By default, page titles automatically scale down on smaller screens for optimal readability. The `responsive` prop is enabled by default. Disable with `responsive={false}`.',
+    component: (
+      <Col lg>
+        <PageTitle lg>Responsive PageTitle (default)</PageTitle>
+        <PageTitle lg responsive={false}>Non-Responsive PageTitle</PageTitle>
+      </Col>
+    ),
+  },
+  {
     title: 'PageTitle Combinations',
     md: 'Combining multiple page title properties.',
     component: (

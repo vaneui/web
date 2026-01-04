@@ -25,6 +25,7 @@ const appearanceSentences: Record<AppearanceKey, string> = {
   danger: 'Danger text appearance',
   warning: 'Warning text appearance',
   info: 'Info text appearance',
+  link: 'Link text appearance',
 };
 
 export const textExamples: DocsPagePart[] = [

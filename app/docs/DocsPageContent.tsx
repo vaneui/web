@@ -3,7 +3,7 @@
 import React from 'react';
 import {
   Col, Text, Title, PageTitle, Container, Card, Stack, Divider,
-  ComponentCategories, ComponentKeys, ListItem, ThemeProvider, Row, ThemeProps, defaultTheme,
+  ComponentCategories, ComponentKeys, ListItem, ThemeProvider, Row, defaultTheme,
   PropDescriptions, getCategoryName, getCategoryDescription
 } from '@vaneui/ui';
 import { DocsPageProps } from './types';
@@ -89,16 +89,10 @@ export function DocsPageContent(
   const propsTitle = pageTitle + " Props";
   const propsTitleId = toHtmlId(propsTitle);
 
-  const overrideFunc = (theme: ThemeProps) => {
-    theme.listItem.themes.size.lineHeight.md = "[--lh:1.7]";
-    theme.text.themes.size.lineHeight.md = "[--lh:1.7]";
-    return theme;
-  };
-
   const titleClasses = "after:content-['#'] after:invisible hover:after:visible after:ml-2 after:opacity-25";
 
   return (
-    <ThemeProvider themeOverride={overrideFunc} extraClasses={{
+    <ThemeProvider extraClasses={{
       title: {
         xs: "pt-2 " + titleClasses,
         sm: "pt-3 " + titleClasses,
@@ -254,7 +248,7 @@ export function DocsPageContent(
           </Col>
 
           {/* On This Page Navigation */}
-          <Col sticky laptopHide className="styled-scrollbar top-10 w-56 flex-shrink-0 max-h-[calc(100vh-128px)]">
+          <Col sticky tabletHide className="styled-scrollbar top-10 w-56 flex-shrink-0 max-h-[calc(100vh-128px)]">
             <OnThisPage sections={sections}/>
           </Col>
         </Row>

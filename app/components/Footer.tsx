@@ -7,7 +7,7 @@ export function Footer() {
   return (
     <Section tag={'footer'} secondary borderT>
       <Container xl itemsStart>
-        <Row xl justifyBetween tabletCol itemsStart className="w-full">
+        <Row xl justifyBetween mobileCol itemsStart className="w-full">
           <Col className="max-w-1/3 max-md:max-w-full">
             <Row xs>
               <Image src={vaneui} alt={PRODUCT.title} className="h-[27px] w-[36px]"/>

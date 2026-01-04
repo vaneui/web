@@ -10,7 +10,7 @@ export const containerExamples: DocsPagePart[] = [
     md: 'A centered container with max-width.',
     component: (
       <Container>
-        <div className="p-4 bg-gray-100 rounded">
+        <div className="p-4 bg-gray-100 rounded w-full">
           <Text>This content is centered and has a max-width constraint.</Text>
         </div>
       </Container>
@@ -26,7 +26,7 @@ export const containerExamples: DocsPagePart[] = [
             <div key={key}>
               <Text semibold>Container {key}</Text>
               <Container {...{[key]: true}}>
-                <div className="p-4 bg-gray-100 rounded">
+                <div className="p-4 bg-gray-100 rounded w-full">
                   <Text>Container {key} content</Text>
                 </div>
               </Container>
@@ -65,12 +65,12 @@ export const containerExamples: DocsPagePart[] = [
     component: (
       <Col lg>
         <Container border>
-          <div className="p-4 bg-gray-100 rounded">
+          <div className="p-4 bg-gray-100 rounded w-full">
             <Text>Container with border</Text>
           </div>
         </Container>
         <Container noBorder>
-          <div className="p-4 bg-gray-100 rounded">
+          <div className="p-4 bg-gray-100 rounded w-full">
             <Text>Container without border</Text>
           </div>
         </Container>
@@ -83,17 +83,17 @@ export const containerExamples: DocsPagePart[] = [
     component: (
       <Col lg>
         <Container>
-          <div className="p-4 bg-gray-100 rounded">
+          <div className="p-4 bg-gray-100 rounded w-full">
             <Text>Default (rounded) container</Text>
           </div>
         </Container>
         <Container pill>
-          <div className="p-4 bg-gray-100 rounded">
+          <div className="p-4 bg-gray-100 rounded w-full">
             <Text>Pill-shaped container</Text>
           </div>
         </Container>
         <Container sharp>
-          <div className="p-4 bg-gray-100 rounded">
+          <div className="p-4 bg-gray-100 rounded w-full">
             <Text>Sharp cornered container</Text>
           </div>
         </Container>
@@ -106,12 +106,12 @@ export const containerExamples: DocsPagePart[] = [
     component: (
       <Col lg>
         <Container shadow>
-          <div className="p-4 bg-gray-100 rounded">
+          <div className="p-4 bg-gray-100 rounded w-full">
             <Text>Container with shadow</Text>
           </div>
         </Container>
         <Container noShadow>
-          <div className="p-4 bg-gray-100 rounded">
+          <div className="p-4 bg-gray-100 rounded w-full">
             <Text>Container without shadow</Text>
           </div>
         </Container>
@@ -124,12 +124,12 @@ export const containerExamples: DocsPagePart[] = [
     component: (
       <Col lg>
         <Container ring>
-          <div className="p-4 bg-gray-100 rounded">
+          <div className="p-4 bg-gray-100 rounded w-full">
             <Text>Container with ring</Text>
           </div>
         </Container>
         <Container noRing>
-          <div className="p-4 bg-gray-100 rounded">
+          <div className="p-4 bg-gray-100 rounded w-full">
             <Text>Container without ring</Text>
           </div>
         </Container>
@@ -142,18 +142,18 @@ export const containerExamples: DocsPagePart[] = [
     component: (
       <Col lg>
         <Container>
-          <div className="p-4 bg-gray-100 rounded">
+          <div className="p-4 bg-gray-100 rounded w-full">
             <Text>First item (default with gap)</Text>
           </div>
-          <div className="p-4 bg-gray-100 rounded">
+          <div className="p-4 bg-gray-100 rounded w-full">
             <Text>Second item</Text>
           </div>
         </Container>
         <Container noGap>
-          <div className="p-4 bg-gray-100 rounded">
+          <div className="p-4 bg-gray-100 rounded w-full">
             <Text>First item</Text>
           </div>
-          <div className="p-4 bg-gray-100 rounded">
+          <div className="p-4 bg-gray-100 rounded w-full">
             <Text>Second item</Text>
           </div>
         </Container>
@@ -166,16 +166,16 @@ export const containerExamples: DocsPagePart[] = [
     component: (
       <Col lg>
         <Container filled primary lg>
-          <Title primary>Filled Primary Container</Title>
-          <Text primary>Typography inherits primary color from filled container</Text>
+          <Title primary filled>Filled Primary Container</Title>
+          <Text primary filled>Typography inherits primary color from filled container</Text>
         </Container>
         <Container outline success lg>
           <Title success>Outline Success Container</Title>
           <Text success>Typography inherits success color from outline container</Text>
         </Container>
         <Container filled warning lg>
-          <Title warning>Filled Warning Container</Title>
-          <Text warning>Typography inherits warning color from container</Text>
+          <Title warning filled>Filled Warning Container</Title>
+          <Text warning filled>Typography inherits warning color from container</Text>
         </Container>
       </Col>
     ),

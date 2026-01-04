@@ -17,6 +17,7 @@ const appearanceLabels: Record<AppearanceKey, string> = {
   danger: 'Danger',
   warning: 'Warning',
   info: 'Info',
+  link: 'Link',
 };
 
 const sizeLabels: Record<SizeKey, string> = {

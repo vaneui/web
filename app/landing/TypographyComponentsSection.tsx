@@ -80,7 +80,7 @@ export function TypographyComponentsSection() {
     inset-0 pointer-events-none
     bg-[repeating-linear-gradient(-45deg,theme(colors.slate.50)_0_1px,transparent_1px_calc(var(--spacing)*4))]
   "/>
-          <Row xl laptopCol>
+          <Row xl tabletCol>
             <CodeBlock
               className="shadow-lg z-10"
               fileName={`${activeItem?.title?.replace(' ', '') || 'Typography'}.tsx`}

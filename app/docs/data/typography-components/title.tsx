@@ -25,6 +25,7 @@ const appearanceTitles: Record<AppearanceKey, string> = {
   danger: 'Danger Title',
   warning: 'Warning Title',
   info: 'Info Title',
+  link: 'Link Title',
 };
 
 export const titleExamples: DocsPagePart[] = [

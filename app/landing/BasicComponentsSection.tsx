@@ -79,7 +79,7 @@ export function BasicComponentsSection() {
     inset-0 pointer-events-none
     bg-[repeating-linear-gradient(-45deg,theme(colors.slate.50)_0_1px,transparent_1px_calc(var(--spacing)*4))]
   "/>
-          <Row xl laptopCol>
+          <Row xl tabletCol>
             <VerticalCarousel
               className="w-full -mb-14 max-lg:mb-0"
               items={carouselItems}

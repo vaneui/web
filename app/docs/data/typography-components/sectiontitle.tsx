@@ -102,6 +102,16 @@ export const sectionTitleExamples: DocsPagePart[] = [
     ),
   },
   {
+    title: 'Responsive Sizing',
+    md: 'By default, section titles automatically scale down on smaller screens. The `responsive` prop is enabled by default. Disable with `responsive={false}`.',
+    component: (
+      <Col lg>
+        <SectionTitle lg>Responsive SectionTitle (default)</SectionTitle>
+        <SectionTitle lg responsive={false}>Non-Responsive SectionTitle</SectionTitle>
+      </Col>
+    ),
+  },
+  {
     title: 'SectionTitle Combinations',
     md: 'Combining multiple section title properties.',
     component: (
