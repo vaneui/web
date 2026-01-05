@@ -1,46 +1,55 @@
 VaneUI helps you build beautiful, consistent UIs faster by turning common design decisions into expressive, readable boolean props. Instead of memorizing property names and values, you compose intent: `primary`, `lg`, `outline`, `rounded`. The result is cleaner code, fewer decisions per component, and a smoother path from wireframe to production.
 
-## How VaneUI works
+## Boolean Props API
 
-At its core, VaneUI maps boolean props to thoughtfully curated CSS classes. You write the JSX using booleans like this:
-
-```tsx
-<Button primary lg pill filled>
-  Get started
-</Button>
-```
-The component resolves those booleans to semantic styles:
-- `primary` → semantic color token
-- `lg` → size scale for paddings, border radius, typography size
-- `pill` → shape preset
-- `filled` → variant preset
-
-Tailwind classes and CSS variables power the final styles:
-- Tailwind utilities for performance and composability
-- CSS variables for theming and per-app overrides
-- Each CSS class can be changed using ThemeProvider
-- Each component has a customizable set of default values for boolean props
-
-You can always mix in your own Tailwind classes via className to fine‑tune any edge case:
-```tsx
-<Button primary lg pill filled className="hover:opacity-80">
-  Get started
-</Button>
-```
-
-## Traditional approach vs VaneUI
-
-Instead of writing verbose prop configurations, VaneUI uses intuitive boolean props that make your code cleaner and more readable:
+At its core, VaneUI uses **boolean props** instead of string enums for cleaner JSX:
 
 ```tsx
-// Traditional approach
-<Button appearance="primary" size="lg" variant="filled" />
+// VaneUI approach
+<Button primary lg filled>Submit</Button>
 
-// VaneUI approach  
-<Button primary lg filled />
+// Instead of traditional
+<Button appearance="primary" size="lg" variant="filled">Submit</Button>
 ```
 
-## Prop combinations
+Props are organized into **categories**:
+- **size**: `xs`, `sm`, `md`, `lg`, `xl`
+- **appearance**: `primary`, `brand`, `secondary`, `success`, `danger`, `warning`, `info`, `link`
+- **variant**: `filled`, `outline`
+- **shape**: `rounded`, `pill`, `sharp`
+- **typography**: `sans`, `serif`, `mono`, `semibold`, `bold`, etc.
+- **layout**: `flex`, `column`, `itemsCenter`, `justifyBetween`, etc.
+
+## How Components Work
+
+VaneUI components follow a three-layer architecture:
+
+### Layer 1: React Component
+Each component gets its theme from `ThemeContext` via `useTheme()` and passes props to `ThemedComponent`, which computes the final CSS classes.
+
+### Layer 2: Theme System
+The `ComponentTheme` class orchestrates class generation. It walks a tree of `BaseTheme` subclasses (like `FontSizeTheme`, `RadiusTheme`) that each generate specific CSS classes based on the active props.
+
+### Layer 3: CSS Variables
+Components output **data attributes** (`data-size`, `data-appearance`, `data-variant`) that CSS rules in `vars.css` use to set CSS variables. These variables are then consumed by Tailwind utility classes.
+
+## Prop Extraction
+
+When you pass props, VaneUI selects ONE value per category based on priority:
+
+```tsx
+// Props: { lg: true, primary: true }
+// Defaults: { md: true, outline: true }
+
+<Button lg primary>Submit</Button>
+// Result: size='lg' (prop wins), appearance='primary', variant='outline' (default)
+```
+
+**Priority order**:
+1. Props explicitly set to `true`
+2. Defaults set to `true` (unless explicitly set to `false` in props)
+
+## Prop Combinations
 
 Boolean props can be combined naturally to create the exact styling you need:
 
@@ -49,72 +58,100 @@ Boolean props can be combined naturally to create the exact styling you need:
   Large primary pill button with shadow
 </Button>
 
-<Card secondary>
-  Secondary card
+<Card secondary filled>
+  Filled secondary card
 </Card>
 
-<Stack itemsCenter>
-  Stack with centered items
+<Stack itemsCenter gap>
+  Stack with centered items and gap
 </Stack>
 ```
 
-## Every Class is Customizable
+## CSS Variable System
 
-Behind each boolean prop are carefully crafted CSS classes that you can completely override.
+VaneUI uses a three-tier CSS variable system:
 
-### CSS Variables
-
-You can customize the VaneUI by overriding the CSS variables:
-
+### Tier 1: Unit Variables
+Set by component class based on `data-size`:
 ```css
-:root {
-  --text-color-primary: #8b5cf6;      /* Primary text color */
-  --ui-border-radius-md: 1rem;        /* Medium UI radius */
+.vane-button[data-size="md"] {
+  --fs-unit: 8;   /* Font size unit */
+  --py-unit: 2;   /* Padding Y unit */
+  --br-unit: 2;   /* Border radius unit */
 }
 ```
 
-### Tailwind Overrides
+### Tier 2: Computed Variables
+Calculated from unit variables:
+```css
+[data-size] {
+  --fs: calc(var(--fs-unit) * 0.125rem);  /* 8 * 0.125rem = 1rem */
+  --py: calc(var(--py-unit) * 0.25rem);   /* 2 * 0.25rem = 0.5rem */
+}
+```
 
-Each component can be changed by using the regular Tailwind CSS classes:
+### Tier 3: Semantic Color Variables
+Set by `data-variant` + `data-appearance` attributes:
+```css
+[data-variant="outline"][data-appearance="primary"] {
+  --text-color: var(--color-text-primary);
+  --bg-color: var(--color-bg-primary);
+  --border-color: var(--color-border-primary);
+}
+```
 
+## Mixing Custom Classes
+
+You can always add your own Tailwind classes via `className` to fine-tune any edge case:
 ```tsx
-<Button primary className="bg-purple-600 hover:bg-purple-700">
-  Custom Primary
+<Button primary lg filled className="hover:opacity-80 shadow-xl">
+  Get started
 </Button>
 ```
 
-### Theme Overrides
+User-provided `className` takes precedence over theme classes for the same properties (via `twMerge`).
 
-You can set up default values of all boolean props by providing `themeDefaults` in ThemeProvider:
+## Customization Options
 
-```tsx
-const defaults: ThemeDefaults = {
-  button: {
-    pill: true,
-    lg: true,
-  },
-};
-
-return (
-  <ThemeProvider themeDefaults={defaults}>
-    <Button>This button is large and pill-shaped</Button>
-  </ThemeProvider>
-);
+### CSS Variables
+Override colors globally or for any subtree:
+```css
+:root {
+  --color-text-primary: #8b5cf6;
+  --color-bg-primary: #f3e8ff;
+  --color-border-primary: #c4b5fd;
+}
 ```
 
-You can change default CSS classes of all components by providing `themeOverride` in ThemeProvider:
-
+### ThemeProvider Defaults
+Set default prop values for all components:
 ```tsx
-const overrideFunc = (theme: ThemeProps) => {
-  theme.button.themes.appearance.text.outline.primary.base = 'text-blue-200';
-  theme.button.themes.appearance.text.outline.primary.hover = 'hover:text-blue-700';
-  theme.button.themes.appearance.text.outline.primary.active = 'active:text-blue-900';
-  return theme;
-};
+<ThemeProvider themeDefaults={{
+  button: { pill: true, lg: true },
+  card: { primary: true }
+}}>
+  <Button>Large pill button by default</Button>
+</ThemeProvider>
+```
 
-return (
-  <ThemeProvider themeOverride={overrideFunc}>
-    <Button primary>This button has blue colors</Button>
-  </ThemeProvider>
-);
+### Extra Classes
+Add additional CSS classes based on active props:
+```tsx
+<ThemeProvider extraClasses={{
+  button: { primary: 'shadow-lg hover:shadow-xl' }
+}}>
+  <Button primary>Button with extra shadow</Button>
+</ThemeProvider>
+```
+
+### Theme Override Function
+For programmatic theme modifications:
+```tsx
+<ThemeProvider themeOverride={(theme) => {
+  // Modify base classes
+  theme.button.base += ' uppercase tracking-wide';
+  return theme;
+}}>
+  <App />
+</ThemeProvider>
 ```

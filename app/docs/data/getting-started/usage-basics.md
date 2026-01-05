@@ -16,7 +16,7 @@ function SizeExample() {
     <Stack>
       <Button xs>Extra Small</Button>
       <Button sm>Small</Button>
-      <Button md>Medium</Button>
+      <Button md>Medium (default)</Button>
       <Button lg>Large</Button>
       <Button xl>Extra Large</Button>
     </Stack>
@@ -40,6 +40,8 @@ function AppearanceExample() {
       <Button success>Success</Button>
       <Button danger>Danger</Button>
       <Button warning>Warning</Button>
+      <Button info>Info</Button>
+      <Button link>Link</Button>
     </Row>
   );
 }
@@ -47,7 +49,7 @@ function AppearanceExample() {
 
 ### Filled and Outline Variants
 
-All components now support `filled` and `outline` variants, including layout components:
+All components support `filled` and `outline` variants, including layout components:
 
 ```tsx
 import { Button, Card, Stack, Container, Row } from '@vaneui/ui';
@@ -58,7 +60,7 @@ function FilledOutlineExample() {
       {/* Buttons */}
       <Row>
         <Button filled primary>Filled Button</Button>
-        <Button primary>Outline Button</Button>
+        <Button primary>Outline Button (default)</Button>
       </Row>
       
       {/* Cards */}
@@ -84,14 +86,14 @@ function FilledOutlineExample() {
 Control border radius:
 
 ```tsx
-import { Button, Card, Row } from '@vaneui/ui';
+import { Button, Row } from '@vaneui/ui';
 
 function ShapeExample() {
   return (
     <Row>
-      <Button sharp>Sharp</Button>
-      <Button>Rounded (default)</Button>
-      <Button pill>Pill</Button>
+      <Button sharp>Sharp (no radius)</Button>
+      <Button rounded>Rounded (default)</Button>
+      <Button pill>Pill (fully rounded)</Button>
     </Row>
   );
 }
@@ -101,14 +103,14 @@ function ShapeExample() {
 
 ### Stack
 
-Arrange children with consistent spacing:
+Arrange children vertically with consistent spacing:
 
 ```tsx
 import { Stack, Text } from '@vaneui/ui';
 
 function StackExample() {
   return (
-    <Stack lg>
+    <Stack lg gap>
       <Text>Item 1</Text>
       <Text>Item 2</Text>
       <Text>Item 3</Text>
@@ -126,7 +128,7 @@ import { Row, Col, Card } from '@vaneui/ui';
 
 function GridExample() {
   return (
-    <Row>
+    <Row gap>
       <Col>
         <Card>Column 1</Card>
       </Col>
@@ -138,71 +140,103 @@ function GridExample() {
 }
 ```
 
+### Responsive Breakpoints
+
+Use breakpoint props to change layout on different screen sizes:
+
+```tsx
+import { Row, Card } from '@vaneui/ui';
+
+function ResponsiveLayout() {
+  return (
+    // Row on desktop, column on tablet and below
+    <Row tabletCol gap>
+      <Card>Left</Card>
+      <Card>Right</Card>
+    </Row>
+  );
+}
+```
+
+Available breakpoint props:
+- `mobileCol` - Column on mobile and below (max-width: 48rem)
+- `tabletCol` - Column on tablet and below (max-width: 64rem)
+- `desktopCol` - Column on desktop and below (max-width: 80rem)
+
 ## Typography
 
 VaneUI provides typography components with consistent hierarchy:
 
 ```tsx
-import { PageTitle, SectionTitle, Title, Text } from '@vaneui/ui';
+import { PageTitle, SectionTitle, Title, Text, Stack } from '@vaneui/ui';
 
 function TypographyExample() {
   return (
     <Stack>
-      <PageTitle>Page Title</PageTitle>
-      <SectionTitle>Section Title</SectionTitle>
-      <Title>Subsection Title</Title>
-      <Text>Body text</Text>
+      <PageTitle>Page Title (h1)</PageTitle>
+      <SectionTitle>Section Title (h2)</SectionTitle>
+      <Title>Title (h3)</Title>
+      <Text>Body text (p)</Text>
     </Stack>
+  );
+}
+```
+
+### Responsive Typography
+
+Typography components with the `responsive` prop automatically scale across breakpoints:
+
+```tsx
+import { PageTitle, Section } from '@vaneui/ui';
+
+function ResponsiveTypography() {
+  return (
+    <Section responsive>
+      {/* Font size automatically reduces on smaller screens */}
+      <PageTitle responsive>Welcome to My App</PageTitle>
+    </Section>
   );
 }
 ```
 
 ### Typography Color Inheritance
 
-Typography components with appearance props inherit colors from their parent components:
+List items inherit appearance from their parent List component via CSS variables:
 
 ```tsx
-import { Card, Container, Text, Title, Stack } from '@vaneui/ui';
+import { List, ListItem, Stack } from '@vaneui/ui';
 
-function ColorInheritanceExample() {
+function ListInheritance() {
   return (
     <Stack lg>
-      {/* Typography inherits from Card appearance */}
-      <Card filled primary lg>
-        <Title primary>This title inherits primary color</Title>
-        <Text primary>This text inherits primary color from the card</Text>
-      </Card>
+      <List success>
+        <ListItem>Inherits success color</ListItem>
+        <ListItem>Also inherits success color</ListItem>
+      </List>
       
-      {/* Typography inherits from Container appearance */}
-      <Container filled success>
-        <Title success>Success colored title</Title>
-        <Text success>Success colored text</Text>
-      </Container>
-      
-      {/* Independent typography colors */}
-      <Stack>
-        <Title danger>Independent danger title</Title>
-        <Text secondary>Independent secondary text</Text>
-      </Stack>
+      <List danger>
+        <ListItem>Inherits danger color</ListItem>
+        <ListItem>Also inherits danger color</ListItem>
+      </List>
     </Stack>
   );
 }
 ```
 
-## Responsive Props
+## Responsive Visibility
 
 Hide components on specific breakpoints:
 
 ```tsx
 import { Text, Stack } from '@vaneui/ui';
 
-function ResponsiveExample() {
+function ResponsiveVisibility() {
   return (
     <Stack>
       <Text>Always visible</Text>
-      <Text smHide>Hidden on small screens</Text>
-      <Text mdHide>Hidden on medium screens</Text>
-      <Text lgHide>Hidden on large screens</Text>
+      <Text mobileHide>Hidden on mobile (48rem and below)</Text>
+      <Text tabletHide>Hidden on tablet (64rem and below)</Text>
+      <Text desktopHide>Hidden on desktop (80rem and below)</Text>
     </Stack>
   );
 }
@@ -218,10 +252,30 @@ import { Text, Button } from '@vaneui/ui';
 function TagExample() {
   return (
     <div>
-      <Text tag="h1">Heading</Text>
-      <Text tag="span">Span text</Text>
-      <Button tag="a" href="/link">Link Button</Button>
+      <Text tag="h1">Heading rendered as h1</Text>
+      <Text tag="span">Text rendered as span</Text>
+      <Button tag="a" href="/link">Button rendered as anchor</Button>
     </div>
   );
 }
 ```
+
+## Combining with Custom Classes
+
+Add custom Tailwind classes via `className`:
+
+```tsx
+import { Button, Card } from '@vaneui/ui';
+
+function CustomStyling() {
+  return (
+    <Card className="shadow-2xl">
+      <Button primary className="w-full hover:scale-105 transition-transform">
+        Full width with hover effect
+      </Button>
+    </Card>
+  );
+}
+```
+
+User-provided `className` takes precedence over theme classes (via `twMerge`).

@@ -22,7 +22,7 @@ export const sectionExamples: DocsPagePart[] = [
       <Col lg>
         {
           ComponentKeys.size.map((key: string) => (
-            <Section key={key} {...{[key]: true}}>
+            <Section border key={key} {...{[key]: true}}>
               <Text semibold>Section {key}</Text>
               <Text>Section {key} content</Text>
             </Section>
@@ -60,12 +60,12 @@ export const sectionExamples: DocsPagePart[] = [
     md: 'Control the direction of section content.',
     component: (
       <Col lg>
-        <Section>
+        <Section border>
           <Text semibold>Default (Column Direction)</Text>
           <Text>Content flows vertically</Text>
           <Text>Another line</Text>
         </Section>
-        <Section row>
+        <Section row border>
           <Text semibold>Row Direction</Text>
           <Text>Content flows horizontally</Text>
           <Text>Another line</Text>
@@ -130,15 +130,15 @@ export const sectionExamples: DocsPagePart[] = [
     md: 'Sections support different border radius styles.',
     component: (
       <Col lg>
-        <Section>
-          <Text semibold>Default Rounded</Text>
-          <Text>Default rounded corners</Text>
+        <Section rounded border>
+          <Text semibold>Rounded</Text>
+          <Text>Rounded corners</Text>
         </Section>
-        <Section pill>
+        <Section pill border>
           <Text semibold>Pill Shape</Text>
           <Text>Pill-shaped section</Text>
         </Section>
-        <Section sharp>
+        <Section sharp border>
           <Text semibold>Sharp Corners</Text>
           <Text>Sharp cornered section</Text>
         </Section>

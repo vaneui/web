@@ -1,57 +1,52 @@
-The `themeDefaults` property in VaneUI's ThemeProvider allows you to set default theme values that will be applied across all components in your application. This provides a powerful way to establish consistent defaults while still allowing individual components to override these values when needed.
+The `themeDefaults` property in VaneUI's ThemeProvider allows you to set default boolean props for components throughout your application. This provides a powerful way to establish consistent defaults while still allowing individual components to override these values.
 
 ## Understanding ThemeDefaults
 
 ### themeDefaults?: ThemeDefaults
 
-The `themeDefaults` property accepts a `ThemeDefaults` object that defines default values for various theme properties. These defaults are merged with VaneUI's built-in defaults and serve as the baseline for all component theming.
+The `themeDefaults` property accepts an object where keys are component names and values are objects with boolean props. These defaults are merged with VaneUI's built-in defaults.
 
-```typescript
-interface ThemeDefaults {
-  color?: ThemeColor;
-  size?: ThemeSize;
-  radius?: ThemeRadius;
-  variant?: ThemeVariant;
-  // Component-specific defaults
-  button?: {
-    color?: ThemeColor;
-    size?: ThemeSize;
-    variant?: 'filled' | 'outline';
-    radius?: ThemeRadius;
-  };
-  badge?: {
-    color?: ThemeColor;
-    size?: ThemeSize;
-    variant?: 'filled' | 'outline';
-    radius?: ThemeRadius;
-  };
-  // ... other component defaults
-}
+```tsx
+<ThemeProvider themeDefaults={{
+  button: { primary: true, md: true, filled: true },
+  badge: { success: true, sm: true, pill: true },
+  card: { secondary: true, rounded: true },
+  text: { primary: true }
+}}>
+  <App />
+</ThemeProvider>
 ```
 
-## Setting Global Defaults
+## Setting Component Defaults
 
-### Basic Global Defaults
+### Basic Defaults
 
-Set defaults that apply to all components:
+Set default boolean props for specific component types:
 
-```jsx
-import { ThemeProvider } from '@vaneui/ui';
+```tsx
+import { ThemeProvider, Button, Badge, Card } from '@vaneui/ui';
 
 function App() {
-  const themeDefaults = {
-    color: 'primary',
-    size: 'md',
-    radius: 'md',
-    variant: 'filled'
-  };
-
   return (
-    <ThemeProvider themeDefaults={themeDefaults}>
-      {/* All components will use these defaults */}
-      <Button>Default Primary Button</Button>
-      <Badge>Default Primary Badge</Badge>
-      <Chip>Default Primary Chip</Chip>
+    <ThemeProvider themeDefaults={{
+      button: {
+        primary: true,   // All buttons are primary
+        lg: true,        // All buttons are large
+        filled: true     // All buttons are filled
+      },
+      badge: {
+        success: true,   // All badges are success color
+        pill: true       // All badges are pill-shaped
+      },
+      card: {
+        rounded: true,   // All cards have rounded corners
+        border: true     // All cards have borders
+      }
+    }}>
+      {/* Components use these defaults automatically */}
+      <Button>Primary Large Filled Button</Button>
+      <Badge>Success Pill Badge</Badge>
+      <Card>Rounded Card with Border</Card>
     </ThemeProvider>
   );
 }
@@ -61,118 +56,102 @@ function App() {
 
 Create consistent branding across your application:
 
-```jsx
-import { ThemeProvider } from '@vaneui/ui';
+```tsx
+import { ThemeProvider, Button, Card, Badge } from '@vaneui/ui';
 
 function BrandedApp() {
-  const brandDefaults = {
-    color: 'accent',
-    radius: 'lg',
-    size: 'lg'
-  };
-
   return (
-    <ThemeProvider themeDefaults={brandDefaults}>
-      <div>
-        {/* All components inherit brand defaults */}
-        <Button>Branded Button</Button>
-        <Card>Branded Card</Card>
-        <Badge>Branded Badge</Badge>
-      </div>
+    <ThemeProvider themeDefaults={{
+      button: { brand: true, filled: true, rounded: true },
+      card: { brand: true, rounded: true },
+      badge: { brand: true, pill: true }
+    }}>
+      <nav>
+        <Button>Home</Button>
+        <Button>About</Button>
+        <Badge>New</Badge>
+      </nav>
     </ThemeProvider>
   );
 }
 ```
 
-## Component-Specific Defaults
+## Available Boolean Props
 
-### Individual Component Defaults
+### Size Props
+- `xs`, `sm`, `md`, `lg`, `xl`
 
-Set defaults for specific component types:
+### Appearance Props
+- `primary`, `brand`, `secondary`, `tertiary`, `accent`
+- `success`, `danger`, `warning`, `info`, `link`
 
-```jsx
-import { ThemeProvider } from '@vaneui/ui';
+### Variant Props
+- `filled`, `outline`
 
-function ComponentSpecificDefaults() {
-  const componentDefaults = {
-    // Global defaults
-    color: 'secondary',
-    size: 'md',
-    
-    // Button-specific defaults
-    button: {
-      color: 'primary',
-      variant: 'filled',
-      radius: 'lg'
-    },
-    
-    // Badge-specific defaults
-    badge: {
-      color: 'success',
-      variant: 'outline',
-      size: 'sm'
-    },
-    
-    // Card-specific defaults
-    card: {
-      color: 'tertiary',
-      radius: 'xl'
-    }
-  };
+### Shape Props
+- `rounded`, `pill`, `sharp`
 
+### Typography Props
+- `sans`, `serif`, `mono`, `semibold`, `bold`
+
+### Layout Props
+- `flex`, `column`, `itemsCenter`, `justifyBetween`, `gap`
+
+## Override Priority
+
+Understanding how defaults interact with component props:
+
+### Priority Order
+
+1. **Component props** (highest priority)
+2. **ThemeDefaults from closest ThemeProvider**
+3. **ThemeDefaults from parent ThemeProviders**
+4. **VaneUI built-in defaults** (lowest priority)
+
+```tsx
+function OverrideExample() {
   return (
-    <ThemeProvider themeDefaults={componentDefaults}>
-      <div>
-        {/* Uses button defaults: primary, filled, lg radius */}
-        <Button>Primary Button</Button>
-        
-        {/* Uses badge defaults: success, outline, sm */}
-        <Badge>Success Badge</Badge>
-        
-        {/* Uses card defaults: tertiary, xl radius */}
-        <Card>Tertiary Card</Card>
-        
-        {/* Uses global defaults: secondary */}
-        <Chip>Secondary Chip</Chip>
-      </div>
+    <ThemeProvider themeDefaults={{
+      button: { primary: true, lg: true }
+    }}>
+      {/* Uses defaults: primary=true, lg=true */}
+      <Button>Default Button</Button>
+
+      {/* Props override defaults: danger=true overrides primary, lg still applies */}
+      <Button danger>Danger Button</Button>
+
+      {/* Explicitly disable default: primary=false, lg still applies */}
+      <Button primary={false} secondary>Secondary Button</Button>
     </ThemeProvider>
   );
 }
 ```
 
-### Layout Component Defaults
+## Layout Component Defaults
 
 Configure defaults for layout components:
 
-```jsx
-import { ThemeProvider } from '@vaneui/ui';
+```tsx
+import { ThemeProvider, Container, Section, Card, Stack, Text } from '@vaneui/ui';
 
 function LayoutDefaults() {
-  const layoutDefaults = {
-    container: {
-      size: 'lg',
-      padding: 'md'
-    },
-    
-    section: {
-      color: 'secondary',
-      radius: 'md'
-    },
-    
-    card: {
-      color: 'primary',
-      radius: 'lg',
-      shadow: 'md'
-    },
-    
-    stack: {
-      gap: 'md',
-      direction: 'vertical'
-    }
-  };
-
   return (
-    <ThemeProvider themeDefaults={layoutDefaults}>
+    <ThemeProvider themeDefaults={{
+      container: {
+        lg: true
+      },
+      section: {
+        secondary: true,
+        rounded: true
+      },
+      card: {
+        primary: true,
+        rounded: true
+      },
+      stack: {
+        gap: true
+      }
+    }}>
       <Container>
         <Section>
           <Card>
@@ -187,303 +166,164 @@ function LayoutDefaults() {
 }
 ```
 
-## Advanced Default Configurations
-
-### Contextual Defaults
-
-Create different default sets for different contexts:
-
-```jsx
-import { ThemeProvider } from '@vaneui/ui';
-
-function ContextualDefaults() {
-  const adminDefaults = {
-    color: 'info',
-    size: 'sm',
-    button: {
-      variant: 'outline'
-    }
-  };
-  
-  const userDefaults = {
-    color: 'primary',
-    size: 'lg',
-    button: {
-      variant: 'filled',
-      radius: 'xl'
-    }
-  };
-
-  const isAdmin = useUserRole() === 'admin';
-
-  return (
-    <ThemeProvider themeDefaults={isAdmin ? adminDefaults : userDefaults}>
-      <Navigation />
-      <Content />
-    </ThemeProvider>
-  );
-}
-```
-
-### Responsive Defaults
-
-Adapt defaults based on screen size:
-
-```jsx
-import { useMediaQuery } from './hooks/useMediaQuery';
-import { ThemeProvider } from '@vaneui/ui';
-
-function ResponsiveDefaults() {
-  const isMobile = useMediaQuery('(max-width: 768px)');
-  const isTablet = useMediaQuery('(max-width: 1024px)');
-  
-  const getResponsiveDefaults = () => {
-    if (isMobile) {
-      return {
-        size: 'sm',
-        radius: 'sm',
-        button: {
-          size: 'md',
-          variant: 'filled'
-        }
-      };
-    }
-    
-    if (isTablet) {
-      return {
-        size: 'md',
-        radius: 'md',
-        button: {
-          size: 'lg',
-          variant: 'outline'
-        }
-      };
-    }
-    
-    return {
-      size: 'lg',
-      radius: 'lg',
-      button: {
-        size: 'xl',
-        variant: 'filled'
-      }
-    };
-  };
-
-  return (
-    <ThemeProvider themeDefaults={getResponsiveDefaults()}>
-      <ResponsiveInterface />
-    </ThemeProvider>
-  );
-}
-```
-
-### Feature-Based Defaults
-
-Set defaults based on application features or modes:
-
-```jsx
-import { ThemeProvider } from '@vaneui/ui';
-
-function FeatureDefaults({ isDarkMode, isAccessibilityMode, featureFlags }) {
-  const getFeatureDefaults = () => {
-    let defaults = {
-      color: 'primary',
-      size: 'md'
-    };
-    
-    if (isDarkMode) {
-      defaults.color = 'tertiary';
-    }
-    
-    if (isAccessibilityMode) {
-      defaults.size = 'lg';
-      defaults.radius = 'sm';
-      defaults.button = {
-        variant: 'outline',
-        color: 'primary'
-      };
-    }
-    
-    if (featureFlags.experimentalDesign) {
-      defaults.radius = 'xl';
-      defaults.card = {
-        shadow: 'lg'
-      };
-    }
-    
-    return defaults;
-  };
-
-  return (
-    <ThemeProvider themeDefaults={getFeatureDefaults()}>
-      <Application />
-    </ThemeProvider>
-  );
-}
-```
-
-## Override Hierarchy
-
-Understanding how defaults interact with component props:
-
-### Priority Order
-
-1. **Component props** (highest priority)
-2. **ThemeProvider theme/themeOverride**
-3. **ThemeDefaults component-specific**
-4. **ThemeDefaults global**
-5. **VaneUI built-in defaults** (lowest priority)
-
-```jsx
-function OverrideExample() {
-  const themeDefaults = {
-    color: 'secondary',        // Global default
-    button: {
-      color: 'primary',        // Component default
-      size: 'lg'
-    }
-  };
-
-  return (
-    <ThemeProvider themeDefaults={themeDefaults}>
-      {/* Uses: color=primary (component default), size=lg (component default) */}
-      <Button>Default Button</Button>
-      
-      {/* Uses: success flag (prop), size=lg (component default) */}
-      <Button success>Override Color</Button>
-      
-      {/* Uses: danger flag from a ThemeProvider override, size=sm (prop) */}
-      <ThemeProvider theme={{ colors: { primary: '#ef4444' } }}>
-        <Button 
-          primary
-          sm
-        >
-          Theme Override
-        </Button>
-      </ThemeProvider>
-    </ThemeProvider>
-  );
-}
-```
-
-## Dynamic Default Updates
+## Dynamic Defaults
 
 ### Runtime Default Changes
 
 Update defaults based on user preferences or application state:
 
-```jsx
-import { useState, useEffect } from 'react';
-import { ThemeProvider } from '@vaneui/ui';
+```tsx
+import { useState } from 'react';
+import { ThemeProvider, Button } from '@vaneui/ui';
 
 function DynamicDefaults() {
-  const [userPrefs, setUserPrefs] = useState({});
-  const [themeDefaults, setThemeDefaults] = useState({});
-  
-  useEffect(() => {
-    // Load user preferences
-    const prefs = loadUserPreferences();
-    setUserPrefs(prefs);
-    
-    // Update theme defaults based on preferences
-    setThemeDefaults({
-      color: prefs.preferredColor || 'primary',
-      size: prefs.preferredSize || 'md',
-      button: {
-        variant: prefs.buttonStyle || 'filled'
+  const [isCompactMode, setIsCompactMode] = useState(false);
+
+  const themeDefaults = isCompactMode
+    ? {
+        button: { sm: true },
+        card: { sm: true },
+        text: { sm: true }
       }
-    });
-  }, []);
-  
-  const updatePreference = (key, value) => {
-    const newPrefs = { ...userPrefs, [key]: value };
-    setUserPrefs(newPrefs);
-    saveUserPreferences(newPrefs);
-    
-    // Update theme defaults
-    setThemeDefaults(prev => ({
-      ...prev,
-      [key]: value
-    }));
-  };
+    : {
+        button: { lg: true },
+        card: { lg: true },
+        text: { md: true }
+      };
 
   return (
     <ThemeProvider themeDefaults={themeDefaults}>
-      <PreferencePanel onUpdate={updatePreference} />
-      <ApplicationContent />
+      <Button onClick={() => setIsCompactMode(!isCompactMode)}>
+        Toggle Compact Mode
+      </Button>
     </ThemeProvider>
   );
 }
 ```
 
-## ThemeDefaults Best Practices
+### Contextual Defaults
+
+Different defaults for different areas of your app:
+
+```tsx
+import { ThemeProvider } from '@vaneui/ui';
+
+function ContextualDefaults() {
+  return (
+    <>
+      {/* Admin area - compact, subtle styling */}
+      <ThemeProvider themeDefaults={{
+        button: { sm: true, outline: true, secondary: true }
+      }}>
+        <AdminPanel />
+      </ThemeProvider>
+
+      {/* User area - larger, prominent styling */}
+      <ThemeProvider themeDefaults={{
+        button: { lg: true, filled: true, primary: true }
+      }}>
+        <UserInterface />
+      </ThemeProvider>
+    </>
+  );
+}
+```
+
+## Section-Specific Styling
+
+Different themes for different page sections:
+
+```tsx
+import { ThemeProvider } from '@vaneui/ui';
+
+function MultiSectionApp() {
+  return (
+    <>
+      {/* Hero section - large, bold */}
+      <ThemeProvider themeDefaults={{
+        button: { xl: true, filled: true },
+        title: { xl: true }
+      }}>
+        <HeroSection />
+      </ThemeProvider>
+
+      {/* Content section - medium, subtle */}
+      <ThemeProvider themeDefaults={{
+        button: { md: true, outline: true },
+        text: { sm: true }
+      }}>
+        <ContentSection />
+      </ThemeProvider>
+
+      {/* Footer - compact */}
+      <ThemeProvider themeDefaults={{
+        button: { xs: true },
+        text: { xs: true }
+      }}>
+        <FooterSection />
+      </ThemeProvider>
+    </>
+  );
+}
+```
+
+## Best Practices
 
 ### Consistent Defaults
 
-Establish consistent defaults that align with your design system:
+Establish defaults that align with your design system:
 
-```jsx
+```tsx
+import { ThemeProvider } from '@vaneui/ui';
+
 const designSystemDefaults = {
-  // Align with design tokens
-  color: 'primary',
-  size: 'md',
-  radius: 'md',
-  
-  // Component-specific alignment
-  button: {
-    variant: 'filled',
-    radius: 'lg'
-  },
-  
-  text: {
-    color: 'primary',
-    size: 'md'
-  }
-};
-```
-
-### Semantic Defaults
-
-Use semantic naming and logical groupings:
-
-```jsx
-const semanticDefaults = {
   // Interactive elements
-  button: { color: 'primary', variant: 'filled' },
-  link: { color: 'primary' },
-  
+  button: { primary: true, md: true, filled: true },
+  link: { brand: true },
+
   // Informational elements
-  badge: { color: 'secondary', size: 'sm' },
-  label: { color: 'tertiary' },
-  
+  badge: { secondary: true, sm: true },
+  chip: { outline: true },
+
   // Layout elements
-  card: { color: 'primary', radius: 'lg' },
-  section: { color: 'secondary' }
+  card: { rounded: true },
+  section: { gap: true }
 };
+
+<ThemeProvider themeDefaults={designSystemDefaults}>
+  <App />
+</ThemeProvider>
 ```
 
-### Testing Defaults
+### Logical Groupings
 
-Ensure defaults work across all components:
+Group related defaults together for maintainability:
 
-```jsx
-function DefaultsTest() {
-  const testDefaults = {
-    color: 'accent',
-    size: 'lg'
-  };
+```tsx
+import { ThemeProvider } from '@vaneui/ui';
 
-  return (
-    <ThemeProvider themeDefaults={testDefaults}>
-      {/* Test all components use defaults correctly */}
-      <Button>Test Button</Button>
-      <Badge>Test Badge</Badge>
-      <Chip>Test Chip</Chip>
-      <Card>Test Card</Card>
-    </ThemeProvider>
-  );
-}
+const interactiveDefaults = {
+  button: { primary: true, filled: true },
+  link: { brand: true }
+};
+
+const informationalDefaults = {
+  badge: { secondary: true, sm: true },
+  chip: { outline: true }
+};
+
+const layoutDefaults = {
+  card: { rounded: true },
+  stack: { gap: true }
+};
+
+<ThemeProvider themeDefaults={{
+  ...interactiveDefaults,
+  ...informationalDefaults,
+  ...layoutDefaults
+}}>
+  <App />
+</ThemeProvider>
 ```
 
-The `themeDefaults` property provides a robust system for establishing consistent default values throughout your VaneUI application, enabling both global consistency and component-specific customization while maintaining the flexibility to override defaults when needed.
+The `themeDefaults` property provides a robust system for establishing consistent default values throughout your VaneUI application, enabling global consistency while maintaining the flexibility to override defaults when needed.
