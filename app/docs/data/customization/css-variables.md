@@ -69,44 +69,47 @@ Replace `{appearance}` in variable names with one of:
 - `--color-border-{appearance}` - border color for outline variant
 - `--color-border-filled-{appearance}` - border color for filled variant
 
-## Scale Variables
+## Base Variables
 
-VaneUI defines common scale variables for consistency:
+VaneUI defines base variables in the `@theme` block that control the foundation of the sizing system:
 
-### Font Size Scale
 ```css
---fs-scale-xs: 6;
---fs-scale-sm: 7;
---fs-scale-md: 8;
---fs-scale-lg: 9;
---fs-scale-xl: 10;
+@theme {
+  --fs-base: calc(var(--spacing) * 0.5);  /* Font size base unit (0.5rem) */
+  --br-base: var(--spacing);               /* Border radius base (1rem) */
+  --lh-base: 1.6;                          /* Line height base */
+}
 ```
 
-### UI Padding Scale
+### Font Size Unit Scale
+These variables define the font size multipliers for each size:
 ```css
---py-ui-scale-xs: 1;
---py-ui-scale-sm: 1.5;
---py-ui-scale-md: 2;
---py-ui-scale-lg: 2.5;
---py-ui-scale-xl: 3;
+--fs-unit-xs: 6;   /* xs = 6 * 0.5rem = 0.75rem (12px) */
+--fs-unit-sm: 7;   /* sm = 7 * 0.5rem = 0.875rem (14px) */
+--fs-unit-md: 8;   /* md = 8 * 0.5rem = 1rem (16px) */
+--fs-unit-lg: 9;   /* lg = 9 * 0.5rem = 1.125rem (18px) */
+--fs-unit-xl: 10;  /* xl = 10 * 0.5rem = 1.25rem (20px) */
 ```
 
-### Layout Border Radius Scale
+### Component-Specific Sizing
+
+Padding, gap, and radius values are set per-component via CSS classes in `vars.css`:
+
 ```css
---br-layout-scale-xs: 3;
---br-layout-scale-sm: 4;
---br-layout-scale-md: 5;
---br-layout-scale-lg: 6;
---br-layout-scale-xl: 7;
+/* Button sizes */
+.vane-button[data-size="md"] { --fs-unit: 8; --py-unit: 2; }
+
+/* Layout component defaults based on type and size */
+[data-vane-type="ui"][data-size="md"] { --br-unit: 2; --gap-unit: 2; }
+[data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; }
 ```
 
-### Layout Gap Scale
+To customize sizing globally, override the computed variables in your CSS:
 ```css
---gap-layout-scale-xs: 2;
---gap-layout-scale-sm: 3;
---gap-layout-scale-md: 4;
---gap-layout-scale-lg: 5;
---gap-layout-scale-xl: 6;
+:root {
+  /* Make all spacing slightly larger */
+  --spacing: 0.3rem;  /* Default is 0.25rem */
+}
 ```
 
 ## Global Override (Site-wide)

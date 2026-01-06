@@ -182,22 +182,29 @@ function TypographyExample() {
 }
 ```
 
-### Responsive Typography
+### Automatic Responsive Typography
 
-Typography components with the `responsive` prop automatically scale across breakpoints:
+Typography components (`PageTitle`, `SectionTitle`, `Title`) and layout components (`Section`) automatically scale across breakpoints - no props needed:
 
 ```tsx
-import { PageTitle, Section } from '@vaneui/ui';
+import { PageTitle, SectionTitle, Title, Section } from '@vaneui/ui';
 
 function ResponsiveTypography() {
   return (
-    <Section responsive>
+    <Section>
       {/* Font size automatically reduces on smaller screens */}
-      <PageTitle responsive>Welcome to My App</PageTitle>
+      <PageTitle>Welcome to My App</PageTitle>
+      <SectionTitle>Section Heading</SectionTitle>
+      <Title>Content Title</Title>
     </Section>
   );
 }
 ```
+
+- `PageTitle` scales: e.g., 24 units on desktop → 21 on tablet → 18 on mobile
+- `SectionTitle` scales: e.g., 18 units on desktop → 16 on tablet → 14 on mobile
+- `Title` scales: e.g., 12 units on desktop → 11 on tablet → 10 on mobile
+- `Section` padding/gap scales automatically across breakpoints
 
 ### Typography Color Inheritance
 
