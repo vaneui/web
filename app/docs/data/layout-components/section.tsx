@@ -1,251 +1,111 @@
 'use client'
 
-import { Section, Text, Col, ComponentKeys, Title } from "@vaneui/ui";
+import { Section, Text, Col, Title } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
 export const sectionExamples: DocsPagePart[] = [
   {
     title: 'Basic Section',
-    md: 'A semantic container for grouping related content.',
+    md: 'A semantic container for grouping related page content with automatic padding.',
     component: (
-      <Section>
-        <Text semibold>Section Title</Text>
-        <Text>This is content within a section container.</Text>
+      <Section border>
+        <Title>Welcome Section</Title>
+        <Text>This is content within a section container. Sections provide consistent vertical rhythm.</Text>
       </Section>
     ),
   },
   {
     title: 'Section Sizes',
-    md: 'Sections come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.',
+    md: 'Sections come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl` - controlling padding and spacing.',
     component: (
-      <Col lg>
-        {
-          ComponentKeys.size.map((key: string) => (
-            <Section border key={key} {...{[key]: true}}>
-              <Text semibold>Section {key}</Text>
-              <Text>Section {key} content</Text>
-            </Section>
-          ))
-        }
+      <Col>
+        <Section sm border>
+          <Text semibold>Small Section</Text>
+          <Text>Compact padding</Text>
+        </Section>
+        <Section border>
+          <Text semibold>Medium Section (default)</Text>
+          <Text>Standard padding</Text>
+        </Section>
+        <Section lg border>
+          <Text semibold>Large Section</Text>
+          <Text>Generous padding</Text>
+        </Section>
       </Col>
     ),
   },
   {
     title: 'Section Appearances',
-    md: 'Sections can have different background appearances.',
+    md: 'Sections can have color appearances: `primary`, `secondary`, `success`, `danger`, etc.',
     component: (
-      <Col lg>
+      <Col>
         <Section primary>
           <Text semibold>Primary Section</Text>
-          <Text>Section with primary background</Text>
-        </Section>
-        <Section secondary>
-          <Text semibold>Secondary Section</Text>
-          <Text>Section with secondary background</Text>
+          <Text>Highlighted content area</Text>
         </Section>
         <Section success>
           <Text semibold>Success Section</Text>
-          <Text>Section with success background</Text>
+          <Text>Positive feedback area</Text>
         </Section>
         <Section danger>
           <Text semibold>Danger Section</Text>
-          <Text>Section with danger background</Text>
+          <Text>Warning or error area</Text>
         </Section>
       </Col>
     ),
   },
   {
-    title: 'Section Flex Direction',
-    md: 'Control the direction of section content.',
+    title: 'Section Variants',
+    md: 'Use `filled` for solid backgrounds, `outline` for bordered sections, and `shadow` for elevation.',
     component: (
-      <Col lg>
-        <Section border>
-          <Text semibold>Default (Column Direction)</Text>
-          <Text>Content flows vertically</Text>
-          <Text>Another line</Text>
+      <Col>
+        <Section filled primary>
+          <Title filled primary>Filled Section</Title>
+          <Text filled primary>Solid background with primary color</Text>
         </Section>
-        <Section row border>
-          <Text semibold>Row Direction</Text>
-          <Text>Content flows horizontally</Text>
-          <Text>Another line</Text>
+        <Section outline secondary>
+          <Title secondary>Outline Section</Title>
+          <Text secondary>Border only styling</Text>
         </Section>
-      </Col>
-    ),
-  },
-  {
-    title: 'Section with Padding',
-    md: 'Control section internal padding.',
-    component: (
-      <Col lg>
-        <Section className="border-2 border-dashed border-gray-300">
-          <Text semibold>Default (With Padding)</Text>
-          <Text>Section with internal padding</Text>
-        </Section>
-        <Section noPadding className="border-2 border-dashed border-gray-300">
-          <div className="p-4 bg-gray-100">
-            <Text semibold>No Padding</Text>
-            <Text>Section without internal padding</Text>
-          </div>
-        </Section>
-      </Col>
-    ),
-  },
-  {
-    title: 'Section with Gap',
-    md: 'Control spacing between section content.',
-    component: (
-      <Col lg>
-        <Section>
-          <Text semibold>Default (With Gap)</Text>
-          <Text>Content with spacing</Text>
-          <Text>Another line</Text>
-        </Section>
-        <Section noGap>
-          <Text semibold>No Gap</Text>
-          <Text>Content without spacing</Text>
-          <Text>Another line</Text>
-        </Section>
-      </Col>
-    ),
-  },
-  {
-    title: 'Section Borders',
-    md: 'Control section border appearance.',
-    component: (
-      <Col lg>
-        <Section border>
-          <Text semibold>With Border</Text>
-          <Text>Section with border</Text>
-        </Section>
-        <Section noBorder>
-          <Text semibold>No Border</Text>
-          <Text>Section without border</Text>
-        </Section>
-      </Col>
-    ),
-  },
-  {
-    title: 'Section Shapes',
-    md: 'Sections support different border radius styles.',
-    component: (
-      <Col lg>
-        <Section rounded border>
-          <Text semibold>Rounded</Text>
-          <Text>Rounded corners</Text>
-        </Section>
-        <Section pill border>
-          <Text semibold>Pill Shape</Text>
-          <Text>Pill-shaped section</Text>
-        </Section>
-        <Section sharp border>
-          <Text semibold>Sharp Corners</Text>
-          <Text>Sharp cornered section</Text>
-        </Section>
-      </Col>
-    ),
-  },
-  {
-    title: 'Section with Shadow',
-    md: 'Sections can have drop shadows.',
-    component: (
-      <Col lg>
         <Section shadow>
-          <Text semibold>With Shadow</Text>
-          <Text>Section with drop shadow</Text>
-        </Section>
-        <Section noShadow>
-          <Text semibold>No Shadow</Text>
-          <Text>Section without shadow</Text>
+          <Title>Shadow Section</Title>
+          <Text>Elevated with drop shadow</Text>
         </Section>
       </Col>
     ),
   },
   {
-    title: 'Section with Ring',
-    md: 'Sections can have focus rings.',
+    title: 'Section Layout',
+    md: 'Use `row` for horizontal layout, `gap` for spacing between children, and `noPadding` to remove internal padding.',
     component: (
-      <Col lg>
-        <Section ring>
-          <Text semibold>With Ring</Text>
-          <Text>Section with focus ring</Text>
+      <Col>
+        <Section row gap border>
+          <Text semibold>Row Layout</Text>
+          <Text>Content flows horizontally</Text>
+          <Text>With gap between items</Text>
         </Section>
-        <Section noRing>
-          <Text semibold>No Ring</Text>
-          <Text>Section without ring</Text>
-        </Section>
-      </Col>
-    ),
-  },
-  {
-    title: 'Section Reverse',
-    md: 'Reverse the order of items in the section.',
-    component: (
-      <Col lg>
-        <Section>
-          <Text semibold>Normal Order</Text>
-          <Text>First item</Text>
-          <Text>Second item</Text>
-          <Text>Third item</Text>
-        </Section>
-        <Section reverse>
-          <Text semibold>Reverse Order</Text>
-          <Text>First item</Text>
-          <Text>Second item</Text>
-          <Text>Third item</Text>
-        </Section>
-      </Col>
-    ),
-  },
-  {
-    title: 'Filled and Outline Sections',
-    md: 'Sections support filled and outline variants with typography color inheritance.',
-    component: (
-      <Col lg>
-        <Section filled primary lg>
-          <Title primary>Filled Primary Section</Title>
-          <Text primary>Typography inherits primary color from filled section</Text>
-        </Section>
-        <Section outline secondary lg>
-          <Title secondary>Outline Secondary Section</Title>
-          <Text secondary>Typography inherits secondary color from outline section</Text>
-        </Section>
-        <Section filled warning lg>
-          <Title warning>Filled Warning Section</Title>
-          <Text warning>Typography inherits warning color from section</Text>
-        </Section>
-      </Col>
-    ),
-  },
-  {
-    title: 'Responsive Padding and Gap',
-    md: 'By default, sections automatically scale their padding and gap on smaller screens. The `responsive` prop is enabled by default. Disable with `responsive={false}`.',
-    component: (
-      <Col lg>
-        <Section lg border>
-          <Text semibold>Responsive Section (default)</Text>
-          <Text>Padding and gap scale down on mobile</Text>
-        </Section>
-        <Section lg responsive={false} border>
-          <Text semibold>Non-Responsive Section</Text>
-          <Text>Fixed padding and gap across all screens</Text>
+        <Section gap border>
+          <Text semibold>Column Layout (default)</Text>
+          <Text>Content flows vertically</Text>
+          <Text>With gap between items</Text>
         </Section>
       </Col>
     ),
   },
   {
     title: 'Responsive Breakpoints',
-    md: 'Sections can switch direction at specific breakpoints using mobileCol, tabletCol, desktopCol.',
+    md: 'Use `mobileCol` or `tabletCol` to switch from row to column layout on smaller screens.',
     component: (
-      <Section mobileCol border>
-        <div className="p-4 bg-primary-100 rounded flex-1">
-          <Text semibold>Column 1</Text>
-          <Text>Switches to column on tablet and below</Text>
-        </div>
-        <div className="p-4 bg-primary-100 rounded flex-1">
-          <Text semibold>Column 2</Text>
-          <Text>Resize your browser to see the effect</Text>
-        </div>
+      <Section row tabletCol gap border>
+        <Col>
+          <Title>Left Content</Title>
+          <Text>Switches to stacked layout on tablets and below.</Text>
+        </Col>
+        <Col>
+          <Title>Right Content</Title>
+          <Text>Resize your browser to see the responsive behavior.</Text>
+        </Col>
       </Section>
     ),
   },

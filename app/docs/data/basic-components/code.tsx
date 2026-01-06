@@ -46,21 +46,6 @@ export const codeExamples: DocsPagePart[] = [
     ),
   },
   {
-    title: 'Font Weights',
-    md: 'Code elements with different font weights.',
-    component: (
-      <Row flexWrap>
-        {
-          ComponentKeys.fontWeight.map((key: string) => (
-            <Code key={key} {...{[key]: true}} lg>
-              font-{key}
-            </Code>
-          ))
-        }
-      </Row>
-    ),
-  },
-  {
     title: 'Code in Context',
     md: 'Code elements used within text content.',
     component: (
@@ -77,10 +62,6 @@ export const codeExamples: DocsPagePart[] = [
           The <Code info>useState</Code> hook returns an array with two elements:
           the current state value and a setter function like <Code info>[state, setState]</Code>.
         </Text>
-        <p>
-          Configure your environment by setting <Code warning>{"NODE_ENV='production'"}</Code> in
-          your <Code>.env</Code> file.
-        </p>
       </Col>
     ),
   },
@@ -97,26 +78,6 @@ export const codeExamples: DocsPagePart[] = [
           <Code primary>Cmd</Code>+<Code primary>V</Code>
         </Text>
       </Row>
-    ),
-  },
-  {
-    title: 'File Paths and URLs',
-    md: 'Code elements for displaying file paths and URLs.',
-    component: (
-      <Col sm>
-        <Row>
-          File path: <Code>/usr/local/bin/node</Code>
-        </Row>
-        <Row>
-          Import path: <Code secondary>@/components/Button</Code>
-        </Row>
-        <Row>
-          URL: <Code info>https://api.example.com/v1/users</Code>
-        </Row>
-        <Row>
-          Config file: <Code warning>tsconfig.json</Code>
-        </Row>
-      </Col>
     ),
   },
 ];
