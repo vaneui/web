@@ -33,7 +33,7 @@ export function Header() {
         </Row>
 
         {/* Mobile menu button - shown only on mobile */}
-        <Button sm secondary noShadow className="lg:hidden" onClick={() => setIsMobileMenuOpen(true)}>
+        <Button sm className="lg:hidden [--aspect-ratio:1]" onClick={() => setIsMobileMenuOpen(true)}>
           <Menu className="size-5"/>
         </Button>
       </Stack>
@@ -45,7 +45,7 @@ export function Header() {
             {/* Fixed header */}
             <Stack sm row justifyBetween itemsCenter primary borderB className="w-full flex-shrink-0">
               <Logo/>
-              <Button secondary sm noShadow onClick={() => setIsMobileMenuOpen(false)}>
+              <Button secondary sm onClick={() => setIsMobileMenuOpen(false)} className="[--aspect-ratio:1]">
                 <X className="size-5"/>
               </Button>
             </Stack>

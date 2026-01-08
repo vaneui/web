@@ -56,7 +56,7 @@ export function AboutSection() {
   ];
 
   return (
-    <Section xl relative borderB>
+    <Section xl relative borderB primary>
       <Container xl>
         <Col xl>
           <Chip pill>What is VaneUI?</Chip>

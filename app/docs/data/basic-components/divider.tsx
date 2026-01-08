@@ -51,45 +51,45 @@ export const dividerExamples: DocsPagePart[] = [
     ),
   },
   {
-    title: 'Divider in Lists',
-    md: 'Dividers used to separate list items.',
+    title: 'Separating Items',
+    md: 'Dividers used to separate individual items.',
     component: (
       <Col>
         <div className="p-4 bg-gray-50 rounded">
-          <Text semibold>First List Item</Text>
+          <Text semibold>First Item</Text>
           <Text>Description of first item</Text>
         </div>
         <Divider />
         <div className="p-4 bg-gray-50 rounded">
-          <Text semibold>Second List Item</Text>
+          <Text semibold>Second Item</Text>
           <Text>Description of second item</Text>
         </div>
         <Divider />
         <div className="p-4 bg-gray-50 rounded">
-          <Text semibold>Third List Item</Text>
+          <Text semibold>Third Item</Text>
           <Text>Description of third item</Text>
         </div>
       </Col>
     ),
   },
   {
-    title: 'Divider in Sections',
-    md: 'Dividers used to separate content sections.',
+    title: 'Separating Content Blocks',
+    md: 'Dividers used to separate larger content blocks.',
     component: (
       <Col lg>
         <div>
-          <Text semibold lg>Section 1</Text>
-          <Text>This is the first section with some content that demonstrates how dividers can be used to separate different sections of content.</Text>
+          <Text semibold lg>Block 1</Text>
+          <Text>This is the first block with some content that demonstrates how dividers can be used to separate different blocks of content.</Text>
         </div>
         <Divider />
         <div>
-          <Text semibold lg>Section 2</Text>
-          <Text>This is the second section that follows the divider. The divider provides a clear visual separation between sections.</Text>
+          <Text semibold lg>Block 2</Text>
+          <Text>This is the second block that follows the divider. The divider provides a clear visual separation between blocks.</Text>
         </div>
         <Divider />
         <div>
-          <Text semibold lg>Section 3</Text>
-          <Text>This is the third and final section, demonstrating consistent use of dividers throughout the content.</Text>
+          <Text semibold lg>Block 3</Text>
+          <Text>This is the third and final block, demonstrating consistent use of dividers throughout the content.</Text>
         </div>
       </Col>
     ),

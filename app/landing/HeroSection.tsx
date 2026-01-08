@@ -45,8 +45,8 @@ export function HeroSection() {
     </Card>;
 
   return (
-    <Section xl relative borderB
-             className="bg-gradient-to-r from-slate-100 via-white to-slate-100 pb-0 overflow-hidden">
+    <Section xl relative borderB primary transparent
+             className="z-20 bg-gradient-to-r from-slate-100 via-white to-slate-100 pb-0 overflow-hidden">
       <Row absolute
            className="inset-0 bg-[radial-gradient(var(--color-slate-200)_1px,transparent_1px)] [background-size:calc(var(--spacing)*4)_calc(var(--spacing)*4)]"/>
       <Container xs className="z-10">

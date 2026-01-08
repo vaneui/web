@@ -33,7 +33,7 @@ export default function DocsLayout({children}: DocsLayoutProps) {
               {/* Fixed header */}
               <Stack sm row justifyBetween itemsCenter className="w-full border-b border-border-primary flex-shrink-0">
                 <Logo/>
-                <Button secondary sm noShadow onClick={() => setIsMobileMenuOpen(false)}>
+                <Button secondary sm noShadow onClick={() => setIsMobileMenuOpen(false)} className="[--aspect-ratio:1]">
                   <X className="size-5"/>
                 </Button>
               </Stack>

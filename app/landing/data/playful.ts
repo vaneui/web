@@ -4,19 +4,19 @@ export const playfulTheme: PartialTheme = {};
 
 // CSS variable overrides for playful theme - applied via wrapper className
 export const playfulCssVars = `
-  [--color-bg-filled-success:linear-gradient(to_right,#f472b6,#a78bfa)]
-  [--color-bg-filled-hover-success:linear-gradient(to_right,#ec4899,#8b5cf6)]
+  [--color-bg-filled-success:#ec4899]
+  [--color-bg-filled-hover-success:#ef5599]
   [--color-border-filled-success:#fce7f3]
-  [--color-bg-filled-secondary:linear-gradient(to_right,#60a5fa,#22d3ee)]
-  [--color-bg-filled-hover-secondary:linear-gradient(to_right,#3b82f6,#06b6d4)]
+  [--color-bg-filled-secondary:#60a5fa]
+  [--color-bg-filled-hover-secondary:#3b82f6]
   [--color-border-filled-secondary:#dbeafe]
   [--color-text-filled-secondary:white]
-  [--color-bg-layout-primary:linear-gradient(to_bottom_right,#fdf2f8,#faf5ff)]
+  [--color-bg-primary:#ffeaf3]
   [--color-border-primary:#f9a8d4]
   [--bw:4px]
-  [--color-bg-filled-primary:linear-gradient(to_right,#facc15,#fb923c)]
+  [--color-bg-filled-primary:#facc15]
   [--color-text-filled-primary:white]
-  [--br-unit:8]
+  [--br-unit:10]
 `;
 
 export const playfulDefaults: ThemeDefaults = {
@@ -28,6 +28,7 @@ export const playfulDefaults: ThemeDefaults = {
     serif: true,
   },
   card: {
+    lg: true,
   },
   chip: {
     pill: true,

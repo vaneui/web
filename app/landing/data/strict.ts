@@ -14,6 +14,8 @@ export const strictCssVars = `
   [--color-border-secondary:black]
   [--color-text-secondary:var(--color-gray-900)]
   [--bw:2px]
+  [--rw:2px]
+  [&_.vane-button]:[--aspect-ratio:3]
 `;
 
 export const strictDefaults: ThemeDefaults = {
@@ -30,9 +32,10 @@ export const strictDefaults: ThemeDefaults = {
   },
   button: {
     sharp: true,
-    sm: true,
+    lg: true,
   },
   card: {
+    sm: true,
     sharp: true,
     noShadow: true,
   },

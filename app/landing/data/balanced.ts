@@ -12,6 +12,7 @@ export const balancedDefaults: ThemeDefaults = {
   },
   card: {
     shadow: true,
+    md: true,
   },
   chip: {
     sm: true,

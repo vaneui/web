@@ -82,13 +82,13 @@ export function ThemeCustomizationSection() {
 
             <Divider/>
 
-            <Stack relative lg itemsCenter justifyCenter className="w-full lg:h-[400px]">
+            <Stack relative lg itemsCenter justifyCenter className="w-full min-h-[400px]">
               <Row absolute className="
     inset-0 pointer-events-none
     bg-[repeating-linear-gradient(-45deg,theme(colors.slate.100)_0_1px,transparent_1px_calc(var(--spacing)*4))]
   "/>
               <ThemeProvider theme={currentTheme.config} themeDefaults={currentTheme.defaults}>
-                <Card sm row mobileCol overflowHidden
+                <Card primary row mobileCol overflowHidden
                       className={`max-w-2xl max-mobile:max-w-80 z-10 ${currentTheme.cssVars || ''}`}>
                   <Img
                     tag={Image}
