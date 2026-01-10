@@ -71,7 +71,7 @@ export function CodeBlock({
           {copied ? "Copied!" : "Copy"}
         </Button>
       </Stack>
-      <Stack xs primary noPadding overflowXAuto>
+      <Stack xs primary noPadding overflowXAuto className="h-full">
         <Highlight
           theme={currentTheme}
           code={code.trim()}

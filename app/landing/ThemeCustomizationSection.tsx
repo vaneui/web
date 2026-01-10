@@ -2,15 +2,18 @@
 
 import {
   Section,
-  Container, Stack, Card, Row, Button, Text, Divider, ThemeProvider, Img, Title, Chip, PartialTheme, ThemeDefaults
+  Container, Stack, Card, Row, Button, Text, Divider, ThemeProvider, Img, Title, Chip, PartialTheme, ThemeDefaults,
+  Grid2
 } from '@vaneui/ui';
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { FeatureTitle } from "../components/FeatureTitle";
 import Image from "next/image";
 import { dog } from "./data/dog";
 import { strictDefaults, strictTheme, strictCssVars } from "./data/strict";
-import { balancedDefaults, balancedTheme } from "./data/balanced";
+import { balancedDefaults, balancedTheme, balancedCssVars } from "./data/balanced";
 import { playfulDefaults, playfulTheme, playfulCssVars } from "./data/playful";
+import { serializeDefaults, serializeCssVars } from "./data/themeUtils";
+import { CodeBlock } from "../components/CodeBlock";
 
 interface CustomThemeProps {
   config: PartialTheme;
@@ -33,6 +36,7 @@ export const themes: Record<string, CustomThemeProps> = {
     label: 'Balanced',
     description: 'Clean and modern with rounded corners.',
     defaults: balancedDefaults,
+    cssVars: balancedCssVars,
   },
   strict: {
     config: strictTheme,
@@ -49,6 +53,12 @@ export function ThemeCustomizationSection() {
   const [selectedTheme, setSelectedTheme] = useState<ThemeKey>('balanced');
 
   const currentTheme = themes[selectedTheme];
+
+  const { defaultsCode, cssVarsCode } = useMemo(() => {
+    const defaultsCode = serializeDefaults(currentTheme.defaults);
+    const cssVarsCode = currentTheme.cssVars ? serializeCssVars(currentTheme.cssVars) : null;
+    return { defaultsCode, cssVarsCode };
+  }, [currentTheme]);
 
   return (
     <Section className="py-20">
@@ -122,9 +132,24 @@ export function ThemeCustomizationSection() {
 
             <Divider/>
 
-            <Stack row mobileCol>
-
-            </Stack>
+            <Grid2 itemsStart xs overflowYAuto className="w-full h-[480px] p-2">
+              {cssVarsCode && (
+                <CodeBlock
+                  code={cssVarsCode}
+                  language="css"
+                  showHeader={false}
+                  theme="dark"
+                  className="flex-1 h-full"
+                />
+              )}
+              <CodeBlock
+                code={defaultsCode}
+                language="tsx"
+                showHeader={false}
+                theme="dark"
+                className="flex-1 h-full"
+              />
+            </Grid2>
           </Card>
         </Stack>
       </Container>
