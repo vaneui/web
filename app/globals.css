@@ -5,8 +5,9 @@
 @source "./../node_modules/@vaneui/ui";
 
 @theme inline {
+    --font-sans: var(--font-plus-jakarta-sans), "Plus Jakarta Sans Fallback";
+    --font-serif: var(--font-dm-serif-display), "DM Serif Display Fallback";
     --font-mono: var(--font-jetbrains-mono);
-    --font-sans: var(--font-inter);
 }
 
 @layer theme {

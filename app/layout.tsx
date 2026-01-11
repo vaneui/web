@@ -1,13 +1,20 @@
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { Plus_Jakarta_Sans, DM_Serif_Display, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import React from 'react';
 import ThemeWrapper from "./themeWrapper";
 import { Metadata } from "next";
 
-const inter = Inter({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-plus-jakarta-sans',
+})
+
+const dmSerifDisplay = DM_Serif_Display({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-dm-serif-display',
 })
 
 const jetBrainsMono = JetBrains_Mono({
@@ -34,7 +41,7 @@ export default function RootLayout({children}: {
       <link rel="manifest" href="/site.webmanifest"/>
       <script src="https://analytics.ahrefs.com/analytics.js" data-key="+JtunyPZi10uLSHXMP+3ug" async></script>
     </head>
-    <body className={`${inter.className} ${jetBrainsMono.variable} min-w-xs`}>
+    <body className={`${plusJakartaSans.variable} ${dmSerifDisplay.variable} ${jetBrainsMono.variable} font-sans min-w-xs`}>
     <ThemeWrapper>
       {children}
     </ThemeWrapper>
