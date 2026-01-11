@@ -17,11 +17,11 @@ Set by component class in `vars.css` based on the `data-size` attribute:
 Calculated from unit variables in `@layer base`:
 ```css
 [data-size] {
-  --fs: calc(var(--fs-unit) * var(--fs-base));   /* Font size */
-  --py: calc(var(--py-unit) * var(--spacing));   /* Padding Y */
-  --px: calc(var(--aspect-ratio) * var(--py));   /* Padding X */
-  --br: calc(var(--br-unit) * var(--br-base));   /* Border radius */
-  --gap: calc(var(--gap-unit) * var(--spacing)); /* Gap */
+  --fs: calc(var(--fs-unit) * var(--fs-base));                      /* Font size */
+  --py: calc(var(--py-unit) * var(--spacing));                      /* Padding Y */
+  --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing)); /* Padding X */
+  --br: calc(var(--br-unit) * var(--br-base));                      /* Border radius */
+  --gap: calc(var(--gap-unit) * var(--spacing));                    /* Gap */
 }
 ```
 

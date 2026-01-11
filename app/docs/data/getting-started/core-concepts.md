@@ -14,7 +14,7 @@ At its core, VaneUI uses **boolean props** instead of string enums for cleaner J
 
 Props are organized into **categories**:
 - **size**: `xs`, `sm`, `md`, `lg`, `xl`
-- **appearance**: `primary`, `brand`, `secondary`, `success`, `danger`, `warning`, `info`, `link`
+- **appearance**: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`
 - **variant**: `filled`, `outline`
 - **shape**: `rounded`, `pill`, `sharp`
 - **typography**: `sans`, `serif`, `mono`, `semibold`, `bold`, etc.
@@ -82,11 +82,14 @@ Set by component class based on `data-size`:
 ```
 
 ### Tier 2: Computed Variables
-Calculated from unit variables:
+Calculated from unit variables using base multipliers:
 ```css
 [data-size] {
-  --fs: calc(var(--fs-unit) * 0.125rem);  /* 8 * 0.125rem = 1rem */
-  --py: calc(var(--py-unit) * 0.25rem);   /* 2 * 0.25rem = 0.5rem */
+  --fs: calc(var(--fs-unit) * var(--fs-base));  /* --fs-base = 0.125rem */
+  --py: calc(var(--py-unit) * var(--spacing));  /* --spacing = 0.25rem */
+  --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing));
+  --br: calc(var(--br-unit) * var(--br-base));  /* --br-base = 0.25rem */
+  --gap: calc(var(--gap-unit) * var(--spacing));
 }
 ```
 

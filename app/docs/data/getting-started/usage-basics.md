@@ -36,7 +36,9 @@ function AppearanceExample() {
     <Row>
       <Button primary>Primary</Button>
       <Button brand>Brand</Button>
+      <Button accent>Accent</Button>
       <Button secondary>Secondary</Button>
+      <Button tertiary>Tertiary</Button>
       <Button success>Success</Button>
       <Button danger>Danger</Button>
       <Button warning>Warning</Button>

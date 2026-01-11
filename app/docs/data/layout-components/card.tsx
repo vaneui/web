@@ -37,12 +37,24 @@ export const cardExamples: DocsPagePart[] = [
   },
   {
     title: 'Card Appearances',
-    md: 'Cards support color appearances: `primary`, `secondary`, `success`, `danger`, `warning`, `info`.',
+    md: 'Cards support color appearances: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`.',
     component: (
       <Row flexWrap gap>
         <Card primary>
           <Title>Primary</Title>
           <Text>Main action</Text>
+        </Card>
+        <Card brand>
+          <Title>Brand</Title>
+          <Text>Brand color</Text>
+        </Card>
+        <Card accent>
+          <Title>Accent</Title>
+          <Text>Highlight</Text>
+        </Card>
+        <Card secondary>
+          <Title>Secondary</Title>
+          <Text>Subtle styling</Text>
         </Card>
         <Card success>
           <Title>Success</Title>
@@ -51,10 +63,6 @@ export const cardExamples: DocsPagePart[] = [
         <Card danger>
           <Title>Danger</Title>
           <Text>Error or alert</Text>
-        </Card>
-        <Card secondary>
-          <Title>Secondary</Title>
-          <Text>Subtle styling</Text>
         </Card>
       </Row>
     ),

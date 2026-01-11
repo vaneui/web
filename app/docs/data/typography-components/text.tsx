@@ -25,11 +25,14 @@ export const textExamples: DocsPagePart[] = [
   },
   {
     title: 'Text Appearances',
-    md: 'Text supports color appearances: `primary`, `secondary`, `success`, `danger`, `warning`, `info`.',
+    md: 'Text supports color appearances: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`.',
     component: (
       <Col>
         <Text primary>Primary text for important content</Text>
+        <Text brand>Brand text for brand-colored content</Text>
+        <Text accent>Accent text for highlights</Text>
         <Text secondary>Secondary text for supporting content</Text>
+        <Text tertiary>Tertiary text for muted content</Text>
         <Text success>Success text for positive feedback</Text>
         <Text danger>Danger text for errors or warnings</Text>
       </Col>
