@@ -68,4 +68,24 @@ export const colExamples: DocsPagePart[] = [
       </Row>
     ),
   },
+  {
+    title: 'Text Alignment',
+    md: 'Use `textCenter`, `textLeft`, `textRight`, or `textJustify` to control text alignment within the column.',
+    component: (
+      <Row gap>
+        <Col textLeft className="flex-1 border-2 border-dashed border-gray-300 p-4">
+          <Text semibold>Left Aligned</Text>
+          <Text>Content aligned to the left.</Text>
+        </Col>
+        <Col textCenter className="flex-1 border-2 border-dashed border-gray-300 p-4">
+          <Text semibold>Center Aligned</Text>
+          <Text>Content centered within the column.</Text>
+        </Col>
+        <Col textRight className="flex-1 border-2 border-dashed border-gray-300 p-4">
+          <Text semibold>Right Aligned</Text>
+          <Text>Content aligned to the right.</Text>
+        </Col>
+      </Row>
+    ),
+  },
 ];

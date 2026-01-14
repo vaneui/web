@@ -123,4 +123,24 @@ export const cardExamples: DocsPagePart[] = [
       </Card>
     ),
   },
+  {
+    title: 'Card as Link',
+    md: 'Add `href` to make the card a clickable link. The card automatically renders as an `<a>` tag when `href` is provided, ensuring valid HTML.',
+    component: (
+      <Row flexWrap gap>
+        <Card href="#services" primary filled>
+          <Title primary filled>Services</Title>
+          <Text primary filled>Click to navigate</Text>
+        </Card>
+        <Card href="#pricing" secondary filled>
+          <Title secondary filled>Pricing</Title>
+          <Text secondary filled>View our plans</Text>
+        </Card>
+        <Card href="https://github.com" target="_blank" rel="noopener noreferrer" outline>
+          <Title>External Link</Title>
+          <Text>Opens in new tab</Text>
+        </Card>
+      </Row>
+    ),
+  },
 ];

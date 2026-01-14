@@ -1,6 +1,6 @@
 'use client'
 
-import { Link, Col, Text } from "@vaneui/ui";
+import { Link, Col, Row, Text } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
@@ -24,6 +24,35 @@ export const linkExamples: DocsPagePart[] = [
     ),
   },
   {
+    title: 'Link Appearances',
+    md: 'Links support color appearances: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`.',
+    component: (
+      <Row flexWrap gap>
+        <Link primary href="#">Primary</Link>
+        <Link brand href="#">Brand</Link>
+        <Link accent href="#">Accent</Link>
+        <Link secondary href="#">Secondary</Link>
+        <Link success href="#">Success</Link>
+        <Link danger href="#">Danger</Link>
+        <Link warning href="#">Warning</Link>
+        <Link info href="#">Info</Link>
+      </Row>
+    ),
+  },
+  {
+    title: 'Link Variants',
+    md: 'Use `filled` for solid background links or `outline` for bordered links.',
+    component: (
+      <Row flexWrap gap>
+        <Link primary filled href="#">Filled Primary</Link>
+        <Link success filled href="#">Filled Success</Link>
+        <Link danger filled href="#">Filled Danger</Link>
+        <Link primary outline href="#">Outline Primary</Link>
+        <Link secondary outline href="#">Outline Secondary</Link>
+      </Row>
+    ),
+  },
+  {
     title: 'Link Styling',
     md: 'Use `bold`, `semibold`, `italic`, and text decorations like `underline` or `noUnderline`.',
     component: (
@@ -40,7 +69,7 @@ export const linkExamples: DocsPagePart[] = [
     md: 'Links integrate naturally with other text content.',
     component: (
       <Text>
-        Check out our <Link href="#">documentation</Link> to learn more about the features. 
+        Check out our <Link href="#">documentation</Link> to learn more about the features.
         You can also visit the <Link href="#">GitHub repository</Link> for source code.
       </Text>
     ),

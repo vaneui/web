@@ -98,6 +98,26 @@ export const stackExamples: DocsPagePart[] = [
     ),
   },
   {
+    title: 'Text Alignment',
+    md: 'Use `textCenter`, `textLeft`, `textRight`, or `textJustify` to control text alignment within the stack.',
+    component: (
+      <Row flexWrap gap>
+        <Stack textLeft className="flex-1 border-2 border-dashed border-gray-300 p-4">
+          <Text semibold>Left Aligned</Text>
+          <Text>Content aligned to the left.</Text>
+        </Stack>
+        <Stack textCenter className="flex-1 border-2 border-dashed border-gray-300 p-4">
+          <Text semibold>Center Aligned</Text>
+          <Text>Content centered within the stack.</Text>
+        </Stack>
+        <Stack textRight className="flex-1 border-2 border-dashed border-gray-300 p-4">
+          <Text semibold>Right Aligned</Text>
+          <Text>Content aligned to the right.</Text>
+        </Stack>
+      </Row>
+    ),
+  },
+  {
     title: 'Responsive Layout',
     md: 'Use `mobileCol` or `tabletCol` to switch between row and column layouts responsively.',
     component: (

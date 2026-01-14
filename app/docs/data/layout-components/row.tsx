@@ -85,6 +85,23 @@ export const rowExamples: DocsPagePart[] = [
     ),
   },
   {
+    title: 'Text Alignment',
+    md: 'Use `textCenter`, `textLeft`, `textRight`, or `textJustify` to control text alignment within the row.',
+    component: (
+      <Col gap>
+        <Row textLeft className="border-2 border-dashed border-gray-300 p-4">
+          <Text>Left aligned content in a row.</Text>
+        </Row>
+        <Row textCenter className="border-2 border-dashed border-gray-300 p-4">
+          <Text>Center aligned content in a row.</Text>
+        </Row>
+        <Row textRight className="border-2 border-dashed border-gray-300 p-4">
+          <Text>Right aligned content in a row.</Text>
+        </Row>
+      </Col>
+    ),
+  },
+  {
     title: 'Responsive Layout',
     md: 'Use `mobileCol` or `tabletCol` to switch to column layout on smaller screens.',
     component: (
