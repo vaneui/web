@@ -19,6 +19,7 @@
     "@tailwindcss/postcss": "^4.0.14",
     "@vaneui/md": "^0.9.0-alpha.20260108133619.78ec3c3",
     "@vaneui/ui": "^0.9.0-alpha.20260114165342.10a91f9",
+    "@vercel/analytics": "^1.6.1",
     "autoprefixer": "^10.4.19",
     "next": "16.1.0-canary.19",
     "postcss": "^8.4.35",

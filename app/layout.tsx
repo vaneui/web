@@ -3,6 +3,7 @@ import './globals.css';
 import React from 'react';
 import ThemeWrapper from "./themeWrapper";
 import { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next"
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -45,6 +46,7 @@ export default function RootLayout({children}: {
     <ThemeWrapper>
       {children}
     </ThemeWrapper>
+    <Analytics />
     </body>
     </html>
   );
