@@ -7,9 +7,9 @@ import { DocsPagePart } from '../../types';
 export const stackExamples: DocsPagePart[] = [
   {
     title: 'Basic Stack',
-    md: 'A flexible layout container that arranges children vertically by default.',
+    md: 'A flexible layout container that arranges children vertically by default. Has `gap: true` and `padding: true` by default.',
     component: (
-      <Stack gap>
+      <Stack>
         <div className="p-4 bg-gray-100 rounded">Item 1</div>
         <div className="p-4 bg-gray-100 rounded">Item 2</div>
         <div className="p-4 bg-gray-100 rounded">Item 3</div>
@@ -20,17 +20,17 @@ export const stackExamples: DocsPagePart[] = [
     title: 'Stack Direction',
     md: 'Use `row` for horizontal layout, default is column (vertical).',
     component: (
-      <Row flexWrap gap>
+      <Row flexWrap>
         <Col>
           <Text semibold>Column (default)</Text>
-          <Stack gap>
+          <Stack>
             <div className="p-4 bg-gray-100 rounded">Item 1</div>
             <div className="p-4 bg-gray-100 rounded">Item 2</div>
           </Stack>
         </Col>
         <Col>
           <Text semibold>Row</Text>
-          <Stack row gap>
+          <Stack row>
             <div className="p-4 bg-gray-100 rounded">Item 1</div>
             <div className="p-4 bg-gray-100 rounded">Item 2</div>
           </Stack>
@@ -40,19 +40,19 @@ export const stackExamples: DocsPagePart[] = [
   },
   {
     title: 'Stack Spacing',
-    md: 'Use `gap` for spacing between items, `noGap` to remove it. Size props (`sm`, `lg`) control the gap amount.',
+    md: 'Gap is enabled by default. Use size props (`sm`, `lg`) to control the gap amount, or `noGap` to disable.',
     component: (
-      <Row flexWrap gap>
+      <Row flexWrap>
         <Col>
           <Text semibold>Small Gap</Text>
-          <Stack sm gap>
+          <Stack sm>
             <div className="p-3 bg-gray-100 rounded">Item 1</div>
             <div className="p-3 bg-gray-100 rounded">Item 2</div>
           </Stack>
         </Col>
         <Col>
           <Text semibold>Large Gap</Text>
-          <Stack lg gap>
+          <Stack lg>
             <div className="p-3 bg-gray-100 rounded">Item 1</div>
             <div className="p-3 bg-gray-100 rounded">Item 2</div>
           </Stack>
@@ -64,7 +64,7 @@ export const stackExamples: DocsPagePart[] = [
     title: 'Stack Alignment',
     md: 'Control alignment with `justifyCenter`, `justifyBetween`, `itemsCenter`, etc.',
     component: (
-      <Row flexWrap gap>
+      <Row flexWrap>
         <Col>
           <Text semibold>Justify Center</Text>
           <Stack justifyCenter className="h-32 border-2 border-dashed border-gray-300">
@@ -85,12 +85,12 @@ export const stackExamples: DocsPagePart[] = [
     title: 'Stack Variants',
     md: 'Use `filled` or `outline` with appearance props for styled containers.',
     component: (
-      <Row flexWrap gap>
-        <Stack filled primary gap>
+      <Row flexWrap>
+        <Stack filled primary>
           <div className="p-4 bg-white/80 rounded">Filled Primary</div>
           <div className="p-4 bg-white/80 rounded">Item 2</div>
         </Stack>
-        <Stack outline success gap>
+        <Stack outline success>
           <div className="p-4 rounded">Outline Success</div>
           <div className="p-4 rounded">Item 2</div>
         </Stack>
@@ -101,7 +101,7 @@ export const stackExamples: DocsPagePart[] = [
     title: 'Text Alignment',
     md: 'Use `textCenter`, `textLeft`, `textRight`, or `textJustify` to control text alignment within the stack.',
     component: (
-      <Row flexWrap gap>
+      <Row flexWrap>
         <Stack textLeft className="flex-1 border-2 border-dashed border-gray-300 p-4">
           <Text semibold>Left Aligned</Text>
           <Text>Content aligned to the left.</Text>
@@ -121,7 +121,7 @@ export const stackExamples: DocsPagePart[] = [
     title: 'Responsive Layout',
     md: 'Use `mobileCol` or `tabletCol` to switch between row and column layouts responsively.',
     component: (
-      <Stack row tabletCol gap>
+      <Stack row tabletCol>
         <div className="p-4 bg-primary-100 rounded flex-1">
           <Text semibold>Column 1</Text>
           <Text>Horizontal on desktop, stacked on tablet and below.</Text>

@@ -7,9 +7,9 @@ import { DocsPagePart } from '../../types';
 export const colExamples: DocsPagePart[] = [
   {
     title: 'Basic Col',
-    md: 'A vertical flex container that arranges children in a column.',
+    md: 'A vertical flex container that arranges children in a column. Has `gap: true` by default.',
     component: (
-      <Col gap>
+      <Col>
         <div className="p-4 bg-gray-100 rounded">Item 1</div>
         <div className="p-4 bg-gray-100 rounded">Item 2</div>
         <div className="p-4 bg-gray-100 rounded">Item 3</div>
@@ -18,15 +18,15 @@ export const colExamples: DocsPagePart[] = [
   },
   {
     title: 'Col Spacing',
-    md: 'Use `gap` for spacing between items. Size props control the gap amount.',
+    md: 'Gap is enabled by default. Use size props (`sm`, `lg`) to control the gap amount, or `noGap` to disable.',
     component: (
-      <Row gap>
-        <Col sm gap>
+      <Row>
+        <Col sm>
           <Text semibold>Small Gap</Text>
           <div className="p-3 bg-gray-100 rounded">Item 1</div>
           <div className="p-3 bg-gray-100 rounded">Item 2</div>
         </Col>
-        <Col lg gap>
+        <Col lg>
           <Text semibold>Large Gap</Text>
           <div className="p-3 bg-gray-100 rounded">Item 1</div>
           <div className="p-3 bg-gray-100 rounded">Item 2</div>
@@ -38,7 +38,7 @@ export const colExamples: DocsPagePart[] = [
     title: 'Col Alignment',
     md: 'Control alignment with `justifyCenter`, `justifyBetween`, `itemsCenter`, etc.',
     component: (
-      <Row gap>
+      <Row>
         <Col justifyCenter className="h-40 w-32 border-2 border-dashed border-gray-300">
           <div className="p-4 bg-gray-100 rounded">Centered</div>
         </Col>
@@ -56,12 +56,12 @@ export const colExamples: DocsPagePart[] = [
     title: 'Col Variants',
     md: 'Use `filled` or `outline` with appearance props for styled columns.',
     component: (
-      <Row gap>
-        <Col filled primary gap className="flex-1">
+      <Row>
+        <Col filled primary className="flex-1">
           <div className="p-4 bg-white/80 rounded">Filled Primary</div>
           <div className="p-4 bg-white/80 rounded">Item 2</div>
         </Col>
-        <Col outline success gap className="flex-1">
+        <Col outline success className="flex-1">
           <div className="p-4 rounded">Outline Success</div>
           <div className="p-4 rounded">Item 2</div>
         </Col>
@@ -72,7 +72,7 @@ export const colExamples: DocsPagePart[] = [
     title: 'Text Alignment',
     md: 'Use `textCenter`, `textLeft`, `textRight`, or `textJustify` to control text alignment within the column.',
     component: (
-      <Row gap>
+      <Row>
         <Col textLeft className="flex-1 border-2 border-dashed border-gray-300 p-4">
           <Text semibold>Left Aligned</Text>
           <Text>Content aligned to the left.</Text>

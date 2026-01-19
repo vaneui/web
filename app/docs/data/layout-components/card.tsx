@@ -19,7 +19,7 @@ export const cardExamples: DocsPagePart[] = [
     title: 'Card Sizes',
     md: 'Cards come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.',
     component: (
-      <Row flexWrap gap>
+      <Row flexWrap>
         <Card sm>
           <Title sm>Small Card</Title>
           <Text sm>Compact content</Text>
@@ -39,7 +39,7 @@ export const cardExamples: DocsPagePart[] = [
     title: 'Card Appearances',
     md: 'Cards support color appearances: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`.',
     component: (
-      <Row flexWrap gap>
+      <Row flexWrap>
         <Card primary>
           <Title>Primary</Title>
           <Text>Main action</Text>
@@ -71,7 +71,7 @@ export const cardExamples: DocsPagePart[] = [
     title: 'Card Variants',
     md: 'Use `filled` for solid backgrounds, `outline` for bordered cards, and add `shadow` for elevation.',
     component: (
-      <Row flexWrap gap>
+      <Row flexWrap>
         <Card filled primary>
           <Title filled primary>Filled Card</Title>
           <Text filled primary>Solid background</Text>
@@ -91,7 +91,7 @@ export const cardExamples: DocsPagePart[] = [
     title: 'Card Shapes',
     md: 'Cards support different border radius styles: `rounded` (default), `pill`, and `sharp`.',
     component: (
-      <Row flexWrap gap>
+      <Row flexWrap>
         <Card>
           <Title>Rounded</Title>
           <Text>Default style</Text>
@@ -111,7 +111,7 @@ export const cardExamples: DocsPagePart[] = [
     title: 'Responsive Layout',
     md: 'Use `row` for horizontal layout and `mobileCol` or `tabletCol` to switch to column on smaller screens.',
     component: (
-      <Card row tabletCol gap>
+      <Card row tabletCol>
         <Col>
           <Title>Product Image</Title>
           <Text secondary>Visual content area</Text>
@@ -127,7 +127,7 @@ export const cardExamples: DocsPagePart[] = [
     title: 'Card as Link',
     md: 'Add `href` to make the card a clickable link. The card automatically renders as an `<a>` tag when `href` is provided, ensuring valid HTML.',
     component: (
-      <Row flexWrap gap>
+      <Row flexWrap>
         <Card href="#services" primary filled>
           <Title primary filled>Services</Title>
           <Text primary filled>Click to navigate</Text>

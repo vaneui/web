@@ -112,7 +112,7 @@ import { Stack, Text } from '@vaneui/ui';
 
 function StackExample() {
   return (
-    <Stack lg gap>
+    <Stack lg>
       <Text>Item 1</Text>
       <Text>Item 2</Text>
       <Text>Item 3</Text>
@@ -130,7 +130,7 @@ import { Row, Col, Card } from '@vaneui/ui';
 
 function GridExample() {
   return (
-    <Row gap>
+    <Row>
       <Col>
         <Card>Column 1</Card>
       </Col>
@@ -152,7 +152,7 @@ import { Row, Card } from '@vaneui/ui';
 function ResponsiveLayout() {
   return (
     // Row on desktop, column on tablet and below
-    <Row tabletCol gap>
+    <Row tabletCol>
       <Card>Left</Card>
       <Card>Right</Card>
     </Row>

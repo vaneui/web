@@ -16,7 +16,7 @@ export const inputExamples: DocsPagePart[] = [
     title: 'Input Sizes',
     md: 'Inputs come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.',
     component: (
-      <Col gap>
+      <Col>
         <Input sm placeholder="Small input" />
         <Input placeholder="Medium input (default)" />
         <Input lg placeholder="Large input" />
@@ -27,7 +27,7 @@ export const inputExamples: DocsPagePart[] = [
     title: 'Input Types',
     md: 'Various HTML input types for different use cases.',
     component: (
-      <Col gap>
+      <Col>
         <Input type="text" placeholder="Text input" />
         <Input type="email" placeholder="Email input" />
         <Input type="password" placeholder="Password input" />
@@ -39,13 +39,13 @@ export const inputExamples: DocsPagePart[] = [
     title: 'Input Variants',
     md: 'Use `outline` (default) or `filled` variants with appearance colors.',
     component: (
-      <Col gap>
-        <Row flexWrap gap>
+      <Col>
+        <Row flexWrap>
           <Input outline primary placeholder="Outline primary" />
           <Input outline success placeholder="Outline success" />
           <Input outline danger placeholder="Outline danger" />
         </Row>
-        <Row flexWrap gap>
+        <Row flexWrap>
           <Input filled primary placeholder="Filled primary" />
           <Input filled success placeholder="Filled success" />
           <Input filled danger placeholder="Filled danger" />
@@ -57,7 +57,7 @@ export const inputExamples: DocsPagePart[] = [
     title: 'Input with Labels',
     md: 'Pair inputs with labels for accessibility and better UX.',
     component: (
-      <Col gap>
+      <Col>
         <div>
           <Label htmlFor="name">Full Name</Label>
           <Input id="name" type="text" placeholder="Enter your full name" />
@@ -73,7 +73,7 @@ export const inputExamples: DocsPagePart[] = [
     title: 'Input States',
     md: 'Different input states: disabled, readonly, and validation feedback.',
     component: (
-      <Col gap>
+      <Col>
         <Input placeholder="Normal input" />
         <Input disabled placeholder="Disabled input" />
         <Input success placeholder="Success state" />

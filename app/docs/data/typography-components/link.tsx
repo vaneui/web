@@ -27,7 +27,7 @@ export const linkExamples: DocsPagePart[] = [
     title: 'Link Appearances',
     md: 'Links support color appearances: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`.',
     component: (
-      <Row flexWrap gap>
+      <Row flexWrap>
         <Link primary href="#">Primary</Link>
         <Link brand href="#">Brand</Link>
         <Link accent href="#">Accent</Link>
@@ -43,7 +43,7 @@ export const linkExamples: DocsPagePart[] = [
     title: 'Link Variants',
     md: 'Use `filled` for solid background links or `outline` for bordered links.',
     component: (
-      <Row flexWrap gap>
+      <Row flexWrap>
         <Link primary filled href="#">Filled Primary</Link>
         <Link success filled href="#">Filled Success</Link>
         <Link danger filled href="#">Filled Danger</Link>

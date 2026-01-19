@@ -62,8 +62,8 @@ Boolean props can be combined naturally to create the exact styling you need:
   Filled secondary card
 </Card>
 
-<Stack itemsCenter gap>
-  Stack with centered items and gap
+<Stack itemsCenter>
+  Stack with centered items (gap is default)
 </Stack>
 ```
 

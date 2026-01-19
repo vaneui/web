@@ -19,7 +19,7 @@ export const containerExamples: DocsPagePart[] = [
     title: 'Container Sizes',
     md: 'Containers come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.',
     component: (
-      <Col gap>
+      <Col>
         <Container sm border>
           <Text semibold>Small Container</Text>
           <Text>Narrower max-width</Text>
@@ -35,7 +35,7 @@ export const containerExamples: DocsPagePart[] = [
     title: 'Container Appearances',
     md: 'Containers support color appearances: `primary`, `secondary`, `success`, `danger`, etc.',
     component: (
-      <Col gap>
+      <Col>
         <Container primary>
           <Text semibold>Primary Container</Text>
           <Text>Highlighted content area</Text>
@@ -51,7 +51,7 @@ export const containerExamples: DocsPagePart[] = [
     title: 'Container Variants',
     md: 'Use `filled` for solid backgrounds, `outline` for bordered containers, and `shadow` for elevation.',
     component: (
-      <Col gap>
+      <Col>
         <Container filled primary>
           <Title filled primary>Filled Container</Title>
           <Text filled primary>Solid background with primary color</Text>
@@ -71,7 +71,7 @@ export const containerExamples: DocsPagePart[] = [
     title: 'Container Shapes',
     md: 'Containers support different border radius styles: `rounded` (default), `pill`, and `sharp`.',
     component: (
-      <Col gap>
+      <Col>
         <Container border>
           <Text semibold>Rounded (default)</Text>
         </Container>

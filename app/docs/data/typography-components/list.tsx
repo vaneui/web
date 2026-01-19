@@ -20,7 +20,7 @@ export const listExamples: DocsPagePart[] = [
     title: 'List Style Types',
     md: 'Use `disc` for bullets (default) or `decimal` for numbered lists.',
     component: (
-      <Col gap>
+      <Col>
         <div>
           <Text semibold>Unordered (disc)</Text>
           <List disc>
@@ -44,7 +44,7 @@ export const listExamples: DocsPagePart[] = [
     title: 'List Sizes',
     md: 'Lists come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.',
     component: (
-      <Col gap>
+      <Col>
         <List sm>
           <ListItem>Small list item</ListItem>
           <ListItem>Another small item</ListItem>
@@ -60,7 +60,7 @@ export const listExamples: DocsPagePart[] = [
     title: 'List Appearances',
     md: 'Lists support color appearances: `primary`, `secondary`, `success`, `danger`, etc.',
     component: (
-      <Col gap>
+      <Col>
         <List primary>
           <ListItem>Primary colored item</ListItem>
           <ListItem>Another primary item</ListItem>
@@ -103,7 +103,7 @@ export const listExamples: DocsPagePart[] = [
     title: 'List Styling',
     md: 'Combine font properties like `bold`, `italic`, `mono` with lists.',
     component: (
-      <Col gap>
+      <Col>
         <List semibold>
           <ListItem>Bold list items</ListItem>
           <ListItem>Another bold item</ListItem>

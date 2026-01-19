@@ -7,9 +7,9 @@ import { DocsPagePart } from '../../types';
 export const rowExamples: DocsPagePart[] = [
   {
     title: 'Basic Row',
-    md: 'A horizontal flex container that arranges children in a row.',
+    md: 'A horizontal flex container that arranges children in a row. Has `gap: true` by default.',
     component: (
-      <Row gap>
+      <Row>
         <div className="p-4 bg-gray-100 rounded">Item 1</div>
         <div className="p-4 bg-gray-100 rounded">Item 2</div>
         <div className="p-4 bg-gray-100 rounded">Item 3</div>
@@ -18,17 +18,17 @@ export const rowExamples: DocsPagePart[] = [
   },
   {
     title: 'Row Spacing',
-    md: 'Use `gap` for spacing between items. Size props control the gap amount.',
+    md: 'Gap is enabled by default. Use size props (`sm`, `lg`) to control the gap amount, or `noGap` to disable.',
     component: (
-      <Col gap>
+      <Col>
         <Text semibold>Small Gap</Text>
-        <Row sm gap>
+        <Row sm>
           <div className="p-3 bg-gray-100 rounded">Item 1</div>
           <div className="p-3 bg-gray-100 rounded">Item 2</div>
           <div className="p-3 bg-gray-100 rounded">Item 3</div>
         </Row>
         <Text semibold>Large Gap</Text>
-        <Row lg gap>
+        <Row lg>
           <div className="p-3 bg-gray-100 rounded">Item 1</div>
           <div className="p-3 bg-gray-100 rounded">Item 2</div>
           <div className="p-3 bg-gray-100 rounded">Item 3</div>
@@ -38,16 +38,16 @@ export const rowExamples: DocsPagePart[] = [
   },
   {
     title: 'Row Alignment',
-    md: 'Control alignment with `justifyCenter`, `justifyBetween`, `itemsCenter`, etc.',
+    md: 'Control alignment with `justifyCenter`, `justifyBetween`, `itemsCenter`, etc. Note: Row has `itemsCenter: true` by default.',
     component: (
-      <Col gap>
+      <Col>
         <Text semibold>Justify Between</Text>
         <Row justifyBetween className="border-2 border-dashed border-gray-300 p-2">
           <div className="p-4 bg-gray-100 rounded">Left</div>
           <div className="p-4 bg-gray-100 rounded">Right</div>
         </Row>
-        <Text semibold>Items Center</Text>
-        <Row itemsCenter gap className="border-2 border-dashed border-gray-300 p-2 h-24">
+        <Text semibold>Items Center (default)</Text>
+        <Row className="border-2 border-dashed border-gray-300 p-2 h-24">
           <div className="p-2 bg-gray-100 rounded">Small</div>
           <div className="p-6 bg-gray-100 rounded">Tall</div>
           <div className="p-2 bg-gray-100 rounded">Small</div>
@@ -59,7 +59,7 @@ export const rowExamples: DocsPagePart[] = [
     title: 'Row Wrap',
     md: 'Use `flexWrap` to allow items to wrap to the next line when they overflow.',
     component: (
-      <Row flexWrap gap className="max-w-md border-2 border-dashed border-gray-300 p-2">
+      <Row flexWrap className="max-w-md border-2 border-dashed border-gray-300 p-2">
         <div className="p-4 bg-gray-100 rounded">Item 1</div>
         <div className="p-4 bg-gray-100 rounded">Item 2</div>
         <div className="p-4 bg-gray-100 rounded">Item 3</div>
@@ -72,12 +72,12 @@ export const rowExamples: DocsPagePart[] = [
     title: 'Row Variants',
     md: 'Use `filled` or `outline` with appearance props for styled rows.',
     component: (
-      <Col gap>
-        <Row filled primary gap>
+      <Col>
+        <Row filled primary>
           <div className="p-4 bg-white/80 rounded">Filled Primary</div>
           <div className="p-4 bg-white/80 rounded">Item 2</div>
         </Row>
-        <Row outline success gap>
+        <Row outline success>
           <div className="p-4 rounded">Outline Success</div>
           <div className="p-4 rounded">Item 2</div>
         </Row>
@@ -88,7 +88,7 @@ export const rowExamples: DocsPagePart[] = [
     title: 'Text Alignment',
     md: 'Use `textCenter`, `textLeft`, `textRight`, or `textJustify` to control text alignment within the row.',
     component: (
-      <Col gap>
+      <Col>
         <Row textLeft className="border-2 border-dashed border-gray-300 p-4">
           <Text>Left aligned content in a row.</Text>
         </Row>
@@ -105,7 +105,7 @@ export const rowExamples: DocsPagePart[] = [
     title: 'Responsive Layout',
     md: 'Use `mobileCol` or `tabletCol` to switch to column layout on smaller screens.',
     component: (
-      <Row tabletCol gap>
+      <Row tabletCol>
         <Col className="flex-1 p-4 bg-primary-100 rounded">
           <Text semibold>Column 1</Text>
           <Text>Horizontal on desktop, stacked on tablet and below.</Text>
