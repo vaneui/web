@@ -51,7 +51,7 @@ function AppearanceExample() {
 
 ### Filled and Outline Variants
 
-All components support `filled` and `outline` variants, including layout components:
+All components support `filled` and `outline` variants. `outline` is the default for most components:
 
 ```tsx
 import { Button, Card, Stack, Container, Row } from '@vaneui/ui';
@@ -61,22 +61,22 @@ function FilledOutlineExample() {
     <Stack lg>
       {/* Buttons */}
       <Row>
-        <Button filled primary>Filled Button</Button>
-        <Button primary>Outline Button (default)</Button>
+        <Button filled>Filled Button</Button>
+        <Button>Outline Button (default)</Button>
       </Row>
-      
+
       {/* Cards */}
       <Row>
         <Card filled success lg>Filled Card</Card>
-        <Card outline danger lg>Outline Card</Card>
+        <Card danger lg>Outline Card (default)</Card>
       </Row>
-      
+
       {/* Layout Components */}
       <Container filled secondary>
         <Stack lg>Filled Container</Stack>
       </Container>
-      <Container outline warning>
-        <Stack lg>Outline Container</Stack>
+      <Container warning>
+        <Stack lg>Outline Container (default)</Stack>
       </Container>
     </Stack>
   );
@@ -94,7 +94,7 @@ function ShapeExample() {
   return (
     <Row>
       <Button sharp>Sharp (no radius)</Button>
-      <Button rounded>Rounded (default)</Button>
+      <Button>Rounded (default)</Button>
       <Button pill>Pill (fully rounded)</Button>
     </Row>
   );
@@ -279,7 +279,7 @@ import { Button, Card } from '@vaneui/ui';
 function CustomStyling() {
   return (
     <Card className="shadow-2xl">
-      <Button primary className="w-full hover:scale-105 transition-transform">
+      <Button className="w-full hover:scale-105 transition-transform">
         Full width with hover effect
       </Button>
     </Card>
@@ -288,3 +288,82 @@ function CustomStyling() {
 ```
 
 User-provided `className` takes precedence over theme classes (via `twMerge`).
+
+## Prefer Props Over Tailwind Classes
+
+VaneUI provides boolean props for most common styling needs. Use these instead of Tailwind classes to ensure consistent theming and proper integration with the size system.
+
+### Common Props vs Tailwind Classes
+
+| Instead of Tailwind | Use VaneUI prop |
+|---------------------|-----------------|
+| `className="uppercase"` | `uppercase` |
+| `className="font-bold"` | `bold` |
+| `className="font-semibold"` | `semibold` |
+| `className="font-mono"` | `mono` |
+| `className="italic"` | `italic` |
+| `className="text-center"` | `textCenter` |
+| `className="sticky"` | `sticky` |
+| `className="items-center"` | `itemsCenter` |
+| `className="justify-between"` | `justifyBetween` |
+| `className="border-b"` | `borderB` |
+| `className="rounded-full"` | `pill` |
+| `className="shadow"` | `shadow` |
+
+```tsx
+// Good: Using VaneUI props
+<Text uppercase semibold>IMPORTANT</Text>
+<Card borderB>Card with bottom border</Card>
+<Row itemsCenter justifyBetween>Spaced content</Row>
+
+// Avoid: Tailwind classes that duplicate props
+<Text className="uppercase font-semibold">IMPORTANT</Text>
+<Card className="border-b">Card with bottom border</Card>
+<Row className="items-center justify-between">Spaced content</Row>
+```
+
+### Gap is Controlled by Size Props
+
+Don't use Tailwind gap classes. Gap is controlled by the size prop system (`xs`, `sm`, `md`, `lg`, `xl`) and is enabled by default on layout components.
+
+```tsx
+// Good: Size prop controls gap
+<Row lg>Large gap between items</Row>
+<Stack sm>Small gap between items</Stack>
+<Col>Default gap (md)</Col>
+
+// Avoid: Tailwind gap classes
+<Row className="gap-10">Don't override gap this way</Row>
+```
+
+### Background Colors via Appearance Props
+
+Background colors are controlled by appearance + variant props. Only use `bg-*` classes for edge cases not covered by the theme (like gradients).
+
+```tsx
+// Good: Appearance controls color
+<Card primary filled>Primary background</Card>
+<Button success filled>Success button</Button>
+
+// Avoid: Tailwind bg classes when appearance works
+<Card className="bg-blue-500">Don't fight the theme</Card>
+
+// OK: Tailwind for custom colors not in theme
+<div className="bg-gradient-to-r from-purple-500 to-pink-500">
+  Custom gradient
+</div>
+```
+
+### Typography Styling is Built-in
+
+Typography components have built-in letter spacing, line height, and other typographic properties. Avoid overriding these with Tailwind classes.
+
+```tsx
+// Good: Built-in typography styling
+<Badge uppercase>STATUS</Badge>
+<Title>Properly styled heading</Title>
+
+// Avoid: Manual typography overrides
+<Badge className="tracking-wider">STATUS</Badge>
+<Title className="leading-tight">Overridden heading</Title>
+```

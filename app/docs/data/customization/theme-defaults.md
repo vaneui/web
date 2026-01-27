@@ -149,7 +149,7 @@ function LayoutDefaults() {
         rounded: true
       },
       stack: {
-        gap: true
+        lg: true  // larger gap than default
       }
     }}>
       <Container>
@@ -269,6 +269,33 @@ function MultiSectionApp() {
 
 ## Best Practices
 
+### Know VaneUI's Built-in Defaults
+
+VaneUI components come with sensible built-in defaults. Only set defaults that differ from these:
+
+**Built-in defaults you don't need to specify:**
+- **Layout components** (`Row`, `Col`, `Stack`, `Card`, `Section`, `Container`): `gap: true`, `md: true`, `outline: true`
+- **Button**: `primary: true`, `outline: true`, `rounded: true`
+- **Card**: `primary: true`, `outline: true`, `rounded: true`, `padding: true`
+- **Input**: `primary: true`, `outline: true`, `rounded: true`
+- **Badge**: `primary: true`, `outline: true`, `pill: true`
+- **Typography** (`Text`, `Title`): `primary: true`, `md: true`
+
+```tsx
+// Unnecessary - these are already the defaults
+<ThemeProvider themeDefaults={{
+  stack: { gap: true },       // gap is already true
+  button: { primary: true },  // primary is already true
+  card: { rounded: true }     // rounded is already true
+}}>
+
+// Better - only specify what you're changing
+<ThemeProvider themeDefaults={{
+  button: { filled: true },   // change from outline to filled
+  card: { lg: true }          // change from md to lg
+}}>
+```
+
 ### Consistent Defaults
 
 Establish defaults that align with your design system:
@@ -286,8 +313,8 @@ const designSystemDefaults = {
   chip: { outline: true },
 
   // Layout elements
-  card: { rounded: true },
-  section: { gap: true }
+  card: { shadow: true },  // add shadow (not default)
+  section: { lg: true }    // larger spacing
 };
 
 <ThemeProvider themeDefaults={designSystemDefaults}>
@@ -313,8 +340,8 @@ const informationalDefaults = {
 };
 
 const layoutDefaults = {
-  card: { rounded: true },
-  stack: { gap: true }
+  card: { shadow: true },
+  stack: { lg: true }
 };
 
 <ThemeProvider themeDefaults={{

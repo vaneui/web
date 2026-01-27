@@ -37,16 +37,16 @@ export const inputExamples: DocsPagePart[] = [
   },
   {
     title: 'Input Variants',
-    md: 'Use `outline` (default) or `filled` variants with appearance colors.',
+    md: 'Inputs are `outline` by default. Use `filled` for solid backgrounds.',
     component: (
       <Col>
         <Row flexWrap>
-          <Input outline primary placeholder="Outline primary" />
-          <Input outline success placeholder="Outline success" />
-          <Input outline danger placeholder="Outline danger" />
+          <Input placeholder="Outline (default)" />
+          <Input success placeholder="Outline success" />
+          <Input danger placeholder="Outline danger" />
         </Row>
         <Row flexWrap>
-          <Input filled primary placeholder="Filled primary" />
+          <Input filled placeholder="Filled (default)" />
           <Input filled success placeholder="Filled success" />
           <Input filled danger placeholder="Filled danger" />
         </Row>

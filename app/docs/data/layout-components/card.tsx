@@ -69,16 +69,16 @@ export const cardExamples: DocsPagePart[] = [
   },
   {
     title: 'Card Variants',
-    md: 'Use `filled` for solid backgrounds, `outline` for bordered cards, and add `shadow` for elevation.',
+    md: 'Use `filled` for solid backgrounds. `outline` is the default. Add `shadow` for elevation.',
     component: (
       <Row flexWrap>
-        <Card filled primary>
-          <Title filled primary>Filled Card</Title>
-          <Text filled primary>Solid background</Text>
+        <Card filled>
+          <Title filled>Filled Card</Title>
+          <Text filled>Solid background</Text>
         </Card>
-        <Card outline primary>
-          <Title primary>Outline Card</Title>
-          <Text primary>Border only</Text>
+        <Card>
+          <Title>Outline Card (default)</Title>
+          <Text>Border only</Text>
         </Card>
         <Card shadow>
           <Title>Shadow Card</Title>

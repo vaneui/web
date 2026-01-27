@@ -49,15 +49,15 @@ export const containerExamples: DocsPagePart[] = [
   },
   {
     title: 'Container Variants',
-    md: 'Use `filled` for solid backgrounds, `outline` for bordered containers, and `shadow` for elevation.',
+    md: 'Use `filled` for solid backgrounds. `outline` is the default. Add `shadow` for elevation.',
     component: (
       <Col>
         <Container filled primary>
           <Title filled primary>Filled Container</Title>
           <Text filled primary>Solid background with primary color</Text>
         </Container>
-        <Container outline secondary>
-          <Title secondary>Outline Container</Title>
+        <Container secondary>
+          <Title secondary>Outline Container (default)</Title>
           <Text secondary>Border only styling</Text>
         </Container>
         <Container shadow>
@@ -69,17 +69,17 @@ export const containerExamples: DocsPagePart[] = [
   },
   {
     title: 'Container Shapes',
-    md: 'Containers support different border radius styles: `rounded` (default), `pill`, and `sharp`.',
+    md: 'Containers support different border radius styles. `sharp` is the default (no radius).',
     component: (
       <Col>
         <Container border>
-          <Text semibold>Rounded (default)</Text>
+          <Text semibold>Sharp (default)</Text>
+        </Container>
+        <Container rounded border>
+          <Text semibold>Rounded corners</Text>
         </Container>
         <Container pill border>
           <Text semibold>Pill shape</Text>
-        </Container>
-        <Container sharp border>
-          <Text semibold>Sharp corners</Text>
         </Container>
       </Col>
     ),

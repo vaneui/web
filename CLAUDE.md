@@ -1,98 +1,126 @@
-# CLAUDE.md
+# CLAUDE.md — vaneui-web
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## What This Is
 
-## Development Commands
+Next.js documentation website for the VaneUI React component library. Hosted at vaneui.com. This project serves two purposes:
+1. **Documentation site** — showcases VaneUI components with interactive examples and guides
+2. **VaneUI consumer** — the site itself is built with VaneUI components and should follow VaneUI best practices
 
-- `npm run dev` - Start the development server on localhost:3000
-- `npm run build` - Build the production application
-- `npm run start` - Start the production server
-- `npm run lint` - Run ESLint to check code quality
+## Commands
 
-## Project Architecture
+```bash
+npm run dev          # Dev server (localhost:3000), runs typecheck + lint first
+npm run build        # Production build (runs typecheck + lint first)
+npm run typecheck    # TypeScript type checking
+npm run lint         # ESLint
+```
 
-This is a Next.js 15 documentation website for the VaneUI React component library. The project uses:
+Requires Node.js >= 22.
 
-- **Next.js 15** with App Router
-- **React 19** with TypeScript 5.8
-- **Tailwind CSS 4.0** for styling (with PostCSS)
-- **@vaneui/ui** (v0.2.1-alpha) as the primary component library
-- **@vaneui/md** (v0.0.3-alpha) for markdown rendering
-- **MDX** for documentation content via @mdx-js/react
-- **prism-react-renderer** for syntax highlighting (supports TSX)
-- **React Feather** for icons
-- **react-element-to-jsx-string** for component demo generation
+## Stack
 
-### Key Directory Structure
+- Next.js 16 (App Router, Turbopack), React 19, TypeScript 5.8
+- Tailwind CSS v4 with `@vaneui/ui/vars` CSS variables
+- `@vaneui/ui` — component library (source code at `C:\GitHub\vaneui`, see its CLAUDE.md for full API reference)
+- `@vaneui/md` — markdown renderer using Markdoc, renders into VaneUI components
+- `prism-react-renderer` — syntax highlighting in CodeBlock
+- `react-feather` — icons
+- Vercel Analytics, Ahrefs Analytics
 
-- `app/` - Next.js app router directory
-  - `docs/` - Documentation pages with dynamic routing
-    - `[category]/[slug]/` - Dynamic documentation pages
-    - `data/` - Component example data (badge.tsx, button.tsx, chip.tsx, etc.)
-    - `data/getting-started/` - Markdown documentation files for setup guides
-    - `docsSections.ts` - Main documentation structure configuration
-    - `types.ts` - TypeScript interfaces for documentation structure
-  - `landing/` - Landing page sections with barrel exports
-  - `components/` - Shared React components (Header, Footer, CodeBlock, Logo, ThemeCustomizer)
-  - `utils/` - Utility functions including React component string processing
-  - `constants.ts` - Product branding (title, slogan, GitHub URL)
-  - `globals.css` - Global styles with Tailwind imports and theme variables
-  - `code-theme.css` - Additional styling for code blocks
-- `public/` - Static assets
-  - Favicon suite (ICO, SVG, PNG variations)
-  - Apple touch icons and PWA manifest icons
-  - Logo files (logo.png, vaneui.svg)
-  - Development assets (puppy.png, react-icon.svg, github-mark.svg)
-  - `site.webmanifest` - PWA configuration
+## Project Structure
 
-### Core Architecture Concepts
+```
+app/
+  layout.tsx              # Root layout (fonts, ThemeWrapper, analytics)
+  page.tsx                # Landing page (assembles landing sections)
+  themeWrapper.tsx        # VaneUI ThemeProvider wrapper (client component)
+  globals.css             # Tailwind imports, @source for VaneUI, font vars
+  constants.ts            # Product branding (title, slogan, GitHub URL)
+  not-found.tsx           # 404 page
 
-1. **Documentation System**: The docs are structured around `docsSections.ts` which defines categories (Getting Started, Basic Components, Layout Components, Typography Components) and their components with examples. Some pages are created based on markdown content that is rendered using the `@vaneui/md` npm package.
+  components/             # Shared components
+    Header.tsx, Footer.tsx, Logo.tsx, FeatureTitle.tsx
+    CodeBlock.tsx          # Syntax highlighting with prism-react-renderer
+    VerticalCarousel.tsx
+    themes/               # Prism color themes (dark/light)
 
-2. **Theme System**: Uses VaneUI's ThemeProvider with custom overrides in `themeWrapper.tsx`. The theme system allows for component theming and customization.
+  docs/                   # Documentation section
+    layout.tsx            # Docs layout (sidebar nav + content area)
+    page.tsx              # Docs index redirect
+    docsSections.ts       # Central docs structure config (categories + pages)
+    types.ts              # DocsSection, DocsPage, DocsPagePart interfaces
+    DocsPageContent.tsx   # Renders component examples + auto-generated props docs
+    DocsMarkdown.tsx      # Renders markdown via @vaneui/md with custom components
+    DocsNav.tsx           # Sidebar navigation
+    OnThisPage.tsx        # Right-side table of contents
+    [category]/[slug]/page.tsx  # Dynamic route for each docs page
 
-3. **Component Examples**: Each component has example data in `app/docs/data/` files that demonstrate usage patterns.
+    data/                 # Documentation content
+      basic-components/   # Component example files (button.tsx, badge.tsx, etc.)
+      layout-components/  # Layout example files (card.tsx, row.tsx, etc.)
+      typography-components/  # Typography example files (text.tsx, title.tsx, etc.)
+      getting-started/    # Markdown guides (installation.md, core-concepts.md, etc.)
+      customization/      # Markdown guides (theming-overview.md, css-variables.md, etc.)
 
-4. **Dynamic Routing**: Documentation uses Next.js dynamic routes `[category]/[slug]` to generate pages based on the docsSections configuration.
+  landing/                # Landing page sections
+    HeroSection.tsx, AboutSection.tsx, LiveSection.tsx
+    BasicComponentsSection.tsx, TypographyComponentsSection.tsx
+    ThemeCustomizationSection.tsx
+    data/                 # Theme demo data (balanced.ts, playful.ts, strict.ts)
+    utils/                # Typing animation logic
 
-5. **Code Display**: Uses CodeBlock components with prism-react-renderer for syntax highlighting of code examples (with full TSX support). Custom utility functions in `utils/stringUtils.ts` convert React components to JSX strings for display.
+  utils/
+    stringUtils.ts        # prepareComponentString(), toHtmlId(), extractMarkdownHeadings()
+```
 
-6. **Styling System**: Tailwind CSS 4.0 with `@source` directive pointing to VaneUI components. Custom CSS variables defined in `globals.css` for theme overrides, border colors, and font families (JetBrains Mono, Inter).
+## Key Patterns
 
-## Configuration Files
+### Documentation Pages
 
-### Build Configuration
-- `next.config.mjs` - React strict mode enabled, webpack optimization disabled for development
-- `postcss.config.mjs` - PostCSS with Tailwind CSS 4.0 plugin
-- `tsconfig.json` - TypeScript strict mode with Next.js plugin
+Two types of docs pages, configured in `docsSections.ts`:
 
-### Node.js Requirements
-- Node.js v22 or higher required (specified in package.json engines)
-- Use `nvm use` if you have nvm installed
+1. **Component example pages** — have `parts: DocsPagePart[]` with interactive demos
+   - Each `DocsPagePart` has `{ title, md, component }` where `component` is live JSX
+   - The component is auto-converted to source code via `react-element-to-jsx-string`
+   - Props documentation is auto-generated from `ComponentCategories` and `PropDescriptions` exported by `@vaneui/ui`
 
-### TypeScript Configuration
-- Uses strict mode TypeScript 5.8
-- Path alias `@/*` maps to `./src/*` (though this project uses app/ directory)
-- Includes Next.js TypeScript plugin
+2. **Markdown guide pages** — have `mdPath` pointing to a `.md` file
+   - Rendered by `DocsMarkdown.tsx` using `@vaneui/md`'s `<Md>` component
+   - Custom renderers: `MdFence` -> `CodeBlock`, `MdHeading` -> `Title` with anchor links, `MdBlockquote` -> `Card`
 
-## Development Notes
+### Adding a New Component Example Page
 
-- The project is a documentation site showcasing VaneUI components
-- All component examples should be added to the appropriate data files in `app/docs/data/`
-- Theme customizations should be made in `themeWrapper.tsx`
-- The site includes analytics from Ahrefs
-- Uses ESLint 9 with Next.js configuration for code quality
-- No testing framework is currently configured (no Jest, no test files)
-- No API routes - purely static documentation site
-- PWA manifest configured in `public/site.webmanifest`
-- Component demos use `react-element-to-jsx-string` for generating example code
-- Custom scrollbar styling utilities defined in `globals.css`
+1. Create `app/docs/data/{category}/{component}.tsx`
+2. Export a `DocsPagePart[]` array with examples
+3. Register in `docsSections.ts` with `slug`, `name`, `description`, `parts`, and `componentKey`
 
-## Important Patterns
+### Adding a New Markdown Guide
 
-- **Component Examples**: Functional components exported from `app/docs/data/` files
-- **Markdown Documentation**: MDX files in `app/docs/data/getting-started/` for guides
-- **Barrel Exports**: Landing page sections use index.ts for clean imports
-- **Constants Management**: Product info centralized in `app/constants.ts`
-- **No Server-Side Logic**: No middleware or API routes, client-side only
-- **Alpha Dependencies**: Using alpha versions of VaneUI packages (@vaneui/ui, @vaneui/md)
+1. Create `app/docs/data/{category}/{slug}.md`
+2. Register in `docsSections.ts` with `slug`, `name`, `description`, `mdPath`, and `parts: []`
+
+### VaneUI Usage in This Site
+
+This site uses VaneUI components for its own UI. Follow these conventions:
+
+- Use boolean props API: `<Button primary lg filled>` not className-based styling
+- Rely on component defaults — don't specify props that are already true by default
+- Use `ThemeProvider` for section-level theme overrides (see `themeWrapper.tsx`, `DocsPageContent.tsx`)
+- Use `mergeStrategy="replace"` when examples need a clean theme (see hero card demo)
+- Layout: `Section` > `Container` > `Stack`/`Row`/`Col` > content components
+- Typography hierarchy: `PageTitle` (h1) > `SectionTitle` (h2) > `Title` (h3) > `Text` (p)
+- Responsive: use `mobileCol`/`tabletCol` on Row/Stack, `mobileHide`/`tabletHide` for visibility
+- Prefer VaneUI props over Tailwind classes (see prop-to-class mapping in vaneui CLAUDE.md)
+
+### VaneUI Component Reference
+
+For the full VaneUI component API (all components, props, theming, best practices, anti-patterns), refer to the CLAUDE.md file in the sibling repository:
+
+**`C:\GitHub\vaneui\CLAUDE.md`** — contains complete documentation of all VaneUI components, boolean props API, ThemeProvider usage, responsive design patterns, and best practices. Read this file when you need to understand VaneUI component behavior or write code using VaneUI components.
+
+## Subagents
+
+Custom subagents are defined in `.claude/agents/`:
+
+- **docs-writer** — use for creating/updating documentation pages (examples + markdown guides)
+- **build-checker** — use after code changes to verify typecheck, lint, and build pass
