@@ -14,11 +14,13 @@ At its core, VaneUI uses **boolean props** instead of string enums for cleaner J
 
 Props are organized into **categories**:
 - **size**: `xs`, `sm`, `md`, `lg`, `xl`
-- **appearance**: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`
+- **appearance**: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`, `inherit`
 - **variant**: `filled`, `outline`
 - **shape**: `rounded`, `pill`, `sharp`
 - **typography**: `sans`, `serif`, `mono`, `semibold`, `bold`, etc.
 - **layout**: `flex`, `column`, `itemsCenter`, `justifyBetween`, etc.
+
+Typography components (Text, Title, SectionTitle, PageTitle), Label, List, and Divider default to `inherit`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color.
 
 ## How Components Work
 
@@ -127,7 +129,7 @@ Override colors globally or for any subtree:
 ```
 
 ### ThemeProvider Defaults
-Set default prop values for all components:
+Set default prop values for all components, including overlay components (Overlay, Modal, Popup):
 ```tsx
 <ThemeProvider themeDefaults={{
   button: { pill: true, lg: true },

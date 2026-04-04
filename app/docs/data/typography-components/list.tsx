@@ -58,7 +58,7 @@ export const listExamples: DocsPagePart[] = [
   },
   {
     title: 'List Appearances',
-    md: 'Lists support color appearances: `primary`, `secondary`, `success`, `danger`, etc.',
+    md: 'Lists use `inherit` appearance by default — they inherit color from their parent. Use explicit appearances like `primary`, `success`, `danger` to override.',
     component: (
       <Col>
         <List primary>

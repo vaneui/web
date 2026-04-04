@@ -79,6 +79,11 @@ VaneUI includes themes for all components:
 **Typography Components:**
 - `text`, `title`, `pageTitle`, `sectionTitle`, `link`, `list`, `listItem`
 
+**Overlay Components:**
+- `overlay` -- Overlay backdrop theme
+- `modal` -- Contains nested sub-themes: `modal.content`, `modal.overlay`, `modal.header`, `modal.body`, `modal.footer`
+- `popup` -- Popup floating element theme
+
 ## ThemeProvider Props
 
 ### themeDefaults

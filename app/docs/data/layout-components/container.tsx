@@ -1,6 +1,6 @@
 'use client'
 
-import { Container, Col, Text, Title } from "@vaneui/ui";
+import { Container, Col, Text, Title, Section } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
@@ -82,6 +82,18 @@ export const containerExamples: DocsPagePart[] = [
           <Text semibold>Pill shape</Text>
         </Container>
       </Col>
+    ),
+  },
+  {
+    title: 'Page Layout Pattern',
+    md: 'Nest Container inside Section for a standard page layout with centered, width-constrained content.',
+    component: (
+      <Section>
+        <Container sm>
+          <Title primary>Getting Started</Title>
+          <Text>This content is centered and constrained to a small max-width for optimal readability.</Text>
+        </Container>
+      </Section>
     ),
   },
 ];

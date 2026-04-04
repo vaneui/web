@@ -12,7 +12,18 @@ export function serializeDefaults(defaults: ThemeDefaults): string {
     const propEntries = Object.entries(props as Record<string, unknown>);
     propEntries.forEach(([prop, value], propIndex) => {
       const comma = propIndex < propEntries.length - 1 ? ',' : '';
-      lines.push(`    ${prop}: ${JSON.stringify(value)}${comma}`);
+      if (typeof value === 'object' && value !== null) {
+        // Expand nested objects (e.g. main: { sm: true, filled: true })
+        const innerEntries = Object.entries(value as Record<string, unknown>);
+        lines.push(`    ${prop}: {`);
+        innerEntries.forEach(([innerProp, innerValue], innerIndex) => {
+          const innerComma = innerIndex < innerEntries.length - 1 ? ',' : '';
+          lines.push(`      ${innerProp}: ${JSON.stringify(innerValue)}${innerComma}`);
+        });
+        lines.push(`    }${comma}`);
+      } else {
+        lines.push(`    ${prop}: ${JSON.stringify(value)}${comma}`);
+      }
     });
     const componentComma = componentIndex < entries.length - 1 ? ',' : '';
     lines.push(`  }${componentComma}`);

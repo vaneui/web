@@ -1,8 +1,9 @@
 @import "tailwindcss";
+@import "@vaneui/ui/tokens";
 @import "@vaneui/ui/vars";
 @import "./code-theme.css";
 
-@source "./../node_modules/@vaneui/ui";
+@source "../node_modules/@vaneui/ui";
 
 @theme inline {
     --font-sans: var(--font-plus-jakarta-sans), "Plus Jakarta Sans Fallback";

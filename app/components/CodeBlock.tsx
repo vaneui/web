@@ -58,7 +58,7 @@ export function CodeBlock({
   const currentTheme = theme === 'dark' ? darkTheme : lightTheme;
 
   return (
-    <Col xs primary rounded noGap border overflowHidden className={`w-full ${className}`}>
+    <Col xs primary rounded noGap border overflowHidden wFull className={className}>
       <Stack primary xs row justifyBetween hidden={!showHeader} borderB>
         <Row xs>
           <span className="w-5 h-5 grayscale">
@@ -71,7 +71,7 @@ export function CodeBlock({
           {copied ? "Copied!" : "Copy"}
         </Button>
       </Stack>
-      <Stack xs primary noPadding overflowXAuto className="h-full">
+      <Stack xs primary noPadding overflowXAuto hFull>
         <Highlight
           theme={currentTheme}
           code={code.trim()}

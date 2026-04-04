@@ -5,6 +5,8 @@ export interface DocsPagePart {
   title: string;
   md: string;
   component: JSX.Element;
+  /** Optional code string for the CodeBlock. If omitted, auto-generated from component JSX. If empty string, CodeBlock is hidden. */
+  code?: string;
 }
 
 export interface DocsPage {
@@ -27,4 +29,7 @@ export interface DocsPageProps {
   pageData: DocsPage;
   section: DocsSection;
   md?: string;
-} 
+}
+
+// Re-export metadata types for convenience
+export type { DocPageMeta, DocSectionMeta } from './docsMetadata'; 

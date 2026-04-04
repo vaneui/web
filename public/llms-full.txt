@@ -1,0 +1,2405 @@
+# VaneUI Documentation
+> Complete documentation for VaneUI React component library v0.9.0
+
+- Repository: https://github.com/nickolaev-ev/vaneui
+- Documentation: https://vaneui.com
+
+## Getting Started
+
+An overview of the library and instructions on how to install and configure it in your project.
+
+---
+Title: Core Concepts
+URL: https://vaneui.com/docs/getting-started/core-concepts
+---
+
+VaneUI helps you build beautiful, consistent UIs faster by turning common design decisions into expressive, readable boolean props. Instead of memorizing property names and values, you compose intent: `primary`, `lg`, `outline`, `rounded`. The result is cleaner code, fewer decisions per component, and a smoother path from wireframe to production.
+
+## Boolean Props API
+
+At its core, VaneUI uses **boolean props** instead of string enums for cleaner JSX:
+
+```tsx
+// VaneUI approach
+<Button primary lg filled>Submit</Button>
+
+// Instead of traditional
+<Button appearance="primary" size="lg" variant="filled">Submit</Button>
+```
+
+Props are organized into **categories**:
+- **size**: `xs`, `sm`, `md`, `lg`, `xl`
+- **appearance**: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`, `inherit`
+- **variant**: `filled`, `outline`
+- **shape**: `rounded`, `pill`, `sharp`
+- **typography**: `sans`, `serif`, `mono`, `semibold`, `bold`, etc.
+- **layout**: `flex`, `column`, `itemsCenter`, `justifyBetween`, etc.
+
+Typography components (Text, Title, SectionTitle, PageTitle), Label, List, and Divider default to `inherit`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color.
+
+## How Components Work
+
+VaneUI components follow a three-layer architecture:
+
+### Layer 1: React Component
+Each component gets its theme from `ThemeContext` via `useTheme()` and passes props to `ThemedComponent`, which computes the final CSS classes.
+
+### Layer 2: Theme System
+The `ComponentTheme` class orchestrates class generation. It walks a tree of `BaseTheme` subclasses (like `FontSizeTheme`, `RadiusTheme`) that each generate specific CSS classes based on the active props.
+
+### Layer 3: CSS Variables
+Components output **data attributes** (`data-size`, `data-appearance`, `data-variant`) that CSS rules in `vars.css` use to set CSS variables. These variables are then consumed by Tailwind utility classes.
+
+## Prop Extraction
+
+When you pass props, VaneUI selects ONE value per category based on priority:
+
+```tsx
+// Props: { lg: true, primary: true }
+// Defaults: { md: true, outline: true }
+
+<Button lg primary>Submit</Button>
+// Result: size='lg' (prop wins), appearance='primary', variant='outline' (default)
+```
+
+**Priority order**:
+1. Props explicitly set to `true`
+2. Defaults set to `true` (unless explicitly set to `false` in props)
+
+## Prop Combinations
+
+Boolean props can be combined naturally to create the exact styling you need:
+
+```tsx
+<Button primary lg pill shadow>
+  Large primary pill button with shadow
+</Button>
+
+<Card secondary filled>
+  Filled secondary card
+</Card>
+
+<Stack itemsCenter>
+  Stack with centered items (gap is default)
+</Stack>
+```
+
+## CSS Variable System
+
+VaneUI uses a three-tier CSS variable system:
+
+### Tier 1: Unit Variables
+Set by component class based on `data-size`:
+```css
+.vane-button[data-size="md"] {
+  --fs-unit: 8;   /* Font size unit */
+  --py-unit: 2;   /* Padding Y unit */
+  --br-unit: 2;   /* Border radius unit */
+}
+```
+
+### Tier 2: Computed Variables
+Calculated from unit variables using base multipliers:
+```css
+[data-size] {
+  --fs: calc(var(--fs-unit) * var(--fs-base));  /* --fs-base = 0.125rem */
+  --py: calc(var(--py-unit) * var(--spacing));  /* --spacing = 0.25rem */
+  --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing));
+  --br: calc(var(--br-unit) * var(--br-base));  /* --br-base = 0.25rem */
+  --gap: calc(var(--gap-unit) * var(--spacing));
+}
+```
+
+### Tier 3: Semantic Color Variables
+Set by `data-variant` + `data-appearance` attributes:
+```css
+[data-variant="outline"][data-appearance="primary"] {
+  --text-color: var(--color-text-primary);
+  --bg-color: var(--color-bg-primary);
+  --border-color: var(--color-border-primary);
+}
+```
+
+## Mixing Custom Classes
+
+You can always add your own Tailwind classes via `className` to fine-tune any edge case:
+```tsx
+<Button primary lg filled className="hover:opacity-80 shadow-xl">
+  Get started
+</Button>
+```
+
+User-provided `className` takes precedence over theme classes for the same properties (via `twMerge`).
+
+## Customization Options
+
+### CSS Variables
+Override colors globally or for any subtree:
+```css
+:root {
+  --color-text-primary: #8b5cf6;
+  --color-bg-primary: #f3e8ff;
+  --color-border-primary: #c4b5fd;
+}
+```
+
+### ThemeProvider Defaults
+Set default prop values for all components, including overlay components (Overlay, Modal, Popup):
+```tsx
+<ThemeProvider themeDefaults={{
+  button: { pill: true, lg: true },
+  card: { primary: true }
+}}>
+  <Button>Large pill button by default</Button>
+</ThemeProvider>
+```
+
+### Extra Classes
+Add additional CSS classes based on active props:
+```tsx
+<ThemeProvider extraClasses={{
+  button: { primary: 'shadow-lg hover:shadow-xl' }
+}}>
+  <Button primary>Button with extra shadow</Button>
+</ThemeProvider>
+```
+
+### Theme Override Function
+For programmatic theme modifications:
+```tsx
+<ThemeProvider themeOverride={(theme) => {
+  // Modify base classes
+  theme.button.base += ' uppercase tracking-wide';
+  return theme;
+}}>
+  <App />
+</ThemeProvider>
+```
+
+---
+Title: Installation
+URL: https://vaneui.com/docs/getting-started/installation
+---
+
+VaneUI is a React component library built with TypeScript and Tailwind CSS. Install using your preferred package manager:
+
+```bash
+npm install @vaneui/ui
+```
+
+```bash
+yarn add @vaneui/ui
+```
+
+```bash
+pnpm add @vaneui/ui
+```
+
+## CSS Setup
+
+VaneUI supports two CSS setup options depending on your project configuration.
+
+### Option 1: With Tailwind CSS (Recommended)
+
+If your project uses Tailwind CSS v4, VaneUI integrates seamlessly. Tailwind will scan VaneUI components and generate only the CSS classes you use.
+
+Install Tailwind CSS if you haven't already:
+
+```bash
+npm install -D tailwindcss @tailwindcss/postcss
+```
+
+Add the following to your main CSS file:
+
+```css
+@import "tailwindcss";
+@import "@vaneui/ui/tokens";
+@import "@vaneui/ui/vars";
+@source "../node_modules/@vaneui/ui";
+```
+
+This setup:
+- Imports Tailwind CSS base styles
+- Imports VaneUI theme tokens (registers custom breakpoints and design tokens with Tailwind)
+- Imports VaneUI CSS variables and component rules
+- Tells Tailwind to scan VaneUI components for class generation
+
+> The `@vaneui/ui/tokens` import is required for responsive props like `mobileCol`, `tabletHide`, and responsive typography to work. It registers VaneUI's custom breakpoints (`mobile`, `tablet`, `desktop`) with your project's Tailwind CSS instance.
+
+### Option 2: Without Tailwind CSS
+
+If your project doesn't use Tailwind CSS, you can import VaneUI's pre-built CSS bundle which includes all component styles.
+
+Add the following to your main CSS file:
+
+```css
+@import "@vaneui/ui/css";
+@import "@vaneui/ui/vars.css";
+```
+
+This setup:
+- Imports the complete pre-built VaneUI stylesheet
+- Imports VaneUI CSS variables for theming
+- Works without any Tailwind configuration
+
+## Usage
+
+Start using VaneUI components in your React application:
+
+```tsx
+import { Button, Stack } from '@vaneui/ui';
+
+function App() {
+  return (
+    <Stack>
+      <Button primary>Get Started</Button>
+    </Stack>
+  );
+}
+```
+
+## Per-Component Imports
+
+For better tree-shaking, you can import components directly:
+
+```tsx
+import { Button } from '@vaneui/ui/button';
+import { Card } from '@vaneui/ui/card';
+import { ThemeProvider } from '@vaneui/ui/theme';
+```
+
+This is optional — importing from `@vaneui/ui` works the same way. Per-component imports can reduce bundle size when using only a few components with bundlers that don't fully tree-shake barrel exports.
+
+Available subpath imports: `@vaneui/ui/button`, `@vaneui/ui/badge`, `@vaneui/ui/card`, `@vaneui/ui/checkbox`, `@vaneui/ui/chip`, `@vaneui/ui/code`, `@vaneui/ui/divider`, `@vaneui/ui/img`, `@vaneui/ui/input`, `@vaneui/ui/label`, `@vaneui/ui/modal`, `@vaneui/ui/overlay`, `@vaneui/ui/popup`, `@vaneui/ui/layout`, `@vaneui/ui/typography`, `@vaneui/ui/theme`, `@vaneui/ui/props`.
+
+---
+Title: Usage Basics
+URL: https://vaneui.com/docs/getting-started/usage-basics
+---
+
+Learn the fundamental patterns for using VaneUI components.
+
+## Component Props
+
+VaneUI components use boolean props for styling. Most components support size, appearance, and layout props.
+
+### Size Props
+
+Components support five sizes:
+
+```tsx
+import { Button, Stack } from '@vaneui/ui';
+
+function SizeExample() {
+  return (
+    <Stack>
+      <Button xs>Extra Small</Button>
+      <Button sm>Small</Button>
+      <Button md>Medium (default)</Button>
+      <Button lg>Large</Button>
+      <Button xl>Extra Large</Button>
+    </Stack>
+  );
+}
+```
+
+### Appearance Props
+
+Control visual appearance with semantic props:
+
+```tsx
+import { Button, Row } from '@vaneui/ui';
+
+function AppearanceExample() {
+  return (
+    <Row>
+      <Button primary>Primary</Button>
+      <Button brand>Brand</Button>
+      <Button accent>Accent</Button>
+      <Button secondary>Secondary</Button>
+      <Button tertiary>Tertiary</Button>
+      <Button success>Success</Button>
+      <Button danger>Danger</Button>
+      <Button warning>Warning</Button>
+      <Button info>Info</Button>
+      <Button link>Link</Button>
+    </Row>
+  );
+}
+```
+
+### Filled and Outline Variants
+
+All components support `filled` and `outline` variants. `outline` is the default for most components:
+
+```tsx
+import { Button, Card, Stack, Container, Row } from '@vaneui/ui';
+
+function FilledOutlineExample() {
+  return (
+    <Stack lg>
+      {/* Buttons */}
+      <Row>
+        <Button filled>Filled Button</Button>
+        <Button>Outline Button (default)</Button>
+      </Row>
+
+      {/* Cards */}
+      <Row>
+        <Card filled success lg>Filled Card</Card>
+        <Card danger lg>Outline Card (default)</Card>
+      </Row>
+
+      {/* Layout Components */}
+      <Container filled secondary>
+        <Stack lg>Filled Container</Stack>
+      </Container>
+      <Container warning>
+        <Stack lg>Outline Container (default)</Stack>
+      </Container>
+    </Stack>
+  );
+}
+```
+
+### Shape Props
+
+Control border radius:
+
+```tsx
+import { Button, Row } from '@vaneui/ui';
+
+function ShapeExample() {
+  return (
+    <Row>
+      <Button sharp>Sharp (no radius)</Button>
+      <Button>Rounded (default)</Button>
+      <Button pill>Pill (fully rounded)</Button>
+    </Row>
+  );
+}
+```
+
+## Layout Components
+
+### Stack
+
+Arrange children vertically with consistent spacing:
+
+```tsx
+import { Stack, Text } from '@vaneui/ui';
+
+function StackExample() {
+  return (
+    <Stack lg>
+      <Text>Item 1</Text>
+      <Text>Item 2</Text>
+      <Text>Item 3</Text>
+    </Stack>
+  );
+}
+```
+
+### Row and Col
+
+Create flexible layouts:
+
+```tsx
+import { Row, Col, Card } from '@vaneui/ui';
+
+function GridExample() {
+  return (
+    <Row>
+      <Col>
+        <Card>Column 1</Card>
+      </Col>
+      <Col>
+        <Card>Column 2</Card>
+      </Col>
+    </Row>
+  );
+}
+```
+
+### Responsive Breakpoints
+
+Use breakpoint props to change layout on different screen sizes:
+
+```tsx
+import { Row, Card } from '@vaneui/ui';
+
+function ResponsiveLayout() {
+  return (
+    // Row on desktop, column on tablet and below
+    <Row tabletCol>
+      <Card>Left</Card>
+      <Card>Right</Card>
+    </Row>
+  );
+}
+```
+
+Available breakpoint props:
+- `mobileCol` - Column on mobile and below (max-width: 48rem)
+- `tabletCol` - Column on tablet and below (max-width: 64rem)
+- `desktopCol` - Column on desktop and below (max-width: 80rem)
+
+## Typography
+
+VaneUI provides typography components with consistent hierarchy:
+
+```tsx
+import { PageTitle, SectionTitle, Title, Text, Stack } from '@vaneui/ui';
+
+function TypographyExample() {
+  return (
+    <Stack>
+      <PageTitle>Page Title (h1)</PageTitle>
+      <SectionTitle>Section Title (h2)</SectionTitle>
+      <Title>Title (h3)</Title>
+      <Text>Body text (p)</Text>
+    </Stack>
+  );
+}
+```
+
+### Automatic Responsive Typography
+
+Typography components (`PageTitle`, `SectionTitle`, `Title`) and layout components (`Section`) automatically scale across breakpoints - no props needed:
+
+```tsx
+import { PageTitle, SectionTitle, Title, Section } from '@vaneui/ui';
+
+function ResponsiveTypography() {
+  return (
+    <Section>
+      {/* Font size automatically reduces on smaller screens */}
+      <PageTitle>Welcome to My App</PageTitle>
+      <SectionTitle>Section Heading</SectionTitle>
+      <Title>Content Title</Title>
+    </Section>
+  );
+}
+```
+
+- `PageTitle` scales: e.g., 24 units on desktop → 21 on tablet → 18 on mobile
+- `SectionTitle` scales: e.g., 18 units on desktop → 16 on tablet → 14 on mobile
+- `Title` scales: e.g., 12 units on desktop → 11 on tablet → 10 on mobile
+- `Section` padding/gap scales automatically across breakpoints
+
+### Typography Color Inheritance
+
+List items inherit appearance from their parent List component via CSS variables:
+
+```tsx
+import { List, ListItem, Stack } from '@vaneui/ui';
+
+function ListInheritance() {
+  return (
+    <Stack lg>
+      <List success>
+        <ListItem>Inherits success color</ListItem>
+        <ListItem>Also inherits success color</ListItem>
+      </List>
+      
+      <List danger>
+        <ListItem>Inherits danger color</ListItem>
+        <ListItem>Also inherits danger color</ListItem>
+      </List>
+    </Stack>
+  );
+}
+```
+
+## Images
+
+Display images with VaneUI styling using the `Img` component:
+
+```tsx
+import { Img, Row } from '@vaneui/ui';
+
+function ImageExample() {
+  return (
+    <Row>
+      <Img src="/photo.jpg" alt="Photo" rounded border shadow />
+      <Img src="/avatar.jpg" alt="Avatar" pill />
+      <Img src="/banner.jpg" alt="Banner" sharp objectCover />
+    </Row>
+  );
+}
+```
+
+`Img` supports shape props (`rounded`, `pill`, `sharp`), `border`, `shadow`, size props, and object-fit props (`objectCover`, `objectContain`, `objectFill`).
+
+## Overlays and Modals
+
+Use `Modal` for dialogs that require user attention. Modals include focus trapping, scroll lock, and ARIA attributes by default. Modal provides sub-components for structured layout: `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton`.
+
+```tsx
+import { Modal, ModalHeader, ModalBody, ModalFooter, ModalCloseButton, Button, Text } from '@vaneui/ui';
+import { useState } from 'react';
+
+function ModalExample() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open Modal</Button>
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <ModalHeader>
+          <Text bold>Dialog Title</Text>
+          <ModalCloseButton />
+        </ModalHeader>
+        <ModalBody>
+          <Text>Dialog content goes here.</Text>
+        </ModalBody>
+        <ModalFooter>
+          <Button primary filled onClick={() => setOpen(false)}>Close</Button>
+        </ModalFooter>
+      </Modal>
+    </>
+  );
+}
+```
+
+### PopupTrigger
+
+Use `PopupTrigger` as a convenience wrapper that manages open/close state for `Popup` automatically. Pass the popup content via the `popup` prop and the trigger element as children:
+
+```tsx
+import { PopupTrigger, Button, Card, Text } from '@vaneui/ui';
+
+function PopupExample() {
+  return (
+    <PopupTrigger popup={<Card sm shadow><Text sm>Popup content</Text></Card>}>
+      <Button>Toggle Popup</Button>
+    </PopupTrigger>
+  );
+}
+```
+
+`PopupTrigger` supports three trigger modes: `"click"` (default), `"hover"`, and `"focus"`.
+
+See the [Overlay Components](/docs/overlay-components/overlay) section for `Overlay`, `Modal`, and `Popup` documentation.
+
+## Responsive Visibility
+
+Hide components on specific breakpoints:
+
+```tsx
+import { Text, Stack } from '@vaneui/ui';
+
+function ResponsiveVisibility() {
+  return (
+    <Stack>
+      <Text>Always visible</Text>
+      <Text mobileHide>Hidden on mobile (48rem and below)</Text>
+      <Text tabletHide>Hidden on tablet (64rem and below)</Text>
+      <Text desktopHide>Hidden on desktop (80rem and below)</Text>
+    </Stack>
+  );
+}
+```
+
+## Custom HTML Tags
+
+Use the `tag` prop to render different HTML elements:
+
+```tsx
+import { Text, Button } from '@vaneui/ui';
+
+function TagExample() {
+  return (
+    <div>
+      <Text tag="h1">Heading rendered as h1</Text>
+      <Text tag="span">Text rendered as span</Text>
+      <Button tag="a" href="/link">Button rendered as anchor</Button>
+    </div>
+  );
+}
+```
+
+## Combining with Custom Classes
+
+Add custom Tailwind classes via `className`:
+
+```tsx
+import { Button, Card } from '@vaneui/ui';
+
+function CustomStyling() {
+  return (
+    <Card className="shadow-2xl">
+      <Button className="w-full hover:scale-105 transition-transform">
+        Full width with hover effect
+      </Button>
+    </Card>
+  );
+}
+```
+
+User-provided `className` takes precedence over theme classes (via `twMerge`).
+
+## Prefer Props Over Tailwind Classes
+
+VaneUI provides boolean props for most common styling needs. Use these instead of Tailwind classes to ensure consistent theming and proper integration with the size system.
+
+### Common Props vs Tailwind Classes
+
+| Instead of Tailwind | Use VaneUI prop |
+|---------------------|-----------------|
+| `className="uppercase"` | `uppercase` |
+| `className="font-bold"` | `bold` |
+| `className="font-semibold"` | `semibold` |
+| `className="font-mono"` | `mono` |
+| `className="italic"` | `italic` |
+| `className="text-center"` | `textCenter` |
+| `className="sticky"` | `sticky` |
+| `className="items-center"` | `itemsCenter` |
+| `className="justify-between"` | `justifyBetween` |
+| `className="border-b"` | `borderB` |
+| `className="rounded-full"` | `pill` |
+| `className="shadow"` | `shadow` |
+
+```tsx
+// Good: Using VaneUI props
+<Text uppercase semibold>IMPORTANT</Text>
+<Card borderB>Card with bottom border</Card>
+<Row itemsCenter justifyBetween>Spaced content</Row>
+
+// Avoid: Tailwind classes that duplicate props
+<Text className="uppercase font-semibold">IMPORTANT</Text>
+<Card className="border-b">Card with bottom border</Card>
+<Row className="items-center justify-between">Spaced content</Row>
+```
+
+### Gap is Controlled by Size Props
+
+Don't use Tailwind gap classes. Gap is controlled by the size prop system (`xs`, `sm`, `md`, `lg`, `xl`) and is enabled by default on layout components.
+
+```tsx
+// Good: Size prop controls gap
+<Row lg>Large gap between items</Row>
+<Stack sm>Small gap between items</Stack>
+<Col>Default gap (md)</Col>
+
+// Avoid: Tailwind gap classes
+<Row className="gap-10">Don't override gap this way</Row>
+```
+
+### Background Colors via Appearance Props
+
+Background colors are controlled by appearance + variant props. Only use `bg-*` classes for edge cases not covered by the theme (like gradients).
+
+```tsx
+// Good: Appearance controls color
+<Card primary filled>Primary background</Card>
+<Button success filled>Success button</Button>
+
+// Avoid: Tailwind bg classes when appearance works
+<Card className="bg-blue-500">Don't fight the theme</Card>
+
+// OK: Tailwind for custom colors not in theme
+<div className="bg-gradient-to-r from-purple-500 to-pink-500">
+  Custom gradient
+</div>
+```
+
+### Typography Styling is Built-in
+
+Typography components have built-in letter spacing, line height, and other typographic properties. Avoid overriding these with Tailwind classes.
+
+```tsx
+// Good: Built-in typography styling
+<Badge uppercase>STATUS</Badge>
+<Title>Properly styled heading</Title>
+
+// Avoid: Manual typography overrides
+<Badge className="tracking-wider">STATUS</Badge>
+<Title className="leading-tight">Overridden heading</Title>
+```
+
+## Basic Components
+
+A collection of fundamental and interactive components for building user interfaces.
+
+---
+Title: Button
+URL: https://vaneui.com/docs/basic-components/button
+---
+
+Triggers an action or event when the user clicks on it. Buttons are a primary way for users to interact with the application and can contain text, an icon, or both.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Badge
+URL: https://vaneui.com/docs/basic-components/badge
+---
+
+Highlights important information such as notifications or counts in a non-intrusive way. Badges are typically used in conjunction with other elements like icons or navigation links.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Chip
+URL: https://vaneui.com/docs/basic-components/chip
+---
+
+Represents a complex entity in a compact form, such as an attribute, tag, or contact. Chips can be interactive, allowing for user input or triggering actions.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Checkbox
+URL: https://vaneui.com/docs/basic-components/checkbox
+---
+
+Allows users to select one or more options from a set. Checkboxes are ideal for binary choices and multiple selections within forms.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Label
+URL: https://vaneui.com/docs/basic-components/label
+---
+
+Displays text with various styling options for categorization, status indicators, or highlighting important information. Labels can be styled with different colors, sizes, and variants.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Code
+URL: https://vaneui.com/docs/basic-components/code
+---
+
+Renders inline code snippets with syntax highlighting. Perfect for displaying code examples, commands, file paths, or technical terms within text content.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Divider
+URL: https://vaneui.com/docs/basic-components/divider
+---
+
+Renders a thin line to separate content and create a clear visual hierarchy. Dividers can be used to group related items in lists and layouts.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Input
+URL: https://vaneui.com/docs/basic-components/input
+---
+
+Allows users to enter text, numbers, and other data. Inputs are essential form elements with support for various types, validation states, and styling options.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Img
+URL: https://vaneui.com/docs/basic-components/img
+---
+
+Displays images with VaneUI styling support including sizes, shapes, borders, shadows, and object-fit options.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Icon
+URL: https://vaneui.com/docs/basic-components/icon
+---
+
+A lightweight SVG wrapper that provides consistent sizing, color inheritance, and themed appearances for icons.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: IconButton
+URL: https://vaneui.com/docs/basic-components/icon-button
+---
+
+A square icon-only button with customizable appearance, size, and shape. Supports loading state and renders as anchor when href is provided.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Kbd
+URL: https://vaneui.com/docs/basic-components/kbd
+---
+
+Displays keyboard keys and shortcuts with monospace font, border, and a raised 3D effect. Ideal for documenting keyboard shortcuts.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Mark
+URL: https://vaneui.com/docs/basic-components/mark
+---
+
+Highlights text with a background color for emphasis. Defaults to warning (yellow) appearance for a natural highlighter effect.
+
+For full interactive examples and props documentation, visit the URL above.
+
+## Layout Components
+
+A set of components designed to help structure and organize your page content.
+
+---
+Title: Section
+URL: https://vaneui.com/docs/layout-components/section
+---
+
+A semantic container used to group related content within a page. This component helps to create a clear document outline and improve accessibility.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Container
+URL: https://vaneui.com/docs/layout-components/container
+---
+
+Manages the main content area by centering it and applying a max-width. It ensures a consistent and readable layout across different screen sizes.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Row
+URL: https://vaneui.com/docs/layout-components/row
+---
+
+A fundamental layout component that arranges its children in a horizontal line. It is built on the flexbox model and is used to create columns.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Col
+URL: https://vaneui.com/docs/layout-components/col
+---
+
+A container that organizes content vertically within a Row. It provides a simple way to create flexible and responsive column-based layouts.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Stack
+URL: https://vaneui.com/docs/layout-components/stack
+---
+
+A flexible layout component that arranges its children with consistent spacing. It can be used for both vertical and horizontal layouts.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Card
+URL: https://vaneui.com/docs/layout-components/card
+---
+
+A flexible container component that groups related content with consistent styling. Cards can contain text, images, and other components.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Grid2
+URL: https://vaneui.com/docs/layout-components/grid2
+---
+
+A responsive layout component for creating a two-column grid. Ideal for side-by-side content layouts and balanced arrangements.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Grid3
+URL: https://vaneui.com/docs/layout-components/grid3
+---
+
+A specialized layout component for creating a responsive three-column grid. It simplifies the arrangement of content into a balanced and organized structure.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Grid4
+URL: https://vaneui.com/docs/layout-components/grid4
+---
+
+A responsive layout component that arranges its children into a four-column grid. This is ideal for displaying a collection of items or features.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Grid5
+URL: https://vaneui.com/docs/layout-components/grid5
+---
+
+A responsive layout component that creates a five-column grid. Perfect for organizing content into balanced, visually appealing arrangements.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Grid6
+URL: https://vaneui.com/docs/layout-components/grid6
+---
+
+A six-column grid layout component for creating compact, organized displays. Ideal for icon grids, feature collections, and detailed content arrangements.
+
+For full interactive examples and props documentation, visit the URL above.
+
+## Overlay Components
+
+Components for overlays, dialogs, and floating elements that appear above the page content.
+
+---
+Title: Overlay
+URL: https://vaneui.com/docs/overlay-components/overlay
+---
+
+A fullscreen backdrop overlay for creating modal backgrounds, loading screens, and lightbox effects. Renders via portal with click-to-close and optional blur.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Modal
+URL: https://vaneui.com/docs/overlay-components/modal
+---
+
+An accessible dialog component with focus trapping, scroll lock, and keyboard navigation. Built on Overlay with ARIA role="dialog" and aria-modal="true".
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Popup
+URL: https://vaneui.com/docs/overlay-components/popup
+---
+
+A floating element anchored to a trigger element using CSS Anchor Positioning. Supports 12 placement options, width matching, and click-outside dismissal.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Menu
+URL: https://vaneui.com/docs/overlay-components/menu
+---
+
+A dropdown menu triggered by a button with full keyboard navigation. Contains MenuItem, Divider, and MenuLabel subcomponents.
+
+For full interactive examples and props documentation, visit the URL above.
+
+## Navigation Components
+
+Components for building navigation interfaces like sidebars, menus, and header links.
+
+---
+Title: NavLink
+URL: https://vaneui.com/docs/navigation-components/navlink
+---
+
+A navigation link for sidebars, nav menus, and headers. Supports active state, icons, and renders as anchor or button.
+
+For full interactive examples and props documentation, visit the URL above.
+
+## Typography Components
+
+A suite of components for rendering text and establishing a clear typographic hierarchy.
+
+---
+Title: Text
+URL: https://vaneui.com/docs/typography-components/text
+---
+
+The primary component for rendering all text content. It provides props to control typographic properties like size, weight, color, and alignment.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Title
+URL: https://vaneui.com/docs/typography-components/title
+---
+
+Renders a heading to establish a semantic hierarchy on the page. Use this component for the main titles of pages or sections.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: PageTitle
+URL: https://vaneui.com/docs/typography-components/page-title
+---
+
+A specialized component for the primary heading of a page. It ensures consistent styling for top-level titles across your application.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: SectionTitle
+URL: https://vaneui.com/docs/typography-components/section-title
+---
+
+A component for rendering headings of major sections within a page. It helps to create a clear and accessible document structure.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Link
+URL: https://vaneui.com/docs/typography-components/link
+---
+
+Renders an accessible and themeable anchor link for navigation. Use this to direct users to other pages or external websites.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: List
+URL: https://vaneui.com/docs/typography-components/list
+---
+
+A container for displaying a series of related items in an ordered or unordered fashion. It provides consistent styling for list elements.
+
+For full interactive examples and props documentation, visit the URL above.
+
+---
+Title: Blockquote
+URL: https://vaneui.com/docs/typography-components/blockquote
+---
+
+Displays quoted content with a left border accent. Inherits appearance from the parent by default for seamless embedding in themed containers.
+
+For full interactive examples and props documentation, visit the URL above.
+
+## Customization
+
+Learn how to customize and theme VaneUI components to match your design requirements.
+
+---
+Title: Theming Overview
+URL: https://vaneui.com/docs/customization/theming-overview
+---
+
+VaneUI uses a powerful theme system based on `ComponentTheme` classes that define styling for each component. This page explains the theme architecture and how to customize it.
+
+## Theme Architecture
+
+### ComponentTheme Class
+
+Each component has a `ComponentTheme` instance that defines:
+- **tag**: Default HTML element (e.g., "button", "div")
+- **base**: Base CSS classes always applied
+- **themes**: Tree of `BaseTheme` subclasses that generate CSS classes
+- **defaults**: Default prop values
+- **categories**: Which prop categories the component uses
+
+```tsx
+// Simplified view of how a component theme is structured
+const buttonTheme = new ComponentTheme(
+  "button",                           // Default tag
+  "vane-button w-fit cursor-pointer", // Base classes
+  {
+    size: { px, py, text, gap },      // Size-related themes
+    appearance: { bg, text, border }, // Appearance themes
+    layout: { radius, border, ring }  // Layout themes
+  },
+  { md: true, primary: true },        // Defaults
+  BUTTON_CATEGORIES                   // Prop categories
+);
+```
+
+### BaseTheme Subclasses
+
+Each `BaseTheme` subclass generates specific CSS classes based on extracted props:
+
+```tsx
+// FontSizeTheme returns consumer class for font size
+class FontSizeTheme extends BaseTheme {
+  getClasses(extractedKeys) {
+    return ["text-(length:--fs)"];  // Consumes --fs CSS variable
+  }
+}
+
+// SimpleConsumerTheme returns classes that consume color variables
+class SimpleConsumerTheme extends BaseTheme {
+  getClasses(extractedKeys) {
+    if (!extractedKeys.appearance) return [];
+    return ["[background:var(--bg-color)]", "text-(--text-color)"];
+  }
+}
+```
+
+## Accessing the Theme
+
+Use the `useTheme` hook to access the current theme:
+
+```tsx
+import { useTheme } from '@vaneui/ui';
+
+function CustomComponent() {
+  const theme = useTheme();
+  
+  // Access component themes
+  const buttonTheme = theme.button;
+  const cardTheme = theme.card;
+  
+  return <div>Custom component</div>;
+}
+```
+
+## Available Component Themes
+
+VaneUI includes themes for all components:
+
+**UI Components:**
+- `button`, `badge`, `chip`, `code`, `input`, `checkbox`, `label`, `img`
+
+**Layout Components:**
+- `card`, `divider`, `container`, `row`, `col`, `stack`, `section`
+- `grid2`, `grid3`, `grid4`, `grid5`, `grid6`
+
+**Typography Components:**
+- `text`, `title`, `pageTitle`, `sectionTitle`, `link`, `list`, `listItem`
+
+**Overlay Components:**
+- `overlay` -- Overlay backdrop theme
+- `modal` -- Contains nested sub-themes: `modal.content`, `modal.overlay`, `modal.header`, `modal.body`, `modal.footer`
+- `popup` -- Popup floating element theme
+
+## ThemeProvider Props
+
+### themeDefaults
+
+Set default prop values for components:
+
+```tsx
+import { ThemeProvider } from '@vaneui/ui';
+
+const defaults = {
+  button: {
+    primary: true,  // All buttons are primary by default
+    md: true,       // All buttons are medium size
+  },
+  card: {
+    rounded: true,  // All cards have rounded corners
+  }
+};
+
+<ThemeProvider themeDefaults={defaults}>
+  <Button>Primary medium button</Button>
+  <Card>Rounded card</Card>
+</ThemeProvider>
+```
+
+### extraClasses
+
+Add additional CSS classes based on active props:
+
+```tsx
+const extraClasses = {
+  button: {
+    primary: 'shadow-lg hover:shadow-xl transition-shadow',
+    danger: 'animate-pulse',
+  },
+  card: {
+    filled: 'backdrop-blur-sm',
+  }
+};
+
+<ThemeProvider extraClasses={extraClasses}>
+  <Button primary>Button with shadow</Button>
+  <Button danger>Pulsing danger button</Button>
+</ThemeProvider>
+```
+
+### themeOverride
+
+Function for programmatic theme modifications:
+
+```tsx
+<ThemeProvider themeOverride={(theme) => {
+  // Modify button base classes
+  theme.button.base += ' uppercase tracking-wide';
+  
+  // Modify defaults
+  theme.button.defaults = { 
+    ...theme.button.defaults, 
+    semibold: true 
+  };
+  
+  return theme;
+}}>
+  <App />
+</ThemeProvider>
+```
+
+### mergeStrategy
+
+Control how nested ThemeProviders combine:
+
+```tsx
+// Default: 'merge' - child theme merges with parent
+<ThemeProvider themeDefaults={{ button: { lg: true } }}>
+  <ThemeProvider themeDefaults={{ button: { primary: true } }}>
+    {/* Button gets both lg AND primary */}
+    <Button>Large Primary</Button>
+  </ThemeProvider>
+</ThemeProvider>
+
+// 'replace' - child theme replaces parent entirely
+<ThemeProvider themeDefaults={{ button: { lg: true } }}>
+  <ThemeProvider 
+    themeDefaults={{ button: { sm: true } }}
+    mergeStrategy="replace"
+  >
+    {/* Button only gets sm, not lg */}
+    <Button>Small Only</Button>
+  </ThemeProvider>
+</ThemeProvider>
+```
+
+## Data Attributes
+
+Components output data attributes that CSS rules use for styling:
+
+```html
+<button 
+  class="vane-button text-(length:--fs) py-(--py) ..."
+  data-size="md"
+  data-appearance="primary"
+  data-variant="outline"
+>
+  Click me
+</button>
+```
+
+CSS rules in `vars.css` set variables based on these attributes:
+
+```css
+.vane-button[data-size="md"] { 
+  --fs-unit: 8; 
+  --py-unit: 2; 
+}
+
+[data-variant="outline"][data-appearance="primary"] {
+  --text-color: var(--color-text-primary);
+  --bg-color: var(--color-bg-primary);
+}
+```
+
+## Flow Summary
+
+1. User writes: `<Button primary lg filled>Click</Button>`
+2. Button component calls `useTheme()` to get `theme.button`
+3. `ThemedComponent` calls `theme.getComponentConfig(props)`
+4. Props are extracted by category: `{ size: 'lg', appearance: 'primary', variant: 'filled' }`
+5. Theme tree is walked, each `BaseTheme.getClasses()` returns CSS classes
+6. Classes are merged with `twMerge()`, data attributes are added
+7. Final render: `<button class="..." data-size="lg" data-appearance="primary" data-variant="filled">`
+8. CSS rules in `vars.css` set variables based on data attributes
+9. Browser computes final styles from CSS variables
+
+---
+Title: Using ThemeProvider
+URL: https://vaneui.com/docs/customization/using-theme-provider
+---
+
+The ThemeProvider is the foundation of VaneUI's theming system. It wraps your application and provides theme context to all child components, enabling consistent styling and customization throughout your app.
+
+## Basic Setup
+
+### Simple ThemeProvider
+
+The most basic setup requires no configuration - components use their built-in defaults:
+
+```tsx
+import { ThemeProvider, Button, Badge, Card } from '@vaneui/ui';
+
+function App() {
+  return (
+    <ThemeProvider>
+      <div>
+        <Button>Default Button</Button>
+        <Badge>Default Badge</Badge>
+        <Card>Default Card</Card>
+      </div>
+    </ThemeProvider>
+  );
+}
+```
+
+### Setting Default Props
+
+Configure default boolean props for all components:
+
+```tsx
+import { ThemeProvider, Button, Card } from '@vaneui/ui';
+
+function App() {
+  return (
+    <ThemeProvider themeDefaults={{
+      button: {
+        primary: true,   // All buttons are primary
+        lg: true,        // All buttons are large
+        filled: true     // All buttons are filled
+      },
+      card: {
+        rounded: true,   // All cards have rounded corners
+        border: true     // All cards have borders
+      }
+    }}>
+      <Button>Primary Large Filled Button</Button>
+      <Card>Rounded Card with Border</Card>
+    </ThemeProvider>
+  );
+}
+```
+
+## ThemeProvider Props
+
+### themeDefaults
+
+Set default boolean props per component type:
+
+```tsx
+<ThemeProvider themeDefaults={{
+  button: { primary: true, md: true, filled: true },
+  badge: { success: true, sm: true, pill: true },
+  card: { secondary: true, rounded: true },
+  text: { primary: true }
+}}>
+  <App />
+</ThemeProvider>
+```
+
+### extraClasses
+
+Add additional CSS classes based on active props:
+
+```tsx
+<ThemeProvider extraClasses={{
+  button: {
+    primary: 'shadow-lg hover:shadow-xl transition-shadow',
+    danger: 'animate-pulse'
+  },
+  card: {
+    filled: 'backdrop-blur-sm'
+  }
+}}>
+  <Button primary>Button with shadow</Button>
+  <Button danger>Pulsing danger button</Button>
+</ThemeProvider>
+```
+
+### themeOverride
+
+Function for programmatic theme modifications:
+
+```tsx
+<ThemeProvider themeOverride={(theme) => {
+  // Modify base classes
+  theme.button.base += ' uppercase tracking-wide';
+  
+  // Modify default props
+  theme.button.defaults = {
+    ...theme.button.defaults,
+    semibold: true
+  };
+  
+  return theme;
+}}>
+  <App />
+</ThemeProvider>
+```
+
+### mergeStrategy
+
+Control how nested ThemeProviders combine (`'merge'` or `'replace'`):
+
+```tsx
+<ThemeProvider themeDefaults={{ button: { lg: true } }}>
+  {/* mergeStrategy='merge' (default): child merges with parent */}
+  <ThemeProvider themeDefaults={{ button: { primary: true } }}>
+    <Button>Large Primary (both applied)</Button>
+  </ThemeProvider>
+  
+  {/* mergeStrategy='replace': child replaces parent entirely */}
+  <ThemeProvider 
+    themeDefaults={{ button: { sm: true } }}
+    mergeStrategy="replace"
+  >
+    <Button>Small Only (parent ignored)</Button>
+  </ThemeProvider>
+</ThemeProvider>
+```
+
+## Nested Theming
+
+Override themes for specific sections of your app:
+
+```tsx
+import { ThemeProvider, Button, Badge, Section } from '@vaneui/ui';
+
+function NestedThemeApp() {
+  return (
+    <ThemeProvider themeDefaults={{
+      button: { primary: true, outline: true }
+    }}>
+      <div>
+        <Button>Primary Outline Button</Button>
+        
+        <Section>
+          {/* Override for this section only */}
+          <ThemeProvider themeDefaults={{
+            button: { success: true, filled: true }
+          }}>
+            <Button>Success Filled Button</Button>
+            <Badge>Inherits parent badge defaults</Badge>
+          </ThemeProvider>
+        </Section>
+      </div>
+    </ThemeProvider>
+  );
+}
+```
+
+## Accessing Theme Context
+
+Use the `useTheme` hook to access theme values in custom components:
+
+```tsx
+import { useTheme } from '@vaneui/ui';
+
+function CustomComponent() {
+  const theme = useTheme();
+  
+  // Access component themes
+  const buttonTheme = theme.button;
+  const cardTheme = theme.card;
+  
+  // Get classes for custom styling
+  const classes = buttonTheme.getClasses({ primary: true, lg: true });
+  
+  return <div className={classes.join(' ')}>Custom component</div>;
+}
+```
+
+## Custom Colors
+
+VaneUI uses CSS variables for colors. Override them globally or for specific sections:
+
+```css
+/* Global color override */
+:root {
+  --color-text-primary: #8b5cf6;
+  --color-bg-primary: #f3e8ff;
+  --color-border-primary: #c4b5fd;
+}
+
+/* Scoped color override */
+.marketing-section {
+  --color-text-brand: #6366f1;
+  --color-bg-brand: #eef2ff;
+}
+```
+
+```tsx
+function App() {
+  return (
+    <ThemeProvider>
+      <Button primary>Uses CSS variable colors</Button>
+      
+      <div className="marketing-section">
+        <Button brand>Uses scoped brand colors</Button>
+      </div>
+    </ThemeProvider>
+  );
+}
+```
+
+## Common Patterns
+
+### Brand Theme
+
+Create a consistent brand experience:
+
+```tsx
+function BrandedApp() {
+  return (
+    <ThemeProvider themeDefaults={{
+      button: { brand: true, filled: true, rounded: true },
+      card: { brand: true, rounded: true },
+      badge: { brand: true, pill: true }
+    }}>
+      <nav>
+        <Button>Home</Button>
+        <Button>About</Button>
+        <Badge>New</Badge>
+      </nav>
+    </ThemeProvider>
+  );
+}
+```
+
+### Section-Specific Styling
+
+Different themes for different areas:
+
+```tsx
+function MultiSectionApp() {
+  return (
+    <>
+      {/* Hero section - large, bold */}
+      <ThemeProvider themeDefaults={{
+        button: { xl: true, filled: true },
+        title: { xl: true }
+      }}>
+        <HeroSection />
+      </ThemeProvider>
+      
+      {/* Content section - medium, subtle */}
+      <ThemeProvider themeDefaults={{
+        button: { md: true, outline: true },
+        text: { sm: true }
+      }}>
+        <ContentSection />
+      </ThemeProvider>
+      
+      {/* Footer - compact */}
+      <ThemeProvider themeDefaults={{
+        button: { xs: true },
+        text: { xs: true }
+      }}>
+        <FooterSection />
+      </ThemeProvider>
+    </>
+  );
+}
+```
+
+## Advanced Customization
+
+For more detailed information about specific ThemeProvider properties, see these dedicated guides:
+
+- **[Theming Overview](./theming-overview)** - Understand the theme architecture
+- **[ThemeDefaults](./theme-defaults)** - Set application-wide default values
+- **[ExtraClasses](./extra-classes)** - Add custom CSS classes
+- **[CSS Variables](./css-variables)** - Customize colors using CSS custom properties
+
+The ThemeProvider is designed to be flexible and powerful, allowing you to start simple and add complexity as needed.
+
+---
+Title: Theme & ThemeOverride
+URL: https://vaneui.com/docs/customization/theme-and-override
+---
+
+The `themeOverride` property allows programmatic modifications to component themes. Use it to add base classes or change defaults for any subtree of your application.
+
+## Basic Usage
+
+### Modifying Base Classes
+
+Add CSS classes that apply to all instances of a component:
+
+```tsx
+<ThemeProvider themeOverride={(theme) => {
+  theme.button.base += ' uppercase tracking-wide';
+  theme.card.base += ' shadow-sm';
+  return theme;
+}}>
+  <Button primary>Uppercase Button</Button>
+  <Card>Card with Shadow</Card>
+</ThemeProvider>
+```
+
+### Modifying Default Props
+
+Change the default boolean props for components:
+
+```tsx
+<ThemeProvider themeOverride={(theme) => {
+  theme.button.defaults = {
+    ...theme.button.defaults,
+    filled: true,
+    rounded: true
+  };
+  return theme;
+}}>
+  <Button primary>Filled Rounded Button</Button>
+</ThemeProvider>
+```
+
+Note: For changing defaults, prefer using `themeDefaults` instead - it's simpler:
+
+```tsx
+// Preferred approach for defaults
+<ThemeProvider themeDefaults={{
+  button: { filled: true, rounded: true }
+}}>
+```
+
+## Combining with Other Props
+
+Use `themeOverride` alongside `themeDefaults` and `extraClasses`:
+
+```tsx
+<ThemeProvider
+  themeDefaults={{ button: { primary: true } }}
+  themeOverride={(theme) => {
+    theme.button.base += ' font-semibold';
+    return theme;
+  }}
+  extraClasses={{
+    button: { primary: 'hover:shadow-lg' }
+  }}
+>
+  <Button>Fully Customized</Button>
+</ThemeProvider>
+```
+
+## Nested ThemeProviders
+
+Child overrides build on parent modifications:
+
+```tsx
+<ThemeProvider themeOverride={(theme) => {
+  theme.button.base += ' uppercase';
+  return theme;
+}}>
+  <Button>Uppercase</Button>
+
+  <ThemeProvider themeOverride={(theme) => {
+    theme.button.base += ' tracking-widest';
+    return theme;
+  }}>
+    <Button>Uppercase + Wide Tracking</Button>
+  </ThemeProvider>
+</ThemeProvider>
+```
+
+## When to Use themeOverride
+
+- **Use `themeOverride`** when you need to add base CSS classes to all component instances
+- **Use `themeDefaults`** when you want to change default boolean props (simpler syntax)
+- **Use `extraClasses`** when you want to add classes based on active props
+
+---
+Title: ThemeDefaults
+URL: https://vaneui.com/docs/customization/theme-defaults
+---
+
+The `themeDefaults` property in VaneUI's ThemeProvider allows you to set default boolean props for components throughout your application. This provides a powerful way to establish consistent defaults while still allowing individual components to override these values.
+
+## Understanding ThemeDefaults
+
+### themeDefaults?: ThemeDefaults
+
+The `themeDefaults` property accepts an object where keys are component names and values are objects with boolean props. These defaults are merged with VaneUI's built-in defaults.
+
+```tsx
+<ThemeProvider themeDefaults={{
+  button: { primary: true, md: true, filled: true },
+  badge: { success: true, sm: true, pill: true },
+  card: { secondary: true, rounded: true },
+  text: { primary: true }
+}}>
+  <App />
+</ThemeProvider>
+```
+
+## Setting Component Defaults
+
+### Basic Defaults
+
+Set default boolean props for specific component types:
+
+```tsx
+import { ThemeProvider, Button, Badge, Card } from '@vaneui/ui';
+
+function App() {
+  return (
+    <ThemeProvider themeDefaults={{
+      button: {
+        primary: true,   // All buttons are primary
+        lg: true,        // All buttons are large
+        filled: true     // All buttons are filled
+      },
+      badge: {
+        success: true,   // All badges are success color
+        pill: true       // All badges are pill-shaped
+      },
+      card: {
+        rounded: true,   // All cards have rounded corners
+        border: true     // All cards have borders
+      }
+    }}>
+      {/* Components use these defaults automatically */}
+      <Button>Primary Large Filled Button</Button>
+      <Badge>Success Pill Badge</Badge>
+      <Card>Rounded Card with Border</Card>
+    </ThemeProvider>
+  );
+}
+```
+
+### Brand-Specific Defaults
+
+Create consistent branding across your application:
+
+```tsx
+import { ThemeProvider, Button, Card, Badge } from '@vaneui/ui';
+
+function BrandedApp() {
+  return (
+    <ThemeProvider themeDefaults={{
+      button: { brand: true, filled: true, rounded: true },
+      card: { brand: true, rounded: true },
+      badge: { brand: true, pill: true }
+    }}>
+      <nav>
+        <Button>Home</Button>
+        <Button>About</Button>
+        <Badge>New</Badge>
+      </nav>
+    </ThemeProvider>
+  );
+}
+```
+
+## Available Boolean Props
+
+### Size Props
+- `xs`, `sm`, `md`, `lg`, `xl`
+
+### Appearance Props
+- `primary`, `brand`, `secondary`, `tertiary`, `accent`
+- `success`, `danger`, `warning`, `info`, `link`, `inherit`
+
+### Variant Props
+- `filled`, `outline`
+
+### Shape Props
+- `rounded`, `pill`, `sharp`
+
+### Typography Props
+- `sans`, `serif`, `mono`, `semibold`, `bold`
+
+### Layout Props
+- `flex`, `column`, `itemsCenter`, `justifyBetween`, `gap`
+
+### Width Props
+- `wFull`, `wFit`, `wAuto`
+
+### Height Props
+- `hFit`, `hFull`, `hAuto`
+
+### Truncate Props
+- `truncate`, `lineClamp2`, `lineClamp3`, `lineClamp4`, `lineClamp5`
+
+### Letter Spacing Props
+- `trackingTighter`, `trackingTight`, `trackingNormal`, `trackingWide`, `trackingWider`, `trackingWidest`
+
+### Cursor Props
+- `cursorPointer`, `cursorDefault`, `cursorNotAllowed`, `cursorNone`, `cursorText`, `cursorMove`, `cursorWait`
+
+### Orientation Props
+- `horizontal`, `vertical`
+
+### Status Props
+- `error`
+
+## Override Priority
+
+Understanding how defaults interact with component props:
+
+### Priority Order
+
+1. **Component props** (highest priority)
+2. **ThemeDefaults from closest ThemeProvider**
+3. **ThemeDefaults from parent ThemeProviders**
+4. **VaneUI built-in defaults** (lowest priority)
+
+```tsx
+function OverrideExample() {
+  return (
+    <ThemeProvider themeDefaults={{
+      button: { primary: true, lg: true }
+    }}>
+      {/* Uses defaults: primary=true, lg=true */}
+      <Button>Default Button</Button>
+
+      {/* Props override defaults: danger=true overrides primary, lg still applies */}
+      <Button danger>Danger Button</Button>
+
+      {/* Explicitly disable default: primary=false, lg still applies */}
+      <Button primary={false} secondary>Secondary Button</Button>
+    </ThemeProvider>
+  );
+}
+```
+
+## Layout Component Defaults
+
+Configure defaults for layout components:
+
+```tsx
+import { ThemeProvider, Container, Section, Card, Stack, Text } from '@vaneui/ui';
+
+function LayoutDefaults() {
+  return (
+    <ThemeProvider themeDefaults={{
+      container: {
+        lg: true
+      },
+      section: {
+        secondary: true,
+        rounded: true
+      },
+      card: {
+        primary: true,
+        rounded: true
+      },
+      stack: {
+        lg: true  // larger gap than default
+      }
+    }}>
+      <Container>
+        <Section>
+          <Card>
+            <Stack>
+              <Text>Content with layout defaults</Text>
+            </Stack>
+          </Card>
+        </Section>
+      </Container>
+    </ThemeProvider>
+  );
+}
+```
+
+## Dynamic Defaults
+
+### Runtime Default Changes
+
+Update defaults based on user preferences or application state:
+
+```tsx
+import { useState } from 'react';
+import { ThemeProvider, Button } from '@vaneui/ui';
+
+function DynamicDefaults() {
+  const [isCompactMode, setIsCompactMode] = useState(false);
+
+  const themeDefaults = isCompactMode
+    ? {
+        button: { sm: true },
+        card: { sm: true },
+        text: { sm: true }
+      }
+    : {
+        button: { lg: true },
+        card: { lg: true },
+        text: { md: true }
+      };
+
+  return (
+    <ThemeProvider themeDefaults={themeDefaults}>
+      <Button onClick={() => setIsCompactMode(!isCompactMode)}>
+        Toggle Compact Mode
+      </Button>
+    </ThemeProvider>
+  );
+}
+```
+
+### Contextual Defaults
+
+Different defaults for different areas of your app:
+
+```tsx
+import { ThemeProvider } from '@vaneui/ui';
+
+function ContextualDefaults() {
+  return (
+    <>
+      {/* Admin area - compact, subtle styling */}
+      <ThemeProvider themeDefaults={{
+        button: { sm: true, outline: true, secondary: true }
+      }}>
+        <AdminPanel />
+      </ThemeProvider>
+
+      {/* User area - larger, prominent styling */}
+      <ThemeProvider themeDefaults={{
+        button: { lg: true, filled: true, primary: true }
+      }}>
+        <UserInterface />
+      </ThemeProvider>
+    </>
+  );
+}
+```
+
+## Section-Specific Styling
+
+Different themes for different page sections:
+
+```tsx
+import { ThemeProvider } from '@vaneui/ui';
+
+function MultiSectionApp() {
+  return (
+    <>
+      {/* Hero section - large, bold */}
+      <ThemeProvider themeDefaults={{
+        button: { xl: true, filled: true },
+        title: { xl: true }
+      }}>
+        <HeroSection />
+      </ThemeProvider>
+
+      {/* Content section - medium, subtle */}
+      <ThemeProvider themeDefaults={{
+        button: { md: true, outline: true },
+        text: { sm: true }
+      }}>
+        <ContentSection />
+      </ThemeProvider>
+
+      {/* Footer - compact */}
+      <ThemeProvider themeDefaults={{
+        button: { xs: true },
+        text: { xs: true }
+      }}>
+        <FooterSection />
+      </ThemeProvider>
+    </>
+  );
+}
+```
+
+## Best Practices
+
+### Know VaneUI's Built-in Defaults
+
+VaneUI components come with sensible built-in defaults. Only set defaults that differ from these:
+
+**Built-in defaults you don't need to specify:**
+- **Layout components** (`Row`, `Col`, `Stack`, `Card`, `Section`, `Container`): `gap: true`, `md: true`, `outline: true`
+- **Button**: `primary: true`, `outline: true`, `rounded: true`
+- **Card**: `primary: true`, `outline: true`, `rounded: true`, `padding: true`
+- **Input**: `primary: true`, `outline: true`, `rounded: true`
+- **Badge**: `primary: true`, `outline: true`, `pill: true`
+- **Typography** (`Text`, `Title`): `primary: true`, `md: true`
+- **Overlay**: `md: true`
+- **Modal**: `md: true`, `rounded: true`
+- **Popup**: `md: true`, `rounded: true`
+
+```tsx
+// Unnecessary - these are already the defaults
+<ThemeProvider themeDefaults={{
+  stack: { gap: true },       // gap is already true
+  button: { primary: true },  // primary is already true
+  card: { rounded: true }     // rounded is already true
+}}>
+
+// Better - only specify what you're changing
+<ThemeProvider themeDefaults={{
+  button: { filled: true },   // change from outline to filled
+  card: { lg: true }          // change from md to lg
+}}>
+```
+
+### Consistent Defaults
+
+Establish defaults that align with your design system:
+
+```tsx
+import { ThemeProvider } from '@vaneui/ui';
+
+const designSystemDefaults = {
+  // Interactive elements
+  button: { primary: true, md: true, filled: true },
+  link: { brand: true },
+
+  // Informational elements
+  badge: { secondary: true, sm: true },
+  chip: { outline: true },
+
+  // Layout elements
+  card: { shadow: true },  // add shadow (not default)
+  section: { lg: true }    // larger spacing
+};
+
+<ThemeProvider themeDefaults={designSystemDefaults}>
+  <App />
+</ThemeProvider>
+```
+
+### Logical Groupings
+
+Group related defaults together for maintainability:
+
+```tsx
+import { ThemeProvider } from '@vaneui/ui';
+
+const interactiveDefaults = {
+  button: { primary: true, filled: true },
+  link: { brand: true }
+};
+
+const informationalDefaults = {
+  badge: { secondary: true, sm: true },
+  chip: { outline: true }
+};
+
+const layoutDefaults = {
+  card: { shadow: true },
+  stack: { lg: true }
+};
+
+<ThemeProvider themeDefaults={{
+  ...interactiveDefaults,
+  ...informationalDefaults,
+  ...layoutDefaults
+}}>
+  <App />
+</ThemeProvider>
+```
+
+The `themeDefaults` property provides a robust system for establishing consistent default values throughout your VaneUI application, enabling global consistency while maintaining the flexibility to override defaults when needed.
+
+---
+Title: ExtraClasses
+URL: https://vaneui.com/docs/customization/extra-classes
+---
+
+The `extraClasses` property in VaneUI's ThemeProvider allows you to add additional CSS classes to components based on which boolean props are active. This enables custom styling, animations, and effects while maintaining VaneUI's theming architecture.
+
+## Understanding ExtraClasses
+
+### extraClasses?: ThemeExtraClasses
+
+The `extraClasses` property accepts an object where keys are component names, and values are objects mapping boolean prop names to CSS class strings. When a prop is active, its associated classes are added.
+
+## Basic Usage
+
+### Adding Classes Based on Props
+
+Apply extra classes when specific boolean props are active:
+
+```tsx
+import { ThemeProvider, Button, Badge } from '@vaneui/ui';
+
+function App() {
+  return (
+    <ThemeProvider extraClasses={{
+      button: {
+        primary: 'shadow-lg hover:shadow-xl transition-shadow',
+        danger: 'animate-pulse'
+      },
+      badge: {
+        success: 'ring-2 ring-green-200'
+      }
+    }}>
+      <Button primary>Button with shadow</Button>
+      <Button danger>Pulsing danger button</Button>
+      <Badge success>Badge with ring</Badge>
+    </ThemeProvider>
+  );
+}
+```
+
+### Size-Based Classes
+
+Add classes based on size props:
+
+```tsx
+<ThemeProvider extraClasses={{
+  button: {
+    xs: 'text-xs',
+    sm: 'text-sm',
+    lg: 'text-lg font-medium',
+    xl: 'text-xl font-semibold'
+  }
+}}>
+  <Button lg>Large button with extra styles</Button>
+</ThemeProvider>
+```
+
+## Animation and Effects
+
+### Hover and Transition Effects
+
+Create engaging interactions with animation classes:
+
+```tsx
+<ThemeProvider extraClasses={{
+  button: {
+    primary: 'hover:scale-105 active:scale-95 transition-transform duration-150',
+    success: 'hover:brightness-110 transition-all'
+  },
+  card: {
+    primary: 'hover:shadow-xl transition-shadow duration-300'
+  }
+}}>
+  <Button primary>Scalable Button</Button>
+  <Card primary>Hoverable Card</Card>
+</ThemeProvider>
+```
+
+### Attention-Grabbing Effects
+
+Draw attention to important elements:
+
+```tsx
+<ThemeProvider extraClasses={{
+  button: {
+    danger: 'animate-pulse',
+    warning: 'animate-bounce'
+  },
+  badge: {
+    danger: 'animate-ping'
+  }
+}}>
+  <Button danger>Pulsing Alert</Button>
+  <Badge danger>New</Badge>
+</ThemeProvider>
+```
+
+## Combining Multiple Props
+
+When multiple props are active, all their associated classes are combined:
+
+```tsx
+<ThemeProvider extraClasses={{
+  button: {
+    primary: 'shadow-lg',
+    lg: 'font-bold',
+    filled: 'border-2'
+  }
+}}>
+  {/* Gets all three: shadow-lg + font-bold + border-2 */}
+  <Button primary lg filled>Combined Styles</Button>
+</ThemeProvider>
+```
+
+## Conditional Extra Classes
+
+### Dynamic Class Application
+
+Apply classes based on application state:
+
+```tsx
+import { useState } from 'react';
+import { ThemeProvider, Button } from '@vaneui/ui';
+
+function DynamicExtraClasses() {
+  const [isHighContrast, setIsHighContrast] = useState(false);
+
+  const extraClasses = isHighContrast
+    ? {
+        button: {
+          primary: 'border-4 border-black font-black',
+          danger: 'border-4 border-red-900 font-black'
+        }
+      }
+    : {
+        button: {
+          primary: 'shadow-sm',
+          danger: 'shadow-sm'
+        }
+      };
+
+  return (
+    <ThemeProvider extraClasses={extraClasses}>
+      <Button onClick={() => setIsHighContrast(!isHighContrast)}>
+        Toggle High Contrast
+      </Button>
+      <Button primary>Primary Button</Button>
+      <Button danger>Danger Button</Button>
+    </ThemeProvider>
+  );
+}
+```
+
+## Best Practices
+
+### Consistent Naming
+
+Use consistent class patterns:
+
+```tsx
+const extraClasses = {
+  button: {
+    // Hover effects
+    primary: 'hover:shadow-lg',
+    secondary: 'hover:shadow-md',
+    
+    // Active states
+    danger: 'active:scale-95',
+    
+    // Transitions
+    success: 'transition-all duration-200'
+  }
+};
+```
+
+### Avoid Conflicting Classes
+
+Be careful not to add classes that conflict with VaneUI's base styles:
+
+```tsx
+// ❌ Avoid - may conflict with VaneUI's padding
+extraClasses: {
+  button: { primary: 'p-8' }
+}
+
+// ✅ Better - adds effects that complement base styles
+extraClasses: {
+  button: { primary: 'hover:brightness-110' }
+}
+```
+
+The `extraClasses` system provides a powerful way to extend VaneUI components with custom styling based on active props, enabling seamless integration with any CSS framework while maintaining the benefits of the theming system.
+
+---
+Title: CSS Variables
+URL: https://vaneui.com/docs/customization/css-variables
+---
+
+VaneUI components use a three-tier CSS variable system. Override these variables to change colors globally or for any subtree. This page explains the variable architecture and how to customize it.
+
+## Three-Tier Variable System
+
+### Tier 1: Unit Variables
+Set by component class in `vars.css` based on the `data-size` attribute:
+```css
+.vane-button[data-size="md"] {
+  --fs-unit: 8;    /* Font size unit */
+  --py-unit: 2;    /* Padding Y unit */
+  --br-unit: 2;    /* Border radius unit */
+  --gap-unit: 2;   /* Gap unit */
+}
+```
+
+### Tier 2: Computed Variables
+Calculated from unit variables in `@layer base`:
+```css
+[data-size] {
+  --fs: calc(var(--fs-unit) * var(--fs-base));                      /* Font size */
+  --py: calc(var(--py-unit) * var(--spacing));                      /* Padding Y */
+  --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing)); /* Padding X */
+  --br: calc(var(--br-unit) * var(--br-base));                      /* Border radius */
+  --gap: calc(var(--gap-unit) * var(--spacing));                    /* Gap */
+}
+```
+
+### Tier 3: Semantic Color Variables
+Set by `data-variant` + `data-appearance` attribute combinations:
+```css
+[data-variant="outline"][data-appearance="primary"] {
+  --text-color: var(--color-text-primary);
+  --bg-color: var(--color-bg-primary);
+  --border-color: var(--color-border-primary);
+}
+```
+
+## Appearance Values
+
+Replace `{appearance}` in variable names with one of:
+- `primary` - neutral/default styling (gray tones)
+- `brand` - brand color (blue)
+- `secondary` - subtle styling (light gray)
+- `tertiary` - muted styling (darker gray)
+- `accent` - highlight color (rose)
+- `success` - positive feedback (green)
+- `danger` - error/destructive (red)
+- `warning` - caution (amber)
+- `info` - informational (cyan)
+- `link` - link color (blue)
+- `inherit` - inherits from parent element
+
+> The `inherit` appearance works differently from all other appearances. Instead of setting `data-appearance` and `data-variant` attributes, it omits them entirely. This allows the semantic color CSS variables (`--text-color`, `--bg-color`, `--border-color`) to cascade from parent elements rather than being set explicitly on the component. Typography components (Text, Title, SectionTitle, PageTitle), Label, List, and Divider default to `inherit`.
+
+## Color Variable Groups
+
+### Text Colors
+- `--color-text-{appearance}` - text color for outline variant
+- `--color-text-filled-{appearance}` - text color for filled variant
+
+### Background Colors
+- `--color-bg-{appearance}` - background for outline variant
+- `--color-bg-hover-{appearance}` - hover state background
+- `--color-bg-active-{appearance}` - active state background
+- `--color-bg-filled-{appearance}` - background for filled variant
+- `--color-bg-filled-hover-{appearance}` - filled hover state
+- `--color-bg-filled-active-{appearance}` - filled active state
+- `--color-bg-layout-{appearance}` - layout component backgrounds
+- `--color-bg-filled-layout-{appearance}` - filled layout backgrounds
+
+### Border Colors
+- `--color-border-{appearance}` - border color for outline variant
+- `--color-border-filled-{appearance}` - border color for filled variant
+
+## Base Variables
+
+VaneUI defines base variables in the `@theme` block that control the foundation of the sizing system:
+
+```css
+@theme {
+  --fs-base: calc(var(--spacing) * 0.5);  /* Font size base unit (0.5rem) */
+  --br-base: var(--spacing);               /* Border radius base (1rem) */
+  --lh-base: 1.6;                          /* Line height base */
+}
+```
+
+### Font Size Unit Scale
+These variables define the font size multipliers for each size:
+```css
+--fs-unit-xs: 6;   /* xs = 6 * 0.5rem = 0.75rem (12px) */
+--fs-unit-sm: 7;   /* sm = 7 * 0.5rem = 0.875rem (14px) */
+--fs-unit-md: 8;   /* md = 8 * 0.5rem = 1rem (16px) */
+--fs-unit-lg: 9;   /* lg = 9 * 0.5rem = 1.125rem (18px) */
+--fs-unit-xl: 10;  /* xl = 10 * 0.5rem = 1.25rem (20px) */
+```
+
+### Component-Specific Sizing
+
+Padding, gap, and radius values are set per-component via CSS classes in `vars.css`:
+
+```css
+/* Button sizes */
+.vane-button[data-size="md"] { --fs-unit: 8; --py-unit: 2; }
+
+/* Layout component defaults based on type and size */
+[data-vane-type="ui"][data-size="md"] { --br-unit: 2; --gap-unit: 2; }
+[data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; }
+```
+
+To customize sizing globally, override the computed variables in your CSS:
+```css
+:root {
+  /* Make all spacing slightly larger */
+  --spacing: 0.3rem;  /* Default is 0.25rem */
+}
+```
+
+## Global Override (Site-wide)
+```css
+/* styles/globals.css */
+:root {
+  /* Customize brand colors */
+  --color-text-brand: #8b5cf6;
+  --color-bg-brand: #f3e8ff;
+  --color-border-brand: #c4b5fd;
+}
+```
+
+## Scoped Override (Specific Section)
+```css
+/* Only affects components inside .marketing */
+.marketing {
+  --color-text-primary: #059669;
+  --color-bg-primary: #ecfdf5;
+  --color-border-primary: #6ee7b7;
+}
+```
+
+## Notes and Tips
+- Use the semantic names above; avoid inventing new variable names.
+- Values cascade. The closest definition (inline, container, :root) wins.
+- Prefer semantic overrides (primary, brand, success, danger) for consistent theming.
+- ThemeProvider does not expose a `colors` field; use these CSS variables to change colors.
+- Components inherit the closest CSS variable values automatically via CSS cascade.

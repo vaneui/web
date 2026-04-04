@@ -1,13 +1,14 @@
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { Card, Col, Container, Grid2, Section, Code } from '@vaneui/ui';
+import { Card, Col, Container, Grid2, Section, Code, Text, SectionTitle } from '@vaneui/ui';
 import {
   HeroSection,
   AboutSection,
-  BasicComponentsSection,
-  ThemeCustomizationSection
+  ThemeCustomizationSection,
+  ComponentShowcaseSection,
+  StackSection,
+  GetStartedSection,
 } from './landing';
-import { TypographyComponentsSection } from "./landing/TypographyComponentsSection";
 import { LiveSection } from "./landing/LiveSection";
 import { FeatureTitle, FeatureTitleProps } from "./components/FeatureTitle";
 
@@ -38,34 +39,39 @@ export default function Home() {
       description:
         <span>
           Every component adapts to screen size automatically. Use responsive props like <Code primary>xs</Code>, <Code
-          primary>sm</Code>, <Code primary>md</Code>, <Code primary>lg</Code>, <Code primary>xl</Code> to fine-tune layouts for any device.
+            primary>sm</Code>, <Code primary>md</Code>, <Code primary>lg</Code>, <Code primary>xl</Code> to fine-tune layouts for any device.
         </span>,
     },
   ]
 
   return (
     <Col noGap className="h-screen">
-      <Header/>
-      <Col noGap>
-        <HeroSection/>
-        <AboutSection/>
-        <LiveSection/>
-        <Section secondary xl borderY>
-          <BasicComponentsSection/>
-          <TypographyComponentsSection/>
-          <Container xl hidden>
-            <Grid2 lg className="w-full">
+      <Header />
+      <Col noGap tag="main">
+        <HeroSection />
+        <AboutSection />
+        <LiveSection />
+        <ComponentShowcaseSection />
+        <ThemeCustomizationSection />
+        <Section xl>
+          <Container xl>
+            <Col itemsCenter>
+              <SectionTitle xl>Why VaneUI</SectionTitle>
+              <Text xl secondary>Built for developers who value simplicity and speed.</Text>
+            </Col>
+            <Grid2 lg wFull>
               {features.map((item, key) => (
-                <Card lg row mobileCol key={key}>
-                  <FeatureTitle icon={item.icon} title={item.title} description={item.description}/>
+                <Card xl row mobileCol key={key}>
+                  <FeatureTitle icon={item.icon} title={item.title} description={item.description} />
                 </Card>
               ))}
             </Grid2>
           </Container>
         </Section>
-        <ThemeCustomizationSection/>
+        <StackSection />
+        <GetStartedSection />
       </Col>
-      <Footer/>
+      <Footer />
     </Col>
   );
 }

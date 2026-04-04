@@ -31,13 +31,10 @@ export const strictDefaults: ThemeDefaults = {
     sharp: true,
   },
   button: {
-    sharp: true,
-    lg: true,
+    main: { sharp: true, lg: true },
   },
   card: {
-    sm: true,
-    sharp: true,
-    noShadow: true,
+    main: { sm: true, sharp: true, noShadow: true },
   },
   chip: {
     primary: true,

@@ -1,0 +1,68 @@
+# VaneUI
+
+> React UI component library with boolean props API, Tailwind CSS v4, and comprehensive theming.
+
+- Version: 0.9.0
+- Repository: https://github.com/nickolaev-ev/vaneui
+- Documentation: https://vaneui.com
+
+## Docs
+
+### Getting Started
+- [Core Concepts](https://vaneui.com/docs/getting-started/core-concepts): Understand VaneUI's philosophy of boolean props, Tailwind CSS integration, and component customization.
+- [Installation](https://vaneui.com/docs/getting-started/installation): Follow these steps to get the library installed and ready to use in your application.
+- [Usage Basics](https://vaneui.com/docs/getting-started/usage-basics): Learn fundamental patterns and concepts for using VaneUI components effectively.
+
+### Basic Components
+- [Button](https://vaneui.com/docs/basic-components/button): Triggers an action or event when the user clicks on it. Buttons are a primary way for users to interact with the application and can contain text, an icon, or both.
+- [Badge](https://vaneui.com/docs/basic-components/badge): Highlights important information such as notifications or counts in a non-intrusive way.
+- [Chip](https://vaneui.com/docs/basic-components/chip): Represents a complex entity in a compact form, such as an attribute, tag, or contact.
+- [Checkbox](https://vaneui.com/docs/basic-components/checkbox): Allows users to select one or more options from a set.
+- [Label](https://vaneui.com/docs/basic-components/label): Displays text with various styling options for categorization, status indicators, or highlighting.
+- [Code](https://vaneui.com/docs/basic-components/code): Renders inline code snippets with syntax highlighting.
+- [Divider](https://vaneui.com/docs/basic-components/divider): Renders a thin line to separate content and create a clear visual hierarchy.
+- [Input](https://vaneui.com/docs/basic-components/input): Allows users to enter text, numbers, and other data with support for validation states.
+- [Img](https://vaneui.com/docs/basic-components/img): Displays images with VaneUI styling support including sizes, shapes, borders, and shadows.
+- [Icon](https://vaneui.com/docs/basic-components/icon): A lightweight SVG wrapper that provides consistent sizing, color inheritance, and themed appearances.
+- [IconButton](https://vaneui.com/docs/basic-components/icon-button): A square icon-only button with customizable appearance, size, and shape.
+- [Kbd](https://vaneui.com/docs/basic-components/kbd): Displays keyboard keys and shortcuts with monospace font and a raised 3D effect.
+- [Mark](https://vaneui.com/docs/basic-components/mark): Highlights text with a background color for emphasis.
+
+### Layout Components
+- [Section](https://vaneui.com/docs/layout-components/section): A semantic container used to group related content within a page.
+- [Container](https://vaneui.com/docs/layout-components/container): Manages the main content area by centering it and applying a max-width.
+- [Row](https://vaneui.com/docs/layout-components/row): Arranges children in a horizontal line using the flexbox model.
+- [Col](https://vaneui.com/docs/layout-components/col): Organizes content vertically within a Row for column-based layouts.
+- [Stack](https://vaneui.com/docs/layout-components/stack): Arranges children with consistent spacing, vertical or horizontal.
+- [Card](https://vaneui.com/docs/layout-components/card): A flexible container that groups related content with consistent styling.
+- [Grid2](https://vaneui.com/docs/layout-components/grid2): A responsive two-column grid layout.
+- [Grid3](https://vaneui.com/docs/layout-components/grid3): A responsive three-column grid layout.
+- [Grid4](https://vaneui.com/docs/layout-components/grid4): A responsive four-column grid layout.
+- [Grid5](https://vaneui.com/docs/layout-components/grid5): A responsive five-column grid layout.
+- [Grid6](https://vaneui.com/docs/layout-components/grid6): A responsive six-column grid layout.
+
+### Overlay Components
+- [Overlay](https://vaneui.com/docs/overlay-components/overlay): A fullscreen backdrop overlay for modal backgrounds, loading screens, and lightbox effects.
+- [Modal](https://vaneui.com/docs/overlay-components/modal): An accessible dialog with focus trapping, scroll lock, and keyboard navigation.
+- [Popup](https://vaneui.com/docs/overlay-components/popup): A floating element anchored to a trigger using CSS Anchor Positioning.
+- [Menu](https://vaneui.com/docs/overlay-components/menu): A dropdown menu with full keyboard navigation and subcomponents.
+
+### Navigation Components
+- [NavLink](https://vaneui.com/docs/navigation-components/navlink): A navigation link for sidebars, nav menus, and headers with active state support.
+
+### Typography Components
+- [Text](https://vaneui.com/docs/typography-components/text): The primary component for rendering text with size, weight, color, and alignment controls.
+- [Title](https://vaneui.com/docs/typography-components/title): Renders a heading to establish a semantic hierarchy on the page.
+- [PageTitle](https://vaneui.com/docs/typography-components/page-title): A specialized component for primary page headings.
+- [SectionTitle](https://vaneui.com/docs/typography-components/section-title): Renders headings of major sections within a page.
+- [Link](https://vaneui.com/docs/typography-components/link): An accessible and themeable anchor link for navigation.
+- [List](https://vaneui.com/docs/typography-components/list): Displays related items in an ordered or unordered fashion.
+- [Blockquote](https://vaneui.com/docs/typography-components/blockquote): Displays quoted content with a left border accent.
+
+### Customization
+- [Theming Overview](https://vaneui.com/docs/customization/theming-overview): Understand VaneUI's theming system and design token architecture.
+- [Using ThemeProvider](https://vaneui.com/docs/customization/using-theme-provider): Configure and customize themes throughout your application.
+- [Theme & ThemeOverride](https://vaneui.com/docs/customization/theme-and-override): Customize themes using ThemeProvider's theme and themeOverride properties.
+- [ThemeDefaults](https://vaneui.com/docs/customization/theme-defaults): Set default theme values across your application.
+- [ExtraClasses](https://vaneui.com/docs/customization/extra-classes): Apply additional CSS classes to components.
+- [CSS Variables](https://vaneui.com/docs/customization/css-variables): Customize VaneUI components using CSS custom properties.

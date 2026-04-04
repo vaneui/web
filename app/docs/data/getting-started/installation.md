@@ -30,14 +30,18 @@ Add the following to your main CSS file:
 
 ```css
 @import "tailwindcss";
-@import "@vaneui/ui/vars.css";
-@source "@vaneui/ui";
+@import "@vaneui/ui/tokens";
+@import "@vaneui/ui/vars";
+@source "../node_modules/@vaneui/ui";
 ```
 
 This setup:
 - Imports Tailwind CSS base styles
-- Imports VaneUI CSS variables for theming
+- Imports VaneUI theme tokens (registers custom breakpoints and design tokens with Tailwind)
+- Imports VaneUI CSS variables and component rules
 - Tells Tailwind to scan VaneUI components for class generation
+
+> The `@vaneui/ui/tokens` import is required for responsive props like `mobileCol`, `tabletHide`, and responsive typography to work. It registers VaneUI's custom breakpoints (`mobile`, `tablet`, `desktop`) with your project's Tailwind CSS instance.
 
 ### Option 2: Without Tailwind CSS
 
@@ -70,3 +74,17 @@ function App() {
   );
 }
 ```
+
+## Per-Component Imports
+
+For better tree-shaking, you can import components directly:
+
+```tsx
+import { Button } from '@vaneui/ui/button';
+import { Card } from '@vaneui/ui/card';
+import { ThemeProvider } from '@vaneui/ui/theme';
+```
+
+This is optional — importing from `@vaneui/ui` works the same way. Per-component imports can reduce bundle size when using only a few components with bundlers that don't fully tree-shake barrel exports.
+
+Available subpath imports: `@vaneui/ui/button`, `@vaneui/ui/badge`, `@vaneui/ui/card`, `@vaneui/ui/checkbox`, `@vaneui/ui/chip`, `@vaneui/ui/code`, `@vaneui/ui/divider`, `@vaneui/ui/img`, `@vaneui/ui/input`, `@vaneui/ui/label`, `@vaneui/ui/modal`, `@vaneui/ui/overlay`, `@vaneui/ui/popup`, `@vaneui/ui/layout`, `@vaneui/ui/typography`, `@vaneui/ui/theme`, `@vaneui/ui/props`.

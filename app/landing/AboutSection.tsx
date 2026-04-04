@@ -59,7 +59,7 @@ export function AboutSection() {
     <Section xl relative borderB primary>
       <Container xl>
         <Col xl>
-          <Chip pill>What is VaneUI?</Chip>
+          <Chip lg pill>What is VaneUI?</Chip>
           <SectionTitle xl>
             A modern React component library powered by Tailwind CSS.
           </SectionTitle>
@@ -68,9 +68,9 @@ export function AboutSection() {
             Write less code, build faster, and maintain consistency across your entire application.
           </Text>
         </Col>
-        <Grid3 xl className="w-full">
+        <Grid3 xl wFull>
           {features.map((item, index) => (
-            <Card xl noBorder noPadding key={index} className="w-full group">
+            <Card xl noBorder noPadding key={index} wFull className="group">
               <CodeBlock code={item.code} language="tsx" showHeader={false} theme="light"
                          className="text-xs grayscale-100 group-hover:grayscale-0 group-hover:shadow transition-all duration-500"/>
               <Col sm>

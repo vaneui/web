@@ -1,4 +1,4 @@
-import { Text, Title, Section, Container, Col, Row } from '@vaneui/ui';
+import { Text, Title, Section, Container, Col, Row, Link } from '@vaneui/ui';
 import { PRODUCT } from '../constants';
 import Image from "next/image";
 import vaneui from "../../public/vaneui.svg";
@@ -7,7 +7,7 @@ export function Footer() {
   return (
     <Section tag={'footer'} secondary borderT>
       <Container xl itemsStart>
-        <Row xl justifyBetween mobileCol itemsStart className="w-full">
+        <Row xl justifyBetween mobileCol itemsStart wFull>
           <Col className="max-w-1/3 max-md:max-w-full">
             <Row xs>
               <Image src={vaneui} alt={PRODUCT.title} className="h-[27px] w-[36px]"/>
@@ -33,9 +33,10 @@ export function Footer() {
                 ]
               },
               {
-                text: 'Social',
+                text: 'Community',
                 links: [
                   {text: 'GitHub', href: PRODUCT.githubUrl},
+                  {text: 'npm', href: 'https://www.npmjs.com/package/@vaneui/ui'},
                 ]
               }
             ].map((item, index) => (
@@ -45,9 +46,10 @@ export function Footer() {
                 </Text>
                 <Col xs>
                   {item.links.map((link, index) => (
-                    <Text sm tag="a" key={index} href={link.href} className="hover:opacity-75">
+                    <Link sm secondary noUnderline key={index} href={link.href}
+                          external={link.href.startsWith('http')}>
                       {link.text}
-                    </Text>
+                    </Link>
                   ))}
                 </Col>
               </Col>
@@ -57,4 +59,4 @@ export function Footer() {
       </Container>
     </Section>
   );
-} 
+}

@@ -187,13 +187,13 @@ export function LiveSection() {
       <Row absolute
            className="inset-0 bg-[linear-gradient(to_right,var(--color-gray-50)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-gray-50)_1px,transparent_1px)] bg-[size:calc(var(--spacing)*4)_calc(var(--spacing)*4)]"/>
       <Container xl>
-        <Col xl className="w-full z-10">
+        <Col xl wFull className="z-10">
           <FeatureTitle
             icon="Eye"
             title="See it in action"
             description="Watch how changing props instantly transforms components."
           />
-          <Row xl tabletCol relative className="w-full">
+          <Row xl tabletCol relative wFull>
             <CodeBlock
               fileName="CardExample.tsx"
               language="tsx"
@@ -203,10 +203,10 @@ export function LiveSection() {
               className="w-[800px] max-lg:w-full"
             />
             <Col
-                 className="[--b:8px] max-w-xl max-sm:max-w-80 z-20 border-(length:--b) [--br-unit:5] rounded-[calc(var(--b)+var(--br))] shadow-2xl absolute max-lg:relative right-0 border-gray-400/10 backdrop-blur-sm">
+                 className="[--b:8px] max-w-xl max-mobile:max-w-80 z-20 border-(length:--b) [--br-unit:5] rounded-[calc(var(--b)+var(--br))] shadow-2xl absolute max-lg:relative right-0 border-gray-400/10 backdrop-blur-sm">
               <Card row mobileCol overflowHidden {...componentProps.card} className="transition-all duration-500">
                 <Img tag={Image} src="/puppy.png" alt="puppy" width={200} height={200}
-                     {...componentProps.img} className="shrink-0 max-sm:w-full"/>
+                     {...componentProps.img} className="shrink-0 max-mobile:w-full"/>
                 <Stack sm>
                   <Row justifyBetween>
                     <Title>{dog.name}</Title>
@@ -215,8 +215,8 @@ export function LiveSection() {
                   <Divider/>
                   <Text sm>{dog.description}</Text>
                   <Row mobileCol {...componentProps.row}>
-                    <Button {...componentProps.adoptButton} className="max-sm:w-full">Adopt</Button>
-                    <Button secondary {...componentProps.learnButton} className="max-sm:w-full">Learn more</Button>
+                    <Button {...componentProps.adoptButton} className="max-mobile:w-full">Adopt</Button>
+                    <Button secondary {...componentProps.learnButton} className="max-mobile:w-full">Learn more</Button>
                   </Row>
                 </Stack>
               </Card>

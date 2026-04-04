@@ -1,6 +1,6 @@
 'use client'
 
-import { Text, Col, Card } from "@vaneui/ui";
+import { Text, Col, Card, Row } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
@@ -24,8 +24,25 @@ export const textExamples: DocsPagePart[] = [
     ),
   },
   {
+    title: 'Inherit Appearance (Default)',
+    md: 'By default, Text uses the `inherit` appearance — it inherits text color from its parent via CSS cascade instead of applying its own color. This means text inside a colored container automatically picks up the parent\'s color.\n\n```tsx\n<Card primary filled>\n  <Text>Inherits primary color from Card</Text>\n</Card>\n<Card success filled>\n  <Text>Inherits success color</Text>\n  <Text danger>Explicit danger overrides inherit</Text>\n</Card>\n```',
+    component: (
+      <Row flexWrap>
+        <Card primary filled>
+          <Text bold>Inherited Primary</Text>
+          <Text>This text inherits primary from the Card.</Text>
+        </Card>
+        <Card success filled>
+          <Text bold>Inherited Success</Text>
+          <Text>Inherits success color automatically.</Text>
+          <Text danger>Explicit danger overrides inherit.</Text>
+        </Card>
+      </Row>
+    ),
+  },
+  {
     title: 'Text Appearances',
-    md: 'Text supports color appearances: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`.',
+    md: 'Text supports explicit color appearances: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`. Use these to override the default `inherit` behavior.',
     component: (
       <Col>
         <Text primary>Primary text for important content</Text>
@@ -35,6 +52,9 @@ export const textExamples: DocsPagePart[] = [
         <Text tertiary>Tertiary text for muted content</Text>
         <Text success>Success text for positive feedback</Text>
         <Text danger>Danger text for errors or warnings</Text>
+        <Text warning>Warning text for cautionary messages</Text>
+        <Text info>Info text for informational content</Text>
+        <Text link>Link-colored text for clickable content</Text>
       </Col>
     ),
   },
@@ -61,6 +81,20 @@ export const textExamples: DocsPagePart[] = [
         <Text textCenter>Center aligned</Text>
         <Text textRight>Right aligned</Text>
       </div>
+    ),
+  },
+  {
+    title: 'Letter Spacing',
+    md: 'Control letter spacing with tracking props: `trackingTighter`, `trackingTight`, `trackingNormal`, `trackingWide`, `trackingWider`, `trackingWidest`.\n\n```tsx\n<Text trackingTight>Tight tracking</Text>\n<Text trackingWide>Wide tracking</Text>\n<Text trackingWidest>Widest tracking</Text>\n```',
+    component: (
+      <Col>
+        <Text trackingTighter>Tighter letter spacing</Text>
+        <Text trackingTight>Tight letter spacing</Text>
+        <Text trackingNormal>Normal letter spacing (default)</Text>
+        <Text trackingWide>Wide letter spacing</Text>
+        <Text trackingWider>Wider letter spacing</Text>
+        <Text trackingWidest>Widest letter spacing</Text>
+      </Col>
     ),
   },
   {

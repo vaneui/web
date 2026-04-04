@@ -70,6 +70,24 @@ export const checkboxExamples: DocsPagePart[] = [
     ),
   },
   {
+    title: 'Indeterminate State',
+    md: 'Use the `indeterminate` prop for "select all" checkboxes that represent a partially selected group. The indeterminate state is visual only and does not affect the `checked` value.\n\n```tsx\n<Checkbox indeterminate />\n```',
+    component: (
+      <Col>
+        <Label htmlFor="select-all">
+          <Checkbox id="select-all" indeterminate/>
+          Select all (2 of 4 selected)
+        </Label>
+        <Col style={{ paddingLeft: 24 }}>
+          <Label htmlFor="ind-1"><Checkbox id="ind-1" defaultChecked/> Item one</Label>
+          <Label htmlFor="ind-2"><Checkbox id="ind-2" defaultChecked/> Item two</Label>
+          <Label htmlFor="ind-3"><Checkbox id="ind-3"/> Item three</Label>
+          <Label htmlFor="ind-4"><Checkbox id="ind-4"/> Item four</Label>
+        </Col>
+      </Col>
+    ),
+  },
+  {
     title: 'Checkbox Group',
     md: 'Multiple labeled checkboxes working together.',
     component: (

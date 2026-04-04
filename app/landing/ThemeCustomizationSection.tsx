@@ -8,7 +8,6 @@ import {
 import React, { useState, useMemo } from "react";
 import { FeatureTitle } from "../components/FeatureTitle";
 import Image from "next/image";
-import { dog } from "./data/dog";
 import { strictDefaults, strictTheme, strictCssVars } from "./data/strict";
 import { balancedDefaults, balancedTheme, balancedCssVars } from "./data/balanced";
 import { playfulDefaults, playfulTheme, playfulCssVars } from "./data/playful";
@@ -61,17 +60,17 @@ export function ThemeCustomizationSection() {
   }, [currentTheme]);
 
   return (
-    <Section className="py-20">
+    <Section lg>
       <Container xl>
-        <Stack xl noPadding className="w-full">
+        <Stack xl noPadding wFull>
           <FeatureTitle
             icon="Droplet"
             title="Theme Customization"
             description="Switch between different themes to see how components adapt. Each theme demonstrates the flexibility of the VaneUI theming system."
           />
 
-          <Card lg noGap noPadding className="w-full transition-all">
-            <Stack itemsCenter lg className="w-full">
+          <Card lg noGap noPadding wFull className="transition-all">
+            <Stack itemsCenter lg wFull>
               <Stack row pill tertiary xs justifyCenter border padding rounded className="inset-shadow-xs">
                 {Object.entries(themes).map(([key, theme]) => (
                   <Button sm noRing pill
@@ -85,14 +84,14 @@ export function ThemeCustomizationSection() {
                   </Button>
                 ))}
               </Stack>
-              <Text secondary sm className="text-center">
+              <Text secondary sm textCenter>
                 Theme: {selectedTheme}. {currentTheme.description}
               </Text>
             </Stack>
 
             <Divider/>
 
-            <Stack relative lg itemsCenter justifyCenter className="w-full min-h-[400px]">
+            <Stack relative lg itemsCenter justifyCenter wFull className="min-h-[400px]">
               <Row absolute className="
     inset-0 pointer-events-none
     bg-[repeating-linear-gradient(-45deg,theme(colors.slate.100)_0_1px,transparent_1px_calc(var(--spacing)*4))]
@@ -110,13 +109,11 @@ export function ThemeCustomizationSection() {
                   />
                   <Stack sm>
                     <Row justifyBetween>
-                      <Title>{dog.name}</Title>
-                      <Chip>
-                        {dog.gender}
-                      </Chip>
+                      <Title>Oliver</Title>
+                      <Chip sm>male</Chip>
                     </Row>
                     <Divider/>
-                    <Text sm>{dog.description}</Text>
+                    <Text sm>Oliver is a shy, sweet pup learning to trust. He needs a calm, patient home. Older kids and a gentle dog will help him feel secure.</Text>
                     <Row mobileCol justifyEnd>
                       <Button success filled className="max-mobile:w-full">
                         Adopt
@@ -132,14 +129,14 @@ export function ThemeCustomizationSection() {
 
             <Divider/>
 
-            <Grid2 itemsStart xs overflowYAuto className="w-full h-[480px] p-2">
+            <Grid2 itemsStretch xs wFull className="max-h-[480px] overflow-y-auto p-2">
               {cssVarsCode && (
                 <CodeBlock
                   code={cssVarsCode}
                   language="css"
                   showHeader={false}
                   theme="dark"
-                  className="flex-1 h-full"
+                  className="flex-1"
                 />
               )}
               <CodeBlock
@@ -147,7 +144,7 @@ export function ThemeCustomizationSection() {
                 language="tsx"
                 showHeader={false}
                 theme="dark"
-                className="flex-1 h-full"
+                className="flex-1"
               />
             </Grid2>
           </Card>

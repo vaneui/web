@@ -7,18 +7,21 @@
   },
   "scripts": {
     "dev": "npm run check:all && next dev",
-    "build": "npm run check:all && next build",
+    "build": "npm run check:all && npm run llms && next build",
+    "llms": "tsx scripts/generate-llms.ts",
     "start": "npm run check:all && next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "check:all": "npm run typecheck && npm run lint",
-    "prebuild": "npm run check:all"
+    "prebuild": "npm run check:all",
+    "screenshot": "tsx scripts/screenshot.ts",
+    "screenshot:clean": "tsx scripts/screenshot.ts --clean"
   },
   "dependencies": {
     "@mdx-js/react": "^3.0.1",
     "@tailwindcss/postcss": "^4.0.14",
-    "@vaneui/md": "^0.9.0-alpha.20260108133619.78ec3c3",
-    "@vaneui/ui": "^0.9.0-alpha.20260114165342.10a91f9",
+    "@vaneui/md": "^0.9.0-alpha.20260207125741.33fc17c",
+    "@vaneui/ui": "^0.9.0-alpha.20260404093647.065347a",
     "@vercel/analytics": "^1.6.1",
     "autoprefixer": "^10.4.19",
     "next": "16.1.0-canary.19",
@@ -42,6 +45,7 @@
     "baseline-browser-mapping": "^2.9.5",
     "eslint": "^9.39.1",
     "eslint-config-next": "^16.0.7",
+    "playwright": "^1.58.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "rimraf": "^5.0.10",

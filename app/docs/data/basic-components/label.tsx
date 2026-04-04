@@ -1,6 +1,6 @@
 'use client'
 
-import { Label, Row, ComponentKeys } from "@vaneui/ui";
+import { Label, Row, Col, Input, Checkbox, ComponentKeys } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
@@ -36,7 +36,7 @@ export const labelExamples: DocsPagePart[] = [
   },
   {
     title: 'Appearances',
-    md: 'Different label color variants for various states.',
+    md: 'Labels use `inherit` appearance by default — they inherit color from their parent. Set an explicit appearance to override.',
     component: (
       <Row flexWrap>
         {
@@ -77,6 +77,43 @@ export const labelExamples: DocsPagePart[] = [
           ))
         }
       </Row>
+    ),
+  },
+  {
+    title: 'With Form Elements',
+    md: 'Labels pair naturally with inputs and checkboxes for accessible forms.',
+    component: (
+      <Col>
+        <Col noGap>
+          <Label semibold>Email Address</Label>
+          <Input placeholder="you@example.com" />
+        </Col>
+        <Col noGap>
+          <Label semibold>Password</Label>
+          <Input placeholder="Enter password" />
+        </Col>
+        <Row>
+          <Checkbox />
+          <Label>Remember me</Label>
+        </Row>
+      </Col>
+    ),
+  },
+  {
+    title: 'Required & Status',
+    md: 'Use appearances to indicate field status — `danger` for errors, `success` for valid, `secondary` for hints.',
+    component: (
+      <Col>
+        <Col noGap>
+          <Label semibold>Username <Label danger>*</Label></Label>
+          <Input placeholder="Choose a username" />
+        </Col>
+        <Col noGap>
+          <Label success semibold>Email verified</Label>
+          <Input placeholder="verified@example.com" />
+        </Col>
+        <Label sm secondary>All fields marked with * are required.</Label>
+      </Col>
     ),
   },
 ];

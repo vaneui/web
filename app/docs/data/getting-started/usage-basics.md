@@ -232,6 +232,77 @@ function ListInheritance() {
 }
 ```
 
+## Images
+
+Display images with VaneUI styling using the `Img` component:
+
+```tsx
+import { Img, Row } from '@vaneui/ui';
+
+function ImageExample() {
+  return (
+    <Row>
+      <Img src="/photo.jpg" alt="Photo" rounded border shadow />
+      <Img src="/avatar.jpg" alt="Avatar" pill />
+      <Img src="/banner.jpg" alt="Banner" sharp objectCover />
+    </Row>
+  );
+}
+```
+
+`Img` supports shape props (`rounded`, `pill`, `sharp`), `border`, `shadow`, size props, and object-fit props (`objectCover`, `objectContain`, `objectFill`).
+
+## Overlays and Modals
+
+Use `Modal` for dialogs that require user attention. Modals include focus trapping, scroll lock, and ARIA attributes by default. Modal provides sub-components for structured layout: `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton`.
+
+```tsx
+import { Modal, ModalHeader, ModalBody, ModalFooter, ModalCloseButton, Button, Text } from '@vaneui/ui';
+import { useState } from 'react';
+
+function ModalExample() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open Modal</Button>
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <ModalHeader>
+          <Text bold>Dialog Title</Text>
+          <ModalCloseButton />
+        </ModalHeader>
+        <ModalBody>
+          <Text>Dialog content goes here.</Text>
+        </ModalBody>
+        <ModalFooter>
+          <Button primary filled onClick={() => setOpen(false)}>Close</Button>
+        </ModalFooter>
+      </Modal>
+    </>
+  );
+}
+```
+
+### PopupTrigger
+
+Use `PopupTrigger` as a convenience wrapper that manages open/close state for `Popup` automatically. Pass the popup content via the `popup` prop and the trigger element as children:
+
+```tsx
+import { PopupTrigger, Button, Card, Text } from '@vaneui/ui';
+
+function PopupExample() {
+  return (
+    <PopupTrigger popup={<Card sm shadow><Text sm>Popup content</Text></Card>}>
+      <Button>Toggle Popup</Button>
+    </PopupTrigger>
+  );
+}
+```
+
+`PopupTrigger` supports three trigger modes: `"click"` (default), `"hover"`, and `"focus"`.
+
+See the [Overlay Components](/docs/overlay-components/overlay) section for `Overlay`, `Modal`, and `Popup` documentation.
+
 ## Responsive Visibility
 
 Hide components on specific breakpoints:

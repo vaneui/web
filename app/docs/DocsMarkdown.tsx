@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { CodeBlock } from '../components/CodeBlock';
-import { Card, Title } from '@vaneui/ui';
+import { Card, Title, SectionTitle } from '@vaneui/ui';
 import { Md } from "@vaneui/md";
 import { toHtmlId } from '../utils/stringUtils';
 import Link from "next/link";
@@ -23,28 +23,32 @@ function CustomMdHeading({level, children}: MdHeadingProps) {
 
   const titleClasses = "after:content-['#'] after:invisible hover:after:visible after:ml-2 after:opacity-25";
 
+  // Markdown ## (level 2) → SectionTitle (h2), ### and below → Title (h3)
+  // Level 1 is not expected in markdown body (page title is set by DocsPageContent)
+  if (level <= 2) {
+    const sizeProps = level === 1 ? {lg: true} : {md: true};
+    return (
+      <SectionTitle
+        {...sizeProps}
+        className={titleClasses}
+      >
+        <Link href={`#${id}`} id={id}>
+          {children}
+        </Link>
+      </SectionTitle>
+    );
+  }
+
   let sizeProps = {};
   switch (level) {
-    case 1:
-      sizeProps = {xl: true};
-      break;
-    case 2:
-      sizeProps = {lg: true};
-      break;
     case 3:
       sizeProps = {md: true};
       break;
     case 4:
       sizeProps = {sm: true};
       break;
-    case 5:
-      sizeProps = {xs: true};
-      break;
-    case 6:
-      sizeProps = {xs: true};
-      break;
     default:
-      sizeProps = {md: true};
+      sizeProps = {xs: true};
   }
 
   return (

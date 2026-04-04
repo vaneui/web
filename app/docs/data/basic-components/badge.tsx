@@ -18,6 +18,7 @@ const appearanceLabels: Record<AppearanceKey, string> = {
   warning: 'Warning',
   info: 'Info',
   link: 'Link',
+  inherit: 'Inherit',
 };
 
 const sizeLabels: Record<SizeKey, string> = {

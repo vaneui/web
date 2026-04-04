@@ -83,7 +83,7 @@ function BrandedApp() {
 
 ### Appearance Props
 - `primary`, `brand`, `secondary`, `tertiary`, `accent`
-- `success`, `danger`, `warning`, `info`, `link`
+- `success`, `danger`, `warning`, `info`, `link`, `inherit`
 
 ### Variant Props
 - `filled`, `outline`
@@ -96,6 +96,27 @@ function BrandedApp() {
 
 ### Layout Props
 - `flex`, `column`, `itemsCenter`, `justifyBetween`, `gap`
+
+### Width Props
+- `wFull`, `wFit`, `wAuto`
+
+### Height Props
+- `hFit`, `hFull`, `hAuto`
+
+### Truncate Props
+- `truncate`, `lineClamp2`, `lineClamp3`, `lineClamp4`, `lineClamp5`
+
+### Letter Spacing Props
+- `trackingTighter`, `trackingTight`, `trackingNormal`, `trackingWide`, `trackingWider`, `trackingWidest`
+
+### Cursor Props
+- `cursorPointer`, `cursorDefault`, `cursorNotAllowed`, `cursorNone`, `cursorText`, `cursorMove`, `cursorWait`
+
+### Orientation Props
+- `horizontal`, `vertical`
+
+### Status Props
+- `error`
 
 ## Override Priority
 
@@ -280,6 +301,9 @@ VaneUI components come with sensible built-in defaults. Only set defaults that d
 - **Input**: `primary: true`, `outline: true`, `rounded: true`
 - **Badge**: `primary: true`, `outline: true`, `pill: true`
 - **Typography** (`Text`, `Title`): `primary: true`, `md: true`
+- **Overlay**: `md: true`
+- **Modal**: `md: true`, `rounded: true`
+- **Popup**: `md: true`, `rounded: true`
 
 ```tsx
 // Unnecessary - these are already the defaults

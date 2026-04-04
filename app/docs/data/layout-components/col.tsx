@@ -1,6 +1,6 @@
 'use client'
 
-import { Col, Row, Text } from "@vaneui/ui";
+import { Col, Row, Text, Card } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
@@ -84,6 +84,32 @@ export const colExamples: DocsPagePart[] = [
         <Col textRight className="flex-1 border-2 border-dashed border-gray-300 p-4">
           <Text semibold>Right Aligned</Text>
           <Text>Content aligned to the right.</Text>
+        </Col>
+      </Row>
+    ),
+  },
+  {
+    title: 'Nested in Row',
+    md: 'Col is commonly used inside Row to create multi-column layouts.',
+    component: (
+      <Row>
+        <Col className="flex-1">
+          <Card>
+            <Text semibold>Column 1</Text>
+            <Text sm secondary>First column content.</Text>
+          </Card>
+        </Col>
+        <Col className="flex-1">
+          <Card>
+            <Text semibold>Column 2</Text>
+            <Text sm secondary>Second column content.</Text>
+          </Card>
+        </Col>
+        <Col className="flex-1">
+          <Card>
+            <Text semibold>Column 3</Text>
+            <Text sm secondary>Third column content.</Text>
+          </Card>
         </Col>
       </Row>
     ),

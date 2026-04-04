@@ -13,27 +13,25 @@ export function Header() {
   return (
     <>
       <Stack sm row justifyBetween itemsCenter tag={'header'} primary borderB
-             className="flex-shrink-0 bg-white/70 backdrop-blur-md z-40 w-full">
+             className="flex-shrink-0 bg-white/70 backdrop-blur-md z-40" wFull>
         <Logo/>
 
         {/* Desktop menu items - hidden on mobile */}
         <Row className="hidden lg:flex">
-          <Link href="/docs">
-            <Button sm normal primary noShadow noRing>
-              Documentation
-            </Button>
-          </Link>
-          <Link href={PRODUCT.githubUrl} target="_blank">
-            <Button sm normal>
-              <GitHub className="size-4"/>
-              GitHub
-              <ArrowRight className="size-4"/>
-            </Button>
-          </Link>
+          <Button sm normal primary noShadow noRing href="/docs" tag={Link}>
+            Documentation
+          </Button>
+          <Button sm normal href={PRODUCT.githubUrl} tag="a" target="_blank" rel="noopener noreferrer">
+            <GitHub className="size-4"/>
+            GitHub
+            <ArrowRight className="size-4"/>
+          </Button>
         </Row>
 
         {/* Mobile menu button - shown only on mobile */}
-        <Button sm className="lg:hidden [--aspect-ratio:1]" onClick={() => setIsMobileMenuOpen(true)}>
+        <Button sm className="lg:hidden [--aspect-ratio:1]"
+                aria-label="Open menu" aria-expanded={isMobileMenuOpen}
+                onClick={() => setIsMobileMenuOpen(true)}>
           <Menu className="size-5"/>
         </Button>
       </Stack>
@@ -43,32 +41,30 @@ export function Header() {
         <div className="fixed inset-0 z-50 lg:hidden">
           <div className="absolute left-0 top-0 h-full w-full bg-bg-primary flex flex-col">
             {/* Fixed header */}
-            <Stack sm row justifyBetween itemsCenter primary borderB className="w-full flex-shrink-0">
+            <Stack sm row justifyBetween itemsCenter primary borderB wFull className="flex-shrink-0">
               <Logo/>
-              <Button secondary sm onClick={() => setIsMobileMenuOpen(false)} className="[--aspect-ratio:1]">
+              <Button secondary sm aria-label="Close menu"
+                      onClick={() => setIsMobileMenuOpen(false)} className="[--aspect-ratio:1]">
                 <X className="size-5"/>
               </Button>
             </Stack>
 
             {/* Scrollable content */}
             <Stack sm className="flex-1 overflow-y-auto styled-scrollbar">
-              <Link href="/docs" className="w-full">
-                <Button sm normal primary noShadow noRing
-                        className="w-full"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Documentation
-                </Button>
-              </Link>
-              <Link href={PRODUCT.githubUrl} target="_blank" className="w-full">
-                <Button sm normal
-                        className="w-full" onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <GitHub className="size-4"/>
-                  GitHub
-                  <ArrowRight className="size-4"/>
-                </Button>
-              </Link>
+              <Button sm normal primary noShadow noRing wFull
+                      href="/docs" tag={Link}
+                      onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Documentation
+              </Button>
+              <Button sm normal wFull
+                      href={PRODUCT.githubUrl} tag="a" target="_blank" rel="noopener noreferrer"
+                      onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <GitHub className="size-4"/>
+                GitHub
+                <ArrowRight className="size-4"/>
+              </Button>
             </Stack>
           </div>
         </div>

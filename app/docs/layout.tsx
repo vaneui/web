@@ -19,19 +19,19 @@ export default function DocsLayout({children}: DocsLayoutProps) {
   return (
     <Col noGap className="h-screen">
       <Header/>
-      <Row noGap overflowHidden className="w-full flex-1" style={{alignItems: 'normal'}}>
+      <Row noGap overflowHidden wFull className="flex-1" style={{alignItems: 'normal'}}>
         {/* Desktop sidebar - always visible on xl screens */}
-        <Stack overflowYAuto
-               className="flex-shrink-0 styled-scrollbar border-border-primary xl:border-r hidden lg:flex">
+        <Stack overflowYAuto tag="nav" aria-label="Documentation"
+               className="flex-shrink-0 styled-scrollbar border-(--color-border-primary) xl:border-r hidden lg:flex">
           <DocsNav currentPath={pathname}/>
         </Stack>
 
         {/* Mobile sidebar overlay */}
         {isMobileMenuOpen && (
           <Col fixed primary className="inset-0 z-50 lg:hidden">
-            <Col noGap className="absolute left-0 top-0 h-full w-full bg-primary flex flex-col">
+            <Col noGap className="absolute left-0 top-0 h-full w-full bg-primary">
               {/* Fixed header */}
-              <Stack sm row justifyBetween itemsCenter className="w-full border-b border-border-primary flex-shrink-0">
+              <Stack sm row justifyBetween itemsCenter wFull className="border-b border-(--color-border-primary) flex-shrink-0">
                 <Logo/>
                 <Button secondary sm noShadow onClick={() => setIsMobileMenuOpen(false)} className="[--aspect-ratio:1]">
                   <X className="size-5"/>
@@ -46,11 +46,11 @@ export default function DocsLayout({children}: DocsLayoutProps) {
           </Col>
         )}
 
-        <Col noGap relative overflowYAuto
+        <Col noGap relative overflowYAuto tag="main"
              className="flex-1 bg-[linear-gradient(to_right,var(--color-gray-50)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-gray-50)_1px,transparent_1px)] bg-[size:calc(var(--spacing)*4)_calc(var(--spacing)*4)]"
              data-scroll-container
         >
-          <Stack row sm borderB className="w-full border-border-primary lg:hidden">
+          <Stack row sm borderB wFull className="border-(--color-border-primary) lg:hidden">
             <Button secondary sm noShadow
                     onClick={() => setIsMobileMenuOpen(true)}
             >
@@ -58,7 +58,7 @@ export default function DocsLayout({children}: DocsLayoutProps) {
             </Button>
           </Stack>
           <Container xl primary borderX className="flex-1">
-            <Stack xl relative className="w-full py-10">
+            <Stack xl relative wFull className="py-10">
               {children}
             </Stack>
           </Container>

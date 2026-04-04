@@ -13,9 +13,11 @@ npm run dev          # Dev server (localhost:3000), runs typecheck + lint first
 npm run build        # Production build (runs typecheck + lint first)
 npm run typecheck    # TypeScript type checking
 npm run lint         # ESLint
+npm run screenshot   # Take full-page + section screenshots to screenshots/
+npm run screenshot:clean  # Delete screenshots
 ```
 
-Requires Node.js >= 22.
+Requires Node.js >= 22. Screenshots require Playwright browsers (`npx playwright install chromium`).
 
 ## Stack
 
@@ -118,9 +120,36 @@ For the full VaneUI component API (all components, props, theming, best practice
 
 **`C:\GitHub\vaneui\CLAUDE.md`** — contains complete documentation of all VaneUI components, boolean props API, ThemeProvider usage, responsive design patterns, and best practices. Read this file when you need to understand VaneUI component behavior or write code using VaneUI components.
 
-## Subagents
+## Visual Review with Screenshots
 
-Custom subagents are defined in `.claude/agents/`:
+Use `scripts/screenshot.ts` to capture full-height and section-by-section screenshots of any page for visual review. The dev server must be running first (`npm run dev`).
 
-- **docs-writer** — use for creating/updating documentation pages (examples + markdown guides)
-- **build-checker** — use after code changes to verify typecheck, lint, and build pass
+```bash
+# Basic usage — screenshots landing page
+npm run screenshot
+
+# Screenshot a specific page
+npx tsx scripts/screenshot.ts --url http://localhost:3000/docs
+
+# Mobile viewport
+npx tsx scripts/screenshot.ts --width 768 --height 1024
+
+# More/fewer sections
+npx tsx scripts/screenshot.ts --sections 12
+
+# Clean up screenshots
+npm run screenshot:clean
+```
+
+Screenshots are saved to `screenshots/` (gitignored). Clean up manually with `npm run screenshot:clean` when done reviewing.
+
+## Agent Delegation (REQUIRED)
+
+When a task matches an agent's trigger below, you **MUST** delegate to that agent. Do not perform the work inline when a matching agent exists.
+
+| Task Pattern | Agent | Why |
+|-------------|-------|-----|
+| Creating/updating documentation pages (examples + markdown guides) | `docs-writer` | Knows docsSections.ts structure, DocsPagePart patterns, MDX conventions |
+| After any code changes — verify typecheck, lint, build | `build-checker` | Runs full verification pipeline, reports pass/fail |
+
+**Exception:** Do not delegate tasks completable in 1-2 tool calls (reading a file, small inline edit).

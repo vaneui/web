@@ -1,6 +1,6 @@
 'use client'
 
-import { Divider, Text, Col, ComponentKeys } from "@vaneui/ui";
+import { Divider, Text, Col, Row, ComponentKeys } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
@@ -35,7 +35,7 @@ export const dividerExamples: DocsPagePart[] = [
   },
   {
     title: 'Divider Appearances',
-    md: 'Dividers can have different appearances.',
+    md: 'Dividers use `inherit` appearance by default. Use explicit appearances for colored dividers.',
     component: (
       <Col lg>
         {
@@ -48,6 +48,19 @@ export const dividerExamples: DocsPagePart[] = [
           ))
         }
       </Col>
+    ),
+  },
+  {
+    title: 'Vertical Divider',
+    md: 'Use `vertical` to render a vertical divider. Useful for separating items in a horizontal row.\n\n```tsx\n<Row>\n  <Text>Left</Text>\n  <Divider vertical />\n  <Text>Right</Text>\n</Row>\n```',
+    component: (
+      <Row style={{ height: 40 }}>
+        <Text>Home</Text>
+        <Divider vertical />
+        <Text>About</Text>
+        <Divider vertical />
+        <Text>Contact</Text>
+      </Row>
     ),
   },
   {

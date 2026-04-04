@@ -18,6 +18,7 @@ const appearanceLabels: Record<AppearanceKey, string> = {
   warning: 'Warning',
   info: 'Info',
   link: 'Link',
+  inherit: 'Inherit',
 };
 
 const sizeLabels: Record<SizeKey, string> = {
@@ -91,6 +92,18 @@ export const buttonExamples: DocsPagePart[] = [
             <Button key={key} {...{[key]: true}}>Subscribe</Button>
           ))
         }
+      </Row>
+    ),
+  },
+  {
+    title: 'Button as Link & Disabled',
+    md: 'Use `href` to render a Button as an `<a>` tag for navigation. Use `disabled` to prevent interaction.\n\n```tsx\n<Button href="/docs">Go to Docs</Button>\n<Button disabled>Disabled</Button>\n```',
+    component: (
+      <Row flexWrap>
+        <Button href="#">Link Button</Button>
+        <Button success filled href="#">Success Link</Button>
+        <Button disabled>Disabled</Button>
+        <Button danger filled disabled>Disabled Danger</Button>
       </Row>
     ),
   },

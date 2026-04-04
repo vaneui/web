@@ -1,6 +1,6 @@
 'use client'
 
-import { Title, Col, Card, Text } from "@vaneui/ui";
+import { Title, Col, Card, Text, Row, Badge } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
@@ -26,7 +26,7 @@ export const titleExamples: DocsPagePart[] = [
   },
   {
     title: 'Title Appearances',
-    md: 'Titles support color appearances: `primary`, `secondary`, `success`, `danger`, etc.',
+    md: 'By default, Title uses the `inherit` appearance — it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `danger` to override.',
     component: (
       <Col>
         <Title primary>Primary Title</Title>
@@ -60,8 +60,24 @@ export const titleExamples: DocsPagePart[] = [
     ),
   },
   {
+    title: 'Title with Badge Context',
+    md: 'Titles pair naturally with badges, chips, and other inline components.',
+    component: (
+      <Col>
+        <Row itemsCenter>
+          <Title>Release Notes</Title>
+          <Badge sm success>New</Badge>
+        </Row>
+        <Row itemsCenter>
+          <Title>Deprecated API</Title>
+          <Badge sm danger>Removed</Badge>
+        </Row>
+      </Col>
+    ),
+  },
+  {
     title: 'Title in Context',
-    md: 'Titles work well with other typography components.',
+    md: 'Titles work well with other typography components in cards and sections.',
     component: (
       <Card>
         <Title lg primary bold>Product Features</Title>

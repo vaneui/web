@@ -1,13 +1,14 @@
 'use client'
 
 import { Link, Col, Row, Text } from "@vaneui/ui";
+import { ExternalLink, FileText, GitHub } from "react-feather";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
 export const linkExamples: DocsPagePart[] = [
   {
     title: 'Basic Link',
-    md: 'A styled anchor element for navigation.',
+    md: 'A styled anchor element for navigation. Unlike other typography components which default to `inherit`, Link defaults to the `link` appearance (blue color) with `underline`.',
     component: (
       <Link href="#">Click here to learn more</Link>
     ),
@@ -25,7 +26,7 @@ export const linkExamples: DocsPagePart[] = [
   },
   {
     title: 'Link Appearances',
-    md: 'Links support color appearances: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`.',
+    md: 'Links default to the `link` appearance (blue). Override with: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`.',
     component: (
       <Row flexWrap>
         <Link primary href="#">Primary</Link>
@@ -72,6 +73,37 @@ export const linkExamples: DocsPagePart[] = [
         Check out our <Link href="#">documentation</Link> to learn more about the features.
         You can also visit the <Link href="#">GitHub repository</Link> for source code.
       </Text>
+    ),
+  },
+  {
+    title: 'With Icons',
+    md: 'Combine links with icons using Row for visual navigation cues.',
+    component: (
+      <Col>
+        <Row itemsCenter>
+          <ExternalLink size={14} />
+          <Link href="#">Open in new window</Link>
+        </Row>
+        <Row itemsCenter>
+          <FileText size={14} />
+          <Link href="#">View documentation</Link>
+        </Row>
+        <Row itemsCenter>
+          <GitHub size={14} />
+          <Link href="#">Source on GitHub</Link>
+        </Row>
+      </Col>
+    ),
+  },
+  {
+    title: 'Sizes in Context',
+    md: 'Different link sizes alongside matching text.',
+    component: (
+      <Col>
+        <Text sm>Read the <Link sm href="#">terms and conditions</Link> before proceeding.</Text>
+        <Text>Visit our <Link href="#">help center</Link> for more information.</Text>
+        <Text lg>Check out the <Link lg href="#">getting started guide</Link> to begin.</Text>
+      </Col>
     ),
   },
 ];

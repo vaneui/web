@@ -4,8 +4,8 @@ import React from 'react';
 import {
   Col, Text, Title, PageTitle, Container, Card, Stack, Divider,
   ComponentCategories, ComponentKeys, ListItem, ThemeProvider, Row, defaultTheme,
-  PropDescriptions, getCategoryName, getCategoryDescription
 } from '@vaneui/ui';
+import { PropDescriptions, getCategoryName, getCategoryDescription } from '@vaneui/ui/props';
 import { DocsPageProps } from './types';
 import { CodeBlock } from '../components/CodeBlock';
 import { prepareComponentString, toHtmlId, extractMarkdownHeadings } from "../utils/stringUtils";
@@ -106,8 +106,8 @@ export function DocsPageContent(
       text: {
       }
     }}>
-      <Container className="w-full">
-        <Row noGap relative itemsStart className="gap-10 w-full">
+      <Container wFull>
+        <Row xl relative itemsStart wFull>
           {/* Main Content */}
           <Col className="flex-1 min-w-0">
             <Col>
@@ -127,24 +127,29 @@ export function DocsPageContent(
             {/* Examples */}
             {pageData.parts.map((example, index) => {
               const id = toHtmlId(example.title);
+              const codeString = example.code !== undefined
+                ? example.code
+                : prepareComponentString(example.component);
               return (
-                <Col key={index} className="w-full">
+                <Col key={index} wFull>
                   <Title>
                     <Link href={`#${id}`} id={id}>{example.title}</Link>
                   </Title>
                   <DocsMarkdown md={example.md}/>
-                  <Card xs sharp itemsCenter className="w-full mb-6">
+                  <Card xs sharp itemsCenter wFull className="mb-6">
                     <ThemeProvider mergeStrategy="replace">
-                      <Stack xl itemsCenter overflowXAuto overflowYVisible className="w-full">
+                      <Stack xl itemsCenter overflowXAuto overflowYVisible wFull>
                         {example.component}
                       </Stack>
                     </ThemeProvider>
-                    <CodeBlock
-                      code={prepareComponentString(example.component)}
-                      language="tsx"
-                      fileName={`${example.title.replaceAll(" ", "")}.tsx`}
-                      theme="light"
-                    />
+                    {codeString && (
+                      <CodeBlock
+                        code={codeString}
+                        language="tsx"
+                        fileName={`${example.title.replaceAll(" ", "")}.tsx`}
+                        theme="light"
+                      />
+                    )}
                   </Card>
                 </Col>
               );
@@ -211,7 +216,7 @@ export function DocsPageContent(
                   }
                 }
                 return (
-                  <Col key={index} className="w-full">
+                  <Col key={index} wFull>
                     <Title>
                       <Link href={`#${id}`} id={id}>{categoryName}</Link>
                     </Title>

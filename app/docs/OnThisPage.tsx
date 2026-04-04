@@ -1,8 +1,7 @@
 'use client'
 
 import React, { useEffect, useState, useRef } from 'react';
-import { Col, Text } from '@vaneui/ui';
-import Link from "next/link";
+import { Col, NavLink, Text } from '@vaneui/ui';
 
 interface OnThisPageProps {
   sections: Array<{
@@ -90,9 +89,7 @@ export function OnThisPage({sections}: OnThisPageProps) {
     }
   }, [activeSection, sections]);
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
-    e.preventDefault();
-
+  const handleClick = (sectionId: string) => {
     // Set active section immediately on click
     setActiveSection(sectionId);
 
@@ -114,30 +111,31 @@ export function OnThisPage({sections}: OnThisPageProps) {
   };
 
   return (
-    <Col ref={containerRef} overflowYAuto sm className="h-fit">
+    <Col ref={containerRef} overflowYAuto sm hFit>
       <Text sm uppercase secondary mono>On this page</Text>
       <Col noGap>
         {sections.map((section, index) => {
           const isActive = activeSection === section.id;
           return (
-            <Link
+            <NavLink
               key={index}
               href={`#${section.id}`}
-              onClick={(e) => handleClick(e, section.id)}
-              className={`border-l-2 hover:bg-bg-hover-primary ${isActive ? "border-(--color-text-primary) bg-primary" : "border-border-primary hover:border-text-tertiary"}`}
+              active={isActive}
+              xs sharp noPadding
+              semibold={isActive}
+              className={`border-l-2 ${isActive ? "border-(--color-text-primary)" : "border-(--color-border-primary) hover:border-(--color-text-tertiary)"} py-1.5 ${
+                section.level === 0 ? 'pl-3' :
+                section.level === 1 ? 'pl-6' :
+                section.level === 2 ? 'pl-9' :
+                'pl-12'
+              }`}
+              onClick={(e: React.MouseEvent) => {
+                e.preventDefault();
+                handleClick(section.id);
+              }}
             >
-              <Text sm secondary={!isActive} semibold={isActive}
-                    className={`py-1.5 ${
-                      section.level === 0 ? 'pl-3' :
-                      section.level === 1 ? 'pl-6' :
-                      section.level === 2 ? 'pl-9' :
-                      section.level === 3 ? 'pl-12' :
-                      'pl-12'
-                    }`}
-              >
-                {section.title}
-              </Text>
-            </Link>
+              {section.title}
+            </NavLink>
           );
         })}
       </Col>

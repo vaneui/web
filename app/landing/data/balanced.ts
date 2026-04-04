@@ -12,11 +12,10 @@ export const balancedDefaults: ThemeDefaults = {
     xs: true,
   },
   button: {
-    sm: true,
+    main: { sm: true },
   },
   card: {
-    shadow: true,
-    md: true,
+    main: { shadow: true, md: true },
   },
   chip: {
     sm: true,

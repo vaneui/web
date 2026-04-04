@@ -70,14 +70,26 @@ export const inputExamples: DocsPagePart[] = [
     ),
   },
   {
+    title: 'Input Shapes',
+    md: 'Inputs support border radius styles: `rounded` (default), `pill`, and `sharp`.',
+    component: (
+      <Row flexWrap>
+        <Input rounded placeholder="Rounded (default)" />
+        <Input pill placeholder="Pill shape" />
+        <Input sharp placeholder="Sharp corners" />
+      </Row>
+    ),
+  },
+  {
     title: 'Input States',
-    md: 'Different input states: disabled, readonly, and validation feedback.',
+    md: 'Different input states: disabled, readonly, and validation feedback. Use appearance props (`success`, `danger`) for visual feedback, or the `error` status prop for form validation state.\n\n```tsx\n<Input placeholder="Normal input" />\n<Input disabled placeholder="Disabled input" />\n<Input success placeholder="Success state" />\n<Input danger placeholder="Error state" />\n<Input error placeholder="Validation error" />\n```',
     component: (
       <Col>
         <Input placeholder="Normal input" />
         <Input disabled placeholder="Disabled input" />
         <Input success placeholder="Success state" />
         <Input danger placeholder="Error state" />
+        <Input error placeholder="Validation error (status)" />
       </Col>
     ),
   },
