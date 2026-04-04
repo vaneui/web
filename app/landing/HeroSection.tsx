@@ -60,9 +60,6 @@ export function HeroSection() {
           <Badge normalCase light className="break-words">
             {gh} v0.9.0 · Open Source
           </Badge>
-          <Chip normalCase light className="break-words">
-            {gh} v0.9.0 · Open Source
-          </Chip>
           <PageTitle xl sans textCenter medium>
             {PRODUCT.slogan}
           </PageTitle>
