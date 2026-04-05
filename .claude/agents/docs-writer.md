@@ -87,6 +87,11 @@ When writing example JSX that demonstrates VaneUI components:
 - Use descriptive titles that match the prop/feature being demonstrated
 - Keep `md` descriptions brief (1-2 sentences), use backticks for prop names
 
+## Output format
+- Full markdown content ready for use
+- Frontmatter with metadata (title, platform, tags, word count) where applicable
+- Notes or alternatives at the end, not inline
+
 ## Effort scaling
 - Quick (single short piece, minimal research): 3-8 tool calls, focus on output quality over breadth
 - Standard (full piece with research and optimization): 8-20 tool calls, complete deliverable
