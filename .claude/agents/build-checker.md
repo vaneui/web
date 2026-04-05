@@ -37,3 +37,8 @@ Do NOT modify any files — only report what you find.
 - Type mismatches when VaneUI component props change
 - Unused imports/variables (ESLint errors, not warnings)
 - `'use client'` missing on files that use React hooks or browser APIs
+
+## Effort scaling
+- Quick review (single file or focused check): 2-5 tool calls, inline findings
+- Standard review (feature/PR scope, 3-10 files): 5-15 tool calls, structured report with severity
+- Full audit (module or codebase-wide): 15-30 tool calls, prioritized findings with fix suggestions
