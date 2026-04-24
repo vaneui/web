@@ -19,8 +19,9 @@ Props are organized into **categories**:
 - **shape**: `rounded`, `pill`, `sharp`
 - **typography**: `sans`, `serif`, `mono`, `semibold`, `bold`, etc.
 - **layout**: `flex`, `column`, `itemsCenter`, `justifyBetween`, etc.
+- **inheritance**: `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder` (and `noInherit*` toggles)
 
-Typography components (Text, Title, SectionTitle, PageTitle), Label, List, and Divider default to `inherit`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color.
+Typography components (Text, Title, SectionTitle, PageTitle), Label, List, and Divider default to `inherit`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Inline components like Link, Code, Kbd, and Mark default to `inheritSize` — they inherit font-size from their parent while keeping their own appearance color.
 
 ## How Components Work
 

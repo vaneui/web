@@ -9,8 +9,6 @@ import {
   Card,
   Stack,
   Button,
-  Badge,
-  Chip,
   Input,
   Label,
   Checkbox,
@@ -114,7 +112,7 @@ const overlayContent = (
       <Divider />
       <MenuItem danger><Trash2 /> Delete</MenuItem>
     </Menu>
-    <PopupTrigger trigger="hover" popup={
+    <PopupTrigger triggerOnHover popup={
       <>
         <Title sm>Sarah Chen</Title>
         <Text xs secondary>Lead Engineer · VaneUI Team</Text>

@@ -34,8 +34,9 @@ Props are organized into **categories**:
 - **shape**: `rounded`, `pill`, `sharp`
 - **typography**: `sans`, `serif`, `mono`, `semibold`, `bold`, etc.
 - **layout**: `flex`, `column`, `itemsCenter`, `justifyBetween`, etc.
+- **inheritance**: `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder` (and `noInherit*` toggles)
 
-Typography components (Text, Title, SectionTitle, PageTitle), Label, List, and Divider default to `inherit`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color.
+Typography components (Text, Title, SectionTitle, PageTitle), Label, List, and Divider default to `inherit`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Inline components like Link, Code, Kbd, and Mark default to `inheritSize` — they inherit font-size from their parent while keeping their own appearance color.
 
 ## How Components Work
 
@@ -2403,3 +2404,404 @@ To customize sizing globally, override the computed variables in your CSS:
 - Prefer semantic overrides (primary, brand, success, danger) for consistent theming.
 - ThemeProvider does not expose a `colors` field; use these CSS variables to change colors.
 - Components inherit the closest CSS variable values automatically via CSS cascade.
+
+---
+Title: Customizing Styles
+URL: https://vaneui.com/docs/customization/customizing-styles
+---
+
+VaneUI components are styled through boolean props and CSS variables, but you can override any visual property using standard Tailwind CSS classes via the `className` prop. This page explains how overrides work, when to use each approach, and common pitfalls.
+
+## How className Overrides Work
+
+VaneUI uses [`tailwind-merge`](https://github.com/dcastil/tailwind-merge) to combine theme-generated classes with your `className`. When a conflict exists, **your class always wins** because `className` is passed last:
+
+```tsx
+// Internally, VaneUI does:
+const finalClasses = twMerge(...themeGeneratedClasses, className);
+```
+
+This means the conflict is resolved at the **JavaScript level** — the losing class is removed from the string entirely before the DOM renders. There are no CSS specificity wars or `!important` hacks.
+
+## What You Can Override
+
+VaneUI components use CSS variable consumer classes like `border-(--border-color)`, `text-(--text-color)`, and `bg-(--bg-color)`. These compile to standard CSS (`border-color: var(--border-color)`). Any Tailwind utility that targets the same CSS property will override them.
+
+### Border Color
+
+```tsx
+// VaneUI generates: border-(--border-color)
+// Your class:       border-red-300
+// Result:           border-red-300 (VaneUI class removed)
+<Card className="border-red-300">Custom border</Card>
+```
+
+### Text Color
+
+```tsx
+// VaneUI generates: text-(--text-color)
+// Your class:       text-emerald-600
+// Result:           text-emerald-600
+<Text className="text-emerald-600">Custom text color</Text>
+```
+
+### Background Color
+
+```tsx
+// VaneUI generates: bg-(--bg-color)
+// Your class:       bg-gradient-to-r from-blue-500 to-purple-500
+// Result:           bg-gradient-to-r from-blue-500 to-purple-500
+<Card className="bg-gradient-to-r from-blue-500 to-purple-500">
+  Gradient card
+</Card>
+```
+
+### Hover, Active, and Focus States
+
+State-specific overrides work too — each state variant is resolved independently:
+
+```tsx
+// Override hover background
+<Button className="hover:bg-blue-700">Custom hover</Button>
+
+// Override focus ring
+<Input className="focus-visible:outline-purple-500">Custom focus</Input>
+
+// Override active state
+<Button className="active:bg-blue-900">Custom active</Button>
+```
+
+### Shadow
+
+```tsx
+<Card className="shadow-2xl">Extra large shadow</Card>
+<Card className="shadow-none">No shadow</Card>
+```
+
+### Non-Conflicting Properties Are Preserved
+
+`twMerge` only removes classes that target the **same CSS property**. Different properties coexist:
+
+```tsx
+// border-width and border-color are separate properties
+// VaneUI's border-width stays, only color is overridden
+<Card className="border-red-300">
+  {/* Has both: border-[length:var(--bw)] (width) + border-red-300 (color) */}
+</Card>
+```
+
+## Override Hierarchy
+
+From lowest to highest priority:
+
+| Level | Mechanism | Scope | Use When |
+|-------|-----------|-------|----------|
+| 1 | Component defaults | Library-wide | You're the library author |
+| 2 | `themeDefaults` | Provider subtree | Change defaults for all components in a section |
+| 3 | `extraClasses` | Provider subtree | Add classes based on active props |
+| 4 | `themeOverride` | Provider subtree | Modify theme internals programmatically |
+| 5 | **`className`** | Single instance | One-off style adjustments |
+| 6 | `style` | Single instance | Dynamic values, CSS variable overrides |
+
+For most use cases, `className` (level 5) is the right tool. Use `themeDefaults` or `extraClasses` when you need the override to apply across many components.
+
+## CSS Variable Approach
+
+Instead of overriding the consumer class with a Tailwind utility, you can override the underlying CSS variable. This keeps VaneUI's consumer class active but changes what value it reads:
+
+```tsx
+// Override the variable — the component's own border-(--border-color) still fires,
+// but reads your custom value instead of the theme's
+<Card style={{ '--border-color': 'var(--color-red-300)' } as React.CSSProperties}>
+  Theme-aware border override
+</Card>
+```
+
+**When to use CSS variables vs className:**
+
+- **`className="border-red-300"`** — static override, ignores the theme entirely. The component's `border-(--border-color)` class is removed by twMerge.
+- **`style={{ '--border-color': '...' }}`** — theme-aware override. The component still uses its consumer class, but the variable value is different. Children inherit the new value.
+
+The CSS variable approach is especially useful when you want descendants to inherit your override:
+
+```tsx
+// All children of this Card inherit the custom border color
+<Card style={{ '--border-color': 'red' } as React.CSSProperties}>
+  <Input /> {/* This Input also gets a red border */}
+  <Divider /> {/* Red divider too */}
+</Card>
+```
+
+## When to Use VaneUI Props Instead
+
+VaneUI provides boolean props for most common styling needs. Always prefer props over Tailwind classes when a prop exists — this ensures the styling integrates with the size system, responds to theme changes, and works with `ThemeProvider` overrides.
+
+| Instead of Tailwind | Use VaneUI Prop |
+|---------------------|-----------------|
+| `className="font-bold"` | `bold` |
+| `className="text-center"` | `textCenter` |
+| `className="uppercase"` | `uppercase` |
+| `className="rounded-full"` | `pill` |
+| `className="flex items-center"` | `flex itemsCenter` |
+| `className="cursor-pointer"` | `cursorPointer` |
+| `className="gap-4"` | Use size props (`xs` through `xl`) |
+| `className="bg-red-500"` | `danger filled` |
+
+## className Is for Things VaneUI Props Don't Cover
+
+Good uses of `className`:
+
+```tsx
+{/* Custom width/height */}
+<Card className="w-full max-w-md">Fixed-width card</Card>
+
+{/* Custom positioning */}
+<Row className="sticky top-0 z-10">Sticky header</Row>
+
+{/* Animations */}
+<Badge className="animate-pulse">Live</Badge>
+
+{/* Gradients */}
+<Card className="bg-gradient-to-br from-indigo-500 to-purple-600">
+  Gradient card
+</Card>
+
+{/* Aspect ratio */}
+<Img className="aspect-video" src="/banner.jpg" alt="Banner" />
+```
+
+## Common Pitfalls
+
+### Don't override gap with Tailwind classes
+
+Gap is controlled by VaneUI's size system. Use size props instead:
+
+```tsx
+// Wrong — fights the size system
+<Row className="gap-10">Content</Row>
+
+// Right — gap scales with size
+<Row lg>Content</Row>
+<Row xs>Tight content</Row>
+```
+
+### Don't override padding with Tailwind classes
+
+Padding is also size-driven and scales proportionally:
+
+```tsx
+// Wrong
+<Card className="p-8">Content</Card>
+
+// Right — padding scales with size
+<Card lg>Content</Card>
+```
+
+### Don't use appearance-colored Tailwind classes when an appearance prop exists
+
+```tsx
+// Wrong — bypasses the theme system
+<Button className="bg-red-500 text-white border-red-600">Delete</Button>
+
+// Right — uses the theme system
+<Button danger filled>Delete</Button>
+```
+
+### Beware of className on Typography Components
+
+Typography components have built-in letter spacing, line height, and font size that scale with the size prop. Overriding these with Tailwind classes breaks the proportional scaling:
+
+```tsx
+// Wrong — breaks size scaling
+<Text className="text-2xl tracking-wide leading-10">Content</Text>
+
+// Right — use size props
+<Text xl>Content</Text>
+```
+
+---
+Title: Variant Inheritance
+URL: https://vaneui.com/docs/customization/variant-inheritance
+---
+
+VaneUI components inherit their colors from ancestor components through native CSS custom-property cascade. This page explains how inheritance works, when components set their own colors vs. inherit, and how to control the behavior.
+
+## How It Works
+
+VaneUI's color system has three layers:
+
+1. **`:root` fallbacks** — set `--text-color`, `--bg-color`, `--border-color` etc. to the primary outline palette (dark text, white background, light border)
+2. **Direct CSS rules** — when a component has `data-variant` + `data-appearance` attributes, a CSS rule fires and rewrites those variables on the element
+3. **CSS cascade** — children that don't set their own variables inherit from the nearest ancestor that did
+
+```
+:root                           → --text-color: dark, --bg-color: white
+  <Card filled primary>         → --text-color: white, --bg-color: dark  (CSS rule fires)
+    <Button>                    → inherits white text from Card           (no attrs, no rule)
+    <Button primary outline>    → --text-color: dark                     (explicit attrs, own rule fires)
+    <Text>                      → inherits white text from Card           (inherit mode)
+    <Mark>                      → --text-color: amber (warning)           (identity, own rule fires)
+```
+
+## Which Components Set vs. Inherit
+
+### Components That Inherit (no data attributes by default)
+
+These components use the primary + outline defaults from the library baseline. Because `primary + outline` matches the `:root` palette, VaneUI skips data-attribute emission — letting the component inherit from its nearest ancestor that DID set variables.
+
+**Button, Card, Badge, Code, Kbd, Input, IconButton, NavLink, Icon**
+
+A default `<Button>` inside a `<Card filled primary>` inherits the Card's white text and dark background — it automatically looks right on the dark surface. No configuration needed.
+
+### Components That Set Their Own Colors (identity components)
+
+These components have defaults that deviate from the primary + outline baseline. VaneUI detects this and emits data attributes so the component's own CSS rule fires, pinning its colors regardless of context.
+
+| Component | Default Appearance | Why |
+|-----------|-------------------|-----|
+| **Mark** | warning + outline | Yellow highlighter must be visible everywhere |
+| **Chip** | secondary + outline | Muted tag should look consistent |
+| **Link** | link + outline | Blue hyperlink must be recognizable |
+| **Checkbox** | primary + filled | Checked state needs non-white background |
+
+A `<Mark>` inside a `<Card filled danger>` still renders in its warning (yellow) palette — it doesn't turn red.
+
+### Components in Inherit Mode (typography)
+
+**Text, Title, SectionTitle, PageTitle, Label, List, ListItem, Divider, Blockquote**
+
+These components default to `inherit` — they never emit data attributes and always read colors from their nearest ancestor. This is how `<Text>` inside a `<Card filled primary>` automatically gets white text without any props.
+
+## Explicit Props Always Win
+
+When you explicitly set an appearance or variant on a component, VaneUI emits data attributes and the component's own CSS rule fires — overriding any inherited values:
+
+```tsx
+<Card filled primary>
+  {/* Inherits from Card — white text on dark background */}
+  <Text>I'm white</Text>
+
+  {/* Explicit props — own CSS rule fires, dark text */}
+  <Text primary outline>I'm dark, even inside a filled Card</Text>
+
+  {/* Explicit different appearance — own CSS rule fires */}
+  <Text success>I'm green</Text>
+</Card>
+```
+
+## Nested Layouts
+
+When multiple layout components are nested, each child inherits from its **nearest ancestor** that sets variables — not from the outermost ancestor:
+
+```tsx
+<Card filled primary>
+  {/* Card sets: --text-color = white, --bg-color = dark */}
+
+  <Stack outline primary>
+    {/* Stack sets its own: --text-color = dark, --bg-color = white */}
+    {/* (explicit outline primary → own CSS rule fires) */}
+
+    <Text>I'm dark (inherits from Stack, not Card)</Text>
+  </Stack>
+
+  <Stack filled danger>
+    {/* Stack sets its own: --text-color = white, --bg-color = red */}
+
+    <Text>I'm white on red (inherits from danger Stack)</Text>
+  </Stack>
+</Card>
+```
+
+## ThemeProvider Overrides
+
+`ThemeProvider.themeDefaults` overrides are treated as user intent — they cause data-attribute emission even if the resolved value matches baseline:
+
+```tsx
+{/* All Badges in this subtree render as danger, with data attributes */}
+<ThemeProvider themeDefaults={{ badge: { danger: true } }}>
+  <Card filled primary>
+    {/* This Badge renders red (danger), not inherited from Card */}
+    <Badge>Alert</Badge>
+  </Card>
+</ThemeProvider>
+```
+
+## The Baseline Rule
+
+The data-attribute gate uses a simple rule:
+
+> **Emit `data-appearance` and `data-variant` when the resolved values deviate from `primary + outline`** — either because the user explicitly set props, because `themeDefaults` changed them, or because the component's library defaults are non-baseline (identity components).
+
+This means:
+- `<Button>` → primary + outline (baseline) → no attrs → inherits
+- `<Button filled>` → primary + filled (filled ≠ outline) → attrs emitted → own rule
+- `<Button danger>` → danger + outline (danger ≠ primary) → attrs emitted → own rule
+- `<Mark>` → warning + outline (warning ≠ primary) → attrs emitted → own rule
+- `<Text>` → inherit + outline (inherit excluded) → no attrs → inherits
+
+## Granular Inheritance Props
+
+By default, the `inherit` appearance keyword inherits **everything** — color, size, background, and border — from the nearest ancestor. But sometimes you need selective inheritance: a `Link` inside a `Title` should inherit font-size (so the link matches the heading size) but keep its own link-blue color.
+
+VaneUI provides four independent boolean toggle props for this:
+
+| Prop | What it inherits | Negative toggle |
+|------|-----------------|-----------------|
+| `inheritSize` | Font-size and line-height from parent | `noInheritSize` |
+| `inheritColor` | Text color via CSS variable cascade | `noInheritColor` |
+| `inheritBg` | Background color via CSS variable cascade | `noInheritBg` |
+| `inheritBorder` | Border color via CSS variable cascade | `noInheritBorder` |
+
+### How `inherit` expands
+
+When a component has `inherit` appearance (the default for Text, Title, Label, List, Divider, Blockquote), VaneUI expands it into color, background, and border inheritance — but **not size**:
+
+```
+<Text inherit>
+  ↓ expands to:
+  inheritColor + inheritBg + inheritBorder
+  (NOT inheritSize — size uses own --fs variable so <Text sm> works as expected)
+```
+
+Size inheritance is separate — only inline components like Link, Code, Kbd, and Mark have `inheritSize: true` in their defaults. You can also set it explicitly:
+
+```tsx
+<Card filled primary>
+  {/* Inherits color (white) but uses own md size */}
+  <Text inherit>Inherited color, own size</Text>
+
+  {/* Explicit inheritSize — also inherits font-size from parent */}
+  <Text inherit inheritSize>Inherited color AND size</Text>
+</Card>
+```
+
+### Link, Code, Kbd, Mark — size inheritance by default
+
+These components have their own appearance (Link = `link`, Code/Kbd = `primary`, Mark = `warning`) so the `inherit` expansion does NOT fire. Instead, they have `inheritSize: true` set explicitly in their defaults:
+
+```tsx
+<Title lg>
+  Check the <Link href="/docs">documentation</Link> or run <Code>npm install</Code>
+</Title>
+```
+
+- **Link** renders at the Title's `lg` font-size (inherited) but stays **link-blue** (own appearance)
+- **Code** renders at the Title's `lg` font-size (inherited) but stays **primary-colored** with its own background and ring (own appearance)
+
+This means inline elements automatically scale with their surrounding typography — no manual size matching needed.
+
+### Opting out
+
+Use `noInheritSize` to keep a component's own size:
+
+```tsx
+<Title lg>
+  Heading with <Code noInheritSize>fixed-size code</Code>
+</Title>
+```
+
+The Code renders at its default `md` size while the Title is `lg`.
+
+### Responsive overrides inheritSize
+
+Title, PageTitle, and SectionTitle have `responsive: true` in their defaults. Responsive sizing takes priority over `inheritSize` — a responsive heading always uses its viewport-scaled size, even if `inheritSize` is set via the `inherit` expansion.

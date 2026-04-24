@@ -333,6 +333,18 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         description: 'Customize VaneUI components using CSS custom properties and variables.',
         mdPath: 'css-variables.md',
       },
+      {
+        slug: 'customizing-styles',
+        name: 'Customizing Styles',
+        description: 'Override VaneUI component styles using Tailwind CSS classes, CSS variables, and the className prop.',
+        mdPath: 'customizing-styles.md',
+      },
+      {
+        slug: 'variant-inheritance',
+        name: 'Variant Inheritance',
+        description: 'How components inherit colors from ancestor layouts via CSS custom-property cascade.',
+        mdPath: 'variant-inheritance.md',
+      },
     ]
   },
 ];

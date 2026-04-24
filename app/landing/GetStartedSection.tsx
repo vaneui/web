@@ -3,7 +3,6 @@
 import {
   Section,
   Container,
-  Col,
   Row,
   Button,
   Text,
@@ -28,7 +27,8 @@ export function GetStartedSection() {
             <Button lg filled tag={Link} href="/docs/getting-started/installation">
               Read the Docs
             </Button>
-            <Button lg tag="a" href={PRODUCT.githubUrl} target="_blank" rel="noopener noreferrer">
+            <Button lg tag="a" href={PRODUCT.githubUrl} target="_blank" rel="noopener noreferrer"
+                    aria-label="View VaneUI on GitHub (opens in new tab)">
               View on GitHub
             </Button>
           </Row>

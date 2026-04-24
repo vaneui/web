@@ -117,7 +117,7 @@ function PopupTriggerClickDemo() {
 
 function PopupTriggerHoverDemo() {
   return (
-    <PopupTrigger trigger="hover" openDelay={200} popup={<Card sm shadow><Text sm>Tooltip text</Text></Card>}>
+    <PopupTrigger triggerOnHover openDelay={200} popup={<Card sm shadow><Text sm>Tooltip text</Text></Card>}>
       <Button>Hover Me</Button>
     </PopupTrigger>
   );
@@ -125,7 +125,7 @@ function PopupTriggerHoverDemo() {
 
 function PopupTriggerFocusDemo() {
   return (
-    <PopupTrigger trigger="focus" popup={<Card sm shadow><Stack sm><Text sm>Search suggestions...</Text><Text sm secondary>Try &ldquo;Button&rdquo; or &ldquo;Card&rdquo;</Text></Stack></Card>}>
+    <PopupTrigger triggerOnFocus popup={<Card sm shadow><Stack sm><Text sm>Search suggestions...</Text><Text sm secondary>Try &ldquo;Button&rdquo; or &ldquo;Card&rdquo;</Text></Stack></Card>}>
       <Input placeholder="Search components..." />
     </PopupTrigger>
   );
@@ -237,13 +237,13 @@ export const popupExamples: DocsPagePart[] = [
   },
   {
     title: 'PopupTrigger (Hover)',
-    md: 'Set `trigger="hover"` to show the popup on mouse enter and hide it on mouse leave. Use `openDelay` to add a delay (in milliseconds) before the popup appears, and `closeDelay` (default: 150ms) before it disappears. This is useful for tooltip-like behavior.\n\n```tsx\n<PopupTrigger\n  trigger="hover"\n  openDelay={200}\n  popup={<Card sm shadow><Text sm>Tooltip text</Text></Card>}\n>\n  <Button>Hover Me</Button>\n</PopupTrigger>\n```',
+    md: 'Set `triggerOnHover` to show the popup on mouse enter and hide it on mouse leave. Use `openDelay` to add a delay (in milliseconds) before the popup appears, and `closeDelay` (default: 150ms) before it disappears. This is useful for tooltip-like behavior.\n\n```tsx\n<PopupTrigger\n  triggerOnHover\n  openDelay={200}\n  popup={<Card sm shadow><Text sm>Tooltip text</Text></Card>}\n>\n  <Button>Hover Me</Button>\n</PopupTrigger>\n```',
     component: <PopupTriggerHoverDemo />,
     code: "",
   },
   {
     title: 'PopupTrigger (Focus)',
-    md: 'Set `trigger="focus"` to show the popup when the trigger element receives focus and hide it on blur. Useful for search autocomplete, input hints, and accessible dropdown suggestions.\n\n```tsx\n<PopupTrigger\n  trigger="focus"\n  popup={<Card sm shadow><Text sm>Search suggestions...</Text></Card>}\n>\n  <Input placeholder="Search..." />\n</PopupTrigger>\n```',
+    md: 'Set `triggerOnFocus` to show the popup when the trigger element receives focus and hide it on blur. Useful for search autocomplete, input hints, and accessible dropdown suggestions.\n\n```tsx\n<PopupTrigger\n  triggerOnFocus\n  popup={<Card sm shadow><Text sm>Search suggestions...</Text></Card>}\n>\n  <Input placeholder="Search..." />\n</PopupTrigger>\n```',
     component: <PopupTriggerFocusDemo />,
     code: "",
   },

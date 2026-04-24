@@ -100,6 +100,34 @@ export const labelExamples: DocsPagePart[] = [
     ),
   },
   {
+    title: 'Size Propagation',
+    md: 'When an `Input` or `Checkbox` is nested inside a `Label`, it automatically picks up the Label\'s size — set it once on the Label and everything scales together. Pass a size on the child to opt out for that one element.',
+    component: (
+      <Col>
+        <Label sm>
+          Small field
+          <Input placeholder="you@example.com" />
+        </Label>
+        <Label>
+          Default (md) field
+          <Input placeholder="you@example.com" />
+        </Label>
+        <Label lg>
+          Large field
+          <Input placeholder="you@example.com" />
+        </Label>
+        <Label xl>
+          <Checkbox />
+          Extra-large checkbox option
+        </Label>
+        <Label lg>
+          <Checkbox xs />
+          Explicit <code>xs</code> checkbox overrides the <code>lg</code> label
+        </Label>
+      </Col>
+    ),
+  },
+  {
     title: 'Required & Status',
     md: 'Use appearances to indicate field status — `danger` for errors, `success` for valid, `secondary` for hints.',
     component: (

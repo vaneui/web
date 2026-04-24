@@ -39,13 +39,13 @@ export const checkboxExamples: DocsPagePart[] = [
   },
   {
     title: 'Sizes',
-    md: 'Checkboxes in different sizes - `xs`, `sm`, `md`, `lg`, `xl`, each wrapped in a Label. Use labels with same `size` as Checkboxes',
+    md: 'Checkboxes in different sizes: `xs`, `sm`, `md`, `lg`, `xl`. A `Checkbox` nested inside a `Label` inherits the Label\'s size automatically — set it once on the Label and both scale together.',
     component: (
       <Row flexWrap>
         {
           ComponentKeys.size.map((key: string) => (
             <Label key={key} {...{[key]: true}} htmlFor={`size-${key}`}>
-              <Checkbox id={`size-${key}`} {...{[key]: true}} defaultChecked/>
+              <Checkbox id={`size-${key}`} defaultChecked/>
               Size: {key}
             </Label>
           ))

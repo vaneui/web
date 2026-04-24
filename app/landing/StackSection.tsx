@@ -3,8 +3,6 @@ import {
   Container,
   Col,
   Row,
-  Chip,
-  Title,
   Text,
   Badge,
   SectionTitle,

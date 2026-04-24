@@ -18,8 +18,6 @@ import {
 import { PRODUCT } from '../constants';
 import { CodeBlock } from "../components/CodeBlock";
 import Link from "next/link";
-import Image from "next/image";
-import githubMark from './../../public/github-mark.svg'
 import { Play } from "react-feather";
 import { dog } from "./data/dog";
 import { prepareComponentString } from "../utils/stringUtils";
@@ -51,8 +49,8 @@ export function HeroSection() {
     </Card>;
 
   return (
-    <Section xl relative borderB primary transparent
-      className="z-20 bg-gradient-to-r from-slate-100 via-white to-slate-100 pb-0 overflow-hidden">
+    <Section xl relative borderB primary transparent overflowHidden
+      className="z-20 bg-gradient-to-r from-slate-100 via-white to-slate-100 pb-0">
       <Row absolute
         className="inset-0 bg-[radial-gradient(var(--color-slate-200)_1px,transparent_1px)] [background-size:calc(var(--spacing)*4)_calc(var(--spacing)*4)]" />
       <Container xs className="z-10">
@@ -68,7 +66,8 @@ export function HeroSection() {
             <Button lg filled className="max-mobile:w-full" tag={Link} href="/docs/getting-started/installation">
               Get Started <Play />
             </Button>
-            <Button lg className="max-mobile:w-full" target="_blank" rel="noopener noreferrer" href={PRODUCT.githubUrl} tag={Link}>
+            <Button lg className="max-mobile:w-full" target="_blank" rel="noopener noreferrer" href={PRODUCT.githubUrl} tag={Link}
+                    aria-label="View VaneUI on GitHub (opens in new tab)">
               View on GitHub
             </Button>
           </Row>

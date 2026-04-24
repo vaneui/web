@@ -129,7 +129,7 @@ export function ThemeCustomizationSection() {
 
             <Divider/>
 
-            <Grid2 itemsStretch xs wFull className="max-h-[480px] overflow-y-auto p-2">
+            <Grid2 itemsStretch xs wFull overflowYAuto className="max-h-[480px] p-2">
               {cssVarsCode && (
                 <CodeBlock
                   code={cssVarsCode}

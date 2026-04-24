@@ -1,6 +1,6 @@
 'use client'
 
-import { Row, Button, Stack } from '@vaneui/ui';
+import { Row, Button, Stack, Col } from '@vaneui/ui';
 import { PRODUCT } from '../constants';
 import Link from 'next/link'
 import { ArrowRight, GitHub, Menu, X } from "react-feather";
@@ -17,14 +17,15 @@ export function Header() {
         <Logo/>
 
         {/* Desktop menu items - hidden on mobile */}
-        <Row className="hidden lg:flex">
+        <Row tabletHide>
           <Button sm normal primary noShadow noRing href="/docs" tag={Link}>
             Documentation
           </Button>
-          <Button sm normal href={PRODUCT.githubUrl} tag="a" target="_blank" rel="noopener noreferrer">
-            <GitHub className="size-4"/>
+          <Button sm normal href={PRODUCT.githubUrl} tag="a" target="_blank" rel="noopener noreferrer"
+                  aria-label="GitHub repository (opens in new tab)">
+            <GitHub className="size-4" aria-hidden="true"/>
             GitHub
-            <ArrowRight className="size-4"/>
+            <ArrowRight className="size-4" aria-hidden="true"/>
           </Button>
         </Row>
 
@@ -39,7 +40,7 @@ export function Header() {
       {/* Mobile menu overlay */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
-          <div className="absolute left-0 top-0 h-full w-full bg-bg-primary flex flex-col">
+          <Col absolute hFull wFull noGap className="top-0 left-0 bg-bg-primary">
             {/* Fixed header */}
             <Stack sm row justifyBetween itemsCenter primary borderB wFull className="flex-shrink-0">
               <Logo/>
@@ -60,13 +61,14 @@ export function Header() {
               <Button sm normal wFull
                       href={PRODUCT.githubUrl} tag="a" target="_blank" rel="noopener noreferrer"
                       onClick={() => setIsMobileMenuOpen(false)}
+                      aria-label="GitHub repository (opens in new tab)"
               >
-                <GitHub className="size-4"/>
+                <GitHub className="size-4" aria-hidden="true"/>
                 GitHub
-                <ArrowRight className="size-4"/>
+                <ArrowRight className="size-4" aria-hidden="true"/>
               </Button>
             </Stack>
-          </div>
+          </Col>
         </div>
       )}
     </>

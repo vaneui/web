@@ -77,6 +77,27 @@ function LinkMenuDemo() {
   );
 }
 
+function SizedMenuDemos() {
+  return (
+    <>
+      <Menu lg trigger={<Button lg>Large Menu <ChevronDown size={14} /></Button>}>
+        <MenuLabel>Actions</MenuLabel>
+        <MenuItem>Edit</MenuItem>
+        <MenuItem>Duplicate</MenuItem>
+        <Divider />
+        <MenuItem danger>Delete</MenuItem>
+      </Menu>
+      <Menu xl trigger={<Button xl>XL Menu <ChevronDown size={14} /></Button>}>
+        <MenuLabel>Actions</MenuLabel>
+        <MenuItem>Edit</MenuItem>
+        <MenuItem>Duplicate</MenuItem>
+        <Divider />
+        <MenuItem danger>Delete</MenuItem>
+      </Menu>
+    </>
+  );
+}
+
 export const menuExamples: DocsPagePart[] = [
   {
     title: 'Basic Menu',
@@ -112,6 +133,12 @@ export const menuExamples: DocsPagePart[] = [
     title: 'Items as Links',
     md: 'Pass `href` to render a `MenuItem` as an anchor tag for navigation.\n\n```tsx\n<MenuItem href="/settings">Settings</MenuItem>\n<MenuItem href="https://github.com" target="_blank">GitHub</MenuItem>\n```',
     component: <LinkMenuDemo />,
+    code: "",
+  },
+  {
+    title: 'Menu Sizes',
+    md: 'Set a size on `Menu` (e.g. `<Menu lg>`) and the dropdown popup, every `MenuItem`, `MenuLabel`, and nested `Divider` scale together automatically — no need to repeat the size on every child. Items render with larger font-size and padding, the popup frame lifts its inner padding, and dividers match. Individual children can still override with their own size prop.\n\n```tsx\n<Menu lg trigger={<Button lg>Actions</Button>}>\n  <MenuLabel>Actions</MenuLabel>\n  <MenuItem>Edit</MenuItem>\n  <Divider />\n  <MenuItem danger>Delete</MenuItem>\n</Menu>\n```',
+    component: <SizedMenuDemos />,
     code: "",
   },
   {

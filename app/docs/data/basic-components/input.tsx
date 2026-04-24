@@ -55,17 +55,17 @@ export const inputExamples: DocsPagePart[] = [
   },
   {
     title: 'Input with Labels',
-    md: 'Pair inputs with labels for accessibility and better UX.',
+    md: 'Pair inputs with labels for accessibility and better UX. When the `Input` is nested inside a `Label`, it inherits the Label\'s size — set it once on the Label.',
     component: (
       <Col>
-        <div>
-          <Label htmlFor="name">Full Name</Label>
-          <Input id="name" type="text" placeholder="Enter your full name" />
-        </div>
-        <div>
-          <Label htmlFor="email">Email Address</Label>
-          <Input id="email" type="email" placeholder="Enter your email" />
-        </div>
+        <Label>
+          Full Name
+          <Input type="text" placeholder="Enter your full name" />
+        </Label>
+        <Label lg>
+          Email Address (large)
+          <Input type="email" placeholder="Enter your email" />
+        </Label>
       </Col>
     ),
   },

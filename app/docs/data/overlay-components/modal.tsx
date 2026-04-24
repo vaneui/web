@@ -207,7 +207,7 @@ function FullScreenModalDemo() {
 export const modalExamples: DocsPagePart[] = [
   {
     title: 'Basic Modal',
-    md: 'A confirmation dialog with title, text, and action buttons. Modal includes focus trapping, scroll lock, and ARIA attributes (`role="dialog"`, `aria-modal="true"`) by default.\n\n```tsx\nconst [open, setOpen] = useState(false);\n\n<Button onClick={() => setOpen(true)}>Open Modal</Button>\n<Modal open={open} onClose={() => setOpen(false)}>\n  <Stack>\n    <Text bold>Confirm Action</Text>\n    <Text>Are you sure?</Text>\n    <Row justifyEnd>\n      <Button onClick={() => setOpen(false)}>Cancel</Button>\n      <Button primary filled onClick={() => setOpen(false)}>Confirm</Button>\n    </Row>\n  </Stack>\n</Modal>\n```',
+    md: 'A confirmation dialog with title, text, and action buttons. Modal includes focus trapping, scroll lock, and ARIA attributes (`role="dialog"`, `aria-modal="true"`) by default.\n\nModal defaults: `md` size, `primary` appearance, `outline` variant, `rounded` shape, `shadow`, `border`, `flex column`, `gap`, `padding`, `overflowAuto`.\n\n```tsx\nconst [open, setOpen] = useState(false);\n\n<Button onClick={() => setOpen(true)}>Open Modal</Button>\n<Modal open={open} onClose={() => setOpen(false)}>\n  <Stack>\n    <Text bold>Confirm Action</Text>\n    <Text>Are you sure?</Text>\n    <Row justifyEnd>\n      <Button onClick={() => setOpen(false)}>Cancel</Button>\n      <Button primary filled onClick={() => setOpen(false)}>Confirm</Button>\n    </Row>\n  </Stack>\n</Modal>\n```',
     component: <BasicModalDemo />,
     code: "",
   },

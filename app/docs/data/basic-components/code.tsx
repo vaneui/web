@@ -82,12 +82,12 @@ export const codeExamples: DocsPagePart[] = [
   },
   {
     title: 'Filled & Outline Variants',
-    md: 'Code supports `filled` (default) and `outline` variants for different visual emphasis.',
+    md: 'Code defaults to `outline` variant. Use `filled` for stronger visual emphasis.',
     component: (
       <Col>
-        <Text>Default filled: <Code>npm install</Code> then <Code>npm run build</Code></Text>
-        <Text>Outline: <Code outline>git commit</Code> then <Code outline>git push</Code></Text>
-        <Text>Colored: <Code success filled>200 OK</Code> <Code danger filled>500 Error</Code> <Code warning filled>deprecated</Code></Text>
+        <Text>Default outline: <Code>npm install</Code> then <Code>npm run build</Code></Text>
+        <Text>Filled: <Code filled>git commit</Code> then <Code filled>git push</Code></Text>
+        <Text>Colored filled: <Code success filled>200 OK</Code> <Code danger filled>500 Error</Code> <Code warning filled>deprecated</Code></Text>
       </Col>
     ),
   },
