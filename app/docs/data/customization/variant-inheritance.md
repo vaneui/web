@@ -149,32 +149,45 @@ Size inheritance is separate — only inline components like Link, Code, Kbd, an
 </Card>
 ```
 
-### Link, Code, Kbd, Mark — size inheritance by default
+### Link, Mark — exact size inheritance via `inheritSize`
 
-These components have their own appearance (Link = `link`, Code/Kbd = `primary`, Mark = `warning`) so the `inherit` expansion does NOT fire. Instead, they have `inheritSize: true` set explicitly in their defaults:
-
-```tsx
-<Title lg>
-  Check the <Link href="/docs">documentation</Link> or run <Code>npm install</Code>
-</Title>
-```
-
-- **Link** renders at the Title's `lg` font-size (inherited) but stays **link-blue** (own appearance)
-- **Code** renders at the Title's `lg` font-size (inherited) but stays **primary-colored** with its own background and ring (own appearance)
-
-This means inline elements automatically scale with their surrounding typography — no manual size matching needed.
-
-### Opting out
-
-Use `noInheritSize` to keep a component's own size:
+Link and Mark have their own appearance (Link = `link`, Mark = `warning`) so the `inherit` expansion does NOT fire. Instead, they have `inheritSize: true` set explicitly in their defaults — they render at the *exact* font-size of the nearest typography ancestor.
 
 ```tsx
 <Title lg>
-  Heading with <Code noInheritSize>fixed-size code</Code>
+  Check the <Link href="/docs">documentation</Link> for details
 </Title>
 ```
 
-The Code renders at its default `md` size while the Title is `lg`.
+- **Link** renders at the Title's `lg` font-size (inherited 1:1) but stays **link-blue** (own appearance)
+- **Mark** renders at parent size with its own warning highlight color
+
+### Code, Kbd — em-relative geometry
+
+Code and Kbd use a different mechanism: their `.vane-code` / `.vane-kbd` rules override `--spacing` to `0.25em` locally, so the entire geometry pipeline (font-size, padding, border-radius, gap) resolves in em — proportional to the parent's font-size.
+
+```tsx
+<Title lg>
+  Run <Code>npm install</Code> to add the package
+</Title>
+```
+
+- **Code** renders at 87.5% of Title's `lg` font-size (Code's default `md` ratio = 0.875×)
+- The size prop adjusts the ratio: `xs` = 0.625, `sm` = 0.75, `md` = 0.875 (default), `lg` = 1 (matches parent), `xl` = 1.125
+
+So inline Code feels right-sized in every context — body text at 14 px / 16 px, headings at 21 px / 24 px, hero displays at 42 px / 48 px.
+
+### Opting out (Link, Mark)
+
+Use `noInheritSize` to keep Link or Mark at its own size instead of the parent's:
+
+```tsx
+<Title lg>
+  Heading with <Link noInheritSize href="/docs">fixed-size link</Link>
+</Title>
+```
+
+The Link renders at its default `md` size while the Title is `lg`. For Code/Kbd, the size prop already controls the ratio — pass any of `xs` / `sm` / `md` / `lg` / `xl` to adjust.
 
 ### Responsive overrides inheritSize
 
