@@ -23,11 +23,6 @@ export async function generateMetadata({params}: DocsPageProps): Promise<Metadat
   }
 }
 
-// Tracks slugs we've already warned about (per server boot) so we only log
-// each conflict once. Mutating the Set's contents (not the binding itself)
-// keeps the react-hooks/globals lint rule happy.
-const mdTsxConflictWarned = new Set<string>();
-
 async function readIfExists(filePath: string): Promise<string | null> {
   try {
     return await fs.readFile(filePath, 'utf8');
@@ -65,16 +60,6 @@ export default async function Page({params}: DocsPageProps) {
   const componentMd = await readIfExists(componentMdPath);
 
   if (componentMd !== null) {
-    const conflictKey = `${docsSection.slug}/${docsPage.slug}`;
-    if (
-      docsPage.parts && docsPage.parts.length > 0 &&
-      !mdTsxConflictWarned.has(conflictKey)
-    ) {
-      mdTsxConflictWarned.add(conflictKey);
-      console.warn(
-        `[docs] Both .md and TSX parts exist for ${conflictKey}; preferring .md.`,
-      );
-    }
     const parsed = parseFrontmatter(componentMd);
     md = parsed.body;
     frontmatter = parsed.frontmatter as DocPageFrontmatter;

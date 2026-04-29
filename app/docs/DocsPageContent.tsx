@@ -2,12 +2,11 @@
 
 import React from 'react';
 import {
-  Col, Text, Title, PageTitle, Container, Card, Stack, Divider,
+  Col, Text, Title, PageTitle, Container, Divider,
   ThemeProvider, Row, type ComponentKey,
 } from '@vaneui/ui';
 import { DocsPageProps } from './types';
-import { CodeBlock } from '../components/CodeBlock';
-import { prepareComponentString, toHtmlId, extractMarkdownHeadings } from "../utils/stringUtils";
+import { toHtmlId, extractMarkdownHeadings } from "../utils/stringUtils";
 import { DocsMarkdown } from "./DocsMarkdown";
 import { OnThisPage } from './OnThisPage';
 import { MetaStrip } from './MetaStrip';
@@ -22,8 +21,6 @@ export function DocsPageContent(
   }: DocsPageProps) {
 
   const componentKey = pageData.componentKey;
-
-  const parts = React.useMemo(() => pageData.parts ?? [], [pageData.parts]);
 
   // Build sections for OnThisPage navigation
   const sections = React.useMemo(() => {
@@ -43,8 +40,8 @@ export function DocsPageContent(
       level: 0
     });
 
-    // MD-first pages: every example heading lives in the page-level `md`
-    // string, so extractMarkdownHeadings covers the whole TOC body.
+    // Every example heading lives in the page-level `md` string for both
+    // MD-first component pages and markdown guide pages — extract them all.
     if (md && md.trim()) {
       const markdownHeadings = extractMarkdownHeadings(md);
       markdownHeadings.forEach(heading => {
@@ -55,17 +52,6 @@ export function DocsPageContent(
         });
       });
     }
-
-    // Legacy TSX-array pages: top-level `md` is empty and each example
-    // title lives in `parts[i].title`. For MD-first pages parts is `[]`,
-    // making this a no-op.
-    parts.forEach(part => {
-      navSections.push({
-        title: part.title,
-        id: toHtmlId(part.title),
-        level: 1
-      });
-    });
 
     // Single anchor for the auto-generated props table — replaces the
     // 30+ per-category entries the previous "props dump" emitted.
@@ -78,7 +64,7 @@ export function DocsPageContent(
     }
 
     return navSections;
-  }, [pageData.name, parts, componentKey, md]);
+  }, [pageData.name, componentKey, md]);
 
   const pageTitle = pageData.name;
   const pageTitleId = toHtmlId(pageTitle);
@@ -127,39 +113,6 @@ export function DocsPageContent(
             {md !== "" && md !== undefined &&
               <DocsMarkdown md={md} slug={pageData.slug}/>
             }
-
-            {/* Examples — legacy TSX-array path only. MD-first pages
-                (parts.length === 0) render their examples inside the
-                <DocsMarkdown> block above via the MdFence override. */}
-            {parts.length > 0 && parts.map((example, index) => {
-              const id = toHtmlId(example.title);
-              const codeString = example.code !== undefined
-                ? example.code
-                : prepareComponentString(example.component);
-              return (
-                <Col key={index} wFull>
-                  <Title>
-                    <Link href={`#${id}`} id={id}>{example.title}</Link>
-                  </Title>
-                  <DocsMarkdown md={example.md}/>
-                  <Card xs sharp itemsCenter wFull className="mb-6">
-                    <ThemeProvider mergeStrategy="replace">
-                      <Stack xl itemsCenter overflowXAuto overflowYVisible wFull>
-                        {example.component}
-                      </Stack>
-                    </ThemeProvider>
-                    {codeString && (
-                      <CodeBlock
-                        code={codeString}
-                        language="tsx"
-                        fileName={`${example.title.replaceAll(" ", "")}.tsx`}
-                        theme="light"
-                      />
-                    )}
-                  </Card>
-                </Col>
-              );
-            })}
 
             {/* Props Documentation — single auto-generated table replaces
                 the previous 30+ per-category prop dump. Common
