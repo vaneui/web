@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useState } from 'react';
-import { Row, Code, Link, Button, Text } from '@vaneui/ui';
-import { AlertCircle, Check, Copy, Edit2, GitHub } from 'react-feather';
+import { Row, Code, Button } from '@vaneui/ui';
+import { AlertCircle, Check, Copy, Edit2, GitHub, ExternalLink } from 'react-feather';
 import { DocPageFrontmatter } from './types';
 
 interface MetaStripProps {
@@ -11,24 +11,56 @@ interface MetaStripProps {
   category: string;
 }
 
-type CopyMdStatus = 'idle' | 'copying' | 'copied' | 'error';
+type CopyStatus = 'idle' | 'copying' | 'copied' | 'error';
 
-const EDIT_BASE_URL = 'https://github.com/vaneui/web/blob/main/app/docs/data';
+const VANEUI_REPO = 'https://github.com/vaneui/vaneui/blob/main';
+const WEB_REPO = 'https://github.com/vaneui/web/blob/main';
+
+// Components that live under src/components/ui/typography/<key>/ instead of
+// the flat src/components/ui/<key>/ layout. Keep this list in sync with
+// vaneui's repo structure when new typography components ship.
+const TYPOGRAPHY_KEYS = new Set([
+  'blockquote', 'link', 'list', 'listItem',
+  'pageTitle', 'sectionTitle', 'text', 'title',
+]);
+
+/**
+ * Compute the GitHub source URL for a component from its componentKey.
+ * The frontmatter `sourceUrl` field is intentionally ignored — the
+ * migration script populated it with a flat path that doesn't match
+ * vaneui's actual nested layout, and authors shouldn't have to edit
+ * the URL when files move.
+ */
+function deriveSourceUrl(frontmatter: DocPageFrontmatter): string | undefined {
+  const key = frontmatter.componentKey;
+  if (!key) return undefined;
+  const pascal = key.charAt(0).toUpperCase() + key.slice(1);
+  const subdir = TYPOGRAPHY_KEYS.has(key) ? `typography/${key}` : key;
+  return `${VANEUI_REPO}/src/components/ui/${subdir}/${pascal}.tsx`;
+}
 
 export function MetaStrip({ frontmatter, slug, category }: MetaStripProps) {
-  const [copiedImport, setCopiedImport] = useState(false);
-  const [mdStatus, setMdStatus] = useState<CopyMdStatus>('idle');
+  const [importStatus, setImportStatus] = useState<CopyStatus>('idle');
+  const [mdStatus, setMdStatus] = useState<CopyStatus>('idle');
 
-  const { importPath, sourceUrl } = frontmatter;
-  const editUrl = `${EDIT_BASE_URL}/${category}/${slug}.md`;
+  const { importPath } = frontmatter;
+  const sourceUrl = deriveSourceUrl(frontmatter);
+  const editUrl = `${WEB_REPO}/app/docs/data/${category}/${slug}.md`;
 
-  const handleCopyImport = () => {
+  function handleCopyImport() {
     if (!importPath) return;
-    navigator.clipboard.writeText(importPath).then(() => {
-      setCopiedImport(true);
-      setTimeout(() => setCopiedImport(false), 1000);
-    });
-  };
+    setImportStatus('copying');
+    navigator.clipboard.writeText(importPath).then(
+      () => {
+        setImportStatus('copied');
+        setTimeout(() => setImportStatus('idle'), 1500);
+      },
+      () => {
+        setImportStatus('error');
+        setTimeout(() => setImportStatus('idle'), 2000);
+      },
+    );
+  }
 
   async function handleCopyMarkdown() {
     setMdStatus('copying');
@@ -46,53 +78,72 @@ export function MetaStrip({ frontmatter, slug, category }: MetaStripProps) {
     }
   }
 
-  const mdIcon =
-    mdStatus === 'copied' ? <Check className="size-3.5" aria-hidden="true"/> :
-    mdStatus === 'error' ? <AlertCircle className="size-3.5" aria-hidden="true"/> :
-    <Copy className="size-3.5" aria-hidden="true"/>;
+  function copyIcon(status: CopyStatus) {
+    if (status === 'copied') return <Check className="size-3.5 text-success" aria-hidden="true"/>;
+    if (status === 'error') return <AlertCircle className="size-3.5" aria-hidden="true"/>;
+    return <Copy className="size-3.5" aria-hidden="true"/>;
+  }
 
-  const mdLabel =
-    mdStatus === 'copying' ? 'Copying...' :
-    mdStatus === 'copied' ? 'Copied!' :
-    mdStatus === 'error' ? 'Failed' :
-    'Copy as Markdown';
+  function copyLabel(status: CopyStatus, idleLabel: string, copiedLabel: string) {
+    if (status === 'copying') return 'Copying…';
+    if (status === 'copied') return copiedLabel;
+    if (status === 'error') return 'Failed';
+    return idleLabel;
+  }
 
   return (
-    <Row noGap flexWrap className="mt-2 gap-x-4 gap-y-2">
+    <Row noGap flexWrap className="mt-2 gap-x-2 gap-y-2">
       {importPath && (
-        <Row gap xs itemsCenter>
-          <Text sm secondary>Import</Text>
-          <Code
-            xs
-            className="cursor-pointer"
-            onClick={handleCopyImport}
-            title={copiedImport ? 'Copied!' : 'Click to copy'}
-          >
-            {importPath}
-          </Code>
-          {copiedImport ? (
-            <Check className="size-3 text-success" aria-hidden="true"/>
-          ) : (
-            <Copy className="size-3" aria-hidden="true"/>
-          )}
-        </Row>
+        <Button
+          xs
+          secondary
+          noShadow
+          noRing
+          noBorder
+          onClick={handleCopyImport}
+          title={importStatus === 'copied' ? 'Copied!' : `Click to copy: ${importPath}`}
+          aria-label="Copy import statement"
+        >
+          {copyIcon(importStatus)}
+          <Code noPadding noBorder transparent inheritSize className="px-0">{importPath}</Code>
+        </Button>
       )}
 
       {sourceUrl && (
-        <Link href={sourceUrl} external secondary noUnderline sm>
-          <Row gap xs itemsCenter>
-            <GitHub className="size-3.5" aria-hidden="true"/>
-            <Text sm>Source</Text>
-          </Row>
-        </Link>
+        <Button
+          xs
+          secondary
+          noShadow
+          noRing
+          noBorder
+          href={sourceUrl}
+          tag="a"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View source on GitHub"
+        >
+          <GitHub className="size-3.5" aria-hidden="true"/>
+          Source
+          <ExternalLink className="size-3 opacity-60" aria-hidden="true"/>
+        </Button>
       )}
 
-      <Link href={editUrl} external secondary noUnderline sm>
-        <Row gap xs itemsCenter>
-          <Edit2 className="size-3.5" aria-hidden="true"/>
-          <Text sm>Edit this page</Text>
-        </Row>
-      </Link>
+      <Button
+        xs
+        secondary
+        noShadow
+        noRing
+        noBorder
+        href={editUrl}
+        tag="a"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Edit this page on GitHub"
+      >
+        <Edit2 className="size-3.5" aria-hidden="true"/>
+        Edit this page
+        <ExternalLink className="size-3 opacity-60" aria-hidden="true"/>
+      </Button>
 
       <Button
         xs
@@ -104,8 +155,8 @@ export function MetaStrip({ frontmatter, slug, category }: MetaStripProps) {
         disabled={mdStatus === 'copying'}
         aria-label="Copy page as Markdown"
       >
-        {mdIcon}
-        {mdLabel}
+        {copyIcon(mdStatus)}
+        {copyLabel(mdStatus, 'Copy as Markdown', 'Copied!')}
       </Button>
     </Row>
   );
