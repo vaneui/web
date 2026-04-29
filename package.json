@@ -12,10 +12,12 @@
     "start": "npm run check:all && next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "check:all": "npm run typecheck && npm run lint",
+    "check:all": "npm run typecheck && npm run lint && npm run check:examples",
     "prebuild": "npm run check:all",
     "screenshot": "tsx scripts/screenshot.ts",
-    "screenshot:clean": "tsx scripts/screenshot.ts --clean"
+    "screenshot:clean": "tsx scripts/screenshot.ts --clean",
+    "build:examples": "node scripts/build-examples.mjs",
+    "check:examples": "node scripts/check-examples.mjs"
   },
   "dependencies": {
     "@mdx-js/react": "^3.0.1",
