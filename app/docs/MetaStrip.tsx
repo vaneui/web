@@ -13,10 +13,11 @@ interface MetaStripProps {
 
 type CopyMdStatus = 'idle' | 'copying' | 'copied' | 'error';
 
-const EDIT_BASE_URL = 'https://github.com/vaneui/vaneui-web/blob/main/app/docs/data';
+const EDIT_BASE_URL = 'https://github.com/vaneui/web/blob/main/app/docs/data';
 
 export function MetaStrip({ frontmatter, slug, category }: MetaStripProps) {
   const [copiedImport, setCopiedImport] = useState(false);
+  const [copiedMcp, setCopiedMcp] = useState(false);
   const [mdStatus, setMdStatus] = useState<CopyMdStatus>('idle');
 
   const { importPath, sourceUrl } = frontmatter;
@@ -109,12 +110,28 @@ export function MetaStrip({ frontmatter, slug, category }: MetaStripProps) {
         {mdLabel}
       </Button>
 
-      <Link href={mcpUri} secondary noUnderline sm>
-        <Row gap xs itemsCenter>
+      <Button
+        xs
+        secondary
+        noShadow
+        noRing
+        noBorder
+        onClick={() => {
+          navigator.clipboard.writeText(mcpUri).then(() => {
+            setCopiedMcp(true);
+            setTimeout(() => setCopiedMcp(false), 1500);
+          });
+        }}
+        title={copiedMcp ? 'Copied!' : `Copy MCP URI: ${mcpUri}`}
+        aria-label="Copy MCP URI"
+      >
+        {copiedMcp ? (
+          <Check className="size-3.5 text-success" aria-hidden="true"/>
+        ) : (
           <Cpu className="size-3.5" aria-hidden="true"/>
-          <Text sm>View on MCP</Text>
-        </Row>
-      </Link>
+        )}
+        {copiedMcp ? 'MCP URI copied!' : 'Copy MCP URI'}
+      </Button>
     </Row>
   );
 }
