@@ -78,9 +78,12 @@ function isSingleJsxExpression(body) {
 
 /**
  * Bucket free identifiers into their owning packages using the symbol tables.
- * Resolution priority: react -> react-feather -> @vaneui/ui. Identifiers not
- * found in any table are silently dropped. The literal name `React` is also
- * dropped from the `react` bucket because we always emit
+ * Resolution priority: react -> @vaneui/ui -> react-feather. VaneUI wins over
+ * react-feather for the four colliding names (Code, Link, List, Menu) because
+ * those are first-class VaneUI components used throughout the docs; the icon
+ * counterparts are rarely needed and can be aliased via setup if required.
+ * Identifiers not found in any table are silently dropped. The literal name
+ * `React` is also dropped from the `react` bucket because we always emit
  * `import * as React from 'react'` unconditionally.
  *
  * @param {string[]} identifiers
@@ -95,12 +98,12 @@ function bucketIdentifiers(identifiers, symbolTables) {
       if (id !== 'React') buckets.react.push(id);
       continue;
     }
-    if (symbolTables['react-feather'].has(id)) {
-      buckets['react-feather'].push(id);
-      continue;
-    }
     if (symbolTables['@vaneui/ui'].has(id)) {
       buckets['@vaneui/ui'].push(id);
+      continue;
+    }
+    if (symbolTables['react-feather'].has(id)) {
+      buckets['react-feather'].push(id);
       continue;
     }
     // Drop silently — tsc will fail on the wrapper if the identifier was
