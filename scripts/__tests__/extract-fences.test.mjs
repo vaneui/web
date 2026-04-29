@@ -75,12 +75,57 @@ test('single demo fence with no setup', () => {
   assert.equal(out.fences[0].line, 3);
 });
 
-test('fence with no flag defaults to demo', () => {
+test('untagged tsx fence is NOT extracted (opt-in via explicit flag)', () => {
   const md = ['```tsx', '<NoFlag/>', '```', ''].join('\n');
+  const out = extractFences(md);
+  assert.equal(out.setup, undefined);
+  assert.deepEqual(out.fences, []);
+});
+
+test('untagged jsx fence is NOT extracted', () => {
+  const md = ['```jsx', '<NoFlag/>', '```', ''].join('\n');
+  const out = extractFences(md);
+  assert.deepEqual(out.fences, []);
+});
+
+test('explicit `tsx demo` flag extracts with default index id', () => {
+  const md = ['```tsx demo', '<Foo/>', '```', ''].join('\n');
   const out = extractFences(md);
   assert.equal(out.fences.length, 1);
   assert.equal(out.fences[0].kind, 'demo');
   assert.equal(out.fences[0].id, '0');
+  assert.equal(out.fences[0].body, '<Foo/>');
+});
+
+test('untagged fences are skipped, only flagged ones produce fences (mixed source)', () => {
+  const md = [
+    '```tsx',                  // illustrative — skipped
+    'import X from "x";',
+    '```',
+    '',
+    '```tsx demo',             // extracted
+    '<Foo/>',
+    '```',
+    '',
+    '```tsx',                  // illustrative — skipped
+    '<Bar/>',
+    '```',
+    '',
+    '```tsx hide id="h"',      // extracted
+    '<Hidden/>',
+    '```',
+    '',
+  ].join('\n');
+
+  const out = extractFences(md);
+  assert.equal(out.fences.length, 2);
+  assert.deepEqual(
+    out.fences.map((f) => ({ id: f.id, kind: f.kind, body: f.body })),
+    [
+      { id: '0', kind: 'demo', body: '<Foo/>' },
+      { id: 'h', kind: 'hide', body: '<Hidden/>' },
+    ],
+  );
 });
 
 test('only the first setup fence is hoisted; subsequent setups are dropped', () => {

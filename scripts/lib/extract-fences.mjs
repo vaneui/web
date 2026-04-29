@@ -9,10 +9,15 @@
 //
 // Rules:
 //   - Only fences with language `tsx` or `jsx` are considered.
+//   - Extraction is OPT-IN via an explicit flag in the info string. Untagged
+//     ``` ```tsx ``` / ``` ```jsx ``` fences are illustrative source code in
+//     narrative guides (with imports, undefined symbols, multi-sibling JSX,
+//     etc.) and must NOT be treated as runnable demos. They are silently
+//     skipped.
 //   - The first fence flagged `setup` is hoisted to `setup` and excluded from `fences[]`.
 //     Additional `setup` fences are silently ignored.
-//   - `demo` (or no flag at all) -> kind 'demo'.
-//   - `hide` -> kind 'hide'.
+//   - `demo` -> kind 'demo' (extracted, typechecked, rendered).
+//   - `hide` -> kind 'hide' (extracted, typechecked, but not rendered in UI).
 //   - `id` defaults to the 0-based index in `fences[]`, stringified.
 //   - `line` is the 1-based line number of the opening ``` token.
 
@@ -68,7 +73,11 @@ export function extractFences(mdSource) {
       continue;
     }
 
-    const kind = flag === 'hide' ? 'hide' : 'demo';
+    // Extraction is opt-in: only `demo` and `hide` flags produce fences.
+    // Untagged tsx/jsx fences (and fences with any other flag) are skipped.
+    if (flag !== 'demo' && flag !== 'hide') continue;
+
+    const kind = flag;
     const idx = result.fences.length;
     const line = (mdSource.slice(0, match.index).match(/\n/g) || []).length + 1;
 
