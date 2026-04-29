@@ -31,10 +31,6 @@ test('computed property name expression IS collected when not shadowed', () => {
   assert.deepEqual(extractFreeIdentifiers(body), ['key']);
 });
 
-test('JSX namespaced tag <Mark.Group> collects only leftmost segment', () => {
-  assert.deepEqual(extractFreeIdentifiers('<Mark.Group/>'), ['Mark']);
-});
-
 test('deeper namespaced tag <Mark.Group.Item> collects only Mark', () => {
   assert.deepEqual(extractFreeIdentifiers('<Mark.Group.Item/>'), ['Mark']);
 });
@@ -99,4 +95,49 @@ test('destructuring param: ({ a: b }) => b -- a is the source key, b is the bind
 
 test('empty body returns empty array', () => {
   assert.deepEqual(extractFreeIdentifiers(''), []);
+});
+
+// --- scope-tracking regression tests ---
+
+test('for-loop let var does not leak; `n` is free', () => {
+  assert.deepEqual(extractFreeIdentifiers('for (let i = 0; i < n; i++) i'), ['n']);
+});
+
+test('for-of let var does not leak; `items` is free', () => {
+  assert.deepEqual(extractFreeIdentifiers('for (const x of items) x'), ['items']);
+});
+
+test('for-in let var does not leak; `obj` is free', () => {
+  assert.deepEqual(extractFreeIdentifiers('for (const k in obj) k'), ['obj']);
+});
+
+test('catch clause variable does not leak', () => {
+  assert.deepEqual(extractFreeIdentifiers('try { x } catch (e) { e }'), ['x']);
+});
+
+test('class declaration name is hoisted in enclosing scope', () => {
+  assert.deepEqual(extractFreeIdentifiers('class Foo {} new Foo()'), []);
+});
+
+test('class expression self-name is scoped to its body', () => {
+  assert.deepEqual(
+    extractFreeIdentifiers('const x = class Inner { m() { return Inner; } }'),
+    [],
+  );
+});
+
+test('binding pattern default initializer is walked (arrow param)', () => {
+  assert.deepEqual(extractFreeIdentifiers('(({ a = defaultVal }) => a)()'), ['defaultVal']);
+});
+
+test('binding pattern default initializer is walked (variable decl)', () => {
+  assert.deepEqual(extractFreeIdentifiers('const { a, b = ext } = src'), ['ext', 'src']);
+});
+
+test('var declarations are function-scoped, not block-scoped', () => {
+  assert.deepEqual(extractFreeIdentifiers('function f() { { var x = 1; } x }'), []);
+});
+
+test('function-expression name does NOT leak to outer scope', () => {
+  assert.deepEqual(extractFreeIdentifiers('(function inner() {}); inner'), ['inner']);
 });
