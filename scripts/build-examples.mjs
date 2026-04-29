@@ -84,8 +84,13 @@ async function main() {
     // Use forward slashes in the @vane-source header regardless of platform.
     const mdRelPosix = path.relative(REPO_ROOT, mdAbs).split(path.sep).join('/');
 
-    for (let i = 0; i < fences.length; i += 1) {
-      const fence = fences[i];
+    // Inline fences (illustrative-only) are tracked by extractFences for
+    // runtime fence-index pairing, but skipped here — only `demo`/`hide` get
+    // wrappers and registry entries.
+    const extractable = fences.filter((f) => f.kind !== 'inline');
+
+    for (let i = 0; i < extractable.length; i += 1) {
+      const fence = extractable[i];
       // Identifiers used in the fence may be DECLARED in the setup block. Run
       // the extractor over the concatenation so setup-declared names don't get
       // mistakenly flagged as free.

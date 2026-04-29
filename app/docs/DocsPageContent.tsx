@@ -123,7 +123,7 @@ export function DocsPageContent(
             <Divider/>
 
             {md !== "" && md !== undefined &&
-              <DocsMarkdown md={md}/>
+              <DocsMarkdown md={md} slug={pageData.slug}/>
             }
 
             {/* Examples */}

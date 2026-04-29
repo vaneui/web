@@ -50,6 +50,30 @@ test('extracts setup + demos + hide with correct order, body, line', () => {
   assert.ok(out.fences[2].line > out.fences[1].line);
 });
 
+test('untagged tsx/jsx fences are recorded as kind=inline (id=null)', () => {
+  const md = [
+    '```tsx',
+    '<NoFlag/>',
+    '```',
+    '',
+    '```jsx',
+    '<AlsoNoFlag/>',
+    '```',
+    '',
+  ].join('\n');
+
+  const out = extractFences(md);
+  assert.equal(out.setup, undefined);
+  assert.equal(out.fences.length, 2);
+  assert.deepEqual(
+    out.fences.map((f) => ({ id: f.id, kind: f.kind, body: f.body })),
+    [
+      { id: null, kind: 'inline', body: '<NoFlag/>' },
+      { id: null, kind: 'inline', body: '<AlsoNoFlag/>' },
+    ],
+  );
+});
+
 test('empty source returns empty result', () => {
   const out = extractFences('');
   assert.equal(out.setup, undefined);
@@ -75,19 +99,6 @@ test('single demo fence with no setup', () => {
   assert.equal(out.fences[0].line, 3);
 });
 
-test('untagged tsx fence is NOT extracted (opt-in via explicit flag)', () => {
-  const md = ['```tsx', '<NoFlag/>', '```', ''].join('\n');
-  const out = extractFences(md);
-  assert.equal(out.setup, undefined);
-  assert.deepEqual(out.fences, []);
-});
-
-test('untagged jsx fence is NOT extracted', () => {
-  const md = ['```jsx', '<NoFlag/>', '```', ''].join('\n');
-  const out = extractFences(md);
-  assert.deepEqual(out.fences, []);
-});
-
 test('explicit `tsx demo` flag extracts with default index id', () => {
   const md = ['```tsx demo', '<Foo/>', '```', ''].join('\n');
   const out = extractFences(md);
@@ -97,32 +108,34 @@ test('explicit `tsx demo` flag extracts with default index id', () => {
   assert.equal(out.fences[0].body, '<Foo/>');
 });
 
-test('untagged fences are skipped, only flagged ones produce fences (mixed source)', () => {
+test('mixed source: inline fences interleaved with demo/hide preserve document order', () => {
   const md = [
-    '```tsx',                  // illustrative — skipped
+    '```tsx',                  // illustrative — kind=inline
     'import X from "x";',
     '```',
     '',
-    '```tsx demo',             // extracted
+    '```tsx demo',             // extracted, default id stays "0"
     '<Foo/>',
     '```',
     '',
-    '```tsx',                  // illustrative — skipped
+    '```tsx',                  // illustrative — kind=inline
     '<Bar/>',
     '```',
     '',
-    '```tsx hide id="h"',      // extracted
+    '```tsx hide id="h"',      // extracted, explicit id
     '<Hidden/>',
     '```',
     '',
   ].join('\n');
 
   const out = extractFences(md);
-  assert.equal(out.fences.length, 2);
+  assert.equal(out.fences.length, 4);
   assert.deepEqual(
     out.fences.map((f) => ({ id: f.id, kind: f.kind, body: f.body })),
     [
+      { id: null, kind: 'inline', body: 'import X from "x";' },
       { id: '0', kind: 'demo', body: '<Foo/>' },
+      { id: null, kind: 'inline', body: '<Bar/>' },
       { id: 'h', kind: 'hide', body: '<Hidden/>' },
     ],
   );
