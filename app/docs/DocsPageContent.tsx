@@ -3,15 +3,15 @@
 import React from 'react';
 import {
   Col, Text, Title, PageTitle, Container, Card, Stack, Divider,
-  ComponentCategories, ComponentKeys, ListItem, ThemeProvider, Row, defaultTheme,
+  ThemeProvider, Row, type ComponentKey,
 } from '@vaneui/ui';
-import { PropDescriptions, getCategoryName, getCategoryDescription } from '@vaneui/ui/props';
 import { DocsPageProps } from './types';
 import { CodeBlock } from '../components/CodeBlock';
 import { prepareComponentString, toHtmlId, extractMarkdownHeadings } from "../utils/stringUtils";
 import { DocsMarkdown } from "./DocsMarkdown";
 import { OnThisPage } from './OnThisPage';
 import { MetaStrip } from './MetaStrip';
+import { DocsPropsTable } from './DocsPropsTable';
 import Link from "next/link";
 
 export function DocsPageContent(
@@ -67,22 +67,13 @@ export function DocsPageContent(
       });
     });
 
-    // Add props documentation sections if they exist
-    if (componentKey && ComponentCategories[componentKey]) {
-
+    // Single anchor for the auto-generated props table — replaces the
+    // 30+ per-category entries the previous "props dump" emitted.
+    if (componentKey) {
       navSections.push({
         title: propsTitle,
         id: propsTitleId,
-        level: 0
-      });
-
-      ComponentCategories[componentKey].forEach(key => {
-        const categoryName = getCategoryName(key) || key;
-        navSections.push({
-          title: categoryName,
-          id: toHtmlId(key),
-          level: 1
-        });
+        level: 0,
       });
     }
 
@@ -170,101 +161,17 @@ export function DocsPageContent(
               );
             })}
 
-            {/* Props Documentation */}
-            {
-              componentKey &&
-              <Title xl>
-                <Link href={`#${propsTitleId}`} id={propsTitleId}>{propsTitle}</Link>
-              </Title>
-            }
-            {
-              componentKey && ComponentCategories[componentKey].map((key, index) => {
-                const id = toHtmlId(key);
-                const categoryName = getCategoryName(key) || key;
-                const categoryDescription = getCategoryDescription(key);
-                const categoryProps = PropDescriptions[key]?.props || {};
-                const theme = defaultTheme[componentKey];
-                // Find all theme keys that contain all fields from ComponentKeys[key]
-                const keyFields = ComponentKeys[key as keyof typeof ComponentKeys];
-                const matchingThemes: string[] = [];
-
-                if (theme && keyFields) {
-                  const findMatchingThemes = (themeObj: unknown, prefix = ''): void => {
-                    if (!themeObj || typeof themeObj !== 'object') return;
-
-                    const obj = themeObj as Record<string, unknown>;
-
-                    // Check if this object has a 'themes' property (ComponentTheme structure)
-                    if ('themes' in obj && obj.themes && typeof obj.themes === 'object') {
-                      const themes = obj.themes as Record<string, unknown>;
-                      Object.keys(themes).forEach(themeKey => {
-                        const themeObject = themes[themeKey];
-                        if (themeObject && typeof themeObject === 'object') {
-                          const themeProps = themeObject as Record<string, unknown>;
-                          // Check if this theme contains all the key fields
-                          const hasAllFields = keyFields.every((field: string) =>
-                            field in themeProps
-                          );
-                          if (hasAllFields) {
-                            const fullThemeName = prefix ? `${prefix}.${themeKey}` : themeKey;
-                            matchingThemes.push(fullThemeName);
-                          }
-                        }
-                      });
-                    } else {
-                      // Check for nested structures (like checkbox with input, check, wrapper)
-                      Object.keys(obj).forEach(subKey => {
-                        const subObj = obj[subKey];
-                        if (typeof subObj === 'object' && subObj !== null) {
-                          const newPrefix = prefix ? `${prefix}.${subKey}` : subKey;
-                          findMatchingThemes(subObj, newPrefix);
-                        }
-                      });
-                    }
-                  };
-
-                  try {
-                    findMatchingThemes(theme);
-                  } catch (error) {
-                    // Silently handle any theme access errors
-                    console.warn('Error accessing theme structure:', error);
-                  }
-                }
-                return (
-                  <Col key={index} wFull>
-                    <Title>
-                      <Link href={`#${id}`} id={id}>{categoryName}</Link>
-                    </Title>
-                    {categoryDescription && (
-                      <Text sm secondary>{categoryDescription}</Text>
-                    )}
-                    <Col xs className="mt-2">
-                      {
-                        ComponentKeys[key as keyof typeof ComponentKeys].map((k: string, index: number) => {
-                          const propDescription = categoryProps[k]?.description;
-                          return (
-                            <Row key={index} noGap itemsBaseline className="py-1">
-                              <Text mono brand className="min-w-24">{k}</Text>
-                              {propDescription && (
-                                <Text sm secondary className="ml-2">{propDescription}</Text>
-                              )}
-                            </Row>
-                          );
-                        })
-                      }
-                    </Col>
-                    {matchingThemes.length > 0 && (
-                      <Col xs className="mt-2">
-                        <Text sm secondary>Controlled themes:</Text>
-                        {matchingThemes.map((themeKey: string, index: number) => (
-                          <ListItem key={index} secondary>{themeKey}</ListItem>
-                        ))}
-                      </Col>
-                    )}
-                  </Col>
-                );
-              })
-            }
+            {/* Props Documentation — single auto-generated table replaces
+                the previous 30+ per-category prop dump. Common
+                layout/utility categories collapse into a <details>. */}
+            {componentKey && (
+              <Col wFull id={propsTitleId}>
+                <Title xl>
+                  <Link href={`#${propsTitleId}`}>{propsTitle}</Link>
+                </Title>
+                <DocsPropsTable componentKey={componentKey as ComponentKey}/>
+              </Col>
+            )}
           </Col>
 
           {/* On This Page Navigation */}
@@ -275,4 +182,4 @@ export function DocsPageContent(
       </Container>
     </ThemeProvider>
   );
-} 
+}
