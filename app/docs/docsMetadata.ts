@@ -347,4 +347,16 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       },
     ]
   },
+  {
+    name: 'Reference',
+    slug: 'reference',
+    description: 'Shared prop reference and cross-component documentation.',
+    pages: [
+      {
+        slug: 'common-props',
+        name: 'Common Props',
+        description: 'Layout and typography props shared across all components.',
+      },
+    ]
+  },
 ];
