@@ -11,6 +11,7 @@ import { CodeBlock } from '../components/CodeBlock';
 import { prepareComponentString, toHtmlId, extractMarkdownHeadings } from "../utils/stringUtils";
 import { DocsMarkdown } from "./DocsMarkdown";
 import { OnThisPage } from './OnThisPage';
+import { MetaStrip } from './MetaStrip';
 import Link from "next/link";
 
 export function DocsPageContent(
@@ -121,6 +122,13 @@ export function DocsPageContent(
                 <Link href={`#${pageTitleId}`} id={pageTitleId}>{pageTitle}</Link>
               </PageTitle>
               <Text primary>{pageData.description}</Text>
+              {pageData.frontmatter && (
+                <MetaStrip
+                  frontmatter={pageData.frontmatter}
+                  slug={pageData.slug}
+                  category={section.slug}
+                />
+              )}
             </Col>
 
             <Divider/>
