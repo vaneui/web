@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Row, Code, Link, Button, Text } from '@vaneui/ui';
-import { AlertCircle, Check, Copy, Edit2, GitHub, Cpu } from 'react-feather';
+import { AlertCircle, Check, Copy, Edit2, GitHub } from 'react-feather';
 import { DocPageFrontmatter } from './types';
 
 interface MetaStripProps {
@@ -17,12 +17,10 @@ const EDIT_BASE_URL = 'https://github.com/vaneui/web/blob/main/app/docs/data';
 
 export function MetaStrip({ frontmatter, slug, category }: MetaStripProps) {
   const [copiedImport, setCopiedImport] = useState(false);
-  const [copiedMcp, setCopiedMcp] = useState(false);
   const [mdStatus, setMdStatus] = useState<CopyMdStatus>('idle');
 
   const { importPath, sourceUrl } = frontmatter;
   const editUrl = `${EDIT_BASE_URL}/${category}/${slug}.md`;
-  const mcpUri = `vaneui://docs/${slug}`;
 
   const handleCopyImport = () => {
     if (!importPath) return;
@@ -108,29 +106,6 @@ export function MetaStrip({ frontmatter, slug, category }: MetaStripProps) {
       >
         {mdIcon}
         {mdLabel}
-      </Button>
-
-      <Button
-        xs
-        secondary
-        noShadow
-        noRing
-        noBorder
-        onClick={() => {
-          navigator.clipboard.writeText(mcpUri).then(() => {
-            setCopiedMcp(true);
-            setTimeout(() => setCopiedMcp(false), 1500);
-          });
-        }}
-        title={copiedMcp ? 'Copied!' : `Copy MCP URI: ${mcpUri}`}
-        aria-label="Copy MCP URI"
-      >
-        {copiedMcp ? (
-          <Check className="size-3.5 text-success" aria-hidden="true"/>
-        ) : (
-          <Cpu className="size-3.5" aria-hidden="true"/>
-        )}
-        {copiedMcp ? 'MCP URI copied!' : 'Copy MCP URI'}
       </Button>
     </Row>
   );
