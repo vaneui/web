@@ -42,7 +42,8 @@ export function DocsPageContent(
       level: 0
     });
 
-    // Add markdown headings if md content exists
+    // MD-first pages: every example heading lives in the page-level `md`
+    // string, so extractMarkdownHeadings covers the whole TOC body.
     if (md && md.trim()) {
       const markdownHeadings = extractMarkdownHeadings(md);
       markdownHeadings.forEach(heading => {
@@ -54,7 +55,9 @@ export function DocsPageContent(
       });
     }
 
-    // Add example sections
+    // Legacy TSX-array pages: top-level `md` is empty and each example
+    // title lives in `parts[i].title`. For MD-first pages parts is `[]`,
+    // making this a no-op.
     parts.forEach(part => {
       navSections.push({
         title: part.title,
@@ -126,8 +129,10 @@ export function DocsPageContent(
               <DocsMarkdown md={md} slug={pageData.slug}/>
             }
 
-            {/* Examples */}
-            {parts.map((example, index) => {
+            {/* Examples — legacy TSX-array path only. MD-first pages
+                (parts.length === 0) render their examples inside the
+                <DocsMarkdown> block above via the MdFence override. */}
+            {parts.length > 0 && parts.map((example, index) => {
               const id = toHtmlId(example.title);
               const codeString = example.code !== undefined
                 ? example.code
