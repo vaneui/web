@@ -93,6 +93,15 @@ function CustomMdBlockquote({children}: { children: React.ReactNode }) {
 interface FenceLookup {
   /** Body-text -> queue of fences with that body, in document order. */
   byBody: Map<string, ExtractedFence[]>;
+  /**
+   * Per-component-instance memo of the resolved fence. Keyed by `useId()`
+   * inside `FenceWithLivePreview`. React 19 Strict Mode double-invokes every
+   * component's body in dev — without memoization, the first invocation shifts
+   * the queue and the second sees it empty, producing a hydration mismatch
+   * (server: live preview Card; client: bare CodeBlock). The cache keeps the
+   * result stable across both passes.
+   */
+  byInstance: Map<string, ExtractedFence | null>;
   slug: string | undefined;
 }
 
@@ -114,7 +123,7 @@ function buildFenceLookup(fences: ExtractedFence[], slug: string | undefined): F
     if (queue) queue.push(fence);
     else byBody.set(key, [fence]);
   }
-  return { byBody, slug };
+  return { byBody, byInstance: new Map(), slug };
 }
 
 const FenceLookupContext = React.createContext<FenceLookup | null>(null);
@@ -126,20 +135,26 @@ interface MdFenceProps {
 
 function FenceWithLivePreview({ content = '', language = 'text' }: MdFenceProps) {
   const lookup = React.useContext(FenceLookupContext);
+  // Stable per-instance ID — same value across Strict Mode's double render so
+  // we can memoize the queue.shift() result and avoid the second pass seeing
+  // an empty queue.
+  const instanceId = React.useId();
 
   // Only tsx/jsx fences participate in fence pairing.
   const isTsxLike = language === 'tsx' || language === 'jsx';
   let fence: ExtractedFence | undefined;
   if (isTsxLike && lookup) {
-    // Markdoc keeps the trailing newline from fence content; our extractor
-    // does not. Normalize both to a shared key. If pairing fails, the fence
-    // still renders as a plain code block — just no live preview.
-    const queue = lookup.byBody.get(normalizeBody(content));
-    if (queue && queue.length > 0) {
-      // Shift the matched fence out of the queue so duplicate-body fences
-      // pair to distinct entries on subsequent renders. Mutating a Map's
-      // queue (a value we own) is fine — it's not a React-tracked ref.
-      fence = queue.shift();
+    const cached = lookup.byInstance.get(instanceId);
+    if (cached !== undefined) {
+      // Second (or later) render of this instance — return the previously
+      // resolved fence. `null` means we already looked and didn't find one.
+      fence = cached ?? undefined;
+    } else {
+      const queue = lookup.byBody.get(normalizeBody(content));
+      if (queue && queue.length > 0) {
+        fence = queue.shift();
+      }
+      lookup.byInstance.set(instanceId, fence ?? null);
     }
   }
 
