@@ -1,7 +1,6 @@
 import { DocsSection } from "./types";
 import { DocsPagePart } from "./types";
 import { docsSectionsMeta } from "./docsMetadata";
-import { buttonExamples } from "./data/basic-components/button";
 import { badgeExamples } from "./data/basic-components/badge";
 import { chipExamples } from "./data/basic-components/chip";
 import { checkboxExamples } from "./data/basic-components/checkbox";
@@ -39,10 +38,11 @@ import { menuExamples } from "./data/overlay-components/menu";
 import { navLinkExamples } from "./data/navigation-components/navlink";
 
 // Maps section-slug/page-slug to the JSX example parts for that page.
-// Pages without an entry here (e.g. markdown-only guides) get an empty parts array.
+// Pages without an entry here (markdown-only guides AND MD-first component
+// pages like 'basic-components/button') resolve to no parts here — the
+// dynamic route reads the matching .md file directly.
 const partsMap: Record<string, DocsPagePart[]> = {
   // Basic Components
-  'basic-components/button': buttonExamples,
   'basic-components/badge': badgeExamples,
   'basic-components/chip': chipExamples,
   'basic-components/checkbox': checkboxExamples,

@@ -22,6 +22,8 @@ export function DocsPageContent(
 
   const componentKey = pageData.componentKey;
 
+  const parts = React.useMemo(() => pageData.parts ?? [], [pageData.parts]);
+
   // Build sections for OnThisPage navigation
   const sections = React.useMemo(() => {
     const pageTitleId = toHtmlId(pageData.name);
@@ -53,7 +55,7 @@ export function DocsPageContent(
     }
 
     // Add example sections
-    pageData.parts.forEach(part => {
+    parts.forEach(part => {
       navSections.push({
         title: part.title,
         id: toHtmlId(part.title),
@@ -81,7 +83,7 @@ export function DocsPageContent(
     }
 
     return navSections;
-  }, [pageData.name, pageData.parts, componentKey, md]);
+  }, [pageData.name, parts, componentKey, md]);
 
   const pageTitle = pageData.name;
   const pageTitleId = toHtmlId(pageTitle);
@@ -125,7 +127,7 @@ export function DocsPageContent(
             }
 
             {/* Examples */}
-            {pageData.parts.map((example, index) => {
+            {parts.map((example, index) => {
               const id = toHtmlId(example.title);
               const codeString = example.code !== undefined
                 ? example.code
