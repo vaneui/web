@@ -1,6 +1,6 @@
 'use client'
 
-import { Link, Col, Row, Text } from "@vaneui/ui";
+import { Link, Col, Row, Text, Title, SectionTitle, PageTitle } from "@vaneui/ui";
 import { ExternalLink, FileText, GitHub } from "react-feather";
 import React from "react";
 import { DocsPagePart } from '../../types';
@@ -14,14 +14,24 @@ export const linkExamples: DocsPagePart[] = [
     ),
   },
   {
-    title: 'Link Sizes',
-    md: 'Links come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.',
+    title: 'Size Inherits from Context',
+    md: 'Link defaults to `inheritSize: true` so a link inside a heading renders at the heading\'s font-size automatically — no `size` prop needed. The link keeps its own blue colour.',
     component: (
       <Col>
-        <Link sm href="#">Small link</Link>
-        <Link href="#">Medium link (default)</Link>
-        <Link lg href="#">Large link</Link>
+        <Text>Body text with a <Link href="#">link inline</Link>.</Text>
+        <Title>Subheading with a <Link href="#">link</Link> inside.</Title>
+        <SectionTitle>Section heading with a <Link href="#">link</Link>.</SectionTitle>
+        <PageTitle>Page title <Link href="#">link</Link></PageTitle>
       </Col>
+    ),
+  },
+  {
+    title: 'Fixed Size with noInheritSize',
+    md: 'Pass `noInheritSize` to render the Link at its own size instead of the parent\'s — useful when a link inside a heading should stay at body-text size.',
+    component: (
+      <Title>
+        Subheading with <Link href="#" noInheritSize>a fixed-size link</Link> mid-sentence.
+      </Title>
     ),
   },
   {
@@ -96,13 +106,13 @@ export const linkExamples: DocsPagePart[] = [
     ),
   },
   {
-    title: 'Sizes in Context',
-    md: 'Different link sizes alongside matching text.',
+    title: 'Inherits Parent Text Size',
+    md: 'Links inside body text inherit the surrounding `Text` size — set the size on the parent and the Link follows along.',
     component: (
       <Col>
-        <Text sm>Read the <Link sm href="#">terms and conditions</Link> before proceeding.</Text>
+        <Text sm>Read the <Link href="#">terms and conditions</Link> before proceeding.</Text>
         <Text>Visit our <Link href="#">help center</Link> for more information.</Text>
-        <Text lg>Check out the <Link lg href="#">getting started guide</Link> to begin.</Text>
+        <Text lg>Check out the <Link href="#">getting started guide</Link> to begin.</Text>
       </Col>
     ),
   },

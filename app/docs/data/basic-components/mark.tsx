@@ -1,6 +1,6 @@
 'use client'
 
-import { Mark, Row, Col, Text, ComponentKeys } from "@vaneui/ui";
+import { Mark, Row, Col, Text, Title, SectionTitle, PageTitle, ComponentKeys } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
@@ -52,19 +52,24 @@ export const markExamples: DocsPagePart[] = [
     ),
   },
   {
-    title: 'Sizes',
-    md: 'Mark elements in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.',
+    title: 'Highlight Matches Context',
+    md: 'Mark defaults to `inheritSize: true` so a highlight always renders at the same size as the surrounding text — body copy, subheading, section heading, or page title — without passing any size prop.',
     component: (
-      <Row flexWrap itemsEnd>
-        {
-          ComponentKeys.size.map((key) => (
-            <Col key={key} itemsCenter>
-              <Mark {...{[key]: true}}>Marked</Mark>
-              <Text sm secondary>{key}</Text>
-            </Col>
-          ))
-        }
-      </Row>
+      <Col>
+        <Text>Body text with a <Mark>highlighted phrase</Mark> inline.</Text>
+        <Title>Subheading with <Mark>highlighted text</Mark> inside.</Title>
+        <SectionTitle>Section heading with <Mark>a highlight</Mark>.</SectionTitle>
+        <PageTitle>Page title <Mark>highlight</Mark></PageTitle>
+      </Col>
+    ),
+  },
+  {
+    title: 'Opting Out with noInheritSize',
+    md: 'Pass `noInheritSize` together with a size prop to render Mark at a fixed size regardless of the parent.',
+    component: (
+      <Title>
+        Subheading with a <Mark sm noInheritSize>fixed-small highlight</Mark> inside.
+      </Title>
     ),
   },
   {

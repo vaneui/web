@@ -1,6 +1,6 @@
 'use client'
 
-import { Kbd, Row, Col, Text, ComponentKeys } from "@vaneui/ui";
+import { Kbd, Row, Col, Text, Title, SectionTitle, PageTitle, ComponentKeys } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
@@ -69,6 +69,18 @@ export const kbdExamples: DocsPagePart[] = [
         <Text>Press <Kbd>Ctrl</Kbd> + <Kbd>S</Kbd> to save your work.</Text>
         <Text>Use <Kbd sm>Esc</Kbd> to close the dialog.</Text>
         <Text>Hit <Kbd info>F5</Kbd> to refresh the page.</Text>
+      </Col>
+    ),
+  },
+  {
+    title: 'In Heading Context',
+    md: 'Kbd uses an em-based geometry pipeline — its font-size, padding, and border-radius all scale proportionally to the surrounding text. The same `<Kbd>` keeps its keycap look at body, subheading, section heading, and page title sizes.',
+    component: (
+      <Col>
+        <Text>Press <Kbd>Ctrl</Kbd> + <Kbd>S</Kbd> to save.</Text>
+        <Title>Subheading: hit <Kbd>Esc</Kbd> to close.</Title>
+        <SectionTitle>Section: use <Kbd>Tab</Kbd> to focus</SectionTitle>
+        <PageTitle><Kbd>⌘</Kbd> + <Kbd>K</Kbd></PageTitle>
       </Col>
     ),
   },

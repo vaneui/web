@@ -1,6 +1,6 @@
 'use client'
 
-import { Code, Col, Row, Text, ComponentKeys } from "@vaneui/ui";
+import { Code, Col, Row, Text, Title, SectionTitle, PageTitle, ComponentKeys } from "@vaneui/ui";
 import React from "react";
 import { DocsPagePart } from '../../types';
 
@@ -78,6 +78,18 @@ export const codeExamples: DocsPagePart[] = [
           <Code primary>Cmd</Code>+<Code primary>V</Code>
         </Text>
       </Row>
+    ),
+  },
+  {
+    title: 'In Heading Context',
+    md: 'Code uses an em-based geometry pipeline — at the default `md` size it renders at ~87.5% of the surrounding text\'s font-size, with padding and border-radius scaling proportionally. The same `<Code>` looks right inside body copy, a subheading, a section heading, or a page title.',
+    component: (
+      <Col>
+        <Text>Body text with <Code>npm install</Code> inline.</Text>
+        <Title>Subheading: run <Code>npm run build</Code> first.</Title>
+        <SectionTitle>Section: <Code>useState</Code> hook</SectionTitle>
+        <PageTitle><Code>@vaneui/ui</Code></PageTitle>
+      </Col>
     ),
   },
   {
