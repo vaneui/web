@@ -3,7 +3,7 @@
   "version": "0.9.0",
   "private": true,
   "engines": {
-    "node": ">=22.0.0"
+    "node": "24.x"
   },
   "scripts": {
     "dev": "npm run check:all && next dev",
