@@ -1,0 +1,94 @@
+---
+componentKey: badge
+importPath: 'import { Badge } from "@vaneui/ui"'
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/badge.tsx
+since: 0.9.0
+---
+
+Highlights important information such as notifications or counts in a non-intrusive way. Badges are typically used in conjunction with other elements like icons or navigation links.
+
+## Basic Usage
+
+Badge styles and variants.
+
+```tsx demo
+<Row flexWrap>
+  <Badge primary>primary</Badge>
+  <Badge brand>brand</Badge>
+  <Badge accent>accent</Badge>
+  <Badge secondary>secondary</Badge>
+  <Badge tertiary>tertiary</Badge>
+  <Badge success>success</Badge>
+  <Badge danger>danger</Badge>
+  <Badge warning>warning</Badge>
+  <Badge info>info</Badge>
+  <Badge link>link</Badge>
+  <Badge inherit>inherit</Badge>
+</Row>
+```
+
+## Badge Sizes
+
+Badges come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.
+
+```tsx demo
+<Row flexWrap>
+  <Badge xs>xs</Badge>
+  <Badge sm>sm</Badge>
+  <Badge md>md</Badge>
+  <Badge lg>lg</Badge>
+  <Badge xl>xl</Badge>
+</Row>
+```
+
+## Badge Shapes
+
+Badges support different border radius styles: `rounded`, `pill` (default), and `sharp`.
+
+```tsx demo
+<Row flexWrap>
+  <Badge pill>Pro</Badge>
+  <Badge sharp>Pro</Badge>
+  <Badge rounded>Pro</Badge>
+</Row>
+```
+
+## Badge Variants
+
+Badges can be styled as `filled`, `outline` (default), or `ghost`.
+
+```tsx demo
+<Col>
+  <Row flexWrap>
+    <Badge filled primary>primary</Badge>
+    <Badge filled brand>brand</Badge>
+    <Badge filled accent>accent</Badge>
+    <Badge filled secondary>secondary</Badge>
+  </Row>
+  <Row flexWrap>
+    <Badge outline primary>primary</Badge>
+    <Badge outline brand>brand</Badge>
+    <Badge outline accent>accent</Badge>
+    <Badge outline secondary>secondary</Badge>
+  </Row>
+  <Row flexWrap>
+    <Badge ghost primary>primary</Badge>
+    <Badge ghost brand>brand</Badge>
+    <Badge ghost accent>accent</Badge>
+    <Badge ghost secondary>secondary</Badge>
+  </Row>
+</Col>
+```
+
+## Font Weights
+
+Badges support different font weights.
+
+```tsx demo
+<Row flexWrap>
+  <Badge normal>Premium</Badge>
+  <Badge medium>Premium</Badge>
+  <Badge semibold>Premium</Badge>
+  <Badge bold>Premium</Badge>
+</Row>
+```

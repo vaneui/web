@@ -307,7 +307,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         slug: 'using-theme-provider',
         name: 'Using ThemeProvider',
         description: 'Configure and customize themes throughout your application with ThemeProvider.',
-        mdPath: 'using-themeprovider.md',
+        mdPath: 'using-theme-provider.md',
       },
       {
         slug: 'theme-and-override',
@@ -344,6 +344,18 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         name: 'Variant Inheritance',
         description: 'How components inherit colors from ancestor layouts via CSS custom-property cascade.',
         mdPath: 'variant-inheritance.md',
+      },
+    ]
+  },
+  {
+    name: 'Reference',
+    slug: 'reference',
+    description: 'Shared prop reference and cross-component documentation.',
+    pages: [
+      {
+        slug: 'common-props',
+        name: 'Common Props',
+        description: 'Layout and typography props shared across all components.',
       },
     ]
   },

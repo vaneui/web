@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "skipLibCheck": true,
+    "isolatedModules": false,
+    "jsx": "preserve"
+  },
+  "include": ["app/docs/.generated/**/*.tsx", "app/docs/.generated/**/*.ts"],
+  "exclude": []
+}

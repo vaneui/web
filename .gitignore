@@ -144,3 +144,6 @@ screenshots/
 # Scratch/experiment files
 test-tw*
 .claude/worktrees/agent-a4e43fcc/
+
+# Generated documentation examples
+app/docs/.generated/

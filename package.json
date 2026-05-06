@@ -3,7 +3,7 @@
   "version": "0.9.0",
   "private": true,
   "engines": {
-    "node": ">=22.0.0"
+    "node": "24.x"
   },
   "scripts": {
     "dev": "npm run check:all && next dev",
@@ -12,16 +12,18 @@
     "start": "npm run check:all && next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "check:all": "npm run typecheck && npm run lint",
+    "check:all": "npm run check:examples && npm run typecheck && npm run lint",
     "prebuild": "npm run check:all",
     "screenshot": "tsx scripts/screenshot.ts",
-    "screenshot:clean": "tsx scripts/screenshot.ts --clean"
+    "screenshot:clean": "tsx scripts/screenshot.ts --clean",
+    "build:examples": "node scripts/build-examples.mjs",
+    "check:examples": "node scripts/check-examples.mjs"
   },
   "dependencies": {
     "@mdx-js/react": "^3.0.1",
     "@tailwindcss/postcss": "^4.0.14",
-    "@vaneui/md": "^0.9.0-alpha.20260428140711.caeb1e4",
-    "@vaneui/ui": "^0.9.0-alpha.20260427185151.fdc3b77",
+    "@vaneui/md": "^0.9.0-alpha.20260503120811.d18dcca",
+    "@vaneui/ui": "^0.9.0-alpha.20260505192649.68b2a0b",
     "@vercel/analytics": "^1.6.1",
     "autoprefixer": "^10.4.19",
     "next": "16.1.0-canary.19",

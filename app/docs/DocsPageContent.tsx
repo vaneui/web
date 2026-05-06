@@ -2,15 +2,15 @@
 
 import React from 'react';
 import {
-  Col, Text, Title, PageTitle, Container, Card, Stack, Divider,
-  ComponentCategories, ComponentKeys, ListItem, ThemeProvider, Row, defaultTheme,
+  Col, Text, Title, PageTitle, Container, Divider,
+  ThemeProvider, Row, type ComponentKey,
 } from '@vaneui/ui';
-import { PropDescriptions, getCategoryName, getCategoryDescription } from '@vaneui/ui/props';
 import { DocsPageProps } from './types';
-import { CodeBlock } from '../components/CodeBlock';
-import { prepareComponentString, toHtmlId, extractMarkdownHeadings } from "../utils/stringUtils";
+import { toHtmlId, extractMarkdownHeadings } from "../utils/stringUtils";
 import { DocsMarkdown } from "./DocsMarkdown";
 import { OnThisPage } from './OnThisPage';
+import { MetaStrip } from './MetaStrip';
+import { DocsPropsTable } from './DocsPropsTable';
 import Link from "next/link";
 
 export function DocsPageContent(
@@ -40,7 +40,8 @@ export function DocsPageContent(
       level: 0
     });
 
-    // Add markdown headings if md content exists
+    // Every example heading lives in the page-level `md` string for both
+    // MD-first component pages and markdown guide pages — extract them all.
     if (md && md.trim()) {
       const markdownHeadings = extractMarkdownHeadings(md);
       markdownHeadings.forEach(heading => {
@@ -52,36 +53,18 @@ export function DocsPageContent(
       });
     }
 
-    // Add example sections
-    pageData.parts.forEach(part => {
-      navSections.push({
-        title: part.title,
-        id: toHtmlId(part.title),
-        level: 1
-      });
-    });
-
-    // Add props documentation sections if they exist
-    if (componentKey && ComponentCategories[componentKey]) {
-
+    // Single anchor for the auto-generated props table — replaces the
+    // 30+ per-category entries the previous "props dump" emitted.
+    if (componentKey) {
       navSections.push({
         title: propsTitle,
         id: propsTitleId,
-        level: 0
-      });
-
-      ComponentCategories[componentKey].forEach(key => {
-        const categoryName = getCategoryName(key) || key;
-        navSections.push({
-          title: categoryName,
-          id: toHtmlId(key),
-          level: 1
-        });
+        level: 0,
       });
     }
 
     return navSections;
-  }, [pageData.name, pageData.parts, componentKey, md]);
+  }, [pageData.name, componentKey, md]);
 
   const pageTitle = pageData.name;
   const pageTitleId = toHtmlId(pageTitle);
@@ -92,172 +75,68 @@ export function DocsPageContent(
   const titleClasses = "after:content-['#'] after:invisible hover:after:visible after:ml-2 after:opacity-25";
 
   return (
-    <ThemeProvider extraClasses={{
-      title: {
-        xs: "pt-2 " + titleClasses,
-        sm: "pt-3 " + titleClasses,
-        md: "pt-4 " + titleClasses,
-        lg: "pt-5 " + titleClasses,
-        xl: "pt-6 " + titleClasses
-      },
-      pageTitle: {
-        md: titleClasses,
-      },
-      text: {
-      }
-    }}>
+    <ThemeProvider
+      themeDefaults={{
+        code: { success: true },
+      }}
+      extraClasses={{
+        title: {
+          xs: "pt-2 " + titleClasses,
+          sm: "pt-3 " + titleClasses,
+          md: "pt-4 " + titleClasses,
+          lg: "pt-5 " + titleClasses,
+          xl: "pt-6 " + titleClasses
+        },
+        pageTitle: {
+          md: titleClasses,
+        },
+        text: {
+        },
+      }}>
       <Container wFull>
         <Row xl relative itemsStart wFull>
           {/* Main Content */}
-          <Col className="flex-1 min-w-0">
+          <Col flex1 className="min-w-0">
             <Col>
               <Text sm uppercase secondary mono>{section.name}</Text>
               <PageTitle>
                 <Link href={`#${pageTitleId}`} id={pageTitleId}>{pageTitle}</Link>
               </PageTitle>
               <Text primary>{pageData.description}</Text>
+              {pageData.frontmatter && (
+                <MetaStrip
+                  frontmatter={pageData.frontmatter}
+                  slug={pageData.slug}
+                  category={section.slug}
+                />
+              )}
             </Col>
 
-            <Divider/>
+            <Divider />
 
             {md !== "" && md !== undefined &&
-              <DocsMarkdown md={md}/>
+              <DocsMarkdown md={md} slug={pageData.slug} />
             }
 
-            {/* Examples */}
-            {pageData.parts.map((example, index) => {
-              const id = toHtmlId(example.title);
-              const codeString = example.code !== undefined
-                ? example.code
-                : prepareComponentString(example.component);
-              return (
-                <Col key={index} wFull>
-                  <Title>
-                    <Link href={`#${id}`} id={id}>{example.title}</Link>
-                  </Title>
-                  <DocsMarkdown md={example.md}/>
-                  <Card xs sharp itemsCenter wFull className="mb-6">
-                    <ThemeProvider mergeStrategy="replace">
-                      <Stack xl itemsCenter overflowXAuto overflowYVisible wFull>
-                        {example.component}
-                      </Stack>
-                    </ThemeProvider>
-                    {codeString && (
-                      <CodeBlock
-                        code={codeString}
-                        language="tsx"
-                        fileName={`${example.title.replaceAll(" ", "")}.tsx`}
-                        theme="light"
-                      />
-                    )}
-                  </Card>
-                </Col>
-              );
-            })}
-
-            {/* Props Documentation */}
-            {
-              componentKey &&
-              <Title xl>
-                <Link href={`#${propsTitleId}`} id={propsTitleId}>{propsTitle}</Link>
-              </Title>
-            }
-            {
-              componentKey && ComponentCategories[componentKey].map((key, index) => {
-                const id = toHtmlId(key);
-                const categoryName = getCategoryName(key) || key;
-                const categoryDescription = getCategoryDescription(key);
-                const categoryProps = PropDescriptions[key]?.props || {};
-                const theme = defaultTheme[componentKey];
-                // Find all theme keys that contain all fields from ComponentKeys[key]
-                const keyFields = ComponentKeys[key as keyof typeof ComponentKeys];
-                const matchingThemes: string[] = [];
-
-                if (theme && keyFields) {
-                  const findMatchingThemes = (themeObj: unknown, prefix = ''): void => {
-                    if (!themeObj || typeof themeObj !== 'object') return;
-
-                    const obj = themeObj as Record<string, unknown>;
-
-                    // Check if this object has a 'themes' property (ComponentTheme structure)
-                    if ('themes' in obj && obj.themes && typeof obj.themes === 'object') {
-                      const themes = obj.themes as Record<string, unknown>;
-                      Object.keys(themes).forEach(themeKey => {
-                        const themeObject = themes[themeKey];
-                        if (themeObject && typeof themeObject === 'object') {
-                          const themeProps = themeObject as Record<string, unknown>;
-                          // Check if this theme contains all the key fields
-                          const hasAllFields = keyFields.every((field: string) =>
-                            field in themeProps
-                          );
-                          if (hasAllFields) {
-                            const fullThemeName = prefix ? `${prefix}.${themeKey}` : themeKey;
-                            matchingThemes.push(fullThemeName);
-                          }
-                        }
-                      });
-                    } else {
-                      // Check for nested structures (like checkbox with input, check, wrapper)
-                      Object.keys(obj).forEach(subKey => {
-                        const subObj = obj[subKey];
-                        if (typeof subObj === 'object' && subObj !== null) {
-                          const newPrefix = prefix ? `${prefix}.${subKey}` : subKey;
-                          findMatchingThemes(subObj, newPrefix);
-                        }
-                      });
-                    }
-                  };
-
-                  try {
-                    findMatchingThemes(theme);
-                  } catch (error) {
-                    // Silently handle any theme access errors
-                    console.warn('Error accessing theme structure:', error);
-                  }
-                }
-                return (
-                  <Col key={index} wFull>
-                    <Title>
-                      <Link href={`#${id}`} id={id}>{categoryName}</Link>
-                    </Title>
-                    {categoryDescription && (
-                      <Text sm secondary>{categoryDescription}</Text>
-                    )}
-                    <Col xs className="mt-2">
-                      {
-                        ComponentKeys[key as keyof typeof ComponentKeys].map((k: string, index: number) => {
-                          const propDescription = categoryProps[k]?.description;
-                          return (
-                            <Row key={index} noGap itemsBaseline className="py-1">
-                              <Text mono brand className="min-w-24">{k}</Text>
-                              {propDescription && (
-                                <Text sm secondary className="ml-2">{propDescription}</Text>
-                              )}
-                            </Row>
-                          );
-                        })
-                      }
-                    </Col>
-                    {matchingThemes.length > 0 && (
-                      <Col xs className="mt-2">
-                        <Text sm secondary>Controlled themes:</Text>
-                        {matchingThemes.map((themeKey: string, index: number) => (
-                          <ListItem key={index} secondary>{themeKey}</ListItem>
-                        ))}
-                      </Col>
-                    )}
-                  </Col>
-                );
-              })
-            }
+            {/* Props Documentation — single auto-generated table replaces
+                the previous 30+ per-category prop dump. Common
+                layout/utility categories collapse into a <details>. */}
+            {componentKey && (
+              <Col wFull id={propsTitleId}>
+                <Title xl>
+                  <Link href={`#${propsTitleId}`}>{propsTitle}</Link>
+                </Title>
+                <DocsPropsTable componentKey={componentKey as ComponentKey} />
+              </Col>
+            )}
           </Col>
 
           {/* On This Page Navigation */}
-          <Col sticky tabletHide className="styled-scrollbar top-10 w-56 flex-shrink-0 max-h-[calc(100vh-128px)]">
-            <OnThisPage sections={sections}/>
+          <Col sticky tabletHide noShrink className="styled-scrollbar top-10 w-56 max-h-[calc(100vh-128px)]">
+            <OnThisPage sections={sections} />
           </Col>
         </Row>
       </Container>
     </ThemeProvider>
   );
-} 
+}

@@ -2818,3 +2818,16 @@ The Link renders at its default `md` size while the Title is `lg`. For Code/Kbd,
 ### Responsive overrides inheritSize
 
 Title, PageTitle, and SectionTitle have `responsive: true` in their defaults. Responsive sizing takes priority over `inheritSize` — a responsive heading always uses its viewport-scaled size, even if `inheritSize` is set via the `inherit` expansion.
+
+## Reference
+
+Shared prop reference and cross-component documentation.
+
+---
+Title: Common Props
+URL: https://vaneui.com/docs/reference/common-props
+---
+
+Layout and typography props shared across all components.
+
+For full interactive examples and props documentation, visit the URL above.

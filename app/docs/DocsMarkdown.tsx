@@ -5,10 +5,20 @@ import { CodeBlock } from '../components/CodeBlock';
 import { Card, Title, SectionTitle } from '@vaneui/ui';
 import { Md } from "@vaneui/md";
 import { toHtmlId } from '../utils/stringUtils';
+import { extractFences, type ExtractedFence } from '../../lib/docs/extractFences';
+import { LivePreview } from './LivePreview';
 import Link from "next/link";
 
 interface DocsMarkdownProps {
   md: string;
+  /**
+   * Page slug — used to look up live-preview wrappers in the auto-generated
+   * registry. Wrappers are keyed `${slug}-${fenceId}` (matching the file naming
+   * in build-examples.mjs). Optional: when omitted, fences fall through to
+   * plain CodeBlock rendering (used by the legacy TSX-array `parts.map` flow,
+   * where `example.md` is short narrative prose with no demo fences).
+   */
+  slug?: string;
 }
 
 interface MdHeadingProps {
@@ -71,26 +81,135 @@ function CustomMdBlockquote({children}: { children: React.ReactNode }) {
   )
 }
 
-export function DocsMarkdown({md}: DocsMarkdownProps) {
+/**
+ * Pairing is done by content match: the Nth `tsx`/`jsx` fence Markdoc emits
+ * with body B is the entry in `fences[]` whose `body === B` AND whose ordinal
+ * position among same-body fences also matches. A simple Map keyed on body
+ * text suffices because identical fence bodies are rare in practice; on
+ * collision we shift to the next entry with the same body so duplicates still
+ * pair correctly without relying on render-order side effects (which React 19
+ * forbids in components).
+ */
+interface FenceLookup {
+  /** Body-text -> queue of fences with that body, in document order. */
+  byBody: Map<string, ExtractedFence[]>;
+  /**
+   * Per-component-instance memo of the resolved fence. Keyed by `useId()`
+   * inside `FenceWithLivePreview`. React 19 Strict Mode double-invokes every
+   * component's body in dev — without memoization, the first invocation shifts
+   * the queue and the second sees it empty, producing a hydration mismatch
+   * (server: live preview Card; client: bare CodeBlock). The cache keeps the
+   * result stable across both passes.
+   */
+  byInstance: Map<string, ExtractedFence | null>;
+  slug: string | undefined;
+}
+
+/**
+ * Normalize fence body for matching — Markdoc's runtime fence content always
+ * ends with `\n` (markdown-it's `getLines`), while our extractor regex stops
+ * before the trailing newline. Strip trailing whitespace on both sides so the
+ * pairing key is stable regardless of source formatting.
+ */
+function normalizeBody(body: string): string {
+  return body.replace(/\s+$/, '');
+}
+
+function buildFenceLookup(fences: ExtractedFence[], slug: string | undefined): FenceLookup {
+  const byBody = new Map<string, ExtractedFence[]>();
+  for (const fence of fences) {
+    const key = normalizeBody(fence.body);
+    const queue = byBody.get(key);
+    if (queue) queue.push(fence);
+    else byBody.set(key, [fence]);
+  }
+  return { byBody, byInstance: new Map(), slug };
+}
+
+const FenceLookupContext = React.createContext<FenceLookup | null>(null);
+
+interface MdFenceProps {
+  content?: string;
+  language?: string;
+}
+
+function FenceWithLivePreview({ content = '', language = 'text' }: MdFenceProps) {
+  const lookup = React.useContext(FenceLookupContext);
+  // Stable per-instance ID — same value across Strict Mode's double render so
+  // we can memoize the queue.shift() result and avoid the second pass seeing
+  // an empty queue.
+  const instanceId = React.useId();
+
+  // Only tsx/jsx fences participate in fence pairing.
+  const isTsxLike = language === 'tsx' || language === 'jsx';
+  let fence: ExtractedFence | undefined;
+  if (isTsxLike && lookup) {
+    const cached = lookup.byInstance.get(instanceId);
+    if (cached !== undefined) {
+      // Second (or later) render of this instance — return the previously
+      // resolved fence. `null` means we already looked and didn't find one.
+      fence = cached ?? undefined;
+    } else {
+      const queue = lookup.byBody.get(normalizeBody(content));
+      if (queue && queue.length > 0) {
+        fence = queue.shift();
+      }
+      lookup.byInstance.set(instanceId, fence ?? null);
+    }
+  }
+
+  if (
+    fence &&
+    fence.kind === 'demo' &&
+    fence.id !== null &&
+    lookup?.slug !== undefined
+  ) {
+    return (
+      <Card xs sharp>
+        <LivePreview id={fence.id} slug={lookup.slug} />
+        <CodeBlock
+          code={content}
+          theme="light"
+          language={language}
+          fileName=""
+        />
+      </Card>
+    );
+  }
+
   return (
-    <Md
-      content={md}
-      config={{
-        components: {
-          MdFence: ({content = "", language = "text"}: { content?: string; language?: string }) => {
-            return (
-              <CodeBlock
-                code={content}
-                theme="light"
-                language={language}
-                fileName=""
-              />
-            );
-          },
-          MdHeading: CustomMdHeading,
-          MdBlockquote: CustomMdBlockquote,
-        }
-      }}
+    <CodeBlock
+      code={content}
+      theme="light"
+      language={language}
+      fileName=""
     />
+  );
+}
+
+export function DocsMarkdown({md, slug}: DocsMarkdownProps) {
+  // Rebuild the lookup on every render. The lookup's per-body queues are
+  // consumed (shifted) as `<Md>` walks the document, which means a single
+  // lookup instance is single-use — recomputing here keeps each render pass
+  // fresh without relying on refs the linter forbids us from mutating.
+  const fences = extractFences(md).fences;
+  const lookup = buildFenceLookup(fences, slug);
+
+  return (
+    <FenceLookupContext.Provider value={lookup}>
+      <Md
+        content={md}
+        rendererTheme={{
+          mdCode: { secondary: true, noRing: true },
+        }}
+        config={{
+          components: {
+            MdFence: FenceWithLivePreview,
+            MdHeading: CustomMdHeading,
+            MdBlockquote: CustomMdBlockquote,
+          }
+        }}
+      />
+    </FenceLookupContext.Provider>
   );
 }

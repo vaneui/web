@@ -77,7 +77,7 @@ const layoutContent = (
       </Card>
     </Grid2>
     <Card row mobileCol itemsCenter>
-      <Col className="flex-1">
+      <Col flex1>
         <Title sm>Responsive Layout</Title>
         <Text sm secondary>Cards stack on mobile via mobileCol.</Text>
       </Col>
