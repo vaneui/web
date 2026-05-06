@@ -307,7 +307,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         slug: 'using-theme-provider',
         name: 'Using ThemeProvider',
         description: 'Configure and customize themes throughout your application with ThemeProvider.',
-        mdPath: 'using-themeprovider.md',
+        mdPath: 'using-theme-provider.md',
       },
       {
         slug: 'theme-and-override',

@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
-import { Row, Code, Button } from '@vaneui/ui';
+import { Row, Button } from '@vaneui/ui';
 import { AlertCircle, Check, Copy, Edit2, GitHub, ExternalLink } from 'react-feather';
 import { DocPageFrontmatter } from './types';
 
