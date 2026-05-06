@@ -113,7 +113,7 @@ function PropsTable({ rows }: { rows: PropRow[] }) {
           {rows.map((row) => (
             <tr key={`${row.categoryKey}:${row.prop}`}>
               <td className={cellClasses}>
-                <Code xs>{row.prop}</Code>
+                <Code>{row.prop}</Code>
               </td>
               <td className={cellClasses}>
                 <Text sm secondary>{row.category}</Text>

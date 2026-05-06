@@ -24,13 +24,11 @@ Code elements in different sizes - `xs`, `sm`, `md`, `lg`, `xl`.
 
 ```tsx demo
 <Col>
-  {
-    ComponentKeys.size.map((key: string) => (
-      <Row key={key}>
-        <span>Size {key}: <Code {...{[key]: true}}>{"console.log('Hello')"}</Code></span>
-      </Row>
-    ))
-  }
+  <Row><span>Size xs: <Code xs>{"console.log('Hello')"}</Code></span></Row>
+  <Row><span>Size sm: <Code sm>{"console.log('Hello')"}</Code></span></Row>
+  <Row><span>Size md: <Code md>{"console.log('Hello')"}</Code></span></Row>
+  <Row><span>Size lg: <Code lg>{"console.log('Hello')"}</Code></span></Row>
+  <Row><span>Size xl: <Code xl>{"console.log('Hello')"}</Code></span></Row>
 </Col>
 ```
 
@@ -40,13 +38,17 @@ Different code color variants for syntax highlighting.
 
 ```tsx demo
 <Row flexWrap>
-  {
-    ComponentKeys.appearance.map((key: string) => (
-      <Code key={key} {...{[key]: true}}>
-        {key} code
-      </Code>
-    ))
-  }
+  <Code primary>primary code</Code>
+  <Code brand>brand code</Code>
+  <Code accent>accent code</Code>
+  <Code secondary>secondary code</Code>
+  <Code tertiary>tertiary code</Code>
+  <Code success>success code</Code>
+  <Code danger>danger code</Code>
+  <Code warning>warning code</Code>
+  <Code info>info code</Code>
+  <Code link>link code</Code>
+  <Code inherit>inherit code</Code>
 </Row>
 ```
 

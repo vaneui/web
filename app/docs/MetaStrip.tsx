@@ -79,9 +79,9 @@ export function MetaStrip({ frontmatter, slug, category }: MetaStripProps) {
   }
 
   function copyIcon(status: CopyStatus) {
-    if (status === 'copied') return <Check className="size-3.5 text-success" aria-hidden="true"/>;
-    if (status === 'error') return <AlertCircle className="size-3.5" aria-hidden="true"/>;
-    return <Copy className="size-3.5" aria-hidden="true"/>;
+    if (status === 'copied') return <Check className="size-3.5 text-success" aria-hidden="true" />;
+    if (status === 'error') return <AlertCircle className="size-3.5" aria-hidden="true" />;
+    return <Copy className="size-3.5" aria-hidden="true" />;
   }
 
   function copyLabel(status: CopyStatus, idleLabel: string, copiedLabel: string) {
@@ -92,72 +92,67 @@ export function MetaStrip({ frontmatter, slug, category }: MetaStripProps) {
   }
 
   return (
-    <Row noGap flexWrap className="mt-2 gap-x-2 gap-y-2">
+    <Row justifyBetween flexWrap>
       {importPath && (
         <Button
           xs
           secondary
           noShadow
-          noRing
-          noBorder
+          mono
           onClick={handleCopyImport}
           title={importStatus === 'copied' ? 'Copied!' : `Click to copy: ${importPath}`}
           aria-label="Copy import statement"
         >
           {copyIcon(importStatus)}
-          <Code noPadding noBorder transparent inheritSize className="px-0">{importPath}</Code>
+          {importPath}
         </Button>
       )}
 
-      {sourceUrl && (
+      <Row justifyEnd flexWrap>
+        {sourceUrl && (
+          <Button
+            xs
+            secondary
+            noShadow
+            href={sourceUrl}
+            tag="a"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View source on GitHub"
+          >
+            <GitHub className="size-3.5" aria-hidden="true" />
+            Source
+            <ExternalLink className="size-3 opacity-60" aria-hidden="true" />
+          </Button>
+        )}
+
         <Button
           xs
           secondary
           noShadow
-          noRing
-          noBorder
-          href={sourceUrl}
+          href={editUrl}
           tag="a"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="View source on GitHub"
+          aria-label="Edit this page on GitHub"
         >
-          <GitHub className="size-3.5" aria-hidden="true"/>
-          Source
-          <ExternalLink className="size-3 opacity-60" aria-hidden="true"/>
+          <Edit2 className="size-3.5" aria-hidden="true" />
+          Edit this page
+          <ExternalLink className="size-3 opacity-60" aria-hidden="true" />
         </Button>
-      )}
 
-      <Button
-        xs
-        secondary
-        noShadow
-        noRing
-        noBorder
-        href={editUrl}
-        tag="a"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Edit this page on GitHub"
-      >
-        <Edit2 className="size-3.5" aria-hidden="true"/>
-        Edit this page
-        <ExternalLink className="size-3 opacity-60" aria-hidden="true"/>
-      </Button>
-
-      <Button
-        xs
-        secondary
-        noShadow
-        noRing
-        noBorder
-        onClick={handleCopyMarkdown}
-        disabled={mdStatus === 'copying'}
-        aria-label="Copy page as Markdown"
-      >
-        {copyIcon(mdStatus)}
-        {copyLabel(mdStatus, 'Copy as Markdown', 'Copied!')}
-      </Button>
+        <Button
+          xs
+          secondary
+          noShadow
+          onClick={handleCopyMarkdown}
+          disabled={mdStatus === 'copying'}
+          aria-label="Copy page as Markdown"
+        >
+          {copyIcon(mdStatus)}
+          {copyLabel(mdStatus, 'Copy as Markdown', 'Copied!')}
+        </Button>
+      </Row>
     </Row>
   );
 }

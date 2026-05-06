@@ -74,14 +74,26 @@ Checkboxes in different sizes: `xs`, `sm`, `md`, `lg`, `xl`. A `Checkbox` nested
 
 ```tsx demo
 <Row flexWrap>
-  {
-    ComponentKeys.size.map((key: string) => (
-      <Label key={key} {...{[key]: true}} htmlFor={`size-${key}`}>
-        <Checkbox id={`size-${key}`} defaultChecked/>
-        Size: {key}
-      </Label>
-    ))
-  }
+  <Label xs htmlFor="size-xs">
+    <Checkbox id="size-xs" defaultChecked/>
+    Size: xs
+  </Label>
+  <Label sm htmlFor="size-sm">
+    <Checkbox id="size-sm" defaultChecked/>
+    Size: sm
+  </Label>
+  <Label md htmlFor="size-md">
+    <Checkbox id="size-md" defaultChecked/>
+    Size: md
+  </Label>
+  <Label lg htmlFor="size-lg">
+    <Checkbox id="size-lg" defaultChecked/>
+    Size: lg
+  </Label>
+  <Label xl htmlFor="size-xl">
+    <Checkbox id="size-xl" defaultChecked/>
+    Size: xl
+  </Label>
 </Row>
 ```
 
@@ -91,14 +103,50 @@ Different color appearances applied to the Checkbox; always place inside a Label
 
 ```tsx demo
 <Row flexWrap>
-  {
-    ComponentKeys.appearance.map((key: string) => (
-      <Label key={key} {...{[key]: true}} htmlFor={`appearance-${key}`}>
-        <Checkbox {...{[key]: true}} id={`appearance-${key}`} defaultChecked/>
-        Enable {key} style
-      </Label>
-    ))
-  }
+  <Label primary htmlFor="appearance-primary">
+    <Checkbox primary id="appearance-primary" defaultChecked/>
+    Enable primary style
+  </Label>
+  <Label brand htmlFor="appearance-brand">
+    <Checkbox brand id="appearance-brand" defaultChecked/>
+    Enable brand style
+  </Label>
+  <Label accent htmlFor="appearance-accent">
+    <Checkbox accent id="appearance-accent" defaultChecked/>
+    Enable accent style
+  </Label>
+  <Label secondary htmlFor="appearance-secondary">
+    <Checkbox secondary id="appearance-secondary" defaultChecked/>
+    Enable secondary style
+  </Label>
+  <Label tertiary htmlFor="appearance-tertiary">
+    <Checkbox tertiary id="appearance-tertiary" defaultChecked/>
+    Enable tertiary style
+  </Label>
+  <Label success htmlFor="appearance-success">
+    <Checkbox success id="appearance-success" defaultChecked/>
+    Enable success style
+  </Label>
+  <Label danger htmlFor="appearance-danger">
+    <Checkbox danger id="appearance-danger" defaultChecked/>
+    Enable danger style
+  </Label>
+  <Label warning htmlFor="appearance-warning">
+    <Checkbox warning id="appearance-warning" defaultChecked/>
+    Enable warning style
+  </Label>
+  <Label info htmlFor="appearance-info">
+    <Checkbox info id="appearance-info" defaultChecked/>
+    Enable info style
+  </Label>
+  <Label link htmlFor="appearance-link">
+    <Checkbox link id="appearance-link" defaultChecked/>
+    Enable link style
+  </Label>
+  <Label inherit htmlFor="appearance-inherit">
+    <Checkbox inherit id="appearance-inherit" defaultChecked/>
+    Enable inherit style
+  </Label>
 </Row>
 ```
 

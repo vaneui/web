@@ -13,11 +13,17 @@ Chip styles and variants.
 
 ```tsx demo
 <Row flexWrap>
-  {
-    ComponentKeys.appearance.map((key) => (
-      <Chip key={key} {...{[key]: true}}>{key}</Chip>
-    ))
-  }
+  <Chip primary>primary</Chip>
+  <Chip brand>brand</Chip>
+  <Chip accent>accent</Chip>
+  <Chip secondary>secondary</Chip>
+  <Chip tertiary>tertiary</Chip>
+  <Chip success>success</Chip>
+  <Chip danger>danger</Chip>
+  <Chip warning>warning</Chip>
+  <Chip info>info</Chip>
+  <Chip link>link</Chip>
+  <Chip inherit>inherit</Chip>
 </Row>
 ```
 
@@ -27,11 +33,11 @@ Chips come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.
 
 ```tsx demo
 <Row flexWrap>
-  {
-    ComponentKeys.size.map((key) => (
-      <Chip key={key} {...{[key]: true}}>{key}</Chip>
-    ))
-  }
+  <Chip xs>xs</Chip>
+  <Chip sm>sm</Chip>
+  <Chip md>md</Chip>
+  <Chip lg>lg</Chip>
+  <Chip xl>xl</Chip>
 </Row>
 ```
 
@@ -41,33 +47,36 @@ Chips support different border radius styles: `rounded` (default), `pill`, and `
 
 ```tsx demo
 <Row flexWrap>
-  {
-    ComponentKeys.shape.map((key: string) => (
-      <Chip key={key} {...{[key]: true}}>JavaScript</Chip>
-    ))
-  }
+  <Chip pill>JavaScript</Chip>
+  <Chip sharp>JavaScript</Chip>
+  <Chip rounded>JavaScript</Chip>
 </Row>
 ```
 
 ## Chip Variants
 
-Chips can be styled as `outline` (default) or `filled`.
+Chips can be styled as `filled`, `outline` (default), or `ghost`.
 
 ```tsx demo
 <Col>
-  {
-    ComponentKeys.variant.map((variant) => (
-      <Row key={variant} flexWrap>
-        {
-          ComponentKeys.appearance.slice(0, 4).map((appearance) => (
-            <Chip key={`${variant}-${appearance}`} {...{[variant]: true, [appearance]: true}}>
-              {appearance}
-            </Chip>
-          ))
-        }
-      </Row>
-    ))
-  }
+  <Row flexWrap>
+    <Chip filled primary>primary</Chip>
+    <Chip filled brand>brand</Chip>
+    <Chip filled accent>accent</Chip>
+    <Chip filled secondary>secondary</Chip>
+  </Row>
+  <Row flexWrap>
+    <Chip outline primary>primary</Chip>
+    <Chip outline brand>brand</Chip>
+    <Chip outline accent>accent</Chip>
+    <Chip outline secondary>secondary</Chip>
+  </Row>
+  <Row flexWrap>
+    <Chip ghost primary>primary</Chip>
+    <Chip ghost brand>brand</Chip>
+    <Chip ghost accent>accent</Chip>
+    <Chip ghost secondary>secondary</Chip>
+  </Row>
 </Col>
 ```
 

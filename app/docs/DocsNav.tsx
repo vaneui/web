@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Text, Col, Row, NavLink, Divider } from '@vaneui/ui';
+import { Text, Col, Row, NavLink, Divider, Button } from '@vaneui/ui';
 import { docsSections } from "./docsSections";
 import { BookOpen, Box, Compass, FileText, GitHub, Layers, Maximize2, Settings } from "react-feather";
 import Link from "next/link";
@@ -20,12 +20,12 @@ export function DocsNav({currentPath, onMenuItemClickAction}: { currentPath?: st
   return (
     <Col>
       <Col noGap>
-        <NavLink secondary href="/docs" tag={Link}>
-          <BookOpen className="size-5" />
+        <NavLink secondary md href="/docs" tag={Link}>
+          <BookOpen />
           Documentation
         </NavLink>
-        <NavLink secondary href={PRODUCT.githubUrl} tag="a" target="_blank" rel="noopener noreferrer">
-          <GitHub className="size-5" />
+        <NavLink secondary md href={PRODUCT.githubUrl} tag="a" target="_blank" rel="noopener noreferrer">
+          <GitHub />
           GitHub
         </NavLink>
       </Col>

@@ -63,11 +63,11 @@ Use `filled` or `outline` with appearance props for styled columns.
 
 ```tsx demo
 <Row>
-  <Col filled primary className="flex-1">
+  <Col filled primary flex1>
     <div className="p-4 bg-white/80 rounded">Filled Primary</div>
     <div className="p-4 bg-white/80 rounded">Item 2</div>
   </Col>
-  <Col outline success className="flex-1">
+  <Col outline success flex1>
     <div className="p-4 rounded">Outline Success</div>
     <div className="p-4 rounded">Item 2</div>
   </Col>
@@ -80,15 +80,15 @@ Use `textCenter`, `textLeft`, `textRight`, or `textJustify` to control text alig
 
 ```tsx demo
 <Row>
-  <Col textLeft className="flex-1 border-2 border-dashed border-gray-300 p-4">
+  <Col textLeft flex1 className="border-2 border-dashed border-gray-300 p-4">
     <Text semibold>Left Aligned</Text>
     <Text>Content aligned to the left.</Text>
   </Col>
-  <Col textCenter className="flex-1 border-2 border-dashed border-gray-300 p-4">
+  <Col textCenter flex1 className="border-2 border-dashed border-gray-300 p-4">
     <Text semibold>Center Aligned</Text>
     <Text>Content centered within the column.</Text>
   </Col>
-  <Col textRight className="flex-1 border-2 border-dashed border-gray-300 p-4">
+  <Col textRight flex1 className="border-2 border-dashed border-gray-300 p-4">
     <Text semibold>Right Aligned</Text>
     <Text>Content aligned to the right.</Text>
   </Col>
@@ -101,19 +101,19 @@ Col is commonly used inside Row to create multi-column layouts.
 
 ```tsx demo
 <Row>
-  <Col className="flex-1">
+  <Col flex1>
     <Card>
       <Text semibold>Column 1</Text>
       <Text sm secondary>First column content.</Text>
     </Card>
   </Col>
-  <Col className="flex-1">
+  <Col flex1>
     <Card>
       <Text semibold>Column 2</Text>
       <Text sm secondary>Second column content.</Text>
     </Card>
   </Col>
-  <Col className="flex-1">
+  <Col flex1>
     <Card>
       <Text semibold>Column 3</Text>
       <Text sm secondary>Third column content.</Text>

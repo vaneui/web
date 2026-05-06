@@ -25,14 +25,18 @@ Control border radius with `rounded` (default), `pill`, and `sharp`.
 
 ```tsx demo
 <Row flexWrap>
-  {
-    ComponentKeys.shape.map((key: string) => (
-      <Col key={key} itemsCenter>
-        <Img {...{[key]: true}} src={placeholderSrc} alt={`${key} image`} />
-        <Text sm secondary>{key}</Text>
-      </Col>
-    ))
-  }
+  <Col itemsCenter>
+    <Img pill src={placeholderSrc} alt="pill image" />
+    <Text sm secondary>pill</Text>
+  </Col>
+  <Col itemsCenter>
+    <Img sharp src={placeholderSrc} alt="sharp image" />
+    <Text sm secondary>sharp</Text>
+  </Col>
+  <Col itemsCenter>
+    <Img rounded src={placeholderSrc} alt="rounded image" />
+    <Text sm secondary>rounded</Text>
+  </Col>
 </Row>
 ```
 
@@ -63,14 +67,26 @@ Images support five sizes: `xs`, `sm`, `md`, `lg`, `xl`.
 
 ```tsx demo
 <Row flexWrap itemsEnd>
-  {
-    ComponentKeys.size.map((key) => (
-      <Col key={key} itemsCenter>
-        <Img {...{[key]: true}} src={placeholderSrc} alt={`${key} image`} />
-        <Text sm secondary>{key}</Text>
-      </Col>
-    ))
-  }
+  <Col itemsCenter>
+    <Img xs src={placeholderSrc} alt="xs image" />
+    <Text sm secondary>xs</Text>
+  </Col>
+  <Col itemsCenter>
+    <Img sm src={placeholderSrc} alt="sm image" />
+    <Text sm secondary>sm</Text>
+  </Col>
+  <Col itemsCenter>
+    <Img md src={placeholderSrc} alt="md image" />
+    <Text sm secondary>md</Text>
+  </Col>
+  <Col itemsCenter>
+    <Img lg src={placeholderSrc} alt="lg image" />
+    <Text sm secondary>lg</Text>
+  </Col>
+  <Col itemsCenter>
+    <Img xl src={placeholderSrc} alt="xl image" />
+    <Text sm secondary>xl</Text>
+  </Col>
 </Row>
 ```
 

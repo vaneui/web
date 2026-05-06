@@ -13,11 +13,17 @@ Badge styles and variants.
 
 ```tsx demo
 <Row flexWrap>
-  {
-    ComponentKeys.appearance.map((key) => (
-      <Badge key={key} {...{[key]: true}}>{key}</Badge>
-    ))
-  }
+  <Badge primary>primary</Badge>
+  <Badge brand>brand</Badge>
+  <Badge accent>accent</Badge>
+  <Badge secondary>secondary</Badge>
+  <Badge tertiary>tertiary</Badge>
+  <Badge success>success</Badge>
+  <Badge danger>danger</Badge>
+  <Badge warning>warning</Badge>
+  <Badge info>info</Badge>
+  <Badge link>link</Badge>
+  <Badge inherit>inherit</Badge>
 </Row>
 ```
 
@@ -27,11 +33,11 @@ Badges come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.
 
 ```tsx demo
 <Row flexWrap>
-  {
-    ComponentKeys.size.map((key) => (
-      <Badge key={key} {...{[key]: true}}>{key}</Badge>
-    ))
-  }
+  <Badge xs>xs</Badge>
+  <Badge sm>sm</Badge>
+  <Badge md>md</Badge>
+  <Badge lg>lg</Badge>
+  <Badge xl>xl</Badge>
 </Row>
 ```
 
@@ -41,33 +47,36 @@ Badges support different border radius styles: `rounded`, `pill` (default), and 
 
 ```tsx demo
 <Row flexWrap>
-  {
-    ComponentKeys.shape.map((key: string) => (
-      <Badge key={key} {...{[key]: true}}>Pro</Badge>
-    ))
-  }
+  <Badge pill>Pro</Badge>
+  <Badge sharp>Pro</Badge>
+  <Badge rounded>Pro</Badge>
 </Row>
 ```
 
 ## Badge Variants
 
-Badges can be styled as `outline` (default) or `filled`.
+Badges can be styled as `filled`, `outline` (default), or `ghost`.
 
 ```tsx demo
 <Col>
-  {
-    ComponentKeys.variant.map((variant) => (
-      <Row key={variant} flexWrap>
-        {
-          ComponentKeys.appearance.slice(0, 4).map((appearance) => (
-            <Badge key={`${variant}-${appearance}`} {...{[variant]: true, [appearance]: true}}>
-              {appearance}
-            </Badge>
-          ))
-        }
-      </Row>
-    ))
-  }
+  <Row flexWrap>
+    <Badge filled primary>primary</Badge>
+    <Badge filled brand>brand</Badge>
+    <Badge filled accent>accent</Badge>
+    <Badge filled secondary>secondary</Badge>
+  </Row>
+  <Row flexWrap>
+    <Badge outline primary>primary</Badge>
+    <Badge outline brand>brand</Badge>
+    <Badge outline accent>accent</Badge>
+    <Badge outline secondary>secondary</Badge>
+  </Row>
+  <Row flexWrap>
+    <Badge ghost primary>primary</Badge>
+    <Badge ghost brand>brand</Badge>
+    <Badge ghost accent>accent</Badge>
+    <Badge ghost secondary>secondary</Badge>
+  </Row>
 </Col>
 ```
 
@@ -77,10 +86,9 @@ Badges support different font weights.
 
 ```tsx demo
 <Row flexWrap>
-  {
-    ComponentKeys.fontWeight.slice(3, 7).map((key: string) => (
-      <Badge key={key} {...{[key]: true}}>Premium</Badge>
-    ))
-  }
+  <Badge normal>Premium</Badge>
+  <Badge medium>Premium</Badge>
+  <Badge semibold>Premium</Badge>
+  <Badge bold>Premium</Badge>
 </Row>
 ```

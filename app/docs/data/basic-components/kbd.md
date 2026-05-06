@@ -40,14 +40,26 @@ Kbd elements in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ```tsx demo
 <Row flexWrap itemsEnd>
-  {
-    ComponentKeys.size.map((key) => (
-      <Col key={key} itemsCenter>
-        <Kbd {...{[key]: true}}>Ctrl</Kbd>
-        <Text sm secondary>{key}</Text>
-      </Col>
-    ))
-  }
+  <Col itemsCenter>
+    <Kbd xs>Ctrl</Kbd>
+    <Text sm secondary>xs</Text>
+  </Col>
+  <Col itemsCenter>
+    <Kbd sm>Ctrl</Kbd>
+    <Text sm secondary>sm</Text>
+  </Col>
+  <Col itemsCenter>
+    <Kbd md>Ctrl</Kbd>
+    <Text sm secondary>md</Text>
+  </Col>
+  <Col itemsCenter>
+    <Kbd lg>Ctrl</Kbd>
+    <Text sm secondary>lg</Text>
+  </Col>
+  <Col itemsCenter>
+    <Kbd xl>Ctrl</Kbd>
+    <Text sm secondary>xl</Text>
+  </Col>
 </Row>
 ```
 
@@ -57,13 +69,16 @@ Different color appearances for keyboard keys.
 
 ```tsx demo
 <Row flexWrap>
-  {
-    ComponentKeys.appearance.slice(0, -1).map((key) => (
-      <Kbd key={key} {...{[key]: true}}>
-        {key.charAt(0).toUpperCase() + key.slice(1, 4)}
-      </Kbd>
-    ))
-  }
+  <Kbd primary>Pri</Kbd>
+  <Kbd brand>Bra</Kbd>
+  <Kbd accent>Acc</Kbd>
+  <Kbd secondary>Sec</Kbd>
+  <Kbd tertiary>Ter</Kbd>
+  <Kbd success>Suc</Kbd>
+  <Kbd danger>Dan</Kbd>
+  <Kbd warning>War</Kbd>
+  <Kbd info>Inf</Kbd>
+  <Kbd link>Lin</Kbd>
 </Row>
 ```
 

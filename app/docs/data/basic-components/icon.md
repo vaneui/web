@@ -27,14 +27,26 @@ Icons support five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ```tsx demo
 <Row flexWrap itemsEnd>
-  {
-    ComponentKeys.size.map((key) => (
-      <Col key={key} itemsCenter>
-        <Icon {...{[key]: true}}><Star /></Icon>
-        <Text sm secondary>{key}</Text>
-      </Col>
-    ))
-  }
+  <Col itemsCenter>
+    <Icon xs><Star /></Icon>
+    <Text sm secondary>xs</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon sm><Star /></Icon>
+    <Text sm secondary>sm</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon md><Star /></Icon>
+    <Text sm secondary>md</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon lg><Star /></Icon>
+    <Text sm secondary>lg</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon xl><Star /></Icon>
+    <Text sm secondary>xl</Text>
+  </Col>
 </Row>
 ```
 
@@ -44,14 +56,46 @@ By default, Icon inherits `currentColor` from the parent. Use appearance props t
 
 ```tsx demo
 <Row flexWrap>
-  {
-    ComponentKeys.appearance.slice(0, -1).map((key) => (
-      <Col key={key} itemsCenter>
-        <Icon {...{[key]: true}}><Star /></Icon>
-        <Text xs secondary>{key}</Text>
-      </Col>
-    ))
-  }
+  <Col itemsCenter>
+    <Icon primary><Star /></Icon>
+    <Text xs secondary>primary</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon brand><Star /></Icon>
+    <Text xs secondary>brand</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon accent><Star /></Icon>
+    <Text xs secondary>accent</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon secondary><Star /></Icon>
+    <Text xs secondary>secondary</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon tertiary><Star /></Icon>
+    <Text xs secondary>tertiary</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon success><Star /></Icon>
+    <Text xs secondary>success</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon danger><Star /></Icon>
+    <Text xs secondary>danger</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon warning><Star /></Icon>
+    <Text xs secondary>warning</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon info><Star /></Icon>
+    <Text xs secondary>info</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon link><Star /></Icon>
+    <Text xs secondary>link</Text>
+  </Col>
 </Row>
 ```
 

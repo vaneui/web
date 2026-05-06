@@ -25,13 +25,16 @@ Different color appearances for highlights.
 
 ```tsx demo
 <Row flexWrap>
-  {
-    ComponentKeys.appearance.slice(0, -1).map((key) => (
-      <Mark key={key} {...{[key]: true}}>
-        {key.charAt(0).toUpperCase() + key.slice(1)}
-      </Mark>
-    ))
-  }
+  <Mark primary>Primary</Mark>
+  <Mark brand>Brand</Mark>
+  <Mark accent>Accent</Mark>
+  <Mark secondary>Secondary</Mark>
+  <Mark tertiary>Tertiary</Mark>
+  <Mark success>Success</Mark>
+  <Mark danger>Danger</Mark>
+  <Mark warning>Warning</Mark>
+  <Mark info>Info</Mark>
+  <Mark link>Link</Mark>
 </Row>
 ```
 

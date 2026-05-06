@@ -25,15 +25,31 @@ Dividers come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.
 
 ```tsx demo
 <Col lg>
-  {
-    ComponentKeys.size.map((key: string) => (
-      <div key={key}>
-        <Text semibold>Divider {key}</Text>
-        <Divider {...{[key]: true}} />
-        <Text>Content after {key} divider</Text>
-      </div>
-    ))
-  }
+  <div>
+    <Text semibold>Divider xs</Text>
+    <Divider xs />
+    <Text>Content after xs divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider sm</Text>
+    <Divider sm />
+    <Text>Content after sm divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider md</Text>
+    <Divider md />
+    <Text>Content after md divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider lg</Text>
+    <Divider lg />
+    <Text>Content after lg divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider xl</Text>
+    <Divider xl />
+    <Text>Content after xl divider</Text>
+  </div>
 </Col>
 ```
 
@@ -43,15 +59,36 @@ Dividers use `inherit` appearance by default. Use explicit appearances for color
 
 ```tsx demo
 <Col lg>
-  {
-    ComponentKeys.appearance.slice(0, 6).map((key: string) => (
-      <div key={key}>
-        <Text semibold>Divider {key}</Text>
-        <Divider {...{[key]: true}} />
-        <Text>Content after {key} divider</Text>
-      </div>
-    ))
-  }
+  <div>
+    <Text semibold>Divider primary</Text>
+    <Divider primary />
+    <Text>Content after primary divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider brand</Text>
+    <Divider brand />
+    <Text>Content after brand divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider accent</Text>
+    <Divider accent />
+    <Text>Content after accent divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider secondary</Text>
+    <Divider secondary />
+    <Text>Content after secondary divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider tertiary</Text>
+    <Divider tertiary />
+    <Text>Content after tertiary divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider success</Text>
+    <Divider success />
+    <Text>Content after success divider</Text>
+  </div>
 </Col>
 ```
 

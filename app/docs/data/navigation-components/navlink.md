@@ -78,14 +78,11 @@ NavLink supports five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`.
 
 ```tsx demo
 <Col className="w-72">
-  {
-    ComponentKeys.size.map((key) => (
-      <NavLink key={key} href="#" {...{[key]: true}}>
-        <Home size={key === 'xs' ? 12 : key === 'sm' ? 14 : key === 'lg' ? 18 : key === 'xl' ? 20 : 16} />
-        {key.toUpperCase()} NavLink
-      </NavLink>
-    ))
-  }
+  <NavLink xs href="#"><Home size={12} /> XS NavLink</NavLink>
+  <NavLink sm href="#"><Home size={14} /> SM NavLink</NavLink>
+  <NavLink md href="#"><Home size={16} /> MD NavLink</NavLink>
+  <NavLink lg href="#"><Home size={18} /> LG NavLink</NavLink>
+  <NavLink xl href="#"><Home size={20} /> XL NavLink</NavLink>
 </Col>
 ```
 

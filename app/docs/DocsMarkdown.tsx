@@ -199,6 +199,9 @@ export function DocsMarkdown({md, slug}: DocsMarkdownProps) {
     <FenceLookupContext.Provider value={lookup}>
       <Md
         content={md}
+        rendererTheme={{
+          mdCode: { secondary: true, noRing: true },
+        }}
         config={{
           components: {
             MdFence: FenceWithLivePreview,

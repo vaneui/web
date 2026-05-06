@@ -115,11 +115,11 @@ Use `mobileCol` or `tabletCol` to switch to column layout on smaller screens.
 
 ```tsx demo
 <Row tabletCol>
-  <Col className="flex-1 p-4 bg-primary-100 rounded">
+  <Col flex1 className="p-4 bg-primary-100 rounded">
     <Text semibold>Column 1</Text>
     <Text>Horizontal on desktop, stacked on tablet and below.</Text>
   </Col>
-  <Col className="flex-1 p-4 bg-primary-100 rounded">
+  <Col flex1 className="p-4 bg-primary-100 rounded">
     <Text semibold>Column 2</Text>
     <Text>Resize to see the responsive behavior.</Text>
   </Col>

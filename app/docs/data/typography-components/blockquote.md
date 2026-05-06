@@ -24,13 +24,14 @@ Apply appearance props to color the blockquote. The default is `inherit`, which 
 
 ```tsx demo
 <Col>
-  {
-    ['primary', 'brand', 'accent', 'secondary', 'success', 'danger', 'warning', 'info'].map((key) => (
-      <Blockquote key={key} {...{[key]: true}}>
-        {key.charAt(0).toUpperCase() + key.slice(1)} appearance blockquote.
-      </Blockquote>
-    ))
-  }
+  <Blockquote primary>Primary appearance blockquote.</Blockquote>
+  <Blockquote brand>Brand appearance blockquote.</Blockquote>
+  <Blockquote accent>Accent appearance blockquote.</Blockquote>
+  <Blockquote secondary>Secondary appearance blockquote.</Blockquote>
+  <Blockquote success>Success appearance blockquote.</Blockquote>
+  <Blockquote danger>Danger appearance blockquote.</Blockquote>
+  <Blockquote warning>Warning appearance blockquote.</Blockquote>
+  <Blockquote info>Info appearance blockquote.</Blockquote>
 </Col>
 ```
 
@@ -40,13 +41,11 @@ Blockquote supports five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ```tsx demo
 <Col>
-  {
-    ComponentKeys.size.map((key) => (
-      <Blockquote key={key} {...{[key]: true}} primary>
-        Size {key}: The best way to predict the future is to create it.
-      </Blockquote>
-    ))
-  }
+  <Blockquote xs primary>Size xs: The best way to predict the future is to create it.</Blockquote>
+  <Blockquote sm primary>Size sm: The best way to predict the future is to create it.</Blockquote>
+  <Blockquote md primary>Size md: The best way to predict the future is to create it.</Blockquote>
+  <Blockquote lg primary>Size lg: The best way to predict the future is to create it.</Blockquote>
+  <Blockquote xl primary>Size xl: The best way to predict the future is to create it.</Blockquote>
 </Col>
 ```
 

@@ -12,8 +12,8 @@ export function Header() {
 
   return (
     <>
-      <Stack sm row justifyBetween itemsCenter tag={'header'} primary borderB
-             className="flex-shrink-0 bg-white/70 backdrop-blur-md z-40" wFull>
+      <Stack sm row justifyBetween itemsCenter tag={'header'} primary borderB noShrink
+             className="bg-white/70 backdrop-blur-md z-40" wFull>
         <Logo/>
 
         {/* Desktop menu items - hidden on mobile */}
@@ -42,7 +42,7 @@ export function Header() {
         <div className="fixed inset-0 z-50 lg:hidden">
           <Col absolute hFull wFull noGap className="top-0 left-0 bg-bg-primary">
             {/* Fixed header */}
-            <Stack sm row justifyBetween itemsCenter primary borderB wFull className="flex-shrink-0">
+            <Stack sm row justifyBetween itemsCenter primary borderB wFull noShrink>
               <Logo/>
               <Button secondary sm aria-label="Close menu"
                       onClick={() => setIsMobileMenuOpen(false)} className="[--aspect-ratio:1]">
@@ -51,7 +51,7 @@ export function Header() {
             </Stack>
 
             {/* Scrollable content */}
-            <Stack sm className="flex-1 overflow-y-auto styled-scrollbar">
+            <Stack sm flex1 overflowYAuto className="styled-scrollbar">
               <Button sm normal primary noShadow noRing wFull
                       href="/docs" tag={Link}
                       onClick={() => setIsMobileMenuOpen(false)}

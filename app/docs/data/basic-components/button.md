@@ -26,9 +26,17 @@ Button styles and variants.
 
 ```tsx demo
 <Row flexWrap>
-  {ComponentKeys.appearance.map((key) => (
-    <Button key={key} {...{ [key]: true }}>{key}</Button>
-  ))}
+  <Button primary>primary</Button>
+  <Button brand>brand</Button>
+  <Button accent>accent</Button>
+  <Button secondary>secondary</Button>
+  <Button tertiary>tertiary</Button>
+  <Button success>success</Button>
+  <Button danger>danger</Button>
+  <Button warning>warning</Button>
+  <Button info>info</Button>
+  <Button link>link</Button>
+  <Button inherit>inherit</Button>
 </Row>
 ```
 
@@ -38,9 +46,11 @@ Buttons come in different sizes — `xs`, `sm`, `md`, `lg`, `xl`.
 
 ```tsx demo
 <Row flexWrap>
-  {ComponentKeys.size.map((key) => (
-    <Button key={key} {...{ [key]: true }}>{key}</Button>
-  ))}
+  <Button xs>xs</Button>
+  <Button sm>sm</Button>
+  <Button md>md</Button>
+  <Button lg>lg</Button>
+  <Button xl>xl</Button>
 </Row>
 ```
 
@@ -64,9 +74,15 @@ Buttons support different font weights.
 
 ```tsx demo
 <Row flexWrap>
-  {ComponentKeys.fontWeight.map((key) => (
-    <Button key={key} {...{ [key]: true }}>Submit</Button>
-  ))}
+  <Button thin>Submit</Button>
+  <Button extralight>Submit</Button>
+  <Button light>Submit</Button>
+  <Button normal>Submit</Button>
+  <Button medium>Submit</Button>
+  <Button semibold>Submit</Button>
+  <Button bold>Submit</Button>
+  <Button extrabold>Submit</Button>
+  <Button black>Submit</Button>
 </Row>
 ```
 
@@ -76,9 +92,9 @@ Button supports three border-radius styles: `rounded` (default), `pill`, and `sh
 
 ```tsx demo
 <Row flexWrap>
-  {ComponentKeys.shape.map((key) => (
-    <Button key={key} {...{ [key]: true }}>Subscribe</Button>
-  ))}
+  <Button pill>Subscribe</Button>
+  <Button sharp>Subscribe</Button>
+  <Button rounded>Subscribe</Button>
 </Row>
 ```
 
@@ -97,19 +113,28 @@ Use `href` to render a Button as an `<a>` for navigation. Use `disabled` to prev
 
 ## Button Styles
 
-Buttons can be styled as `outline` (default) or `filled`.
+Buttons can be styled as `filled`, `outline` (default), or `ghost`.
 
 ```tsx demo
 <Col>
-  {ComponentKeys.variant.map((variant) => (
-    <Row key={variant} flexWrap>
-      {ComponentKeys.appearance.slice(0, 4).map((appearance) => (
-        <Button key={`${variant}-${appearance}`} {...{ [variant]: true, [appearance]: true }}>
-          {appearance}
-        </Button>
-      ))}
-    </Row>
-  ))}
+  <Row flexWrap>
+    <Button filled primary>primary</Button>
+    <Button filled brand>brand</Button>
+    <Button filled accent>accent</Button>
+    <Button filled secondary>secondary</Button>
+  </Row>
+  <Row flexWrap>
+    <Button outline primary>primary</Button>
+    <Button outline brand>brand</Button>
+    <Button outline accent>accent</Button>
+    <Button outline secondary>secondary</Button>
+  </Row>
+  <Row flexWrap>
+    <Button ghost primary>primary</Button>
+    <Button ghost brand>brand</Button>
+    <Button ghost accent>accent</Button>
+    <Button ghost secondary>secondary</Button>
+  </Row>
 </Col>
 ```
 

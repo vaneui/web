@@ -23,14 +23,26 @@ IconButton supports five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ```tsx demo
 <Row flexWrap itemsEnd>
-  {
-    ComponentKeys.size.map((key) => (
-      <Col key={key} itemsCenter>
-        <IconButton {...{[key]: true}} aria-label={`Star ${key}`}><Star /></IconButton>
-        <Text sm secondary>{key}</Text>
-      </Col>
-    ))
-  }
+  <Col itemsCenter>
+    <IconButton xs aria-label="Star xs"><Star /></IconButton>
+    <Text sm secondary>xs</Text>
+  </Col>
+  <Col itemsCenter>
+    <IconButton sm aria-label="Star sm"><Star /></IconButton>
+    <Text sm secondary>sm</Text>
+  </Col>
+  <Col itemsCenter>
+    <IconButton md aria-label="Star md"><Star /></IconButton>
+    <Text sm secondary>md</Text>
+  </Col>
+  <Col itemsCenter>
+    <IconButton lg aria-label="Star lg"><Star /></IconButton>
+    <Text sm secondary>lg</Text>
+  </Col>
+  <Col itemsCenter>
+    <IconButton xl aria-label="Star xl"><Star /></IconButton>
+    <Text sm secondary>xl</Text>
+  </Col>
 </Row>
 ```
 
@@ -65,14 +77,18 @@ IconButton supports `rounded` (default), `pill`, and `sharp` shapes.
 
 ```tsx demo
 <Row flexWrap>
-  {
-    ComponentKeys.shape.map((key) => (
-      <Col key={key} itemsCenter>
-        <IconButton {...{[key]: true}} filled aria-label={`Star ${key}`}><Star /></IconButton>
-        <Text sm secondary>{key}</Text>
-      </Col>
-    ))
-  }
+  <Col itemsCenter>
+    <IconButton pill filled aria-label="Star pill"><Star /></IconButton>
+    <Text sm secondary>pill</Text>
+  </Col>
+  <Col itemsCenter>
+    <IconButton sharp filled aria-label="Star sharp"><Star /></IconButton>
+    <Text sm secondary>sharp</Text>
+  </Col>
+  <Col itemsCenter>
+    <IconButton rounded filled aria-label="Star rounded"><Star /></IconButton>
+    <Text sm secondary>rounded</Text>
+  </Col>
 </Row>
 ```
 

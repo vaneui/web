@@ -75,24 +75,28 @@ export function DocsPageContent(
   const titleClasses = "after:content-['#'] after:invisible hover:after:visible after:ml-2 after:opacity-25";
 
   return (
-    <ThemeProvider extraClasses={{
-      title: {
-        xs: "pt-2 " + titleClasses,
-        sm: "pt-3 " + titleClasses,
-        md: "pt-4 " + titleClasses,
-        lg: "pt-5 " + titleClasses,
-        xl: "pt-6 " + titleClasses
-      },
-      pageTitle: {
-        md: titleClasses,
-      },
-      text: {
-      }
-    }}>
+    <ThemeProvider
+      themeDefaults={{
+        code: { success: true },
+      }}
+      extraClasses={{
+        title: {
+          xs: "pt-2 " + titleClasses,
+          sm: "pt-3 " + titleClasses,
+          md: "pt-4 " + titleClasses,
+          lg: "pt-5 " + titleClasses,
+          xl: "pt-6 " + titleClasses
+        },
+        pageTitle: {
+          md: titleClasses,
+        },
+        text: {
+        },
+      }}>
       <Container wFull>
         <Row xl relative itemsStart wFull>
           {/* Main Content */}
-          <Col className="flex-1 min-w-0">
+          <Col flex1 className="min-w-0">
             <Col>
               <Text sm uppercase secondary mono>{section.name}</Text>
               <PageTitle>
@@ -108,10 +112,10 @@ export function DocsPageContent(
               )}
             </Col>
 
-            <Divider/>
+            <Divider />
 
             {md !== "" && md !== undefined &&
-              <DocsMarkdown md={md} slug={pageData.slug}/>
+              <DocsMarkdown md={md} slug={pageData.slug} />
             }
 
             {/* Props Documentation — single auto-generated table replaces
@@ -122,14 +126,14 @@ export function DocsPageContent(
                 <Title xl>
                   <Link href={`#${propsTitleId}`}>{propsTitle}</Link>
                 </Title>
-                <DocsPropsTable componentKey={componentKey as ComponentKey}/>
+                <DocsPropsTable componentKey={componentKey as ComponentKey} />
               </Col>
             )}
           </Col>
 
           {/* On This Page Navigation */}
-          <Col sticky tabletHide className="styled-scrollbar top-10 w-56 flex-shrink-0 max-h-[calc(100vh-128px)]">
-            <OnThisPage sections={sections}/>
+          <Col sticky tabletHide noShrink className="styled-scrollbar top-10 w-56 max-h-[calc(100vh-128px)]">
+            <OnThisPage sections={sections} />
           </Col>
         </Row>
       </Container>

@@ -110,15 +110,15 @@ Use `textCenter`, `textLeft`, `textRight`, or `textJustify` to control text alig
 
 ```tsx demo
 <Row flexWrap>
-  <Stack textLeft className="flex-1 border-2 border-dashed border-gray-300 p-4">
+  <Stack textLeft flex1 className="border-2 border-dashed border-gray-300 p-4">
     <Text semibold>Left Aligned</Text>
     <Text>Content aligned to the left.</Text>
   </Stack>
-  <Stack textCenter className="flex-1 border-2 border-dashed border-gray-300 p-4">
+  <Stack textCenter flex1 className="border-2 border-dashed border-gray-300 p-4">
     <Text semibold>Center Aligned</Text>
     <Text>Content centered within the stack.</Text>
   </Stack>
-  <Stack textRight className="flex-1 border-2 border-dashed border-gray-300 p-4">
+  <Stack textRight flex1 className="border-2 border-dashed border-gray-300 p-4">
     <Text semibold>Right Aligned</Text>
     <Text>Content aligned to the right.</Text>
   </Stack>

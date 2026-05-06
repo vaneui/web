@@ -28,13 +28,11 @@ Labels come in different sizes - `xs`, `sm`, `md`, `lg`, `xl`.
 
 ```tsx demo
 <Row flexWrap>
-  {
-    ComponentKeys.size.map((key: string) => (
-      <Label key={key} {...{[key]: true}} primary>
-        Label {key}
-      </Label>
-    ))
-  }
+  <Label xs primary>Label xs</Label>
+  <Label sm primary>Label sm</Label>
+  <Label md primary>Label md</Label>
+  <Label lg primary>Label lg</Label>
+  <Label xl primary>Label xl</Label>
 </Row>
 ```
 
@@ -44,13 +42,17 @@ Labels use `inherit` appearance by default — they inherit color from their par
 
 ```tsx demo
 <Row flexWrap>
-  {
-    ComponentKeys.appearance.map((key: string) => (
-      <Label key={key} {...{[key]: true}}>
-        {key} label
-      </Label>
-    ))
-  }
+  <Label primary>primary label</Label>
+  <Label brand>brand label</Label>
+  <Label accent>accent label</Label>
+  <Label secondary>secondary label</Label>
+  <Label tertiary>tertiary label</Label>
+  <Label success>success label</Label>
+  <Label danger>danger label</Label>
+  <Label warning>warning label</Label>
+  <Label info>info label</Label>
+  <Label link>link label</Label>
+  <Label inherit>inherit label</Label>
 </Row>
 ```
 
@@ -60,13 +62,15 @@ Labels support different font weights.
 
 ```tsx demo
 <Row flexWrap>
-  {
-    ComponentKeys.fontWeight.map((key: string) => (
-      <Label key={key} {...{[key]: true}} lg>
-        {key} weight
-      </Label>
-    ))
-  }
+  <Label thin lg>thin weight</Label>
+  <Label extralight lg>extralight weight</Label>
+  <Label light lg>light weight</Label>
+  <Label normal lg>normal weight</Label>
+  <Label medium lg>medium weight</Label>
+  <Label semibold lg>semibold weight</Label>
+  <Label bold lg>bold weight</Label>
+  <Label extrabold lg>extrabold weight</Label>
+  <Label black lg>black weight</Label>
 </Row>
 ```
 
@@ -76,13 +80,10 @@ Labels with different text decorations.
 
 ```tsx demo
 <Row flexWrap>
-  {
-    ComponentKeys.textDecoration.map((key: string) => (
-      <Label key={key} {...{[key]: true}} lg>
-        {key} text
-      </Label>
-    ))
-  }
+  <Label underline lg>underline text</Label>
+  <Label lineThrough lg>lineThrough text</Label>
+  <Label noUnderline lg>noUnderline text</Label>
+  <Label overline lg>overline text</Label>
 </Row>
 ```
 
