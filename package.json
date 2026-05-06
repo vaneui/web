@@ -23,7 +23,7 @@
     "@mdx-js/react": "^3.0.1",
     "@tailwindcss/postcss": "^4.0.14",
     "@vaneui/md": "^0.9.0-alpha.20260503120811.d18dcca",
-    "@vaneui/ui": "^0.9.0-alpha.20260505192649.68b2a0b",
+    "@vaneui/ui": "^0.9.0-alpha.20260506160744.7dabcd4",
     "@vercel/analytics": "^1.6.1",
     "autoprefixer": "^10.4.19",
     "next": "16.1.0-canary.19",

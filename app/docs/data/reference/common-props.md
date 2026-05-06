@@ -134,6 +134,24 @@ Reverse the order of flex items.
 |------|-------------|
 | `reverse` | Reverse the order of children |
 
+## Flex
+
+Flex-grow / flex-shrink shorthand for distributing space along the main axis. Mutually exclusive — only one value can be active.
+
+| Prop | Description |
+|------|-------------|
+| `flex1` | Take up remaining space (`flex: 1 1 0%`) — the standard "fill the rest" behavior |
+| `flexAuto` | Grow but respect intrinsic content size (`flex: 1 1 auto`) |
+| `flexNone` | Don't grow and don't shrink (`flex: none`) — fixed-size in a flex container |
+
+## Shrink
+
+Flex-shrink override. Independent toggle so it can be combined with `flex1`/`flexAuto` or used standalone.
+
+| Prop | Description |
+|------|-------------|
+| `noShrink` | Prevent the item from shrinking below its content size (`shrink-0`) — typical for fixed-width sidebars in a flex row |
+
 ## Border
 
 Border visibility on component sides.
