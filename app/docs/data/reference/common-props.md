@@ -1,11 +1,8 @@
----
-importPath: 'import { Row, Col, Stack } from "@vaneui/ui"'
-sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/props/keys.ts
----
-
 # Common Props
 
-These props are shared across all VaneUI components. Instead of documenting them separately on each component page, they are documented here as a canonical reference. When you see a "Common Props" link in a component's props table, it refers to this page.
+Layout and utility props shared across most VaneUI components. Documented here once instead of on every component page. Per-component pages link here from the "Layout & utility props" disclosure under their props table.
+
+Component-specific categories — **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`brand`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`link`/`inherit`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, **textAlign**, etc. — are listed on each component's own page because defaults differ. Default **size** is `md`, except `Button`, `NavLink`, `Label`, and `MenuItem` which default to `sm`.
 
 ## Hide
 
