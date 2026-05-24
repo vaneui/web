@@ -1,7 +1,7 @@
 ---
 componentKey: button
 importPath: 'import { Button } from "@vaneui/ui"'
-sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/button.tsx
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/button/Button.tsx
 since: 0.9.0
 ---
 
@@ -22,7 +22,7 @@ since: 0.9.0
 
 ## Basic Usage
 
-Button styles and variants.
+Each `appearance` prop maps to a semantic color from the active theme.
 
 ```tsx demo
 <Row flexWrap>
@@ -42,7 +42,7 @@ Button styles and variants.
 
 ## Sizes
 
-Buttons come in different sizes — `xs`, `sm`, `md`, `lg`, `xl`.
+Buttons come in five sizes — `xs`, `sm` (default), `md`, `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
 
 ```tsx demo
 <Row flexWrap>
@@ -54,23 +54,36 @@ Buttons come in different sizes — `xs`, `sm`, `md`, `lg`, `xl`.
 </Row>
 ```
 
-## Sizes with Icon
+## With Icon
 
-The same size matrix paired with an inline icon slot.
+Drop an icon directly inside the button — `gap` is on by default, so spacing is automatic.
 
 ```tsx demo
 <Row flexWrap>
-  <Button xs><span className="rounded-full size-4 bg-gray-300"/> Extra Small</Button>
-  <Button sm><span className="rounded-full size-4.5 bg-gray-300"/> Small</Button>
-  <Button md><span className="rounded-full size-5 bg-gray-300"/> Medium</Button>
-  <Button lg><span className="rounded-full size-6 bg-gray-300"/> Large</Button>
-  <Button xl><span className="rounded-full size-7 bg-gray-300"/> Extra Large</Button>
+  <Button><Download/> Download</Button>
+  <Button success filled><Check/> Saved</Button>
+  <Button danger><Trash2/> Delete</Button>
+  <Button secondary>Next <ArrowRight/></Button>
+</Row>
+```
+
+## Sizes with Icon
+
+The same size matrix paired with an inline icon.
+
+```tsx demo
+<Row flexWrap>
+  <Button xs><Star/> Extra Small</Button>
+  <Button sm><Star/> Small</Button>
+  <Button md><Star/> Medium</Button>
+  <Button lg><Star/> Large</Button>
+  <Button xl><Star/> Extra Large</Button>
 </Row>
 ```
 
 ## Font Weights
 
-Buttons support different font weights.
+Buttons default to `semibold`. Use any of the standard weight props to override.
 
 ```tsx demo
 <Row flexWrap>
@@ -98,9 +111,9 @@ Button supports three border-radius styles: `rounded` (default), `pill`, and `sh
 </Row>
 ```
 
-## Button as Link & Disabled
+## As Link & Disabled
 
-Use `href` to render a Button as an `<a>` for navigation. Use `disabled` to prevent interaction.
+Pass `href` to render the button as an `<a>` for navigation. Use `disabled` to prevent interaction.
 
 ```tsx demo
 <Row flexWrap>
@@ -111,7 +124,18 @@ Use `href` to render a Button as an `<a>` for navigation. Use `disabled` to prev
 </Row>
 ```
 
-## Button Styles
+## Next.js Link Integration
+
+Use the `tag` prop to render the button as a Next.js `Link` for client-side navigation.
+
+```tsx
+import Link from 'next/link';
+import { Button } from '@vaneui/ui';
+
+<Button href="/docs" tag={Link}>Documentation</Button>
+```
+
+## Variants
 
 Buttons can be styled as `filled`, `outline` (default), or `ghost`.
 
@@ -124,10 +148,10 @@ Buttons can be styled as `filled`, `outline` (default), or `ghost`.
     <Button filled secondary>secondary</Button>
   </Row>
   <Row flexWrap>
-    <Button outline primary>primary</Button>
-    <Button outline brand>brand</Button>
-    <Button outline accent>accent</Button>
-    <Button outline secondary>secondary</Button>
+    <Button primary>primary</Button>
+    <Button brand>brand</Button>
+    <Button accent>accent</Button>
+    <Button secondary>secondary</Button>
   </Row>
   <Row flexWrap>
     <Button ghost primary>primary</Button>

@@ -1,7 +1,7 @@
 ---
 componentKey: mark
 importPath: 'import { Mark } from "@vaneui/ui"'
-sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/mark.tsx
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/mark/Mark.tsx
 since: 0.9.0
 ---
 
@@ -32,7 +32,6 @@ Different color appearances for highlights.
   <Mark tertiary>Tertiary</Mark>
   <Mark success>Success</Mark>
   <Mark danger>Danger</Mark>
-  <Mark warning>Warning</Mark>
   <Mark info>Info</Mark>
   <Mark link>Link</Mark>
 </Row>

@@ -1,7 +1,7 @@
 ---
 componentKey: checkbox
 importPath: 'import { Checkbox } from "@vaneui/ui"'
-sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/checkbox.tsx
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/checkbox/Checkbox.tsx
 since: 0.9.0
 ---
 
@@ -27,7 +27,7 @@ Set app-wide Checkbox defaults with `ThemeProvider`'s `themeDefaults` and tune t
 import { ThemeProvider, Checkbox } from '@vaneui/ui';
 
 <ThemeProvider
-  themeDefaults={{ checkbox: { primary: true, md: true } }}
+  themeDefaults={{ checkbox: { lg: true } }}
   extraClasses={{ checkbox: { primary: 'checked:bg-brand-600 checked:border-brand-600' } }}
 >
   <Checkbox>I agree to the terms</Checkbox>
@@ -55,22 +55,9 @@ Checkbox should be used inside a Label with matching `id`/`htmlFor`.
 </Col>
 ```
 
-## Pre-checked Checkbox
-
-Use defaultChecked on the input; wrap in Label for accessible click target.
-
-```tsx demo
-<Col>
-  <Label htmlFor="prechecked-1">
-    <Checkbox id="prechecked-1" defaultChecked/>
-    Pre-checked checkbox
-  </Label>
-</Col>
-```
-
 ## Sizes
 
-Checkboxes in different sizes: `xs`, `sm`, `md`, `lg`, `xl`. A `Checkbox` nested inside a `Label` inherits the Label's size automatically — set it once on the Label and both scale together.
+Checkboxes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. A `Checkbox` nested inside a `Label` inherits the Label's size automatically — set it once on the Label and both scale together.
 
 ```tsx demo
 <Row flexWrap>
@@ -103,8 +90,8 @@ Different color appearances applied to the Checkbox; always place inside a Label
 
 ```tsx demo
 <Row flexWrap>
-  <Label primary htmlFor="appearance-primary">
-    <Checkbox primary id="appearance-primary" defaultChecked/>
+  <Label htmlFor="appearance-primary">
+    <Checkbox id="appearance-primary" defaultChecked/>
     Enable primary style
   </Label>
   <Label brand htmlFor="appearance-brand">
@@ -148,6 +135,72 @@ Different color appearances applied to the Checkbox; always place inside a Label
     Enable inherit style
   </Label>
 </Row>
+```
+
+## Shapes
+
+Checkboxes support border radius styles: `rounded` (default), `pill`, and `sharp`.
+
+```tsx demo
+<Row flexWrap>
+  <Label htmlFor="shape-rounded">
+    <Checkbox id="shape-rounded" defaultChecked/>
+    Rounded (default)
+  </Label>
+  <Label htmlFor="shape-pill">
+    <Checkbox pill id="shape-pill" defaultChecked/>
+    Pill
+  </Label>
+  <Label htmlFor="shape-sharp">
+    <Checkbox sharp id="shape-sharp" defaultChecked/>
+    Sharp
+  </Label>
+</Row>
+```
+
+## Disabled
+
+Use the `disabled` HTML attribute to prevent interaction.
+
+```tsx demo
+<Col>
+  <Label htmlFor="disabled-unchecked">
+    <Checkbox disabled id="disabled-unchecked"/>
+    Disabled (unchecked)
+  </Label>
+  <Label htmlFor="disabled-checked">
+    <Checkbox disabled defaultChecked id="disabled-checked"/>
+    Disabled (checked)
+  </Label>
+</Col>
+```
+
+## Controlled vs Uncontrolled
+
+Checkbox forwards every HTML input attribute, so use `defaultChecked` for uncontrolled state and `checked` + `onChange` for controlled state.
+
+Uncontrolled — initial value only, the input manages its own state:
+
+```tsx demo
+<Label htmlFor="uncontrolled">
+  <Checkbox defaultChecked id="uncontrolled"/>
+  Uncontrolled (defaultChecked)
+</Label>
+```
+
+Controlled — parent owns the value via `useState`:
+
+```tsx
+const [checked, setChecked] = useState(false);
+
+<Label htmlFor="controlled">
+  <Checkbox
+    id="controlled"
+    checked={checked}
+    onChange={(e) => setChecked(e.target.checked)}
+  />
+  Controlled ({checked ? 'on' : 'off'})
+</Label>
 ```
 
 ## Indeterminate State

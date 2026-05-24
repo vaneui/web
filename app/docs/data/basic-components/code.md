@@ -1,7 +1,7 @@
 ---
 componentKey: code
 importPath: 'import { Code } from "@vaneui/ui"'
-sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/code.tsx
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/code/Code.tsx
 since: 0.9.0
 ---
 
@@ -9,13 +9,13 @@ Renders inline code snippets with syntax highlighting. Perfect for displaying co
 
 ## Basic Usage
 
-Inline code snippets with default styling.
+Inline code snippets with default styling. `Code` is `align-middle`, so it sits centered with the surrounding text.
 
 ```tsx demo
-<Row flexWrap>
-  <span>Use the <Code>npm install</Code> command to install packages.</span>
-  <span>The <Code>{"const variable = 'value'"}</Code> syntax declares a constant.</span>
-</Row>
+<Col>
+  <Text>Run <Code>npm install</Code> to install packages.</Text>
+  <Text>Declare a constant with <Code>{"const x = 'value'"}</Code>.</Text>
+</Col>
 ```
 
 ## Sizes
@@ -112,4 +112,16 @@ Code defaults to `outline` variant. Use `filled` for stronger visual emphasis.
   <Text>Filled: <Code filled>git commit</Code> then <Code filled>git push</Code></Text>
   <Text>Colored filled: <Code success filled>200 OK</Code> <Code danger filled>500 Error</Code> <Code warning filled>deprecated</Code></Text>
 </Col>
+```
+
+## Shapes
+
+Code supports `rounded` (default), `pill`, and `sharp` border-radius styles.
+
+```tsx demo
+<Row flexWrap>
+  <Code rounded>rounded</Code>
+  <Code pill>pill</Code>
+  <Code sharp>sharp</Code>
+</Row>
 ```

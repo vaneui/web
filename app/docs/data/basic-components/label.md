@@ -1,47 +1,83 @@
 ---
 componentKey: label
 importPath: 'import { Label } from "@vaneui/ui"'
-sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/label.tsx
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/label/Label.tsx
 since: 0.9.0
 ---
 
-Displays text with various styling options for categorization, status indicators, or highlighting important information. Labels can be styled with different colors, sizes, and variants.
+Renders a `<label>` for form controls. Pairs with `Input` and `Checkbox` to provide accessible field labels, with size automatically propagating to nested form elements.
+
+## When to Use
+
+- Labelling text inputs, password fields, and other `Input` controls.
+- Wrapping a `Checkbox` so the label text becomes part of the click target.
+- Marking required fields, validation status, or hint text alongside a control.
+- Use `htmlFor` to associate a label with an external `Input` by `id`.
 
 ## Basic Usage
 
-Default label styles and text.
+A `Label` defaults to `sm` size and `inherit` appearance, so it picks up text color from its surroundings.
 
 ```tsx demo
-<Row flexWrap>
-  <Label>Default</Label>
-  <Label primary>Primary Action</Label>
-  <Label secondary>Secondary Info</Label>
-  <Label success>Success</Label>
-  <Label warning>Warning</Label>
-  <Label danger>Error</Label>
-</Row>
+<Label>Email address</Label>
+```
+
+## With Input
+
+Wrap an `Input` inside a `Label` to make the label clickable and associate them implicitly — no `htmlFor`/`id` wiring required.
+
+```tsx demo
+<Col noGap>
+  <Label>
+    Email
+    <Input placeholder="you@example.com" />
+  </Label>
+</Col>
+```
+
+## With Checkbox
+
+Place a `Checkbox` inside a `Label` so the label text expands the toggle's hit area.
+
+```tsx demo
+<Label>
+  <Checkbox />
+  Subscribe to product updates
+</Label>
+```
+
+## htmlFor Association
+
+When the control lives outside the label, use the standard `htmlFor` attribute pointing at the input's `id`.
+
+```tsx demo
+<Col noGap>
+  <Label htmlFor="username">Username</Label>
+  <Input id="username" placeholder="Choose a username" />
+</Col>
 ```
 
 ## Sizes
 
-Labels come in different sizes - `xs`, `sm`, `md`, `lg`, `xl`.
+Labels come in five sizes — `xs`, `sm` (default), `md`, `lg`, `xl`. Nested `Input` and `Checkbox` controls inherit the size.
 
 ```tsx demo
-<Row flexWrap>
-  <Label xs primary>Label xs</Label>
-  <Label sm primary>Label sm</Label>
-  <Label md primary>Label md</Label>
-  <Label lg primary>Label lg</Label>
-  <Label xl primary>Label xl</Label>
-</Row>
+<Col>
+  <Label xs>xs label <Input placeholder="xs input" /></Label>
+  <Label>sm label (default) <Input placeholder="sm input" /></Label>
+  <Label md>md label <Input placeholder="md input" /></Label>
+  <Label lg>lg label <Input placeholder="lg input" /></Label>
+  <Label xl>xl label <Input placeholder="xl input" /></Label>
+</Col>
 ```
 
 ## Appearances
 
-Labels use `inherit` appearance by default — they inherit color from their parent. Set an explicit appearance to override.
+Labels default to `inherit` — they take their color from the surrounding text. Set an explicit appearance to override.
 
 ```tsx demo
 <Row flexWrap>
+  <Label>inherit label (default)</Label>
   <Label primary>primary label</Label>
   <Label brand>brand label</Label>
   <Label accent>accent label</Label>
@@ -52,87 +88,52 @@ Labels use `inherit` appearance by default — they inherit color from their par
   <Label warning>warning label</Label>
   <Label info>info label</Label>
   <Label link>link label</Label>
-  <Label inherit>inherit label</Label>
 </Row>
 ```
 
 ## Font Weights
 
-Labels support different font weights.
+The default weight is `medium`. Override with any weight prop from `thin` to `black`.
 
 ```tsx demo
-<Row flexWrap>
-  <Label thin lg>thin weight</Label>
-  <Label extralight lg>extralight weight</Label>
-  <Label light lg>light weight</Label>
-  <Label normal lg>normal weight</Label>
-  <Label medium lg>medium weight</Label>
-  <Label semibold lg>semibold weight</Label>
-  <Label bold lg>bold weight</Label>
-  <Label extrabold lg>extrabold weight</Label>
-  <Label black lg>black weight</Label>
-</Row>
+<Col>
+  <Label thin>thin weight</Label>
+  <Label extralight>extralight weight</Label>
+  <Label light>light weight</Label>
+  <Label normal>normal weight</Label>
+  <Label>medium weight (default)</Label>
+  <Label semibold>semibold weight</Label>
+  <Label bold>bold weight</Label>
+  <Label extrabold>extrabold weight</Label>
+  <Label black>black weight</Label>
+</Col>
 ```
 
 ## Text Decorations
 
-Labels with different text decorations.
+Apply text decorations as needed.
 
 ```tsx demo
 <Row flexWrap>
-  <Label underline lg>underline text</Label>
-  <Label lineThrough lg>lineThrough text</Label>
-  <Label noUnderline lg>noUnderline text</Label>
-  <Label overline lg>overline text</Label>
+  <Label underline>underline text</Label>
+  <Label lineThrough>lineThrough text</Label>
+  <Label overline>overline text</Label>
 </Row>
-```
-
-## With Form Elements
-
-Labels pair naturally with inputs and checkboxes for accessible forms.
-
-```tsx demo
-<Col>
-  <Col noGap>
-    <Label semibold>Email Address</Label>
-    <Input placeholder="you@example.com" />
-  </Col>
-  <Col noGap>
-    <Label semibold>Password</Label>
-    <Input placeholder="Enter password" />
-  </Col>
-  <Row>
-    <Checkbox />
-    <Label>Remember me</Label>
-  </Row>
-</Col>
 ```
 
 ## Size Propagation
 
-When an `Input` or `Checkbox` is nested inside a `Label`, it automatically picks up the Label's size — set it once on the Label and everything scales together. Pass a size on the child to opt out for that one element.
+When an `Input` or `Checkbox` is nested inside a `Label`, it automatically picks up the label's size — set it once and everything scales together. Pass a size on the child to opt out for that one element.
 
 ```tsx demo
 <Col>
-  <Label sm>
-    Small field
-    <Input placeholder="you@example.com" />
-  </Label>
-  <Label>
-    Default (md) field
-    <Input placeholder="you@example.com" />
-  </Label>
-  <Label lg>
-    Large field
-    <Input placeholder="you@example.com" />
-  </Label>
   <Label xl>
     <Checkbox />
     Extra-large checkbox option
   </Label>
   <Label lg>
     <Checkbox xs />
-    Explicit <code>xs</code> checkbox overrides the <code>lg</code> label
+    Explicit <Code>xs</Code> checkbox overrides the <Code>lg</Code> label
   </Label>
 </Col>
 ```
@@ -151,6 +152,6 @@ Use appearances to indicate field status — `danger` for errors, `success` for 
     <Label success semibold>Email verified</Label>
     <Input placeholder="verified@example.com" />
   </Col>
-  <Label sm secondary>All fields marked with * are required.</Label>
+  <Label secondary>All fields marked with * are required.</Label>
 </Col>
 ```

@@ -1,7 +1,7 @@
 ---
 componentKey: kbd
 importPath: 'import { Kbd } from "@vaneui/ui"'
-sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/kbd.tsx
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/kbd/Kbd.tsx
 since: 0.9.0
 ---
 
@@ -49,7 +49,7 @@ Kbd elements in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
     <Text sm secondary>sm</Text>
   </Col>
   <Col itemsCenter>
-    <Kbd md>Ctrl</Kbd>
+    <Kbd>Ctrl</Kbd>
     <Text sm secondary>md</Text>
   </Col>
   <Col itemsCenter>
@@ -69,7 +69,7 @@ Different color appearances for keyboard keys.
 
 ```tsx demo
 <Row flexWrap>
-  <Kbd primary>Pri</Kbd>
+  <Kbd>Pri</Kbd>
   <Kbd brand>Bra</Kbd>
   <Kbd accent>Acc</Kbd>
   <Kbd secondary>Sec</Kbd>

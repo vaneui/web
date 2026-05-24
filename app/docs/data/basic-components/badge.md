@@ -1,7 +1,7 @@
 ---
 componentKey: badge
 importPath: 'import { Badge } from "@vaneui/ui"'
-sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/badge.tsx
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/badge/Badge.tsx
 since: 0.9.0
 ---
 
@@ -91,4 +91,18 @@ Badges support different font weights.
   <Badge semibold>Premium</Badge>
   <Badge bold>Premium</Badge>
 </Row>
+```
+
+## Status Badges in Context
+
+Badges work well as status indicators inside cards and other layout components.
+
+```tsx demo
+<Card>
+  <Row justifyBetween>
+    <Title>Production deploy</Title>
+    <Badge success filled>Live</Badge>
+  </Row>
+  <Text>Build #1284 promoted to production 2 minutes ago.</Text>
+</Card>
 ```

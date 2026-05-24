@@ -1,11 +1,11 @@
 ---
 componentKey: icon
 importPath: 'import { Icon } from "@vaneui/ui"'
-sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/icon.tsx
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/icon/Icon.tsx
 since: 0.9.0
 ---
 
-A lightweight SVG wrapper that provides consistent sizing, color inheritance, and themed appearances for icons.
+A lightweight SVG wrapper that provides consistent sizing, color inheritance, and themed appearances for icons. With `padding` it switches into container mode, gaining shape, border, ring, and shadow around the glyph.
 
 ## Basic Usage
 
@@ -124,6 +124,81 @@ Icons support `outline` (default, text color only) and `filled` (background fill
 </Row>
 ```
 
+## Shape
+
+Shape props apply once the icon enters container mode (any of `padding`, `border`, `ring`, `shadow`, `filled`). Without a container, the SVG has no visible box for the radius to act on.
+
+```tsx demo
+<Row flexWrap>
+  <Col itemsCenter>
+    <Icon padding primary filled sharp><Star /></Icon>
+    <Text xs secondary>sharp</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon padding primary filled><Star /></Icon>
+    <Text xs secondary>rounded</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon padding primary filled pill><Star /></Icon>
+    <Text xs secondary>pill</Text>
+  </Col>
+</Row>
+```
+
+## Container Mode
+
+Add `padding` to give the icon a sized box, then combine `filled`, `border`, `ring`, or `shadow` to style the container. Padding and radius scale with the size prop.
+
+```tsx demo
+<Row flexWrap itemsCenter>
+  <Col itemsCenter>
+    <Icon padding pill primary filled><Heart /></Icon>
+    <Text xs secondary>filled</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon padding pill primary border><Heart /></Icon>
+    <Text xs secondary>border</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon padding pill primary ring><Heart /></Icon>
+    <Text xs secondary>ring</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon padding pill primary filled shadow><Heart /></Icon>
+    <Text xs secondary>filled + shadow</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon padding pill success filled ring><Check /></Icon>
+    <Text xs secondary>filled + ring</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon lg padding pill danger filled><AlertCircle /></Icon>
+    <Text xs secondary>lg</Text>
+  </Col>
+</Row>
+```
+
+## Transparent
+
+Use `transparent` to keep the container background see-through while still applying the appearance color to the glyph, border, or ring.
+
+```tsx demo
+<Row flexWrap>
+  <Col itemsCenter>
+    <Icon padding pill primary filled transparent border><Star /></Icon>
+    <Text xs secondary>filled + transparent</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon padding pill success filled transparent ring><Check /></Icon>
+    <Text xs secondary>success</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon padding pill danger filled transparent border><AlertCircle /></Icon>
+    <Text xs secondary>danger</Text>
+  </Col>
+</Row>
+```
+
 ## In Context
 
 Icons work naturally alongside text and inside buttons.
@@ -136,5 +211,12 @@ Icons work naturally alongside text and inside buttons.
     <Button danger><AlertCircle /> Delete</Button>
   </Row>
   <Text><Icon sm info><Info /></Icon> Icons inherit inline sizing when placed in text.</Text>
+  <Row itemsCenter>
+    <Icon padding pill primary filled><Star /></Icon>
+    <Col gap noPadding>
+      <Text bold>Container-mode icons</Text>
+      <Text sm secondary>Pair a padded icon with adjacent text for compact summaries.</Text>
+    </Col>
+  </Row>
 </Col>
 ```
