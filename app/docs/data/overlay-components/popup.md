@@ -1,17 +1,19 @@
 ---
 componentKey: popup
 importPath: 'import { Popup } from "@vaneui/ui"'
-sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/popup.tsx
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/popup/Popup.tsx
 since: 0.9.0
 ---
 
 A floating element anchored to a trigger element using CSS Anchor Positioning. Supports 12 placement options, width matching, and click-outside dismissal.
 
+Popup ships its own surface defaults: `md`, `flex column`, `padding`, `gap`, `rounded`, `border`, `shadow`, `primary`, `outline`, `wFit`, `maxHeight`, `overflowAuto`, `bottom`. Render children directly — wrapping content in another `Card` is usually redundant.
+
+> **Browser support:** Popup uses the CSS Anchor Positioning API (Chrome 125+, Edge 125+). Other browsers fall back to a JS positioning path that recomputes on scroll/resize.
+
 ## Basic Popup
 
-A floating element anchored to a button. Closes on outside click or Escape.
-
-> **Browser support:** Popup uses the CSS Anchor Positioning API (Chrome 125+, Edge 125+). Other browsers may need a polyfill.
+A controlled floating element anchored to a button. Closes on outside click or `Escape`. Pass an `anchorRef` pointing at the trigger element.
 
 ```tsx
 const [open, setOpen] = useState(false);
@@ -19,69 +21,42 @@ const anchorRef = useRef<HTMLButtonElement>(null);
 
 <Button ref={anchorRef} onClick={() => setOpen(!open)}>Toggle</Button>
 <Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef}>
-  <Card>Popup content</Card>
+  <Text>Popup content</Text>
 </Popup>
 ```
 
-## Placement Options
+## Uncontrolled with `defaultOpen`
 
-Use the `placement` prop to position the popup. Supports `top`, `bottom`, `left`, `right` and their `-start`/`-end` variants (12 total). Default is `bottom-start`.
-
-```tsx
-<Popup placement="top" anchorRef={ref} open={open} onClose={onClose}>
-  <Card>Top placement</Card>
-</Popup>
-```
-
-## Match Anchor Width
-
-Use `matchWidth` to make the popup match the width of its anchor element. Useful for select-like dropdowns.
+Skip `open`/`onClose` and let Popup manage its own state. Use `onOpenChange` to react to opens/closes without owning the state.
 
 ```tsx
-<Popup matchWidth anchorRef={ref} open={open} onClose={onClose}>
-  <Card>Same width as anchor</Card>
-</Popup>
-```
+const anchorRef = useRef<HTMLButtonElement>(null);
 
-## Popup with Rich Content
-
-Popups can contain any content including cards, buttons, and other components.
-
-```tsx
-<Popup anchorRef={ref} open={open} onClose={onClose}>
-  <Card shadow>
-    <Stack>
-      <Text bold>User Menu</Text>
-      <Button>Profile</Button>
-      <Button danger>Sign Out</Button>
-    </Stack>
-  </Card>
+<Button ref={anchorRef}>Trigger</Button>
+<Popup defaultOpen anchorRef={anchorRef} onOpenChange={(o) => console.log(o)}>
+  <Text>Uncontrolled popup</Text>
 </Popup>
 ```
 
 ## PopupTrigger (Click)
 
-`PopupTrigger` is a convenience wrapper that manages open/close state and ref wiring automatically. No need for `useState` or `useRef` — just wrap your trigger element and provide the popup content.
-
-The default trigger mode is `"click"`, which toggles the popup on click.
+`PopupTrigger` is a convenience wrapper that manages open/close state and ref wiring automatically. No `useState` or `useRef` needed — wrap the trigger element and provide popup content via the `popup` prop. Default trigger mode is `"click"`.
 
 ```tsx
-import { PopupTrigger, Button, Card, Text } from "@vaneui/ui";
-
-<PopupTrigger popup={<Card sm shadow><Text sm>Click-triggered popup</Text></Card>}>
+<PopupTrigger popup={<Text sm>Click-triggered popup</Text>}>
   <Button>Click Me</Button>
 </PopupTrigger>
 ```
 
 ## PopupTrigger (Hover)
 
-Set `triggerOnHover` to show the popup on mouse enter and hide it on mouse leave. Use `openDelay` to add a delay (in milliseconds) before the popup appears, and `closeDelay` (default: 150ms) before it disappears. This is useful for tooltip-like behavior.
+Set `triggerOnHover` to show on mouse enter and hide on mouse leave. `openDelay` (default `0`) delays appearance; `closeDelay` (default `150`) delays dismissal so the user can move the cursor over the popup. Keyboard focus also opens it for accessibility.
 
 ```tsx
 <PopupTrigger
   triggerOnHover
   openDelay={200}
-  popup={<Card sm shadow><Text sm>Tooltip text</Text></Card>}
+  popup={<Text sm>Tooltip text</Text>}
 >
   <Button>Hover Me</Button>
 </PopupTrigger>
@@ -89,75 +64,198 @@ Set `triggerOnHover` to show the popup on mouse enter and hide it on mouse leave
 
 ## PopupTrigger (Focus)
 
-Set `triggerOnFocus` to show the popup when the trigger element receives focus and hide it on blur. Useful for search autocomplete, input hints, and accessible dropdown suggestions.
+Set `triggerOnFocus` to show on focus and hide on blur. Useful for search autocomplete, input hints, and dropdown suggestions.
 
 ```tsx
 <PopupTrigger
   triggerOnFocus
-  popup={<Card sm shadow><Text sm>Search suggestions...</Text></Card>}
+  popup={<Text sm>Search suggestions...</Text>}
 >
   <Input placeholder="Search..." />
 </PopupTrigger>
 ```
 
-## Popup with Arrow
+## All 12 Placements
 
-Use the `arrow` prop to display a small pointer/arrow on the popup that visually connects it to its anchor element. This is especially useful for tooltip-style popups where you want a clear visual link between the trigger and content.
+Placement is set via boolean props: `top`, `topStart`, `topEnd`, `bottom`, `bottomStart`, `bottomEnd`, `left`, `leftStart`, `leftEnd`, `right`, `rightStart`, `rightEnd`. Exactly one wins (first-truthy per category). Default is `bottom`.
+
+```tsx
+const ref = useRef<HTMLButtonElement>(null);
+const [open, setOpen] = useState(false);
+
+<Button ref={ref} onClick={() => setOpen(!open)}>Anchor</Button>
+
+{/* Above the anchor, aligned to the anchor's left edge */}
+<Popup topStart open={open} onClose={() => setOpen(false)} anchorRef={ref}>
+  <Text>Top Start</Text>
+</Popup>
+
+{/* Centered to the right of the anchor */}
+<Popup right open={open} onClose={() => setOpen(false)} anchorRef={ref}>
+  <Text>Right</Text>
+</Popup>
+
+{/* Below the anchor, aligned to the anchor's right edge */}
+<Popup bottomEnd open={open} onClose={() => setOpen(false)} anchorRef={ref}>
+  <Text>Bottom End</Text>
+</Popup>
+```
+
+When the requested placement would overflow the viewport, Popup falls back through `flip-block → flip-inline → shift → clamp` and exposes the resolved placement via the `data-placement` attribute.
+
+## Match Anchor Width
+
+`matchWidth` makes the popup track the anchor's width — useful for select-like dropdowns. Combine with `wFit` removal (Popup defaults to `wFit`) is automatic when `matchWidth` is set.
+
+```tsx
+const [open, setOpen] = useState(false);
+const anchorRef = useRef<HTMLButtonElement>(null);
+
+<Button ref={anchorRef} onClick={() => setOpen(!open)} wFull>Select option</Button>
+<Popup matchWidth open={open} onClose={() => setOpen(false)} anchorRef={anchorRef}>
+  <Text>Same width as the anchor</Text>
+</Popup>
+```
+
+## Rich Content
+
+Children render directly inside the Popup surface — use layout primitives (`Col`, `Row`, `Stack`) to compose multi-element content. Avoid nesting another `Card` inside; Popup already provides the bordered, padded, shadowed surface.
+
+```tsx
+const [open, setOpen] = useState(false);
+const anchorRef = useRef<HTMLButtonElement>(null);
+
+<Button ref={anchorRef} onClick={() => setOpen(!open)}>Account</Button>
+<Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef}>
+  <Text bold>User Menu</Text>
+  <Divider />
+  <Button>Profile</Button>
+  <Button danger>Sign Out</Button>
+</Popup>
+```
+
+## Tooltip Pattern
+
+Pair `triggerOnHover` with `arrow` for a classic tooltip. The arrow auto-rotates to match the resolved placement.
+
+```tsx
+<PopupTrigger
+  triggerOnHover
+  openDelay={300}
+  popupProps={{ top: true, arrow: true, role: "tooltip", sm: true }}
+  popup={<Text sm>Save your changes to the server</Text>}
+>
+  <Button>Save</Button>
+</PopupTrigger>
+```
+
+## Dropdown via Popup
+
+Popup is a low-level primitive. For action menus with keyboard navigation, focus management, and item semantics, prefer the dedicated [`Menu`](./menu) component — it wraps Popup and adds `MenuItem`/`MenuLabel` with full arrow-key navigation. Reach for raw `Popup` only when you need a non-menu surface (filter panels, custom autocompletes, info cards).
+
+```tsx
+<PopupTrigger popup={
+  <>
+    <Button transparent justifyStart>Edit</Button>
+    <Button transparent justifyStart>Duplicate</Button>
+    <Divider />
+    <Button transparent justifyStart danger>Delete</Button>
+  </>
+}>
+  <Button>Actions</Button>
+</PopupTrigger>
+```
+
+## Arrow Indicator
+
+Set `arrow` to render a pointer that visually links the popup to its anchor. The arrow is positioned automatically based on the resolved placement.
 
 ```tsx
 const [open, setOpen] = useState(false);
 const anchorRef = useRef<HTMLButtonElement>(null);
 
 <Button ref={anchorRef} onClick={() => setOpen(!open)}>Toggle Arrow Popup</Button>
-<Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef} arrow>
-  <Card sm shadow>
-    <Text sm>This popup has an arrow pointing to its anchor.</Text>
-  </Card>
+<Popup arrow open={open} onClose={() => setOpen(false)} anchorRef={anchorRef}>
+  <Text sm>Arrow points at the anchor.</Text>
 </Popup>
 ```
 
-## All 12 Placements
+## Click-Outside Behavior
 
-Popup supports 12 placement positions via boolean props: `top`, `topStart`, `topEnd`, `bottom`, `bottomStart`, `bottomEnd`, `left`, `leftStart`, `leftEnd`, `right`, `rightStart`, `rightEnd`. Each prop positions the popup relative to the anchor element.
+By default, clicking anywhere outside the popup or anchor closes it. Set `closeOnClickOutside={false}` to require an explicit dismiss (e.g., a close button inside the popup). `closeOnEscape={false}` similarly disables the keyboard dismiss.
 
 ```tsx
-{/* Position above, aligned to start */}
-<Popup topStart anchorRef={ref} open={open} onClose={onClose}>
-  <Card>Top Start</Card>
-</Popup>
+const [open, setOpen] = useState(false);
+const anchorRef = useRef<HTMLButtonElement>(null);
 
-{/* Position to the right, centered */}
-<Popup right anchorRef={ref} open={open} onClose={onClose}>
-  <Card>Right</Card>
+<Button ref={anchorRef} onClick={() => setOpen(true)}>Open Sticky Popup</Button>
+<Popup
+  open={open}
+  onClose={() => setOpen(false)}
+  anchorRef={anchorRef}
+  closeOnClickOutside={false}
+  closeOnEscape={false}
+>
+  <Text>Stays open until dismissed.</Text>
+  <Button sm onClick={() => setOpen(false)}>Close</Button>
 </Popup>
+```
+
+## Disabled Trigger
+
+Set `disabled` on `Popup` (or `PopupTrigger`) to suppress opening regardless of `open` state. Useful for conditional UI where the trigger remains rendered but inactive.
+
+```tsx
+<PopupTrigger disabled popup={<Text>Hidden</Text>}>
+  <Button disabled>Cannot open</Button>
+</PopupTrigger>
 ```
 
 ## Advanced Props
 
-Popup supports additional configuration props for fine-tuning behavior:
+`Popup` supports additional configuration props:
 
 | Prop | Default | Description |
 |------|---------|-------------|
 | `offset` | `4` | Distance from anchor in pixels |
-| `closeOnEscape` | `true` | Close on Escape key press |
-| `closeOnClickOutside` | `true` | Close when clicking outside |
-| `portal` | `true` | Render in a portal (document.body) |
-| `keepMounted` | `false` | Keep DOM node when closed |
+| `closeOnEscape` | `true` | Close on `Escape` key press |
+| `closeOnClickOutside` | `true` | Close when clicking outside the popup or anchor |
+| `portal` | `true` | Render via portal into `document.body` |
+| `keepMounted` | `false` | Keep DOM node mounted when closed |
 | `noAnimation` | `false` | Disable enter/exit transitions |
 | `transitionDuration` | `200` | Animation duration in ms |
 | `disabled` | `false` | Prevent popup from opening |
-| `hideWhenDetached` | `false` | Hide when anchor scrolls out of view |
-| `role` | `"dialog"` | ARIA role for accessibility |
+| `hideWhenDetached` | `false` | Hide when anchor scrolls out of view (uses `IntersectionObserver`) |
+| `role` | `"dialog"` | ARIA role (set `"tooltip"` for tooltip patterns) |
+| `arrow` | `false` | Render arrow pointer |
+| `onEnterComplete` | — | Called when the enter transition finishes |
+| `onExitComplete` | — | Called when the exit transition finishes |
+
+`PopupTrigger` additionally accepts:
+
+| Prop | Default | Description |
+|------|---------|-------------|
+| `triggerOnClick` | `true` (when no other trigger set) | Toggle on click |
+| `triggerOnHover` | `false` | Open on mouse enter / focus |
+| `triggerOnFocus` | `false` | Open on focus only |
+| `openDelay` | `0` | ms before opening on hover |
+| `closeDelay` | `150` | ms before closing on hover-out |
+| `popupProps` | — | Props forwarded to the internal `Popup` |
+| `popupId` | auto | Override generated id for `aria-controls` |
 
 ```tsx
+const [open, setOpen] = useState(false);
+const anchorRef = useRef<HTMLButtonElement>(null);
+
+<Button ref={anchorRef} onClick={() => setOpen(!open)}>Custom Config</Button>
 <Popup
   open={open}
-  onClose={onClose}
-  anchorRef={ref}
+  onClose={() => setOpen(false)}
+  anchorRef={anchorRef}
   offset={8}
   noAnimation
   closeOnEscape={false}
 >
-  <Card>Custom config</Card>
+  <Text>Custom config</Text>
 </Popup>
 ```

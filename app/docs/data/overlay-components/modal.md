@@ -1,11 +1,11 @@
 ---
 componentKey: modal
 importPath: 'import { Modal } from "@vaneui/ui"'
-sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/modal.tsx
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/modal/Modal.tsx
 since: 0.9.0
 ---
 
-An accessible dialog component with focus trapping, scroll lock, and keyboard navigation. Built on Overlay with ARIA role="dialog" and aria-modal="true".
+An accessible dialog component with focus trapping, scroll lock, and keyboard navigation. Built on Overlay with ARIA `role="dialog"` and `aria-modal="true"`. Sub-components: `ModalHeader`, `ModalBody`, `ModalFooter`, `ModalCloseButton`.
 
 ## When to Use
 
@@ -27,7 +27,7 @@ Set app-wide Modal defaults with `ThemeProvider`'s `themeDefaults`:
 import { ThemeProvider, Modal } from '@vaneui/ui';
 
 <ThemeProvider themeDefaults={{
-  modal: { lg: true, rounded: true, shadow: true, border: true },
+  modal: { lg: true, border: true },
 }}>
   <Modal open={open} onClose={onClose}>Content</Modal>
 </ThemeProvider>
@@ -35,9 +35,9 @@ import { ThemeProvider, Modal } from '@vaneui/ui';
 
 ## Basic Modal
 
-A confirmation dialog with title, text, and action buttons. Modal includes focus trapping, scroll lock, and ARIA attributes (`role="dialog"`, `aria-modal="true"`) by default.
+A controlled modal opened by a Button. The Modal portals to `document.body`, traps focus inside the dialog while open, locks body scroll, and closes on overlay click or `Escape`.
 
-Modal defaults: `md` size, `primary` appearance, `outline` variant, `rounded` shape, `shadow`, `border`, `flex column`, `gap`, `padding`, `overflowAuto`.
+Modal content defaults: `md`, `primary`, `outline`, `rounded`, `shadow`, `flex column`, `gap`, `wFull`, `overflowAuto`, `relative`, `noPadding` (sub-components own their own padding).
 
 ```tsx
 const [open, setOpen] = useState(false);
@@ -55,69 +55,19 @@ const [open, setOpen] = useState(false);
 </Modal>
 ```
 
-## Modal Sizes
-
-Use size props to control the modal content width.
-
-```tsx
-<Modal open={open} onClose={onClose} sm>Small modal</Modal>
-<Modal open={open} onClose={onClose} lg>Large modal</Modal>
-```
-
-## Form Modal
-
-Modals can contain forms with inputs, labels, and checkboxes. Focus trapping keeps Tab navigation within the modal.
-
-```tsx
-<Modal open={open} onClose={onClose}>
-  <Stack>
-    <Label>Name</Label>
-    <Input placeholder="Enter your name" />
-    <Checkbox>I agree to the terms</Checkbox>
-  </Stack>
-</Modal>
-```
-
-## Blur Overlay
-
-Pass `overlayProps={{ blur: true }}` to add a backdrop blur effect to the overlay behind the modal.
-
-```tsx
-<Modal open={open} onClose={onClose} overlayProps={{ blur: true }}>
-  <Text>Blurred background</Text>
-</Modal>
-```
-
-## Non-dismissible Modal
-
-Disable `closeOnOverlayClick` and `closeOnEscape` to prevent closing the modal without explicit user action.
-
-```tsx
-<Modal
-  open={open}
-  onClose={onClose}
-  closeOnOverlayClick={false}
-  closeOnEscape={false}
->
-  <Text>Must click a button to close</Text>
-</Modal>
-```
-
-## Modal Appearances
-
-Apply appearance and variant props to style the modal content area.
-
-```tsx
-<Modal open={open} onClose={onClose} primary filled>Primary modal</Modal>
-<Modal open={open} onClose={onClose} danger filled>Danger modal</Modal>
-```
-
 ## Compound Modal
 
-Use `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton` for full control over the modal layout. When any of these sub-components are detected as direct children, the modal switches to compound mode and renders them as-is without auto-wrapping.
+Use `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton` for full control over layout. When any of these are direct children, Modal renders them as-is without auto-wrapping. Each sub-component carries its own layout defaults:
+
+- `ModalHeader` — `flex row`, `itemsCenter`, `justifyBetween`, `gap`, `padding`
+- `ModalBody` — `flex column`, `gap`, `padding`, `overflowAuto`
+- `ModalFooter` — `flex row`, `itemsCenter`, `justifyEnd`, `gap`, `padding`
+- `ModalCloseButton` — `secondary`, `transparent`, `noShadow`, `noRing`
 
 ```tsx
-import { Modal, ModalHeader, ModalBody, ModalFooter, ModalCloseButton, Button, Title, Input, Label, Stack, Row } from "@vaneui/ui";
+import { Modal, ModalHeader, ModalBody, ModalFooter, ModalCloseButton, Button, Title, Input, Label, Stack } from "@vaneui/ui";
+
+const [open, setOpen] = useState(false);
 
 <Modal open={open} onClose={() => setOpen(false)}>
   <ModalHeader>
@@ -133,20 +83,20 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, ModalCloseButton, Button, T
     </Stack>
   </ModalBody>
   <ModalFooter>
-    <Row justifyEnd>
-      <Button sm onClick={() => setOpen(false)}>Cancel</Button>
-      <Button sm primary filled onClick={() => setOpen(false)}>Save</Button>
-    </Row>
+    <Button sm onClick={() => setOpen(false)}>Cancel</Button>
+    <Button sm primary filled onClick={() => setOpen(false)}>Save</Button>
   </ModalFooter>
 </Modal>
 ```
 
 ## Convenience Props
 
-Use the `title`, `footer`, and `withCloseButton` shorthand props to quickly set up a structured modal without manually composing sub-components. When `title` is set, a close button is shown by default (controlled by `withCloseButton`). The body content is passed as children.
+Use the `title`, `footer`, and `withCloseButton` shorthand props to compose a structured modal without writing sub-components. When `title` is set, a close button is shown by default (toggle with `withCloseButton`). Children become the body.
 
 ```tsx
 import { Modal, Button, Text, Row } from "@vaneui/ui";
+
+const [open, setOpen] = useState(false);
 
 <Modal
   open={open}
@@ -163,9 +113,107 @@ import { Modal, Button, Text, Row } from "@vaneui/ui";
 </Modal>
 ```
 
+## Confirmation Dialog
+
+A common pattern: a destructive action that requires explicit confirmation. Disable `closeOnOverlayClick` so users can't dismiss accidentally by clicking outside.
+
+```tsx
+const [open, setOpen] = useState(false);
+
+<Button danger filled onClick={() => setOpen(true)}>Delete Account</Button>
+<Modal
+  open={open}
+  onClose={() => setOpen(false)}
+  closeOnOverlayClick={false}
+  title="Delete account?"
+  footer={
+    <Row justifyEnd>
+      <Button sm onClick={() => setOpen(false)}>Cancel</Button>
+      <Button sm danger filled onClick={() => setOpen(false)}>Delete</Button>
+    </Row>
+  }
+>
+  <Text>This action is permanent and cannot be undone.</Text>
+</Modal>
+```
+
+## Form Modal
+
+Modals can host forms. Focus trapping keeps `Tab` / `Shift+Tab` navigation inside the modal, and pressing `Escape` closes it (unless disabled). Use `initialFocus` to direct keyboard focus to a specific field on open.
+
+```tsx
+const [open, setOpen] = useState(false);
+const nameRef = useRef<HTMLInputElement>(null);
+
+<Button onClick={() => setOpen(true)}>Edit Profile</Button>
+<Modal
+  open={open}
+  onClose={() => setOpen(false)}
+  initialFocus={nameRef}
+  title="Edit Profile"
+  footer={
+    <Row justifyEnd>
+      <Button sm onClick={() => setOpen(false)}>Cancel</Button>
+      <Button sm primary filled onClick={() => setOpen(false)}>Save</Button>
+    </Row>
+  }
+>
+  <Stack>
+    <Label>Name</Label>
+    <Input ref={nameRef} placeholder="Enter your name" />
+    <Label>Email</Label>
+    <Input type="email" placeholder="you@example.com" />
+    <Checkbox>Send me email updates</Checkbox>
+  </Stack>
+</Modal>
+```
+
+## Modal Sizes
+
+Size props control modal content width (via the `--fs-unit` / `--py-unit` / `--br-unit` chain) — font-size, padding, gap, and border-radius all scale together.
+
+```tsx
+<Modal open={open} onClose={onClose} sm>Small modal</Modal>
+<Modal open={open} onClose={onClose} lg>Large modal</Modal>
+```
+
+## Modal Appearances
+
+Apply appearance and variant props to style the content surface (border, text, background).
+
+```tsx
+<Modal open={open} onClose={onClose} primary filled>Primary modal</Modal>
+<Modal open={open} onClose={onClose} danger filled>Danger modal</Modal>
+```
+
+## Blur Overlay
+
+Pass `overlayProps={{ blur: true }}` to add a backdrop-filter blur behind the modal.
+
+```tsx
+<Modal open={open} onClose={onClose} overlayProps={{ blur: true }}>
+  <Text>Blurred background</Text>
+</Modal>
+```
+
+## Non-dismissible Modal
+
+Disable `closeOnOverlayClick` and `closeOnEscape` to force the user to take an explicit action (typically a button in the footer) before the modal can close.
+
+```tsx
+<Modal
+  open={open}
+  onClose={onClose}
+  closeOnOverlayClick={false}
+  closeOnEscape={false}
+>
+  <Text>Must click a button to close</Text>
+</Modal>
+```
+
 ## Full Screen Modal
 
-Set `fullScreen` to make the modal fill the entire viewport. Full-screen modals have no border-radius (`sharp` is applied automatically) and use a transparent overlay. This is useful for immersive experiences or mobile-optimized views.
+Set `fullScreen` to make the modal fill the entire viewport. Full-screen modals have no border-radius (`sharp` is applied automatically) and use a transparent overlay — useful for immersive experiences or mobile-optimized views.
 
 ```tsx
 <Modal open={open} onClose={() => setOpen(false)} fullScreen>
@@ -181,20 +229,18 @@ Set `fullScreen` to make the modal fill the entire viewport. Full-screen modals 
 
 ## Accessibility & Advanced Props
 
-Modal includes built-in accessibility features that are enabled by default. You can customize them as needed:
+Modal ships accessibility features enabled by default. The dialog renders with `role="dialog"` and `aria-modal="true"`, and is automatically wired with `aria-labelledby` (when `ModalHeader` is used) and `aria-describedby` (when `ModalBody` is used).
 
 | Prop | Default | Description |
 |------|---------|-------------|
 | `scrollLock` | `true` | Lock body scroll when modal is open |
-| `focusTrap` | `true` | Trap Tab/Shift+Tab focus inside modal |
-| `returnFocus` | `true` | Return focus to trigger element on close |
-| `initialFocus` | — | Ref to element that receives focus on open |
-| `portal` | `true` | Render in a portal (document.body) |
-| `keepMounted` | `false` | Keep DOM node when closed |
+| `focusTrap` | `true` | Trap `Tab` / `Shift+Tab` focus inside the modal |
+| `returnFocus` | `true` | Return focus to the trigger element on close |
+| `initialFocus` | — | Ref to the element that should receive focus on open |
+| `portal` | `true` | Render via portal into `document.body` |
+| `keepMounted` | `false` | Keep DOM node mounted when closed |
 | `noAnimation` | `false` | Disable enter/exit transitions |
 | `transitionDuration` | `200` | Animation duration in ms |
-
-Modal also renders with `role="dialog"` and `aria-modal="true"` automatically.
 
 ```tsx
 {/* Custom focus target */}
