@@ -1,100 +1,217 @@
 ---
 componentKey: grid4
 importPath: 'import { Grid4 } from "@vaneui/ui"'
-sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/grid4.tsx
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/grid/Grid4.tsx
 since: 0.9.0
 ---
 
-A responsive layout component that arranges its children into a four-column grid. This is ideal for displaying a collection of items or features.
+A responsive layout component that arranges its children in a four-column CSS grid. Ideal for displaying collections of items, features, or product tiles.
+
+## When to Use
+
+- Four-up feature grids, product catalogs, or pricing tier layouts.
+- Card layouts with item counts in multiples of four (4, 8, 12).
+- Image galleries and thumbnail grids needing equal column widths.
+
+### When NOT to Use
+
+- For three or five columns — use `Grid3` or `Grid5` instead.
+- For variable-width items — use `Row flexWrap` and let children size themselves.
+- For column-spanning layouts — use raw CSS grid with `className` instead.
+
+## Customizing
+
+Set app-wide Grid4 defaults with `ThemeProvider`'s `themeDefaults`:
+
+```tsx
+import { ThemeProvider, Grid4 } from '@vaneui/ui';
+
+<ThemeProvider themeDefaults={{
+  grid4: { lg: true },
+}}>
+  <Grid4>{/* ... */}</Grid4>
+</ThemeProvider>
+```
 
 ## Basic Grid4
 
-A four-column grid layout.
+A four-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults — no need to specify them.
 
 ```tsx demo
 <Grid4>
-  <div className="p-4 bg-gray-100 rounded">Item 1</div>
-  <div className="p-4 bg-gray-100 rounded">Item 2</div>
-  <div className="p-4 bg-gray-100 rounded">Item 3</div>
-  <div className="p-4 bg-gray-100 rounded">Item 4</div>
-  <div className="p-4 bg-gray-100 rounded">Item 5</div>
-  <div className="p-4 bg-gray-100 rounded">Item 6</div>
-  <div className="p-4 bg-gray-100 rounded">Item 7</div>
-  <div className="p-4 bg-gray-100 rounded">Item 8</div>
+  <Card>
+    <Title>Item 1</Title>
+    <Text>Four-column layout</Text>
+  </Card>
+  <Card>
+    <Title>Item 2</Title>
+    <Text>Equal widths</Text>
+  </Card>
+  <Card>
+    <Title>Item 3</Title>
+    <Text>Wraps after four</Text>
+  </Card>
+  <Card>
+    <Title>Item 4</Title>
+    <Text>End of first row</Text>
+  </Card>
+  <Card>
+    <Title>Item 5</Title>
+    <Text>Second row</Text>
+  </Card>
+  <Card>
+    <Title>Item 6</Title>
+    <Text>Continues</Text>
+  </Card>
+  <Card>
+    <Title>Item 7</Title>
+    <Text>And fills</Text>
+  </Card>
+  <Card>
+    <Title>Item 8</Title>
+    <Text>Out evenly</Text>
+  </Card>
 </Grid4>
 ```
 
 ## Grid Sizes
 
-Grids come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.
+Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 
 ```tsx demo
-<Col lg>
-  <div>
-    <Text semibold>Extra Small Grid4</Text>
-    <Grid4 xs>
-      <div className="p-2 bg-gray-100 rounded text-sm">Item 1</div>
-      <div className="p-2 bg-gray-100 rounded text-sm">Item 2</div>
-      <div className="p-2 bg-gray-100 rounded text-sm">Item 3</div>
-      <div className="p-2 bg-gray-100 rounded text-sm">Item 4</div>
-    </Grid4>
-  </div>
-  <div>
-    <Text semibold>Large Grid4</Text>
-    <Grid4 lg>
-      <div className="p-6 bg-gray-100 rounded">Item 1</div>
-      <div className="p-6 bg-gray-100 rounded">Item 2</div>
-      <div className="p-6 bg-gray-100 rounded">Item 3</div>
-      <div className="p-6 bg-gray-100 rounded">Item 4</div>
-    </Grid4>
-  </div>
+<Col>
+  <Text semibold>xs</Text>
+  <Grid4 xs>
+    <Card xs><Text xs>Item 1</Text></Card>
+    <Card xs><Text xs>Item 2</Text></Card>
+    <Card xs><Text xs>Item 3</Text></Card>
+    <Card xs><Text xs>Item 4</Text></Card>
+  </Grid4>
+  <Text semibold>sm</Text>
+  <Grid4 sm>
+    <Card sm><Text sm>Item 1</Text></Card>
+    <Card sm><Text sm>Item 2</Text></Card>
+    <Card sm><Text sm>Item 3</Text></Card>
+    <Card sm><Text sm>Item 4</Text></Card>
+  </Grid4>
+  <Text semibold>md (default)</Text>
+  <Grid4>
+    <Card><Text>Item 1</Text></Card>
+    <Card><Text>Item 2</Text></Card>
+    <Card><Text>Item 3</Text></Card>
+    <Card><Text>Item 4</Text></Card>
+  </Grid4>
+  <Text semibold>lg</Text>
+  <Grid4 lg>
+    <Card lg><Text lg>Item 1</Text></Card>
+    <Card lg><Text lg>Item 2</Text></Card>
+    <Card lg><Text lg>Item 3</Text></Card>
+    <Card lg><Text lg>Item 4</Text></Card>
+  </Grid4>
+  <Text semibold>xl</Text>
+  <Grid4 xl>
+    <Card xl><Text xl>Item 1</Text></Card>
+    <Card xl><Text xl>Item 2</Text></Card>
+    <Card xl><Text xl>Item 3</Text></Card>
+    <Card xl><Text xl>Item 4</Text></Card>
+  </Grid4>
 </Col>
 ```
 
 ## Grid with Gap
 
-Control spacing between grid items.
+`gap` is on by default. Use `noGap` to remove spacing between cells.
 
 ```tsx demo
-<Col lg>
-  <div>
-    <Text semibold>No Gap</Text>
-    <Grid4 noGap>
-      <div className="p-4 bg-gray-100 border">Item 1</div>
-      <div className="p-4 bg-gray-100 border">Item 2</div>
-      <div className="p-4 bg-gray-100 border">Item 3</div>
-      <div className="p-4 bg-gray-100 border">Item 4</div>
-    </Grid4>
-  </div>
-  <div>
-    <Text semibold>With Gap</Text>
-    <Grid4>
-      <div className="p-4 bg-gray-100 rounded">Item 1 (default with gap)</div>
-      <div className="p-4 bg-gray-100 rounded">Item 2</div>
-      <div className="p-4 bg-gray-100 rounded">Item 3</div>
-      <div className="p-4 bg-gray-100 rounded">Item 4</div>
-    </Grid4>
-  </div>
+<Col>
+  <Text semibold>Default gap</Text>
+  <Grid4>
+    <Card><Text>Item 1</Text></Card>
+    <Card><Text>Item 2</Text></Card>
+    <Card><Text>Item 3</Text></Card>
+    <Card><Text>Item 4</Text></Card>
+  </Grid4>
+  <Text semibold>noGap</Text>
+  <Grid4 noGap>
+    <Card sharp><Text>Item 1</Text></Card>
+    <Card sharp><Text>Item 2</Text></Card>
+    <Card sharp><Text>Item 3</Text></Card>
+    <Card sharp><Text>Item 4</Text></Card>
+  </Grid4>
 </Col>
 ```
 
 ## Grid Appearances
 
-Grids can have different background appearances.
+Grid supports color appearances. Pair with `filled` or `border` to make the surface visible.
 
 ```tsx demo
-<Col lg>
-  <Grid4 primary>
-    <div className="p-4 bg-white rounded">Item 1</div>
-    <div className="p-4 bg-white rounded">Item 2</div>
-    <div className="p-4 bg-white rounded">Item 3</div>
-    <div className="p-4 bg-white rounded">Item 4</div>
+<Col>
+  <Grid4 filled primary>
+    <Card><Text>Item 1</Text></Card>
+    <Card><Text>Item 2</Text></Card>
+    <Card><Text>Item 3</Text></Card>
+    <Card><Text>Item 4</Text></Card>
   </Grid4>
-  <Grid4 secondary>
-    <div className="p-4 bg-white rounded">Item 1</div>
-    <div className="p-4 bg-white rounded">Item 2</div>
-    <div className="p-4 bg-white rounded">Item 3</div>
-    <div className="p-4 bg-white rounded">Item 4</div>
+  <Grid4 filled secondary>
+    <Card><Text>Item 1</Text></Card>
+    <Card><Text>Item 2</Text></Card>
+    <Card><Text>Item 3</Text></Card>
+    <Card><Text>Item 4</Text></Card>
+  </Grid4>
+  <Grid4 filled success>
+    <Card><Text>Item 1</Text></Card>
+    <Card><Text>Item 2</Text></Card>
+    <Card><Text>Item 3</Text></Card>
+    <Card><Text>Item 4</Text></Card>
+  </Grid4>
+  <Grid4 filled warning>
+    <Card><Text>Item 1</Text></Card>
+    <Card><Text>Item 2</Text></Card>
+    <Card><Text>Item 3</Text></Card>
+    <Card><Text>Item 4</Text></Card>
+  </Grid4>
+</Col>
+```
+
+## Grid Variants
+
+`outline` is the default. Use `filled` for a solid background, or add `border` for a visible outline.
+
+```tsx demo
+<Col>
+  <Grid4 filled primary>
+    <Card><Text>Filled primary</Text></Card>
+    <Card><Text>Item 2</Text></Card>
+    <Card><Text>Item 3</Text></Card>
+    <Card><Text>Item 4</Text></Card>
+  </Grid4>
+  <Grid4 border success>
+    <Card><Text>Outline success</Text></Card>
+    <Card><Text>Item 2</Text></Card>
+    <Card><Text>Item 3</Text></Card>
+    <Card><Text>Item 4</Text></Card>
+  </Grid4>
+</Col>
+```
+
+## Grid Shapes
+
+`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself — pair with `filled` or `border` to see it.
+
+```tsx demo
+<Col>
+  <Grid4 filled secondary sharp padding>
+    <Card><Text>Sharp (default)</Text></Card>
+    <Card><Text>Item 2</Text></Card>
+    <Card><Text>Item 3</Text></Card>
+    <Card><Text>Item 4</Text></Card>
+  </Grid4>
+  <Grid4 filled secondary rounded padding>
+    <Card><Text>Rounded</Text></Card>
+    <Card><Text>Item 2</Text></Card>
+    <Card><Text>Item 3</Text></Card>
+    <Card><Text>Item 4</Text></Card>
   </Grid4>
 </Col>
 ```

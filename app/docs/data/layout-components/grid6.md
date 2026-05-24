@@ -1,155 +1,227 @@
 ---
 componentKey: grid6
 importPath: 'import { Grid6 } from "@vaneui/ui"'
-sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/grid6.tsx
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/grid/Grid6.tsx
 since: 0.9.0
 ---
 
-A six-column grid layout component for creating compact, organized displays. Ideal for icon grids, feature collections, and detailed content arrangements.
+A responsive layout component that arranges its children in a six-column CSS grid. Ideal for icon grids, compact feature listings, and dense card collections.
+
+## When to Use
+
+- Icon or logo grids (clients, integrations, badges).
+- Compact feature collections with small tiles.
+- Dense layouts where the item count is a multiple of six.
+
+### When NOT to Use
+
+- For five or fewer columns — use `Grid2`–`Grid5` instead.
+- For variable-width items — use `Row flexWrap` and let children size themselves.
+- For column-spanning layouts — use raw CSS grid with `className` instead.
+
+## Customizing
+
+Set app-wide Grid6 defaults with `ThemeProvider`'s `themeDefaults`:
+
+```tsx
+import { ThemeProvider, Grid6 } from '@vaneui/ui';
+
+<ThemeProvider themeDefaults={{
+  grid6: { sm: true },
+}}>
+  <Grid6>{/* ... */}</Grid6>
+</ThemeProvider>
+```
 
 ## Basic Grid6
 
-A six-column grid layout that creates balanced, visually appealing arrangements.
+A six-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults — no need to specify them.
 
 ```tsx demo
 <Grid6>
-  <div className="p-4 bg-gray-100 rounded">Item 1</div>
-  <div className="p-4 bg-gray-100 rounded">Item 2</div>
-  <div className="p-4 bg-gray-100 rounded">Item 3</div>
-  <div className="p-4 bg-gray-100 rounded">Item 4</div>
-  <div className="p-4 bg-gray-100 rounded">Item 5</div>
-  <div className="p-4 bg-gray-100 rounded">Item 6</div>
-  <div className="p-4 bg-gray-100 rounded">Item 7</div>
-  <div className="p-4 bg-gray-100 rounded">Item 8</div>
-  <div className="p-4 bg-gray-100 rounded">Item 9</div>
-  <div className="p-4 bg-gray-100 rounded">Item 10</div>
-  <div className="p-4 bg-gray-100 rounded">Item 11</div>
-  <div className="p-4 bg-gray-100 rounded">Item 12</div>
+  <Card><Text textCenter>Item 1</Text></Card>
+  <Card><Text textCenter>Item 2</Text></Card>
+  <Card><Text textCenter>Item 3</Text></Card>
+  <Card><Text textCenter>Item 4</Text></Card>
+  <Card><Text textCenter>Item 5</Text></Card>
+  <Card><Text textCenter>Item 6</Text></Card>
+  <Card><Text textCenter>Item 7</Text></Card>
+  <Card><Text textCenter>Item 8</Text></Card>
+  <Card><Text textCenter>Item 9</Text></Card>
+  <Card><Text textCenter>Item 10</Text></Card>
+  <Card><Text textCenter>Item 11</Text></Card>
+  <Card><Text textCenter>Item 12</Text></Card>
 </Grid6>
 ```
 
 ## Grid Sizes
 
-Grids come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.
+Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 
 ```tsx demo
-<Col lg>
-  <div>
-    <Text semibold>Extra Small Grid6</Text>
-    <Grid6 xs>
-      <div className="p-1 bg-gray-100 rounded text-xs text-center">1</div>
-      <div className="p-1 bg-gray-100 rounded text-xs text-center">2</div>
-      <div className="p-1 bg-gray-100 rounded text-xs text-center">3</div>
-      <div className="p-1 bg-gray-100 rounded text-xs text-center">4</div>
-      <div className="p-1 bg-gray-100 rounded text-xs text-center">5</div>
-      <div className="p-1 bg-gray-100 rounded text-xs text-center">6</div>
-    </Grid6>
-  </div>
-  <div>
-    <Text semibold>Large Grid6</Text>
-    <Grid6 lg>
-      <div className="p-6 bg-gray-100 rounded">Item 1</div>
-      <div className="p-6 bg-gray-100 rounded">Item 2</div>
-      <div className="p-6 bg-gray-100 rounded">Item 3</div>
-      <div className="p-6 bg-gray-100 rounded">Item 4</div>
-      <div className="p-6 bg-gray-100 rounded">Item 5</div>
-      <div className="p-6 bg-gray-100 rounded">Item 6</div>
-    </Grid6>
-  </div>
+<Col>
+  <Text semibold>xs</Text>
+  <Grid6 xs>
+    <Card xs><Text xs textCenter>1</Text></Card>
+    <Card xs><Text xs textCenter>2</Text></Card>
+    <Card xs><Text xs textCenter>3</Text></Card>
+    <Card xs><Text xs textCenter>4</Text></Card>
+    <Card xs><Text xs textCenter>5</Text></Card>
+    <Card xs><Text xs textCenter>6</Text></Card>
+  </Grid6>
+  <Text semibold>sm</Text>
+  <Grid6 sm>
+    <Card sm><Text sm textCenter>1</Text></Card>
+    <Card sm><Text sm textCenter>2</Text></Card>
+    <Card sm><Text sm textCenter>3</Text></Card>
+    <Card sm><Text sm textCenter>4</Text></Card>
+    <Card sm><Text sm textCenter>5</Text></Card>
+    <Card sm><Text sm textCenter>6</Text></Card>
+  </Grid6>
+  <Text semibold>md (default)</Text>
+  <Grid6>
+    <Card><Text textCenter>1</Text></Card>
+    <Card><Text textCenter>2</Text></Card>
+    <Card><Text textCenter>3</Text></Card>
+    <Card><Text textCenter>4</Text></Card>
+    <Card><Text textCenter>5</Text></Card>
+    <Card><Text textCenter>6</Text></Card>
+  </Grid6>
+  <Text semibold>lg</Text>
+  <Grid6 lg>
+    <Card lg><Text lg textCenter>1</Text></Card>
+    <Card lg><Text lg textCenter>2</Text></Card>
+    <Card lg><Text lg textCenter>3</Text></Card>
+    <Card lg><Text lg textCenter>4</Text></Card>
+    <Card lg><Text lg textCenter>5</Text></Card>
+    <Card lg><Text lg textCenter>6</Text></Card>
+  </Grid6>
+  <Text semibold>xl</Text>
+  <Grid6 xl>
+    <Card xl><Text xl textCenter>1</Text></Card>
+    <Card xl><Text xl textCenter>2</Text></Card>
+    <Card xl><Text xl textCenter>3</Text></Card>
+    <Card xl><Text xl textCenter>4</Text></Card>
+    <Card xl><Text xl textCenter>5</Text></Card>
+    <Card xl><Text xl textCenter>6</Text></Card>
+  </Grid6>
 </Col>
 ```
 
-## Grid with Gap Control
+## Grid with Gap
 
-Control spacing between grid items for different layout requirements.
+`gap` is on by default. Use `noGap` to remove spacing between cells.
 
 ```tsx demo
-<Col lg>
-  <div>
-    <Text semibold>No Gap</Text>
-    <Grid6 noGap>
-      <div className="p-2 bg-gray-100 border text-center">1</div>
-      <div className="p-2 bg-gray-100 border text-center">2</div>
-      <div className="p-2 bg-gray-100 border text-center">3</div>
-      <div className="p-2 bg-gray-100 border text-center">4</div>
-      <div className="p-2 bg-gray-100 border text-center">5</div>
-      <div className="p-2 bg-gray-100 border text-center">6</div>
-    </Grid6>
-  </div>
-  <div>
-    <Text semibold>With Gap</Text>
-    <Grid6>
-      <div className="p-2 bg-gray-100 rounded text-center">1 (default)</div>
-      <div className="p-2 bg-gray-100 rounded text-center">2</div>
-      <div className="p-2 bg-gray-100 rounded text-center">3</div>
-      <div className="p-2 bg-gray-100 rounded text-center">4</div>
-      <div className="p-2 bg-gray-100 rounded text-center">5</div>
-      <div className="p-2 bg-gray-100 rounded text-center">6</div>
-    </Grid6>
-  </div>
+<Col>
+  <Text semibold>Default gap</Text>
+  <Grid6>
+    <Card><Text textCenter>1</Text></Card>
+    <Card><Text textCenter>2</Text></Card>
+    <Card><Text textCenter>3</Text></Card>
+    <Card><Text textCenter>4</Text></Card>
+    <Card><Text textCenter>5</Text></Card>
+    <Card><Text textCenter>6</Text></Card>
+  </Grid6>
+  <Text semibold>noGap</Text>
+  <Grid6 noGap>
+    <Card sharp><Text textCenter>1</Text></Card>
+    <Card sharp><Text textCenter>2</Text></Card>
+    <Card sharp><Text textCenter>3</Text></Card>
+    <Card sharp><Text textCenter>4</Text></Card>
+    <Card sharp><Text textCenter>5</Text></Card>
+    <Card sharp><Text textCenter>6</Text></Card>
+  </Grid6>
 </Col>
 ```
 
 ## Grid Appearances
 
-Different background appearances to create visual hierarchy and organization.
+Grid supports color appearances. Pair with `filled` or `border` to make the surface visible.
 
 ```tsx demo
-<Col lg>
-  <div>
-    <Text semibold>Primary Background</Text>
-    <Grid6 primary>
-      <div className="p-3 bg-white rounded shadow-sm text-center">1</div>
-      <div className="p-3 bg-white rounded shadow-sm text-center">2</div>
-      <div className="p-3 bg-white rounded shadow-sm text-center">3</div>
-      <div className="p-3 bg-white rounded shadow-sm text-center">4</div>
-      <div className="p-3 bg-white rounded shadow-sm text-center">5</div>
-      <div className="p-3 bg-white rounded shadow-sm text-center">6</div>
-    </Grid6>
-  </div>
-  <div>
-    <Text semibold>Secondary Background</Text>
-    <Grid6 secondary>
-      <div className="p-3 bg-white rounded shadow-sm text-center">1</div>
-      <div className="p-3 bg-white rounded shadow-sm text-center">2</div>
-      <div className="p-3 bg-white rounded shadow-sm text-center">3</div>
-      <div className="p-3 bg-white rounded shadow-sm text-center">4</div>
-      <div className="p-3 bg-white rounded shadow-sm text-center">5</div>
-      <div className="p-3 bg-white rounded shadow-sm text-center">6</div>
-    </Grid6>
-  </div>
+<Col>
+  <Grid6 filled primary>
+    <Card><Text textCenter>1</Text></Card>
+    <Card><Text textCenter>2</Text></Card>
+    <Card><Text textCenter>3</Text></Card>
+    <Card><Text textCenter>4</Text></Card>
+    <Card><Text textCenter>5</Text></Card>
+    <Card><Text textCenter>6</Text></Card>
+  </Grid6>
+  <Grid6 filled secondary>
+    <Card><Text textCenter>1</Text></Card>
+    <Card><Text textCenter>2</Text></Card>
+    <Card><Text textCenter>3</Text></Card>
+    <Card><Text textCenter>4</Text></Card>
+    <Card><Text textCenter>5</Text></Card>
+    <Card><Text textCenter>6</Text></Card>
+  </Grid6>
+  <Grid6 filled success>
+    <Card><Text textCenter>1</Text></Card>
+    <Card><Text textCenter>2</Text></Card>
+    <Card><Text textCenter>3</Text></Card>
+    <Card><Text textCenter>4</Text></Card>
+    <Card><Text textCenter>5</Text></Card>
+    <Card><Text textCenter>6</Text></Card>
+  </Grid6>
+  <Grid6 filled warning>
+    <Card><Text textCenter>1</Text></Card>
+    <Card><Text textCenter>2</Text></Card>
+    <Card><Text textCenter>3</Text></Card>
+    <Card><Text textCenter>4</Text></Card>
+    <Card><Text textCenter>5</Text></Card>
+    <Card><Text textCenter>6</Text></Card>
+  </Grid6>
 </Col>
 ```
 
-## Icon Grid Example
+## Grid Variants
 
-Perfect for displaying collections of icons, features, or small cards in a compact layout.
+`outline` is the default. Use `filled` for a solid background, or add `border` for a visible outline.
 
 ```tsx demo
-<Grid6>
-  <div className="p-4 bg-gradient-to-br from-red-50 to-red-100 rounded text-center">
-    <div className="w-8 h-8 bg-red-400 rounded-full mx-auto mb-2"></div>
-    <Text xs>Feature</Text>
-  </div>
-  <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded text-center">
-    <div className="w-8 h-8 bg-blue-400 rounded-full mx-auto mb-2"></div>
-    <Text xs>Service</Text>
-  </div>
-  <div className="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded text-center">
-    <div className="w-8 h-8 bg-green-400 rounded-full mx-auto mb-2"></div>
-    <Text xs>Product</Text>
-  </div>
-  <div className="p-4 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded text-center">
-    <div className="w-8 h-8 bg-yellow-400 rounded-full mx-auto mb-2"></div>
-    <Text xs>Support</Text>
-  </div>
-  <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded text-center">
-    <div className="w-8 h-8 bg-purple-400 rounded-full mx-auto mb-2"></div>
-    <Text xs>Tool</Text>
-  </div>
-  <div className="p-4 bg-gradient-to-br from-pink-50 to-pink-100 rounded text-center">
-    <div className="w-8 h-8 bg-pink-400 rounded-full mx-auto mb-2"></div>
-    <Text xs>Resource</Text>
-  </div>
-</Grid6>
+<Col>
+  <Grid6 filled primary>
+    <Card><Text textCenter>Filled</Text></Card>
+    <Card><Text textCenter>2</Text></Card>
+    <Card><Text textCenter>3</Text></Card>
+    <Card><Text textCenter>4</Text></Card>
+    <Card><Text textCenter>5</Text></Card>
+    <Card><Text textCenter>6</Text></Card>
+  </Grid6>
+  <Grid6 border success>
+    <Card><Text textCenter>Outline</Text></Card>
+    <Card><Text textCenter>2</Text></Card>
+    <Card><Text textCenter>3</Text></Card>
+    <Card><Text textCenter>4</Text></Card>
+    <Card><Text textCenter>5</Text></Card>
+    <Card><Text textCenter>6</Text></Card>
+  </Grid6>
+</Col>
+```
+
+## Grid Shapes
+
+`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself — pair with `filled` or `border` to see it.
+
+```tsx demo
+<Col>
+  <Grid6 filled secondary sharp padding>
+    <Card><Text textCenter>Sharp</Text></Card>
+    <Card><Text textCenter>2</Text></Card>
+    <Card><Text textCenter>3</Text></Card>
+    <Card><Text textCenter>4</Text></Card>
+    <Card><Text textCenter>5</Text></Card>
+    <Card><Text textCenter>6</Text></Card>
+  </Grid6>
+  <Grid6 filled secondary rounded padding>
+    <Card><Text textCenter>Rounded</Text></Card>
+    <Card><Text textCenter>2</Text></Card>
+    <Card><Text textCenter>3</Text></Card>
+    <Card><Text textCenter>4</Text></Card>
+    <Card><Text textCenter>5</Text></Card>
+    <Card><Text textCenter>6</Text></Card>
+  </Grid6>
+</Col>
 ```

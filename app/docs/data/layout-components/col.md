@@ -1,15 +1,15 @@
 ---
 componentKey: col
 importPath: 'import { Col } from "@vaneui/ui"'
-sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/col.tsx
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/col/Col.tsx
 since: 0.9.0
 ---
 
-A container that organizes content vertically within a Row. It provides a simple way to create flexible and responsive column-based layouts.
+A vertical flex container. Pairs with `Row` to build column-based layouts.
 
 ## Basic Col
 
-A vertical flex container that arranges children in a column. Has `gap: true` by default.
+`Col` defaults to `column`, `flex`, `gap`, `md`, `noPadding`, `noBorder`, `noRing`, `outline`, and `sharp` — you don't need to pass any of these.
 
 ```tsx demo
 <Col>
@@ -21,53 +21,140 @@ A vertical flex container that arranges children in a column. Has `gap: true` by
 
 ## Col Spacing
 
-Gap is enabled by default. Use size props (`sm`, `lg`) to control the gap amount, or `noGap` to disable.
+Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to control the gap, or `noGap` to disable.
 
 ```tsx demo
-<Row>
-  <Col sm>
-    <Text semibold>Small Gap</Text>
+<Row itemsStart>
+  <Col xs flex1>
+    <Text semibold>xs</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
+    <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Col>
-  <Col lg>
-    <Text semibold>Large Gap</Text>
+  <Col sm flex1>
+    <Text semibold>sm</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
+    <div className="p-3 bg-gray-100 rounded">Item 3</div>
+  </Col>
+  <Col flex1>
+    <Text semibold>md (default)</Text>
+    <div className="p-3 bg-gray-100 rounded">Item 1</div>
+    <div className="p-3 bg-gray-100 rounded">Item 2</div>
+    <div className="p-3 bg-gray-100 rounded">Item 3</div>
+  </Col>
+  <Col lg flex1>
+    <Text semibold>lg</Text>
+    <div className="p-3 bg-gray-100 rounded">Item 1</div>
+    <div className="p-3 bg-gray-100 rounded">Item 2</div>
+    <div className="p-3 bg-gray-100 rounded">Item 3</div>
+  </Col>
+  <Col xl flex1>
+    <Text semibold>xl</Text>
+    <div className="p-3 bg-gray-100 rounded">Item 1</div>
+    <div className="p-3 bg-gray-100 rounded">Item 2</div>
+    <div className="p-3 bg-gray-100 rounded">Item 3</div>
+  </Col>
+  <Col noGap flex1>
+    <Text semibold>noGap</Text>
+    <div className="p-3 bg-gray-100 rounded">Item 1</div>
+    <div className="p-3 bg-gray-100 rounded">Item 2</div>
+    <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Col>
 </Row>
 ```
 
-## Col Alignment
+## Items (Cross Axis)
 
-Control alignment with `justifyCenter`, `justifyBetween`, `itemsCenter`, etc.
+Col has no `items` default, so children stretch to fill the width. Use `itemsStart`, `itemsCenter`, `itemsEnd`, `itemsBaseline`, or `itemsStretch` to override.
 
 ```tsx demo
-<Row>
-  <Col justifyCenter className="h-40 w-32 border-2 border-dashed border-gray-300">
-    <div className="p-4 bg-gray-100 rounded">Centered</div>
+<Row itemsStart>
+  <Col flex1 className="border-2 border-dashed border-gray-300 p-2">
+    <Text semibold>default (stretch)</Text>
+    <div className="p-2 bg-gray-100 rounded">A</div>
+    <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
-  <Col justifyBetween className="h-40 w-32 border-2 border-dashed border-gray-300">
-    <div className="p-4 bg-gray-100 rounded">Top</div>
-    <div className="p-4 bg-gray-100 rounded">Bottom</div>
+  <Col itemsStart flex1 className="border-2 border-dashed border-gray-300 p-2">
+    <Text semibold>itemsStart</Text>
+    <div className="p-2 bg-gray-100 rounded">A</div>
+    <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
-  <Col itemsCenter className="h-40 w-32 border-2 border-dashed border-gray-300">
-    <div className="p-4 bg-gray-100 rounded">Center</div>
+  <Col itemsCenter flex1 className="border-2 border-dashed border-gray-300 p-2">
+    <Text semibold>itemsCenter</Text>
+    <div className="p-2 bg-gray-100 rounded">A</div>
+    <div className="p-2 bg-gray-100 rounded">B</div>
+  </Col>
+  <Col itemsEnd flex1 className="border-2 border-dashed border-gray-300 p-2">
+    <Text semibold>itemsEnd</Text>
+    <div className="p-2 bg-gray-100 rounded">A</div>
+    <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
 </Row>
+```
+
+## Justify (Main Axis)
+
+Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`, `justifyBetween`, `justifyAround`, or `justifyEvenly`. The Col needs a fixed height for these to have any effect.
+
+```tsx demo
+<Row itemsStart>
+  <Col justifyStart flex1 className="h-48 border-2 border-dashed border-gray-300 p-2">
+    <Text semibold>justifyStart</Text>
+    <div className="p-2 bg-gray-100 rounded">A</div>
+    <div className="p-2 bg-gray-100 rounded">B</div>
+  </Col>
+  <Col justifyCenter flex1 className="h-48 border-2 border-dashed border-gray-300 p-2">
+    <Text semibold>justifyCenter</Text>
+    <div className="p-2 bg-gray-100 rounded">A</div>
+    <div className="p-2 bg-gray-100 rounded">B</div>
+  </Col>
+  <Col justifyEnd flex1 className="h-48 border-2 border-dashed border-gray-300 p-2">
+    <Text semibold>justifyEnd</Text>
+    <div className="p-2 bg-gray-100 rounded">A</div>
+    <div className="p-2 bg-gray-100 rounded">B</div>
+  </Col>
+  <Col justifyBetween flex1 className="h-48 border-2 border-dashed border-gray-300 p-2">
+    <Text semibold>justifyBetween</Text>
+    <div className="p-2 bg-gray-100 rounded">A</div>
+    <div className="p-2 bg-gray-100 rounded">B</div>
+  </Col>
+  <Col justifyAround flex1 className="h-48 border-2 border-dashed border-gray-300 p-2">
+    <Text semibold>justifyAround</Text>
+    <div className="p-2 bg-gray-100 rounded">A</div>
+    <div className="p-2 bg-gray-100 rounded">B</div>
+  </Col>
+  <Col justifyEvenly flex1 className="h-48 border-2 border-dashed border-gray-300 p-2">
+    <Text semibold>justifyEvenly</Text>
+    <div className="p-2 bg-gray-100 rounded">A</div>
+    <div className="p-2 bg-gray-100 rounded">B</div>
+  </Col>
+</Row>
+```
+
+## Reverse Order
+
+Use `columnReverse` to reverse the visual order of children.
+
+```tsx demo
+<Col columnReverse className="border-2 border-dashed border-gray-300 p-2">
+  <div className="p-3 bg-gray-100 rounded">First in DOM</div>
+  <div className="p-3 bg-gray-100 rounded">Second</div>
+  <div className="p-3 bg-gray-100 rounded">Last in DOM</div>
+</Col>
 ```
 
 ## Col Variants
 
-Use `filled` or `outline` with appearance props for styled columns.
+Use `filled` with an appearance prop for a filled background. Col defaults to `sharp` — pair with `rounded` or `pill` for curved corners, and add `padding` so the background has breathing room.
 
 ```tsx demo
-<Row>
-  <Col filled primary flex1>
+<Row itemsStart>
+  <Col filled primary padding rounded flex1>
     <div className="p-4 bg-white/80 rounded">Filled Primary</div>
     <div className="p-4 bg-white/80 rounded">Item 2</div>
   </Col>
-  <Col outline success flex1>
+  <Col border success padding rounded flex1>
     <div className="p-4 rounded">Outline Success</div>
     <div className="p-4 rounded">Item 2</div>
   </Col>
@@ -76,10 +163,10 @@ Use `filled` or `outline` with appearance props for styled columns.
 
 ## Text Alignment
 
-Use `textCenter`, `textLeft`, `textRight`, or `textJustify` to control text alignment within the column.
+Use `textLeft`, `textCenter`, `textRight`, or `textJustify` to control text alignment within the column.
 
 ```tsx demo
-<Row>
+<Row itemsStart>
   <Col textLeft flex1 className="border-2 border-dashed border-gray-300 p-4">
     <Text semibold>Left Aligned</Text>
     <Text>Content aligned to the left.</Text>
@@ -97,27 +184,69 @@ Use `textCenter`, `textLeft`, `textRight`, or `textJustify` to control text alig
 
 ## Nested in Row
 
-Col is commonly used inside Row to create multi-column layouts.
+Col is commonly used inside Row to create multi-column layouts. Use `flex1` so each column shares the available width equally.
 
 ```tsx demo
-<Row>
+<Row itemsStart>
   <Col flex1>
     <Card>
-      <Text semibold>Column 1</Text>
+      <Title>Column 1</Title>
       <Text sm secondary>First column content.</Text>
     </Card>
   </Col>
   <Col flex1>
     <Card>
-      <Text semibold>Column 2</Text>
+      <Title>Column 2</Title>
       <Text sm secondary>Second column content.</Text>
     </Card>
   </Col>
   <Col flex1>
     <Card>
-      <Text semibold>Column 3</Text>
+      <Title>Column 3</Title>
       <Text sm secondary>Third column content.</Text>
     </Card>
   </Col>
 </Row>
+```
+
+## Inside a Card
+
+Col composes naturally inside a Card to lay out a vertical cluster — labelled fields, key/value pairs, or a list of actions.
+
+```tsx demo
+<Card>
+  <Title>Account</Title>
+  <Col>
+    <Row justifyBetween>
+      <Text secondary>Plan</Text>
+      <Badge success>Pro</Badge>
+    </Row>
+    <Row justifyBetween>
+      <Text secondary>Seats</Text>
+      <Text semibold>12 / 25</Text>
+    </Row>
+    <Row justifyBetween>
+      <Text secondary>Renews</Text>
+      <Text semibold>Jan 14, 2026</Text>
+    </Row>
+  </Col>
+  <Row justifyEnd>
+    <Button secondary>Manage</Button>
+    <Button filled>Upgrade</Button>
+  </Row>
+</Card>
+```
+
+## As a Navigation Column
+
+Col is a natural container for a vertical stack of `NavLink`s in a sidebar.
+
+```tsx demo
+<Col className="w-56 border-2 border-dashed border-gray-300 p-3">
+  <NavLink href="#" active>Dashboard</NavLink>
+  <NavLink href="#">Projects</NavLink>
+  <NavLink href="#">Team</NavLink>
+  <NavLink href="#">Billing</NavLink>
+  <NavLink href="#">Settings</NavLink>
+</Col>
 ```

@@ -1,26 +1,26 @@
 ---
 componentKey: section
 importPath: 'import { Section } from "@vaneui/ui"'
-sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/section.tsx
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/section/Section.tsx
 since: 0.9.0
 ---
 
-A semantic container used to group related content within a page. This component helps to create a clear document outline and improve accessibility.
+A full-bleed page band used to group related content with consistent vertical rhythm. Sections own the outer padding and background; nest a `Container` inside to cap the inner reading width.
 
 ## Basic Section
 
-A semantic container for grouping related page content with automatic padding.
+`md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `outline`, `sharp`, and `responsive` are defaults. Padding, gap, and font size automatically scale at tablet and mobile breakpoints because `responsive` is on.
 
 ```tsx demo
 <Section border>
   <Title>Welcome Section</Title>
-  <Text>This is content within a section container. Sections provide consistent vertical rhythm.</Text>
+  <Text>Sections provide consistent vertical rhythm and full-width backgrounds.</Text>
 </Section>
 ```
 
 ## Section Sizes
 
-Sections come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl` - controlling padding and spacing.
+Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control padding and gap.
 
 ```tsx demo
 <Col>
@@ -41,10 +41,14 @@ Sections come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl` - contr
 
 ## Section Appearances
 
-Sections can have color appearances: `primary`, `secondary`, `success`, `danger`, etc.
+Sections support color appearances: `primary`, `secondary`, `success`, `danger`, etc. Use `secondary` filled bands to create visual rhythm between regular sections.
 
 ```tsx demo
 <Col>
+  <Section secondary filled>
+    <Text semibold>Secondary band</Text>
+    <Text>Subtle background to break up a long page.</Text>
+  </Section>
   <Section primary>
     <Text semibold>Primary Section</Text>
     <Text>Highlighted content area</Text>
@@ -62,7 +66,7 @@ Sections can have color appearances: `primary`, `secondary`, `success`, `danger`
 
 ## Section Variants
 
-Use `filled` for solid backgrounds, `outline` for bordered sections, and `shadow` for elevation.
+Use `filled` for solid backgrounds (`outline` is the default), and `shadow` for elevation.
 
 ```tsx demo
 <Col>
@@ -70,9 +74,9 @@ Use `filled` for solid backgrounds, `outline` for bordered sections, and `shadow
     <Title filled primary>Filled Section</Title>
     <Text filled primary>Solid background with primary color</Text>
   </Section>
-  <Section outline secondary>
-    <Title secondary>Outline Section</Title>
-    <Text secondary>Border only styling</Text>
+  <Section secondary border>
+    <Title secondary>Outline Section (default)</Title>
+    <Text secondary>Border-only styling</Text>
   </Section>
   <Section shadow>
     <Title>Shadow Section</Title>
@@ -83,16 +87,16 @@ Use `filled` for solid backgrounds, `outline` for bordered sections, and `shadow
 
 ## Section Layout
 
-Use `row` for horizontal layout, `gap` for spacing between children, and `noPadding` to remove internal padding.
+Use `row` for horizontal layout. `gap` is already on by default; pair with `noPadding` only when a wrapper owns spacing.
 
 ```tsx demo
 <Col>
-  <Section row gap border>
+  <Section row border>
     <Text semibold>Row Layout</Text>
     <Text>Content flows horizontally</Text>
     <Text>With gap between items</Text>
   </Section>
-  <Section gap border>
+  <Section border>
     <Text semibold>Column Layout (default)</Text>
     <Text>Content flows vertically</Text>
     <Text>With gap between items</Text>
@@ -105,7 +109,7 @@ Use `row` for horizontal layout, `gap` for spacing between children, and `noPadd
 Use `mobileCol` or `tabletCol` to switch from row to column layout on smaller screens.
 
 ```tsx demo
-<Section row tabletCol gap border>
+<Section row tabletCol border>
   <Col>
     <Title>Left Content</Title>
     <Text>Switches to stacked layout on tablets and below.</Text>
@@ -114,5 +118,52 @@ Use `mobileCol` or `tabletCol` to switch from row to column layout on smaller sc
     <Title>Right Content</Title>
     <Text>Resize your browser to see the responsive behavior.</Text>
   </Col>
+</Section>
+```
+
+## Responsive Sizing
+
+`responsive` (default) scales padding, gap, and font size at tablet and mobile breakpoints using `--py-tablet`, `--gap-mobile`, etc. Pass `responsive={false}` to lock a single size across all viewports.
+
+```tsx demo
+<Col>
+  <Section lg border>
+    <Text semibold>responsive (default)</Text>
+    <Text>Padding shrinks at tablet and mobile.</Text>
+  </Section>
+  <Section lg responsive={false} border>
+    <Text semibold>responsive=&#123;false&#125;</Text>
+    <Text>Padding stays fixed at the lg size on every viewport.</Text>
+  </Section>
+</Col>
+```
+
+## Semantic Tag
+
+Section renders as `<div>` by default. Pass `tag="section"` for a semantic `<section>` element, or `tag="header"` / `tag="footer"` / `tag="aside"` for other landmarks.
+
+```tsx demo
+<Col>
+  <Section tag="section" border>
+    <Title>Semantic section</Title>
+    <Text>Renders as &lt;section&gt; in the DOM.</Text>
+  </Section>
+  <Section tag="header" secondary filled>
+    <Title>Page header</Title>
+    <Text>Renders as &lt;header&gt;.</Text>
+  </Section>
+</Col>
+```
+
+## Page Layout Pattern
+
+The canonical full-bleed page band: a Section owns the outer padding and background, with a nested `Container` capping the inner reading width.
+
+```tsx demo
+<Section secondary filled>
+  <Container>
+    <PageTitle>Getting Started</PageTitle>
+    <Text>The Section handles the full-bleed background and outer padding. The Container constrains the inner content to a comfortable reading width.</Text>
+  </Container>
 </Section>
 ```
