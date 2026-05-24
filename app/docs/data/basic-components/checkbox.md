@@ -27,8 +27,8 @@ Set app-wide Checkbox defaults with `ThemeProvider`'s `themeDefaults` and tune t
 import { ThemeProvider, Checkbox } from '@vaneui/ui';
 
 <ThemeProvider
-  themeDefaults={{ checkbox: { lg: true } }}
-  extraClasses={{ checkbox: { primary: 'checked:bg-brand-600 checked:border-brand-600' } }}
+  themeDefaults={{ checkbox: { input: { lg: true } } }}
+  extraClasses={{ checkbox: { input: { primary: 'checked:bg-brand-600 checked:border-brand-600' } } }}
 >
   <Checkbox>I agree to the terms</Checkbox>
 </ThemeProvider>

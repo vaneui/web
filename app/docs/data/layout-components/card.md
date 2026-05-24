@@ -27,7 +27,7 @@ Set app-wide Card defaults with `ThemeProvider`'s `themeDefaults`:
 import { ThemeProvider, Card } from '@vaneui/ui';
 
 <ThemeProvider themeDefaults={{
-  card: { shadow: true },
+  card: { main: { shadow: true } },
 }}>
   <Card>Content</Card>
 </ThemeProvider>

@@ -170,21 +170,23 @@ Set app-wide Button defaults with `ThemeProvider`'s `themeDefaults`:
 import { ThemeProvider, Button } from '@vaneui/ui';
 
 <ThemeProvider themeDefaults={{
-  button: { primary: true, lg: true, filled: true },
+  button: { main: { primary: true, lg: true, filled: true } },
 }}>
   <Button>Submit</Button>
 </ThemeProvider>
 ```
 
-Add prop-conditional classes with `extraClasses` — applied whenever the matching boolean prop is active:
+Add prop-conditional classes with `extraClasses` — applied whenever the matching boolean prop is active. For compound themes like Button, nest the prop-class map under the sub-theme name (`main` for Button's primary surface):
 
 ```tsx
 import { ThemeProvider, Button } from '@vaneui/ui';
 
 <ThemeProvider extraClasses={{
   button: {
-    primary: 'shadow-lg hover:shadow-xl transition-shadow',
-    danger: 'animate-pulse',
+    main: {
+      primary: 'shadow-lg hover:shadow-xl transition-shadow',
+      danger: 'animate-pulse',
+    },
   },
 }}>
   <Button primary>Glowing Primary</Button>

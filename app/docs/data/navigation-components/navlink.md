@@ -158,8 +158,8 @@ Set app-wide NavLink defaults with `ThemeProvider`'s `themeDefaults` and active-
 import { ThemeProvider, NavLink } from '@vaneui/ui';
 
 <ThemeProvider
-  themeDefaults={{ navLink: { md: true } }}
-  extraClasses={{ navLink: { active: 'bg-brand-50 text-brand-700 font-semibold' } }}
+  themeDefaults={{ navLink: { root: { md: true } } }}
+  extraClasses={{ navLink: { root: { active: 'bg-brand-50 text-brand-700 font-semibold' } } }}
 >
   <NavLink href="/docs" active>Docs</NavLink>
 </ThemeProvider>
