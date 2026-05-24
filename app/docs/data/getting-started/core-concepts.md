@@ -41,11 +41,13 @@ Components output **data attributes** (`data-size`, `data-appearance`, `data-var
 When you pass props, VaneUI selects ONE value per category based on priority:
 
 ```tsx
-// Props: { lg: true, primary: true }
-// Defaults: { md: true, outline: true }
+// Button defaults: { sm: true, primary: true, outline: true, ... }
+// User props:     { lg: true, filled: true }
 
-<Button lg primary>Submit</Button>
-// Result: size='lg' (prop wins), appearance='primary', variant='outline' (default)
+<Button lg filled>Submit</Button>
+// Result: size='lg' (prop overrides default sm),
+//         appearance='primary' (default kept),
+//         variant='filled' (prop overrides default outline)
 ```
 
 **Priority order**:
@@ -66,7 +68,7 @@ Boolean props can be combined naturally to create the exact styling you need:
 </Card>
 
 <Stack itemsCenter>
-  Stack with centered items (gap is default)
+  Stack with centered items (column, gap, padding, and flexWrap are defaults)
 </Stack>
 ```
 
@@ -133,8 +135,8 @@ Override colors globally or for any subtree:
 Set default prop values for all components, including overlay components (Overlay, Modal, Popup):
 ```tsx
 <ThemeProvider themeDefaults={{
-  button: { pill: true, lg: true },
-  card: { primary: true }
+  button: { main: { pill: true, lg: true } }, // button is compound; defaults nest under `main`
+  card: { main: { primary: true } }            // card is compound too
 }}>
   <Button>Large pill button by default</Button>
 </ThemeProvider>
@@ -144,7 +146,7 @@ Set default prop values for all components, including overlay components (Overla
 Add additional CSS classes based on active props:
 ```tsx
 <ThemeProvider extraClasses={{
-  button: { primary: 'shadow-lg hover:shadow-xl' }
+  button: { main: { primary: 'shadow-lg hover:shadow-xl' } }
 }}>
   <Button primary>Button with extra shadow</Button>
 </ThemeProvider>

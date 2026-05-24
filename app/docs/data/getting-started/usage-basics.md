@@ -15,14 +15,16 @@ function SizeExample() {
   return (
     <Stack>
       <Button xs>Extra Small</Button>
-      <Button sm>Small</Button>
-      <Button md>Medium (default)</Button>
+      <Button sm>Small (Button default)</Button>
+      <Button md>Medium</Button>
       <Button lg>Large</Button>
       <Button xl>Extra Large</Button>
     </Stack>
   );
 }
 ```
+
+> Most components default to `md`. Button, NavLink, MenuItem, and Label default to `sm`.
 
 ### Appearance Props
 
@@ -252,6 +254,47 @@ function ImageExample() {
 
 `Img` supports shape props (`rounded`, `pill`, `sharp`), `border`, `shadow`, size props, and object-fit props (`objectCover`, `objectContain`, `objectFill`).
 
+## Icons
+
+Wrap any SVG with the `Icon` component to inherit the parent's font color and scale with the size system:
+
+```tsx
+import { Icon, Row, Text } from '@vaneui/ui';
+import { Star, AlertCircle } from 'react-feather';
+
+function IconExample() {
+  return (
+    <Row>
+      <Icon sm><Star /></Icon>
+      <Icon><Star /></Icon>
+      <Icon lg success><Star /></Icon>
+      <Text danger><Icon><AlertCircle /></Icon> Inline with text</Text>
+    </Row>
+  );
+}
+```
+
+### Icon Container Mode
+
+By default `Icon` renders as a bare glyph that inherits color from its parent. Adding any of `padding`, `border`, `ring`, `shadow`, or `filled` switches it into *container mode* — the icon gains a sized box that shape props (`rounded`, `pill`, `sharp`) can act on:
+
+```tsx
+import { Icon, Row } from '@vaneui/ui';
+import { Check, Heart, AlertCircle } from 'react-feather';
+
+function IconContainerExample() {
+  return (
+    <Row>
+      <Icon padding pill primary filled><Heart /></Icon>
+      <Icon padding pill success border><Check /></Icon>
+      <Icon padding danger filled ring><AlertCircle /></Icon>
+    </Row>
+  );
+}
+```
+
+Padding and radius scale with the size prop, so the same composition works across `xs` through `xl`.
+
 ## Overlays and Modals
 
 Use `Modal` for dialogs that require user attention. Modals include focus trapping, scroll lock, and ARIA attributes by default. Modal provides sub-components for structured layout: `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton`.
@@ -350,7 +393,7 @@ import { Button, Card } from '@vaneui/ui';
 function CustomStyling() {
   return (
     <Card className="shadow-2xl">
-      <Button className="w-full hover:scale-105 transition-transform">
+      <Button wFull className="hover:scale-105">
         Full width with hover effect
       </Button>
     </Card>
