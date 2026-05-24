@@ -1,7 +1,7 @@
 ---
 componentKey: link
 importPath: 'import { Link } from "@vaneui/ui"'
-sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/link.tsx
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typography/link/Link.tsx
 since: 0.9.0
 ---
 
@@ -64,6 +64,20 @@ Pass `noInheritSize` to render the Link at its own size instead of the parent's 
 </Title>
 ```
 
+## Explicit Sizes
+
+When `noInheritSize` is set (or the parent has no size context), choose an explicit size with `xs`, `sm`, `md` (default), `lg`, `xl`.
+
+```tsx demo
+<Col>
+  <Link href="#" noInheritSize xs>Extra small link</Link>
+  <Link href="#" noInheritSize sm>Small link</Link>
+  <Link href="#" noInheritSize>Medium link (default)</Link>
+  <Link href="#" noInheritSize lg>Large link</Link>
+  <Link href="#" noInheritSize xl>Extra large link</Link>
+</Col>
+```
+
 ## Link Appearances
 
 Links default to the `link` appearance (blue). Override with: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`.
@@ -81,23 +95,9 @@ Links default to the `link` appearance (blue). Override with: `primary`, `brand`
 </Row>
 ```
 
-## Link Variants
-
-Use `filled` for solid background links or `outline` for bordered links.
-
-```tsx demo
-<Row flexWrap>
-  <Link primary filled href="#">Filled Primary</Link>
-  <Link success filled href="#">Filled Success</Link>
-  <Link danger filled href="#">Filled Danger</Link>
-  <Link primary outline href="#">Outline Primary</Link>
-  <Link secondary outline href="#">Outline Secondary</Link>
-</Row>
-```
-
 ## Link Styling
 
-Use `bold`, `semibold`, `italic`, and text decorations like `underline` or `noUnderline`.
+Use `bold`, `semibold`, `italic`, or `noUnderline` to remove the default underline.
 
 ```tsx demo
 <Col>
@@ -108,15 +108,54 @@ Use `bold`, `semibold`, `italic`, and text decorations like `underline` or `noUn
 </Col>
 ```
 
-## Link in Context
+## Hover State
 
-Links integrate naturally with other text content.
+Links keep an underline at rest. With `noUnderline`, the underline appears on hover for affordance.
+
+```tsx demo
+<Col>
+  <Link href="#">Underlined at rest, stays underlined on hover</Link>
+  <Link noUnderline href="#">No underline at rest — hover to reveal it</Link>
+</Col>
+```
+
+## External Links
+
+Pass the `external` prop and Link auto-applies `target="_blank"` and `rel="noopener noreferrer"` for safe cross-origin navigation.
+
+```tsx demo
+<Link href="https://github.com/vaneui/vaneui" external>VaneUI on GitHub</Link>
+```
+
+## Manual target="_blank"
+
+Setting `target="_blank"` directly also auto-applies `rel="noopener noreferrer"` — no need to spell it out.
+
+```tsx demo
+<Link href="https://github.com/vaneui/vaneui" target="_blank">Open in a new tab</Link>
+```
+
+## Inline in Text
+
+Links integrate naturally with surrounding prose — drop them inline inside `Text` and they inherit the parent size.
 
 ```tsx demo
 <Text>
   Check out our <Link href="#">documentation</Link> to learn more about the features.
   You can also visit the <Link href="#">GitHub repository</Link> for source code.
 </Text>
+```
+
+## Inherits Parent Text Size
+
+Links inside body text inherit the surrounding `Text` size — set the size on the parent and the Link follows along.
+
+```tsx demo
+<Col>
+  <Text sm>Read the <Link href="#">terms and conditions</Link> before proceeding.</Text>
+  <Text>Visit our <Link href="#">help center</Link> for more information.</Text>
+  <Text lg>Check out the <Link href="#">getting started guide</Link> to begin.</Text>
+</Col>
 ```
 
 ## With Icons
@@ -140,14 +179,13 @@ Combine links with icons using Row for visual navigation cues.
 </Col>
 ```
 
-## Inherits Parent Text Size
+## Next.js Link Integration
 
-Links inside body text inherit the surrounding `Text` size — set the size on the parent and the Link follows along.
+Use the `tag` prop to render the VaneUI Link as a Next.js `Link` for client-side navigation. Alias the Next.js import so it doesn't shadow `Link` from `@vaneui/ui`.
 
-```tsx demo
-<Col>
-  <Text sm>Read the <Link href="#">terms and conditions</Link> before proceeding.</Text>
-  <Text>Visit our <Link href="#">help center</Link> for more information.</Text>
-  <Text lg>Check out the <Link href="#">getting started guide</Link> to begin.</Text>
-</Col>
+```tsx
+import NextLink from 'next/link';
+import { Link } from '@vaneui/ui';
+
+<Link href="/docs" tag={NextLink}>Documentation</Link>
 ```

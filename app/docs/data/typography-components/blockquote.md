@@ -1,21 +1,21 @@
 ---
 componentKey: blockquote
 importPath: 'import { Blockquote } from "@vaneui/ui"'
-sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/blockquote.tsx
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typography/blockquote/Blockquote.tsx
 since: 0.9.0
 ---
 
-Displays quoted content with a left border accent. Inherits appearance from the parent by default for seamless embedding in themed containers.
+Displays quoted content as a semantic `<blockquote>` with a left border accent. Inherits appearance from the parent by default for seamless embedding in themed containers.
 
 ## Basic Usage
 
-Display a styled quotation with a left border accent. Blockquote inherits appearance from the parent by default.
+A blockquote with attribution. The element renders as `<blockquote>` and inherits color from its surroundings.
 
 ```tsx demo
-<Col>
-  <Blockquote>The only way to do great work is to love what you do.</Blockquote>
-  <Blockquote>Design is not just what it looks like and feels like. Design is how it works.</Blockquote>
-</Col>
+<Blockquote>
+  <Text italic>The only way to do great work is to love what you do.</Text>
+  <Text sm secondary>— Steve Jobs</Text>
+</Blockquote>
 ```
 
 ## Appearances
@@ -43,9 +43,33 @@ Blockquote supports five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 <Col>
   <Blockquote xs primary>Size xs: The best way to predict the future is to create it.</Blockquote>
   <Blockquote sm primary>Size sm: The best way to predict the future is to create it.</Blockquote>
-  <Blockquote md primary>Size md: The best way to predict the future is to create it.</Blockquote>
+  <Blockquote primary>Size md: The best way to predict the future is to create it.</Blockquote>
   <Blockquote lg primary>Size lg: The best way to predict the future is to create it.</Blockquote>
   <Blockquote xl primary>Size xl: The best way to predict the future is to create it.</Blockquote>
+</Col>
+```
+
+## Italic
+
+Italic is not a default — opt in with the `italic` prop for traditional quotation styling.
+
+```tsx demo
+<Col>
+  <Blockquote primary>Upright (default) — no italic styling.</Blockquote>
+  <Blockquote primary italic>Italic — traditional quotation styling.</Blockquote>
+</Col>
+```
+
+## Variants
+
+Use `filled` for solid background blockquotes or `outline` (default) for the left-border accent style.
+
+```tsx demo
+<Col>
+  <Blockquote primary>Outline (default) — with a left border accent.</Blockquote>
+  <Blockquote primary filled>Filled — solid background for emphasis.</Blockquote>
+  <Blockquote info>Outline info — informational note.</Blockquote>
+  <Blockquote info filled>Filled info — strong callout.</Blockquote>
 </Col>
 ```
 
@@ -84,26 +108,17 @@ Use blockquotes with attribution for testimonials and customer quotes.
 
 ```tsx demo
 <Col>
-  <Blockquote brand>
-    <Text italic>VaneUI made our design system migration incredibly smooth. The boolean props API is intuitive and the theming is powerful.</Text>
-    <Text sm bold>— Sarah Chen, Lead Engineer</Text>
-  </Blockquote>
-  <Blockquote success>
-    <Text italic>We shipped our new dashboard in half the time thanks to VaneUI components.</Text>
-    <Text sm bold>— Alex Rivera, Product Manager</Text>
-  </Blockquote>
-</Col>
-```
-
-## Variants
-
-Use `filled` for solid background blockquotes or `outline` (default) for the left-border accent style.
-
-```tsx demo
-<Col>
-  <Blockquote primary>Outline (default) — with a left border accent.</Blockquote>
-  <Blockquote primary filled>Filled — solid background for emphasis.</Blockquote>
-  <Blockquote info>Outline info — informational note.</Blockquote>
-  <Blockquote info filled>Filled info — strong callout.</Blockquote>
+  <Card brand>
+    <Blockquote>
+      <Text italic>VaneUI made our design system migration incredibly smooth. The boolean props API is intuitive and the theming is powerful.</Text>
+      <Text sm bold>— Sarah Chen, Lead Engineer</Text>
+    </Blockquote>
+  </Card>
+  <Card success>
+    <Blockquote>
+      <Text italic>We shipped our new dashboard in half the time thanks to VaneUI components.</Text>
+      <Text sm bold>— Alex Rivera, Product Manager</Text>
+    </Blockquote>
+  </Card>
 </Col>
 ```

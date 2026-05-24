@@ -1,7 +1,7 @@
 ---
 componentKey: list
 importPath: 'import { List } from "@vaneui/ui"'
-sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/list.tsx
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typography/list/List.tsx
 since: 0.9.0
 ---
 

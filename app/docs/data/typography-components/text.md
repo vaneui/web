@@ -1,7 +1,7 @@
 ---
 componentKey: text
 importPath: 'import { Text } from "@vaneui/ui"'
-sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/text.tsx
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typography/text/Text.tsx
 since: 0.9.0
 ---
 
@@ -21,25 +21,17 @@ Text comes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ```tsx demo
 <Col>
-  <Text sm>Small text for captions and secondary content</Text>
-  <Text>Medium text for body content (default)</Text>
+  <Text xs>Extra small text</Text>
+  <Text sm>Small text for captions</Text>
+  <Text>Medium text (default)</Text>
   <Text lg>Large text for emphasis</Text>
+  <Text xl>Extra large text</Text>
 </Col>
 ```
 
 ## Inherit Appearance (Default)
 
-By default, Text uses the `inherit` appearance — it inherits text color from its parent via CSS cascade instead of applying its own color. This means text inside a colored container automatically picks up the parent's color.
-
-```tsx
-<Card primary filled>
-  <Text>Inherits primary color from Card</Text>
-</Card>
-<Card success filled>
-  <Text>Inherits success color</Text>
-  <Text danger>Explicit danger overrides inherit</Text>
-</Card>
-```
+Text defaults to the `inherit` appearance — it picks up its color from the parent via CSS cascade instead of applying its own. Set an explicit appearance to override.
 
 ```tsx demo
 <Row flexWrap>
@@ -74,42 +66,85 @@ Text supports explicit color appearances: `primary`, `brand`, `accent`, `seconda
 </Col>
 ```
 
-## Text Styling
+## Font Weights
 
-Use `bold`, `semibold`, `italic`, `underline`, `uppercase` and font families: `sans`, `serif`, `mono`.
+Control weight with `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
 
 ```tsx demo
 <Col>
-  <Text bold>Bold text for emphasis</Text>
-  <Text semibold>Semibold for subtle emphasis</Text>
-  <Text italic>Italic text for quotes or terms</Text>
-  <Text underline>Underlined text for links</Text>
+  <Text thin>Thin weight</Text>
+  <Text light>Light weight</Text>
+  <Text normal>Normal weight</Text>
+  <Text medium>Medium weight</Text>
+  <Text semibold>Semibold weight</Text>
+  <Text bold>Bold weight</Text>
+  <Text extrabold>Extra bold weight</Text>
+  <Text black>Black weight</Text>
+</Col>
+```
+
+## Font Families
+
+Switch font family with `sans` (default), `serif`, `mono`.
+
+```tsx demo
+<Col>
+  <Text sans>Sans-serif font (default)</Text>
+  <Text serif>Serif font for editorial content</Text>
   <Text mono>Monospace for code or technical content</Text>
+</Col>
+```
+
+## Italic, Underline, Line-Through
+
+```tsx demo
+<Col>
+  <Text italic>Italic text for quotes or terms</Text>
+  <Text underline>Underlined text for emphasis</Text>
+  <Text lineThrough>Line-through for deleted content</Text>
+</Col>
+```
+
+## Text Transform
+
+Use `uppercase`, `lowercase`, `capitalize`.
+
+```tsx demo
+<Col>
   <Text uppercase>Uppercase for labels</Text>
+  <Text lowercase>LOWERCASE NORMALIZED</Text>
+  <Text capitalize>capitalized words example</Text>
 </Col>
 ```
 
 ## Text Alignment
 
-Align text with `textLeft`, `textCenter`, `textRight`, `textJustify`.
+Align text with `textLeft` (default), `textCenter`, `textRight`, `textJustify`. Text defaults to `wFit`, so set `wFull` to see alignment effects across the container.
 
 ```tsx demo
-<div className="space-y-2 border-2 border-dashed border-gray-300 p-4">
-  <Text textLeft>Left aligned (default)</Text>
-  <Text textCenter>Center aligned</Text>
-  <Text textRight>Right aligned</Text>
-</div>
+<Col>
+  <Text wFull>Left aligned (default)</Text>
+  <Text wFull textCenter>Center aligned</Text>
+  <Text wFull textRight>Right aligned</Text>
+  <Text wFull textJustify>Justified text spreads to fill the line, distributing extra space between words across the full container width.</Text>
+</Col>
+```
+
+## Truncate and Line Clamp
+
+Use `truncate` for single-line ellipsis, or `lineClamp2`/`lineClamp3`/`lineClamp4`/`lineClamp5` for multi-line clamping.
+
+```tsx demo
+<Col>
+  <Text wFull truncate>Truncated single line of text that will be cut off with an ellipsis when it exceeds the container width.</Text>
+  <Text wFull lineClamp2>Clamped to two lines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</Text>
+  <Text wFull lineClamp3>Clamped to three lines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Text>
+</Col>
 ```
 
 ## Letter Spacing
 
-Control letter spacing with tracking props: `trackingTighter`, `trackingTight`, `trackingNormal`, `trackingWide`, `trackingWider`, `trackingWidest`.
-
-```tsx
-<Text trackingTight>Tight tracking</Text>
-<Text trackingWide>Wide tracking</Text>
-<Text trackingWidest>Widest tracking</Text>
-```
+Control letter spacing with `trackingTighter`, `trackingTight`, `trackingNormal` (default), `trackingWide`, `trackingWider`, `trackingWidest`.
 
 ```tsx demo
 <Col>
