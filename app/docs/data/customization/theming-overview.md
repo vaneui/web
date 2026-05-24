@@ -15,13 +15,13 @@ Each component has a `ComponentTheme` instance that defines:
 // Simplified view of how a component theme is structured
 const buttonTheme = new ComponentTheme(
   "button",                           // Default tag
-  "vane-button w-fit cursor-pointer", // Base classes
+  "vane-button",                      // Base classes (kept minimal)
   {
     size: { px, py, text, gap },      // Size-related themes
     appearance: { bg, text, border }, // Appearance themes
     layout: { radius, border, ring }  // Layout themes
   },
-  { md: true, primary: true },        // Defaults
+  buttonDefaults,                     // Imported from buttonDefaults.ts
   BUTTON_CATEGORIES                   // Prop categories
 );
 ```
@@ -42,7 +42,7 @@ class FontSizeTheme extends BaseTheme {
 class SimpleConsumerTheme extends BaseTheme {
   getClasses(extractedKeys) {
     if (!extractedKeys.appearance) return [];
-    return ["[background:var(--bg-color)]", "text-(--text-color)"];
+    return ["bg-(--bg-color)", "text-(--text-color)"];
   }
 }
 ```
@@ -56,33 +56,40 @@ import { useTheme } from '@vaneui/ui';
 
 function CustomComponent() {
   const theme = useTheme();
-  
-  // Access component themes
-  const buttonTheme = theme.button;
-  const cardTheme = theme.card;
-  
+
+  // Compound themes are nested by sub-part
+  const buttonMainTheme = theme.button.main;
+  const cardMainTheme = theme.card.main;
+  // Simple themes are accessed directly
+  const badgeTheme = theme.badge;
+
   return <div>Custom component</div>;
 }
 ```
 
 ## Available Component Themes
 
-VaneUI includes themes for all components:
+VaneUI includes themes for all components.
 
-**UI Components:**
-- `button`, `badge`, `chip`, `code`, `input`, `checkbox`, `label`, `img`
+**Interactive:**
+- `iconButton`, `badge`, `icon`, `chip`, `code`, `kbd`, `mark`, `input`, `label`, `img`
+- `button` — compound: `button.main`, `button.spinner`
+- `checkbox` — compound: `checkbox.input`, `checkbox.check`, `checkbox.indeterminate`, `checkbox.wrapper`
 
-**Layout Components:**
-- `card`, `divider`, `container`, `row`, `col`, `stack`, `section`
+**Layout:**
+- `divider`, `container`, `row`, `col`, `stack`, `section`
 - `grid2`, `grid3`, `grid4`, `grid5`, `grid6`
+- `card` — compound: `card.main`, `card.header`, `card.body`, `card.footer`
 
-**Typography Components:**
-- `text`, `title`, `pageTitle`, `sectionTitle`, `link`, `list`, `listItem`
+**Typography:**
+- `text`, `title`, `pageTitle`, `sectionTitle`, `blockquote`, `link`, `list`, `listItem`
 
-**Overlay Components:**
-- `overlay` -- Overlay backdrop theme
-- `modal` -- Contains nested sub-themes: `modal.content`, `modal.overlay`, `modal.header`, `modal.body`, `modal.footer`
-- `popup` -- Popup floating element theme
+**Overlay / Floating:**
+- `overlay` — Overlay backdrop theme
+- `popup` — Popup floating element theme
+- `modal` — compound: `modal.content`, `modal.overlay`, `modal.header`, `modal.body`, `modal.footer`, `modal.closeButton`
+- `menu` — compound: `menu.item`, `menu.popup`, `menu.divider`, `menu.label`
+- `navLink` — compound: `navLink.root`, `navLink.label`
 
 ## ThemeProvider Props
 
@@ -91,21 +98,23 @@ VaneUI includes themes for all components:
 Set default prop values for components:
 
 ```tsx
-import { ThemeProvider } from '@vaneui/ui';
+import { ThemeProvider, type ThemeDefaults } from '@vaneui/ui';
 
-const defaults = {
+const defaults: ThemeDefaults = {
   button: {
-    primary: true,  // All buttons are primary by default
-    md: true,       // All buttons are medium size
+    main: {
+      filled: true, // change variant from outline (built-in) to filled
+      lg: true,     // larger than built-in sm
+    },
   },
   card: {
-    rounded: true,  // All cards have rounded corners
-  }
+    main: { shadow: true }, // add shadow (not a default)
+  },
 };
 
 <ThemeProvider themeDefaults={defaults}>
-  <Button>Primary medium button</Button>
-  <Card>Rounded card</Card>
+  <Button>Large filled button</Button>
+  <Card>Card with shadow</Card>
 </ThemeProvider>
 ```
 
@@ -114,14 +123,18 @@ const defaults = {
 Add additional CSS classes based on active props:
 
 ```tsx
-const extraClasses = {
+import type { ThemeExtraClasses } from '@vaneui/ui';
+
+const extraClasses: ThemeExtraClasses = {
   button: {
-    primary: 'shadow-lg hover:shadow-xl transition-shadow',
-    danger: 'animate-pulse',
+    main: {
+      primary: 'shadow-lg hover:shadow-xl transition-shadow',
+      danger: 'animate-pulse',
+    },
   },
   card: {
-    filled: 'backdrop-blur-sm',
-  }
+    main: { filled: 'backdrop-blur-sm' },
+  },
 };
 
 <ThemeProvider extraClasses={extraClasses}>
@@ -137,14 +150,14 @@ Function for programmatic theme modifications:
 ```tsx
 <ThemeProvider themeOverride={(theme) => {
   // Modify button base classes
-  theme.button.base += ' uppercase tracking-wide';
-  
+  theme.button.main.base += ' uppercase tracking-wide';
+
   // Modify defaults
-  theme.button.defaults = { 
-    ...theme.button.defaults, 
-    semibold: true 
+  theme.button.main.defaults = {
+    ...theme.button.main.defaults,
+    bold: true,
   };
-  
+
   return theme;
 }}>
   <App />
@@ -157,20 +170,20 @@ Control how nested ThemeProviders combine:
 
 ```tsx
 // Default: 'merge' - child theme merges with parent
-<ThemeProvider themeDefaults={{ button: { lg: true } }}>
-  <ThemeProvider themeDefaults={{ button: { primary: true } }}>
-    {/* Button gets both lg AND primary */}
-    <Button>Large Primary</Button>
+<ThemeProvider themeDefaults={{ button: { main: { lg: true } } }}>
+  <ThemeProvider themeDefaults={{ button: { main: { filled: true } } }}>
+    {/* Button gets both lg AND filled */}
+    <Button>Large Filled</Button>
   </ThemeProvider>
 </ThemeProvider>
 
-// 'replace' - child theme replaces parent entirely
-<ThemeProvider themeDefaults={{ button: { lg: true } }}>
-  <ThemeProvider 
-    themeDefaults={{ button: { sm: true } }}
+// 'replace' - child theme replaces parent entirely (resets to defaultTheme + child)
+<ThemeProvider themeDefaults={{ button: { main: { lg: true } } }}>
+  <ThemeProvider
+    themeDefaults={{ button: { main: { sm: true } } }}
     mergeStrategy="replace"
   >
-    {/* Button only gets sm, not lg */}
+    {/* Button is small only (parent's lg is ignored) */}
     <Button>Small Only</Button>
   </ThemeProvider>
 </ThemeProvider>
@@ -178,41 +191,55 @@ Control how nested ThemeProviders combine:
 
 ## Data Attributes
 
-Components output data attributes that CSS rules use for styling:
+Components emit data attributes that CSS rules use for styling:
 
 ```html
-<button 
+<button
   class="vane-button text-(length:--fs) py-(--py) ..."
+  data-vane-type="ui"
   data-size="md"
-  data-appearance="primary"
-  data-variant="outline"
+  data-appearance="danger"
+  data-variant="filled"
 >
   Click me
 </button>
 ```
 
-CSS rules in `vars.css` set variables based on these attributes:
+CSS rules in `rules.css` set unit variables per `data-size` and per-component class — `--fs-unit`, `--py-unit`, and (for Icon) `--icon-size` are all set together so font-size, padding, gap, and border-radius scale together:
 
 ```css
-.vane-button[data-size="md"] { 
-  --fs-unit: 8; 
-  --py-unit: 2; 
+/* Per-component size mapping */
+.vane-button[data-size="md"] {
+  --fs-unit: var(--fs-unit-md);
+  --py-unit: 2;
 }
 
-[data-variant="outline"][data-appearance="primary"] {
-  --text-color: var(--color-text-primary);
-  --bg-color: var(--color-bg-primary);
+/* Icon uses a decoupled --icon-size, not --fs */
+.vane-icon[data-size="md"] {
+  --fs-unit: var(--fs-unit-md);
+  --icon-size: calc(var(--spacing) * 8);
+  --py-unit: 2;
+}
+
+/* Appearance + variant set the color palette */
+[data-variant="filled"][data-appearance="danger"] {
+  --text-color: var(--color-text-filled-danger);
+  --bg-color: var(--color-bg-filled-danger);
 }
 ```
 
+## Baseline Inheritance
+
+`primary + outline` matches the `:root` palette, so VaneUI **omits** `data-appearance` and `data-variant` for components resolving to those values. The component then inherits color variables from its nearest ancestor — this is what lets a default `<Button>` inside a filled `<Card>` automatically pick up the Card's text and background colors. Identity components (`Mark`, `Chip`, `Link`, `Checkbox`) deviate from baseline and always emit their own attributes. See [Variant Inheritance](./variant-inheritance) for details.
+
 ## Flow Summary
 
-1. User writes: `<Button primary lg filled>Click</Button>`
-2. Button component calls `useTheme()` to get `theme.button`
+1. User writes: `<Button danger lg filled>Click</Button>`
+2. Button component calls `useTheme()` to get `theme.button.main`
 3. `ThemedComponent` calls `theme.getComponentConfig(props)`
-4. Props are extracted by category: `{ size: 'lg', appearance: 'primary', variant: 'filled' }`
+4. Props merged with defaults, then extracted by category: `{ size: 'lg', appearance: 'danger', variant: 'filled' }`
 5. Theme tree is walked, each `BaseTheme.getClasses()` returns CSS classes
-6. Classes are merged with `twMerge()`, data attributes are added
-7. Final render: `<button class="..." data-size="lg" data-appearance="primary" data-variant="filled">`
-8. CSS rules in `vars.css` set variables based on data attributes
+6. Classes are merged with `twMerge()`, data attributes are added (because `danger` + `filled` deviate from the `primary + outline` baseline)
+7. Final render: `<button class="..." data-vane-type="ui" data-size="lg" data-appearance="danger" data-variant="filled">`
+8. CSS rules in `rules.css` set unit variables and the appearance/variant palette
 9. Browser computes final styles from CSS variables
