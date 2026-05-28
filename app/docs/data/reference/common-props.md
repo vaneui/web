@@ -191,6 +191,8 @@ Focus-visible outline visibility for keyboard navigation indicators.
 | `focusVisible` | Enable focus-visible outline |
 | `noFocusVisible` | Disable focus-visible outline |
 
+Default on `Link`, `NavLink`, `MenuItem`. Auto-enabled on components that tag-switch to `<a>` via `href` (`Badge`, `Card`, `Chip`, `Code`, `Row`, `Col`, `Stack`).
+
 ## Cursor
 
 Cursor appearance for interactive elements and states.

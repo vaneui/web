@@ -9,7 +9,7 @@ A vertical flex container with built-in `padding` and `flexWrap`. Think of `Stac
 
 ## Basic Stack
 
-`Stack` defaults to `column`, `flex`, `gap`, `padding`, `flexWrap`, `md`, `noBorder`, `noRing`, `outline`, and `sharp` — you don't need to pass any of these.
+`Stack` defaults to `column`, `flex`, `gap`, `padding`, `flexWrap`, `md`, `noBorder`, `noRing`, `outline`, and `sharp` — you don't need to pass any of these. Pass `href` to render `Stack` as `<a>` instead of `<div>` — a focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Stack>
@@ -297,5 +297,33 @@ Stack's built-in padding makes it a natural container for a form — each `Label
     <Text sm>Remember me</Text>
   </Row>
   <Button filled>Sign in</Button>
+</Stack>
+```
+
+## As Link
+
+Add `href` to render the Stack as an `<a>` tag — useful for hero cards and large clickable surfaces. A keyboard focus-visible outline auto-renders so the link is reachable via Tab; opt out with `noFocusVisible`.
+
+```tsx demo
+<Stack href="#get-started" border rounded itemsStart className="max-w-md">
+  <Zap size={28} />
+  <PageTitle>Get started in minutes</PageTitle>
+  <Text>Install the package, drop in ThemeProvider, and start shipping.</Text>
+  <Button filled>Read the guide</Button>
+</Stack>
+```
+
+## Next.js Link Integration
+
+Use the `tag` prop to render the Stack as a Next.js `Link` for client-side navigation.
+
+```tsx
+import Link from 'next/link';
+import { Stack, PageTitle, Text, Button } from '@vaneui/ui';
+
+<Stack href="/docs/getting-started" tag={Link} border rounded itemsStart>
+  <PageTitle>Get started in minutes</PageTitle>
+  <Text>Install the package, drop in ThemeProvider, and start shipping.</Text>
+  <Button filled>Read the guide</Button>
 </Stack>
 ```

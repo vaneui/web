@@ -137,6 +137,10 @@ A real-world sidebar pattern with icons, active state, dividers, and trailing ba
 </Card>
 ```
 
+## Keyboard Focus
+
+NavLink renders a keyboard focus-visible outline by default so keyboard users can see where they are. Opt out with `noFocusVisible`.
+
 ## Next.js Link Integration
 
 Use the `tag` prop to render NavLink as a Next.js `Link` for client-side navigation.

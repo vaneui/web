@@ -9,7 +9,7 @@ Renders inline code snippets with syntax highlighting. Perfect for displaying co
 
 ## Basic Usage
 
-Inline code snippets with default styling. `Code` is `align-middle`, so it sits centered with the surrounding text.
+Inline code snippets with default styling. `Code` is `align-middle`, so it sits centered with the surrounding text. Pass `href` to render `Code` as `<a>` instead of `<code>` — a focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Col>
@@ -124,4 +124,29 @@ Code supports `rounded` (default), `pill`, and `sharp` border-radius styles.
   <Code pill>pill</Code>
   <Code sharp>sharp</Code>
 </Row>
+```
+
+## As Link
+
+Add `href` to render the `Code` element as an `<a>` tag. A keyboard focus-visible outline auto-renders so the link is reachable via Tab; opt out with `noFocusVisible`.
+
+```tsx demo
+<Col>
+  <Text>Install <Code href="https://npmjs.com/package/@vaneui/ui" target="_blank" rel="noopener noreferrer">@vaneui/ui</Code> from npm.</Text>
+  <Text>The <Code href="#useState" info>useState</Code> hook returns a value and a setter.</Text>
+  <Text>See the <Code href="#install" filled success>install guide</Code> for setup steps.</Text>
+</Col>
+```
+
+## Next.js Link Integration
+
+Use the `tag` prop to render `Code` as a Next.js `Link` for client-side navigation.
+
+```tsx
+import Link from 'next/link';
+import { Code, Text } from '@vaneui/ui';
+
+<Text>
+  Read the <Code href="/docs/getting-started" tag={Link}>getting started guide</Code> for setup steps.
+</Text>
 ```

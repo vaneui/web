@@ -35,7 +35,7 @@ import { ThemeProvider, Link } from '@vaneui/ui';
 
 ## Basic Link
 
-A styled anchor element for navigation. Unlike other typography components which default to `inherit`, Link defaults to the `link` appearance (blue color) with `underline`.
+A styled anchor element for navigation. Unlike other typography components which default to `inherit`, Link defaults to the `link` appearance (blue color) with `underline`, and ships with `focusVisible` on for a keyboard focus outline.
 
 ```tsx demo
 <Link href="#">Click here to learn more</Link>
@@ -110,7 +110,7 @@ Use `bold`, `semibold`, `italic`, or `noUnderline` to remove the default underli
 
 ## Hover State
 
-Links keep an underline at rest. With `noUnderline`, the underline appears on hover for affordance.
+Links keep an underline at rest. With `noUnderline`, the underline appears on hover for affordance. Links also render a keyboard focus-visible outline by default for keyboard users (opt out with `noFocusVisible`).
 
 ```tsx demo
 <Col>

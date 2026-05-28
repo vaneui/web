@@ -148,7 +148,7 @@ Pair a chip with an inline close icon to represent removable selections inside a
 
 ## As Link
 
-Pass `href` to render the chip as an `<a>` — useful for clickable tag listings.
+Pass `href` to render the chip as an `<a>` — useful for clickable tag listings. When `href` is set, the chip gains a keyboard focus-visible outline by default. Opt out with `noFocusVisible`.
 
 ```tsx demo
 <Row flexWrap>

@@ -9,7 +9,7 @@ A fundamental layout component that arranges its children in a horizontal line. 
 
 ## Basic Row
 
-A horizontal flex container. `Row` defaults to `gap`, `itemsCenter`, `noPadding`, `noBorder`, `noRing`, `outline`, and `sharp` — you don't need to pass these explicitly.
+A horizontal flex container. `Row` defaults to `gap`, `itemsCenter`, `noPadding`, `noBorder`, `noRing`, `outline`, and `sharp` — you don't need to pass these explicitly. Pass `href` to render `Row` as `<a>` instead of `<div>` — a focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Row>
@@ -256,4 +256,39 @@ Row composes naturally inside a Card to lay out header actions, button groups, o
     <Button filled>Save</Button>
   </Row>
 </Card>
+```
+
+## As Link
+
+Add `href` to render the Row as an `<a>` tag — useful for clickable list rows. A keyboard focus-visible outline auto-renders so the link is reachable via Tab; opt out with `noFocusVisible`.
+
+```tsx demo
+<Col>
+  <Row href="#inbox" justifyBetween padding border rounded>
+    <Text semibold>Inbox</Text>
+    <Badge primary filled>12</Badge>
+  </Row>
+  <Row href="#drafts" justifyBetween padding border rounded>
+    <Text semibold>Drafts</Text>
+    <Badge secondary>3</Badge>
+  </Row>
+  <Row href="https://github.com" target="_blank" rel="noopener noreferrer" justifyBetween padding border rounded>
+    <Text semibold>GitHub</Text>
+    <Text sm secondary>External</Text>
+  </Row>
+</Col>
+```
+
+## Next.js Link Integration
+
+Use the `tag` prop to render the Row as a Next.js `Link` for client-side navigation.
+
+```tsx
+import Link from 'next/link';
+import { Row, Text, Badge } from '@vaneui/ui';
+
+<Row href="/inbox" tag={Link} justifyBetween padding border rounded>
+  <Text semibold>Inbox</Text>
+  <Badge primary filled>12</Badge>
+</Row>
 ```

@@ -9,7 +9,7 @@ A vertical flex container. Pairs with `Row` to build column-based layouts.
 
 ## Basic Col
 
-`Col` defaults to `column`, `flex`, `gap`, `md`, `noPadding`, `noBorder`, `noRing`, `outline`, and `sharp` — you don't need to pass any of these.
+`Col` defaults to `column`, `flex`, `gap`, `md`, `noPadding`, `noBorder`, `noRing`, `outline`, and `sharp` — you don't need to pass any of these. Pass `href` to render `Col` as `<a>` instead of `<div>` — a focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Col>
@@ -248,5 +248,43 @@ Col is a natural container for a vertical stack of `NavLink`s in a sidebar.
   <NavLink href="#">Team</NavLink>
   <NavLink href="#">Billing</NavLink>
   <NavLink href="#">Settings</NavLink>
+</Col>
+```
+
+## As Link
+
+Add `href` to render the Col as an `<a>` tag — useful for clickable feature tiles. A keyboard focus-visible outline auto-renders so the link is reachable via Tab; opt out with `noFocusVisible`.
+
+```tsx demo
+<Row itemsStart>
+  <Col href="#docs" flex1 padding border rounded>
+    <BookOpen size={20} />
+    <Title>Documentation</Title>
+    <Text secondary>Browse guides and API reference.</Text>
+  </Col>
+  <Col href="#examples" flex1 padding border rounded>
+    <Codepen size={20} />
+    <Title>Examples</Title>
+    <Text secondary>Copy-ready component patterns.</Text>
+  </Col>
+  <Col href="https://github.com" target="_blank" rel="noopener noreferrer" flex1 padding border rounded>
+    <GitHub size={20} />
+    <Title>Source</Title>
+    <Text secondary>View the project on GitHub.</Text>
+  </Col>
+</Row>
+```
+
+## Next.js Link Integration
+
+Use the `tag` prop to render the Col as a Next.js `Link` for client-side navigation.
+
+```tsx
+import Link from 'next/link';
+import { Col, Title, Text } from '@vaneui/ui';
+
+<Col href="/docs" tag={Link} padding border rounded>
+  <Title>Documentation</Title>
+  <Text secondary>Browse guides and API reference.</Text>
 </Col>
 ```

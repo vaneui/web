@@ -93,6 +93,18 @@ Badges support different font weights.
 </Row>
 ```
 
+## As Link
+
+Pass `href` to render the badge as an `<a>` — useful for clickable status labels. When `href` is set, the badge gains a keyboard focus-visible outline by default (opt out with `noFocusVisible`).
+
+```tsx demo
+<Row flexWrap>
+  <Badge href="#">Status</Badge>
+  <Badge href="#" success filled>Live</Badge>
+  <Badge href="#" warning>Pending</Badge>
+</Row>
+```
+
 ## Status Badges in Context
 
 Badges work well as status indicators inside cards and other layout components.

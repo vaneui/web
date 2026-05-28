@@ -16,7 +16,7 @@ A dropdown menu triggered by a button with full keyboard navigation. Contains `M
 
 ## Basic Menu
 
-A dropdown menu triggered by a button. Pass the trigger as a React element via the `trigger` prop; children are the menu contents. Includes full keyboard navigation (Arrow keys, Enter, Escape, Tab) and focus management — focus returns to the trigger when the menu closes.
+A dropdown menu triggered by a button. Pass the trigger as a React element via the `trigger` prop; children are the menu contents. Includes full keyboard navigation (Arrow keys, Enter, Escape, Tab) and focus management with a keyboard-visible outline on each item — focus returns to the trigger when the menu closes.
 
 ```tsx
 import { Menu, MenuItem, Button } from "@vaneui/ui";
@@ -167,3 +167,5 @@ Menu supports additional configuration for fine-tuning behavior:
 | `closeMenuOnClick` | inherits | Override the menu-level `closeOnItemClick` for this item |
 | `href` | — | Render as anchor tag |
 | `disabled` | `false` | Prevent interaction |
+| `focusVisible` | `true` | Render a keyboard focus-visible outline |
+| `noFocusVisible` | — | Disable the keyboard focus-visible outline |

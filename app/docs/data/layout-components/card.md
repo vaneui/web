@@ -218,7 +218,7 @@ Cards can be nested. Pair a `secondary` or `tertiary` inner card with the defaul
 
 ## Card as Link
 
-Add `href` to make the card a clickable link. The card automatically renders as an `<a>` tag when `href` is provided, ensuring valid HTML.
+Add `href` to make the card a clickable link. The card automatically renders as an `<a>` tag when `href` is provided, ensuring valid HTML. When `href` is set, the card gains a keyboard focus-visible outline by default. Opt out with `noFocusVisible`.
 
 ```tsx demo
 <Row flexWrap>
