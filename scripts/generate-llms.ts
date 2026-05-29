@@ -33,7 +33,7 @@ function generate(): string {
   lines.push('# VaneUI Documentation');
   lines.push('> Complete documentation for VaneUI React component library v0.9.0');
   lines.push('');
-  lines.push('- Repository: https://github.com/nickolaev-ev/vaneui');
+  lines.push('- Repository: https://github.com/vaneui/vaneui');
   lines.push('- Documentation: https://vaneui.com');
   lines.push('');
 

@@ -7,9 +7,18 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { parseFrontmatter } from "../../../../lib/docs/frontmatter";
 import type { DocPageFrontmatter, DocsPage } from "../../types";
+import { JsonLd, buildBreadcrumbSchema, buildTechArticleSchema } from "../../../components/JsonLd";
 
 interface DocsPageProps {
   params: Promise<{ category: string, slug: string }>
+}
+
+// Pre-render every docs URL at build time. Without this the route is SSR'd
+// on each request and `fs.readFile` runs every time.
+export function generateStaticParams(): { category: string, slug: string }[] {
+  return docsSections.flatMap(section =>
+    section.pages.map(page => ({ category: section.slug, slug: page.slug }))
+  );
 }
 
 export async function generateMetadata({params}: DocsPageProps): Promise<Metadata> {
@@ -17,9 +26,23 @@ export async function generateMetadata({params}: DocsPageProps): Promise<Metadat
   const docsCategory = docsSections.find(c => c.slug === category);
   const docsPage = docsCategory?.pages.find(page => page.slug === slug);
 
+  const pageName = docsPage?.name || slug;
+  const categoryName = docsCategory?.name || category;
+  // Page name first, brand last — better CTR pattern and survives Google's
+  // ~60-char truncation. Category in the middle adds context for
+  // navigational queries (e.g. "VaneUI Button"). Fallback description avoids
+  // leaking the raw slug into search snippets.
+  const title = `${pageName} - ${categoryName} - VaneUI`;
+  const description = docsPage?.description
+    ?? docsCategory?.description
+    ?? `${pageName} documentation for VaneUI — a React component library powered by Tailwind CSS.`;
+
   return {
-    title: `VaneUI | ${docsPage?.name || slug} | ${docsCategory?.name || category}`,
-    description: `${docsPage?.description || docsCategory?.description || category}`,
+    title,
+    description,
+    alternates: {
+      canonical: `/docs/${category}/${slug}`,
+    },
   }
 }
 
@@ -86,11 +109,29 @@ export default async function Page({params}: DocsPageProps) {
       ?? (frontmatter?.componentKey as DocsPage['componentKey'] | undefined),
   };
 
+  const pageUrl = `https://vaneui.com/docs/${docsSection.slug}/${docsPage.slug}`;
+  const breadcrumb = buildBreadcrumbSchema({
+    category: docsSection.slug,
+    categoryName: docsSection.name,
+    slug: docsPage.slug,
+    pageName: docsPage.name,
+  });
+  const techArticle = buildTechArticleSchema({
+    pageName: docsPage.name,
+    description: docsPage.description,
+    url: pageUrl,
+    articleSection: docsSection.name,
+  });
+
   return (
-    <DocsPageContent
-      pageData={enrichedPage}
-      section={docsSection}
-      md={md}
-    />
+    <>
+      <JsonLd data={breadcrumb} />
+      <JsonLd data={techArticle} />
+      <DocsPageContent
+        pageData={enrichedPage}
+        section={docsSection}
+        md={md}
+      />
+    </>
   );
 }

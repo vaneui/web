@@ -1,9 +1,7 @@
-'use client'
-
 import React from 'react';
 import {
   Col, Text, Title, PageTitle, Container, Divider,
-  ThemeProvider, Row, type ComponentKey,
+  ThemeProvider, Row, Chip, type ComponentKey,
 } from '@vaneui/ui';
 import { DocsPageProps } from './types';
 import { toHtmlId, extractMarkdownHeadings } from "../utils/stringUtils";
@@ -13,6 +11,10 @@ import { MetaStrip } from './MetaStrip';
 import { DocsPropsTable } from './DocsPropsTable';
 import Link from "next/link";
 
+// Server component: the structural shell renders on the server (HTML is
+// crawlable + immediate), while ThemeProvider, DocsMarkdown's live demos,
+// and OnThisPage's scroll tracking continue to hydrate as client islands.
+// No hooks here — sections array is computed once per render server-side.
 export function DocsPageContent(
   {
     pageData,
@@ -22,55 +24,27 @@ export function DocsPageContent(
 
   const componentKey = pageData.componentKey;
 
-  // Build sections for OnThisPage navigation
-  const sections = React.useMemo(() => {
-    const pageTitleId = toHtmlId(pageData.name);
-    const propsTitle = pageData.name + " Props";
-    const propsTitleId = toHtmlId(propsTitle);
-
-    const navSections: Array<{
-      title: string;
-      id: string;
-      level: number;
-    }> = [];
-
-    navSections.push({
-      title: pageData.name,
-      id: pageTitleId,
-      level: 0
-    });
-
-    // Every example heading lives in the page-level `md` string for both
-    // MD-first component pages and markdown guide pages — extract them all.
-    if (md && md.trim()) {
-      const markdownHeadings = extractMarkdownHeadings(md);
-      markdownHeadings.forEach(heading => {
-        navSections.push({
-          title: heading.title,
-          id: heading.id,
-          level: heading.level
-        });
-      });
-    }
-
-    // Single anchor for the auto-generated props table — replaces the
-    // 30+ per-category entries the previous "props dump" emitted.
-    if (componentKey) {
-      navSections.push({
-        title: propsTitle,
-        id: propsTitleId,
-        level: 0,
-      });
-    }
-
-    return navSections;
-  }, [pageData.name, componentKey, md]);
-
   const pageTitle = pageData.name;
   const pageTitleId = toHtmlId(pageTitle);
 
   const propsTitle = pageTitle + " Props";
   const propsTitleId = toHtmlId(propsTitle);
+
+  // Build sections for OnThisPage navigation. Computed inline — server
+  // components don't need useMemo (no re-renders).
+  const sections: Array<{ title: string; id: string; level: number }> = [
+    { title: pageTitle, id: pageTitleId, level: 0 },
+    ...(md && md.trim()
+      ? extractMarkdownHeadings(md).map(h => ({
+          title: h.title,
+          id: h.id,
+          level: h.level,
+        }))
+      : []),
+    ...(componentKey
+      ? [{ title: propsTitle, id: propsTitleId, level: 0 }]
+      : []),
+  ];
 
   const titleClasses = "after:content-['#'] after:invisible hover:after:visible after:ml-2 after:opacity-25";
 
@@ -127,6 +101,27 @@ export function DocsPageContent(
                   <Link href={`#${propsTitleId}`}>{propsTitle}</Link>
                 </Title>
                 <DocsPropsTable componentKey={componentKey as ComponentKey} />
+              </Col>
+            )}
+
+            {/* Related pages in the same category — gives crawlers (and AI
+                crawlers) a strong internal-link signal between siblings, and
+                helps readers discover adjacent components.
+                Wrap pattern: <Link><Chip/></Link> instead of `tag={Link}`
+                so this stays renderable from a server component (function
+                refs can't cross the server/client boundary). */}
+            {section.pages.length > 1 && (
+              <Col wFull>
+                <Text sm uppercase secondary mono>More in {section.name}</Text>
+                <Row flexWrap>
+                  {section.pages
+                    .filter(p => p.slug !== pageData.slug)
+                    .map(p => (
+                      <Link key={p.slug} href={`/docs/${section.slug}/${p.slug}`}>
+                        <Chip>{p.name}</Chip>
+                      </Link>
+                    ))}
+                </Row>
               </Col>
             )}
           </Col>

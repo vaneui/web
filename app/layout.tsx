@@ -2,8 +2,9 @@ import { Plus_Jakarta_Sans, DM_Serif_Display, JetBrains_Mono } from 'next/font/g
 import './globals.css';
 import React from 'react';
 import ThemeWrapper from "./themeWrapper";
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next"
+import { JsonLd, WEBSITE_SCHEMA, SOFTWARE_SCHEMA } from "./components/JsonLd"
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -24,9 +25,61 @@ const jetBrainsMono = JetBrains_Mono({
   variable: '--font-jetbrains-mono',
 })
 
+const SITE_TITLE = 'VaneUI - Deliver clean UI without complex code';
+const SITE_DESCRIPTION = 'VaneUI is a React component library powered by Tailwind CSS. Designed for building beautiful and responsive user interfaces.';
+
+// Vercel preview deployments should not be indexed; production is fine.
+// Falls back to allowing indexation everywhere else (self-host, local
+// preview via `next start`).
+const shouldNoIndex = process.env.VERCEL_ENV === 'preview';
+
 export const metadata: Metadata = {
-  title: 'VaneUI - Deliver clean UI without complex code',
-  description: 'VaneUI is a React component library powered by Tailwind CSS. Designed for building beautiful and responsive user interfaces.',
+  metadataBase: new URL('https://vaneui.com'),
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  applicationName: 'VaneUI',
+  keywords: ['react', 'ui', 'components', 'tailwind', 'tailwindcss', 'typescript', 'vaneui', 'design system', 'headless'],
+  authors: [{ name: 'VaneUI' }],
+  creator: 'VaneUI',
+  publisher: 'VaneUI',
+  ...(shouldNoIndex
+    ? { robots: { index: false, follow: false } }
+    : {}),
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: '/',
+    siteName: 'VaneUI',
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: '/og-default.png',
+        width: 1200,
+        height: 630,
+        alt: 'VaneUI - React component library powered by Tailwind CSS',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: ['/og-default.png'],
+  },
+  alternates: {
+    canonical: '/',
+    types: {
+      // Discovery hint for AI crawlers that look for llms.txt by convention.
+      'text/plain': '/llms.txt',
+    },
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#ffffff',
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({children}: {
@@ -43,6 +96,8 @@ export default function RootLayout({children}: {
       <script src="https://analytics.ahrefs.com/analytics.js" data-key="+JtunyPZi10uLSHXMP+3ug" async></script>
     </head>
     <body className={`${plusJakartaSans.variable} ${dmSerifDisplay.variable} ${jetBrainsMono.variable} font-sans min-w-xs`}>
+    <JsonLd data={WEBSITE_SCHEMA} />
+    <JsonLd data={SOFTWARE_SCHEMA} />
     <ThemeWrapper>
       {children}
     </ThemeWrapper>

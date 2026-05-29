@@ -1,9 +1,13 @@
-'use client'
-
 import React from 'react';
-import Link from 'next/link';
-import { Container, Col, PageTitle, Text, Button, Row, SectionTitle } from '@vaneui/ui';
-import { Home, ArrowLeft } from 'react-feather';
+import type { Metadata } from 'next';
+import { Container, Col, PageTitle, Text, SectionTitle } from '@vaneui/ui';
+import { NotFoundActions } from './not-found-actions';
+
+export const metadata: Metadata = {
+  title: 'Page Not Found - VaneUI',
+  description: 'The page you are looking for does not exist or has been moved.',
+  robots: { index: false, follow: false },
+};
 
 export default function NotFound() {
   return (
@@ -14,18 +18,7 @@ export default function NotFound() {
         <Text textCenter secondary className="max-w-sm">
           The page you are looking for does not exist or has been moved.
         </Text>
-        <Row sm>
-          <Button tag="button" onClick={() => window.history.back()} secondary>
-            <ArrowLeft className="size-5" />
-            Go Back
-          </Button>
-          <Link href="/">
-            <Button primary>
-              <Home className="size-5" />
-              Go Home
-            </Button>
-          </Link>
-        </Row>
+        <NotFoundActions />
       </Col>
     </Container>
   );

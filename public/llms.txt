@@ -3,7 +3,7 @@
 > React UI component library with boolean props API, Tailwind CSS v4, and comprehensive theming.
 
 - Version: 0.9.0
-- Repository: https://github.com/nickolaev-ev/vaneui
+- Repository: https://github.com/vaneui/vaneui
 - Documentation: https://vaneui.com
 
 ## Docs
