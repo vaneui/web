@@ -79,7 +79,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'code',
         name: 'Code',
-        description: 'Renders inline code snippets with syntax highlighting. Perfect for displaying code examples, commands, file paths, or technical terms within text content.',
+        description: 'Renders inline code snippets in a themed monospace surface. Use for code examples, commands, file paths, or technical terms within prose; renders as an anchor when given href.',
         componentKey: "code",
       },
       {
