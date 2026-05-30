@@ -16,6 +16,8 @@
     "prebuild": "npm run check:all",
     "screenshot": "tsx scripts/screenshot.ts",
     "screenshot:clean": "tsx scripts/screenshot.ts --clean",
+    "og": "tsx scripts/screenshot-og.ts --url http://localhost:3000",
+    "og:prod": "tsx scripts/screenshot-og.ts --url https://vaneui.com",
     "build:examples": "node scripts/build-examples.mjs",
     "check:examples": "node scripts/check-examples.mjs"
   },

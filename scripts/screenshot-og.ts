@@ -4,12 +4,26 @@
  * Output: public/og-default.png — used as the default social-share preview
  * for vaneui.com (Twitter card, Facebook OG, LinkedIn preview, etc.).
  *
- * Requires: dev server running on http://localhost:3000 and Playwright's
- * chromium browser installed (`npx playwright install chromium`).
+ * Requires Playwright's chromium browser installed:
+ *   npx playwright install chromium
  *
- * Usage:
- *   npx tsx scripts/screenshot-og.ts
+ * Usage — capture from the deployed site (preferred):
+ *   npm run og:prod
+ *   # or directly:
+ *   npx tsx scripts/screenshot-og.ts --url https://vaneui.com
+ *
+ * Usage — capture from a local dev/preview server:
+ *   npm run dev   # in another shell, wait until it's serving on :3000
+ *   npm run og
+ *   # or directly:
  *   npx tsx scripts/screenshot-og.ts --url http://localhost:3000
+ *
+ * Override via env var (useful in CI / Vercel preview):
+ *   OG_URL=https://vaneui-web-git-pr-42.vercel.app npm run og
+ *
+ * The `--url` CLI flag takes precedence over `OG_URL`. No default fallback —
+ * the URL must be explicit so we don't accidentally capture from the wrong
+ * environment.
  */
 
 import { chromium } from 'playwright';
@@ -40,9 +54,18 @@ async function captureOg(url: string) {
   });
 
   console.log(`Navigating to ${url} ...`);
-  await page.goto(url, { waitUntil: 'networkidle' });
+  try {
+    await page.goto(url, { waitUntil: 'networkidle', timeout: 60_000 });
+  } catch (err) {
+    await browser.close();
+    throw new Error(
+      `Failed to load ${url}. ` +
+      `If targeting a local dev server, make sure \`npm run dev\` is running. ` +
+      `If targeting production, check connectivity. Original error: ${(err as Error).message}`,
+    );
+  }
 
-  // Give web fonts a beat to settle before capture.
+  // Give web fonts and any post-load animation a beat to settle.
   await page.waitForTimeout(500);
 
   await page.screenshot({
@@ -59,15 +82,27 @@ async function captureOg(url: string) {
 async function main() {
   const { values } = parseArgs({
     options: {
-      url: { type: 'string', default: 'http://localhost:3000' },
+      url: { type: 'string' },
     },
     strict: false,
   });
 
-  await captureOg(values.url as string);
+  const url = (values.url as string | undefined) ?? process.env.OG_URL;
+  if (!url) {
+    console.error(
+      'Error: capture URL required. Pass --url=<URL> or set OG_URL=<URL>.\n' +
+      'Examples:\n' +
+      '  npm run og:prod   # captures from https://vaneui.com\n' +
+      '  npm run og        # captures from http://localhost:3000\n' +
+      '  npx tsx scripts/screenshot-og.ts --url https://vaneui.com',
+    );
+    process.exit(2);
+  }
+
+  await captureOg(url);
 }
 
 main().catch(err => {
-  console.error(err);
+  console.error(err.message ?? err);
   process.exit(1);
 });
