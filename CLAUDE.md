@@ -151,5 +151,15 @@ When a task matches an agent's trigger below, you **MUST** delegate to that agen
 |-------------|-------|-----|
 | Creating/updating documentation pages (examples + markdown guides) | `docs-writer` | Knows docsSections.ts structure, DocsPagePart patterns, MDX conventions |
 | After any code changes — verify typecheck, lint, build | `build-checker` | Runs full verification pipeline, reports pass/fail |
+| Refining docs prose after docs-writer (flow, tone, style-rules conformance) | `editor` | Applies content-style-rules.md, strips marketing voice, fixes generic headings |
+| Cross-linking related docs pages | `internal-linker` | Suggests + applies 2-5 site-relative links per page based on docsMetadata.ts |
+| Generating per-page FAQ sections | `faq-generator` | 3-8 questions in 40-80 words each, sentence-case H3s, scoped to real decisions |
+| SEO audit (titles, descriptions, headings, keyword placement) | `seo-optimizer` | Per-page audit against current sitemap / metadata pipeline |
+| AI-citation audit (ChatGPT, Perplexity, AI Overviews) | `ai-optimization` | SOAR framework: Structure, Originality, Authority, Recency |
+| Final pre-merge gate on docs changes | `quality-checker` | Single pass/fail summary across every check; BLOCKING if any fail |
 
 **Exception:** Do not delegate tasks completable in 1-2 tool calls (reading a file, small inline edit).
+
+**Standard docs pipeline:** `docs-writer` → `editor` → `internal-linker` → `faq-generator` (optional) → `seo-optimizer` → `ai-optimization` → `quality-checker`. Skip the optimization passes for trivial typo fixes.
+
+**Content style rules:** All content agents above defer to `.claude/rules/content-style-rules.md` for capitalization, banned headings, dash policy, unit spacing, and marketing-voice ban. Mirrors `testland-web/.claude/rules/content-style-rules.md`.
