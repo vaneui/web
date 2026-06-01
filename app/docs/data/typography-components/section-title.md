@@ -27,7 +27,7 @@ Three heading components for a clean semantic hierarchy.
 </Col>
 ```
 
-## SectionTitle Sizes
+## SectionTitle sizes
 
 Section titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
@@ -41,9 +41,9 @@ Section titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 </Col>
 ```
 
-## SectionTitle Appearances
+## SectionTitle appearances
 
-By default, SectionTitle uses the `inherit` appearance — it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
+By default, SectionTitle uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
 
 ```tsx demo
 <Col>
@@ -56,7 +56,7 @@ By default, SectionTitle uses the `inherit` appearance — it inherits color fro
 </Col>
 ```
 
-## Font Weights
+## Font weights
 
 SectionTitle is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
 
@@ -71,7 +71,7 @@ SectionTitle is `semibold` by default. Override with any weight prop: `thin`, `e
 </Col>
 ```
 
-## Font Families
+## Font families
 
 Switch between `sans`, `serif`, and `mono` font families.
 
@@ -99,7 +99,7 @@ Use the `uppercase` prop to render the title in all caps.
 <SectionTitle uppercase>Uppercase Section Title</SectionTitle>
 ```
 
-## Text Alignment
+## Text alignment
 
 SectionTitle is left-aligned by default. Use `textCenter`, `textRight`, or `textJustify` to change alignment.
 
@@ -111,7 +111,7 @@ SectionTitle is left-aligned by default. Use `textCenter`, `textRight`, or `text
 </Col>
 ```
 
-## Custom HTML Tag
+## Custom HTML tag
 
 Override the rendered tag with the `tag` prop when the visual style of SectionTitle is wanted but a different semantic level is required.
 
@@ -141,7 +141,7 @@ Override the rendered tag with the `tag` prop when the visual style of SectionTi
 </Col>
 ```
 
-## SectionTitle in Context
+## SectionTitle in context
 
 Section titles work well with other typography components in cards.
 
@@ -156,7 +156,7 @@ Section titles work well with other typography components in cards.
 </Card>
 ```
 
-## Section Header Pattern
+## Section header pattern
 
 Combine SectionTitle with Divider and content for a structured section.
 

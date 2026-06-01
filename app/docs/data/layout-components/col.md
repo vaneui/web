@@ -9,7 +9,7 @@ A vertical flex container. Pairs with `Row` to build column-based layouts.
 
 ## Basic Col
 
-`Col` defaults to `column`, `flex`, `gap`, `md`, `noPadding`, `noBorder`, `noRing`, `outline`, and `sharp` — you don't need to pass any of these. Pass `href` to render `Col` as `<a>` instead of `<div>` — a focus-visible outline auto-enables when `href` is set.
+`Col` defaults to `column`, `flex`, `gap`, `md`, `noPadding`, `noBorder`, `noRing`, `outline`, and `sharp`: you don't need to pass any of these. Pass `href` to render `Col` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Col>
@@ -19,7 +19,7 @@ A vertical flex container. Pairs with `Row` to build column-based layouts.
 </Col>
 ```
 
-## Col Spacing
+## Col spacing
 
 Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to control the gap, or `noGap` to disable.
 
@@ -64,7 +64,7 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to control the gap, or `noGap` to 
 </Row>
 ```
 
-## Items (Cross Axis)
+## Items (cross axis)
 
 Col has no `items` default, so children stretch to fill the width. Use `itemsStart`, `itemsCenter`, `itemsEnd`, `itemsBaseline`, or `itemsStretch` to override.
 
@@ -93,7 +93,7 @@ Col has no `items` default, so children stretch to fill the width. Use `itemsSta
 </Row>
 ```
 
-## Justify (Main Axis)
+## Justify (main axis)
 
 Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`, `justifyBetween`, `justifyAround`, or `justifyEvenly`. The Col needs a fixed height for these to have any effect.
 
@@ -132,7 +132,7 @@ Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`
 </Row>
 ```
 
-## Reverse Order
+## Reverse order
 
 Use `columnReverse` to reverse the visual order of children.
 
@@ -144,9 +144,9 @@ Use `columnReverse` to reverse the visual order of children.
 </Col>
 ```
 
-## Col Variants
+## Col variants
 
-Use `filled` with an appearance prop for a filled background. Col defaults to `sharp` — pair with `rounded` or `pill` for curved corners, and add `padding` so the background has breathing room.
+Use `filled` with an appearance prop for a filled background. Col defaults to `sharp`: pair with `rounded` or `pill` for curved corners, and add `padding` so the background has breathing room.
 
 ```tsx demo
 <Row itemsStart>
@@ -161,7 +161,7 @@ Use `filled` with an appearance prop for a filled background. Col defaults to `s
 </Row>
 ```
 
-## Text Alignment
+## Text alignment
 
 Use `textLeft`, `textCenter`, `textRight`, or `textJustify` to control text alignment within the column.
 
@@ -211,7 +211,7 @@ Col is commonly used inside Row to create multi-column layouts. Use `flex1` so e
 
 ## Inside a Card
 
-Col composes naturally inside a Card to lay out a vertical cluster — labelled fields, key/value pairs, or a list of actions.
+Col composes naturally inside a Card to lay out a vertical cluster: labelled fields, key/value pairs, or a list of actions.
 
 ```tsx demo
 <Card>
@@ -237,7 +237,7 @@ Col composes naturally inside a Card to lay out a vertical cluster — labelled 
 </Card>
 ```
 
-## As a Navigation Column
+## As a navigation column
 
 Col is a natural container for a vertical stack of `NavLink`s in a sidebar.
 
@@ -253,7 +253,7 @@ Col is a natural container for a vertical stack of `NavLink`s in a sidebar.
 
 ## As Link
 
-Add `href` to render the Col as an `<a>` tag — useful for clickable feature tiles. A keyboard focus-visible outline auto-renders so the link is reachable via Tab; opt out with `noFocusVisible`.
+Add `href` to render the Col as an `<a>` tag, useful for clickable feature tiles. A keyboard focus-visible outline auto-renders so the link is reachable via Tab; opt out with `noFocusVisible`.
 
 ```tsx demo
 <Row itemsStart>
@@ -275,7 +275,7 @@ Add `href` to render the Col as an `<a>` tag — useful for clickable feature ti
 </Row>
 ```
 
-## Next.js Link Integration
+## Next.js Link integration
 
 Use the `tag` prop to render the Col as a Next.js `Link` for client-side navigation.
 

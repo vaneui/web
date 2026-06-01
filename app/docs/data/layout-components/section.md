@@ -7,7 +7,7 @@ since: 0.9.0
 
 A full-bleed page band used to group related content with consistent vertical rhythm. Sections own the outer padding and background; nest a `Container` inside to cap the inner reading width.
 
-## Basic Section
+## Basic section
 
 `md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `outline`, `sharp`, and `responsive` are defaults. Padding, gap, and font size automatically scale at tablet and mobile breakpoints because `responsive` is on.
 
@@ -18,7 +18,7 @@ A full-bleed page band used to group related content with consistent vertical rh
 </Section>
 ```
 
-## Section Sizes
+## Section sizes
 
 Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control padding and gap.
 
@@ -39,7 +39,7 @@ Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control padding and gap.
 </Col>
 ```
 
-## Section Appearances
+## Section appearances
 
 Sections support color appearances: `primary`, `secondary`, `success`, `danger`, etc. Use `secondary` filled bands to create visual rhythm between regular sections.
 
@@ -64,7 +64,7 @@ Sections support color appearances: `primary`, `secondary`, `success`, `danger`,
 </Col>
 ```
 
-## Section Variants
+## Section variants
 
 Use `filled` for solid backgrounds (`outline` is the default), and `shadow` for elevation.
 
@@ -85,7 +85,7 @@ Use `filled` for solid backgrounds (`outline` is the default), and `shadow` for 
 </Col>
 ```
 
-## Section Layout
+## Section layout
 
 Use `row` for horizontal layout. `gap` is already on by default; pair with `noPadding` only when a wrapper owns spacing.
 
@@ -104,7 +104,7 @@ Use `row` for horizontal layout. `gap` is already on by default; pair with `noPa
 </Col>
 ```
 
-## Responsive Breakpoints
+## Responsive breakpoints
 
 Use `mobileCol` or `tabletCol` to switch from row to column layout on smaller screens.
 
@@ -121,7 +121,7 @@ Use `mobileCol` or `tabletCol` to switch from row to column layout on smaller sc
 </Section>
 ```
 
-## Responsive Sizing
+## Responsive sizing
 
 `responsive` (default) scales padding, gap, and font size at tablet and mobile breakpoints using `--py-tablet`, `--gap-mobile`, etc. Pass `responsive={false}` to lock a single size across all viewports.
 
@@ -138,7 +138,7 @@ Use `mobileCol` or `tabletCol` to switch from row to column layout on smaller sc
 </Col>
 ```
 
-## Semantic Tag
+## Semantic tag
 
 Section renders as `<div>` by default. Pass `tag="section"` for a semantic `<section>` element, or `tag="header"` / `tag="footer"` / `tag="aside"` for other landmarks.
 
@@ -155,7 +155,7 @@ Section renders as `<div>` by default. Pass `tag="section"` for a semantic `<sec
 </Col>
 ```
 
-## Page Layout Pattern
+## Page layout pattern
 
 The canonical full-bleed page band: a Section owns the outer padding and background, with a nested `Container` capping the inner reading width.
 

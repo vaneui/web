@@ -7,17 +7,17 @@ since: 0.9.0
 
 An accessible dialog component with focus trapping, scroll lock, and keyboard navigation. Built on Overlay with ARIA `role="dialog"` and `aria-modal="true"`. Sub-components: `ModalHeader`, `ModalBody`, `ModalFooter`, `ModalCloseButton`.
 
-## When to Use
+## When to use
 
 - Confirmations for destructive or non-reversible actions.
 - Multi-step or focused forms that should block interaction with the page behind.
 - Detail views that need to escape the surrounding layout (full-screen image, video player).
 - Required acknowledgements where dismissal must be intentional (`closeOnOverlayClick={false}`).
 
-### When NOT to Use
+### When NOT to use
 
-- For passive notifications, toasts, or status messages — these should not block the user.
-- For inline disclosure of additional details — prefer `Popup` or an expandable section.
+- For passive notifications, toasts, or status messages: these should not block the user.
+- For inline disclosure of additional details: prefer `Popup` or an expandable section.
 
 ## Customizing
 
@@ -59,10 +59,10 @@ const [open, setOpen] = useState(false);
 
 Use `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton` for full control over layout. When any of these are direct children, Modal renders them as-is without auto-wrapping. Each sub-component carries its own layout defaults:
 
-- `ModalHeader` — `flex row`, `itemsCenter`, `justifyBetween`, `gap`, `padding`
-- `ModalBody` — `flex column`, `gap`, `padding`, `overflowAuto`
-- `ModalFooter` — `flex row`, `itemsCenter`, `justifyEnd`, `gap`, `padding`
-- `ModalCloseButton` — `secondary`, `transparent`, `noShadow`, `noRing`
+- `ModalHeader`: `flex row`, `itemsCenter`, `justifyBetween`, `gap`, `padding`
+- `ModalBody`: `flex column`, `gap`, `padding`, `overflowAuto`
+- `ModalFooter`: `flex row`, `itemsCenter`, `justifyEnd`, `gap`, `padding`
+- `ModalCloseButton`: `secondary`, `transparent`, `noShadow`, `noRing`
 
 ```tsx
 import { Modal, ModalHeader, ModalBody, ModalFooter, ModalCloseButton, Button, Title, Input, Label, Stack } from "@vaneui/ui";
@@ -89,7 +89,7 @@ const [open, setOpen] = useState(false);
 </Modal>
 ```
 
-## Convenience Props
+## Convenience props
 
 Use the `title`, `footer`, and `withCloseButton` shorthand props to compose a structured modal without writing sub-components. When `title` is set, a close button is shown by default (toggle with `withCloseButton`). Children become the body.
 
@@ -113,9 +113,9 @@ const [open, setOpen] = useState(false);
 </Modal>
 ```
 
-## Confirmation Dialog
+## Confirmation dialog
 
-A common pattern: a destructive action that requires explicit confirmation. Disable `closeOnOverlayClick` so users can't dismiss accidentally by clicking outside.
+A common pattern is a destructive action that requires explicit confirmation. Disable `closeOnOverlayClick` so users can't dismiss accidentally by clicking outside.
 
 ```tsx
 const [open, setOpen] = useState(false);
@@ -168,16 +168,16 @@ const nameRef = useRef<HTMLInputElement>(null);
 </Modal>
 ```
 
-## Modal Sizes
+## Modal sizes
 
-Size props control modal content width (via the `--fs-unit` / `--py-unit` / `--br-unit` chain) — font-size, padding, gap, and border-radius all scale together.
+Size props control modal content width via the `--fs-unit` / `--py-unit` / `--br-unit` chain. Font-size, padding, gap, and border-radius all scale together.
 
 ```tsx
 <Modal open={open} onClose={onClose} sm>Small modal</Modal>
 <Modal open={open} onClose={onClose} lg>Large modal</Modal>
 ```
 
-## Modal Appearances
+## Modal appearances
 
 Apply appearance and variant props to style the content surface (border, text, background).
 
@@ -186,7 +186,7 @@ Apply appearance and variant props to style the content surface (border, text, b
 <Modal open={open} onClose={onClose} danger filled>Danger modal</Modal>
 ```
 
-## Blur Overlay
+## Blur overlay
 
 Pass `overlayProps={{ blur: true }}` to add a backdrop-filter blur behind the modal.
 
@@ -211,9 +211,9 @@ Disable `closeOnOverlayClick` and `closeOnEscape` to force the user to take an e
 </Modal>
 ```
 
-## Full Screen Modal
+## Full-screen Modal
 
-Set `fullScreen` to make the modal fill the entire viewport. Full-screen modals have no border-radius (`sharp` is applied automatically) and use a transparent overlay — useful for immersive experiences or mobile-optimized views.
+Set `fullScreen` to make the modal fill the entire viewport. Full-screen modals have no border-radius (`sharp` is applied automatically) and use a transparent overlay, useful for immersive experiences or mobile-optimized views.
 
 ```tsx
 <Modal open={open} onClose={() => setOpen(false)} fullScreen>
@@ -227,7 +227,7 @@ Set `fullScreen` to make the modal fill the entire viewport. Full-screen modals 
 </Modal>
 ```
 
-## Accessibility & Advanced Props
+## Accessibility and advanced props
 
 Modal ships accessibility features enabled by default. The dialog renders with `role="dialog"` and `aria-modal="true"`, and is automatically wired with `aria-labelledby` (when `ModalHeader` is used) and `aria-describedby` (when `ModalBody` is used).
 
@@ -236,7 +236,7 @@ Modal ships accessibility features enabled by default. The dialog renders with `
 | `scrollLock` | `true` | Lock body scroll when modal is open |
 | `focusTrap` | `true` | Trap `Tab` / `Shift+Tab` focus inside the modal |
 | `returnFocus` | `true` | Return focus to the trigger element on close |
-| `initialFocus` | — | Ref to the element that should receive focus on open |
+| `initialFocus` |   | Ref to the element that should receive focus on open |
 | `portal` | `true` | Render via portal into `document.body` |
 | `keepMounted` | `false` | Keep DOM node mounted when closed |
 | `noAnimation` | `false` | Disable enter/exit transitions |

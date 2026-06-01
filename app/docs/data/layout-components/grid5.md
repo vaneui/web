@@ -7,17 +7,17 @@ since: 0.9.0
 
 A responsive layout component that arranges its children in a five-column CSS grid. Useful for dense feature listings, tag clouds, or stat boards.
 
-## When to Use
+## When to use
 
 - Five-up feature listings, weekday columns, or rating breakdowns.
 - Dense item layouts where four columns feel sparse and six feel cramped.
 - Stat boards or KPI grids that need an odd column count.
 
-### When NOT to Use
+### When NOT to use
 
-- For four or six columns — use `Grid4` or `Grid6` instead.
-- For variable-width items — use `Row flexWrap` and let children size themselves.
-- For column-spanning layouts — use raw CSS grid with `className` instead.
+- For four or six columns: use `Grid4` or `Grid6` instead.
+- For variable-width items: use `Row flexWrap` and let children size themselves.
+- For column-spanning layouts: use raw CSS grid with `className` instead.
 
 ## Customizing
 
@@ -35,7 +35,7 @@ import { ThemeProvider, Grid5 } from '@vaneui/ui';
 
 ## Basic Grid5
 
-A five-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults — no need to specify them.
+A five-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults: no need to specify them.
 
 ```tsx demo
 <Grid5>
@@ -82,7 +82,7 @@ A five-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are 
 </Grid5>
 ```
 
-## Grid Sizes
+## Grid sizes
 
 Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 
@@ -131,7 +131,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 </Col>
 ```
 
-## Grid with Gap
+## Grid with gap
 
 `gap` is on by default. Use `noGap` to remove spacing between cells.
 
@@ -156,7 +156,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 </Col>
 ```
 
-## Grid Appearances
+## Grid appearances
 
 Grid supports color appearances. Pair with `filled` or `border` to make the surface visible.
 
@@ -193,7 +193,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
-## Grid Variants
+## Grid variants
 
 `outline` is the default. Use `filled` for a solid background, or add `border` for a visible outline.
 
@@ -216,9 +216,9 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
-## Grid Shapes
+## Grid shapes
 
-`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself — pair with `filled` or `border` to see it.
+`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself: pair with `filled` or `border` to see it.
 
 ```tsx demo
 <Col>

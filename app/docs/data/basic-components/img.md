@@ -13,7 +13,7 @@ const portraitSrc = "https://placehold.co/200x300/cbd5e1/475569?text=Portrait";
 const avatarSrc = "https://placehold.co/120x120/c7d2fe/4338ca?text=Avatar";
 ```
 
-## Basic Image
+## Basic image
 
 Render an image with the `Img` component.
 
@@ -21,7 +21,7 @@ Render an image with the `Img` component.
 <Img src={placeholderSrc} alt="Sample landscape photo" />
 ```
 
-## Alt Text
+## Alt text
 
 Always pass a descriptive `alt` attribute. Use an empty `alt=""` for decorative images so assistive technology can skip them.
 
@@ -53,7 +53,7 @@ Control border radius with `rounded` (default), `pill` (great for avatars), and 
 </Row>
 ```
 
-## Border & Shadow
+## Border and shadow
 
 Add `border` and `shadow` props for visual emphasis.
 
@@ -103,7 +103,7 @@ Images support five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size controls
 </Row>
 ```
 
-## Object Fit
+## Object fit
 
 Control how an image fills a sized container with `objectCover` (default), `objectContain`, and `objectFill`. The examples below constrain the image to a fixed box so the difference is visible.
 
@@ -147,7 +147,7 @@ Control how an image fills a sized container with `objectCover` (default), `obje
 </Row>
 ```
 
-## Native HTML Attributes
+## Native HTML attributes
 
 `Img` forwards all standard `<img>` attributes including `loading`, `decoding`, `srcSet`, `sizes`, `referrerPolicy`, and `crossOrigin`. Use `loading="lazy"` for below-the-fold images.
 

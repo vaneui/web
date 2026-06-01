@@ -7,7 +7,7 @@ since: 0.9.0
 
 `Button` is the primary interactive control for triggering actions. It supports the full appearance, size, shape, and variant prop matrix and renders as an `<a>` when given an `href`.
 
-## When to Use
+## When to use
 
 - Primary page actions, calls-to-action, and prominent affordances.
 - Form submissions (`type="submit"`) and form-level reset.
@@ -15,12 +15,12 @@ since: 0.9.0
 - Toolbar actions where the label adds clarity beyond an icon alone.
 - Cross-page navigation when the action looks like a button (otherwise prefer `Link`).
 
-### When NOT to Use
+### When NOT to use
 
-- For inline navigation inside prose, prefer `Link` — it sits on the typography baseline.
+- For inline navigation inside prose, prefer `Link`. It sits on the typography baseline.
 - For icon-only destructive actions inside a row or table cell, prefer `IconButton`.
 
-## Basic Usage
+## Basic usage
 
 Each `appearance` prop maps to a semantic color from the active theme.
 
@@ -42,7 +42,7 @@ Each `appearance` prop maps to a semantic color from the active theme.
 
 ## Sizes
 
-Buttons come in five sizes — `xs`, `sm` (default), `md`, `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
+Buttons come in five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
 
 ```tsx demo
 <Row flexWrap>
@@ -54,9 +54,9 @@ Buttons come in five sizes — `xs`, `sm` (default), `md`, `lg`, `xl`. Size driv
 </Row>
 ```
 
-## With Icon
+## With icon
 
-Drop an icon directly inside the button — `gap` is on by default, so spacing is automatic.
+Drop an icon directly inside the button. `gap` is on by default, so spacing is automatic.
 
 ```tsx demo
 <Row flexWrap>
@@ -67,7 +67,7 @@ Drop an icon directly inside the button — `gap` is on by default, so spacing i
 </Row>
 ```
 
-## Sizes with Icon
+## Sizes with icon
 
 The same size matrix paired with an inline icon.
 
@@ -81,7 +81,7 @@ The same size matrix paired with an inline icon.
 </Row>
 ```
 
-## Font Weights
+## Font weights
 
 Buttons default to `semibold`. Use any of the standard weight props to override.
 
@@ -99,7 +99,7 @@ Buttons default to `semibold`. Use any of the standard weight props to override.
 </Row>
 ```
 
-## Border Radius Options
+## Border radius options
 
 Button supports three border-radius styles: `rounded` (default), `pill`, and `sharp`.
 
@@ -111,7 +111,7 @@ Button supports three border-radius styles: `rounded` (default), `pill`, and `sh
 </Row>
 ```
 
-## As Link & Disabled
+## As Link and disabled
 
 Pass `href` to render the button as an `<a>` for navigation. Use `disabled` to prevent interaction.
 
@@ -124,7 +124,7 @@ Pass `href` to render the button as an `<a>` for navigation. Use `disabled` to p
 </Row>
 ```
 
-## Next.js Link Integration
+## Next.js Link integration
 
 Use the `tag` prop to render the button as a Next.js `Link` for client-side navigation.
 
@@ -176,7 +176,7 @@ import { ThemeProvider, Button } from '@vaneui/ui';
 </ThemeProvider>
 ```
 
-Add prop-conditional classes with `extraClasses` — applied whenever the matching boolean prop is active. For compound themes like Button, nest the prop-class map under the sub-theme name (`main` for Button's primary surface):
+Add prop-conditional classes with `extraClasses`, applied whenever the matching boolean prop is active. For compound themes like Button, nest the prop-class map under the sub-theme name (`main` for Button's primary surface):
 
 ```tsx
 import { ThemeProvider, Button } from '@vaneui/ui';

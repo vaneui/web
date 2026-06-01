@@ -7,21 +7,21 @@ since: 0.9.0
 
 A navigation link for sidebars, nav menus, and headers. Supports active state, icons, and renders as `<a>` when `href` is provided, or `<button>` otherwise.
 
-## When to Use
+## When to use
 
 - Sidebar navigation items (docs nav, app shell sidebar, settings menus).
 - Header navigation links that need an active-state indicator.
 - Vertical or horizontal nav menus where each item routes to a page or section.
 - On-page table-of-contents items (paired with `active` based on scroll position).
 
-### When NOT to Use
+### When NOT to use
 
-- For inline links inside prose — use `Link`, which sits on the typography baseline.
-- For primary calls-to-action — use `Button primary filled`.
+- For inline links inside prose: use `Link`, which sits on the typography baseline.
+- For primary calls-to-action: use `Button primary filled`.
 
-## Basic Usage
+## Basic usage
 
-NavLink renders as an `<a>` when `href` is provided. Defaults to `sm` size, `primary` appearance, `outline` variant, `wFull` and `textLeft` layout — ideal for stacking inside a sidebar `Col`.
+NavLink renders as an `<a>` when `href` is provided. Defaults to `sm` size, `primary` appearance, `outline` variant, `wFull` and `textLeft` layout, ideal for stacking inside a sidebar `Col`.
 
 ```tsx demo
 <Col className="w-64">
@@ -31,7 +31,7 @@ NavLink renders as an `<a>` when `href` is provided. Defaults to `sm` size, `pri
 </Col>
 ```
 
-## Active State
+## Active state
 
 Use the `active` prop to indicate the current page. Active NavLinks get `aria-current="page"` and a `data-active` attribute for styling.
 
@@ -44,9 +44,9 @@ Use the `active` prop to indicate the current page. Active NavLinks get `aria-cu
 </Col>
 ```
 
-## With Icon
+## With icon
 
-Drop an icon directly inside the NavLink — `gap` is on by default, so spacing is automatic. React elements rendered before any text become the leading icon; text is auto-wrapped in a label span with truncation; elements after text become trailing accessories.
+Drop an icon directly inside the NavLink. `gap` is on by default, so spacing is automatic. React elements rendered before any text become the leading icon; text is auto-wrapped in a label span with truncation; elements after text become trailing accessories.
 
 ```tsx demo
 <Col className="w-64">
@@ -59,7 +59,7 @@ Drop an icon directly inside the NavLink — `gap` is on by default, so spacing 
 
 ## Sizes
 
-NavLink supports five sizes — `xs`, `sm` (default), `md`, `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
+NavLink supports five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
 
 ```tsx demo
 <Col className="w-72">
@@ -71,7 +71,7 @@ NavLink supports five sizes — `xs`, `sm` (default), `md`, `lg`, `xl`. Size dri
 </Col>
 ```
 
-## Appearances & Variants
+## Appearances and variants
 
 NavLinks default to `primary outline`. Use `filled` for solid backgrounds. Active state works with all appearances.
 
@@ -94,7 +94,7 @@ NavLinks default to `primary outline`. Use `filled` for solid backgrounds. Activ
 </Row>
 ```
 
-## Disabled State
+## Disabled state
 
 Use `disabled` to prevent interaction. When `disabled` is combined with `href`, the anchor is replaced with a disabled `<button>` so the link cannot be followed.
 
@@ -107,9 +107,9 @@ Use `disabled` to prevent interaction. When `disabled` is combined with `href`, 
 </Col>
 ```
 
-## As Button (No href)
+## As Button (no href)
 
-Without `href`, NavLink renders as a `<button>` — useful for menu items that trigger actions instead of navigating.
+Without `href`, NavLink renders as a `<button>`, useful for menu items that trigger actions instead of navigating.
 
 ```tsx demo
 <Col className="w-64">
@@ -118,7 +118,7 @@ Without `href`, NavLink renders as a `<button>` — useful for menu items that t
 </Col>
 ```
 
-## Sidebar Navigation
+## Sidebar navigation
 
 A real-world sidebar pattern with icons, active state, dividers, and trailing badges.
 
@@ -137,11 +137,11 @@ A real-world sidebar pattern with icons, active state, dividers, and trailing ba
 </Card>
 ```
 
-## Keyboard Focus
+## Keyboard focus
 
 NavLink renders a keyboard focus-visible outline by default so keyboard users can see where they are. Opt out with `noFocusVisible`.
 
-## Next.js Link Integration
+## Next.js Link integration
 
 Use the `tag` prop to render NavLink as a Next.js `Link` for client-side navigation.
 

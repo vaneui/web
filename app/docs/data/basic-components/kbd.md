@@ -7,7 +7,7 @@ since: 0.9.0
 
 Displays keyboard keys and shortcuts with monospace font, border, and a raised 3D effect. Ideal for documenting keyboard shortcuts.
 
-## Basic Usage
+## Basic usage
 
 Display keyboard keys with the `Kbd` component.
 
@@ -21,7 +21,7 @@ Display keyboard keys with the `Kbd` component.
 </Row>
 ```
 
-## Key Combinations
+## Key combinations
 
 Combine multiple `Kbd` elements to show keyboard shortcuts.
 
@@ -82,7 +82,7 @@ Different color appearances for keyboard keys.
 </Row>
 ```
 
-## In Text Context
+## In text context
 
 Kbd elements blend naturally within text content.
 
@@ -94,9 +94,9 @@ Kbd elements blend naturally within text content.
 </Col>
 ```
 
-## In Heading Context
+## In heading context
 
-Kbd uses an em-based geometry pipeline — its font-size, padding, and border-radius all scale proportionally to the surrounding text. The same `<Kbd>` keeps its keycap look at body, subheading, section heading, and page title sizes.
+Kbd uses an em-based geometry pipeline: its font-size, padding, and border-radius all scale proportionally to the surrounding text. The same `<Kbd>` keeps its keycap look at body, subheading, section heading, and page title sizes.
 
 ```tsx demo
 <Col>
@@ -107,7 +107,7 @@ Kbd uses an em-based geometry pipeline — its font-size, padding, and border-ra
 </Col>
 ```
 
-## Shortcut Table
+## Shortcut table
 
 Display a set of keyboard shortcuts in a structured layout.
 

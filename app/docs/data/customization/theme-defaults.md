@@ -1,12 +1,12 @@
-The `themeDefaults` property in VaneUI's ThemeProvider allows you to set default boolean props for components throughout your application. This provides a powerful way to establish consistent defaults while still allowing individual components to override these values.
+The `themeDefaults` property in VaneUI's ThemeProvider allows you to set default boolean props for components throughout your application. It establishes consistent defaults while still allowing individual components to override these values.
 
-## Understanding ThemeDefaults
+## Understanding themeDefaults
 
 ### themeDefaults?: ThemeDefaults
 
 The `themeDefaults` property accepts an object where keys are component names and values are objects with boolean props. These defaults are merged with VaneUI's built-in defaults.
 
-Most components take props directly. **Components with sub-themes** — `button`, `card`, `checkbox`, `modal`, `menu`, `navLink` — take a nested object keyed by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.).
+Most components take props directly. **Components with sub-themes** (`button`, `card`, `checkbox`, `modal`, `menu`, `navLink`) take a nested object keyed by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.).
 
 ```tsx
 <ThemeProvider themeDefaults={{
@@ -19,9 +19,9 @@ Most components take props directly. **Components with sub-themes** — `button`
 </ThemeProvider>
 ```
 
-## Setting Component Defaults
+## Setting component defaults
 
-### Basic Defaults
+### Basic defaults
 
 Set default boolean props for specific component types:
 
@@ -55,7 +55,7 @@ function App() {
 }
 ```
 
-### Brand-Specific Defaults
+### Brand-specific defaults
 
 Create consistent branding across your application:
 
@@ -79,27 +79,27 @@ function BrandedApp() {
 }
 ```
 
-## Available Boolean Props
+## Available boolean props
 
-### Size Props
+### Size props
 - `xs`, `sm`, `md`, `lg`, `xl`
 
-### Appearance Props
+### Appearance props
 - `primary`, `brand`, `accent`, `secondary`, `tertiary`
 - `success`, `danger`, `warning`, `info`, `link`, `inherit`
 
-### Variant Props
+### Variant props
 - `filled`, `outline`
 
-### Shape Props
+### Shape props
 - `rounded`, `pill`, `sharp`
 
-### Typography Props
+### Typography props
 - `sans`, `serif`, `mono`, `heading`
 - `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`
 - `italic`, `underline`, `lineThrough`, `noUnderline`, `uppercase`, `lowercase`, `capitalize`
 
-### Layout Props
+### Layout props
 - `flex`, `inlineFlex`, `block`, `inline`, `grid`, `hidden`
 - `row`, `column`, `rowReverse`, `columnReverse`
 - `itemsStart`, `itemsCenter`, `itemsEnd`, `itemsStretch`, `itemsBaseline`
@@ -109,23 +109,23 @@ function BrandedApp() {
 - `border`, `noBorder`, `borderT`, `borderB`, `borderL`, `borderR`, `borderX`, `borderY`
 - `ring`, `noRing`, `shadow`, `noShadow`, `transparent`
 
-### Width / Height Props
+### Width / height props
 - `wFull`, `wFit`, `wAuto`, `wScreen`
 - `hFull`, `hFit`, `hAuto`, `hScreen`
 
-### Truncate Props
+### Truncate props
 - `truncate`, `lineClamp2`, `lineClamp3`, `lineClamp4`, `lineClamp5`, `noTruncate`
 
-### Letter Spacing Props
+### Letter spacing props
 - `trackingTighter`, `trackingTight`, `trackingNormal`, `trackingWide`, `trackingWider`, `trackingWidest`
 
-### Cursor Props
+### Cursor props
 - `cursorPointer`, `cursorDefault`, `cursorNotAllowed`, `cursorNone`, `cursorText`, `cursorMove`, `cursorWait`
 
-### Position Props
+### Position props
 - `relative`, `absolute`, `fixed`, `sticky`, `static`
 
-### Responsive Props (Layout)
+### Responsive props (layout)
 - `mobileCol`, `tabletCol`, `desktopCol`
 - `mobileHide`, `tabletHide`, `desktopHide`
 
@@ -134,11 +134,11 @@ function BrandedApp() {
 - `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder`
 - `responsive`, `horizontal`, `vertical`, `disc`, `decimal`
 
-## Override Priority
+## Override priority
 
 Understanding how defaults interact with component props:
 
-### Priority Order
+### Priority order
 
 1. **Component props** (highest priority)
 2. **ThemeDefaults from closest ThemeProvider**
@@ -164,7 +164,7 @@ function OverrideExample() {
 }
 ```
 
-## Layout Component Defaults
+## Layout component defaults
 
 Configure defaults for layout components:
 
@@ -193,9 +193,9 @@ function LayoutDefaults() {
 }
 ```
 
-## Dynamic Defaults
+## Dynamic defaults
 
-### Runtime Default Changes
+### Runtime default changes
 
 Update defaults based on user preferences or application state:
 
@@ -228,7 +228,7 @@ function DynamicDefaults() {
 }
 ```
 
-### Contextual Defaults
+### Contextual defaults
 
 Different defaults for different areas of your app:
 
@@ -256,7 +256,7 @@ function ContextualDefaults() {
 }
 ```
 
-## Section-Specific Styling
+## Section-specific styling
 
 Different themes for different page sections:
 
@@ -294,13 +294,13 @@ function MultiSectionApp() {
 }
 ```
 
-## Best Practices
+## Patterns that keep themeDefaults predictable
 
-### Know VaneUI's Built-in Defaults
+### Know VaneUI's built-in defaults
 
 VaneUI components come with sensible built-in defaults. Only set defaults that differ from these:
 
-**Built-in defaults you don't need to specify** (cite the component's `{component}Defaults.ts` file as the source of truth when in doubt). Components that tag-switch to `<a>` via `href` (Badge, Card, Chip, Code, Row, Col, Stack) also get `focusVisible: true` auto-injected when `href` is set — opt out per-instance with `noFocusVisible`.
+**Built-in defaults you don't need to specify** (cite the component's `{component}Defaults.ts` file as the source of truth when in doubt). Components that tag-switch to `<a>` via `href` (Badge, Card, Chip, Code, Row, Col, Stack) also get `focusVisible: true` auto-injected when `href` is set. Opt out per-instance with `noFocusVisible`.
 
 - **Button**: `sm`, `primary`, `outline`, `rounded`, `semibold`, `padding`, `gap`, `ring`, `focusVisible`, `cursorPointer`, `transition` (note: defaults to `sm`, not `md`; no `shadow`)
 - **Card**: `md`, `primary`, `outline`, `rounded`, `border`, `padding`, `gap`, `flex`, `column`
@@ -312,7 +312,7 @@ VaneUI components come with sensible built-in defaults. Only set defaults that d
 - **Input**: `md`, `wFull`, `primary`, `outline`, `rounded`, `padding`, `ring`, `focusVisible`
 - **Badge**: `md`, `primary`, `outline`, `pill`, `semibold`, `uppercase`
 - **Chip**: `md`, `secondary` (not `primary`), `outline`, `rounded`, `mono`
-- **Link**: `md`, `link` (not `primary`), `underline`, `sans`, `cursorPointer`, `inheritSize`, `wFit`, `focusVisible` (no variant default — no `outline`)
+- **Link**: `md`, `link` (not `primary`), `underline`, `sans`, `cursorPointer`, `inheritSize`, `wFit`, `focusVisible` (no variant default, no `outline`)
 - **NavLink**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`
 - **MenuItem**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`
 - **Typography** (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`): `md`, `inherit` (not `primary`), `outline`
@@ -335,7 +335,7 @@ VaneUI components come with sensible built-in defaults. Only set defaults that d
 }}>
 ```
 
-### Consistent Defaults
+### Consistent defaults
 
 Establish defaults that align with your design system:
 
@@ -360,7 +360,7 @@ const designSystemDefaults: ThemeDefaults = {
 </ThemeProvider>
 ```
 
-### Logical Groupings
+### Logical groupings
 
 Group related defaults together for maintainability:
 
@@ -390,4 +390,4 @@ const layoutDefaults: ThemeDefaults = {
 </ThemeProvider>
 ```
 
-The `themeDefaults` property provides a robust system for establishing consistent default values throughout your VaneUI application, enabling global consistency while maintaining the flexibility to override defaults when needed.
+`themeDefaults` establishes consistent default values across the application while allowing per-instance overrides on individual components.

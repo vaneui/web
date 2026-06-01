@@ -7,16 +7,16 @@ since: 0.9.0
 
 A dropdown menu triggered by a button with full keyboard navigation. Contains `MenuItem`, `MenuLabel`, and `Divider` subcomponents.
 
-## When to Use
+## When to use
 
 - Action menus on a row or card (Edit / Duplicate / Delete).
 - Account / user menus in a header.
 - Overflow menus for secondary actions that don't fit in the toolbar.
-- Any disclosure where the items behave like commands — for navigation between pages, prefer `NavLink`.
+- Any disclosure where the items behave like commands. For navigation between pages, prefer `NavLink`.
 
 ## Basic Menu
 
-A dropdown menu triggered by a button. Pass the trigger as a React element via the `trigger` prop; children are the menu contents. Includes full keyboard navigation (Arrow keys, Enter, Escape, Tab) and focus management with a keyboard-visible outline on each item — focus returns to the trigger when the menu closes.
+A dropdown menu triggered by a button. Pass the trigger as a React element via the `trigger` prop; children are the menu contents. Includes full keyboard navigation (Arrow keys, Enter, Escape, Tab) and focus management with a keyboard-visible outline on each item. Focus returns to the trigger when the menu closes.
 
 ```tsx
 import { Menu, MenuItem, Button } from "@vaneui/ui";
@@ -28,7 +28,7 @@ import { Menu, MenuItem, Button } from "@vaneui/ui";
 </Menu>
 ```
 
-## Labels & Dividers
+## Labels and dividers
 
 Use `MenuLabel` for section headings and `Divider` for visual separators between groups. `Divider` automatically picks up the Menu's size via the menu-divider sub-theme.
 
@@ -46,9 +46,9 @@ Use `MenuLabel` for section headings and `Divider` for visual separators between
 </Menu>
 ```
 
-## Items with Icons
+## Items with icons
 
-Place SVG icons directly inside `MenuItem` — they are automatically flex-aligned and pointer-events-disabled so clicks pass through to the item.
+Place SVG icons directly inside `MenuItem`. They are automatically flex-aligned and pointer-events-disabled so clicks pass through to the item.
 
 ```tsx
 import { Edit, Copy, Trash2 } from "react-feather";
@@ -61,7 +61,7 @@ import { Edit, Copy, Trash2 } from "react-feather";
 </Menu>
 ```
 
-## Destructive Item
+## Destructive item
 
 Use the `danger` appearance prop on a `MenuItem` to flag a destructive action. Combine with a `Divider` to visually separate it from safe actions.
 
@@ -74,7 +74,7 @@ Use the `danger` appearance prop on a `MenuItem` to flag a destructive action. C
 </Menu>
 ```
 
-## Item Appearances
+## Item appearances
 
 Any appearance prop works on `MenuItem` for semantic coloring of individual actions.
 
@@ -86,7 +86,7 @@ Any appearance prop works on `MenuItem` for semantic coloring of individual acti
 </Menu>
 ```
 
-## Disabled Items
+## Disabled items
 
 Set `disabled` on a `MenuItem` to prevent interaction. Disabled items are skipped during keyboard navigation and announced via `aria-disabled`.
 
@@ -101,7 +101,7 @@ Set `disabled` on a `MenuItem` to prevent interaction. Disabled items are skippe
 </Menu>
 ```
 
-## Items as Links
+## Items as links
 
 Pass `href` to render a `MenuItem` as an anchor tag. For client-side navigation in a Next.js app, also pass `tag={Link}`.
 
@@ -114,9 +114,9 @@ Pass `href` to render a `MenuItem` as an anchor tag. For client-side navigation 
 </Menu>
 ```
 
-## Menu Sizes
+## Menu sizes
 
-Set a size on `Menu` (e.g. `<Menu lg>`) and the dropdown popup, every `MenuItem`, `MenuLabel`, and nested `Divider` scale together automatically — no need to repeat the size on every child. Items render with larger font-size and padding, the popup frame lifts its inner padding, and dividers match. Individual children can still override with their own size prop.
+Set a size on `Menu` (e.g. `<Menu lg>`) and the dropdown popup, every `MenuItem`, `MenuLabel`, and nested `Divider` scale together automatically. No need to repeat the size on every child. Items render with larger font-size and padding, the popup frame lifts its inner padding, and dividers match. Individual children can still override with their own size prop.
 
 ```tsx
 <Menu lg trigger={<Button lg>Actions</Button>}>
@@ -127,7 +127,7 @@ Set a size on `Menu` (e.g. `<Menu lg>`) and the dropdown popup, every `MenuItem`
 </Menu>
 ```
 
-## Controlled State
+## Controlled state
 
 Pass `open` and `onOpenChange` to drive the menu from outside state. Useful when you need to open the menu programmatically or react to its state.
 
@@ -145,16 +145,16 @@ const [open, setOpen] = useState(false);
 </Menu>
 ```
 
-## Advanced Props
+## Advanced props
 
 Menu supports additional configuration for fine-tuning behavior:
 
 | Prop | Default | Description |
 |------|---------|-------------|
-| `open` | — | Controlled open state |
+| `open` |   | Controlled open state |
 | `defaultOpen` | `false` | Initial open state (uncontrolled) |
-| `onOpenChange` | — | Called when open state changes |
-| `onClose` | — | Called when the menu closes |
+| `onOpenChange` |   | Called when open state changes |
+| `onClose` |   | Called when the menu closes |
 | `closeOnItemClick` | `true` | Close menu when any item is clicked |
 | `loop` | `true` | Loop keyboard navigation from last to first |
 | `disabled` | `false` | Prevent menu from opening |
@@ -165,7 +165,7 @@ Menu supports additional configuration for fine-tuning behavior:
 | Prop | Default | Description |
 |------|---------|-------------|
 | `closeMenuOnClick` | inherits | Override the menu-level `closeOnItemClick` for this item |
-| `href` | — | Render as anchor tag |
+| `href` |   | Render as anchor tag |
 | `disabled` | `false` | Prevent interaction |
 | `focusVisible` | `true` | Render a keyboard focus-visible outline |
-| `noFocusVisible` | — | Disable the keyboard focus-visible outline |
+| `noFocusVisible` |   | Disable the keyboard focus-visible outline |

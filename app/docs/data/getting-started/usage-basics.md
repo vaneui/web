@@ -1,10 +1,10 @@
 Learn the fundamental patterns for using VaneUI components.
 
-## Component Props
+## Component props
 
 VaneUI components use boolean props for styling. Most components support size, appearance, and layout props.
 
-### Size Props
+### Size props
 
 Components support five sizes:
 
@@ -26,7 +26,7 @@ function SizeExample() {
 
 > Most components default to `md`. Button, NavLink, MenuItem, and Label default to `sm`.
 
-### Appearance Props
+### Appearance props
 
 Control visual appearance with semantic props:
 
@@ -51,7 +51,7 @@ function AppearanceExample() {
 }
 ```
 
-### Filled and Outline Variants
+### Filled and outline variants
 
 All components support `filled` and `outline` variants. `outline` is the default for most components:
 
@@ -85,7 +85,7 @@ function FilledOutlineExample() {
 }
 ```
 
-### Shape Props
+### Shape props
 
 Control border radius:
 
@@ -103,7 +103,7 @@ function ShapeExample() {
 }
 ```
 
-## Layout Components
+## Layout components
 
 ### Stack
 
@@ -125,7 +125,7 @@ function StackExample() {
 
 ### Row and Col
 
-Create flexible layouts:
+Compose layouts:
 
 ```tsx
 import { Row, Col, Card } from '@vaneui/ui';
@@ -144,7 +144,7 @@ function GridExample() {
 }
 ```
 
-### Responsive Breakpoints
+### Responsive breakpoints
 
 Use breakpoint props to change layout on different screen sizes:
 
@@ -163,9 +163,9 @@ function ResponsiveLayout() {
 ```
 
 Available breakpoint props:
-- `mobileCol` - Column on mobile and below (max-width: 48rem)
-- `tabletCol` - Column on tablet and below (max-width: 64rem)
-- `desktopCol` - Column on desktop and below (max-width: 80rem)
+- `mobileCol`: Column on mobile and below (max-width: 48rem)
+- `tabletCol`: Column on tablet and below (max-width: 64rem)
+- `desktopCol`: Column on desktop and below (max-width: 80rem)
 
 ## Typography
 
@@ -186,9 +186,9 @@ function TypographyExample() {
 }
 ```
 
-### Automatic Responsive Typography
+### Automatic responsive typography
 
-Typography components (`PageTitle`, `SectionTitle`, `Title`) and layout components (`Section`) automatically scale across breakpoints - no props needed:
+Typography components (`PageTitle`, `SectionTitle`, `Title`) and layout components (`Section`) automatically scale across breakpoints: no props needed:
 
 ```tsx
 import { PageTitle, SectionTitle, Title, Section } from '@vaneui/ui';
@@ -205,12 +205,12 @@ function ResponsiveTypography() {
 }
 ```
 
-- `PageTitle` scales: e.g., 24 units on desktop → 21 on tablet → 18 on mobile
-- `SectionTitle` scales: e.g., 18 units on desktop → 16 on tablet → 14 on mobile
-- `Title` scales: e.g., 12 units on desktop → 11 on tablet → 10 on mobile
+- `PageTitle` scales: e.g., 24 units on desktop, 21 on tablet, 18 on mobile
+- `SectionTitle` scales: e.g., 18 units on desktop, 16 on tablet, 14 on mobile
+- `Title` scales: e.g., 12 units on desktop, 11 on tablet, 10 on mobile
 - `Section` padding/gap scales automatically across breakpoints
 
-### Typography Color Inheritance
+### Typography color inheritance
 
 List items inherit appearance from their parent List component via CSS variables:
 
@@ -274,9 +274,9 @@ function IconExample() {
 }
 ```
 
-### Icon Container Mode
+### Icon container mode
 
-By default `Icon` renders as a bare glyph that inherits color from its parent. Adding any of `padding`, `border`, `ring`, `shadow`, or `filled` switches it into *container mode* — the icon gains a sized box that shape props (`rounded`, `pill`, `sharp`) can act on:
+By default `Icon` renders as a bare glyph that inherits color from its parent. Adding any of `padding`, `border`, `ring`, `shadow`, or `filled` switches it into *container mode*: the icon gains a sized box that shape props (`rounded`, `pill`, `sharp`) can act on:
 
 ```tsx
 import { Icon, Row } from '@vaneui/ui';
@@ -295,7 +295,7 @@ function IconContainerExample() {
 
 Padding and radius scale with the size prop, so the same composition works across `xs` through `xl`.
 
-## Overlays and Modals
+## Overlays and modals
 
 Use `Modal` for dialogs that require user attention. Modals include focus trapping, scroll lock, and ARIA attributes by default. Modal provides sub-components for structured layout: `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton`.
 
@@ -346,7 +346,7 @@ function PopupExample() {
 
 See the [Overlay Components](/docs/overlay-components/overlay) section for `Overlay`, `Modal`, and `Popup` documentation.
 
-## Responsive Visibility
+## Responsive visibility
 
 Hide components on specific breakpoints:
 
@@ -365,7 +365,7 @@ function ResponsiveVisibility() {
 }
 ```
 
-## Custom HTML Tags
+## Custom HTML tags
 
 Use the `tag` prop to render different HTML elements:
 
@@ -383,7 +383,7 @@ function TagExample() {
 }
 ```
 
-## Combining with Custom Classes
+## Combining with custom classes
 
 Add custom Tailwind classes via `className`:
 
@@ -403,11 +403,11 @@ function CustomStyling() {
 
 User-provided `className` takes precedence over theme classes (via `twMerge`).
 
-## Prefer Props Over Tailwind Classes
+## Prefer props over Tailwind classes
 
 VaneUI provides boolean props for most common styling needs. Use these instead of Tailwind classes to ensure consistent theming and proper integration with the size system.
 
-### Common Props vs Tailwind Classes
+### Common props vs Tailwind classes
 
 | Instead of Tailwind | Use VaneUI prop |
 |---------------------|-----------------|
@@ -436,7 +436,7 @@ VaneUI provides boolean props for most common styling needs. Use these instead o
 <Row className="items-center justify-between">Spaced content</Row>
 ```
 
-### Gap is Controlled by Size Props
+### Gap is controlled by size props
 
 Don't use Tailwind gap classes. Gap is controlled by the size prop system (`xs`, `sm`, `md`, `lg`, `xl`) and is enabled by default on layout components.
 
@@ -450,7 +450,7 @@ Don't use Tailwind gap classes. Gap is controlled by the size prop system (`xs`,
 <Row className="gap-10">Don't override gap this way</Row>
 ```
 
-### Background Colors via Appearance Props
+### Background colors via appearance props
 
 Background colors are controlled by appearance + variant props. Only use `bg-*` classes for edge cases not covered by the theme (like gradients).
 
@@ -468,7 +468,7 @@ Background colors are controlled by appearance + variant props. Only use `bg-*` 
 </div>
 ```
 
-### Typography Styling is Built-in
+### Typography styling is built-in
 
 Typography components have built-in letter spacing, line height, and other typographic properties. Avoid overriding these with Tailwind classes.
 

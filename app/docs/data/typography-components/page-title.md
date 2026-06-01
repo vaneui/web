@@ -27,7 +27,7 @@ Three heading components for a clean semantic hierarchy. Use them together so th
 </Col>
 ```
 
-## PageTitle Sizes
+## PageTitle sizes
 
 Page titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
@@ -41,9 +41,9 @@ Page titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 </Col>
 ```
 
-## PageTitle Appearances
+## PageTitle appearances
 
-By default, PageTitle uses the `inherit` appearance — it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
+By default, PageTitle uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
 
 ```tsx demo
 <Col>
@@ -56,7 +56,7 @@ By default, PageTitle uses the `inherit` appearance — it inherits color from i
 </Col>
 ```
 
-## Font Weights
+## Font weights
 
 PageTitle is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
 
@@ -71,7 +71,7 @@ PageTitle is `semibold` by default. Override with any weight prop: `thin`, `extr
 </Col>
 ```
 
-## Font Families
+## Font families
 
 Switch between `sans`, `serif`, and `mono` font families.
 
@@ -91,7 +91,7 @@ Use the `italic` prop for italic emphasis.
 <PageTitle italic>Italic Page Title</PageTitle>
 ```
 
-## Text Alignment
+## Text alignment
 
 PageTitle is left-aligned by default. Use `textCenter`, `textRight`, or `textJustify` to change alignment.
 
@@ -103,7 +103,7 @@ PageTitle is left-aligned by default. Use `textCenter`, `textRight`, or `textJus
 </Card>
 ```
 
-## Custom HTML Tag
+## Custom HTML tag
 
 Override the rendered tag with the `tag` prop when the visual style of PageTitle is wanted but a different semantic level is required.
 
@@ -116,7 +116,7 @@ Override the rendered tag with the `tag` prop when the visual style of PageTitle
 </Col>
 ```
 
-## PageTitle in Context
+## PageTitle in context
 
 Page titles work well as the main heading of a page, paired with a subtitle.
 
@@ -128,7 +128,7 @@ Page titles work well as the main heading of a page, paired with a subtitle.
 </Card>
 ```
 
-## Page Header Pattern
+## Page header pattern
 
 Combine PageTitle with Text and Divider for a complete page header.
 
@@ -141,7 +141,7 @@ Combine PageTitle with Text and Divider for a complete page header.
 </Col>
 ```
 
-## Hero Page Header
+## Hero page header
 
 Combine an `xl` PageTitle with a large subtitle and a call to action for a marketing-style hero.
 

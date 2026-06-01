@@ -1,8 +1,8 @@
-VaneUI uses a powerful theme system based on `ComponentTheme` classes that define styling for each component. This page explains the theme architecture and how to customize it.
+VaneUI uses a theme system based on `ComponentTheme` classes that define styling for each component. This page explains the theme architecture and how to customize it.
 
-## Theme Architecture
+## Theme architecture
 
-### ComponentTheme Class
+### ComponentTheme class
 
 Each component has a `ComponentTheme` instance that defines:
 - **tag**: Default HTML element (e.g., "button", "div")
@@ -26,7 +26,7 @@ const buttonTheme = new ComponentTheme(
 );
 ```
 
-### BaseTheme Subclasses
+### BaseTheme subclasses
 
 Each `BaseTheme` subclass generates specific CSS classes based on extracted props:
 
@@ -47,7 +47,7 @@ class SimpleConsumerTheme extends BaseTheme {
 }
 ```
 
-## Accessing the Theme
+## Accessing the theme
 
 Use the `useTheme` hook to access the current theme:
 
@@ -60,38 +60,38 @@ function CustomComponent() {
   // Compound themes are nested by sub-part
   const buttonMainTheme = theme.button.main;
   const cardMainTheme = theme.card.main;
-  // Simple themes are accessed directly
+  // Single-target themes are accessed directly
   const badgeTheme = theme.badge;
 
   return <div>Custom component</div>;
 }
 ```
 
-## Available Component Themes
+## Available component themes
 
 VaneUI includes themes for all components.
 
 **Interactive:**
 - `iconButton`, `badge`, `icon`, `chip`, `code`, `kbd`, `mark`, `input`, `label`, `img`
-- `button` — compound: `button.main`, `button.spinner`
-- `checkbox` — compound: `checkbox.input`, `checkbox.check`, `checkbox.indeterminate`, `checkbox.wrapper`
+- `button`: compound with `button.main`, `button.spinner`
+- `checkbox`: compound with `checkbox.input`, `checkbox.check`, `checkbox.indeterminate`, `checkbox.wrapper`
 
 **Layout:**
 - `divider`, `container`, `row`, `col`, `stack`, `section`
 - `grid2`, `grid3`, `grid4`, `grid5`, `grid6`
-- `card` — compound: `card.main`, `card.header`, `card.body`, `card.footer`
+- `card`: compound with `card.main`, `card.header`, `card.body`, `card.footer`
 
 **Typography:**
 - `text`, `title`, `pageTitle`, `sectionTitle`, `blockquote`, `link`, `list`, `listItem`
 
 **Overlay / Floating:**
-- `overlay` — Overlay backdrop theme
-- `popup` — Popup floating element theme
-- `modal` — compound: `modal.content`, `modal.overlay`, `modal.header`, `modal.body`, `modal.footer`, `modal.closeButton`
-- `menu` — compound: `menu.item`, `menu.popup`, `menu.divider`, `menu.label`
-- `navLink` — compound: `navLink.root`, `navLink.label`
+- `overlay`: Overlay backdrop theme
+- `popup`: Popup floating element theme
+- `modal`: compound with `modal.content`, `modal.overlay`, `modal.header`, `modal.body`, `modal.footer`, `modal.closeButton`
+- `menu`: compound with `menu.item`, `menu.popup`, `menu.divider`, `menu.label`
+- `navLink`: compound with `navLink.root`, `navLink.label`
 
-## ThemeProvider Props
+## ThemeProvider props
 
 ### themeDefaults
 
@@ -189,7 +189,7 @@ Control how nested ThemeProviders combine:
 </ThemeProvider>
 ```
 
-## Data Attributes
+## Data attributes
 
 Components emit data attributes that CSS rules use for styling:
 
@@ -205,7 +205,7 @@ Components emit data attributes that CSS rules use for styling:
 </button>
 ```
 
-CSS rules in `rules.css` set unit variables per `data-size` and per-component class — `--fs-unit`, `--py-unit`, and (for Icon) `--icon-size` are all set together so font-size, padding, gap, and border-radius scale together:
+CSS rules in `rules.css` set unit variables per `data-size` and per-component class. `--fs-unit`, `--py-unit`, and (for Icon) `--icon-size` are all set together so font-size, padding, gap, and border-radius scale together:
 
 ```css
 /* Per-component size mapping */
@@ -228,11 +228,11 @@ CSS rules in `rules.css` set unit variables per `data-size` and per-component cl
 }
 ```
 
-## Baseline Inheritance
+## Baseline inheritance
 
-`primary + outline` matches the `:root` palette, so VaneUI **omits** `data-appearance` and `data-variant` for components resolving to those values. The component then inherits color variables from its nearest ancestor — this is what lets a default `<Button>` inside a filled `<Card>` automatically pick up the Card's text and background colors. Identity components (`Mark`, `Chip`, `Link`, `Checkbox`) deviate from baseline and always emit their own attributes. See [Variant Inheritance](./variant-inheritance) for details.
+`primary + outline` matches the `:root` palette, so VaneUI **omits** `data-appearance` and `data-variant` for components resolving to those values. The component then inherits color variables from its nearest ancestor. This is what lets a default `<Button>` inside a filled `<Card>` automatically pick up the Card's text and background colors. Identity components (`Mark`, `Chip`, `Link`, `Checkbox`) deviate from baseline and always emit their own attributes. See [Variant Inheritance](./variant-inheritance) for details.
 
-## Flow Summary
+## Flow summary
 
 1. User writes: `<Button danger lg filled>Click</Button>`
 2. Button component calls `useTheme()` to get `theme.button.main`

@@ -7,9 +7,9 @@ since: 0.9.0
 
 Renders a thin line to separate content and create a clear visual hierarchy. Dividers can be used to group related items in lists and layouts.
 
-## Basic Divider
+## Basic divider
 
-A simple horizontal divider.
+A horizontal divider.
 
 ```tsx demo
 <Col>
@@ -19,7 +19,7 @@ A simple horizontal divider.
 </Col>
 ```
 
-## Divider Sizes
+## Divider sizes
 
 Sizes (`xs`, `sm`, `md`, `lg`, `xl`) drive the per-size vertical padding via `--py-unit`. The line itself stays one pixel; pass `padding` to make the surrounding spacing visible.
 
@@ -53,7 +53,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) drive the per-size vertical padding via `--
 </Col>
 ```
 
-## Divider Appearances
+## Divider appearances
 
 Dividers use `inherit` by default. Pass an explicit appearance for a colored line.
 
@@ -102,7 +102,7 @@ Dividers use `inherit` by default. Pass an explicit appearance for a colored lin
 </Col>
 ```
 
-## Filled Variant
+## Filled variant
 
 `filled` swaps the outline appearance for a solid bar in the same color.
 
@@ -116,7 +116,7 @@ Dividers use `inherit` by default. Pass an explicit appearance for a colored lin
 </Col>
 ```
 
-## Vertical Divider
+## Vertical divider
 
 Pass `vertical` to render a vertical separator. Useful for inline navigation or toolbars; place it inside a `Row` so it can stretch to the row's height.
 
@@ -130,7 +130,7 @@ Pass `vertical` to render a vertical separator. Useful for inline navigation or 
 </Row>
 ```
 
-## Separating List Items
+## Separating list items
 
 Use `Divider` between items in a `Stack` or `Col` to group related rows.
 
@@ -153,7 +153,7 @@ Use `Divider` between items in a `Stack` or `Col` to group related rows.
 </Stack>
 ```
 
-## Separating Content Blocks
+## Separating content blocks
 
 Dividers also work as section breaks between larger blocks of content.
 

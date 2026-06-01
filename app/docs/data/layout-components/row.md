@@ -9,7 +9,7 @@ A fundamental layout component that arranges its children in a horizontal line. 
 
 ## Basic Row
 
-A horizontal flex container. `Row` defaults to `gap`, `itemsCenter`, `noPadding`, `noBorder`, `noRing`, `outline`, and `sharp` — you don't need to pass these explicitly. Pass `href` to render `Row` as `<a>` instead of `<div>` — a focus-visible outline auto-enables when `href` is set.
+A horizontal flex container. `Row` defaults to `gap`, `itemsCenter`, `noPadding`, `noBorder`, `noRing`, `outline`, and `sharp`: you don't need to pass these explicitly. Pass `href` to render `Row` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Row>
@@ -19,7 +19,7 @@ A horizontal flex container. `Row` defaults to `gap`, `itemsCenter`, `noPadding`
 </Row>
 ```
 
-## Row Spacing
+## Row spacing
 
 Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to control the gap amount, or `noGap` to disable.
 
@@ -64,7 +64,7 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to control the gap amount, or `noG
 </Col>
 ```
 
-## Justify (Main Axis)
+## Justify (main axis)
 
 Control horizontal distribution with `justifyStart`, `justifyEnd`, `justifyCenter`, `justifyBetween`, `justifyAround`, or `justifyEvenly`.
 
@@ -109,7 +109,7 @@ Control horizontal distribution with `justifyStart`, `justifyEnd`, `justifyCente
 </Col>
 ```
 
-## Items (Cross Axis)
+## Items (cross axis)
 
 Control vertical alignment with `itemsStart`, `itemsEnd`, `itemsCenter` (default), `itemsBaseline`, or `itemsStretch`.
 
@@ -148,7 +148,7 @@ Control vertical alignment with `itemsStart`, `itemsEnd`, `itemsCenter` (default
 </Col>
 ```
 
-## Row Wrap
+## Row wrap
 
 Use `flexWrap` to allow items to wrap to the next line when they overflow.
 
@@ -162,7 +162,7 @@ Use `flexWrap` to allow items to wrap to the next line when they overflow.
 </Row>
 ```
 
-## Reverse Order
+## Reverse order
 
 Use `rowReverse` to reverse the visual order of children.
 
@@ -174,7 +174,7 @@ Use `rowReverse` to reverse the visual order of children.
 </Row>
 ```
 
-## Responsive Layout
+## Responsive layout
 
 Use `mobileCol` to stack on mobile, or `tabletCol` to stack on tablet and below.
 
@@ -205,9 +205,9 @@ Use `mobileCol` to stack on mobile, or `tabletCol` to stack on tablet and below.
 </Col>
 ```
 
-## Row Variants
+## Row variants
 
-Use `filled` or `outline` with appearance props for styled rows. Row uses `sharp` (no border-radius) by default — pair with `rounded` or `pill` for curved corners.
+Use `filled` or `outline` with appearance props for styled rows. Row uses `sharp` (no border-radius) by default: pair with `rounded` or `pill` for curved corners.
 
 ```tsx demo
 <Col>
@@ -222,7 +222,7 @@ Use `filled` or `outline` with appearance props for styled rows. Row uses `sharp
 </Col>
 ```
 
-## Text Alignment
+## Text alignment
 
 Use `textCenter`, `textLeft`, `textRight`, or `textJustify` to control text alignment within the row.
 
@@ -260,7 +260,7 @@ Row composes naturally inside a Card to lay out header actions, button groups, o
 
 ## As Link
 
-Add `href` to render the Row as an `<a>` tag — useful for clickable list rows. A keyboard focus-visible outline auto-renders so the link is reachable via Tab; opt out with `noFocusVisible`.
+Add `href` to render the Row as an `<a>` tag, useful for clickable list rows. A keyboard focus-visible outline auto-renders so the link is reachable via Tab; opt out with `noFocusVisible`.
 
 ```tsx demo
 <Col>
@@ -279,7 +279,7 @@ Add `href` to render the Row as an `<a>` tag — useful for clickable list rows.
 </Col>
 ```
 
-## Next.js Link Integration
+## Next.js Link integration
 
 Use the `tag` prop to render the Row as a Next.js `Link` for client-side navigation.
 

@@ -5,22 +5,22 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/chip/Chi
 since: 0.9.0
 ---
 
-Compact, monospace-leaning token for representing tags, attributes, filter values, or other discrete entities inline with text. Chips default to `secondary` appearance, `outline` variant, `rounded` shape, and `mono` font — tuned for code-adjacent and metadata contexts.
+Compact, monospace-leaning token for representing tags, attributes, filter values, or other discrete entities inline with text. Chips default to `secondary` appearance, `outline` variant, `rounded` shape, and `mono` font, tuned for code-adjacent and metadata contexts.
 
-## When to Use
+## When to use
 
 - Tags, labels, and keyword filters attached to a record.
 - Attribute or metadata pills inside cards and lists (versions, environments, IDs).
 - Removable selections inside an input or filter bar (combine with an inline icon).
-- Inline category markers in code samples and API tables — `mono` is the default.
+- Inline category markers in code samples and API tables. `mono` is the default.
 
-### When NOT to Use
+### When NOT to use
 
 - For status indicators that need uppercase emphasis, prefer `Badge` (pill, uppercase, semibold by default).
 - For triggering actions or navigation, prefer `Button` or `Link`.
 - For inline code snippets, prefer `Code`.
 
-## Basic Usage
+## Basic usage
 
 Each `appearance` prop maps to a semantic color from the active theme.
 
@@ -42,7 +42,7 @@ Each `appearance` prop maps to a semantic color from the active theme.
 
 ## Sizes
 
-Chips come in five sizes — `xs`, `sm`, `md` (default), `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
+Chips come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
 
 ```tsx demo
 <Row flexWrap>
@@ -93,7 +93,7 @@ Chips support three border-radius styles: `rounded` (default), `pill`, and `shar
 </Row>
 ```
 
-## Font Family
+## Font family
 
 Chips default to `mono` to fit code-adjacent contexts. Override with `sans` or `serif` when the surrounding copy calls for it.
 
@@ -105,9 +105,9 @@ Chips default to `mono` to fit code-adjacent contexts. Override with `sans` or `
 </Row>
 ```
 
-## With Icon
+## With icon
 
-Drop an icon directly inside the chip — `gap` is on by default, so spacing is automatic.
+Drop an icon directly inside the chip. `gap` is on by default, so spacing is automatic.
 
 ```tsx demo
 <Row flexWrap>
@@ -117,7 +117,7 @@ Drop an icon directly inside the chip — `gap` is on by default, so spacing is 
 </Row>
 ```
 
-## Tag and Filter Lists
+## Tag and filter lists
 
 The canonical chip pattern: a wrapping row of tokens that classify or filter content.
 
@@ -134,7 +134,7 @@ The canonical chip pattern: a wrapping row of tokens that classify or filter con
 </Card>
 ```
 
-## Removable Chips
+## Removable chips
 
 Pair a chip with an inline close icon to represent removable selections inside a filter bar.
 
@@ -148,7 +148,7 @@ Pair a chip with an inline close icon to represent removable selections inside a
 
 ## As Link
 
-Pass `href` to render the chip as an `<a>` — useful for clickable tag listings. When `href` is set, the chip gains a keyboard focus-visible outline by default. Opt out with `noFocusVisible`.
+Pass `href` to render the chip as an `<a>`, useful for clickable tag listings. When `href` is set, the chip gains a keyboard focus-visible outline by default. Opt out with `noFocusVisible`.
 
 ```tsx demo
 <Row flexWrap>
@@ -172,7 +172,7 @@ import { ThemeProvider, Chip } from '@vaneui/ui';
 </ThemeProvider>
 ```
 
-Add prop-conditional classes with `extraClasses` — applied whenever the matching boolean prop is active:
+Add prop-conditional classes with `extraClasses`, applied whenever the matching boolean prop is active:
 
 ```tsx
 import { ThemeProvider, Chip } from '@vaneui/ui';

@@ -7,7 +7,7 @@ since: 0.9.0
 
 Manages the main content area by centering it and applying a max-width. It ensures a consistent and readable layout across different screen sizes.
 
-## Basic Container
+## Basic container
 
 A centered, full-width wrapper that caps content at a readable max-width. `md`, `wFull`, `flex`, `column`, `itemsCenter`, `gap`, `noPadding`, `outline`, and `sharp` are defaults.
 
@@ -18,7 +18,7 @@ A centered, full-width wrapper that caps content at a readable max-width. `md`, 
 </Container>
 ```
 
-## Container Sizes
+## Container sizes
 
 Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control the max-width: `max-w-3xl` through `max-w-7xl`. Resize the viewport to see narrower containers stop growing before wider ones do.
 
@@ -42,9 +42,9 @@ Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control the max-width: `max-w-3xl` 
 </Col>
 ```
 
-## Container Padding
+## Container padding
 
-Container defaults to `noPadding` — the parent Section usually owns vertical rhythm. Pass `padding` to opt in to size-driven internal padding.
+Container defaults to `noPadding`: the parent Section usually owns vertical rhythm. Pass `padding` to opt in to size-driven internal padding.
 
 ```tsx demo
 <Col>
@@ -59,7 +59,7 @@ Container defaults to `noPadding` — the parent Section usually owns vertical r
 </Col>
 ```
 
-## Container Appearances
+## Container appearances
 
 Containers support color appearances: `primary`, `secondary`, `success`, `danger`, etc.
 
@@ -76,7 +76,7 @@ Containers support color appearances: `primary`, `secondary`, `success`, `danger
 </Col>
 ```
 
-## Container Variants
+## Container variants
 
 Use `filled` for solid backgrounds. `outline` is the default. Add `shadow` for elevation.
 
@@ -97,7 +97,7 @@ Use `filled` for solid backgrounds. `outline` is the default. Add `shadow` for e
 </Col>
 ```
 
-## Container Shapes
+## Container shapes
 
 Containers support different border radius styles. `sharp` is the default (no radius).
 
@@ -115,7 +115,7 @@ Containers support different border radius styles. `sharp` is the default (no ra
 </Col>
 ```
 
-## Responsive Breakpoints
+## Responsive breakpoints
 
 Container is a flex column by default. Use `row` to flow horizontally on desktop and `mobileCol` / `tabletCol` to stack on smaller screens.
 
@@ -132,7 +132,7 @@ Container is a flex column by default. Use `row` to flow horizontally on desktop
 </Container>
 ```
 
-## Page Layout Pattern
+## Page layout pattern
 
 The canonical page layout: a Section owns vertical padding and full-width background, the Container nested inside caps reading width and centers the content.
 

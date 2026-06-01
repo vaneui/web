@@ -1,6 +1,6 @@
-VaneUI helps you build beautiful, consistent UIs faster by turning common design decisions into expressive, readable boolean props. Instead of memorizing property names and values, you compose intent: `primary`, `lg`, `outline`, `rounded`. The result is cleaner code, fewer decisions per component, and a smoother path from wireframe to production.
+VaneUI turns common design decisions into expressive, readable boolean props. Instead of memorizing property names and values, you compose intent: `primary`, `lg`, `outline`, `rounded`. The result is cleaner code, fewer decisions per component, and a smoother path from wireframe to production.
 
-## Boolean Props API
+## Boolean props API
 
 At its core, VaneUI uses **boolean props** instead of string enums for cleaner JSX:
 
@@ -21,22 +21,22 @@ Props are organized into **categories**:
 - **layout**: `flex`, `column`, `itemsCenter`, `justifyBetween`, etc.
 - **inheritance**: `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder` (and `noInherit*` toggles)
 
-Typography components (Text, Title, SectionTitle, PageTitle), Label, List, and Divider default to `inherit`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Inline components like Link, Code, Kbd, and Mark default to `inheritSize` — they inherit font-size from their parent while keeping their own appearance color.
+Typography components (Text, Title, SectionTitle, PageTitle), Label, List, and Divider default to `inherit`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Inline components like Link, Code, Kbd, and Mark default to `inheritSize`. They inherit font-size from their parent while keeping their own appearance color.
 
-## How Components Work
+## How components work
 
 VaneUI components follow a three-layer architecture:
 
-### Layer 1: React Component
+### Layer 1: React component
 Each component gets its theme from `ThemeContext` via `useTheme()` and passes props to `ThemedComponent`, which computes the final CSS classes.
 
-### Layer 2: Theme System
+### Layer 2: theme system
 The `ComponentTheme` class orchestrates class generation. It walks a tree of `BaseTheme` subclasses (like `FontSizeTheme`, `RadiusTheme`) that each generate specific CSS classes based on the active props.
 
-### Layer 3: CSS Variables
+### Layer 3: CSS variables
 Components output **data attributes** (`data-size`, `data-appearance`, `data-variant`) that CSS rules in `vars.css` use to set CSS variables. These variables are then consumed by Tailwind utility classes.
 
-## Prop Extraction
+## Prop extraction
 
 When you pass props, VaneUI selects ONE value per category based on priority:
 
@@ -54,7 +54,7 @@ When you pass props, VaneUI selects ONE value per category based on priority:
 1. Props explicitly set to `true`
 2. Defaults set to `true` (unless explicitly set to `false` in props)
 
-## Prop Combinations
+## Prop combinations
 
 Boolean props can be combined naturally to create the exact styling you need:
 
@@ -72,11 +72,11 @@ Boolean props can be combined naturally to create the exact styling you need:
 </Stack>
 ```
 
-## CSS Variable System
+## CSS variable system
 
 VaneUI uses a three-tier CSS variable system:
 
-### Tier 1: Unit Variables
+### Tier 1: unit variables
 Set by component class based on `data-size`:
 ```css
 .vane-button[data-size="md"] {
@@ -86,7 +86,7 @@ Set by component class based on `data-size`:
 }
 ```
 
-### Tier 2: Computed Variables
+### Tier 2: computed variables
 Calculated from unit variables using base multipliers:
 ```css
 [data-size] {
@@ -98,7 +98,7 @@ Calculated from unit variables using base multipliers:
 }
 ```
 
-### Tier 3: Semantic Color Variables
+### Tier 3: semantic color variables
 Set by `data-variant` + `data-appearance` attributes:
 ```css
 [data-variant="outline"][data-appearance="primary"] {
@@ -108,7 +108,7 @@ Set by `data-variant` + `data-appearance` attributes:
 }
 ```
 
-## Mixing Custom Classes
+## Mixing custom classes
 
 You can always add your own Tailwind classes via `className` to fine-tune any edge case:
 ```tsx
@@ -119,9 +119,9 @@ You can always add your own Tailwind classes via `className` to fine-tune any ed
 
 User-provided `className` takes precedence over theme classes for the same properties (via `twMerge`).
 
-## Customization Options
+## Customization options
 
-### CSS Variables
+### CSS variables
 Override colors globally or for any subtree:
 ```css
 :root {
@@ -131,7 +131,7 @@ Override colors globally or for any subtree:
 }
 ```
 
-### ThemeProvider Defaults
+### ThemeProvider defaults
 Set default prop values for all components, including overlay components (Overlay, Modal, Popup):
 ```tsx
 <ThemeProvider themeDefaults={{
@@ -142,7 +142,7 @@ Set default prop values for all components, including overlay components (Overla
 </ThemeProvider>
 ```
 
-### Extra Classes
+### Extra classes
 Add additional CSS classes based on active props:
 ```tsx
 <ThemeProvider extraClasses={{
@@ -152,7 +152,7 @@ Add additional CSS classes based on active props:
 </ThemeProvider>
 ```
 
-### Theme Override Function
+### Theme override function
 For programmatic theme modifications:
 ```tsx
 <ThemeProvider themeOverride={(theme) => {

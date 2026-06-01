@@ -7,7 +7,7 @@ since: 0.9.0
 
 Highlights important information such as notifications or counts in a non-intrusive way. Badges are typically used in conjunction with other elements like icons or navigation links.
 
-## Basic Usage
+## Basic usage
 
 Badge styles and variants.
 
@@ -27,7 +27,7 @@ Badge styles and variants.
 </Row>
 ```
 
-## Badge Sizes
+## Badge sizes
 
 Badges come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.
 
@@ -41,7 +41,7 @@ Badges come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.
 </Row>
 ```
 
-## Badge Shapes
+## Badge shapes
 
 Badges support different border radius styles: `rounded`, `pill` (default), and `sharp`.
 
@@ -53,7 +53,7 @@ Badges support different border radius styles: `rounded`, `pill` (default), and 
 </Row>
 ```
 
-## Badge Variants
+## Badge variants
 
 Badges can be styled as `filled`, `outline` (default), or `ghost`.
 
@@ -80,7 +80,7 @@ Badges can be styled as `filled`, `outline` (default), or `ghost`.
 </Col>
 ```
 
-## Font Weights
+## Font weights
 
 Badges support different font weights.
 
@@ -95,7 +95,7 @@ Badges support different font weights.
 
 ## As Link
 
-Pass `href` to render the badge as an `<a>` — useful for clickable status labels. When `href` is set, the badge gains a keyboard focus-visible outline by default (opt out with `noFocusVisible`).
+Pass `href` to render the badge as an `<a>`, useful for clickable status labels. When `href` is set, the badge gains a keyboard focus-visible outline by default (opt out with `noFocusVisible`).
 
 ```tsx demo
 <Row flexWrap>
@@ -105,7 +105,7 @@ Pass `href` to render the badge as an `<a>` — useful for clickable status labe
 </Row>
 ```
 
-## Status Badges in Context
+## Status badges in context
 
 Badges work well as status indicators inside cards and other layout components.
 

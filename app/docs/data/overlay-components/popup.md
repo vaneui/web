@@ -7,7 +7,7 @@ since: 0.9.0
 
 A floating element anchored to a trigger element using CSS Anchor Positioning. Supports 12 placement options, width matching, and click-outside dismissal.
 
-Popup ships its own surface defaults: `md`, `flex column`, `padding`, `gap`, `rounded`, `border`, `shadow`, `primary`, `outline`, `wFit`, `maxHeight`, `overflowAuto`, `bottom`. Render children directly — wrapping content in another `Card` is usually redundant.
+Popup ships its own surface defaults: `md`, `flex column`, `padding`, `gap`, `rounded`, `border`, `shadow`, `primary`, `outline`, `wFit`, `maxHeight`, `overflowAuto`, `bottom`. Render children directly. Wrapping content in another `Card` is usually redundant.
 
 > **Browser support:** Popup uses the CSS Anchor Positioning API (Chrome 125+, Edge 125+). Other browsers fall back to a JS positioning path that recomputes on scroll/resize.
 
@@ -38,9 +38,9 @@ const anchorRef = useRef<HTMLButtonElement>(null);
 </Popup>
 ```
 
-## PopupTrigger (Click)
+## PopupTrigger (click)
 
-`PopupTrigger` is a convenience wrapper that manages open/close state and ref wiring automatically. No `useState` or `useRef` needed — wrap the trigger element and provide popup content via the `popup` prop. Default trigger mode is `"click"`.
+`PopupTrigger` is a convenience wrapper that manages open/close state and ref wiring automatically. No `useState` or `useRef` needed: wrap the trigger element and provide popup content via the `popup` prop. Default trigger mode is `"click"`.
 
 ```tsx
 <PopupTrigger popup={<Text sm>Click-triggered popup</Text>}>
@@ -48,7 +48,7 @@ const anchorRef = useRef<HTMLButtonElement>(null);
 </PopupTrigger>
 ```
 
-## PopupTrigger (Hover)
+## PopupTrigger (hover)
 
 Set `triggerOnHover` to show on mouse enter and hide on mouse leave. `openDelay` (default `0`) delays appearance; `closeDelay` (default `150`) delays dismissal so the user can move the cursor over the popup. Keyboard focus also opens it for accessibility.
 
@@ -62,7 +62,7 @@ Set `triggerOnHover` to show on mouse enter and hide on mouse leave. `openDelay`
 </PopupTrigger>
 ```
 
-## PopupTrigger (Focus)
+## PopupTrigger (focus)
 
 Set `triggerOnFocus` to show on focus and hide on blur. Useful for search autocomplete, input hints, and dropdown suggestions.
 
@@ -75,7 +75,7 @@ Set `triggerOnFocus` to show on focus and hide on blur. Useful for search autoco
 </PopupTrigger>
 ```
 
-## All 12 Placements
+## All 12 placements
 
 Placement is set via boolean props: `top`, `topStart`, `topEnd`, `bottom`, `bottomStart`, `bottomEnd`, `left`, `leftStart`, `leftEnd`, `right`, `rightStart`, `rightEnd`. Exactly one wins (first-truthy per category). Default is `bottom`.
 
@@ -103,9 +103,9 @@ const [open, setOpen] = useState(false);
 
 When the requested placement would overflow the viewport, Popup falls back through `flip-block → flip-inline → shift → clamp` and exposes the resolved placement via the `data-placement` attribute.
 
-## Match Anchor Width
+## Match anchor width
 
-`matchWidth` makes the popup track the anchor's width — useful for select-like dropdowns. Combine with `wFit` removal (Popup defaults to `wFit`) is automatic when `matchWidth` is set.
+`matchWidth` makes the popup track the anchor's width, useful for select-like dropdowns. Combine with `wFit` removal (Popup defaults to `wFit`) is automatic when `matchWidth` is set.
 
 ```tsx
 const [open, setOpen] = useState(false);
@@ -117,9 +117,9 @@ const anchorRef = useRef<HTMLButtonElement>(null);
 </Popup>
 ```
 
-## Rich Content
+## Rich content
 
-Children render directly inside the Popup surface — use layout primitives (`Col`, `Row`, `Stack`) to compose multi-element content. Avoid nesting another `Card` inside; Popup already provides the bordered, padded, shadowed surface.
+Children render directly inside the Popup surface. Use layout primitives (`Col`, `Row`, `Stack`) to compose multi-element content. Avoid nesting another `Card` inside; Popup already provides the bordered, padded, shadowed surface.
 
 ```tsx
 const [open, setOpen] = useState(false);
@@ -134,7 +134,7 @@ const anchorRef = useRef<HTMLButtonElement>(null);
 </Popup>
 ```
 
-## Tooltip Pattern
+## Tooltip pattern
 
 Pair `triggerOnHover` with `arrow` for a classic tooltip. The arrow auto-rotates to match the resolved placement.
 
@@ -151,7 +151,7 @@ Pair `triggerOnHover` with `arrow` for a classic tooltip. The arrow auto-rotates
 
 ## Dropdown via Popup
 
-Popup is a low-level primitive. For action menus with keyboard navigation, focus management, and item semantics, prefer the dedicated [`Menu`](./menu) component — it wraps Popup and adds `MenuItem`/`MenuLabel` with full arrow-key navigation. Reach for raw `Popup` only when you need a non-menu surface (filter panels, custom autocompletes, info cards).
+Popup is a low-level primitive. For action menus with keyboard navigation, focus management, and item semantics, prefer the dedicated [`Menu`](./menu) component. It wraps Popup and adds `MenuItem`/`MenuLabel` with full arrow-key navigation. Reach for raw `Popup` only when you need a non-menu surface (filter panels, custom autocompletes, info cards).
 
 ```tsx
 <PopupTrigger popup={
@@ -166,7 +166,7 @@ Popup is a low-level primitive. For action menus with keyboard navigation, focus
 </PopupTrigger>
 ```
 
-## Arrow Indicator
+## Arrow indicator
 
 Set `arrow` to render a pointer that visually links the popup to its anchor. The arrow is positioned automatically based on the resolved placement.
 
@@ -180,7 +180,7 @@ const anchorRef = useRef<HTMLButtonElement>(null);
 </Popup>
 ```
 
-## Click-Outside Behavior
+## Click-outside behavior
 
 By default, clicking anywhere outside the popup or anchor closes it. Set `closeOnClickOutside={false}` to require an explicit dismiss (e.g., a close button inside the popup). `closeOnEscape={false}` similarly disables the keyboard dismiss.
 
@@ -201,7 +201,7 @@ const anchorRef = useRef<HTMLButtonElement>(null);
 </Popup>
 ```
 
-## Disabled Trigger
+## Disabled trigger
 
 Set `disabled` on `Popup` (or `PopupTrigger`) to suppress opening regardless of `open` state. Useful for conditional UI where the trigger remains rendered but inactive.
 
@@ -211,7 +211,7 @@ Set `disabled` on `Popup` (or `PopupTrigger`) to suppress opening regardless of 
 </PopupTrigger>
 ```
 
-## Advanced Props
+## Advanced props
 
 `Popup` supports additional configuration props:
 
@@ -228,8 +228,8 @@ Set `disabled` on `Popup` (or `PopupTrigger`) to suppress opening regardless of 
 | `hideWhenDetached` | `false` | Hide when anchor scrolls out of view (uses `IntersectionObserver`) |
 | `role` | `"dialog"` | ARIA role (set `"tooltip"` for tooltip patterns) |
 | `arrow` | `false` | Render arrow pointer |
-| `onEnterComplete` | — | Called when the enter transition finishes |
-| `onExitComplete` | — | Called when the exit transition finishes |
+| `onEnterComplete` |   | Called when the enter transition finishes |
+| `onExitComplete` |   | Called when the exit transition finishes |
 
 `PopupTrigger` additionally accepts:
 
@@ -240,7 +240,7 @@ Set `disabled` on `Popup` (or `PopupTrigger`) to suppress opening regardless of 
 | `triggerOnFocus` | `false` | Open on focus only |
 | `openDelay` | `0` | ms before opening on hover |
 | `closeDelay` | `150` | ms before closing on hover-out |
-| `popupProps` | — | Props forwarded to the internal `Popup` |
+| `popupProps` |   | Props forwarded to the internal `Popup` |
 | `popupId` | auto | Override generated id for `aria-controls` |
 
 ```tsx

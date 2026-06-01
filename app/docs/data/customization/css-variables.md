@@ -1,9 +1,9 @@
 VaneUI components use a three-tier CSS variable system. Override these variables to change colors globally or for any subtree. This page explains the variable architecture and how to customize it.
 
-## Three-Tier Variable System
+## Three-tier variable system
 
-### Tier 1: Unit Variables
-Set per-component in `rules.css` based on the `data-size` attribute. Each per-size block sets all the unit vars that scale with size — typically `--fs-unit`, `--py-unit`, and (for Icon) `--icon-size` — so font-size, padding, gap, and border-radius all change together:
+### Tier 1: unit variables
+Set per-component in `rules.css` based on the `data-size` attribute. Each per-size block sets all the unit vars that scale with size (typically `--fs-unit`, `--py-unit`, and for Icon `--icon-size`) so font-size, padding, gap, and border-radius all change together:
 ```css
 .vane-button[data-size="md"] {
   --fs-unit: var(--fs-unit-md);   /* Font size unit (8 by default) */
@@ -15,7 +15,7 @@ Set per-component in `rules.css` based on the `data-size` attribute. Each per-si
 [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; }
 ```
 
-### Tier 2: Computed Variables
+### Tier 2: computed variables
 Calculated from unit variables in `@layer base`:
 ```css
 [data-size] {
@@ -33,7 +33,7 @@ Calculated from unit variables in `@layer base`:
 }
 ```
 
-### Tier 3: Semantic Color Variables
+### Tier 3: semantic color variables
 Set by `data-variant` + `data-appearance` attribute combinations:
 ```css
 [data-variant="outline"][data-appearance="primary"] {
@@ -43,15 +43,15 @@ Set by `data-variant` + `data-appearance` attribute combinations:
 }
 ```
 
-### Icon Sizing — Decoupled from Font Size
-Components that render icons (`Button`, `IconButton`, `Icon`, `Badge`, `Chip`, `Menu`, `NavLink`, `Link`, `ListItem`) size icons via `--icon-size`, not `--fs`. For most components this is `calc(var(--fs) * var(--lh))`, but `Icon` sets it independently per size as `calc(var(--spacing) * N)` — so an `<Icon md>` is 8 × `--spacing` regardless of any inherited font-size:
+### Icon sizing: decoupled from font size
+Components that render icons (`Button`, `IconButton`, `Icon`, `Badge`, `Chip`, `Menu`, `NavLink`, `Link`, `ListItem`) size icons via `--icon-size`, not `--fs`. For most components this is `calc(var(--fs) * var(--lh))`, but `Icon` sets it independently per size as `calc(var(--spacing) * N)`. An `<Icon md>` is 8 × `--spacing` regardless of any inherited font-size:
 
 ```css
 .vane-icon[data-size="md"] { --icon-size: calc(var(--spacing) * 8); }
 .vane-icon[data-size="lg"] { --icon-size: calc(var(--spacing) * 12); }
 ```
 
-## Appearance Values
+## Appearance values
 
 Replace `{appearance}` in variable names with one of:
 - `primary` - neutral/default styling (gray tones)
@@ -68,13 +68,13 @@ Replace `{appearance}` in variable names with one of:
 
 > The `inherit` appearance works differently from all other appearances. Instead of setting `data-appearance` and `data-variant` attributes, it omits them entirely. This allows the semantic color CSS variables (`--text-color`, `--bg-color`, `--border-color`) to cascade from parent elements rather than being set explicitly on the component. Typography components (Text, Title, SectionTitle, PageTitle), Label, List, and Divider default to `inherit`.
 
-## Color Variable Groups
+## Color variable groups
 
-### Text Colors
+### Text colors
 - `--color-text-{appearance}` - text color for outline variant
 - `--color-text-filled-{appearance}` - text color for filled variant
 
-### Background Colors
+### Background colors
 - `--color-bg-{appearance}` - background for outline variant
 - `--color-bg-hover-{appearance}` - hover state background
 - `--color-bg-active-{appearance}` - active state background
@@ -84,13 +84,13 @@ Replace `{appearance}` in variable names with one of:
 - `--color-bg-layout-{appearance}` - layout component backgrounds
 - `--color-bg-filled-layout-{appearance}` - filled layout backgrounds
 
-### Border Colors
+### Border colors
 - `--color-border-{appearance}` - border color for outline variant
 
-### Focus Ring Colors
+### Focus ring colors
 - `--color-focus-{appearance}` - focus-visible outline color (used by all variants)
 
-## Base Variables
+## Base variables
 
 VaneUI defines base variables in the `@theme` block (in `tokens.css`) that control the foundation of the sizing system:
 
@@ -102,7 +102,7 @@ VaneUI defines base variables in the `@theme` block (in `tokens.css`) that contr
 }
 ```
 
-### Font Size Unit Scale
+### Font size unit scale
 These variables define the font size multipliers for each size. At Tailwind's default `--spacing: 0.25rem`, `--fs-base` = 0.125rem:
 
 ```css
@@ -113,7 +113,7 @@ These variables define the font size multipliers for each size. At Tailwind's de
 --fs-unit-xl: 10;  /* xl = 10 × 0.125rem = 1.25rem  (20px) */
 ```
 
-### Component-Specific Sizing
+### Component-specific sizing
 
 Padding, gap, and radius values are set per-component (and per `data-vane-type`) in `rules.css`:
 
@@ -124,7 +124,7 @@ Padding, gap, and radius values are set per-component (and per `data-vane-type`)
 /* Layout defaults (Card, Row, Col, Stack, Section, Container, Grid*) */
 [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; }
 
-/* Per-component overrides — Button sets its own --py-unit per size */
+/* Per-component overrides: Button sets its own --py-unit per size */
 .vane-button[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
 ```
 
@@ -136,7 +136,7 @@ To customize sizing globally, override the computed variables in your CSS:
 }
 ```
 
-## Global Override (Site-wide)
+## Global override (site-wide)
 ```css
 /* styles/globals.css */
 :root {
@@ -147,7 +147,7 @@ To customize sizing globally, override the computed variables in your CSS:
 }
 ```
 
-## Scoped Override (Specific Section)
+## Scoped override (specific section)
 ```css
 /* Only affects components inside .marketing */
 .marketing {
@@ -157,7 +157,7 @@ To customize sizing globally, override the computed variables in your CSS:
 }
 ```
 
-## Notes and Tips
+## Notes and tips
 - Use the semantic names above; avoid inventing new variable names.
 - Values cascade. The closest definition (inline, container, :root) wins.
 - Prefer semantic overrides (primary, brand, success, danger) for consistent theming.

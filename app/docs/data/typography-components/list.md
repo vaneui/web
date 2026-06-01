@@ -19,7 +19,7 @@ An unordered list with bullet points.
 </List>
 ```
 
-## List Style Types
+## List style types
 
 List supports six marker types: `disc` (default for unordered), `decimal` (default for ordered), `circle`, `square`, `lowerAlpha`, and `lowerRoman`. Setting `decimal`, `lowerAlpha`, or `lowerRoman` switches the element from `<ul>` to `<ol>`.
 
@@ -70,9 +70,9 @@ List supports six marker types: `disc` (default for unordered), `decimal` (defau
 </Col>
 ```
 
-## Marker Position (inside vs outside)
+## Marker position (inside vs outside)
 
-Use `outside` (the default) to hang markers outside the content box so multi-line items align under the first character. Use `inside` to place markers inline with text — compact, but wrapped lines flow under the marker.
+Use `outside` (the default) to hang markers outside the content box so multi-line items align under the first character. Use `inside` to place markers inline with text. Compact, but wrapped lines flow under the marker.
 
 ```tsx demo
 <Col>
@@ -87,15 +87,15 @@ Use `outside` (the default) to hang markers outside the content box so multi-lin
     <Text semibold>inside</Text>
     <List inside className="w-64">
       <ListItem>A short item.</ListItem>
-      <ListItem>A much longer item that wraps onto a second line — markers flow inline with the text.</ListItem>
+      <ListItem>A much longer item that wraps onto a second line, markers flow inline with the text.</ListItem>
     </List>
   </div>
 </Col>
 ```
 
-## List Sizes
+## List sizes
 
-Lists come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Font size, line height, padding, and the gap between items all scale together via the CSS-variable pipeline. `ListItem` has no size default of its own — it inherits from the parent `List`, so `<List xl>` propagates to every item without repeating the prop.
+Lists come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Font size, line height, padding, and the gap between items all scale together via the CSS-variable pipeline. `ListItem` has no size default of its own. It inherits from the parent `List`, so `<List xl>` propagates to every item without repeating the prop.
 
 ```tsx demo
 <Col>
@@ -118,9 +118,9 @@ Lists come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Font size
 </Col>
 ```
 
-## List Appearances
+## List appearances
 
-Lists use `inherit` appearance by default — they inherit color from their parent and are `transparent` (no background). Use explicit appearances like `primary`, `success`, `danger` to override the text color. To add a background, combine an appearance with `filled`.
+Lists use `inherit` appearance by default: they inherit color from their parent and are `transparent` (no background). Use explicit appearances like `primary`, `success`, `danger` to override the text color. To add a background, combine an appearance with `filled`.
 
 ```tsx demo
 <Col>
@@ -147,24 +147,24 @@ Lists use `inherit` appearance by default — they inherit color from their pare
 </Col>
 ```
 
-## Nested Lists — automatic marker progression
+## Nested Lists: automatic marker progression
 
-Nested unordered lists automatically progress `disc` → `circle` → `square`. Nested ordered lists progress `decimal` → `lowerAlpha` → `lowerRoman`. Override a specific nested list with inline `style={{ listStyleType: "..." }}` — the parent descendant selector wins over a child utility class on specificity, so inline style is the escape hatch.
+Nested unordered lists automatically progress `disc` → `circle` → `square`. Nested ordered lists progress `decimal` → `lowerAlpha` → `lowerRoman`. Override a specific nested list with inline `style={{ listStyleType: "..." }}`. The parent descendant selector wins over a child utility class on specificity, so inline style is the escape hatch.
 
 ```tsx demo
 <Col>
   <div>
     <Text semibold>Unordered (ul)</Text>
     <List>
-      <ListItem>Level 0 — disc</ListItem>
+      <ListItem>Level 0: disc</ListItem>
       <ListItem>
         Parent
         <List>
-          <ListItem>Level 1 — circle</ListItem>
+          <ListItem>Level 1: circle</ListItem>
           <ListItem>
             Parent
             <List>
-              <ListItem>Level 2 — square</ListItem>
+              <ListItem>Level 2: square</ListItem>
             </List>
           </ListItem>
         </List>
@@ -174,15 +174,15 @@ Nested unordered lists automatically progress `disc` → `circle` → `square`. 
   <div>
     <Text semibold>Ordered (ol)</Text>
     <List decimal>
-      <ListItem>Level 0 — decimal</ListItem>
+      <ListItem>Level 0: decimal</ListItem>
       <ListItem>
         Parent
         <List decimal>
-          <ListItem>Level 1 — lowerAlpha</ListItem>
+          <ListItem>Level 1: lowerAlpha</ListItem>
           <ListItem>
             Parent
             <List decimal>
-              <ListItem>Level 2 — lowerRoman</ListItem>
+              <ListItem>Level 2: lowerRoman</ListItem>
             </List>
           </ListItem>
         </List>
@@ -192,9 +192,9 @@ Nested unordered lists automatically progress `disc` → `circle` → `square`. 
 </Col>
 ```
 
-## Item Spacing (gap vs noGap)
+## Item spacing (gap vs noGap)
 
-Lists apply a size-driven `gap` by default — a sibling margin between items that scales with the list's size prop. Use `noGap` to remove it entirely for a compact layout (useful for checklists or dense content).
+Lists apply a size-driven `gap` by default: a sibling margin between items that scales with the list's size prop. Use `noGap` to remove it entirely for a compact layout (useful for checklists or dense content).
 
 ```tsx demo
 <Col>
@@ -217,7 +217,7 @@ Lists apply a size-driven `gap` by default — a sibling margin between items th
 </Col>
 ```
 
-## Custom Item Icons
+## Custom item icons
 
 Pass an `icon` node to a `ListItem` to replace the native marker on that item only. The icon wrapper is sized to match the text line-height and scales with the list size, so checkmarks, arrows, or any custom SVG align cleanly with the text. For decorative glyphs, include `aria-hidden="true"` on the icon node.
 
@@ -230,7 +230,7 @@ Pass an `icon` node to a `ListItem` to replace the native marker on that item on
 </List>
 ```
 
-## List Styling
+## List styling
 
 Combine font properties like `bold`, `italic`, `mono` with lists.
 

@@ -5,19 +5,19 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/card/Car
 since: 0.9.0
 ---
 
-A flexible container component that groups related content with consistent styling. Cards can contain text, images, and other components.
+A container component that groups related content with consistent styling. Cards can contain text, images, and other components.
 
-## When to Use
+## When to use
 
 - Group related content into a visually distinct surface (article preview, settings block, summary panel).
 - Establish hierarchy on a page where multiple sections need to feel like discrete units.
 - Wrap clickable surfaces (link/anchor cards) where the entire block is the affordance.
 - Build form sections, dashboard tiles, or pricing tables.
 
-### When NOT to Use
+### When NOT to use
 
-- For inline groupings of a few elements — prefer `Stack` or `Row` directly without the surface treatment.
-- For modal/dialog content — `Modal` already provides the surface and shadow.
+- For inline groupings of a few elements: prefer `Stack` or `Row` directly without the surface treatment.
+- For modal/dialog content: `Modal` already provides the surface and shadow.
 
 ## Customizing
 
@@ -33,18 +33,18 @@ import { ThemeProvider, Card } from '@vaneui/ui';
 </ThemeProvider>
 ```
 
-## Basic Card
+## Basic card
 
-A simple card container with default styling. `md`, `primary`, `outline`, `rounded`, `border`, `padding`, `gap`, `flex`, and `column` are all defaults — no need to specify them.
+A card container with default styling. `md`, `primary`, `outline`, `rounded`, `border`, `padding`, `gap`, `flex`, and `column` are all defaults: no need to specify them.
 
 ```tsx demo
 <Card>
   <Title>Welcome to VaneUI</Title>
-  <Text>Build beautiful interfaces with ready-to-use components.</Text>
+  <Text>Compose interfaces with ready-to-use components.</Text>
 </Card>
 ```
 
-## Card Sizes
+## Card sizes
 
 Cards come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size also scales padding, gap, and border-radius.
 
@@ -73,7 +73,7 @@ Cards come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size also
 </Row>
 ```
 
-## Card Appearances
+## Card appearances
 
 Cards support color appearances: `primary` (default), `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`.
 
@@ -118,7 +118,7 @@ Cards support color appearances: `primary` (default), `brand`, `accent`, `second
 </Row>
 ```
 
-## Card Variants
+## Card variants
 
 `outline` is the default. Use `filled` for solid backgrounds. Add `shadow` for elevation.
 
@@ -126,7 +126,7 @@ Cards support color appearances: `primary` (default), `brand`, `accent`, `second
 <Row flexWrap>
   <Card>
     <Title>Outline</Title>
-    <Text>Default — border only</Text>
+    <Text>Default: border only</Text>
   </Card>
   <Card filled>
     <Title filled>Filled</Title>
@@ -139,7 +139,7 @@ Cards support color appearances: `primary` (default), `brand`, `accent`, `second
 </Row>
 ```
 
-## Card Shapes
+## Card shapes
 
 `rounded` is the default. Use `pill` for fully rounded corners or `sharp` for none.
 
@@ -160,7 +160,7 @@ Cards support color appearances: `primary` (default), `brand`, `accent`, `second
 </Row>
 ```
 
-## Card with Sub-Components
+## Card with sub-components
 
 Use `CardHeader`, `CardBody`, and `CardFooter` to give a card explicit structural regions. When any sub-component is present the parent Card switches to compound mode and the sub-components own padding.
 
@@ -180,7 +180,7 @@ Use `CardHeader`, `CardBody`, and `CardFooter` to give a card explicit structura
 </Card>
 ```
 
-## Responsive Layout
+## Responsive layout
 
 Use `row` for horizontal layout and `mobileCol` or `tabletCol` to switch to column on smaller screens.
 
@@ -197,7 +197,7 @@ Use `row` for horizontal layout and `mobileCol` or `tabletCol` to switch to colu
 </Card>
 ```
 
-## Nested Cards
+## Nested cards
 
 Cards can be nested. Pair a `secondary` or `tertiary` inner card with the default `primary` outer card to create clear visual hierarchy.
 
@@ -207,7 +207,7 @@ Cards can be nested. Pair a `secondary` or `tertiary` inner card with the defaul
   <Text>Manage the resources tied to your workspace.</Text>
   <Card secondary>
     <Title sm>Storage</Title>
-    <Text sm>4.2 GB of 10 GB used</Text>
+    <Text sm>4.2GB of 10GB used</Text>
   </Card>
   <Card secondary>
     <Title sm>Members</Title>
@@ -237,7 +237,7 @@ Add `href` to make the card a clickable link. The card automatically renders as 
 </Row>
 ```
 
-## Next.js Link Integration
+## Next.js Link integration
 
 Use the `tag` prop to render the card as a Next.js `Link` for client-side navigation.
 

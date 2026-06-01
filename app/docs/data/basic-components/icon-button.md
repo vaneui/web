@@ -7,7 +7,7 @@ since: 0.9.0
 
 A square icon-only button with customizable appearance, size, and shape. Supports loading state and renders as an `<a>` when given an `href`. Always provide `aria-label` for accessibility.
 
-## Basic Usage
+## Basic usage
 
 Drop an icon directly inside the `IconButton`. Each `appearance` prop maps to a semantic color from the active theme.
 
@@ -24,7 +24,7 @@ Drop an icon directly inside the `IconButton`. Each `appearance` prop maps to a 
 
 ## Sizes
 
-IconButton supports five sizes — `xs`, `sm`, `md` (default), `lg`, `xl`. Size drives the square aspect ratio, padding, and border-radius simultaneously via CSS variables.
+IconButton supports five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size drives the square aspect ratio, padding, and border-radius simultaneously via CSS variables.
 
 ```tsx demo
 <Row flexWrap itemsEnd>
@@ -97,7 +97,7 @@ IconButton supports `rounded` (default), `pill`, and `sharp`. `pill` is especial
 </Row>
 ```
 
-## As Link & Disabled
+## As Link and disabled
 
 Pass `href` to render the IconButton as an `<a>` for navigation. Use `disabled` to prevent interaction.
 
@@ -110,7 +110,7 @@ Pass `href` to render the IconButton as an `<a>` for navigation. Use `disabled` 
 </Row>
 ```
 
-## Next.js Link Integration
+## Next.js Link integration
 
 Use the `tag` prop to render the IconButton as a Next.js `Link` for client-side navigation.
 
@@ -122,7 +122,7 @@ import { Settings } from 'react-feather';
 <IconButton href="/settings" tag={Link} aria-label="Settings"><Settings /></IconButton>
 ```
 
-## Loading State
+## Loading state
 
 Set `loading` to show a spinner and auto-disable the button.
 

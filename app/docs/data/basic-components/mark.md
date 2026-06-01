@@ -7,7 +7,7 @@ since: 0.9.0
 
 Highlights text with a background color for emphasis. Defaults to warning (yellow) appearance for a natural highlighter effect.
 
-## Basic Usage
+## Basic usage
 
 Highlight text with the `Mark` component. Defaults to `warning` (yellow) appearance for a natural highlighter effect.
 
@@ -58,9 +58,9 @@ Mark supports `outline` (default) and `filled` variants.
 </Col>
 ```
 
-## Highlight Matches Context
+## Highlight matches context
 
-Mark defaults to `inheritSize: true` so a highlight always renders at the same size as the surrounding text — body copy, subheading, section heading, or page title — without passing any size prop.
+Mark defaults to `inheritSize: true` so a highlight always renders at the same size as the surrounding text (body copy, subheading, section heading, or page title) without passing any size prop.
 
 ```tsx demo
 <Col>
@@ -71,7 +71,7 @@ Mark defaults to `inheritSize: true` so a highlight always renders at the same s
 </Col>
 ```
 
-## Opting Out with noInheritSize
+## Opting out with noInheritSize
 
 Pass `noInheritSize` together with a size prop to render Mark at a fixed size regardless of the parent.
 
@@ -81,7 +81,7 @@ Pass `noInheritSize` together with a size prop to render Mark at a fixed size re
 </Title>
 ```
 
-## In Text Context
+## In text context
 
 Mark elements blend naturally within body text for inline highlights.
 
@@ -93,7 +93,7 @@ Mark elements blend naturally within body text for inline highlights.
 </Col>
 ```
 
-## Search Highlight Pattern
+## Search highlight pattern
 
 Use Mark to highlight search matches within text content.
 

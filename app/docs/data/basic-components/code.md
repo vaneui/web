@@ -7,9 +7,9 @@ since: 0.9.0
 
 Renders inline code snippets with syntax highlighting. Perfect for displaying code examples, commands, file paths, or technical terms within text content.
 
-## Basic Usage
+## Basic usage
 
-Inline code snippets with default styling. `Code` is `align-middle`, so it sits centered with the surrounding text. Pass `href` to render `Code` as `<a>` instead of `<code>` — a focus-visible outline auto-enables when `href` is set.
+Inline code snippets with default styling. `Code` is `align-middle`, so it sits centered with the surrounding text. Pass `href` to render `Code` as `<a>` instead of `<code>`. A focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Col>
@@ -52,7 +52,7 @@ Different code color variants for syntax highlighting.
 </Row>
 ```
 
-## Code in Context
+## Code in context
 
 Code elements used within text content.
 
@@ -73,7 +73,7 @@ Code elements used within text content.
 </Col>
 ```
 
-## Keyboard Shortcuts
+## Keyboard shortcuts
 
 Code elements for displaying keyboard shortcuts and commands.
 
@@ -89,9 +89,9 @@ Code elements for displaying keyboard shortcuts and commands.
 </Row>
 ```
 
-## In Heading Context
+## In heading context
 
-Code uses an em-based geometry pipeline — at the default `md` size it renders at ~87.5% of the surrounding text's font-size, with padding and border-radius scaling proportionally. The same `<Code>` looks right inside body copy, a subheading, a section heading, or a page title.
+Code uses an em-based geometry pipeline: at the default `md` size it renders at ~87.5% of the surrounding text's font-size, with padding and border-radius scaling proportionally. The same `<Code>` looks right inside body copy, a subheading, a section heading, or a page title.
 
 ```tsx demo
 <Col>
@@ -102,7 +102,7 @@ Code uses an em-based geometry pipeline — at the default `md` size it renders 
 </Col>
 ```
 
-## Filled & Outline Variants
+## Filled and outline variants
 
 Code defaults to `outline` variant. Use `filled` for stronger visual emphasis.
 
@@ -138,7 +138,7 @@ Add `href` to render the `Code` element as an `<a>` tag. A keyboard focus-visibl
 </Col>
 ```
 
-## Next.js Link Integration
+## Next.js Link integration
 
 Use the `tag` prop to render `Code` as a Next.js `Link` for client-side navigation.
 

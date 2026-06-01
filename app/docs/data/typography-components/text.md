@@ -12,10 +12,10 @@ The primary component for rendering all text content. It provides props to contr
 Default paragraph text styling.
 
 ```tsx demo
-<Text>Build beautiful user interfaces with VaneUI components. Text provides consistent typography across your application.</Text>
+<Text>Compose interfaces with VaneUI components. Text provides consistent typography across your application.</Text>
 ```
 
-## Text Sizes
+## Text sizes
 
 Text comes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
@@ -29,9 +29,9 @@ Text comes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 </Col>
 ```
 
-## Inherit Appearance (Default)
+## Inherit appearance (default)
 
-Text defaults to the `inherit` appearance — it picks up its color from the parent via CSS cascade instead of applying its own. Set an explicit appearance to override.
+Text defaults to the `inherit` appearance: it picks up its color from the parent via CSS cascade instead of applying its own. Set an explicit appearance to override.
 
 ```tsx demo
 <Row flexWrap>
@@ -47,7 +47,7 @@ Text defaults to the `inherit` appearance — it picks up its color from the par
 </Row>
 ```
 
-## Text Appearances
+## Text appearances
 
 Text supports explicit color appearances: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`. Use these to override the default `inherit` behavior.
 
@@ -66,7 +66,7 @@ Text supports explicit color appearances: `primary`, `brand`, `accent`, `seconda
 </Col>
 ```
 
-## Font Weights
+## Font weights
 
 Control weight with `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
 
@@ -83,7 +83,7 @@ Control weight with `thin`, `extralight`, `light`, `normal`, `medium`, `semibold
 </Col>
 ```
 
-## Font Families
+## Font families
 
 Switch font family with `sans` (default), `serif`, `mono`.
 
@@ -95,7 +95,7 @@ Switch font family with `sans` (default), `serif`, `mono`.
 </Col>
 ```
 
-## Italic, Underline, Line-Through
+## Italic, underline, line-through
 
 ```tsx demo
 <Col>
@@ -105,7 +105,7 @@ Switch font family with `sans` (default), `serif`, `mono`.
 </Col>
 ```
 
-## Text Transform
+## Text transform
 
 Use `uppercase`, `lowercase`, `capitalize`.
 
@@ -117,7 +117,7 @@ Use `uppercase`, `lowercase`, `capitalize`.
 </Col>
 ```
 
-## Text Alignment
+## Text alignment
 
 Align text with `textLeft` (default), `textCenter`, `textRight`, `textJustify`. Text defaults to `wFit`, so set `wFull` to see alignment effects across the container.
 
@@ -130,7 +130,7 @@ Align text with `textLeft` (default), `textCenter`, `textRight`, `textJustify`. 
 </Col>
 ```
 
-## Truncate and Line Clamp
+## Truncate and line clamp
 
 Use `truncate` for single-line ellipsis, or `lineClamp2`/`lineClamp3`/`lineClamp4`/`lineClamp5` for multi-line clamping.
 
@@ -142,7 +142,7 @@ Use `truncate` for single-line ellipsis, or `lineClamp2`/`lineClamp3`/`lineClamp
 </Col>
 ```
 
-## Letter Spacing
+## Letter spacing
 
 Control letter spacing with `trackingTighter`, `trackingTight`, `trackingNormal` (default), `trackingWide`, `trackingWider`, `trackingWidest`.
 
@@ -157,7 +157,7 @@ Control letter spacing with `trackingTighter`, `trackingTight`, `trackingNormal`
 </Col>
 ```
 
-## Text in Context
+## Text in context
 
 Combining text properties for real-world use cases.
 

@@ -1,10 +1,10 @@
 The ThemeProvider is the foundation of VaneUI's theming system. It wraps your application and provides theme context to all child components, enabling consistent styling and customization throughout your app.
 
-## Basic Setup
+## Basic setup
 
-### Simple ThemeProvider
+### Minimal ThemeProvider
 
-The most basic setup requires no configuration - components use their built-in defaults:
+The most basic setup requires no configuration. Components use their built-in defaults:
 
 ```tsx
 import { ThemeProvider, Button, Badge, Card } from '@vaneui/ui';
@@ -22,7 +22,7 @@ function App() {
 }
 ```
 
-### Setting Default Props
+### Setting default props
 
 Configure default boolean props for all components:
 
@@ -51,9 +51,9 @@ function App() {
 }
 ```
 
-Most components take props directly. **Components with sub-themes** — `button`, `card`, `checkbox`, `modal`, `menu`, `navLink` — are nested by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.).
+Most components take props directly. **Components with sub-themes** (`button`, `card`, `checkbox`, `modal`, `menu`, `navLink`) are nested by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.).
 
-## ThemeProvider Props
+## ThemeProvider props
 
 ### themeDefaults
 
@@ -133,7 +133,7 @@ Control how nested ThemeProviders combine (`'merge'` or `'replace'`):
 </ThemeProvider>
 ```
 
-## Nested Theming
+## Nested theming
 
 Override themes for specific sections of your app:
 
@@ -163,7 +163,7 @@ function NestedThemeApp() {
 }
 ```
 
-## Accessing Theme Context
+## Accessing theme context
 
 Use the `useTheme` hook to access theme values in custom components:
 
@@ -181,7 +181,7 @@ function CustomComponent() {
 }
 ```
 
-## Custom Colors
+## Custom colors
 
 VaneUI uses CSS variables for colors. Override them globally or for specific sections:
 
@@ -214,9 +214,9 @@ function App() {
 }
 ```
 
-## Common Patterns
+## Recurring ThemeProvider patterns
 
-### Brand Theme
+### Brand theme
 
 Create a consistent brand experience:
 
@@ -238,7 +238,7 @@ function BrandedApp() {
 }
 ```
 
-### Section-Specific Styling
+### Section-specific styling
 
 Different themes for different areas:
 
@@ -274,13 +274,13 @@ function MultiSectionApp() {
 }
 ```
 
-## Advanced Customization
+## Advanced customization
 
 For more detailed information about specific ThemeProvider properties, see these dedicated guides:
 
-- **[Theming Overview](./theming-overview)** - Understand the theme architecture
-- **[ThemeDefaults](./theme-defaults)** - Set application-wide default values
-- **[ExtraClasses](./extra-classes)** - Add custom CSS classes
-- **[CSS Variables](./css-variables)** - Customize colors using CSS custom properties
+- **[Theming Overview](./theming-overview)**: Understand the theme architecture
+- **[ThemeDefaults](./theme-defaults)**: Set application-wide default values
+- **[ExtraClasses](./extra-classes)**: Add custom CSS classes
+- **[CSS Variables](./css-variables)**: Customize colors using CSS custom properties
 
-The ThemeProvider is designed to be flexible and powerful, allowing you to start simple and add complexity as needed.
+ThemeProvider lets you start with a few overrides and add more as needs grow.

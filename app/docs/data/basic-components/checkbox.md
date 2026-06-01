@@ -7,17 +7,17 @@ since: 0.9.0
 
 Allows users to select one or more options from a set. Checkboxes are ideal for binary choices and multiple selections within forms.
 
-## When to Use
+## When to use
 
 - Boolean form fields (terms, opt-ins, feature toggles in settings).
 - Multi-select lists where each option is independent of the others.
 - "Select all" / batch actions inside tables or list pages.
 - Pair with a `Label` so the entire label area is clickable.
 
-### When NOT to Use
+### When NOT to use
 
-- For mutually exclusive options — use a radio group.
-- For single on/off settings where a switch metaphor is clearer — a switch component is the better pattern.
+- For mutually exclusive options: use a radio group.
+- For single on/off settings where a switch metaphor is clearer: a switch component is the better pattern.
 
 ## Customizing
 
@@ -34,7 +34,7 @@ import { ThemeProvider, Checkbox } from '@vaneui/ui';
 </ThemeProvider>
 ```
 
-## Basic Usage
+## Basic usage
 
 Checkbox should be used inside a Label with matching `id`/`htmlFor`.
 
@@ -57,7 +57,7 @@ Checkbox should be used inside a Label with matching `id`/`htmlFor`.
 
 ## Sizes
 
-Checkboxes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. A `Checkbox` nested inside a `Label` inherits the Label's size automatically — set it once on the Label and both scale together.
+Checkboxes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. A `Checkbox` nested inside a `Label` inherits the Label's size automatically. Set it once on the Label and both scale together.
 
 ```tsx demo
 <Row flexWrap>
@@ -175,11 +175,11 @@ Use the `disabled` HTML attribute to prevent interaction.
 </Col>
 ```
 
-## Controlled vs Uncontrolled
+## Controlled vs uncontrolled
 
 Checkbox forwards every HTML input attribute, so use `defaultChecked` for uncontrolled state and `checked` + `onChange` for controlled state.
 
-Uncontrolled — initial value only, the input manages its own state:
+Uncontrolled: initial value only, the input manages its own state.
 
 ```tsx demo
 <Label htmlFor="uncontrolled">
@@ -188,7 +188,7 @@ Uncontrolled — initial value only, the input manages its own state:
 </Label>
 ```
 
-Controlled — parent owns the value via `useState`:
+Controlled: parent owns the value via `useState`.
 
 ```tsx
 const [checked, setChecked] = useState(false);
@@ -203,7 +203,7 @@ const [checked, setChecked] = useState(false);
 </Label>
 ```
 
-## Indeterminate State
+## Indeterminate state
 
 Use the `indeterminate` prop for "select all" checkboxes that represent a partially selected group. The indeterminate state is visual only and does not affect the `checked` value.
 
@@ -226,7 +226,7 @@ Use the `indeterminate` prop for "select all" checkboxes that represent a partia
 </Col>
 ```
 
-## Checkbox Group
+## Checkbox group
 
 Multiple labeled checkboxes working together.
 

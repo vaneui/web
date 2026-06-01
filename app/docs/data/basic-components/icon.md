@@ -7,7 +7,7 @@ since: 0.9.0
 
 A lightweight SVG wrapper that provides consistent sizing, color inheritance, and themed appearances for icons. With `padding` it switches into container mode, gaining shape, border, ring, and shadow around the glyph.
 
-## Basic Usage
+## Basic usage
 
 Wrap any SVG inside `Icon` to apply consistent sizing and color inheritance.
 
@@ -145,7 +145,7 @@ Shape props apply once the icon enters container mode (any of `padding`, `border
 </Row>
 ```
 
-## Container Mode
+## Container mode
 
 Add `padding` to give the icon a sized box, then combine `filled`, `border`, `ring`, or `shadow` to style the container. Padding and radius scale with the size prop.
 
@@ -199,7 +199,7 @@ Use `transparent` to keep the container background see-through while still apply
 </Row>
 ```
 
-## In Context
+## In context
 
 Icons work naturally alongside text and inside buttons.
 

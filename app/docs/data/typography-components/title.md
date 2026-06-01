@@ -5,7 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typograp
 since: 0.9.0
 ---
 
-Renders a subsection heading (`<h3>` by default) to establish a semantic hierarchy on the page. Use Title for headings inside a section — pair it with `PageTitle` (`<h1>`) for the page heading and `SectionTitle` (`<h2>`) for major section headings.
+Renders a subsection heading (`<h3>` by default) to establish a semantic hierarchy on the page. Use Title for headings inside a section. Pair it with `PageTitle` (`<h1>`) for the page heading and `SectionTitle` (`<h2>`) for major section headings.
 
 ## Basic Title
 
@@ -27,7 +27,7 @@ Three heading components for a clean semantic hierarchy. Use them together so th
 </Col>
 ```
 
-## Title Sizes
+## Title sizes
 
 Titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
@@ -41,9 +41,9 @@ Titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 </Col>
 ```
 
-## Title Appearances
+## Title appearances
 
-By default, Title uses the `inherit` appearance — it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `danger`, `warning`, `info` to override.
+By default, Title uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `danger`, `warning`, `info` to override.
 
 ```tsx demo
 <Col>
@@ -56,7 +56,7 @@ By default, Title uses the `inherit` appearance — it inherits color from its p
 </Col>
 ```
 
-## Font Weights
+## Font weights
 
 Title is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
 
@@ -71,7 +71,7 @@ Title is `semibold` by default. Override with any weight prop: `thin`, `extralig
 </Col>
 ```
 
-## Font Families
+## Font families
 
 Switch between `sans`, `serif`, and `mono` font families.
 
@@ -99,7 +99,7 @@ Use the `uppercase` prop to render the title in all caps.
 <Title uppercase>Uppercase Title</Title>
 ```
 
-## Text Alignment
+## Text alignment
 
 Title is left-aligned by default. Use `textCenter`, `textRight`, or `textJustify` to change alignment.
 
@@ -111,7 +111,7 @@ Title is left-aligned by default. Use `textCenter`, `textRight`, or `textJustify
 </div>
 ```
 
-## Custom HTML Tag
+## Custom HTML tag
 
 Override the rendered tag with the `tag` prop when the visual style of Title is wanted but a different semantic level is required.
 
@@ -124,7 +124,7 @@ Override the rendered tag with the `tag` prop when the visual style of Title is 
 </Col>
 ```
 
-## Title with Badge Context
+## Title with Badge context
 
 Titles pair naturally with badges, chips, and other inline components.
 
@@ -141,7 +141,7 @@ Titles pair naturally with badges, chips, and other inline components.
 </Col>
 ```
 
-## Title in Context
+## Title in context
 
 Titles work well with other typography components in cards and sections.
 

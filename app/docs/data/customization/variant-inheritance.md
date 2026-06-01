@@ -1,12 +1,12 @@
 VaneUI components inherit their colors from ancestor components through native CSS custom-property cascade. This page explains how inheritance works, when components set their own colors vs. inherit, and how to control the behavior.
 
-## How It Works
+## How variants and appearances cascade through nesting
 
 VaneUI's color system has three layers:
 
-1. **`:root` fallbacks** — set `--text-color`, `--bg-color`, `--border-color` etc. to the primary outline palette (dark text, white background, light border)
-2. **Direct CSS rules** — when a component has `data-variant` + `data-appearance` attributes, a CSS rule fires and rewrites those variables on the element
-3. **CSS cascade** — children that don't set their own variables inherit from the nearest ancestor that did
+1. **`:root` fallbacks**: set `--text-color`, `--bg-color`, `--border-color` etc. to the primary outline palette (dark text, white background, light border)
+2. **Direct CSS rules**: when a component has `data-variant` + `data-appearance` attributes, a CSS rule fires and rewrites those variables on the element
+3. **CSS cascade**: children that don't set their own variables inherit from the nearest ancestor that did
 
 ```
 :root                           → --text-color: dark, --bg-color: white
@@ -17,17 +17,17 @@ VaneUI's color system has three layers:
     <Mark>                      → --text-color: amber (warning)           (identity, own rule fires)
 ```
 
-## Which Components Set vs. Inherit
+## Which components set vs. inherit
 
-### Components That Inherit (no data attributes by default)
+### Components that inherit (no data attributes by default)
 
-These components use the primary + outline defaults from the library baseline. Because `primary + outline` matches the `:root` palette, VaneUI skips data-attribute emission — letting the component inherit from its nearest ancestor that DID set variables.
+These components use the primary + outline defaults from the library baseline. Because `primary + outline` matches the `:root` palette, VaneUI skips data-attribute emission, letting the component inherit from its nearest ancestor that DID set variables.
 
 **Button, Card, Badge, Code, Kbd, Input, IconButton, NavLink, Icon**
 
-A default `<Button>` inside a `<Card filled primary>` inherits the Card's white text and dark background — it automatically looks right on the dark surface. No configuration needed.
+A default `<Button>` inside a `<Card filled primary>` inherits the Card's white text and dark background. It automatically looks right on the dark surface. No configuration needed.
 
-### Components That Set Their Own Colors (identity components)
+### Components that set their own colors (identity components)
 
 These components have defaults that deviate from the primary + outline baseline. VaneUI detects this and emits data attributes so the component's own CSS rule fires, pinning its colors regardless of context.
 
@@ -38,17 +38,17 @@ These components have defaults that deviate from the primary + outline baseline.
 | **Link** | link + outline | Blue hyperlink must be recognizable |
 | **Checkbox** | primary + filled | Checked state needs non-white background |
 
-A `<Mark>` inside a `<Card filled danger>` still renders in its warning (yellow) palette — it doesn't turn red.
+A `<Mark>` inside a `<Card filled danger>` still renders in its warning (yellow) palette. It doesn't turn red.
 
-### Components in Inherit Mode (typography)
+### Components in inherit mode (typography)
 
 **Text, Title, SectionTitle, PageTitle, Label, List, ListItem, Divider, Blockquote**
 
-These components default to `inherit` — they never emit data attributes and always read colors from their nearest ancestor. This is how `<Text>` inside a `<Card filled primary>` automatically gets white text without any props.
+These components default to `inherit`. They never emit data attributes and always read colors from their nearest ancestor. This is how `<Text>` inside a `<Card filled primary>` automatically gets white text without any props.
 
-## Explicit Props Always Win
+## Explicit props always win
 
-When you explicitly set an appearance or variant on a component, VaneUI emits data attributes and the component's own CSS rule fires — overriding any inherited values:
+When you explicitly set an appearance or variant on a component, VaneUI emits data attributes and the component's own CSS rule fires, overriding any inherited values:
 
 ```tsx
 <Card filled primary>
@@ -63,9 +63,9 @@ When you explicitly set an appearance or variant on a component, VaneUI emits da
 </Card>
 ```
 
-## Nested Layouts
+## Nested layouts
 
-When multiple layout components are nested, each child inherits from its **nearest ancestor** that sets variables — not from the outermost ancestor:
+When multiple layout components are nested, each child inherits from its **nearest ancestor** that sets variables, not from the outermost ancestor:
 
 ```tsx
 <Card filled primary>
@@ -86,9 +86,9 @@ When multiple layout components are nested, each child inherits from its **neare
 </Card>
 ```
 
-## ThemeProvider Overrides
+## ThemeProvider overrides
 
-`ThemeProvider.themeDefaults` overrides are treated as user intent — they cause data-attribute emission even if the resolved value matches baseline:
+`ThemeProvider.themeDefaults` overrides are treated as user intent: they cause data-attribute emission even if the resolved value matches baseline:
 
 ```tsx
 {/* All Badges in this subtree render as danger, with data attributes */}
@@ -100,11 +100,11 @@ When multiple layout components are nested, each child inherits from its **neare
 </ThemeProvider>
 ```
 
-## The Baseline Rule
+## The baseline rule
 
-The data-attribute gate uses a simple rule:
+The data-attribute gate uses one rule:
 
-> **Emit `data-appearance` and `data-variant` when the resolved values deviate from `primary + outline`** — either because the user explicitly set props, because `themeDefaults` changed them, or because the component's library defaults are non-baseline (identity components).
+> **Emit `data-appearance` and `data-variant` when the resolved values deviate from `primary + outline`**: either because the user explicitly set props, because `themeDefaults` changed them, or because the component's library defaults are non-baseline (identity components).
 
 This means:
 - `<Button>` → primary + outline (baseline) → no attrs → inherits
@@ -113,9 +113,9 @@ This means:
 - `<Mark>` → warning + outline (warning ≠ primary) → attrs emitted → own rule
 - `<Text>` → inherit + outline (inherit excluded) → no attrs → inherits
 
-## Granular Inheritance Props
+## Granular inheritance props
 
-By default, the `inherit` appearance keyword inherits **everything** — color, size, background, and border — from the nearest ancestor. But sometimes you need selective inheritance: a `Link` inside a `Title` should inherit font-size (so the link matches the heading size) but keep its own link-blue color.
+By default, the `inherit` appearance keyword inherits **everything** (color, size, background, and border) from the nearest ancestor. But sometimes you need selective inheritance: a `Link` inside a `Title` should inherit font-size (so the link matches the heading size) but keep its own link-blue color.
 
 VaneUI provides four independent boolean toggle props for this:
 
@@ -128,7 +128,7 @@ VaneUI provides four independent boolean toggle props for this:
 
 ### How `inherit` expands
 
-When a component has `inherit` appearance (the default for Text, Title, Label, List, Divider, Blockquote), VaneUI expands it into color, background, and border inheritance — but **not size**:
+When a component has `inherit` appearance (the default for Text, Title, Label, List, Divider, Blockquote), VaneUI expands it into color, background, and border inheritance, but **not size**:
 
 ```
 <Text inherit>
@@ -137,7 +137,7 @@ When a component has `inherit` appearance (the default for Text, Title, Label, L
   (NOT inheritSize — size uses own --fs variable so <Text sm> works as expected)
 ```
 
-Size inheritance is separate — only inline components like Link, Code, Kbd, and Mark have `inheritSize: true` in their defaults. You can also set it explicitly:
+Size inheritance is separate. Only inline components like Link, Code, Kbd, and Mark have `inheritSize: true` in their defaults. You can also set it explicitly:
 
 ```tsx
 <Card filled primary>
@@ -149,9 +149,9 @@ Size inheritance is separate — only inline components like Link, Code, Kbd, an
 </Card>
 ```
 
-### Link, Mark — exact size inheritance via `inheritSize`
+### Link, Mark: exact size inheritance via `inheritSize`
 
-Link and Mark have their own appearance (Link = `link`, Mark = `warning`) so the `inherit` expansion does NOT fire. Instead, they have `inheritSize: true` set explicitly in their defaults — they render at the *exact* font-size of the nearest typography ancestor.
+Link and Mark have their own appearance (Link = `link`, Mark = `warning`) so the `inherit` expansion does NOT fire. Instead, they have `inheritSize: true` set explicitly in their defaults. They render at the *exact* font-size of the nearest typography ancestor.
 
 ```tsx
 <Title lg>
@@ -162,9 +162,9 @@ Link and Mark have their own appearance (Link = `link`, Mark = `warning`) so the
 - **Link** renders at the Title's `lg` font-size (inherited 1:1) but stays **link-blue** (own appearance)
 - **Mark** renders at parent size with its own warning highlight color
 
-### Code, Kbd — em-relative geometry
+### Code, Kbd: em-relative geometry
 
-Code and Kbd use a different mechanism: their `.vane-code` / `.vane-kbd` rules override `--spacing` to `0.25em` locally, so the entire geometry pipeline (font-size, padding, border-radius, gap) resolves in em — proportional to the parent's font-size.
+Code and Kbd use a different mechanism: their `.vane-code` / `.vane-kbd` rules override `--spacing` to `0.25em` locally, so the entire geometry pipeline (font-size, padding, border-radius, gap) resolves in em, proportional to the parent's font-size.
 
 ```tsx
 <Title lg>
@@ -175,7 +175,7 @@ Code and Kbd use a different mechanism: their `.vane-code` / `.vane-kbd` rules o
 - **Code** renders at 87.5% of Title's `lg` font-size (Code's default `md` ratio = 0.875×)
 - The size prop adjusts the ratio: `xs` = 0.625, `sm` = 0.75, `md` = 0.875 (default), `lg` = 1 (matches parent), `xl` = 1.125
 
-So inline Code feels right-sized in every context — body text at 14 px / 16 px, headings at 21 px / 24 px, hero displays at 42 px / 48 px.
+So inline Code feels right-sized in every context: body text at 14px / 16px, headings at 21px / 24px, hero displays at 42px / 48px.
 
 ### Opting out (Link, Mark)
 
@@ -187,8 +187,8 @@ Use `noInheritSize` to keep Link or Mark at its own size instead of the parent's
 </Title>
 ```
 
-The Link renders at its default `md` size while the Title is `lg`. For Code/Kbd, the size prop already controls the ratio — pass any of `xs` / `sm` / `md` / `lg` / `xl` to adjust.
+The Link renders at its default `md` size while the Title is `lg`. For Code/Kbd, the size prop already controls the ratio: pass any of `xs` / `sm` / `md` / `lg` / `xl` to adjust.
 
-### Responsive overrides inheritSize
+### Responsive overrides `inheritSize`
 
-Title, PageTitle, and SectionTitle have `responsive: true` in their defaults. Responsive sizing takes priority over `inheritSize` — a responsive heading always uses its viewport-scaled size, even if `inheritSize` is set via the `inherit` expansion.
+Title, PageTitle, and SectionTitle have `responsive: true` in their defaults. Responsive sizing takes priority over `inheritSize`: a responsive heading always uses its viewport-scaled size, even if `inheritSize` is set via the `inherit` expansion.

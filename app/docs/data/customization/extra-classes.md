@@ -1,16 +1,16 @@
 The `extraClasses` property in VaneUI's ThemeProvider allows you to add additional CSS classes to components based on which boolean props are active. This enables custom styling, animations, and effects while maintaining VaneUI's theming architecture.
 
-## Understanding ExtraClasses
+## Understanding extraClasses
 
 ### extraClasses?: ThemeExtraClasses
 
 The `extraClasses` property accepts an object where keys are component names and values map boolean prop names to CSS class strings. When a prop is active, its associated classes are added.
 
-Most components are keyed directly. **Components with sub-themes** — `button`, `card`, `checkbox`, `modal`, `menu`, `navLink` — are nested by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.). The shape mirrors `themeDefaults`.
+Most components are keyed directly. **Components with sub-themes** (`button`, `card`, `checkbox`, `modal`, `menu`, `navLink`) are nested by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.). The shape mirrors `themeDefaults`.
 
-## Basic Usage
+## Basic usage
 
-### Adding Classes Based on Props
+### Adding classes based on props
 
 Apply extra classes when specific boolean props are active:
 
@@ -38,7 +38,7 @@ function App() {
 }
 ```
 
-### Size-Based Classes
+### Size-based classes
 
 Add classes based on size props:
 
@@ -55,9 +55,9 @@ Add classes based on size props:
 </ThemeProvider>
 ```
 
-## Animation and Effects
+## Animation and effects
 
-### Hover and Transition Effects
+### Hover and transition effects
 
 Create engaging interactions with animation classes:
 
@@ -80,7 +80,7 @@ Create engaging interactions with animation classes:
 </ThemeProvider>
 ```
 
-### Attention-Grabbing Effects
+### Attention-grabbing effects
 
 Draw attention to important elements:
 
@@ -101,7 +101,7 @@ Draw attention to important elements:
 </ThemeProvider>
 ```
 
-## Combining Multiple Props
+## Combining multiple props
 
 When multiple props are active, all their associated classes are combined:
 
@@ -120,9 +120,9 @@ When multiple props are active, all their associated classes are combined:
 </ThemeProvider>
 ```
 
-## Conditional Extra Classes
+## Conditional extra classes
 
-### Dynamic Class Application
+### Dynamic class application
 
 Apply classes based on application state:
 
@@ -163,9 +163,9 @@ function DynamicExtraClasses() {
 }
 ```
 
-## Best Practices
+## Patterns that keep extraClasses predictable
 
-### Consistent Naming
+### Consistent naming
 
 Use consistent class patterns:
 
@@ -187,7 +187,7 @@ const extraClasses = {
 };
 ```
 
-### Avoid Conflicting Classes
+### Avoid conflicting classes
 
 Be careful not to add classes that conflict with VaneUI's size-driven system (padding, gap, font-size, border-radius scale via the size prop):
 
@@ -203,4 +203,4 @@ extraClasses: {
 }
 ```
 
-The `extraClasses` system provides a powerful way to extend VaneUI components with custom styling based on active props, enabling seamless integration with any CSS framework while maintaining the benefits of the theming system.
+The `extraClasses` system lets you extend VaneUI components with prop-conditional classes and integrate with any CSS framework while keeping the theming system intact.

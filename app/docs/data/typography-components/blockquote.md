@@ -5,16 +5,16 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typograp
 since: 0.9.0
 ---
 
-Displays quoted content as a semantic `<blockquote>` with a left border accent. Inherits appearance from the parent by default for seamless embedding in themed containers.
+Displays quoted content as a semantic `<blockquote>` with a left border accent. Inherits appearance from the parent by default so it blends with themed containers.
 
-## Basic Usage
+## Basic usage
 
 A blockquote with attribution. The element renders as `<blockquote>` and inherits color from its surroundings.
 
 ```tsx demo
 <Blockquote>
   <Text italic>The only way to do great work is to love what you do.</Text>
-  <Text sm secondary>— Steve Jobs</Text>
+  <Text sm secondary> - Steve Jobs</Text>
 </Blockquote>
 ```
 
@@ -51,12 +51,12 @@ Blockquote supports five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ## Italic
 
-Italic is not a default — opt in with the `italic` prop for traditional quotation styling.
+Italic is not a default. Opt in with the `italic` prop for traditional quotation styling.
 
 ```tsx demo
 <Col>
-  <Blockquote primary>Upright (default) — no italic styling.</Blockquote>
-  <Blockquote primary italic>Italic — traditional quotation styling.</Blockquote>
+  <Blockquote primary>Upright (default), no italic styling.</Blockquote>
+  <Blockquote primary italic>Italic, traditional quotation styling.</Blockquote>
 </Col>
 ```
 
@@ -66,16 +66,16 @@ Use `filled` for solid background blockquotes or `outline` (default) for the lef
 
 ```tsx demo
 <Col>
-  <Blockquote primary>Outline (default) — with a left border accent.</Blockquote>
-  <Blockquote primary filled>Filled — solid background for emphasis.</Blockquote>
-  <Blockquote info>Outline info — informational note.</Blockquote>
-  <Blockquote info filled>Filled info — strong callout.</Blockquote>
+  <Blockquote primary>Outline (default), with a left border accent.</Blockquote>
+  <Blockquote primary filled>Filled, solid background for emphasis.</Blockquote>
+  <Blockquote info>Outline info, informational note.</Blockquote>
+  <Blockquote info filled>Filled info, strong callout.</Blockquote>
 </Col>
 ```
 
 ## Inside a Card
 
-Blockquote inherits the parent appearance, making it blend seamlessly inside themed containers.
+Blockquote inherits the parent appearance, so it blends into themed containers.
 
 ```tsx demo
 <Row flexWrap>
@@ -91,7 +91,7 @@ Blockquote inherits the parent appearance, making it blend seamlessly inside the
 </Row>
 ```
 
-## With Rich Content
+## With rich content
 
 Blockquotes can contain multiple paragraphs and nested components.
 
@@ -102,7 +102,7 @@ Blockquotes can contain multiple paragraphs and nested components.
 </Blockquote>
 ```
 
-## Testimonial Pattern
+## Testimonial pattern
 
 Use blockquotes with attribution for testimonials and customer quotes.
 
@@ -110,14 +110,14 @@ Use blockquotes with attribution for testimonials and customer quotes.
 <Col>
   <Card brand>
     <Blockquote>
-      <Text italic>VaneUI made our design system migration incredibly smooth. The boolean props API is intuitive and the theming is powerful.</Text>
-      <Text sm bold>— Sarah Chen, Lead Engineer</Text>
+      <Text italic>VaneUI cut our migration time in half. The boolean props API is concise and the theming covers our cases.</Text>
+      <Text sm bold> - Sarah Chen, Lead Engineer</Text>
     </Blockquote>
   </Card>
   <Card success>
     <Blockquote>
       <Text italic>We shipped our new dashboard in half the time thanks to VaneUI components.</Text>
-      <Text sm bold>— Alex Rivera, Product Manager</Text>
+      <Text sm bold> - Alex Rivera, Product Manager</Text>
     </Blockquote>
   </Card>
 </Col>

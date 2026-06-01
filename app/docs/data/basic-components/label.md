@@ -7,14 +7,14 @@ since: 0.9.0
 
 Renders a `<label>` for form controls. Pairs with `Input` and `Checkbox` to provide accessible field labels, with size automatically propagating to nested form elements.
 
-## When to Use
+## When to use
 
 - Labelling text inputs, password fields, and other `Input` controls.
 - Wrapping a `Checkbox` so the label text becomes part of the click target.
 - Marking required fields, validation status, or hint text alongside a control.
 - Use `htmlFor` to associate a label with an external `Input` by `id`.
 
-## Basic Usage
+## Basic usage
 
 A `Label` defaults to `sm` size and `inherit` appearance, so it picks up text color from its surroundings.
 
@@ -24,7 +24,7 @@ A `Label` defaults to `sm` size and `inherit` appearance, so it picks up text co
 
 ## With Input
 
-Wrap an `Input` inside a `Label` to make the label clickable and associate them implicitly — no `htmlFor`/`id` wiring required.
+Wrap an `Input` inside a `Label` to make the label clickable and associate them implicitly. No `htmlFor`/`id` wiring required.
 
 ```tsx demo
 <Col noGap>
@@ -46,7 +46,7 @@ Place a `Checkbox` inside a `Label` so the label text expands the toggle's hit a
 </Label>
 ```
 
-## htmlFor Association
+## htmlFor association
 
 When the control lives outside the label, use the standard `htmlFor` attribute pointing at the input's `id`.
 
@@ -59,7 +59,7 @@ When the control lives outside the label, use the standard `htmlFor` attribute p
 
 ## Sizes
 
-Labels come in five sizes — `xs`, `sm` (default), `md`, `lg`, `xl`. Nested `Input` and `Checkbox` controls inherit the size.
+Labels come in five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Nested `Input` and `Checkbox` controls inherit the size.
 
 ```tsx demo
 <Col>
@@ -73,7 +73,7 @@ Labels come in five sizes — `xs`, `sm` (default), `md`, `lg`, `xl`. Nested `In
 
 ## Appearances
 
-Labels default to `inherit` — they take their color from the surrounding text. Set an explicit appearance to override.
+Labels default to `inherit`: they take their color from the surrounding text. Set an explicit appearance to override.
 
 ```tsx demo
 <Row flexWrap>
@@ -91,7 +91,7 @@ Labels default to `inherit` — they take their color from the surrounding text.
 </Row>
 ```
 
-## Font Weights
+## Font weights
 
 The default weight is `medium`. Override with any weight prop from `thin` to `black`.
 
@@ -109,7 +109,7 @@ The default weight is `medium`. Override with any weight prop from `thin` to `bl
 </Col>
 ```
 
-## Text Decorations
+## Text decorations
 
 Apply text decorations as needed.
 
@@ -121,9 +121,9 @@ Apply text decorations as needed.
 </Row>
 ```
 
-## Size Propagation
+## Size propagation
 
-When an `Input` or `Checkbox` is nested inside a `Label`, it automatically picks up the label's size — set it once and everything scales together. Pass a size on the child to opt out for that one element.
+When an `Input` or `Checkbox` is nested inside a `Label`, it automatically picks up the label's size. Set it once and everything scales together. Pass a size on the child to opt out for that one element.
 
 ```tsx demo
 <Col>
@@ -138,9 +138,9 @@ When an `Input` or `Checkbox` is nested inside a `Label`, it automatically picks
 </Col>
 ```
 
-## Required & Status
+## Required and status
 
-Use appearances to indicate field status — `danger` for errors, `success` for valid, `secondary` for hints.
+Use appearances to indicate field status: `danger` for errors, `success` for valid, `secondary` for hints.
 
 ```tsx demo
 <Col>

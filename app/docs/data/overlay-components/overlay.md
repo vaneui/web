@@ -13,6 +13,7 @@ Overlay ships its own layout defaults: `fixed`, `flex`, `itemsCenter`, `justifyC
 
 A fullscreen semi-transparent backdrop. Click the overlay background to dismiss.
 
+
 ```tsx
 const [open, setOpen] = useState(false);
 
@@ -22,7 +23,7 @@ const [open, setOpen] = useState(false);
 </Overlay>
 ```
 
-## Overlay with Content
+## Overlay with content
 
 Place content inside the overlay. Click handlers on the overlay only fire when the event target is the overlay itself, so children receive their own clicks without dismissing the overlay.
 
@@ -35,7 +36,7 @@ Place content inside the overlay. Click handlers on the overlay only fire when t
 </Overlay>
 ```
 
-## Blur Effect
+## Blur effect
 
 Add `blur` for a backdrop-filter blur behind the overlay. Blur intensity follows the `--overlay-blur` CSS variable.
 
@@ -47,7 +48,7 @@ Add `blur` for a backdrop-filter blur behind the overlay. Blur intensity follows
 </Overlay>
 ```
 
-## Custom Backdrop Appearance
+## Custom backdrop appearance
 
 Style the backdrop with appearance + variant + shadow props, or pass a `className` for arbitrary background utilities. The example below uses `danger filled` for a tinted destructive backdrop.
 
@@ -101,7 +102,7 @@ const [open, setOpen] = useState(false);
 
 ## Foundation for Modal
 
-`Modal` is built on `Overlay` — the dialog surface renders inside an Overlay that handles portaling, backdrop click, and stacking. For accessible dialogs with focus trap, scroll lock, and ARIA wiring, prefer `Modal`. Reach for `Overlay` directly when you need a custom backdrop layer (lightbox, loading shade, drawer scrim) without dialog semantics.
+`Modal` is built on `Overlay`. The dialog surface renders inside an Overlay that handles portaling, backdrop click, and stacking. For accessible dialogs with focus trap, scroll lock, and ARIA wiring, prefer `Modal`. Reach for `Overlay` directly when you need a custom backdrop layer (lightbox, loading shade, drawer scrim) without dialog semantics.
 
 ```tsx
 {/* High-level: use Modal for dialogs */}
@@ -115,9 +116,9 @@ const [open, setOpen] = useState(false);
 </Overlay>
 ```
 
-## Portal Target
+## Portal target
 
-Overlay renders into `document.body` by default via React portal. Set `portal={false}` to render in-place — useful when the overlay must be scoped to a positioned ancestor (e.g., scrim over a single card instead of the whole viewport).
+Overlay renders into `document.body` by default via React portal. Set `portal={false}` to render in-place, useful when the overlay must be scoped to a positioned ancestor (e.g., scrim over a single card instead of the whole viewport).
 
 ```tsx
 <Card relative className="h-64">
@@ -130,7 +131,7 @@ Overlay renders into `document.body` by default via React portal. Set `portal={f
 
 When `portal={false}` and `absolute` is set, the overlay anchors to the nearest `relative`/`absolute` ancestor instead of the viewport.
 
-## Z-Index / Stacking
+## Z-index / stacking
 
 Overlay reads its `z-index` from a managed stacking context (`--z-index`), so multiple overlays stack in mount order automatically. Override per instance via inline style when you need to layer above a specific element (toasts, page chrome).
 
@@ -146,7 +147,7 @@ Overlay reads its `z-index` from a managed stacking context (`--z-index`), so mu
 </Overlay>
 ```
 
-## Custom Animation Duration
+## Custom animation duration
 
 Control how the overlay transitions in and out. Use `transitionDuration` to set a custom duration in milliseconds (default `200`), or `noAnimation` to disable transitions entirely for an instant open/close.
 
@@ -162,7 +163,7 @@ Control how the overlay transitions in and out. Use `transitionDuration` to set 
 </Overlay>
 ```
 
-## Lifecycle & Mounting
+## Lifecycle and mounting
 
 | Prop | Default | Description |
 |------|---------|-------------|

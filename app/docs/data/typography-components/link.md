@@ -7,17 +7,17 @@ since: 0.9.0
 
 Renders an accessible and themeable anchor link for navigation. Use this to direct users to other pages or external websites.
 
-## When to Use
+## When to use
 
 - In-text navigation that sits naturally on the typography baseline.
 - External links to documentation, repositories, or referenced sources.
 - Footer/secondary navigation where a button would be visually too heavy.
 - Cross-references inside prose where the action is "go somewhere," not "do something."
 
-### When NOT to Use
+### When NOT to use
 
-- For action buttons (submit, confirm, run) — use `Button` instead.
-- For prominent calls-to-action — use `Button primary filled` for visual weight.
+- For action buttons (submit, confirm, run): use `Button` instead.
+- For prominent calls-to-action: use `Button primary filled` for visual weight.
 
 ## Customizing
 
@@ -41,9 +41,9 @@ A styled anchor element for navigation. Unlike other typography components which
 <Link href="#">Click here to learn more</Link>
 ```
 
-## Size Inherits from Context
+## Size inherits from context
 
-Link defaults to `inheritSize: true` so a link inside a heading renders at the heading's font-size automatically — no `size` prop needed. The link keeps its own blue colour.
+Link defaults to `inheritSize: true` so a link inside a heading renders at the heading's font-size automatically. No `size` prop needed. The link keeps its own blue colour.
 
 ```tsx demo
 <Col>
@@ -54,9 +54,9 @@ Link defaults to `inheritSize: true` so a link inside a heading renders at the h
 </Col>
 ```
 
-## Fixed Size with noInheritSize
+## Fixed size with noInheritSize
 
-Pass `noInheritSize` to render the Link at its own size instead of the parent's — useful when a link inside a heading should stay at body-text size.
+Pass `noInheritSize` to render the Link at its own size instead of the parent's, useful when a link inside a heading should stay at body-text size.
 
 ```tsx demo
 <Title>
@@ -64,7 +64,7 @@ Pass `noInheritSize` to render the Link at its own size instead of the parent's 
 </Title>
 ```
 
-## Explicit Sizes
+## Explicit sizes
 
 When `noInheritSize` is set (or the parent has no size context), choose an explicit size with `xs`, `sm`, `md` (default), `lg`, `xl`.
 
@@ -78,7 +78,7 @@ When `noInheritSize` is set (or the parent has no size context), choose an expli
 </Col>
 ```
 
-## Link Appearances
+## Link appearances
 
 Links default to the `link` appearance (blue). Override with: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`.
 
@@ -95,7 +95,7 @@ Links default to the `link` appearance (blue). Override with: `primary`, `brand`
 </Row>
 ```
 
-## Link Styling
+## Link styling
 
 Use `bold`, `semibold`, `italic`, or `noUnderline` to remove the default underline.
 
@@ -108,18 +108,18 @@ Use `bold`, `semibold`, `italic`, or `noUnderline` to remove the default underli
 </Col>
 ```
 
-## Hover State
+## Hover state
 
 Links keep an underline at rest. With `noUnderline`, the underline appears on hover for affordance. Links also render a keyboard focus-visible outline by default for keyboard users (opt out with `noFocusVisible`).
 
 ```tsx demo
 <Col>
   <Link href="#">Underlined at rest, stays underlined on hover</Link>
-  <Link noUnderline href="#">No underline at rest — hover to reveal it</Link>
+  <Link noUnderline href="#">No underline at rest, hover to reveal it</Link>
 </Col>
 ```
 
-## External Links
+## External links
 
 Pass the `external` prop and Link auto-applies `target="_blank"` and `rel="noopener noreferrer"` for safe cross-origin navigation.
 
@@ -129,7 +129,7 @@ Pass the `external` prop and Link auto-applies `target="_blank"` and `rel="noope
 
 ## Manual target="_blank"
 
-Setting `target="_blank"` directly also auto-applies `rel="noopener noreferrer"` — no need to spell it out.
+Setting `target="_blank"` directly also auto-applies `rel="noopener noreferrer"`. No need to spell it out.
 
 ```tsx demo
 <Link href="https://github.com/vaneui/vaneui" target="_blank">Open in a new tab</Link>
@@ -137,7 +137,7 @@ Setting `target="_blank"` directly also auto-applies `rel="noopener noreferrer"`
 
 ## Inline in Text
 
-Links integrate naturally with surrounding prose — drop them inline inside `Text` and they inherit the parent size.
+Links integrate naturally with surrounding prose. Drop them inline inside `Text` and they inherit the parent size.
 
 ```tsx demo
 <Text>
@@ -146,9 +146,9 @@ Links integrate naturally with surrounding prose — drop them inline inside `Te
 </Text>
 ```
 
-## Inherits Parent Text Size
+## Inherits parent Text size
 
-Links inside body text inherit the surrounding `Text` size — set the size on the parent and the Link follows along.
+Links inside body text inherit the surrounding `Text` size. Set the size on the parent and the Link follows along.
 
 ```tsx demo
 <Col>
@@ -158,7 +158,7 @@ Links inside body text inherit the surrounding `Text` size — set the size on t
 </Col>
 ```
 
-## With Icons
+## With icons
 
 Combine links with icons using Row for visual navigation cues.
 
@@ -179,7 +179,7 @@ Combine links with icons using Row for visual navigation cues.
 </Col>
 ```
 
-## Next.js Link Integration
+## Next.js Link integration
 
 Use the `tag` prop to render the VaneUI Link as a Next.js `Link` for client-side navigation. Alias the Next.js import so it doesn't shadow `Link` from `@vaneui/ui`.
 

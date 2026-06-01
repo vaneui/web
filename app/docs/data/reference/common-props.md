@@ -2,7 +2,7 @@
 
 Layout and utility props shared across most VaneUI components. Documented here once instead of on every component page. Per-component pages link here from the "Layout & utility props" disclosure under their props table.
 
-Component-specific categories — **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`brand`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`link`/`inherit`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, **textAlign**, etc. — are listed on each component's own page because defaults differ. Default **size** is `md`, except `Button`, `NavLink`, `Label`, and `MenuItem` which default to `sm`.
+Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`brand`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`link`/`inherit`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except `Button`, `NavLink`, `Label`, and `MenuItem` which default to `sm`.
 
 ## Hide
 
@@ -112,7 +112,7 @@ Spacing between flex/grid items.
 | `gap` | Enable gap spacing between children |
 | `noGap` | Disable gap spacing |
 
-## Flex Direction
+## Flex direction
 
 Flex layout direction for arranging children.
 
@@ -133,13 +133,13 @@ Reverse the order of flex items.
 
 ## Flex
 
-Flex-grow / flex-shrink shorthand for distributing space along the main axis. Mutually exclusive — only one value can be active.
+Flex-grow / flex-shrink shorthand for distributing space along the main axis. Mutually exclusive: only one value can be active.
 
 | Prop | Description |
 |------|-------------|
-| `flex1` | Take up remaining space (`flex: 1 1 0%`) — the standard "fill the rest" behavior |
+| `flex1` | Take up remaining space (`flex: 1 1 0%`); the standard "fill the rest" behavior |
 | `flexAuto` | Grow but respect intrinsic content size (`flex: 1 1 auto`) |
-| `flexNone` | Don't grow and don't shrink (`flex: none`) — fixed-size in a flex container |
+| `flexNone` | Don't grow and don't shrink (`flex: none`); fixed-size in a flex container |
 
 ## Shrink
 
@@ -147,7 +147,7 @@ Flex-shrink override. Independent toggle so it can be combined with `flex1`/`fle
 
 | Prop | Description |
 |------|-------------|
-| `noShrink` | Prevent the item from shrinking below its content size (`shrink-0`) — typical for fixed-width sidebars in a flex row |
+| `noShrink` | Prevent the item from shrinking below its content size (`shrink-0`); typical for fixed-width sidebars in a flex row |
 
 ## Border
 
@@ -182,7 +182,7 @@ Focus ring visibility for keyboard navigation feedback.
 | `ring` | Enable focus ring |
 | `noRing` | Disable focus ring |
 
-## Focus Visible
+## Focus visible
 
 Focus-visible outline visibility for keyboard navigation indicators.
 
@@ -267,7 +267,7 @@ Enable breakpoint-specific sizing for adaptive layouts.
 |------|-------------|
 | `responsive` | Enable responsive sizing - uses breakpoint-specific classes for font size, padding, and gap |
 
-## Object Fit
+## Object fit
 
 Image and video sizing within their containers.
 
@@ -288,7 +288,7 @@ Backdrop blur effect for overlays and visual effects.
 | `blur` | Enable backdrop blur effect |
 | `noBlur` | Disable backdrop blur effect |
 
-## Pointer Events
+## Pointer events
 
 Element interactivity with the pointer.
 
@@ -297,7 +297,7 @@ Element interactivity with the pointer.
 | `pointerEventsNone` | Disable pointer events - clicks pass through the element |
 | `pointerEventsAuto` | Enable pointer events (default browser behavior) |
 
-## Min Width
+## Min width
 
 Minimum width constraint for popup and floating components.
 
@@ -305,7 +305,7 @@ Minimum width constraint for popup and floating components.
 |------|-------------|
 | `minWidth` | Apply size-dependent minimum width (uses --popup-min-w CSS variable) |
 
-## Max Height
+## Max height
 
 Maximum height constraint for components.
 

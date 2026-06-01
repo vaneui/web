@@ -5,11 +5,11 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/stack/St
 since: 0.9.0
 ---
 
-A vertical flex container with built-in `padding` and `flexWrap`. Think of `Stack` as `Col` plus padding and wrap — reach for it when you want a self-contained surface that breathes, not a structural skeleton.
+A vertical flex container with built-in `padding` and `flexWrap`. Think of `Stack` as `Col` plus padding and wrap. Reach for it when you want a self-contained surface that breathes, not a structural skeleton.
 
 ## Basic Stack
 
-`Stack` defaults to `column`, `flex`, `gap`, `padding`, `flexWrap`, `md`, `noBorder`, `noRing`, `outline`, and `sharp` — you don't need to pass any of these. Pass `href` to render `Stack` as `<a>` instead of `<div>` — a focus-visible outline auto-enables when `href` is set.
+`Stack` defaults to `column`, `flex`, `gap`, `padding`, `flexWrap`, `md`, `noBorder`, `noRing`, `outline`, and `sharp`: you don't need to pass any of these. Pass `href` to render `Stack` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Stack>
@@ -23,8 +23,8 @@ A vertical flex container with built-in `padding` and `flexWrap`. Think of `Stac
 
 `Stack` and `Col` are both vertical flex columns. The difference is opinion:
 
-- **`Stack`** = `padding: true` + `flexWrap: true` — a padded, wrap-friendly container.
-- **`Col`** = `noPadding` — a bare structural column you compose inside other surfaces.
+- **`Stack`** = `padding: true` + `flexWrap: true`: a padded, wrap-friendly container.
+- **`Col`** = `noPadding`: a bare structural column you compose inside other surfaces.
 
 Use `Stack` when the column owns its own breathing room. Use `Col` when an outer `Card` / `Section` / `Container` already supplies the padding.
 
@@ -47,7 +47,7 @@ Use `Stack` when the column owns its own breathing room. Use `Col` when an outer
 </Row>
 ```
 
-## Stack Direction
+## Stack direction
 
 Use `row` for horizontal layout. Default is `column` (vertical).
 
@@ -70,7 +70,7 @@ Use `row` for horizontal layout. Default is `column` (vertical).
 </Row>
 ```
 
-## Stack Spacing
+## Stack spacing
 
 Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to scale gap and padding together, or `noGap` to remove the gap.
 
@@ -104,7 +104,7 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to scale gap and padding together,
 </Row>
 ```
 
-## Padding Sizes
+## Padding sizes
 
 `padding` is on by default. The padding value scales with the size prop. Use `noPadding` to remove it entirely.
 
@@ -129,7 +129,7 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to scale gap and padding together,
 </Row>
 ```
 
-## Items (Cross Axis)
+## Items (cross axis)
 
 Stack has no `items` default, so children stretch to fill the width. Override with `itemsStart`, `itemsCenter`, `itemsEnd`, `itemsBaseline`, or `itemsStretch`.
 
@@ -158,7 +158,7 @@ Stack has no `items` default, so children stretch to fill the width. Override wi
 </Row>
 ```
 
-## Justify (Main Axis)
+## Justify (main axis)
 
 Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`, `justifyBetween`, `justifyAround`, or `justifyEvenly`. The Stack needs a fixed height for these to have any effect.
 
@@ -197,7 +197,7 @@ Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`
 </Row>
 ```
 
-## Wrap Behavior
+## Wrap behavior
 
 `flexWrap` is on by default. In a horizontal Stack, items wrap to the next line when they would overflow the container. Use `flexNoWrap` to force everything onto a single line.
 
@@ -222,9 +222,9 @@ Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`
 </Col>
 ```
 
-## Stack Variants
+## Stack variants
 
-Use `filled` or `outline` with appearance props for styled containers. Stack defaults to `sharp` — pair with `rounded` or `pill` for curved corners.
+Use `filled` or `outline` with appearance props for styled containers. Stack defaults to `sharp`: pair with `rounded` or `pill` for curved corners.
 
 ```tsx demo
 <Row itemsStart>
@@ -239,7 +239,7 @@ Use `filled` or `outline` with appearance props for styled containers. Stack def
 </Row>
 ```
 
-## Text Alignment
+## Text alignment
 
 Use `textLeft`, `textCenter`, `textRight`, or `textJustify` to control text alignment within the stack.
 
@@ -260,7 +260,7 @@ Use `textLeft`, `textCenter`, `textRight`, or `textJustify` to control text alig
 </Row>
 ```
 
-## Responsive Layout
+## Responsive layout
 
 Use `mobileCol` or `tabletCol` on a horizontal Stack to switch back to a column on narrower viewports.
 
@@ -277,9 +277,9 @@ Use `mobileCol` or `tabletCol` on a horizontal Stack to switch back to a column 
 </Stack>
 ```
 
-## As a Form Container
+## As a form container
 
-Stack's built-in padding makes it a natural container for a form — each `Label` becomes a row with its input, and the Stack provides the vertical rhythm and outer breathing room without any extra wrapper.
+Stack's built-in padding makes it a natural container for a form: each `Label` becomes a row with its input, and the Stack provides the vertical rhythm and outer breathing room without any extra wrapper.
 
 ```tsx demo
 <Stack border rounded className="max-w-sm">
@@ -302,7 +302,7 @@ Stack's built-in padding makes it a natural container for a form — each `Label
 
 ## As Link
 
-Add `href` to render the Stack as an `<a>` tag — useful for hero cards and large clickable surfaces. A keyboard focus-visible outline auto-renders so the link is reachable via Tab; opt out with `noFocusVisible`.
+Add `href` to render the Stack as an `<a>` tag, useful for hero cards and large clickable surfaces. A keyboard focus-visible outline auto-renders so the link is reachable via Tab; opt out with `noFocusVisible`.
 
 ```tsx demo
 <Stack href="#get-started" border rounded itemsStart className="max-w-md">
@@ -313,7 +313,7 @@ Add `href` to render the Stack as an `<a>` tag — useful for hero cards and lar
 </Stack>
 ```
 
-## Next.js Link Integration
+## Next.js Link integration
 
 Use the `tag` prop to render the Stack as a Next.js `Link` for client-side navigation.
 

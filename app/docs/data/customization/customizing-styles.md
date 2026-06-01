@@ -1,6 +1,6 @@
 VaneUI components are styled through boolean props and CSS variables, but you can override any visual property using standard Tailwind CSS classes via the `className` prop. This page explains how overrides work, when to use each approach, and common pitfalls.
 
-## How className Overrides Work
+## How className overrides work
 
 VaneUI uses [`tailwind-merge`](https://github.com/dcastil/tailwind-merge) to combine theme-generated classes with your `className`. When a conflict exists, **your class always wins** because `className` is passed last:
 
@@ -9,13 +9,13 @@ VaneUI uses [`tailwind-merge`](https://github.com/dcastil/tailwind-merge) to com
 const finalClasses = twMerge(...themeGeneratedClasses, className);
 ```
 
-This means the conflict is resolved at the **JavaScript level** — the losing class is removed from the string entirely before the DOM renders. There are no CSS specificity wars or `!important` hacks.
+This means the conflict is resolved at the **JavaScript level**: the losing class is removed from the string entirely before the DOM renders. There are no CSS specificity wars or `!important` hacks.
 
-## What You Can Override
+## Properties className can override
 
 VaneUI components use CSS variable consumer classes like `border-(--border-color)`, `text-(--text-color)`, and `bg-(--bg-color)`. These compile to standard CSS (`border-color: var(--border-color)`). Any Tailwind utility that targets the same CSS property will override them.
 
-### Border Color
+### Border color
 
 ```tsx
 // VaneUI generates: border-(--border-color)
@@ -24,7 +24,7 @@ VaneUI components use CSS variable consumer classes like `border-(--border-color
 <Card className="border-red-300">Custom border</Card>
 ```
 
-### Text Color
+### Text color
 
 ```tsx
 // VaneUI generates: text-(--text-color)
@@ -33,7 +33,7 @@ VaneUI components use CSS variable consumer classes like `border-(--border-color
 <Text className="text-emerald-600">Custom text color</Text>
 ```
 
-### Background Color
+### Background color
 
 ```tsx
 // VaneUI generates: bg-(--bg-color)
@@ -44,9 +44,9 @@ VaneUI components use CSS variable consumer classes like `border-(--border-color
 </Card>
 ```
 
-### Hover, Active, and Focus States
+### Hover, active, and focus states
 
-State-specific overrides work too — each state variant is resolved independently:
+State-specific overrides work too. Each state variant is resolved independently:
 
 ```tsx
 // Override hover background
@@ -66,7 +66,7 @@ State-specific overrides work too — each state variant is resolved independent
 <Card className="shadow-none">No shadow</Card>
 ```
 
-### Non-Conflicting Properties Are Preserved
+### Non-conflicting properties are preserved
 
 `twMerge` only removes classes that target the **same CSS property**. Different properties coexist:
 
@@ -78,7 +78,7 @@ State-specific overrides work too — each state variant is resolved independent
 </Card>
 ```
 
-## Override Hierarchy
+## Override hierarchy
 
 From lowest to highest priority:
 
@@ -93,7 +93,7 @@ From lowest to highest priority:
 
 For most use cases, `className` (level 5) is the right tool. Use `themeDefaults` or `extraClasses` when you need the override to apply across many components.
 
-## CSS Variable Approach
+## CSS variable approach
 
 Instead of overriding the consumer class with a Tailwind utility, you can override the underlying CSS variable. This keeps VaneUI's consumer class active but changes what value it reads:
 
@@ -107,8 +107,8 @@ Instead of overriding the consumer class with a Tailwind utility, you can overri
 
 **When to use CSS variables vs className:**
 
-- **`className="border-red-300"`** — static override, ignores the theme entirely. The component's `border-(--border-color)` class is removed by twMerge.
-- **`style={{ '--border-color': '...' }}`** — theme-aware override. The component still uses its consumer class, but the variable value is different. Children inherit the new value.
+- **`className="border-red-300"`**: static override, ignores the theme entirely. The component's `border-(--border-color)` class is removed by twMerge.
+- **`style={{ '--border-color': '...' }}`**: theme-aware override. The component still uses its consumer class, but the variable value is different. Children inherit the new value.
 
 The CSS variable approach is especially useful when you want descendants to inherit your override:
 
@@ -120,9 +120,9 @@ The CSS variable approach is especially useful when you want descendants to inhe
 </Card>
 ```
 
-## When to Use VaneUI Props Instead
+## When to use VaneUI props instead
 
-VaneUI provides boolean props for most common styling needs. Always prefer props over Tailwind classes when a prop exists — this ensures the styling integrates with the size system, responds to theme changes, and works with `ThemeProvider` overrides.
+VaneUI provides boolean props for most common styling needs. Always prefer props over Tailwind classes when a prop exists. This ensures the styling integrates with the size system, responds to theme changes, and works with `ThemeProvider` overrides.
 
 | Instead of Tailwind | Use VaneUI Prop |
 |---------------------|-----------------|
@@ -135,7 +135,7 @@ VaneUI provides boolean props for most common styling needs. Always prefer props
 | `className="gap-4"` | Use size props (`xs` through `xl`) |
 | `className="bg-red-500"` | `danger filled` |
 
-## className Is for Things VaneUI Props Don't Cover
+## className is for things VaneUI props don't cover
 
 Good uses of `className`:
 
@@ -158,7 +158,7 @@ Good uses of `className`:
 <Img className="aspect-video" src="/banner.jpg" alt="Banner" />
 ```
 
-## Common Pitfalls
+## className pitfalls to avoid
 
 ### Don't override gap with Tailwind classes
 
@@ -195,7 +195,7 @@ Padding is also size-driven and scales proportionally:
 <Button danger filled>Delete</Button>
 ```
 
-### Beware of className on Typography Components
+### Beware of className on typography components
 
 Typography components have built-in letter spacing, line height, and font size that scale with the size prop. Overriding these with Tailwind classes breaks the proportional scaling:
 
