@@ -310,6 +310,7 @@ VaneUI components come with sensible built-in defaults. Only set defaults that d
 - **Section**: `md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `noBorder`, `noRing`, `noShadow`, `outline`, `sharp`, `responsive`
 - **Container**: `md`, `wFull`, `flex`, `column`, `itemsCenter`, `gap`, `noPadding`, `outline`, `sharp`
 - **Input**: `md`, `wFull`, `primary`, `outline`, `rounded`, `padding`, `ring`, `focusVisible`
+- **Label**: `sm`, `flex`, `itemsCenter`, `gap`, `inherit` (not `primary`), `medium` (`itemsCenter` vertically centers the label text next to a nested `Input` or `Checkbox`)
 - **Badge**: `md`, `primary`, `outline`, `pill`, `semibold`, `uppercase`
 - **Chip**: `md`, `secondary` (not `primary`), `outline`, `rounded`, `mono`
 - **Link**: `md`, `link` (not `primary`), `underline`, `sans`, `cursorPointer`, `inheritSize`, `wFit`, `focusVisible` (no variant default, no `outline`)

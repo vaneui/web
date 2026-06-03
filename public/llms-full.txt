@@ -21,9 +21,9 @@ Title: Core Concepts
 URL: https://vaneui.com/docs/getting-started/core-concepts
 ---
 
-VaneUI helps you build beautiful, consistent UIs faster by turning common design decisions into expressive, readable boolean props. Instead of memorizing property names and values, you compose intent: `primary`, `lg`, `outline`, `rounded`. The result is cleaner code, fewer decisions per component, and a smoother path from wireframe to production.
+VaneUI turns common design decisions into expressive, readable boolean props. Instead of memorizing property names and values, you compose intent: `primary`, `lg`, `outline`, `rounded`. The result is cleaner code, fewer decisions per component, and a smoother path from wireframe to production.
 
-## Boolean Props API
+## Boolean props API
 
 At its core, VaneUI uses **boolean props** instead of string enums for cleaner JSX:
 
@@ -44,22 +44,22 @@ Props are organized into **categories**:
 - **layout**: `flex`, `column`, `itemsCenter`, `justifyBetween`, etc.
 - **inheritance**: `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder` (and `noInherit*` toggles)
 
-Typography components (Text, Title, SectionTitle, PageTitle), Label, List, and Divider default to `inherit`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Inline components like Link, Code, Kbd, and Mark default to `inheritSize` — they inherit font-size from their parent while keeping their own appearance color.
+Typography components (Text, Title, SectionTitle, PageTitle), Label, List, and Divider default to `inherit`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Inline components like Link, Code, Kbd, and Mark default to `inheritSize`. They inherit font-size from their parent while keeping their own appearance color.
 
-## How Components Work
+## How components work
 
 VaneUI components follow a three-layer architecture:
 
-### Layer 1: React Component
+### Layer 1: React component
 Each component gets its theme from `ThemeContext` via `useTheme()` and passes props to `ThemedComponent`, which computes the final CSS classes.
 
-### Layer 2: Theme System
+### Layer 2: theme system
 The `ComponentTheme` class orchestrates class generation. It walks a tree of `BaseTheme` subclasses (like `FontSizeTheme`, `RadiusTheme`) that each generate specific CSS classes based on the active props.
 
-### Layer 3: CSS Variables
+### Layer 3: CSS variables
 Components output **data attributes** (`data-size`, `data-appearance`, `data-variant`) that CSS rules in `vars.css` use to set CSS variables. These variables are then consumed by Tailwind utility classes.
 
-## Prop Extraction
+## Prop extraction
 
 When you pass props, VaneUI selects ONE value per category based on priority:
 
@@ -77,7 +77,7 @@ When you pass props, VaneUI selects ONE value per category based on priority:
 1. Props explicitly set to `true`
 2. Defaults set to `true` (unless explicitly set to `false` in props)
 
-## Prop Combinations
+## Prop combinations
 
 Boolean props can be combined naturally to create the exact styling you need:
 
@@ -95,11 +95,11 @@ Boolean props can be combined naturally to create the exact styling you need:
 </Stack>
 ```
 
-## CSS Variable System
+## CSS variable system
 
 VaneUI uses a three-tier CSS variable system:
 
-### Tier 1: Unit Variables
+### Tier 1: unit variables
 Set by component class based on `data-size`:
 ```css
 .vane-button[data-size="md"] {
@@ -109,7 +109,7 @@ Set by component class based on `data-size`:
 }
 ```
 
-### Tier 2: Computed Variables
+### Tier 2: computed variables
 Calculated from unit variables using base multipliers:
 ```css
 [data-size] {
@@ -121,7 +121,7 @@ Calculated from unit variables using base multipliers:
 }
 ```
 
-### Tier 3: Semantic Color Variables
+### Tier 3: semantic color variables
 Set by `data-variant` + `data-appearance` attributes:
 ```css
 [data-variant="outline"][data-appearance="primary"] {
@@ -131,7 +131,7 @@ Set by `data-variant` + `data-appearance` attributes:
 }
 ```
 
-## Mixing Custom Classes
+## Mixing custom classes
 
 You can always add your own Tailwind classes via `className` to fine-tune any edge case:
 ```tsx
@@ -142,9 +142,9 @@ You can always add your own Tailwind classes via `className` to fine-tune any ed
 
 User-provided `className` takes precedence over theme classes for the same properties (via `twMerge`).
 
-## Customization Options
+## Customization options
 
-### CSS Variables
+### CSS variables
 Override colors globally or for any subtree:
 ```css
 :root {
@@ -154,7 +154,7 @@ Override colors globally or for any subtree:
 }
 ```
 
-### ThemeProvider Defaults
+### ThemeProvider defaults
 Set default prop values for all components, including overlay components (Overlay, Modal, Popup):
 ```tsx
 <ThemeProvider themeDefaults={{
@@ -165,7 +165,7 @@ Set default prop values for all components, including overlay components (Overla
 </ThemeProvider>
 ```
 
-### Extra Classes
+### Extra classes
 Add additional CSS classes based on active props:
 ```tsx
 <ThemeProvider extraClasses={{
@@ -175,7 +175,7 @@ Add additional CSS classes based on active props:
 </ThemeProvider>
 ```
 
-### Theme Override Function
+### Theme override function
 For programmatic theme modifications:
 ```tsx
 <ThemeProvider themeOverride={(theme) => {
@@ -206,13 +206,13 @@ yarn add @vaneui/ui
 pnpm add @vaneui/ui
 ```
 
-## CSS Setup
+## CSS setup
 
 VaneUI supports two CSS setup options depending on your project configuration.
 
-### Option 1: With Tailwind CSS (Recommended)
+### Option 1: with Tailwind CSS (recommended)
 
-If your project uses Tailwind CSS v4, VaneUI integrates seamlessly. Tailwind will scan VaneUI components and generate only the CSS classes you use.
+If your project uses Tailwind CSS v4, VaneUI plugs in directly. Tailwind scans VaneUI components and generates only the CSS classes you use.
 
 Install Tailwind CSS if you haven't already:
 
@@ -237,7 +237,7 @@ This setup:
 
 > The `@vaneui/ui/tokens` import is required for responsive props like `mobileCol`, `tabletHide`, and responsive typography to work. It registers VaneUI's custom breakpoints (`mobile`, `tablet`, `desktop`) with your project's Tailwind CSS instance.
 
-### Option 2: Without Tailwind CSS
+### Option 2: without Tailwind CSS
 
 If your project doesn't use Tailwind CSS, you can import VaneUI's pre-built CSS bundle which includes all component styles.
 
@@ -269,7 +269,7 @@ function App() {
 }
 ```
 
-## Per-Component Imports
+## Per-component imports
 
 For better tree-shaking, you can import components directly:
 
@@ -279,7 +279,7 @@ import { Card } from '@vaneui/ui/card';
 import { ThemeProvider } from '@vaneui/ui/theme';
 ```
 
-This is optional — importing from `@vaneui/ui` works the same way. Per-component imports can reduce bundle size when using only a few components with bundlers that don't fully tree-shake barrel exports.
+This is optional. Importing from `@vaneui/ui` works the same way. Per-component imports can reduce bundle size when using only a few components with bundlers that don't fully tree-shake barrel exports.
 
 Available subpath imports include: `@vaneui/ui/button`, `@vaneui/ui/iconButton`, `@vaneui/ui/icon`, `@vaneui/ui/badge`, `@vaneui/ui/card`, `@vaneui/ui/checkbox`, `@vaneui/ui/chip`, `@vaneui/ui/code`, `@vaneui/ui/divider`, `@vaneui/ui/img`, `@vaneui/ui/input`, `@vaneui/ui/kbd`, `@vaneui/ui/label`, `@vaneui/ui/mark`, `@vaneui/ui/menu`, `@vaneui/ui/modal`, `@vaneui/ui/navLink`, `@vaneui/ui/overlay`, `@vaneui/ui/popup`, `@vaneui/ui/section`, `@vaneui/ui/container`, `@vaneui/ui/row`, `@vaneui/ui/col`, `@vaneui/ui/stack`, `@vaneui/ui/grid`, `@vaneui/ui/typography`, `@vaneui/ui/layout`, `@vaneui/ui/theme`, `@vaneui/ui/props`.
 
@@ -290,11 +290,11 @@ URL: https://vaneui.com/docs/getting-started/usage-basics
 
 Learn the fundamental patterns for using VaneUI components.
 
-## Component Props
+## Component props
 
 VaneUI components use boolean props for styling. Most components support size, appearance, and layout props.
 
-### Size Props
+### Size props
 
 Components support five sizes:
 
@@ -316,7 +316,7 @@ function SizeExample() {
 
 > Most components default to `md`. Button, NavLink, MenuItem, and Label default to `sm`.
 
-### Appearance Props
+### Appearance props
 
 Control visual appearance with semantic props:
 
@@ -341,7 +341,7 @@ function AppearanceExample() {
 }
 ```
 
-### Filled and Outline Variants
+### Filled and outline variants
 
 All components support `filled` and `outline` variants. `outline` is the default for most components:
 
@@ -375,7 +375,7 @@ function FilledOutlineExample() {
 }
 ```
 
-### Shape Props
+### Shape props
 
 Control border radius:
 
@@ -393,7 +393,7 @@ function ShapeExample() {
 }
 ```
 
-## Layout Components
+## Layout components
 
 ### Stack
 
@@ -415,7 +415,7 @@ function StackExample() {
 
 ### Row and Col
 
-Create flexible layouts:
+Compose layouts:
 
 ```tsx
 import { Row, Col, Card } from '@vaneui/ui';
@@ -434,7 +434,7 @@ function GridExample() {
 }
 ```
 
-### Responsive Breakpoints
+### Responsive breakpoints
 
 Use breakpoint props to change layout on different screen sizes:
 
@@ -453,9 +453,9 @@ function ResponsiveLayout() {
 ```
 
 Available breakpoint props:
-- `mobileCol` - Column on mobile and below (max-width: 48rem)
-- `tabletCol` - Column on tablet and below (max-width: 64rem)
-- `desktopCol` - Column on desktop and below (max-width: 80rem)
+- `mobileCol`: Column on mobile and below (max-width: 48rem)
+- `tabletCol`: Column on tablet and below (max-width: 64rem)
+- `desktopCol`: Column on desktop and below (max-width: 80rem)
 
 ## Typography
 
@@ -476,9 +476,9 @@ function TypographyExample() {
 }
 ```
 
-### Automatic Responsive Typography
+### Automatic responsive typography
 
-Typography components (`PageTitle`, `SectionTitle`, `Title`) and layout components (`Section`) automatically scale across breakpoints - no props needed:
+Typography components (`PageTitle`, `SectionTitle`, `Title`) and layout components (`Section`) automatically scale across breakpoints: no props needed:
 
 ```tsx
 import { PageTitle, SectionTitle, Title, Section } from '@vaneui/ui';
@@ -495,12 +495,12 @@ function ResponsiveTypography() {
 }
 ```
 
-- `PageTitle` scales: e.g., 24 units on desktop → 21 on tablet → 18 on mobile
-- `SectionTitle` scales: e.g., 18 units on desktop → 16 on tablet → 14 on mobile
-- `Title` scales: e.g., 12 units on desktop → 11 on tablet → 10 on mobile
+- `PageTitle` scales: e.g., 24 units on desktop, 21 on tablet, 18 on mobile
+- `SectionTitle` scales: e.g., 18 units on desktop, 16 on tablet, 14 on mobile
+- `Title` scales: e.g., 12 units on desktop, 11 on tablet, 10 on mobile
 - `Section` padding/gap scales automatically across breakpoints
 
-### Typography Color Inheritance
+### Typography color inheritance
 
 List items inherit appearance from their parent List component via CSS variables:
 
@@ -564,9 +564,9 @@ function IconExample() {
 }
 ```
 
-### Icon Container Mode
+### Icon container mode
 
-By default `Icon` renders as a bare glyph that inherits color from its parent. Adding any of `padding`, `border`, `ring`, `shadow`, or `filled` switches it into *container mode* — the icon gains a sized box that shape props (`rounded`, `pill`, `sharp`) can act on:
+By default `Icon` renders as a bare glyph that inherits color from its parent. Adding any of `padding`, `border`, `ring`, `shadow`, or `filled` switches it into *container mode*: the icon gains a sized box that shape props (`rounded`, `pill`, `sharp`) can act on:
 
 ```tsx
 import { Icon, Row } from '@vaneui/ui';
@@ -585,7 +585,7 @@ function IconContainerExample() {
 
 Padding and radius scale with the size prop, so the same composition works across `xs` through `xl`.
 
-## Overlays and Modals
+## Overlays and modals
 
 Use `Modal` for dialogs that require user attention. Modals include focus trapping, scroll lock, and ARIA attributes by default. Modal provides sub-components for structured layout: `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton`.
 
@@ -636,7 +636,7 @@ function PopupExample() {
 
 See the [Overlay Components](/docs/overlay-components/overlay) section for `Overlay`, `Modal`, and `Popup` documentation.
 
-## Responsive Visibility
+## Responsive visibility
 
 Hide components on specific breakpoints:
 
@@ -655,7 +655,7 @@ function ResponsiveVisibility() {
 }
 ```
 
-## Custom HTML Tags
+## Custom HTML tags
 
 Use the `tag` prop to render different HTML elements:
 
@@ -673,7 +673,7 @@ function TagExample() {
 }
 ```
 
-## Combining with Custom Classes
+## Combining with custom classes
 
 Add custom Tailwind classes via `className`:
 
@@ -693,11 +693,11 @@ function CustomStyling() {
 
 User-provided `className` takes precedence over theme classes (via `twMerge`).
 
-## Prefer Props Over Tailwind Classes
+## Prefer props over Tailwind classes
 
 VaneUI provides boolean props for most common styling needs. Use these instead of Tailwind classes to ensure consistent theming and proper integration with the size system.
 
-### Common Props vs Tailwind Classes
+### Common props vs Tailwind classes
 
 | Instead of Tailwind | Use VaneUI prop |
 |---------------------|-----------------|
@@ -726,7 +726,7 @@ VaneUI provides boolean props for most common styling needs. Use these instead o
 <Row className="items-center justify-between">Spaced content</Row>
 ```
 
-### Gap is Controlled by Size Props
+### Gap is controlled by size props
 
 Don't use Tailwind gap classes. Gap is controlled by the size prop system (`xs`, `sm`, `md`, `lg`, `xl`) and is enabled by default on layout components.
 
@@ -740,7 +740,7 @@ Don't use Tailwind gap classes. Gap is controlled by the size prop system (`xs`,
 <Row className="gap-10">Don't override gap this way</Row>
 ```
 
-### Background Colors via Appearance Props
+### Background colors via appearance props
 
 Background colors are controlled by appearance + variant props. Only use `bg-*` classes for edge cases not covered by the theme (like gradients).
 
@@ -758,7 +758,7 @@ Background colors are controlled by appearance + variant props. Only use `bg-*` 
 </div>
 ```
 
-### Typography Styling is Built-in
+### Typography styling is built-in
 
 Typography components have built-in letter spacing, line height, and other typographic properties. Avoid overriding these with Tailwind classes.
 
@@ -783,7 +783,7 @@ URL: https://vaneui.com/docs/basic-components/button
 
 `Button` is the primary interactive control for triggering actions. It supports the full appearance, size, shape, and variant prop matrix and renders as an `<a>` when given an `href`.
 
-## When to Use
+## When to use
 
 - Primary page actions, calls-to-action, and prominent affordances.
 - Form submissions (`type="submit"`) and form-level reset.
@@ -791,12 +791,12 @@ URL: https://vaneui.com/docs/basic-components/button
 - Toolbar actions where the label adds clarity beyond an icon alone.
 - Cross-page navigation when the action looks like a button (otherwise prefer `Link`).
 
-### When NOT to Use
+### When NOT to use
 
-- For inline navigation inside prose, prefer `Link` — it sits on the typography baseline.
+- For inline navigation inside prose, prefer `Link`. It sits on the typography baseline.
 - For icon-only destructive actions inside a row or table cell, prefer `IconButton`.
 
-## Basic Usage
+## Basic usage
 
 Each `appearance` prop maps to a semantic color from the active theme.
 
@@ -818,7 +818,7 @@ Each `appearance` prop maps to a semantic color from the active theme.
 
 ## Sizes
 
-Buttons come in five sizes — `xs`, `sm` (default), `md`, `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
+Buttons come in five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
 
 ```tsx demo
 <Row flexWrap>
@@ -830,9 +830,9 @@ Buttons come in five sizes — `xs`, `sm` (default), `md`, `lg`, `xl`. Size driv
 </Row>
 ```
 
-## With Icon
+## With icon
 
-Drop an icon directly inside the button — `gap` is on by default, so spacing is automatic.
+Drop an icon directly inside the button. `gap` is on by default, so spacing is automatic.
 
 ```tsx demo
 <Row flexWrap>
@@ -843,7 +843,7 @@ Drop an icon directly inside the button — `gap` is on by default, so spacing i
 </Row>
 ```
 
-## Sizes with Icon
+## Sizes with icon
 
 The same size matrix paired with an inline icon.
 
@@ -857,7 +857,7 @@ The same size matrix paired with an inline icon.
 </Row>
 ```
 
-## Font Weights
+## Font weights
 
 Buttons default to `semibold`. Use any of the standard weight props to override.
 
@@ -875,7 +875,7 @@ Buttons default to `semibold`. Use any of the standard weight props to override.
 </Row>
 ```
 
-## Border Radius Options
+## Border radius options
 
 Button supports three border-radius styles: `rounded` (default), `pill`, and `sharp`.
 
@@ -887,7 +887,7 @@ Button supports three border-radius styles: `rounded` (default), `pill`, and `sh
 </Row>
 ```
 
-## As Link & Disabled
+## As Link and disabled
 
 Pass `href` to render the button as an `<a>` for navigation. Use `disabled` to prevent interaction.
 
@@ -900,7 +900,7 @@ Pass `href` to render the button as an `<a>` for navigation. Use `disabled` to p
 </Row>
 ```
 
-## Next.js Link Integration
+## Next.js Link integration
 
 Use the `tag` prop to render the button as a Next.js `Link` for client-side navigation.
 
@@ -952,7 +952,7 @@ import { ThemeProvider, Button } from '@vaneui/ui';
 </ThemeProvider>
 ```
 
-Add prop-conditional classes with `extraClasses` — applied whenever the matching boolean prop is active. For compound themes like Button, nest the prop-class map under the sub-theme name (`main` for Button's primary surface):
+Add prop-conditional classes with `extraClasses`, applied whenever the matching boolean prop is active. For compound themes like Button, nest the prop-class map under the sub-theme name (`main` for Button's primary surface):
 
 ```tsx
 import { ThemeProvider, Button } from '@vaneui/ui';
@@ -976,7 +976,7 @@ URL: https://vaneui.com/docs/basic-components/badge
 
 Highlights important information such as notifications or counts in a non-intrusive way. Badges are typically used in conjunction with other elements like icons or navigation links.
 
-## Basic Usage
+## Basic usage
 
 Badge styles and variants.
 
@@ -996,7 +996,7 @@ Badge styles and variants.
 </Row>
 ```
 
-## Badge Sizes
+## Badge sizes
 
 Badges come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.
 
@@ -1010,7 +1010,7 @@ Badges come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.
 </Row>
 ```
 
-## Badge Shapes
+## Badge shapes
 
 Badges support different border radius styles: `rounded`, `pill` (default), and `sharp`.
 
@@ -1022,7 +1022,7 @@ Badges support different border radius styles: `rounded`, `pill` (default), and 
 </Row>
 ```
 
-## Badge Variants
+## Badge variants
 
 Badges can be styled as `filled`, `outline` (default), or `ghost`.
 
@@ -1049,7 +1049,7 @@ Badges can be styled as `filled`, `outline` (default), or `ghost`.
 </Col>
 ```
 
-## Font Weights
+## Font weights
 
 Badges support different font weights.
 
@@ -1064,7 +1064,7 @@ Badges support different font weights.
 
 ## As Link
 
-Pass `href` to render the badge as an `<a>` — useful for clickable status labels. When `href` is set, the badge gains a keyboard focus-visible outline by default (opt out with `noFocusVisible`).
+Pass `href` to render the badge as an `<a>`, useful for clickable status labels. When `href` is set, the badge gains a keyboard focus-visible outline by default (opt out with `noFocusVisible`).
 
 ```tsx demo
 <Row flexWrap>
@@ -1074,7 +1074,7 @@ Pass `href` to render the badge as an `<a>` — useful for clickable status labe
 </Row>
 ```
 
-## Status Badges in Context
+## Status badges in context
 
 Badges work well as status indicators inside cards and other layout components.
 
@@ -1093,22 +1093,22 @@ Title: Chip
 URL: https://vaneui.com/docs/basic-components/chip
 ---
 
-Compact, monospace-leaning token for representing tags, attributes, filter values, or other discrete entities inline with text. Chips default to `secondary` appearance, `outline` variant, `rounded` shape, and `mono` font — tuned for code-adjacent and metadata contexts.
+Compact, monospace-leaning token for representing tags, attributes, filter values, or other discrete entities inline with text. Chips default to `secondary` appearance, `outline` variant, `rounded` shape, and `mono` font, tuned for code-adjacent and metadata contexts.
 
-## When to Use
+## When to use
 
 - Tags, labels, and keyword filters attached to a record.
 - Attribute or metadata pills inside cards and lists (versions, environments, IDs).
 - Removable selections inside an input or filter bar (combine with an inline icon).
-- Inline category markers in code samples and API tables — `mono` is the default.
+- Inline category markers in code samples and API tables. `mono` is the default.
 
-### When NOT to Use
+### When NOT to use
 
 - For status indicators that need uppercase emphasis, prefer `Badge` (pill, uppercase, semibold by default).
 - For triggering actions or navigation, prefer `Button` or `Link`.
 - For inline code snippets, prefer `Code`.
 
-## Basic Usage
+## Basic usage
 
 Each `appearance` prop maps to a semantic color from the active theme.
 
@@ -1130,7 +1130,7 @@ Each `appearance` prop maps to a semantic color from the active theme.
 
 ## Sizes
 
-Chips come in five sizes — `xs`, `sm`, `md` (default), `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
+Chips come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
 
 ```tsx demo
 <Row flexWrap>
@@ -1181,7 +1181,7 @@ Chips support three border-radius styles: `rounded` (default), `pill`, and `shar
 </Row>
 ```
 
-## Font Family
+## Font family
 
 Chips default to `mono` to fit code-adjacent contexts. Override with `sans` or `serif` when the surrounding copy calls for it.
 
@@ -1193,9 +1193,9 @@ Chips default to `mono` to fit code-adjacent contexts. Override with `sans` or `
 </Row>
 ```
 
-## With Icon
+## With icon
 
-Drop an icon directly inside the chip — `gap` is on by default, so spacing is automatic.
+Drop an icon directly inside the chip. `gap` is on by default, so spacing is automatic.
 
 ```tsx demo
 <Row flexWrap>
@@ -1205,7 +1205,7 @@ Drop an icon directly inside the chip — `gap` is on by default, so spacing is 
 </Row>
 ```
 
-## Tag and Filter Lists
+## Tag and filter lists
 
 The canonical chip pattern: a wrapping row of tokens that classify or filter content.
 
@@ -1222,7 +1222,7 @@ The canonical chip pattern: a wrapping row of tokens that classify or filter con
 </Card>
 ```
 
-## Removable Chips
+## Removable chips
 
 Pair a chip with an inline close icon to represent removable selections inside a filter bar.
 
@@ -1236,7 +1236,7 @@ Pair a chip with an inline close icon to represent removable selections inside a
 
 ## As Link
 
-Pass `href` to render the chip as an `<a>` — useful for clickable tag listings. When `href` is set, the chip gains a keyboard focus-visible outline by default. Opt out with `noFocusVisible`.
+Pass `href` to render the chip as an `<a>`, useful for clickable tag listings. When `href` is set, the chip gains a keyboard focus-visible outline by default. Opt out with `noFocusVisible`.
 
 ```tsx demo
 <Row flexWrap>
@@ -1260,7 +1260,7 @@ import { ThemeProvider, Chip } from '@vaneui/ui';
 </ThemeProvider>
 ```
 
-Add prop-conditional classes with `extraClasses` — applied whenever the matching boolean prop is active:
+Add prop-conditional classes with `extraClasses`, applied whenever the matching boolean prop is active:
 
 ```tsx
 import { ThemeProvider, Chip } from '@vaneui/ui';
@@ -1282,17 +1282,17 @@ URL: https://vaneui.com/docs/basic-components/checkbox
 
 Allows users to select one or more options from a set. Checkboxes are ideal for binary choices and multiple selections within forms.
 
-## When to Use
+## When to use
 
 - Boolean form fields (terms, opt-ins, feature toggles in settings).
 - Multi-select lists where each option is independent of the others.
 - "Select all" / batch actions inside tables or list pages.
 - Pair with a `Label` so the entire label area is clickable.
 
-### When NOT to Use
+### When NOT to use
 
-- For mutually exclusive options — use a radio group.
-- For single on/off settings where a switch metaphor is clearer — a switch component is the better pattern.
+- For mutually exclusive options: use a radio group.
+- For single on/off settings where a switch metaphor is clearer: a switch component is the better pattern.
 
 ## Customizing
 
@@ -1309,7 +1309,7 @@ import { ThemeProvider, Checkbox } from '@vaneui/ui';
 </ThemeProvider>
 ```
 
-## Basic Usage
+## Basic usage
 
 Checkbox should be used inside a Label with matching `id`/`htmlFor`.
 
@@ -1332,7 +1332,7 @@ Checkbox should be used inside a Label with matching `id`/`htmlFor`.
 
 ## Sizes
 
-Checkboxes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. A `Checkbox` nested inside a `Label` inherits the Label's size automatically — set it once on the Label and both scale together.
+Checkboxes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. A `Checkbox` nested inside a `Label` inherits the Label's size automatically. Set it once on the Label and both scale together.
 
 ```tsx demo
 <Row flexWrap>
@@ -1450,11 +1450,11 @@ Use the `disabled` HTML attribute to prevent interaction.
 </Col>
 ```
 
-## Controlled vs Uncontrolled
+## Controlled vs uncontrolled
 
 Checkbox forwards every HTML input attribute, so use `defaultChecked` for uncontrolled state and `checked` + `onChange` for controlled state.
 
-Uncontrolled — initial value only, the input manages its own state:
+Uncontrolled: initial value only, the input manages its own state.
 
 ```tsx demo
 <Label htmlFor="uncontrolled">
@@ -1463,7 +1463,7 @@ Uncontrolled — initial value only, the input manages its own state:
 </Label>
 ```
 
-Controlled — parent owns the value via `useState`:
+Controlled: parent owns the value via `useState`.
 
 ```tsx
 const [checked, setChecked] = useState(false);
@@ -1478,7 +1478,7 @@ const [checked, setChecked] = useState(false);
 </Label>
 ```
 
-## Indeterminate State
+## Indeterminate state
 
 Use the `indeterminate` prop for "select all" checkboxes that represent a partially selected group. The indeterminate state is visual only and does not affect the `checked` value.
 
@@ -1501,7 +1501,7 @@ Use the `indeterminate` prop for "select all" checkboxes that represent a partia
 </Col>
 ```
 
-## Checkbox Group
+## Checkbox group
 
 Multiple labeled checkboxes working together.
 
@@ -1529,14 +1529,14 @@ URL: https://vaneui.com/docs/basic-components/label
 
 Renders a `<label>` for form controls. Pairs with `Input` and `Checkbox` to provide accessible field labels, with size automatically propagating to nested form elements.
 
-## When to Use
+## When to use
 
 - Labelling text inputs, password fields, and other `Input` controls.
 - Wrapping a `Checkbox` so the label text becomes part of the click target.
 - Marking required fields, validation status, or hint text alongside a control.
 - Use `htmlFor` to associate a label with an external `Input` by `id`.
 
-## Basic Usage
+## Basic usage
 
 A `Label` defaults to `sm` size and `inherit` appearance, so it picks up text color from its surroundings.
 
@@ -1546,7 +1546,7 @@ A `Label` defaults to `sm` size and `inherit` appearance, so it picks up text co
 
 ## With Input
 
-Wrap an `Input` inside a `Label` to make the label clickable and associate them implicitly — no `htmlFor`/`id` wiring required.
+Wrap an `Input` inside a `Label` to make the label clickable and associate them implicitly. No `htmlFor`/`id` wiring required.
 
 ```tsx demo
 <Col noGap>
@@ -1568,7 +1568,7 @@ Place a `Checkbox` inside a `Label` so the label text expands the toggle's hit a
 </Label>
 ```
 
-## htmlFor Association
+## htmlFor association
 
 When the control lives outside the label, use the standard `htmlFor` attribute pointing at the input's `id`.
 
@@ -1581,7 +1581,7 @@ When the control lives outside the label, use the standard `htmlFor` attribute p
 
 ## Sizes
 
-Labels come in five sizes — `xs`, `sm` (default), `md`, `lg`, `xl`. Nested `Input` and `Checkbox` controls inherit the size.
+Labels come in five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Nested `Input` and `Checkbox` controls inherit the size.
 
 ```tsx demo
 <Col>
@@ -1595,7 +1595,7 @@ Labels come in five sizes — `xs`, `sm` (default), `md`, `lg`, `xl`. Nested `In
 
 ## Appearances
 
-Labels default to `inherit` — they take their color from the surrounding text. Set an explicit appearance to override.
+Labels default to `inherit`: they take their color from the surrounding text. Set an explicit appearance to override.
 
 ```tsx demo
 <Row flexWrap>
@@ -1613,7 +1613,7 @@ Labels default to `inherit` — they take their color from the surrounding text.
 </Row>
 ```
 
-## Font Weights
+## Font weights
 
 The default weight is `medium`. Override with any weight prop from `thin` to `black`.
 
@@ -1631,7 +1631,7 @@ The default weight is `medium`. Override with any weight prop from `thin` to `bl
 </Col>
 ```
 
-## Text Decorations
+## Text decorations
 
 Apply text decorations as needed.
 
@@ -1643,9 +1643,9 @@ Apply text decorations as needed.
 </Row>
 ```
 
-## Size Propagation
+## Size propagation
 
-When an `Input` or `Checkbox` is nested inside a `Label`, it automatically picks up the label's size — set it once and everything scales together. Pass a size on the child to opt out for that one element.
+When an `Input` or `Checkbox` is nested inside a `Label`, it automatically picks up the label's size. Set it once and everything scales together. Pass a size on the child to opt out for that one element.
 
 ```tsx demo
 <Col>
@@ -1660,9 +1660,9 @@ When an `Input` or `Checkbox` is nested inside a `Label`, it automatically picks
 </Col>
 ```
 
-## Required & Status
+## Required and status
 
-Use appearances to indicate field status — `danger` for errors, `success` for valid, `secondary` for hints.
+Use appearances to indicate field status: `danger` for errors, `success` for valid, `secondary` for hints.
 
 ```tsx demo
 <Col>
@@ -1685,9 +1685,9 @@ URL: https://vaneui.com/docs/basic-components/code
 
 Renders inline code snippets with syntax highlighting. Perfect for displaying code examples, commands, file paths, or technical terms within text content.
 
-## Basic Usage
+## Basic usage
 
-Inline code snippets with default styling. `Code` is `align-middle`, so it sits centered with the surrounding text. Pass `href` to render `Code` as `<a>` instead of `<code>` — a focus-visible outline auto-enables when `href` is set.
+Inline code snippets with default styling. `Code` is `align-middle`, so it sits centered with the surrounding text. Pass `href` to render `Code` as `<a>` instead of `<code>`. A focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Col>
@@ -1730,7 +1730,7 @@ Different code color variants for syntax highlighting.
 </Row>
 ```
 
-## Code in Context
+## Code in context
 
 Code elements used within text content.
 
@@ -1751,7 +1751,7 @@ Code elements used within text content.
 </Col>
 ```
 
-## Keyboard Shortcuts
+## Keyboard shortcuts
 
 Code elements for displaying keyboard shortcuts and commands.
 
@@ -1767,9 +1767,9 @@ Code elements for displaying keyboard shortcuts and commands.
 </Row>
 ```
 
-## In Heading Context
+## In heading context
 
-Code uses an em-based geometry pipeline — at the default `md` size it renders at ~87.5% of the surrounding text's font-size, with padding and border-radius scaling proportionally. The same `<Code>` looks right inside body copy, a subheading, a section heading, or a page title.
+Code uses an em-based geometry pipeline: at the default `md` size it renders at ~87.5% of the surrounding text's font-size, with padding and border-radius scaling proportionally. The same `<Code>` looks right inside body copy, a subheading, a section heading, or a page title.
 
 ```tsx demo
 <Col>
@@ -1780,7 +1780,7 @@ Code uses an em-based geometry pipeline — at the default `md` size it renders 
 </Col>
 ```
 
-## Filled & Outline Variants
+## Filled and outline variants
 
 Code defaults to `outline` variant. Use `filled` for stronger visual emphasis.
 
@@ -1816,7 +1816,7 @@ Add `href` to render the `Code` element as an `<a>` tag. A keyboard focus-visibl
 </Col>
 ```
 
-## Next.js Link Integration
+## Next.js Link integration
 
 Use the `tag` prop to render `Code` as a Next.js `Link` for client-side navigation.
 
@@ -1836,9 +1836,9 @@ URL: https://vaneui.com/docs/basic-components/divider
 
 Renders a thin line to separate content and create a clear visual hierarchy. Dividers can be used to group related items in lists and layouts.
 
-## Basic Divider
+## Basic divider
 
-A simple horizontal divider.
+A horizontal divider.
 
 ```tsx demo
 <Col>
@@ -1848,7 +1848,7 @@ A simple horizontal divider.
 </Col>
 ```
 
-## Divider Sizes
+## Divider sizes
 
 Sizes (`xs`, `sm`, `md`, `lg`, `xl`) drive the per-size vertical padding via `--py-unit`. The line itself stays one pixel; pass `padding` to make the surrounding spacing visible.
 
@@ -1882,7 +1882,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) drive the per-size vertical padding via `--
 </Col>
 ```
 
-## Divider Appearances
+## Divider appearances
 
 Dividers use `inherit` by default. Pass an explicit appearance for a colored line.
 
@@ -1931,7 +1931,7 @@ Dividers use `inherit` by default. Pass an explicit appearance for a colored lin
 </Col>
 ```
 
-## Filled Variant
+## Filled variant
 
 `filled` swaps the outline appearance for a solid bar in the same color.
 
@@ -1945,7 +1945,7 @@ Dividers use `inherit` by default. Pass an explicit appearance for a colored lin
 </Col>
 ```
 
-## Vertical Divider
+## Vertical divider
 
 Pass `vertical` to render a vertical separator. Useful for inline navigation or toolbars; place it inside a `Row` so it can stretch to the row's height.
 
@@ -1959,7 +1959,7 @@ Pass `vertical` to render a vertical separator. Useful for inline navigation or 
 </Row>
 ```
 
-## Separating List Items
+## Separating list items
 
 Use `Divider` between items in a `Stack` or `Col` to group related rows.
 
@@ -1982,7 +1982,7 @@ Use `Divider` between items in a `Stack` or `Col` to group related rows.
 </Stack>
 ```
 
-## Separating Content Blocks
+## Separating content blocks
 
 Dividers also work as section breaks between larger blocks of content.
 
@@ -2012,18 +2012,18 @@ URL: https://vaneui.com/docs/basic-components/input
 
 Allows users to enter text, numbers, and other data. Inputs are essential form elements with support for various types, validation states, and styling options.
 
-## When to Use
+## When to use
 
 - Text, email, password, number, search, URL, and tel form fields.
 - Inline editable values in tables, settings panels, or detail pages.
 - Filter/search bars where the value drives a list or query.
 - Pair with `Label` for accessible field labelling.
 
-### When NOT to Use
+### When NOT to use
 
-- For long-form text — use a `<textarea>` (autosize support not yet built into VaneUI).
-- For binary toggles — use `Checkbox`.
-- For one-of-many selection — use a select/radio pattern.
+- For long-form text: use a `<textarea>` (autosize support not yet built into VaneUI).
+- For binary toggles: use `Checkbox`.
+- For one-of-many selection: use a select/radio pattern.
 
 ## Customizing
 
@@ -2040,7 +2040,7 @@ import { ThemeProvider, Input } from '@vaneui/ui';
 </ThemeProvider>
 ```
 
-## Basic Input
+## Basic input
 
 A styled text input field.
 
@@ -2048,7 +2048,7 @@ A styled text input field.
 <Input placeholder="Enter text..." />
 ```
 
-## Input Sizes
+## Input sizes
 
 Inputs come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
@@ -2062,7 +2062,7 @@ Inputs come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 </Col>
 ```
 
-## Input Types
+## Input types
 
 The `type` HTML attribute passes through to the underlying `<input>` element.
 
@@ -2076,7 +2076,7 @@ The `type` HTML attribute passes through to the underlying `<input>` element.
 </Col>
 ```
 
-## Input Variants
+## Input variants
 
 Inputs are `outline` by default. Use `filled` for solid backgrounds.
 
@@ -2095,9 +2095,9 @@ Inputs are `outline` by default. Use `filled` for solid backgrounds.
 </Col>
 ```
 
-## Input with Labels
+## Input with labels
 
-Pair inputs with labels for accessibility and better UX. When the `Input` is nested inside a `Label`, it inherits the Label's size — set it once on the Label.
+Pair inputs with labels for accessibility and better UX. When the `Input` is nested inside a `Label`, it inherits the Label's size. Set it once on the Label.
 
 ```tsx demo
 <Col>
@@ -2112,7 +2112,7 @@ Pair inputs with labels for accessibility and better UX. When the `Input` is nes
 </Col>
 ```
 
-## Input Shapes
+## Input shapes
 
 Inputs support border radius styles: `rounded` (default), `pill`, and `sharp`.
 
@@ -2124,7 +2124,7 @@ Inputs support border radius styles: `rounded` (default), `pill`, and `sharp`.
 </Row>
 ```
 
-## Input States
+## Input states
 
 Different input states: disabled, readonly, and validation feedback. Use appearance props (`success`, `danger`) for visual feedback, or the `error` status prop for form validation state.
 
@@ -2159,7 +2159,7 @@ const portraitSrc = "https://placehold.co/200x300/cbd5e1/475569?text=Portrait";
 const avatarSrc = "https://placehold.co/120x120/c7d2fe/4338ca?text=Avatar";
 ```
 
-## Basic Image
+## Basic image
 
 Render an image with the `Img` component.
 
@@ -2167,7 +2167,7 @@ Render an image with the `Img` component.
 <Img src={placeholderSrc} alt="Sample landscape photo" />
 ```
 
-## Alt Text
+## Alt text
 
 Always pass a descriptive `alt` attribute. Use an empty `alt=""` for decorative images so assistive technology can skip them.
 
@@ -2199,7 +2199,7 @@ Control border radius with `rounded` (default), `pill` (great for avatars), and 
 </Row>
 ```
 
-## Border & Shadow
+## Border and shadow
 
 Add `border` and `shadow` props for visual emphasis.
 
@@ -2249,7 +2249,7 @@ Images support five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size controls
 </Row>
 ```
 
-## Object Fit
+## Object fit
 
 Control how an image fills a sized container with `objectCover` (default), `objectContain`, and `objectFill`. The examples below constrain the image to a fixed box so the difference is visible.
 
@@ -2293,7 +2293,7 @@ Control how an image fills a sized container with `objectCover` (default), `obje
 </Row>
 ```
 
-## Native HTML Attributes
+## Native HTML attributes
 
 `Img` forwards all standard `<img>` attributes including `loading`, `decoding`, `srcSet`, `sizes`, `referrerPolicy`, and `crossOrigin`. Use `loading="lazy"` for below-the-fold images.
 
@@ -2313,7 +2313,7 @@ URL: https://vaneui.com/docs/basic-components/icon
 
 A lightweight SVG wrapper that provides consistent sizing, color inheritance, and themed appearances for icons. With `padding` it switches into container mode, gaining shape, border, ring, and shadow around the glyph.
 
-## Basic Usage
+## Basic usage
 
 Wrap any SVG inside `Icon` to apply consistent sizing and color inheritance.
 
@@ -2451,7 +2451,7 @@ Shape props apply once the icon enters container mode (any of `padding`, `border
 </Row>
 ```
 
-## Container Mode
+## Container mode
 
 Add `padding` to give the icon a sized box, then combine `filled`, `border`, `ring`, or `shadow` to style the container. Padding and radius scale with the size prop.
 
@@ -2505,7 +2505,7 @@ Use `transparent` to keep the container background see-through while still apply
 </Row>
 ```
 
-## In Context
+## In context
 
 Icons work naturally alongside text and inside buttons.
 
@@ -2534,7 +2534,7 @@ URL: https://vaneui.com/docs/basic-components/icon-button
 
 A square icon-only button with customizable appearance, size, and shape. Supports loading state and renders as an `<a>` when given an `href`. Always provide `aria-label` for accessibility.
 
-## Basic Usage
+## Basic usage
 
 Drop an icon directly inside the `IconButton`. Each `appearance` prop maps to a semantic color from the active theme.
 
@@ -2551,7 +2551,7 @@ Drop an icon directly inside the `IconButton`. Each `appearance` prop maps to a 
 
 ## Sizes
 
-IconButton supports five sizes — `xs`, `sm`, `md` (default), `lg`, `xl`. Size drives the square aspect ratio, padding, and border-radius simultaneously via CSS variables.
+IconButton supports five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size drives the square aspect ratio, padding, and border-radius simultaneously via CSS variables.
 
 ```tsx demo
 <Row flexWrap itemsEnd>
@@ -2624,7 +2624,7 @@ IconButton supports `rounded` (default), `pill`, and `sharp`. `pill` is especial
 </Row>
 ```
 
-## As Link & Disabled
+## As Link and disabled
 
 Pass `href` to render the IconButton as an `<a>` for navigation. Use `disabled` to prevent interaction.
 
@@ -2637,7 +2637,7 @@ Pass `href` to render the IconButton as an `<a>` for navigation. Use `disabled` 
 </Row>
 ```
 
-## Next.js Link Integration
+## Next.js Link integration
 
 Use the `tag` prop to render the IconButton as a Next.js `Link` for client-side navigation.
 
@@ -2649,7 +2649,7 @@ import { Settings } from 'react-feather';
 <IconButton href="/settings" tag={Link} aria-label="Settings"><Settings /></IconButton>
 ```
 
-## Loading State
+## Loading state
 
 Set `loading` to show a spinner and auto-disable the button.
 
@@ -2682,7 +2682,7 @@ URL: https://vaneui.com/docs/basic-components/kbd
 
 Displays keyboard keys and shortcuts with monospace font, border, and a raised 3D effect. Ideal for documenting keyboard shortcuts.
 
-## Basic Usage
+## Basic usage
 
 Display keyboard keys with the `Kbd` component.
 
@@ -2696,7 +2696,7 @@ Display keyboard keys with the `Kbd` component.
 </Row>
 ```
 
-## Key Combinations
+## Key combinations
 
 Combine multiple `Kbd` elements to show keyboard shortcuts.
 
@@ -2757,7 +2757,7 @@ Different color appearances for keyboard keys.
 </Row>
 ```
 
-## In Text Context
+## In text context
 
 Kbd elements blend naturally within text content.
 
@@ -2769,9 +2769,9 @@ Kbd elements blend naturally within text content.
 </Col>
 ```
 
-## In Heading Context
+## In heading context
 
-Kbd uses an em-based geometry pipeline — its font-size, padding, and border-radius all scale proportionally to the surrounding text. The same `<Kbd>` keeps its keycap look at body, subheading, section heading, and page title sizes.
+Kbd uses an em-based geometry pipeline: its font-size, padding, and border-radius all scale proportionally to the surrounding text. The same `<Kbd>` keeps its keycap look at body, subheading, section heading, and page title sizes.
 
 ```tsx demo
 <Col>
@@ -2782,7 +2782,7 @@ Kbd uses an em-based geometry pipeline — its font-size, padding, and border-ra
 </Col>
 ```
 
-## Shortcut Table
+## Shortcut table
 
 Display a set of keyboard shortcuts in a structured layout.
 
@@ -2803,7 +2803,7 @@ URL: https://vaneui.com/docs/basic-components/mark
 
 Highlights text with a background color for emphasis. Defaults to warning (yellow) appearance for a natural highlighter effect.
 
-## Basic Usage
+## Basic usage
 
 Highlight text with the `Mark` component. Defaults to `warning` (yellow) appearance for a natural highlighter effect.
 
@@ -2854,9 +2854,9 @@ Mark supports `outline` (default) and `filled` variants.
 </Col>
 ```
 
-## Highlight Matches Context
+## Highlight matches context
 
-Mark defaults to `inheritSize: true` so a highlight always renders at the same size as the surrounding text — body copy, subheading, section heading, or page title — without passing any size prop.
+Mark defaults to `inheritSize: true` so a highlight always renders at the same size as the surrounding text (body copy, subheading, section heading, or page title) without passing any size prop.
 
 ```tsx demo
 <Col>
@@ -2867,7 +2867,7 @@ Mark defaults to `inheritSize: true` so a highlight always renders at the same s
 </Col>
 ```
 
-## Opting Out with noInheritSize
+## Opting out with noInheritSize
 
 Pass `noInheritSize` together with a size prop to render Mark at a fixed size regardless of the parent.
 
@@ -2877,7 +2877,7 @@ Pass `noInheritSize` together with a size prop to render Mark at a fixed size re
 </Title>
 ```
 
-## In Text Context
+## In text context
 
 Mark elements blend naturally within body text for inline highlights.
 
@@ -2889,7 +2889,7 @@ Mark elements blend naturally within body text for inline highlights.
 </Col>
 ```
 
-## Search Highlight Pattern
+## Search highlight pattern
 
 Use Mark to highlight search matches within text content.
 
@@ -2913,7 +2913,7 @@ URL: https://vaneui.com/docs/layout-components/section
 
 A full-bleed page band used to group related content with consistent vertical rhythm. Sections own the outer padding and background; nest a `Container` inside to cap the inner reading width.
 
-## Basic Section
+## Basic section
 
 `md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `outline`, `sharp`, and `responsive` are defaults. Padding, gap, and font size automatically scale at tablet and mobile breakpoints because `responsive` is on.
 
@@ -2924,7 +2924,7 @@ A full-bleed page band used to group related content with consistent vertical rh
 </Section>
 ```
 
-## Section Sizes
+## Section sizes
 
 Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control padding and gap.
 
@@ -2945,7 +2945,7 @@ Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control padding and gap.
 </Col>
 ```
 
-## Section Appearances
+## Section appearances
 
 Sections support color appearances: `primary`, `secondary`, `success`, `danger`, etc. Use `secondary` filled bands to create visual rhythm between regular sections.
 
@@ -2970,7 +2970,7 @@ Sections support color appearances: `primary`, `secondary`, `success`, `danger`,
 </Col>
 ```
 
-## Section Variants
+## Section variants
 
 Use `filled` for solid backgrounds (`outline` is the default), and `shadow` for elevation.
 
@@ -2991,7 +2991,7 @@ Use `filled` for solid backgrounds (`outline` is the default), and `shadow` for 
 </Col>
 ```
 
-## Section Layout
+## Section layout
 
 Use `row` for horizontal layout. `gap` is already on by default; pair with `noPadding` only when a wrapper owns spacing.
 
@@ -3010,7 +3010,7 @@ Use `row` for horizontal layout. `gap` is already on by default; pair with `noPa
 </Col>
 ```
 
-## Responsive Breakpoints
+## Responsive breakpoints
 
 Use `mobileCol` or `tabletCol` to switch from row to column layout on smaller screens.
 
@@ -3027,7 +3027,7 @@ Use `mobileCol` or `tabletCol` to switch from row to column layout on smaller sc
 </Section>
 ```
 
-## Responsive Sizing
+## Responsive sizing
 
 `responsive` (default) scales padding, gap, and font size at tablet and mobile breakpoints using `--py-tablet`, `--gap-mobile`, etc. Pass `responsive={false}` to lock a single size across all viewports.
 
@@ -3044,7 +3044,7 @@ Use `mobileCol` or `tabletCol` to switch from row to column layout on smaller sc
 </Col>
 ```
 
-## Semantic Tag
+## Semantic tag
 
 Section renders as `<div>` by default. Pass `tag="section"` for a semantic `<section>` element, or `tag="header"` / `tag="footer"` / `tag="aside"` for other landmarks.
 
@@ -3061,7 +3061,7 @@ Section renders as `<div>` by default. Pass `tag="section"` for a semantic `<sec
 </Col>
 ```
 
-## Page Layout Pattern
+## Page layout pattern
 
 The canonical full-bleed page band: a Section owns the outer padding and background, with a nested `Container` capping the inner reading width.
 
@@ -3081,7 +3081,7 @@ URL: https://vaneui.com/docs/layout-components/container
 
 Manages the main content area by centering it and applying a max-width. It ensures a consistent and readable layout across different screen sizes.
 
-## Basic Container
+## Basic container
 
 A centered, full-width wrapper that caps content at a readable max-width. `md`, `wFull`, `flex`, `column`, `itemsCenter`, `gap`, `noPadding`, `outline`, and `sharp` are defaults.
 
@@ -3092,7 +3092,7 @@ A centered, full-width wrapper that caps content at a readable max-width. `md`, 
 </Container>
 ```
 
-## Container Sizes
+## Container sizes
 
 Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control the max-width: `max-w-3xl` through `max-w-7xl`. Resize the viewport to see narrower containers stop growing before wider ones do.
 
@@ -3116,9 +3116,9 @@ Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control the max-width: `max-w-3xl` 
 </Col>
 ```
 
-## Container Padding
+## Container padding
 
-Container defaults to `noPadding` — the parent Section usually owns vertical rhythm. Pass `padding` to opt in to size-driven internal padding.
+Container defaults to `noPadding`: the parent Section usually owns vertical rhythm. Pass `padding` to opt in to size-driven internal padding.
 
 ```tsx demo
 <Col>
@@ -3133,7 +3133,7 @@ Container defaults to `noPadding` — the parent Section usually owns vertical r
 </Col>
 ```
 
-## Container Appearances
+## Container appearances
 
 Containers support color appearances: `primary`, `secondary`, `success`, `danger`, etc.
 
@@ -3150,7 +3150,7 @@ Containers support color appearances: `primary`, `secondary`, `success`, `danger
 </Col>
 ```
 
-## Container Variants
+## Container variants
 
 Use `filled` for solid backgrounds. `outline` is the default. Add `shadow` for elevation.
 
@@ -3171,7 +3171,7 @@ Use `filled` for solid backgrounds. `outline` is the default. Add `shadow` for e
 </Col>
 ```
 
-## Container Shapes
+## Container shapes
 
 Containers support different border radius styles. `sharp` is the default (no radius).
 
@@ -3189,7 +3189,7 @@ Containers support different border radius styles. `sharp` is the default (no ra
 </Col>
 ```
 
-## Responsive Breakpoints
+## Responsive breakpoints
 
 Container is a flex column by default. Use `row` to flow horizontally on desktop and `mobileCol` / `tabletCol` to stack on smaller screens.
 
@@ -3206,7 +3206,7 @@ Container is a flex column by default. Use `row` to flow horizontally on desktop
 </Container>
 ```
 
-## Page Layout Pattern
+## Page layout pattern
 
 The canonical page layout: a Section owns vertical padding and full-width background, the Container nested inside caps reading width and centers the content.
 
@@ -3228,7 +3228,7 @@ A fundamental layout component that arranges its children in a horizontal line. 
 
 ## Basic Row
 
-A horizontal flex container. `Row` defaults to `gap`, `itemsCenter`, `noPadding`, `noBorder`, `noRing`, `outline`, and `sharp` — you don't need to pass these explicitly. Pass `href` to render `Row` as `<a>` instead of `<div>` — a focus-visible outline auto-enables when `href` is set.
+A horizontal flex container. `Row` defaults to `gap`, `itemsCenter`, `noPadding`, `noBorder`, `noRing`, `outline`, and `sharp`: you don't need to pass these explicitly. Pass `href` to render `Row` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Row>
@@ -3238,7 +3238,7 @@ A horizontal flex container. `Row` defaults to `gap`, `itemsCenter`, `noPadding`
 </Row>
 ```
 
-## Row Spacing
+## Row spacing
 
 Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to control the gap amount, or `noGap` to disable.
 
@@ -3283,7 +3283,7 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to control the gap amount, or `noG
 </Col>
 ```
 
-## Justify (Main Axis)
+## Justify (main axis)
 
 Control horizontal distribution with `justifyStart`, `justifyEnd`, `justifyCenter`, `justifyBetween`, `justifyAround`, or `justifyEvenly`.
 
@@ -3328,7 +3328,7 @@ Control horizontal distribution with `justifyStart`, `justifyEnd`, `justifyCente
 </Col>
 ```
 
-## Items (Cross Axis)
+## Items (cross axis)
 
 Control vertical alignment with `itemsStart`, `itemsEnd`, `itemsCenter` (default), `itemsBaseline`, or `itemsStretch`.
 
@@ -3367,7 +3367,7 @@ Control vertical alignment with `itemsStart`, `itemsEnd`, `itemsCenter` (default
 </Col>
 ```
 
-## Row Wrap
+## Row wrap
 
 Use `flexWrap` to allow items to wrap to the next line when they overflow.
 
@@ -3381,7 +3381,7 @@ Use `flexWrap` to allow items to wrap to the next line when they overflow.
 </Row>
 ```
 
-## Reverse Order
+## Reverse order
 
 Use `rowReverse` to reverse the visual order of children.
 
@@ -3393,7 +3393,7 @@ Use `rowReverse` to reverse the visual order of children.
 </Row>
 ```
 
-## Responsive Layout
+## Responsive layout
 
 Use `mobileCol` to stack on mobile, or `tabletCol` to stack on tablet and below.
 
@@ -3424,9 +3424,9 @@ Use `mobileCol` to stack on mobile, or `tabletCol` to stack on tablet and below.
 </Col>
 ```
 
-## Row Variants
+## Row variants
 
-Use `filled` or `outline` with appearance props for styled rows. Row uses `sharp` (no border-radius) by default — pair with `rounded` or `pill` for curved corners.
+Use `filled` or `outline` with appearance props for styled rows. Row uses `sharp` (no border-radius) by default: pair with `rounded` or `pill` for curved corners.
 
 ```tsx demo
 <Col>
@@ -3441,7 +3441,7 @@ Use `filled` or `outline` with appearance props for styled rows. Row uses `sharp
 </Col>
 ```
 
-## Text Alignment
+## Text alignment
 
 Use `textCenter`, `textLeft`, `textRight`, or `textJustify` to control text alignment within the row.
 
@@ -3479,7 +3479,7 @@ Row composes naturally inside a Card to lay out header actions, button groups, o
 
 ## As Link
 
-Add `href` to render the Row as an `<a>` tag — useful for clickable list rows. A keyboard focus-visible outline auto-renders so the link is reachable via Tab; opt out with `noFocusVisible`.
+Add `href` to render the Row as an `<a>` tag, useful for clickable list rows. A keyboard focus-visible outline auto-renders so the link is reachable via Tab; opt out with `noFocusVisible`.
 
 ```tsx demo
 <Col>
@@ -3498,7 +3498,7 @@ Add `href` to render the Row as an `<a>` tag — useful for clickable list rows.
 </Col>
 ```
 
-## Next.js Link Integration
+## Next.js Link integration
 
 Use the `tag` prop to render the Row as a Next.js `Link` for client-side navigation.
 
@@ -3521,7 +3521,7 @@ A vertical flex container. Pairs with `Row` to build column-based layouts.
 
 ## Basic Col
 
-`Col` defaults to `column`, `flex`, `gap`, `md`, `noPadding`, `noBorder`, `noRing`, `outline`, and `sharp` — you don't need to pass any of these. Pass `href` to render `Col` as `<a>` instead of `<div>` — a focus-visible outline auto-enables when `href` is set.
+`Col` defaults to `column`, `flex`, `gap`, `md`, `noPadding`, `noBorder`, `noRing`, `outline`, and `sharp`: you don't need to pass any of these. Pass `href` to render `Col` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Col>
@@ -3531,7 +3531,7 @@ A vertical flex container. Pairs with `Row` to build column-based layouts.
 </Col>
 ```
 
-## Col Spacing
+## Col spacing
 
 Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to control the gap, or `noGap` to disable.
 
@@ -3576,7 +3576,7 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to control the gap, or `noGap` to 
 </Row>
 ```
 
-## Items (Cross Axis)
+## Items (cross axis)
 
 Col has no `items` default, so children stretch to fill the width. Use `itemsStart`, `itemsCenter`, `itemsEnd`, `itemsBaseline`, or `itemsStretch` to override.
 
@@ -3605,7 +3605,7 @@ Col has no `items` default, so children stretch to fill the width. Use `itemsSta
 </Row>
 ```
 
-## Justify (Main Axis)
+## Justify (main axis)
 
 Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`, `justifyBetween`, `justifyAround`, or `justifyEvenly`. The Col needs a fixed height for these to have any effect.
 
@@ -3644,7 +3644,7 @@ Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`
 </Row>
 ```
 
-## Reverse Order
+## Reverse order
 
 Use `columnReverse` to reverse the visual order of children.
 
@@ -3656,9 +3656,9 @@ Use `columnReverse` to reverse the visual order of children.
 </Col>
 ```
 
-## Col Variants
+## Col variants
 
-Use `filled` with an appearance prop for a filled background. Col defaults to `sharp` — pair with `rounded` or `pill` for curved corners, and add `padding` so the background has breathing room.
+Use `filled` with an appearance prop for a filled background. Col defaults to `sharp`: pair with `rounded` or `pill` for curved corners, and add `padding` so the background has breathing room.
 
 ```tsx demo
 <Row itemsStart>
@@ -3673,7 +3673,7 @@ Use `filled` with an appearance prop for a filled background. Col defaults to `s
 </Row>
 ```
 
-## Text Alignment
+## Text alignment
 
 Use `textLeft`, `textCenter`, `textRight`, or `textJustify` to control text alignment within the column.
 
@@ -3723,7 +3723,7 @@ Col is commonly used inside Row to create multi-column layouts. Use `flex1` so e
 
 ## Inside a Card
 
-Col composes naturally inside a Card to lay out a vertical cluster — labelled fields, key/value pairs, or a list of actions.
+Col composes naturally inside a Card to lay out a vertical cluster: labelled fields, key/value pairs, or a list of actions.
 
 ```tsx demo
 <Card>
@@ -3749,7 +3749,7 @@ Col composes naturally inside a Card to lay out a vertical cluster — labelled 
 </Card>
 ```
 
-## As a Navigation Column
+## As a navigation column
 
 Col is a natural container for a vertical stack of `NavLink`s in a sidebar.
 
@@ -3765,7 +3765,7 @@ Col is a natural container for a vertical stack of `NavLink`s in a sidebar.
 
 ## As Link
 
-Add `href` to render the Col as an `<a>` tag — useful for clickable feature tiles. A keyboard focus-visible outline auto-renders so the link is reachable via Tab; opt out with `noFocusVisible`.
+Add `href` to render the Col as an `<a>` tag, useful for clickable feature tiles. A keyboard focus-visible outline auto-renders so the link is reachable via Tab; opt out with `noFocusVisible`.
 
 ```tsx demo
 <Row itemsStart>
@@ -3787,7 +3787,7 @@ Add `href` to render the Col as an `<a>` tag — useful for clickable feature ti
 </Row>
 ```
 
-## Next.js Link Integration
+## Next.js Link integration
 
 Use the `tag` prop to render the Col as a Next.js `Link` for client-side navigation.
 
@@ -3806,11 +3806,11 @@ Title: Stack
 URL: https://vaneui.com/docs/layout-components/stack
 ---
 
-A vertical flex container with built-in `padding` and `flexWrap`. Think of `Stack` as `Col` plus padding and wrap — reach for it when you want a self-contained surface that breathes, not a structural skeleton.
+A vertical flex container with built-in `padding` and `flexWrap`. Think of `Stack` as `Col` plus padding and wrap. Reach for it when you want a self-contained surface that breathes, not a structural skeleton.
 
 ## Basic Stack
 
-`Stack` defaults to `column`, `flex`, `gap`, `padding`, `flexWrap`, `md`, `noBorder`, `noRing`, `outline`, and `sharp` — you don't need to pass any of these. Pass `href` to render `Stack` as `<a>` instead of `<div>` — a focus-visible outline auto-enables when `href` is set.
+`Stack` defaults to `column`, `flex`, `gap`, `padding`, `flexWrap`, `md`, `noBorder`, `noRing`, `outline`, and `sharp`: you don't need to pass any of these. Pass `href` to render `Stack` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Stack>
@@ -3824,8 +3824,8 @@ A vertical flex container with built-in `padding` and `flexWrap`. Think of `Stac
 
 `Stack` and `Col` are both vertical flex columns. The difference is opinion:
 
-- **`Stack`** = `padding: true` + `flexWrap: true` — a padded, wrap-friendly container.
-- **`Col`** = `noPadding` — a bare structural column you compose inside other surfaces.
+- **`Stack`** = `padding: true` + `flexWrap: true`: a padded, wrap-friendly container.
+- **`Col`** = `noPadding`: a bare structural column you compose inside other surfaces.
 
 Use `Stack` when the column owns its own breathing room. Use `Col` when an outer `Card` / `Section` / `Container` already supplies the padding.
 
@@ -3848,7 +3848,7 @@ Use `Stack` when the column owns its own breathing room. Use `Col` when an outer
 </Row>
 ```
 
-## Stack Direction
+## Stack direction
 
 Use `row` for horizontal layout. Default is `column` (vertical).
 
@@ -3871,7 +3871,7 @@ Use `row` for horizontal layout. Default is `column` (vertical).
 </Row>
 ```
 
-## Stack Spacing
+## Stack spacing
 
 Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to scale gap and padding together, or `noGap` to remove the gap.
 
@@ -3905,7 +3905,7 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to scale gap and padding together,
 </Row>
 ```
 
-## Padding Sizes
+## Padding sizes
 
 `padding` is on by default. The padding value scales with the size prop. Use `noPadding` to remove it entirely.
 
@@ -3930,7 +3930,7 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to scale gap and padding together,
 </Row>
 ```
 
-## Items (Cross Axis)
+## Items (cross axis)
 
 Stack has no `items` default, so children stretch to fill the width. Override with `itemsStart`, `itemsCenter`, `itemsEnd`, `itemsBaseline`, or `itemsStretch`.
 
@@ -3959,7 +3959,7 @@ Stack has no `items` default, so children stretch to fill the width. Override wi
 </Row>
 ```
 
-## Justify (Main Axis)
+## Justify (main axis)
 
 Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`, `justifyBetween`, `justifyAround`, or `justifyEvenly`. The Stack needs a fixed height for these to have any effect.
 
@@ -3998,7 +3998,7 @@ Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`
 </Row>
 ```
 
-## Wrap Behavior
+## Wrap behavior
 
 `flexWrap` is on by default. In a horizontal Stack, items wrap to the next line when they would overflow the container. Use `flexNoWrap` to force everything onto a single line.
 
@@ -4023,9 +4023,9 @@ Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`
 </Col>
 ```
 
-## Stack Variants
+## Stack variants
 
-Use `filled` or `outline` with appearance props for styled containers. Stack defaults to `sharp` — pair with `rounded` or `pill` for curved corners.
+Use `filled` or `outline` with appearance props for styled containers. Stack defaults to `sharp`: pair with `rounded` or `pill` for curved corners.
 
 ```tsx demo
 <Row itemsStart>
@@ -4040,7 +4040,7 @@ Use `filled` or `outline` with appearance props for styled containers. Stack def
 </Row>
 ```
 
-## Text Alignment
+## Text alignment
 
 Use `textLeft`, `textCenter`, `textRight`, or `textJustify` to control text alignment within the stack.
 
@@ -4061,7 +4061,7 @@ Use `textLeft`, `textCenter`, `textRight`, or `textJustify` to control text alig
 </Row>
 ```
 
-## Responsive Layout
+## Responsive layout
 
 Use `mobileCol` or `tabletCol` on a horizontal Stack to switch back to a column on narrower viewports.
 
@@ -4078,9 +4078,9 @@ Use `mobileCol` or `tabletCol` on a horizontal Stack to switch back to a column 
 </Stack>
 ```
 
-## As a Form Container
+## As a form container
 
-Stack's built-in padding makes it a natural container for a form — each `Label` becomes a row with its input, and the Stack provides the vertical rhythm and outer breathing room without any extra wrapper.
+Stack's built-in padding makes it a natural container for a form: each `Label` becomes a row with its input, and the Stack provides the vertical rhythm and outer breathing room without any extra wrapper.
 
 ```tsx demo
 <Stack border rounded className="max-w-sm">
@@ -4103,7 +4103,7 @@ Stack's built-in padding makes it a natural container for a form — each `Label
 
 ## As Link
 
-Add `href` to render the Stack as an `<a>` tag — useful for hero cards and large clickable surfaces. A keyboard focus-visible outline auto-renders so the link is reachable via Tab; opt out with `noFocusVisible`.
+Add `href` to render the Stack as an `<a>` tag, useful for hero cards and large clickable surfaces. A keyboard focus-visible outline auto-renders so the link is reachable via Tab; opt out with `noFocusVisible`.
 
 ```tsx demo
 <Stack href="#get-started" border rounded itemsStart className="max-w-md">
@@ -4114,7 +4114,7 @@ Add `href` to render the Stack as an `<a>` tag — useful for hero cards and lar
 </Stack>
 ```
 
-## Next.js Link Integration
+## Next.js Link integration
 
 Use the `tag` prop to render the Stack as a Next.js `Link` for client-side navigation.
 
@@ -4134,19 +4134,19 @@ Title: Card
 URL: https://vaneui.com/docs/layout-components/card
 ---
 
-A flexible container component that groups related content with consistent styling. Cards can contain text, images, and other components.
+A container component that groups related content with consistent styling. Cards can contain text, images, and other components.
 
-## When to Use
+## When to use
 
 - Group related content into a visually distinct surface (article preview, settings block, summary panel).
 - Establish hierarchy on a page where multiple sections need to feel like discrete units.
 - Wrap clickable surfaces (link/anchor cards) where the entire block is the affordance.
 - Build form sections, dashboard tiles, or pricing tables.
 
-### When NOT to Use
+### When NOT to use
 
-- For inline groupings of a few elements — prefer `Stack` or `Row` directly without the surface treatment.
-- For modal/dialog content — `Modal` already provides the surface and shadow.
+- For inline groupings of a few elements: prefer `Stack` or `Row` directly without the surface treatment.
+- For modal/dialog content: `Modal` already provides the surface and shadow.
 
 ## Customizing
 
@@ -4162,18 +4162,18 @@ import { ThemeProvider, Card } from '@vaneui/ui';
 </ThemeProvider>
 ```
 
-## Basic Card
+## Basic card
 
-A simple card container with default styling. `md`, `primary`, `outline`, `rounded`, `border`, `padding`, `gap`, `flex`, and `column` are all defaults — no need to specify them.
+A card container with default styling. `md`, `primary`, `outline`, `rounded`, `border`, `padding`, `gap`, `flex`, and `column` are all defaults: no need to specify them.
 
 ```tsx demo
 <Card>
   <Title>Welcome to VaneUI</Title>
-  <Text>Build beautiful interfaces with ready-to-use components.</Text>
+  <Text>Compose interfaces with ready-to-use components.</Text>
 </Card>
 ```
 
-## Card Sizes
+## Card sizes
 
 Cards come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size also scales padding, gap, and border-radius.
 
@@ -4202,7 +4202,7 @@ Cards come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size also
 </Row>
 ```
 
-## Card Appearances
+## Card appearances
 
 Cards support color appearances: `primary` (default), `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`.
 
@@ -4247,7 +4247,7 @@ Cards support color appearances: `primary` (default), `brand`, `accent`, `second
 </Row>
 ```
 
-## Card Variants
+## Card variants
 
 `outline` is the default. Use `filled` for solid backgrounds. Add `shadow` for elevation.
 
@@ -4255,7 +4255,7 @@ Cards support color appearances: `primary` (default), `brand`, `accent`, `second
 <Row flexWrap>
   <Card>
     <Title>Outline</Title>
-    <Text>Default — border only</Text>
+    <Text>Default: border only</Text>
   </Card>
   <Card filled>
     <Title filled>Filled</Title>
@@ -4268,7 +4268,7 @@ Cards support color appearances: `primary` (default), `brand`, `accent`, `second
 </Row>
 ```
 
-## Card Shapes
+## Card shapes
 
 `rounded` is the default. Use `pill` for fully rounded corners or `sharp` for none.
 
@@ -4289,7 +4289,7 @@ Cards support color appearances: `primary` (default), `brand`, `accent`, `second
 </Row>
 ```
 
-## Card with Sub-Components
+## Card with sub-components
 
 Use `CardHeader`, `CardBody`, and `CardFooter` to give a card explicit structural regions. When any sub-component is present the parent Card switches to compound mode and the sub-components own padding.
 
@@ -4309,7 +4309,7 @@ Use `CardHeader`, `CardBody`, and `CardFooter` to give a card explicit structura
 </Card>
 ```
 
-## Responsive Layout
+## Responsive layout
 
 Use `row` for horizontal layout and `mobileCol` or `tabletCol` to switch to column on smaller screens.
 
@@ -4326,7 +4326,7 @@ Use `row` for horizontal layout and `mobileCol` or `tabletCol` to switch to colu
 </Card>
 ```
 
-## Nested Cards
+## Nested cards
 
 Cards can be nested. Pair a `secondary` or `tertiary` inner card with the default `primary` outer card to create clear visual hierarchy.
 
@@ -4336,7 +4336,7 @@ Cards can be nested. Pair a `secondary` or `tertiary` inner card with the defaul
   <Text>Manage the resources tied to your workspace.</Text>
   <Card secondary>
     <Title sm>Storage</Title>
-    <Text sm>4.2 GB of 10 GB used</Text>
+    <Text sm>4.2GB of 10GB used</Text>
   </Card>
   <Card secondary>
     <Title sm>Members</Title>
@@ -4366,7 +4366,7 @@ Add `href` to make the card a clickable link. The card automatically renders as 
 </Row>
 ```
 
-## Next.js Link Integration
+## Next.js Link integration
 
 Use the `tag` prop to render the card as a Next.js `Link` for client-side navigation.
 
@@ -4387,17 +4387,17 @@ URL: https://vaneui.com/docs/layout-components/grid2
 
 A responsive layout component that arranges its children in a two-column CSS grid. Ideal for side-by-side content layouts and balanced arrangements.
 
-## When to Use
+## When to use
 
 - Two-up feature comparisons, pricing tiers, or product highlights.
 - Side-by-side cards (image + details, before/after, problem/solution).
 - Splitting a section into two equal columns without writing custom flex math.
 
-### When NOT to Use
+### When NOT to use
 
-- For two children that should align in a single line — use `Row` and let flexbox size them.
-- For 3+ columns — use `Grid3`–`Grid6`.
-- For column-spanning layouts — use raw CSS grid with `className` instead.
+- For two children that should align in a single line: use `Row` and let flexbox size them.
+- For 3+ columns: use `Grid3` to `Grid6`.
+- For column-spanning layouts: use raw CSS grid with `className` instead.
 
 ## Customizing
 
@@ -4415,7 +4415,7 @@ import { ThemeProvider, Grid2 } from '@vaneui/ui';
 
 ## Basic Grid2
 
-A two-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults — no need to specify them.
+A two-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults: no need to specify them.
 
 ```tsx demo
 <Grid2>
@@ -4438,7 +4438,7 @@ A two-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are d
 </Grid2>
 ```
 
-## Grid Sizes
+## Grid sizes
 
 Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 
@@ -4472,7 +4472,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 </Col>
 ```
 
-## Grid with Gap
+## Grid with gap
 
 `gap` is on by default. Use `noGap` to remove spacing between cells.
 
@@ -4491,7 +4491,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 </Col>
 ```
 
-## Grid Appearances
+## Grid appearances
 
 Grid supports color appearances. Pair with `filled` or `border` to make the surface visible.
 
@@ -4516,7 +4516,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
-## Grid Variants
+## Grid variants
 
 `outline` is the default. Use `filled` for a solid background, or add `border` for a visible outline.
 
@@ -4533,9 +4533,9 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
-## Grid Shapes
+## Grid shapes
 
-`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself — pair with `filled` or `border` to see it.
+`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself: pair with `filled` or `border` to see it.
 
 ```tsx demo
 <Col>
@@ -4557,17 +4557,17 @@ URL: https://vaneui.com/docs/layout-components/grid3
 
 A responsive layout component that arranges its children in a three-column CSS grid. Great for feature triads, card collections, and balanced summaries.
 
-## When to Use
+## When to use
 
 - Three-up feature grids, plan tiers, or testimonial collections.
 - Card layouts with a medium item count (3, 6, 9 items).
 - Galleries or thumbnail rows that need equal column widths.
 
-### When NOT to Use
+### When NOT to use
 
-- For two or four columns — use `Grid2` or `Grid4` instead.
-- For variable-width items — use `Row flexWrap` and let children size themselves.
-- For column-spanning layouts — use raw CSS grid with `className` instead.
+- For two or four columns: use `Grid2` or `Grid4` instead.
+- For variable-width items: use `Row flexWrap` and let children size themselves.
+- For column-spanning layouts: use raw CSS grid with `className` instead.
 
 ## Customizing
 
@@ -4585,7 +4585,7 @@ import { ThemeProvider, Grid3 } from '@vaneui/ui';
 
 ## Basic Grid3
 
-A three-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults — no need to specify them.
+A three-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults: no need to specify them.
 
 ```tsx demo
 <Grid3>
@@ -4616,7 +4616,7 @@ A three-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are
 </Grid3>
 ```
 
-## Grid Sizes
+## Grid sizes
 
 Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 
@@ -4655,7 +4655,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 </Col>
 ```
 
-## Grid with Gap
+## Grid with gap
 
 `gap` is on by default. Use `noGap` to remove spacing between cells.
 
@@ -4676,7 +4676,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 </Col>
 ```
 
-## Grid Appearances
+## Grid appearances
 
 Grid supports color appearances. Pair with `filled` or `border` to make the surface visible.
 
@@ -4705,7 +4705,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
-## Grid Variants
+## Grid variants
 
 `outline` is the default. Use `filled` for a solid background, or add `border` for a visible outline.
 
@@ -4724,9 +4724,9 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
-## Grid Shapes
+## Grid shapes
 
-`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself — pair with `filled` or `border` to see it.
+`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself: pair with `filled` or `border` to see it.
 
 ```tsx demo
 <Col>
@@ -4750,17 +4750,17 @@ URL: https://vaneui.com/docs/layout-components/grid4
 
 A responsive layout component that arranges its children in a four-column CSS grid. Ideal for displaying collections of items, features, or product tiles.
 
-## When to Use
+## When to use
 
 - Four-up feature grids, product catalogs, or pricing tier layouts.
 - Card layouts with item counts in multiples of four (4, 8, 12).
 - Image galleries and thumbnail grids needing equal column widths.
 
-### When NOT to Use
+### When NOT to use
 
-- For three or five columns — use `Grid3` or `Grid5` instead.
-- For variable-width items — use `Row flexWrap` and let children size themselves.
-- For column-spanning layouts — use raw CSS grid with `className` instead.
+- For three or five columns: use `Grid3` or `Grid5` instead.
+- For variable-width items: use `Row flexWrap` and let children size themselves.
+- For column-spanning layouts: use raw CSS grid with `className` instead.
 
 ## Customizing
 
@@ -4778,7 +4778,7 @@ import { ThemeProvider, Grid4 } from '@vaneui/ui';
 
 ## Basic Grid4
 
-A four-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults — no need to specify them.
+A four-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults: no need to specify them.
 
 ```tsx demo
 <Grid4>
@@ -4817,7 +4817,7 @@ A four-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are 
 </Grid4>
 ```
 
-## Grid Sizes
+## Grid sizes
 
 Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 
@@ -4861,7 +4861,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 </Col>
 ```
 
-## Grid with Gap
+## Grid with gap
 
 `gap` is on by default. Use `noGap` to remove spacing between cells.
 
@@ -4884,7 +4884,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 </Col>
 ```
 
-## Grid Appearances
+## Grid appearances
 
 Grid supports color appearances. Pair with `filled` or `border` to make the surface visible.
 
@@ -4917,7 +4917,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
-## Grid Variants
+## Grid variants
 
 `outline` is the default. Use `filled` for a solid background, or add `border` for a visible outline.
 
@@ -4938,9 +4938,9 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
-## Grid Shapes
+## Grid shapes
 
-`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself — pair with `filled` or `border` to see it.
+`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself: pair with `filled` or `border` to see it.
 
 ```tsx demo
 <Col>
@@ -4966,17 +4966,17 @@ URL: https://vaneui.com/docs/layout-components/grid5
 
 A responsive layout component that arranges its children in a five-column CSS grid. Useful for dense feature listings, tag clouds, or stat boards.
 
-## When to Use
+## When to use
 
 - Five-up feature listings, weekday columns, or rating breakdowns.
 - Dense item layouts where four columns feel sparse and six feel cramped.
 - Stat boards or KPI grids that need an odd column count.
 
-### When NOT to Use
+### When NOT to use
 
-- For four or six columns — use `Grid4` or `Grid6` instead.
-- For variable-width items — use `Row flexWrap` and let children size themselves.
-- For column-spanning layouts — use raw CSS grid with `className` instead.
+- For four or six columns: use `Grid4` or `Grid6` instead.
+- For variable-width items: use `Row flexWrap` and let children size themselves.
+- For column-spanning layouts: use raw CSS grid with `className` instead.
 
 ## Customizing
 
@@ -4994,7 +4994,7 @@ import { ThemeProvider, Grid5 } from '@vaneui/ui';
 
 ## Basic Grid5
 
-A five-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults — no need to specify them.
+A five-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults: no need to specify them.
 
 ```tsx demo
 <Grid5>
@@ -5041,7 +5041,7 @@ A five-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are 
 </Grid5>
 ```
 
-## Grid Sizes
+## Grid sizes
 
 Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 
@@ -5090,7 +5090,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 </Col>
 ```
 
-## Grid with Gap
+## Grid with gap
 
 `gap` is on by default. Use `noGap` to remove spacing between cells.
 
@@ -5115,7 +5115,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 </Col>
 ```
 
-## Grid Appearances
+## Grid appearances
 
 Grid supports color appearances. Pair with `filled` or `border` to make the surface visible.
 
@@ -5152,7 +5152,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
-## Grid Variants
+## Grid variants
 
 `outline` is the default. Use `filled` for a solid background, or add `border` for a visible outline.
 
@@ -5175,9 +5175,9 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
-## Grid Shapes
+## Grid shapes
 
-`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself — pair with `filled` or `border` to see it.
+`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself: pair with `filled` or `border` to see it.
 
 ```tsx demo
 <Col>
@@ -5205,17 +5205,17 @@ URL: https://vaneui.com/docs/layout-components/grid6
 
 A responsive layout component that arranges its children in a six-column CSS grid. Ideal for icon grids, compact feature listings, and dense card collections.
 
-## When to Use
+## When to use
 
 - Icon or logo grids (clients, integrations, badges).
 - Compact feature collections with small tiles.
 - Dense layouts where the item count is a multiple of six.
 
-### When NOT to Use
+### When NOT to use
 
-- For five or fewer columns — use `Grid2`–`Grid5` instead.
-- For variable-width items — use `Row flexWrap` and let children size themselves.
-- For column-spanning layouts — use raw CSS grid with `className` instead.
+- For five or fewer columns: use `Grid2` to `Grid5` instead.
+- For variable-width items: use `Row flexWrap` and let children size themselves.
+- For column-spanning layouts: use raw CSS grid with `className` instead.
 
 ## Customizing
 
@@ -5233,7 +5233,7 @@ import { ThemeProvider, Grid6 } from '@vaneui/ui';
 
 ## Basic Grid6
 
-A six-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults — no need to specify them.
+A six-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults: no need to specify them.
 
 ```tsx demo
 <Grid6>
@@ -5252,7 +5252,7 @@ A six-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are d
 </Grid6>
 ```
 
-## Grid Sizes
+## Grid sizes
 
 Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 
@@ -5306,7 +5306,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 </Col>
 ```
 
-## Grid with Gap
+## Grid with gap
 
 `gap` is on by default. Use `noGap` to remove spacing between cells.
 
@@ -5333,7 +5333,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 </Col>
 ```
 
-## Grid Appearances
+## Grid appearances
 
 Grid supports color appearances. Pair with `filled` or `border` to make the surface visible.
 
@@ -5374,7 +5374,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
-## Grid Variants
+## Grid variants
 
 `outline` is the default. Use `filled` for a solid background, or add `border` for a visible outline.
 
@@ -5399,9 +5399,9 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
-## Grid Shapes
+## Grid shapes
 
-`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself — pair with `filled` or `border` to see it.
+`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself: pair with `filled` or `border` to see it.
 
 ```tsx demo
 <Col>
@@ -5441,6 +5441,7 @@ Overlay ships its own layout defaults: `fixed`, `flex`, `itemsCenter`, `justifyC
 
 A fullscreen semi-transparent backdrop. Click the overlay background to dismiss.
 
+
 ```tsx
 const [open, setOpen] = useState(false);
 
@@ -5450,7 +5451,7 @@ const [open, setOpen] = useState(false);
 </Overlay>
 ```
 
-## Overlay with Content
+## Overlay with content
 
 Place content inside the overlay. Click handlers on the overlay only fire when the event target is the overlay itself, so children receive their own clicks without dismissing the overlay.
 
@@ -5463,7 +5464,7 @@ Place content inside the overlay. Click handlers on the overlay only fire when t
 </Overlay>
 ```
 
-## Blur Effect
+## Blur effect
 
 Add `blur` for a backdrop-filter blur behind the overlay. Blur intensity follows the `--overlay-blur` CSS variable.
 
@@ -5475,7 +5476,7 @@ Add `blur` for a backdrop-filter blur behind the overlay. Blur intensity follows
 </Overlay>
 ```
 
-## Custom Backdrop Appearance
+## Custom backdrop appearance
 
 Style the backdrop with appearance + variant + shadow props, or pass a `className` for arbitrary background utilities. The example below uses `danger filled` for a tinted destructive backdrop.
 
@@ -5529,7 +5530,7 @@ const [open, setOpen] = useState(false);
 
 ## Foundation for Modal
 
-`Modal` is built on `Overlay` — the dialog surface renders inside an Overlay that handles portaling, backdrop click, and stacking. For accessible dialogs with focus trap, scroll lock, and ARIA wiring, prefer `Modal`. Reach for `Overlay` directly when you need a custom backdrop layer (lightbox, loading shade, drawer scrim) without dialog semantics.
+`Modal` is built on `Overlay`. The dialog surface renders inside an Overlay that handles portaling, backdrop click, and stacking. For accessible dialogs with focus trap, scroll lock, and ARIA wiring, prefer `Modal`. Reach for `Overlay` directly when you need a custom backdrop layer (lightbox, loading shade, drawer scrim) without dialog semantics.
 
 ```tsx
 {/* High-level: use Modal for dialogs */}
@@ -5543,9 +5544,9 @@ const [open, setOpen] = useState(false);
 </Overlay>
 ```
 
-## Portal Target
+## Portal target
 
-Overlay renders into `document.body` by default via React portal. Set `portal={false}` to render in-place — useful when the overlay must be scoped to a positioned ancestor (e.g., scrim over a single card instead of the whole viewport).
+Overlay renders into `document.body` by default via React portal. Set `portal={false}` to render in-place, useful when the overlay must be scoped to a positioned ancestor (e.g., scrim over a single card instead of the whole viewport).
 
 ```tsx
 <Card relative className="h-64">
@@ -5558,7 +5559,7 @@ Overlay renders into `document.body` by default via React portal. Set `portal={f
 
 When `portal={false}` and `absolute` is set, the overlay anchors to the nearest `relative`/`absolute` ancestor instead of the viewport.
 
-## Z-Index / Stacking
+## Z-index / stacking
 
 Overlay reads its `z-index` from a managed stacking context (`--z-index`), so multiple overlays stack in mount order automatically. Override per instance via inline style when you need to layer above a specific element (toasts, page chrome).
 
@@ -5574,7 +5575,7 @@ Overlay reads its `z-index` from a managed stacking context (`--z-index`), so mu
 </Overlay>
 ```
 
-## Custom Animation Duration
+## Custom animation duration
 
 Control how the overlay transitions in and out. Use `transitionDuration` to set a custom duration in milliseconds (default `200`), or `noAnimation` to disable transitions entirely for an instant open/close.
 
@@ -5590,7 +5591,7 @@ Control how the overlay transitions in and out. Use `transitionDuration` to set 
 </Overlay>
 ```
 
-## Lifecycle & Mounting
+## Lifecycle and mounting
 
 | Prop | Default | Description |
 |------|---------|-------------|
@@ -5622,17 +5623,17 @@ URL: https://vaneui.com/docs/overlay-components/modal
 
 An accessible dialog component with focus trapping, scroll lock, and keyboard navigation. Built on Overlay with ARIA `role="dialog"` and `aria-modal="true"`. Sub-components: `ModalHeader`, `ModalBody`, `ModalFooter`, `ModalCloseButton`.
 
-## When to Use
+## When to use
 
 - Confirmations for destructive or non-reversible actions.
 - Multi-step or focused forms that should block interaction with the page behind.
 - Detail views that need to escape the surrounding layout (full-screen image, video player).
 - Required acknowledgements where dismissal must be intentional (`closeOnOverlayClick={false}`).
 
-### When NOT to Use
+### When NOT to use
 
-- For passive notifications, toasts, or status messages — these should not block the user.
-- For inline disclosure of additional details — prefer `Popup` or an expandable section.
+- For passive notifications, toasts, or status messages: these should not block the user.
+- For inline disclosure of additional details: prefer `Popup` or an expandable section.
 
 ## Customizing
 
@@ -5674,10 +5675,10 @@ const [open, setOpen] = useState(false);
 
 Use `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton` for full control over layout. When any of these are direct children, Modal renders them as-is without auto-wrapping. Each sub-component carries its own layout defaults:
 
-- `ModalHeader` — `flex row`, `itemsCenter`, `justifyBetween`, `gap`, `padding`
-- `ModalBody` — `flex column`, `gap`, `padding`, `overflowAuto`
-- `ModalFooter` — `flex row`, `itemsCenter`, `justifyEnd`, `gap`, `padding`
-- `ModalCloseButton` — `secondary`, `transparent`, `noShadow`, `noRing`
+- `ModalHeader`: `flex row`, `itemsCenter`, `justifyBetween`, `gap`, `padding`
+- `ModalBody`: `flex column`, `gap`, `padding`, `overflowAuto`
+- `ModalFooter`: `flex row`, `itemsCenter`, `justifyEnd`, `gap`, `padding`
+- `ModalCloseButton`: `secondary`, `transparent`, `noShadow`, `noRing`
 
 ```tsx
 import { Modal, ModalHeader, ModalBody, ModalFooter, ModalCloseButton, Button, Title, Input, Label, Stack } from "@vaneui/ui";
@@ -5704,7 +5705,7 @@ const [open, setOpen] = useState(false);
 </Modal>
 ```
 
-## Convenience Props
+## Convenience props
 
 Use the `title`, `footer`, and `withCloseButton` shorthand props to compose a structured modal without writing sub-components. When `title` is set, a close button is shown by default (toggle with `withCloseButton`). Children become the body.
 
@@ -5728,9 +5729,9 @@ const [open, setOpen] = useState(false);
 </Modal>
 ```
 
-## Confirmation Dialog
+## Confirmation dialog
 
-A common pattern: a destructive action that requires explicit confirmation. Disable `closeOnOverlayClick` so users can't dismiss accidentally by clicking outside.
+A common pattern is a destructive action that requires explicit confirmation. Disable `closeOnOverlayClick` so users can't dismiss accidentally by clicking outside.
 
 ```tsx
 const [open, setOpen] = useState(false);
@@ -5783,16 +5784,16 @@ const nameRef = useRef<HTMLInputElement>(null);
 </Modal>
 ```
 
-## Modal Sizes
+## Modal sizes
 
-Size props control modal content width (via the `--fs-unit` / `--py-unit` / `--br-unit` chain) — font-size, padding, gap, and border-radius all scale together.
+Size props control modal content width via the `--fs-unit` / `--py-unit` / `--br-unit` chain. Font-size, padding, gap, and border-radius all scale together.
 
 ```tsx
 <Modal open={open} onClose={onClose} sm>Small modal</Modal>
 <Modal open={open} onClose={onClose} lg>Large modal</Modal>
 ```
 
-## Modal Appearances
+## Modal appearances
 
 Apply appearance and variant props to style the content surface (border, text, background).
 
@@ -5801,7 +5802,7 @@ Apply appearance and variant props to style the content surface (border, text, b
 <Modal open={open} onClose={onClose} danger filled>Danger modal</Modal>
 ```
 
-## Blur Overlay
+## Blur overlay
 
 Pass `overlayProps={{ blur: true }}` to add a backdrop-filter blur behind the modal.
 
@@ -5826,9 +5827,9 @@ Disable `closeOnOverlayClick` and `closeOnEscape` to force the user to take an e
 </Modal>
 ```
 
-## Full Screen Modal
+## Full-screen Modal
 
-Set `fullScreen` to make the modal fill the entire viewport. Full-screen modals have no border-radius (`sharp` is applied automatically) and use a transparent overlay — useful for immersive experiences or mobile-optimized views.
+Set `fullScreen` to make the modal fill the entire viewport. Full-screen modals have no border-radius (`sharp` is applied automatically) and use a transparent overlay, useful for immersive experiences or mobile-optimized views.
 
 ```tsx
 <Modal open={open} onClose={() => setOpen(false)} fullScreen>
@@ -5842,7 +5843,7 @@ Set `fullScreen` to make the modal fill the entire viewport. Full-screen modals 
 </Modal>
 ```
 
-## Accessibility & Advanced Props
+## Accessibility and advanced props
 
 Modal ships accessibility features enabled by default. The dialog renders with `role="dialog"` and `aria-modal="true"`, and is automatically wired with `aria-labelledby` (when `ModalHeader` is used) and `aria-describedby` (when `ModalBody` is used).
 
@@ -5851,7 +5852,7 @@ Modal ships accessibility features enabled by default. The dialog renders with `
 | `scrollLock` | `true` | Lock body scroll when modal is open |
 | `focusTrap` | `true` | Trap `Tab` / `Shift+Tab` focus inside the modal |
 | `returnFocus` | `true` | Return focus to the trigger element on close |
-| `initialFocus` | — | Ref to the element that should receive focus on open |
+| `initialFocus` |   | Ref to the element that should receive focus on open |
 | `portal` | `true` | Render via portal into `document.body` |
 | `keepMounted` | `false` | Keep DOM node mounted when closed |
 | `noAnimation` | `false` | Disable enter/exit transitions |
@@ -5876,7 +5877,7 @@ URL: https://vaneui.com/docs/overlay-components/popup
 
 A floating element anchored to a trigger element using CSS Anchor Positioning. Supports 12 placement options, width matching, and click-outside dismissal.
 
-Popup ships its own surface defaults: `md`, `flex column`, `padding`, `gap`, `rounded`, `border`, `shadow`, `primary`, `outline`, `wFit`, `maxHeight`, `overflowAuto`, `bottom`. Render children directly — wrapping content in another `Card` is usually redundant.
+Popup ships its own surface defaults: `md`, `flex column`, `padding`, `gap`, `rounded`, `border`, `shadow`, `primary`, `outline`, `wFit`, `maxHeight`, `overflowAuto`, `bottom`. Render children directly. Wrapping content in another `Card` is usually redundant.
 
 > **Browser support:** Popup uses the CSS Anchor Positioning API (Chrome 125+, Edge 125+). Other browsers fall back to a JS positioning path that recomputes on scroll/resize.
 
@@ -5907,9 +5908,9 @@ const anchorRef = useRef<HTMLButtonElement>(null);
 </Popup>
 ```
 
-## PopupTrigger (Click)
+## PopupTrigger (click)
 
-`PopupTrigger` is a convenience wrapper that manages open/close state and ref wiring automatically. No `useState` or `useRef` needed — wrap the trigger element and provide popup content via the `popup` prop. Default trigger mode is `"click"`.
+`PopupTrigger` is a convenience wrapper that manages open/close state and ref wiring automatically. No `useState` or `useRef` needed: wrap the trigger element and provide popup content via the `popup` prop. Default trigger mode is `"click"`.
 
 ```tsx
 <PopupTrigger popup={<Text sm>Click-triggered popup</Text>}>
@@ -5917,7 +5918,7 @@ const anchorRef = useRef<HTMLButtonElement>(null);
 </PopupTrigger>
 ```
 
-## PopupTrigger (Hover)
+## PopupTrigger (hover)
 
 Set `triggerOnHover` to show on mouse enter and hide on mouse leave. `openDelay` (default `0`) delays appearance; `closeDelay` (default `150`) delays dismissal so the user can move the cursor over the popup. Keyboard focus also opens it for accessibility.
 
@@ -5931,7 +5932,7 @@ Set `triggerOnHover` to show on mouse enter and hide on mouse leave. `openDelay`
 </PopupTrigger>
 ```
 
-## PopupTrigger (Focus)
+## PopupTrigger (focus)
 
 Set `triggerOnFocus` to show on focus and hide on blur. Useful for search autocomplete, input hints, and dropdown suggestions.
 
@@ -5944,7 +5945,7 @@ Set `triggerOnFocus` to show on focus and hide on blur. Useful for search autoco
 </PopupTrigger>
 ```
 
-## All 12 Placements
+## All 12 placements
 
 Placement is set via boolean props: `top`, `topStart`, `topEnd`, `bottom`, `bottomStart`, `bottomEnd`, `left`, `leftStart`, `leftEnd`, `right`, `rightStart`, `rightEnd`. Exactly one wins (first-truthy per category). Default is `bottom`.
 
@@ -5972,9 +5973,9 @@ const [open, setOpen] = useState(false);
 
 When the requested placement would overflow the viewport, Popup falls back through `flip-block → flip-inline → shift → clamp` and exposes the resolved placement via the `data-placement` attribute.
 
-## Match Anchor Width
+## Match anchor width
 
-`matchWidth` makes the popup track the anchor's width — useful for select-like dropdowns. Combine with `wFit` removal (Popup defaults to `wFit`) is automatic when `matchWidth` is set.
+`matchWidth` makes the popup track the anchor's width, useful for select-like dropdowns. Combine with `wFit` removal (Popup defaults to `wFit`) is automatic when `matchWidth` is set.
 
 ```tsx
 const [open, setOpen] = useState(false);
@@ -5986,9 +5987,9 @@ const anchorRef = useRef<HTMLButtonElement>(null);
 </Popup>
 ```
 
-## Rich Content
+## Rich content
 
-Children render directly inside the Popup surface — use layout primitives (`Col`, `Row`, `Stack`) to compose multi-element content. Avoid nesting another `Card` inside; Popup already provides the bordered, padded, shadowed surface.
+Children render directly inside the Popup surface. Use layout primitives (`Col`, `Row`, `Stack`) to compose multi-element content. Avoid nesting another `Card` inside; Popup already provides the bordered, padded, shadowed surface.
 
 ```tsx
 const [open, setOpen] = useState(false);
@@ -6003,7 +6004,7 @@ const anchorRef = useRef<HTMLButtonElement>(null);
 </Popup>
 ```
 
-## Tooltip Pattern
+## Tooltip pattern
 
 Pair `triggerOnHover` with `arrow` for a classic tooltip. The arrow auto-rotates to match the resolved placement.
 
@@ -6020,7 +6021,7 @@ Pair `triggerOnHover` with `arrow` for a classic tooltip. The arrow auto-rotates
 
 ## Dropdown via Popup
 
-Popup is a low-level primitive. For action menus with keyboard navigation, focus management, and item semantics, prefer the dedicated [`Menu`](./menu) component — it wraps Popup and adds `MenuItem`/`MenuLabel` with full arrow-key navigation. Reach for raw `Popup` only when you need a non-menu surface (filter panels, custom autocompletes, info cards).
+Popup is a low-level primitive. For action menus with keyboard navigation, focus management, and item semantics, prefer the dedicated [`Menu`](./menu) component. It wraps Popup and adds `MenuItem`/`MenuLabel` with full arrow-key navigation. Reach for raw `Popup` only when you need a non-menu surface (filter panels, custom autocompletes, info cards).
 
 ```tsx
 <PopupTrigger popup={
@@ -6035,7 +6036,7 @@ Popup is a low-level primitive. For action menus with keyboard navigation, focus
 </PopupTrigger>
 ```
 
-## Arrow Indicator
+## Arrow indicator
 
 Set `arrow` to render a pointer that visually links the popup to its anchor. The arrow is positioned automatically based on the resolved placement.
 
@@ -6049,7 +6050,7 @@ const anchorRef = useRef<HTMLButtonElement>(null);
 </Popup>
 ```
 
-## Click-Outside Behavior
+## Click-outside behavior
 
 By default, clicking anywhere outside the popup or anchor closes it. Set `closeOnClickOutside={false}` to require an explicit dismiss (e.g., a close button inside the popup). `closeOnEscape={false}` similarly disables the keyboard dismiss.
 
@@ -6070,7 +6071,7 @@ const anchorRef = useRef<HTMLButtonElement>(null);
 </Popup>
 ```
 
-## Disabled Trigger
+## Disabled trigger
 
 Set `disabled` on `Popup` (or `PopupTrigger`) to suppress opening regardless of `open` state. Useful for conditional UI where the trigger remains rendered but inactive.
 
@@ -6080,7 +6081,7 @@ Set `disabled` on `Popup` (or `PopupTrigger`) to suppress opening regardless of 
 </PopupTrigger>
 ```
 
-## Advanced Props
+## Advanced props
 
 `Popup` supports additional configuration props:
 
@@ -6097,8 +6098,8 @@ Set `disabled` on `Popup` (or `PopupTrigger`) to suppress opening regardless of 
 | `hideWhenDetached` | `false` | Hide when anchor scrolls out of view (uses `IntersectionObserver`) |
 | `role` | `"dialog"` | ARIA role (set `"tooltip"` for tooltip patterns) |
 | `arrow` | `false` | Render arrow pointer |
-| `onEnterComplete` | — | Called when the enter transition finishes |
-| `onExitComplete` | — | Called when the exit transition finishes |
+| `onEnterComplete` |   | Called when the enter transition finishes |
+| `onExitComplete` |   | Called when the exit transition finishes |
 
 `PopupTrigger` additionally accepts:
 
@@ -6109,7 +6110,7 @@ Set `disabled` on `Popup` (or `PopupTrigger`) to suppress opening regardless of 
 | `triggerOnFocus` | `false` | Open on focus only |
 | `openDelay` | `0` | ms before opening on hover |
 | `closeDelay` | `150` | ms before closing on hover-out |
-| `popupProps` | — | Props forwarded to the internal `Popup` |
+| `popupProps` |   | Props forwarded to the internal `Popup` |
 | `popupId` | auto | Override generated id for `aria-controls` |
 
 ```tsx
@@ -6136,16 +6137,16 @@ URL: https://vaneui.com/docs/overlay-components/menu
 
 A dropdown menu triggered by a button with full keyboard navigation. Contains `MenuItem`, `MenuLabel`, and `Divider` subcomponents.
 
-## When to Use
+## When to use
 
 - Action menus on a row or card (Edit / Duplicate / Delete).
 - Account / user menus in a header.
 - Overflow menus for secondary actions that don't fit in the toolbar.
-- Any disclosure where the items behave like commands — for navigation between pages, prefer `NavLink`.
+- Any disclosure where the items behave like commands. For navigation between pages, prefer `NavLink`.
 
 ## Basic Menu
 
-A dropdown menu triggered by a button. Pass the trigger as a React element via the `trigger` prop; children are the menu contents. Includes full keyboard navigation (Arrow keys, Enter, Escape, Tab) and focus management with a keyboard-visible outline on each item — focus returns to the trigger when the menu closes.
+A dropdown menu triggered by a button. Pass the trigger as a React element via the `trigger` prop; children are the menu contents. Includes full keyboard navigation (Arrow keys, Enter, Escape, Tab) and focus management with a keyboard-visible outline on each item. Focus returns to the trigger when the menu closes.
 
 ```tsx
 import { Menu, MenuItem, Button } from "@vaneui/ui";
@@ -6157,7 +6158,7 @@ import { Menu, MenuItem, Button } from "@vaneui/ui";
 </Menu>
 ```
 
-## Labels & Dividers
+## Labels and dividers
 
 Use `MenuLabel` for section headings and `Divider` for visual separators between groups. `Divider` automatically picks up the Menu's size via the menu-divider sub-theme.
 
@@ -6175,9 +6176,9 @@ Use `MenuLabel` for section headings and `Divider` for visual separators between
 </Menu>
 ```
 
-## Items with Icons
+## Items with icons
 
-Place SVG icons directly inside `MenuItem` — they are automatically flex-aligned and pointer-events-disabled so clicks pass through to the item.
+Place SVG icons directly inside `MenuItem`. They are automatically flex-aligned and pointer-events-disabled so clicks pass through to the item.
 
 ```tsx
 import { Edit, Copy, Trash2 } from "react-feather";
@@ -6190,7 +6191,7 @@ import { Edit, Copy, Trash2 } from "react-feather";
 </Menu>
 ```
 
-## Destructive Item
+## Destructive item
 
 Use the `danger` appearance prop on a `MenuItem` to flag a destructive action. Combine with a `Divider` to visually separate it from safe actions.
 
@@ -6203,7 +6204,7 @@ Use the `danger` appearance prop on a `MenuItem` to flag a destructive action. C
 </Menu>
 ```
 
-## Item Appearances
+## Item appearances
 
 Any appearance prop works on `MenuItem` for semantic coloring of individual actions.
 
@@ -6215,7 +6216,7 @@ Any appearance prop works on `MenuItem` for semantic coloring of individual acti
 </Menu>
 ```
 
-## Disabled Items
+## Disabled items
 
 Set `disabled` on a `MenuItem` to prevent interaction. Disabled items are skipped during keyboard navigation and announced via `aria-disabled`.
 
@@ -6230,7 +6231,7 @@ Set `disabled` on a `MenuItem` to prevent interaction. Disabled items are skippe
 </Menu>
 ```
 
-## Items as Links
+## Items as links
 
 Pass `href` to render a `MenuItem` as an anchor tag. For client-side navigation in a Next.js app, also pass `tag={Link}`.
 
@@ -6243,9 +6244,9 @@ Pass `href` to render a `MenuItem` as an anchor tag. For client-side navigation 
 </Menu>
 ```
 
-## Menu Sizes
+## Menu sizes
 
-Set a size on `Menu` (e.g. `<Menu lg>`) and the dropdown popup, every `MenuItem`, `MenuLabel`, and nested `Divider` scale together automatically — no need to repeat the size on every child. Items render with larger font-size and padding, the popup frame lifts its inner padding, and dividers match. Individual children can still override with their own size prop.
+Set a size on `Menu` (e.g. `<Menu lg>`) and the dropdown popup, every `MenuItem`, `MenuLabel`, and nested `Divider` scale together automatically. No need to repeat the size on every child. Items render with larger font-size and padding, the popup frame lifts its inner padding, and dividers match. Individual children can still override with their own size prop.
 
 ```tsx
 <Menu lg trigger={<Button lg>Actions</Button>}>
@@ -6256,7 +6257,7 @@ Set a size on `Menu` (e.g. `<Menu lg>`) and the dropdown popup, every `MenuItem`
 </Menu>
 ```
 
-## Controlled State
+## Controlled state
 
 Pass `open` and `onOpenChange` to drive the menu from outside state. Useful when you need to open the menu programmatically or react to its state.
 
@@ -6274,16 +6275,16 @@ const [open, setOpen] = useState(false);
 </Menu>
 ```
 
-## Advanced Props
+## Advanced props
 
 Menu supports additional configuration for fine-tuning behavior:
 
 | Prop | Default | Description |
 |------|---------|-------------|
-| `open` | — | Controlled open state |
+| `open` |   | Controlled open state |
 | `defaultOpen` | `false` | Initial open state (uncontrolled) |
-| `onOpenChange` | — | Called when open state changes |
-| `onClose` | — | Called when the menu closes |
+| `onOpenChange` |   | Called when open state changes |
+| `onClose` |   | Called when the menu closes |
 | `closeOnItemClick` | `true` | Close menu when any item is clicked |
 | `loop` | `true` | Loop keyboard navigation from last to first |
 | `disabled` | `false` | Prevent menu from opening |
@@ -6294,10 +6295,10 @@ Menu supports additional configuration for fine-tuning behavior:
 | Prop | Default | Description |
 |------|---------|-------------|
 | `closeMenuOnClick` | inherits | Override the menu-level `closeOnItemClick` for this item |
-| `href` | — | Render as anchor tag |
+| `href` |   | Render as anchor tag |
 | `disabled` | `false` | Prevent interaction |
 | `focusVisible` | `true` | Render a keyboard focus-visible outline |
-| `noFocusVisible` | — | Disable the keyboard focus-visible outline |
+| `noFocusVisible` |   | Disable the keyboard focus-visible outline |
 
 ## Navigation Components
 
@@ -6310,21 +6311,21 @@ URL: https://vaneui.com/docs/navigation-components/navlink
 
 A navigation link for sidebars, nav menus, and headers. Supports active state, icons, and renders as `<a>` when `href` is provided, or `<button>` otherwise.
 
-## When to Use
+## When to use
 
 - Sidebar navigation items (docs nav, app shell sidebar, settings menus).
 - Header navigation links that need an active-state indicator.
 - Vertical or horizontal nav menus where each item routes to a page or section.
 - On-page table-of-contents items (paired with `active` based on scroll position).
 
-### When NOT to Use
+### When NOT to use
 
-- For inline links inside prose — use `Link`, which sits on the typography baseline.
-- For primary calls-to-action — use `Button primary filled`.
+- For inline links inside prose: use `Link`, which sits on the typography baseline.
+- For primary calls-to-action: use `Button primary filled`.
 
-## Basic Usage
+## Basic usage
 
-NavLink renders as an `<a>` when `href` is provided. Defaults to `sm` size, `primary` appearance, `outline` variant, `wFull` and `textLeft` layout — ideal for stacking inside a sidebar `Col`.
+NavLink renders as an `<a>` when `href` is provided. Defaults to `sm` size, `primary` appearance, `outline` variant, `wFull` and `textLeft` layout, ideal for stacking inside a sidebar `Col`.
 
 ```tsx demo
 <Col className="w-64">
@@ -6334,7 +6335,7 @@ NavLink renders as an `<a>` when `href` is provided. Defaults to `sm` size, `pri
 </Col>
 ```
 
-## Active State
+## Active state
 
 Use the `active` prop to indicate the current page. Active NavLinks get `aria-current="page"` and a `data-active` attribute for styling.
 
@@ -6347,9 +6348,9 @@ Use the `active` prop to indicate the current page. Active NavLinks get `aria-cu
 </Col>
 ```
 
-## With Icon
+## With icon
 
-Drop an icon directly inside the NavLink — `gap` is on by default, so spacing is automatic. React elements rendered before any text become the leading icon; text is auto-wrapped in a label span with truncation; elements after text become trailing accessories.
+Drop an icon directly inside the NavLink. `gap` is on by default, so spacing is automatic. React elements rendered before any text become the leading icon; text is auto-wrapped in a label span with truncation; elements after text become trailing accessories.
 
 ```tsx demo
 <Col className="w-64">
@@ -6362,7 +6363,7 @@ Drop an icon directly inside the NavLink — `gap` is on by default, so spacing 
 
 ## Sizes
 
-NavLink supports five sizes — `xs`, `sm` (default), `md`, `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
+NavLink supports five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
 
 ```tsx demo
 <Col className="w-72">
@@ -6374,7 +6375,7 @@ NavLink supports five sizes — `xs`, `sm` (default), `md`, `lg`, `xl`. Size dri
 </Col>
 ```
 
-## Appearances & Variants
+## Appearances and variants
 
 NavLinks default to `primary outline`. Use `filled` for solid backgrounds. Active state works with all appearances.
 
@@ -6397,7 +6398,7 @@ NavLinks default to `primary outline`. Use `filled` for solid backgrounds. Activ
 </Row>
 ```
 
-## Disabled State
+## Disabled state
 
 Use `disabled` to prevent interaction. When `disabled` is combined with `href`, the anchor is replaced with a disabled `<button>` so the link cannot be followed.
 
@@ -6410,9 +6411,9 @@ Use `disabled` to prevent interaction. When `disabled` is combined with `href`, 
 </Col>
 ```
 
-## As Button (No href)
+## As Button (no href)
 
-Without `href`, NavLink renders as a `<button>` — useful for menu items that trigger actions instead of navigating.
+Without `href`, NavLink renders as a `<button>`, useful for menu items that trigger actions instead of navigating.
 
 ```tsx demo
 <Col className="w-64">
@@ -6421,7 +6422,7 @@ Without `href`, NavLink renders as a `<button>` — useful for menu items that t
 </Col>
 ```
 
-## Sidebar Navigation
+## Sidebar navigation
 
 A real-world sidebar pattern with icons, active state, dividers, and trailing badges.
 
@@ -6440,11 +6441,11 @@ A real-world sidebar pattern with icons, active state, dividers, and trailing ba
 </Card>
 ```
 
-## Keyboard Focus
+## Keyboard focus
 
 NavLink renders a keyboard focus-visible outline by default so keyboard users can see where they are. Opt out with `noFocusVisible`.
 
-## Next.js Link Integration
+## Next.js Link integration
 
 Use the `tag` prop to render NavLink as a Next.js `Link` for client-side navigation.
 
@@ -6488,10 +6489,10 @@ The primary component for rendering all text content. It provides props to contr
 Default paragraph text styling.
 
 ```tsx demo
-<Text>Build beautiful user interfaces with VaneUI components. Text provides consistent typography across your application.</Text>
+<Text>Compose interfaces with VaneUI components. Text provides consistent typography across your application.</Text>
 ```
 
-## Text Sizes
+## Text sizes
 
 Text comes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
@@ -6505,9 +6506,9 @@ Text comes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 </Col>
 ```
 
-## Inherit Appearance (Default)
+## Inherit appearance (default)
 
-Text defaults to the `inherit` appearance — it picks up its color from the parent via CSS cascade instead of applying its own. Set an explicit appearance to override.
+Text defaults to the `inherit` appearance: it picks up its color from the parent via CSS cascade instead of applying its own. Set an explicit appearance to override.
 
 ```tsx demo
 <Row flexWrap>
@@ -6523,7 +6524,7 @@ Text defaults to the `inherit` appearance — it picks up its color from the par
 </Row>
 ```
 
-## Text Appearances
+## Text appearances
 
 Text supports explicit color appearances: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`. Use these to override the default `inherit` behavior.
 
@@ -6542,7 +6543,7 @@ Text supports explicit color appearances: `primary`, `brand`, `accent`, `seconda
 </Col>
 ```
 
-## Font Weights
+## Font weights
 
 Control weight with `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
 
@@ -6559,7 +6560,7 @@ Control weight with `thin`, `extralight`, `light`, `normal`, `medium`, `semibold
 </Col>
 ```
 
-## Font Families
+## Font families
 
 Switch font family with `sans` (default), `serif`, `mono`.
 
@@ -6571,7 +6572,7 @@ Switch font family with `sans` (default), `serif`, `mono`.
 </Col>
 ```
 
-## Italic, Underline, Line-Through
+## Italic, underline, line-through
 
 ```tsx demo
 <Col>
@@ -6581,7 +6582,7 @@ Switch font family with `sans` (default), `serif`, `mono`.
 </Col>
 ```
 
-## Text Transform
+## Text transform
 
 Use `uppercase`, `lowercase`, `capitalize`.
 
@@ -6593,7 +6594,7 @@ Use `uppercase`, `lowercase`, `capitalize`.
 </Col>
 ```
 
-## Text Alignment
+## Text alignment
 
 Align text with `textLeft` (default), `textCenter`, `textRight`, `textJustify`. Text defaults to `wFit`, so set `wFull` to see alignment effects across the container.
 
@@ -6606,7 +6607,7 @@ Align text with `textLeft` (default), `textCenter`, `textRight`, `textJustify`. 
 </Col>
 ```
 
-## Truncate and Line Clamp
+## Truncate and line clamp
 
 Use `truncate` for single-line ellipsis, or `lineClamp2`/`lineClamp3`/`lineClamp4`/`lineClamp5` for multi-line clamping.
 
@@ -6618,7 +6619,7 @@ Use `truncate` for single-line ellipsis, or `lineClamp2`/`lineClamp3`/`lineClamp
 </Col>
 ```
 
-## Letter Spacing
+## Letter spacing
 
 Control letter spacing with `trackingTighter`, `trackingTight`, `trackingNormal` (default), `trackingWide`, `trackingWider`, `trackingWidest`.
 
@@ -6633,7 +6634,7 @@ Control letter spacing with `trackingTighter`, `trackingTight`, `trackingNormal`
 </Col>
 ```
 
-## Text in Context
+## Text in context
 
 Combining text properties for real-world use cases.
 
@@ -6653,7 +6654,7 @@ Title: Title
 URL: https://vaneui.com/docs/typography-components/title
 ---
 
-Renders a subsection heading (`<h3>` by default) to establish a semantic hierarchy on the page. Use Title for headings inside a section — pair it with `PageTitle` (`<h1>`) for the page heading and `SectionTitle` (`<h2>`) for major section headings.
+Renders a subsection heading (`<h3>` by default) to establish a semantic hierarchy on the page. Use Title for headings inside a section. Pair it with `PageTitle` (`<h1>`) for the page heading and `SectionTitle` (`<h2>`) for major section headings.
 
 ## Basic Title
 
@@ -6675,7 +6676,7 @@ Three heading components for a clean semantic hierarchy. Use them together so th
 </Col>
 ```
 
-## Title Sizes
+## Title sizes
 
 Titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
@@ -6689,9 +6690,9 @@ Titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 </Col>
 ```
 
-## Title Appearances
+## Title appearances
 
-By default, Title uses the `inherit` appearance — it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `danger`, `warning`, `info` to override.
+By default, Title uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `danger`, `warning`, `info` to override.
 
 ```tsx demo
 <Col>
@@ -6704,7 +6705,7 @@ By default, Title uses the `inherit` appearance — it inherits color from its p
 </Col>
 ```
 
-## Font Weights
+## Font weights
 
 Title is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
 
@@ -6719,7 +6720,7 @@ Title is `semibold` by default. Override with any weight prop: `thin`, `extralig
 </Col>
 ```
 
-## Font Families
+## Font families
 
 Switch between `sans`, `serif`, and `mono` font families.
 
@@ -6747,7 +6748,7 @@ Use the `uppercase` prop to render the title in all caps.
 <Title uppercase>Uppercase Title</Title>
 ```
 
-## Text Alignment
+## Text alignment
 
 Title is left-aligned by default. Use `textCenter`, `textRight`, or `textJustify` to change alignment.
 
@@ -6759,7 +6760,7 @@ Title is left-aligned by default. Use `textCenter`, `textRight`, or `textJustify
 </div>
 ```
 
-## Custom HTML Tag
+## Custom HTML tag
 
 Override the rendered tag with the `tag` prop when the visual style of Title is wanted but a different semantic level is required.
 
@@ -6772,7 +6773,7 @@ Override the rendered tag with the `tag` prop when the visual style of Title is 
 </Col>
 ```
 
-## Title with Badge Context
+## Title with Badge context
 
 Titles pair naturally with badges, chips, and other inline components.
 
@@ -6789,7 +6790,7 @@ Titles pair naturally with badges, chips, and other inline components.
 </Col>
 ```
 
-## Title in Context
+## Title in context
 
 Titles work well with other typography components in cards and sections.
 
@@ -6831,7 +6832,7 @@ Three heading components for a clean semantic hierarchy. Use them together so th
 </Col>
 ```
 
-## PageTitle Sizes
+## PageTitle sizes
 
 Page titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
@@ -6845,9 +6846,9 @@ Page titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 </Col>
 ```
 
-## PageTitle Appearances
+## PageTitle appearances
 
-By default, PageTitle uses the `inherit` appearance — it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
+By default, PageTitle uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
 
 ```tsx demo
 <Col>
@@ -6860,7 +6861,7 @@ By default, PageTitle uses the `inherit` appearance — it inherits color from i
 </Col>
 ```
 
-## Font Weights
+## Font weights
 
 PageTitle is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
 
@@ -6875,7 +6876,7 @@ PageTitle is `semibold` by default. Override with any weight prop: `thin`, `extr
 </Col>
 ```
 
-## Font Families
+## Font families
 
 Switch between `sans`, `serif`, and `mono` font families.
 
@@ -6895,7 +6896,7 @@ Use the `italic` prop for italic emphasis.
 <PageTitle italic>Italic Page Title</PageTitle>
 ```
 
-## Text Alignment
+## Text alignment
 
 PageTitle is left-aligned by default. Use `textCenter`, `textRight`, or `textJustify` to change alignment.
 
@@ -6907,7 +6908,7 @@ PageTitle is left-aligned by default. Use `textCenter`, `textRight`, or `textJus
 </Card>
 ```
 
-## Custom HTML Tag
+## Custom HTML tag
 
 Override the rendered tag with the `tag` prop when the visual style of PageTitle is wanted but a different semantic level is required.
 
@@ -6920,7 +6921,7 @@ Override the rendered tag with the `tag` prop when the visual style of PageTitle
 </Col>
 ```
 
-## PageTitle in Context
+## PageTitle in context
 
 Page titles work well as the main heading of a page, paired with a subtitle.
 
@@ -6932,7 +6933,7 @@ Page titles work well as the main heading of a page, paired with a subtitle.
 </Card>
 ```
 
-## Page Header Pattern
+## Page header pattern
 
 Combine PageTitle with Text and Divider for a complete page header.
 
@@ -6945,7 +6946,7 @@ Combine PageTitle with Text and Divider for a complete page header.
 </Col>
 ```
 
-## Hero Page Header
+## Hero page header
 
 Combine an `xl` PageTitle with a large subtitle and a call to action for a marketing-style hero.
 
@@ -6987,7 +6988,7 @@ Three heading components for a clean semantic hierarchy.
 </Col>
 ```
 
-## SectionTitle Sizes
+## SectionTitle sizes
 
 Section titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
@@ -7001,9 +7002,9 @@ Section titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 </Col>
 ```
 
-## SectionTitle Appearances
+## SectionTitle appearances
 
-By default, SectionTitle uses the `inherit` appearance — it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
+By default, SectionTitle uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
 
 ```tsx demo
 <Col>
@@ -7016,7 +7017,7 @@ By default, SectionTitle uses the `inherit` appearance — it inherits color fro
 </Col>
 ```
 
-## Font Weights
+## Font weights
 
 SectionTitle is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
 
@@ -7031,7 +7032,7 @@ SectionTitle is `semibold` by default. Override with any weight prop: `thin`, `e
 </Col>
 ```
 
-## Font Families
+## Font families
 
 Switch between `sans`, `serif`, and `mono` font families.
 
@@ -7059,7 +7060,7 @@ Use the `uppercase` prop to render the title in all caps.
 <SectionTitle uppercase>Uppercase Section Title</SectionTitle>
 ```
 
-## Text Alignment
+## Text alignment
 
 SectionTitle is left-aligned by default. Use `textCenter`, `textRight`, or `textJustify` to change alignment.
 
@@ -7071,7 +7072,7 @@ SectionTitle is left-aligned by default. Use `textCenter`, `textRight`, or `text
 </Col>
 ```
 
-## Custom HTML Tag
+## Custom HTML tag
 
 Override the rendered tag with the `tag` prop when the visual style of SectionTitle is wanted but a different semantic level is required.
 
@@ -7101,7 +7102,7 @@ Override the rendered tag with the `tag` prop when the visual style of SectionTi
 </Col>
 ```
 
-## SectionTitle in Context
+## SectionTitle in context
 
 Section titles work well with other typography components in cards.
 
@@ -7116,7 +7117,7 @@ Section titles work well with other typography components in cards.
 </Card>
 ```
 
-## Section Header Pattern
+## Section header pattern
 
 Combine SectionTitle with Divider and content for a structured section.
 
@@ -7138,17 +7139,17 @@ URL: https://vaneui.com/docs/typography-components/link
 
 Renders an accessible and themeable anchor link for navigation. Use this to direct users to other pages or external websites.
 
-## When to Use
+## When to use
 
 - In-text navigation that sits naturally on the typography baseline.
 - External links to documentation, repositories, or referenced sources.
 - Footer/secondary navigation where a button would be visually too heavy.
 - Cross-references inside prose where the action is "go somewhere," not "do something."
 
-### When NOT to Use
+### When NOT to use
 
-- For action buttons (submit, confirm, run) — use `Button` instead.
-- For prominent calls-to-action — use `Button primary filled` for visual weight.
+- For action buttons (submit, confirm, run): use `Button` instead.
+- For prominent calls-to-action: use `Button primary filled` for visual weight.
 
 ## Customizing
 
@@ -7172,9 +7173,9 @@ A styled anchor element for navigation. Unlike other typography components which
 <Link href="#">Click here to learn more</Link>
 ```
 
-## Size Inherits from Context
+## Size inherits from context
 
-Link defaults to `inheritSize: true` so a link inside a heading renders at the heading's font-size automatically — no `size` prop needed. The link keeps its own blue colour.
+Link defaults to `inheritSize: true` so a link inside a heading renders at the heading's font-size automatically. No `size` prop needed. The link keeps its own blue colour.
 
 ```tsx demo
 <Col>
@@ -7185,9 +7186,9 @@ Link defaults to `inheritSize: true` so a link inside a heading renders at the h
 </Col>
 ```
 
-## Fixed Size with noInheritSize
+## Fixed size with noInheritSize
 
-Pass `noInheritSize` to render the Link at its own size instead of the parent's — useful when a link inside a heading should stay at body-text size.
+Pass `noInheritSize` to render the Link at its own size instead of the parent's, useful when a link inside a heading should stay at body-text size.
 
 ```tsx demo
 <Title>
@@ -7195,7 +7196,7 @@ Pass `noInheritSize` to render the Link at its own size instead of the parent's 
 </Title>
 ```
 
-## Explicit Sizes
+## Explicit sizes
 
 When `noInheritSize` is set (or the parent has no size context), choose an explicit size with `xs`, `sm`, `md` (default), `lg`, `xl`.
 
@@ -7209,7 +7210,7 @@ When `noInheritSize` is set (or the parent has no size context), choose an expli
 </Col>
 ```
 
-## Link Appearances
+## Link appearances
 
 Links default to the `link` appearance (blue). Override with: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`.
 
@@ -7226,7 +7227,7 @@ Links default to the `link` appearance (blue). Override with: `primary`, `brand`
 </Row>
 ```
 
-## Link Styling
+## Link styling
 
 Use `bold`, `semibold`, `italic`, or `noUnderline` to remove the default underline.
 
@@ -7239,18 +7240,18 @@ Use `bold`, `semibold`, `italic`, or `noUnderline` to remove the default underli
 </Col>
 ```
 
-## Hover State
+## Hover state
 
 Links keep an underline at rest. With `noUnderline`, the underline appears on hover for affordance. Links also render a keyboard focus-visible outline by default for keyboard users (opt out with `noFocusVisible`).
 
 ```tsx demo
 <Col>
   <Link href="#">Underlined at rest, stays underlined on hover</Link>
-  <Link noUnderline href="#">No underline at rest — hover to reveal it</Link>
+  <Link noUnderline href="#">No underline at rest, hover to reveal it</Link>
 </Col>
 ```
 
-## External Links
+## External links
 
 Pass the `external` prop and Link auto-applies `target="_blank"` and `rel="noopener noreferrer"` for safe cross-origin navigation.
 
@@ -7260,7 +7261,7 @@ Pass the `external` prop and Link auto-applies `target="_blank"` and `rel="noope
 
 ## Manual target="_blank"
 
-Setting `target="_blank"` directly also auto-applies `rel="noopener noreferrer"` — no need to spell it out.
+Setting `target="_blank"` directly also auto-applies `rel="noopener noreferrer"`. No need to spell it out.
 
 ```tsx demo
 <Link href="https://github.com/vaneui/vaneui" target="_blank">Open in a new tab</Link>
@@ -7268,7 +7269,7 @@ Setting `target="_blank"` directly also auto-applies `rel="noopener noreferrer"`
 
 ## Inline in Text
 
-Links integrate naturally with surrounding prose — drop them inline inside `Text` and they inherit the parent size.
+Links integrate naturally with surrounding prose. Drop them inline inside `Text` and they inherit the parent size.
 
 ```tsx demo
 <Text>
@@ -7277,9 +7278,9 @@ Links integrate naturally with surrounding prose — drop them inline inside `Te
 </Text>
 ```
 
-## Inherits Parent Text Size
+## Inherits parent Text size
 
-Links inside body text inherit the surrounding `Text` size — set the size on the parent and the Link follows along.
+Links inside body text inherit the surrounding `Text` size. Set the size on the parent and the Link follows along.
 
 ```tsx demo
 <Col>
@@ -7289,7 +7290,7 @@ Links inside body text inherit the surrounding `Text` size — set the size on t
 </Col>
 ```
 
-## With Icons
+## With icons
 
 Combine links with icons using Row for visual navigation cues.
 
@@ -7310,7 +7311,7 @@ Combine links with icons using Row for visual navigation cues.
 </Col>
 ```
 
-## Next.js Link Integration
+## Next.js Link integration
 
 Use the `tag` prop to render the VaneUI Link as a Next.js `Link` for client-side navigation. Alias the Next.js import so it doesn't shadow `Link` from `@vaneui/ui`.
 
@@ -7340,7 +7341,7 @@ An unordered list with bullet points.
 </List>
 ```
 
-## List Style Types
+## List style types
 
 List supports six marker types: `disc` (default for unordered), `decimal` (default for ordered), `circle`, `square`, `lowerAlpha`, and `lowerRoman`. Setting `decimal`, `lowerAlpha`, or `lowerRoman` switches the element from `<ul>` to `<ol>`.
 
@@ -7391,9 +7392,9 @@ List supports six marker types: `disc` (default for unordered), `decimal` (defau
 </Col>
 ```
 
-## Marker Position (inside vs outside)
+## Marker position (inside vs outside)
 
-Use `outside` (the default) to hang markers outside the content box so multi-line items align under the first character. Use `inside` to place markers inline with text — compact, but wrapped lines flow under the marker.
+Use `outside` (the default) to hang markers outside the content box so multi-line items align under the first character. Use `inside` to place markers inline with text. Compact, but wrapped lines flow under the marker.
 
 ```tsx demo
 <Col>
@@ -7408,15 +7409,15 @@ Use `outside` (the default) to hang markers outside the content box so multi-lin
     <Text semibold>inside</Text>
     <List inside className="w-64">
       <ListItem>A short item.</ListItem>
-      <ListItem>A much longer item that wraps onto a second line — markers flow inline with the text.</ListItem>
+      <ListItem>A much longer item that wraps onto a second line, markers flow inline with the text.</ListItem>
     </List>
   </div>
 </Col>
 ```
 
-## List Sizes
+## List sizes
 
-Lists come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Font size, line height, padding, and the gap between items all scale together via the CSS-variable pipeline. `ListItem` has no size default of its own — it inherits from the parent `List`, so `<List xl>` propagates to every item without repeating the prop.
+Lists come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Font size, line height, padding, and the gap between items all scale together via the CSS-variable pipeline. `ListItem` has no size default of its own. It inherits from the parent `List`, so `<List xl>` propagates to every item without repeating the prop.
 
 ```tsx demo
 <Col>
@@ -7439,9 +7440,9 @@ Lists come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Font size
 </Col>
 ```
 
-## List Appearances
+## List appearances
 
-Lists use `inherit` appearance by default — they inherit color from their parent and are `transparent` (no background). Use explicit appearances like `primary`, `success`, `danger` to override the text color. To add a background, combine an appearance with `filled`.
+Lists use `inherit` appearance by default: they inherit color from their parent and are `transparent` (no background). Use explicit appearances like `primary`, `success`, `danger` to override the text color. To add a background, combine an appearance with `filled`.
 
 ```tsx demo
 <Col>
@@ -7468,24 +7469,24 @@ Lists use `inherit` appearance by default — they inherit color from their pare
 </Col>
 ```
 
-## Nested Lists — automatic marker progression
+## Nested Lists: automatic marker progression
 
-Nested unordered lists automatically progress `disc` → `circle` → `square`. Nested ordered lists progress `decimal` → `lowerAlpha` → `lowerRoman`. Override a specific nested list with inline `style={{ listStyleType: "..." }}` — the parent descendant selector wins over a child utility class on specificity, so inline style is the escape hatch.
+Nested unordered lists automatically progress `disc` → `circle` → `square`. Nested ordered lists progress `decimal` → `lowerAlpha` → `lowerRoman`. Override a specific nested list with inline `style={{ listStyleType: "..." }}`. The parent descendant selector wins over a child utility class on specificity, so inline style is the escape hatch.
 
 ```tsx demo
 <Col>
   <div>
     <Text semibold>Unordered (ul)</Text>
     <List>
-      <ListItem>Level 0 — disc</ListItem>
+      <ListItem>Level 0: disc</ListItem>
       <ListItem>
         Parent
         <List>
-          <ListItem>Level 1 — circle</ListItem>
+          <ListItem>Level 1: circle</ListItem>
           <ListItem>
             Parent
             <List>
-              <ListItem>Level 2 — square</ListItem>
+              <ListItem>Level 2: square</ListItem>
             </List>
           </ListItem>
         </List>
@@ -7495,15 +7496,15 @@ Nested unordered lists automatically progress `disc` → `circle` → `square`. 
   <div>
     <Text semibold>Ordered (ol)</Text>
     <List decimal>
-      <ListItem>Level 0 — decimal</ListItem>
+      <ListItem>Level 0: decimal</ListItem>
       <ListItem>
         Parent
         <List decimal>
-          <ListItem>Level 1 — lowerAlpha</ListItem>
+          <ListItem>Level 1: lowerAlpha</ListItem>
           <ListItem>
             Parent
             <List decimal>
-              <ListItem>Level 2 — lowerRoman</ListItem>
+              <ListItem>Level 2: lowerRoman</ListItem>
             </List>
           </ListItem>
         </List>
@@ -7513,9 +7514,9 @@ Nested unordered lists automatically progress `disc` → `circle` → `square`. 
 </Col>
 ```
 
-## Item Spacing (gap vs noGap)
+## Item spacing (gap vs noGap)
 
-Lists apply a size-driven `gap` by default — a sibling margin between items that scales with the list's size prop. Use `noGap` to remove it entirely for a compact layout (useful for checklists or dense content).
+Lists apply a size-driven `gap` by default: a sibling margin between items that scales with the list's size prop. Use `noGap` to remove it entirely for a compact layout (useful for checklists or dense content).
 
 ```tsx demo
 <Col>
@@ -7538,7 +7539,7 @@ Lists apply a size-driven `gap` by default — a sibling margin between items th
 </Col>
 ```
 
-## Custom Item Icons
+## Custom item icons
 
 Pass an `icon` node to a `ListItem` to replace the native marker on that item only. The icon wrapper is sized to match the text line-height and scales with the list size, so checkmarks, arrows, or any custom SVG align cleanly with the text. For decorative glyphs, include `aria-hidden="true"` on the icon node.
 
@@ -7551,7 +7552,7 @@ Pass an `icon` node to a `ListItem` to replace the native marker on that item on
 </List>
 ```
 
-## List Styling
+## List styling
 
 Combine font properties like `bold`, `italic`, `mono` with lists.
 
@@ -7573,16 +7574,16 @@ Title: Blockquote
 URL: https://vaneui.com/docs/typography-components/blockquote
 ---
 
-Displays quoted content as a semantic `<blockquote>` with a left border accent. Inherits appearance from the parent by default for seamless embedding in themed containers.
+Displays quoted content as a semantic `<blockquote>` with a left border accent. Inherits appearance from the parent by default so it blends with themed containers.
 
-## Basic Usage
+## Basic usage
 
 A blockquote with attribution. The element renders as `<blockquote>` and inherits color from its surroundings.
 
 ```tsx demo
 <Blockquote>
   <Text italic>The only way to do great work is to love what you do.</Text>
-  <Text sm secondary>— Steve Jobs</Text>
+  <Text sm secondary> - Steve Jobs</Text>
 </Blockquote>
 ```
 
@@ -7619,12 +7620,12 @@ Blockquote supports five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ## Italic
 
-Italic is not a default — opt in with the `italic` prop for traditional quotation styling.
+Italic is not a default. Opt in with the `italic` prop for traditional quotation styling.
 
 ```tsx demo
 <Col>
-  <Blockquote primary>Upright (default) — no italic styling.</Blockquote>
-  <Blockquote primary italic>Italic — traditional quotation styling.</Blockquote>
+  <Blockquote primary>Upright (default), no italic styling.</Blockquote>
+  <Blockquote primary italic>Italic, traditional quotation styling.</Blockquote>
 </Col>
 ```
 
@@ -7634,16 +7635,16 @@ Use `filled` for solid background blockquotes or `outline` (default) for the lef
 
 ```tsx demo
 <Col>
-  <Blockquote primary>Outline (default) — with a left border accent.</Blockquote>
-  <Blockquote primary filled>Filled — solid background for emphasis.</Blockquote>
-  <Blockquote info>Outline info — informational note.</Blockquote>
-  <Blockquote info filled>Filled info — strong callout.</Blockquote>
+  <Blockquote primary>Outline (default), with a left border accent.</Blockquote>
+  <Blockquote primary filled>Filled, solid background for emphasis.</Blockquote>
+  <Blockquote info>Outline info, informational note.</Blockquote>
+  <Blockquote info filled>Filled info, strong callout.</Blockquote>
 </Col>
 ```
 
 ## Inside a Card
 
-Blockquote inherits the parent appearance, making it blend seamlessly inside themed containers.
+Blockquote inherits the parent appearance, so it blends into themed containers.
 
 ```tsx demo
 <Row flexWrap>
@@ -7659,7 +7660,7 @@ Blockquote inherits the parent appearance, making it blend seamlessly inside the
 </Row>
 ```
 
-## With Rich Content
+## With rich content
 
 Blockquotes can contain multiple paragraphs and nested components.
 
@@ -7670,7 +7671,7 @@ Blockquotes can contain multiple paragraphs and nested components.
 </Blockquote>
 ```
 
-## Testimonial Pattern
+## Testimonial pattern
 
 Use blockquotes with attribution for testimonials and customer quotes.
 
@@ -7678,14 +7679,14 @@ Use blockquotes with attribution for testimonials and customer quotes.
 <Col>
   <Card brand>
     <Blockquote>
-      <Text italic>VaneUI made our design system migration incredibly smooth. The boolean props API is intuitive and the theming is powerful.</Text>
-      <Text sm bold>— Sarah Chen, Lead Engineer</Text>
+      <Text italic>VaneUI cut our migration time in half. The boolean props API is concise and the theming covers our cases.</Text>
+      <Text sm bold> - Sarah Chen, Lead Engineer</Text>
     </Blockquote>
   </Card>
   <Card success>
     <Blockquote>
       <Text italic>We shipped our new dashboard in half the time thanks to VaneUI components.</Text>
-      <Text sm bold>— Alex Rivera, Product Manager</Text>
+      <Text sm bold> - Alex Rivera, Product Manager</Text>
     </Blockquote>
   </Card>
 </Col>
@@ -7700,11 +7701,11 @@ Title: Theming Overview
 URL: https://vaneui.com/docs/customization/theming-overview
 ---
 
-VaneUI uses a powerful theme system based on `ComponentTheme` classes that define styling for each component. This page explains the theme architecture and how to customize it.
+VaneUI uses a theme system based on `ComponentTheme` classes that define styling for each component. This page explains the theme architecture and how to customize it.
 
-## Theme Architecture
+## Theme architecture
 
-### ComponentTheme Class
+### ComponentTheme class
 
 Each component has a `ComponentTheme` instance that defines:
 - **tag**: Default HTML element (e.g., "button", "div")
@@ -7728,7 +7729,7 @@ const buttonTheme = new ComponentTheme(
 );
 ```
 
-### BaseTheme Subclasses
+### BaseTheme subclasses
 
 Each `BaseTheme` subclass generates specific CSS classes based on extracted props:
 
@@ -7749,7 +7750,7 @@ class SimpleConsumerTheme extends BaseTheme {
 }
 ```
 
-## Accessing the Theme
+## Accessing the theme
 
 Use the `useTheme` hook to access the current theme:
 
@@ -7762,38 +7763,38 @@ function CustomComponent() {
   // Compound themes are nested by sub-part
   const buttonMainTheme = theme.button.main;
   const cardMainTheme = theme.card.main;
-  // Simple themes are accessed directly
+  // Single-target themes are accessed directly
   const badgeTheme = theme.badge;
 
   return <div>Custom component</div>;
 }
 ```
 
-## Available Component Themes
+## Available component themes
 
 VaneUI includes themes for all components.
 
 **Interactive:**
 - `iconButton`, `badge`, `icon`, `chip`, `code`, `kbd`, `mark`, `input`, `label`, `img`
-- `button` — compound: `button.main`, `button.spinner`
-- `checkbox` — compound: `checkbox.input`, `checkbox.check`, `checkbox.indeterminate`, `checkbox.wrapper`
+- `button`: compound with `button.main`, `button.spinner`
+- `checkbox`: compound with `checkbox.input`, `checkbox.check`, `checkbox.indeterminate`, `checkbox.wrapper`
 
 **Layout:**
 - `divider`, `container`, `row`, `col`, `stack`, `section`
 - `grid2`, `grid3`, `grid4`, `grid5`, `grid6`
-- `card` — compound: `card.main`, `card.header`, `card.body`, `card.footer`
+- `card`: compound with `card.main`, `card.header`, `card.body`, `card.footer`
 
 **Typography:**
 - `text`, `title`, `pageTitle`, `sectionTitle`, `blockquote`, `link`, `list`, `listItem`
 
 **Overlay / Floating:**
-- `overlay` — Overlay backdrop theme
-- `popup` — Popup floating element theme
-- `modal` — compound: `modal.content`, `modal.overlay`, `modal.header`, `modal.body`, `modal.footer`, `modal.closeButton`
-- `menu` — compound: `menu.item`, `menu.popup`, `menu.divider`, `menu.label`
-- `navLink` — compound: `navLink.root`, `navLink.label`
+- `overlay`: Overlay backdrop theme
+- `popup`: Popup floating element theme
+- `modal`: compound with `modal.content`, `modal.overlay`, `modal.header`, `modal.body`, `modal.footer`, `modal.closeButton`
+- `menu`: compound with `menu.item`, `menu.popup`, `menu.divider`, `menu.label`
+- `navLink`: compound with `navLink.root`, `navLink.label`
 
-## ThemeProvider Props
+## ThemeProvider props
 
 ### themeDefaults
 
@@ -7891,7 +7892,7 @@ Control how nested ThemeProviders combine:
 </ThemeProvider>
 ```
 
-## Data Attributes
+## Data attributes
 
 Components emit data attributes that CSS rules use for styling:
 
@@ -7907,7 +7908,7 @@ Components emit data attributes that CSS rules use for styling:
 </button>
 ```
 
-CSS rules in `rules.css` set unit variables per `data-size` and per-component class — `--fs-unit`, `--py-unit`, and (for Icon) `--icon-size` are all set together so font-size, padding, gap, and border-radius scale together:
+CSS rules in `rules.css` set unit variables per `data-size` and per-component class. `--fs-unit`, `--py-unit`, and (for Icon) `--icon-size` are all set together so font-size, padding, gap, and border-radius scale together:
 
 ```css
 /* Per-component size mapping */
@@ -7930,11 +7931,11 @@ CSS rules in `rules.css` set unit variables per `data-size` and per-component cl
 }
 ```
 
-## Baseline Inheritance
+## Baseline inheritance
 
-`primary + outline` matches the `:root` palette, so VaneUI **omits** `data-appearance` and `data-variant` for components resolving to those values. The component then inherits color variables from its nearest ancestor — this is what lets a default `<Button>` inside a filled `<Card>` automatically pick up the Card's text and background colors. Identity components (`Mark`, `Chip`, `Link`, `Checkbox`) deviate from baseline and always emit their own attributes. See [Variant Inheritance](./variant-inheritance) for details.
+`primary + outline` matches the `:root` palette, so VaneUI **omits** `data-appearance` and `data-variant` for components resolving to those values. The component then inherits color variables from its nearest ancestor. This is what lets a default `<Button>` inside a filled `<Card>` automatically pick up the Card's text and background colors. Identity components (`Mark`, `Chip`, `Link`, `Checkbox`) deviate from baseline and always emit their own attributes. See [Variant Inheritance](./variant-inheritance) for details.
 
-## Flow Summary
+## Flow summary
 
 1. User writes: `<Button danger lg filled>Click</Button>`
 2. Button component calls `useTheme()` to get `theme.button.main`
@@ -7953,11 +7954,11 @@ URL: https://vaneui.com/docs/customization/using-theme-provider
 
 The ThemeProvider is the foundation of VaneUI's theming system. It wraps your application and provides theme context to all child components, enabling consistent styling and customization throughout your app.
 
-## Basic Setup
+## Basic setup
 
-### Simple ThemeProvider
+### Minimal ThemeProvider
 
-The most basic setup requires no configuration - components use their built-in defaults:
+The most basic setup requires no configuration. Components use their built-in defaults:
 
 ```tsx
 import { ThemeProvider, Button, Badge, Card } from '@vaneui/ui';
@@ -7975,7 +7976,7 @@ function App() {
 }
 ```
 
-### Setting Default Props
+### Setting default props
 
 Configure default boolean props for all components:
 
@@ -8004,9 +8005,9 @@ function App() {
 }
 ```
 
-Most components take props directly. **Components with sub-themes** — `button`, `card`, `checkbox`, `modal`, `menu`, `navLink` — are nested by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.).
+Most components take props directly. **Components with sub-themes** (`button`, `card`, `checkbox`, `modal`, `menu`, `navLink`) are nested by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.).
 
-## ThemeProvider Props
+## ThemeProvider props
 
 ### themeDefaults
 
@@ -8086,7 +8087,7 @@ Control how nested ThemeProviders combine (`'merge'` or `'replace'`):
 </ThemeProvider>
 ```
 
-## Nested Theming
+## Nested theming
 
 Override themes for specific sections of your app:
 
@@ -8116,7 +8117,7 @@ function NestedThemeApp() {
 }
 ```
 
-## Accessing Theme Context
+## Accessing theme context
 
 Use the `useTheme` hook to access theme values in custom components:
 
@@ -8134,7 +8135,7 @@ function CustomComponent() {
 }
 ```
 
-## Custom Colors
+## Custom colors
 
 VaneUI uses CSS variables for colors. Override them globally or for specific sections:
 
@@ -8167,9 +8168,9 @@ function App() {
 }
 ```
 
-## Common Patterns
+## Recurring ThemeProvider patterns
 
-### Brand Theme
+### Brand theme
 
 Create a consistent brand experience:
 
@@ -8191,7 +8192,7 @@ function BrandedApp() {
 }
 ```
 
-### Section-Specific Styling
+### Section-specific styling
 
 Different themes for different areas:
 
@@ -8227,16 +8228,16 @@ function MultiSectionApp() {
 }
 ```
 
-## Advanced Customization
+## Advanced customization
 
 For more detailed information about specific ThemeProvider properties, see these dedicated guides:
 
-- **[Theming Overview](./theming-overview)** - Understand the theme architecture
-- **[ThemeDefaults](./theme-defaults)** - Set application-wide default values
-- **[ExtraClasses](./extra-classes)** - Add custom CSS classes
-- **[CSS Variables](./css-variables)** - Customize colors using CSS custom properties
+- **[Theming Overview](./theming-overview)**: Understand the theme architecture
+- **[ThemeDefaults](./theme-defaults)**: Set application-wide default values
+- **[ExtraClasses](./extra-classes)**: Add custom CSS classes
+- **[CSS Variables](./css-variables)**: Customize colors using CSS custom properties
 
-The ThemeProvider is designed to be flexible and powerful, allowing you to start simple and add complexity as needed.
+ThemeProvider lets you start with a few overrides and add more as needs grow.
 
 ---
 Title: Theme & ThemeOverride
@@ -8245,16 +8246,16 @@ URL: https://vaneui.com/docs/customization/theme-and-override
 
 The `themeOverride` property allows programmatic modifications to component themes. Use it to add base classes or change defaults for any subtree of your application.
 
-## Basic Usage
+## Basic usage
 
-### Modifying Base Classes
+### Modifying base classes
 
 Add CSS classes that apply to all instances of a component:
 
 ```tsx
 <ThemeProvider themeOverride={(theme) => {
   // Compound themes are nested by sub-part — Button is `button.main`,
-  // Card is `card.main`. Simple themes (Badge, Chip, etc.) sit at the top level.
+  // Card is `card.main`. Single-target themes (Badge, Chip, etc.) sit at the top level.
   theme.button.main.base += ' uppercase tracking-wide';
   theme.card.main.base += ' shadow-sm';
   return theme;
@@ -8264,7 +8265,7 @@ Add CSS classes that apply to all instances of a component:
 </ThemeProvider>
 ```
 
-### Modifying Default Props
+### Modifying default props
 
 Change the default boolean props for components:
 
@@ -8281,7 +8282,7 @@ Change the default boolean props for components:
 </ThemeProvider>
 ```
 
-Note: For changing defaults, prefer using `themeDefaults` instead — it's simpler and uses the public `ThemeDefaults` type:
+Note: For changing defaults, prefer using `themeDefaults` instead. It uses fewer pieces and the public `ThemeDefaults` type:
 
 ```tsx
 // Preferred approach for defaults
@@ -8290,7 +8291,7 @@ Note: For changing defaults, prefer using `themeDefaults` instead — it's simpl
 }}>
 ```
 
-## Combining with Other Props
+## Combining with other props
 
 Use `themeOverride` alongside `themeDefaults` and `extraClasses`:
 
@@ -8329,10 +8330,10 @@ Child overrides build on parent modifications:
 </ThemeProvider>
 ```
 
-## When to Use themeOverride
+## When to use themeOverride
 
 - **Use `themeOverride`** when you need to add base CSS classes to all component instances
-- **Use `themeDefaults`** when you want to change default boolean props (simpler syntax)
+- **Use `themeDefaults`** when you want to change default boolean props (smaller surface)
 - **Use `extraClasses`** when you want to add classes based on active props
 
 ---
@@ -8340,15 +8341,15 @@ Title: ThemeDefaults
 URL: https://vaneui.com/docs/customization/theme-defaults
 ---
 
-The `themeDefaults` property in VaneUI's ThemeProvider allows you to set default boolean props for components throughout your application. This provides a powerful way to establish consistent defaults while still allowing individual components to override these values.
+The `themeDefaults` property in VaneUI's ThemeProvider allows you to set default boolean props for components throughout your application. It establishes consistent defaults while still allowing individual components to override these values.
 
-## Understanding ThemeDefaults
+## Understanding themeDefaults
 
 ### themeDefaults?: ThemeDefaults
 
 The `themeDefaults` property accepts an object where keys are component names and values are objects with boolean props. These defaults are merged with VaneUI's built-in defaults.
 
-Most components take props directly. **Components with sub-themes** — `button`, `card`, `checkbox`, `modal`, `menu`, `navLink` — take a nested object keyed by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.).
+Most components take props directly. **Components with sub-themes** (`button`, `card`, `checkbox`, `modal`, `menu`, `navLink`) take a nested object keyed by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.).
 
 ```tsx
 <ThemeProvider themeDefaults={{
@@ -8361,9 +8362,9 @@ Most components take props directly. **Components with sub-themes** — `button`
 </ThemeProvider>
 ```
 
-## Setting Component Defaults
+## Setting component defaults
 
-### Basic Defaults
+### Basic defaults
 
 Set default boolean props for specific component types:
 
@@ -8397,7 +8398,7 @@ function App() {
 }
 ```
 
-### Brand-Specific Defaults
+### Brand-specific defaults
 
 Create consistent branding across your application:
 
@@ -8421,27 +8422,27 @@ function BrandedApp() {
 }
 ```
 
-## Available Boolean Props
+## Available boolean props
 
-### Size Props
+### Size props
 - `xs`, `sm`, `md`, `lg`, `xl`
 
-### Appearance Props
+### Appearance props
 - `primary`, `brand`, `accent`, `secondary`, `tertiary`
 - `success`, `danger`, `warning`, `info`, `link`, `inherit`
 
-### Variant Props
+### Variant props
 - `filled`, `outline`
 
-### Shape Props
+### Shape props
 - `rounded`, `pill`, `sharp`
 
-### Typography Props
+### Typography props
 - `sans`, `serif`, `mono`, `heading`
 - `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`
 - `italic`, `underline`, `lineThrough`, `noUnderline`, `uppercase`, `lowercase`, `capitalize`
 
-### Layout Props
+### Layout props
 - `flex`, `inlineFlex`, `block`, `inline`, `grid`, `hidden`
 - `row`, `column`, `rowReverse`, `columnReverse`
 - `itemsStart`, `itemsCenter`, `itemsEnd`, `itemsStretch`, `itemsBaseline`
@@ -8451,23 +8452,23 @@ function BrandedApp() {
 - `border`, `noBorder`, `borderT`, `borderB`, `borderL`, `borderR`, `borderX`, `borderY`
 - `ring`, `noRing`, `shadow`, `noShadow`, `transparent`
 
-### Width / Height Props
+### Width / height props
 - `wFull`, `wFit`, `wAuto`, `wScreen`
 - `hFull`, `hFit`, `hAuto`, `hScreen`
 
-### Truncate Props
+### Truncate props
 - `truncate`, `lineClamp2`, `lineClamp3`, `lineClamp4`, `lineClamp5`, `noTruncate`
 
-### Letter Spacing Props
+### Letter spacing props
 - `trackingTighter`, `trackingTight`, `trackingNormal`, `trackingWide`, `trackingWider`, `trackingWidest`
 
-### Cursor Props
+### Cursor props
 - `cursorPointer`, `cursorDefault`, `cursorNotAllowed`, `cursorNone`, `cursorText`, `cursorMove`, `cursorWait`
 
-### Position Props
+### Position props
 - `relative`, `absolute`, `fixed`, `sticky`, `static`
 
-### Responsive Props (Layout)
+### Responsive props (layout)
 - `mobileCol`, `tabletCol`, `desktopCol`
 - `mobileHide`, `tabletHide`, `desktopHide`
 
@@ -8476,11 +8477,11 @@ function BrandedApp() {
 - `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder`
 - `responsive`, `horizontal`, `vertical`, `disc`, `decimal`
 
-## Override Priority
+## Override priority
 
 Understanding how defaults interact with component props:
 
-### Priority Order
+### Priority order
 
 1. **Component props** (highest priority)
 2. **ThemeDefaults from closest ThemeProvider**
@@ -8506,7 +8507,7 @@ function OverrideExample() {
 }
 ```
 
-## Layout Component Defaults
+## Layout component defaults
 
 Configure defaults for layout components:
 
@@ -8535,9 +8536,9 @@ function LayoutDefaults() {
 }
 ```
 
-## Dynamic Defaults
+## Dynamic defaults
 
-### Runtime Default Changes
+### Runtime default changes
 
 Update defaults based on user preferences or application state:
 
@@ -8570,7 +8571,7 @@ function DynamicDefaults() {
 }
 ```
 
-### Contextual Defaults
+### Contextual defaults
 
 Different defaults for different areas of your app:
 
@@ -8598,7 +8599,7 @@ function ContextualDefaults() {
 }
 ```
 
-## Section-Specific Styling
+## Section-specific styling
 
 Different themes for different page sections:
 
@@ -8636,13 +8637,13 @@ function MultiSectionApp() {
 }
 ```
 
-## Best Practices
+## Patterns that keep themeDefaults predictable
 
-### Know VaneUI's Built-in Defaults
+### Know VaneUI's built-in defaults
 
 VaneUI components come with sensible built-in defaults. Only set defaults that differ from these:
 
-**Built-in defaults you don't need to specify** (cite the component's `{component}Defaults.ts` file as the source of truth when in doubt). Components that tag-switch to `<a>` via `href` (Badge, Card, Chip, Code, Row, Col, Stack) also get `focusVisible: true` auto-injected when `href` is set — opt out per-instance with `noFocusVisible`.
+**Built-in defaults you don't need to specify** (cite the component's `{component}Defaults.ts` file as the source of truth when in doubt). Components that tag-switch to `<a>` via `href` (Badge, Card, Chip, Code, Row, Col, Stack) also get `focusVisible: true` auto-injected when `href` is set. Opt out per-instance with `noFocusVisible`.
 
 - **Button**: `sm`, `primary`, `outline`, `rounded`, `semibold`, `padding`, `gap`, `ring`, `focusVisible`, `cursorPointer`, `transition` (note: defaults to `sm`, not `md`; no `shadow`)
 - **Card**: `md`, `primary`, `outline`, `rounded`, `border`, `padding`, `gap`, `flex`, `column`
@@ -8652,9 +8653,10 @@ VaneUI components come with sensible built-in defaults. Only set defaults that d
 - **Section**: `md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `noBorder`, `noRing`, `noShadow`, `outline`, `sharp`, `responsive`
 - **Container**: `md`, `wFull`, `flex`, `column`, `itemsCenter`, `gap`, `noPadding`, `outline`, `sharp`
 - **Input**: `md`, `wFull`, `primary`, `outline`, `rounded`, `padding`, `ring`, `focusVisible`
+- **Label**: `sm`, `flex`, `itemsCenter`, `gap`, `inherit` (not `primary`), `medium` (`itemsCenter` vertically centers the label text next to a nested `Input` or `Checkbox`)
 - **Badge**: `md`, `primary`, `outline`, `pill`, `semibold`, `uppercase`
 - **Chip**: `md`, `secondary` (not `primary`), `outline`, `rounded`, `mono`
-- **Link**: `md`, `link` (not `primary`), `underline`, `sans`, `cursorPointer`, `inheritSize`, `wFit`, `focusVisible` (no variant default — no `outline`)
+- **Link**: `md`, `link` (not `primary`), `underline`, `sans`, `cursorPointer`, `inheritSize`, `wFit`, `focusVisible` (no variant default, no `outline`)
 - **NavLink**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`
 - **MenuItem**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`
 - **Typography** (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`): `md`, `inherit` (not `primary`), `outline`
@@ -8677,7 +8679,7 @@ VaneUI components come with sensible built-in defaults. Only set defaults that d
 }}>
 ```
 
-### Consistent Defaults
+### Consistent defaults
 
 Establish defaults that align with your design system:
 
@@ -8702,7 +8704,7 @@ const designSystemDefaults: ThemeDefaults = {
 </ThemeProvider>
 ```
 
-### Logical Groupings
+### Logical groupings
 
 Group related defaults together for maintainability:
 
@@ -8732,7 +8734,7 @@ const layoutDefaults: ThemeDefaults = {
 </ThemeProvider>
 ```
 
-The `themeDefaults` property provides a robust system for establishing consistent default values throughout your VaneUI application, enabling global consistency while maintaining the flexibility to override defaults when needed.
+`themeDefaults` establishes consistent default values across the application while allowing per-instance overrides on individual components.
 
 ---
 Title: ExtraClasses
@@ -8741,17 +8743,17 @@ URL: https://vaneui.com/docs/customization/extra-classes
 
 The `extraClasses` property in VaneUI's ThemeProvider allows you to add additional CSS classes to components based on which boolean props are active. This enables custom styling, animations, and effects while maintaining VaneUI's theming architecture.
 
-## Understanding ExtraClasses
+## Understanding extraClasses
 
 ### extraClasses?: ThemeExtraClasses
 
 The `extraClasses` property accepts an object where keys are component names and values map boolean prop names to CSS class strings. When a prop is active, its associated classes are added.
 
-Most components are keyed directly. **Components with sub-themes** — `button`, `card`, `checkbox`, `modal`, `menu`, `navLink` — are nested by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.). The shape mirrors `themeDefaults`.
+Most components are keyed directly. **Components with sub-themes** (`button`, `card`, `checkbox`, `modal`, `menu`, `navLink`) are nested by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.). The shape mirrors `themeDefaults`.
 
-## Basic Usage
+## Basic usage
 
-### Adding Classes Based on Props
+### Adding classes based on props
 
 Apply extra classes when specific boolean props are active:
 
@@ -8779,7 +8781,7 @@ function App() {
 }
 ```
 
-### Size-Based Classes
+### Size-based classes
 
 Add classes based on size props:
 
@@ -8796,9 +8798,9 @@ Add classes based on size props:
 </ThemeProvider>
 ```
 
-## Animation and Effects
+## Animation and effects
 
-### Hover and Transition Effects
+### Hover and transition effects
 
 Create engaging interactions with animation classes:
 
@@ -8821,7 +8823,7 @@ Create engaging interactions with animation classes:
 </ThemeProvider>
 ```
 
-### Attention-Grabbing Effects
+### Attention-grabbing effects
 
 Draw attention to important elements:
 
@@ -8842,7 +8844,7 @@ Draw attention to important elements:
 </ThemeProvider>
 ```
 
-## Combining Multiple Props
+## Combining multiple props
 
 When multiple props are active, all their associated classes are combined:
 
@@ -8861,9 +8863,9 @@ When multiple props are active, all their associated classes are combined:
 </ThemeProvider>
 ```
 
-## Conditional Extra Classes
+## Conditional extra classes
 
-### Dynamic Class Application
+### Dynamic class application
 
 Apply classes based on application state:
 
@@ -8904,9 +8906,9 @@ function DynamicExtraClasses() {
 }
 ```
 
-## Best Practices
+## Patterns that keep extraClasses predictable
 
-### Consistent Naming
+### Consistent naming
 
 Use consistent class patterns:
 
@@ -8928,7 +8930,7 @@ const extraClasses = {
 };
 ```
 
-### Avoid Conflicting Classes
+### Avoid conflicting classes
 
 Be careful not to add classes that conflict with VaneUI's size-driven system (padding, gap, font-size, border-radius scale via the size prop):
 
@@ -8944,7 +8946,7 @@ extraClasses: {
 }
 ```
 
-The `extraClasses` system provides a powerful way to extend VaneUI components with custom styling based on active props, enabling seamless integration with any CSS framework while maintaining the benefits of the theming system.
+The `extraClasses` system lets you extend VaneUI components with prop-conditional classes and integrate with any CSS framework while keeping the theming system intact.
 
 ---
 Title: CSS Variables
@@ -8953,10 +8955,10 @@ URL: https://vaneui.com/docs/customization/css-variables
 
 VaneUI components use a three-tier CSS variable system. Override these variables to change colors globally or for any subtree. This page explains the variable architecture and how to customize it.
 
-## Three-Tier Variable System
+## Three-tier variable system
 
-### Tier 1: Unit Variables
-Set per-component in `rules.css` based on the `data-size` attribute. Each per-size block sets all the unit vars that scale with size — typically `--fs-unit`, `--py-unit`, and (for Icon) `--icon-size` — so font-size, padding, gap, and border-radius all change together:
+### Tier 1: unit variables
+Set per-component in `rules.css` based on the `data-size` attribute. Each per-size block sets all the unit vars that scale with size (typically `--fs-unit`, `--py-unit`, and for Icon `--icon-size`) so font-size, padding, gap, and border-radius all change together:
 ```css
 .vane-button[data-size="md"] {
   --fs-unit: var(--fs-unit-md);   /* Font size unit (8 by default) */
@@ -8968,7 +8970,7 @@ Set per-component in `rules.css` based on the `data-size` attribute. Each per-si
 [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; }
 ```
 
-### Tier 2: Computed Variables
+### Tier 2: computed variables
 Calculated from unit variables in `@layer base`:
 ```css
 [data-size] {
@@ -8986,7 +8988,7 @@ Calculated from unit variables in `@layer base`:
 }
 ```
 
-### Tier 3: Semantic Color Variables
+### Tier 3: semantic color variables
 Set by `data-variant` + `data-appearance` attribute combinations:
 ```css
 [data-variant="outline"][data-appearance="primary"] {
@@ -8996,15 +8998,15 @@ Set by `data-variant` + `data-appearance` attribute combinations:
 }
 ```
 
-### Icon Sizing — Decoupled from Font Size
-Components that render icons (`Button`, `IconButton`, `Icon`, `Badge`, `Chip`, `Menu`, `NavLink`, `Link`, `ListItem`) size icons via `--icon-size`, not `--fs`. For most components this is `calc(var(--fs) * var(--lh))`, but `Icon` sets it independently per size as `calc(var(--spacing) * N)` — so an `<Icon md>` is 8 × `--spacing` regardless of any inherited font-size:
+### Icon sizing: decoupled from font size
+Components that render icons (`Button`, `IconButton`, `Icon`, `Badge`, `Chip`, `Menu`, `NavLink`, `Link`, `ListItem`) size icons via `--icon-size`, not `--fs`. For most components this is `calc(var(--fs) * var(--lh))`, but `Icon` sets it independently per size as `calc(var(--spacing) * N)`. An `<Icon md>` is 8 × `--spacing` regardless of any inherited font-size:
 
 ```css
 .vane-icon[data-size="md"] { --icon-size: calc(var(--spacing) * 8); }
 .vane-icon[data-size="lg"] { --icon-size: calc(var(--spacing) * 12); }
 ```
 
-## Appearance Values
+## Appearance values
 
 Replace `{appearance}` in variable names with one of:
 - `primary` - neutral/default styling (gray tones)
@@ -9021,13 +9023,13 @@ Replace `{appearance}` in variable names with one of:
 
 > The `inherit` appearance works differently from all other appearances. Instead of setting `data-appearance` and `data-variant` attributes, it omits them entirely. This allows the semantic color CSS variables (`--text-color`, `--bg-color`, `--border-color`) to cascade from parent elements rather than being set explicitly on the component. Typography components (Text, Title, SectionTitle, PageTitle), Label, List, and Divider default to `inherit`.
 
-## Color Variable Groups
+## Color variable groups
 
-### Text Colors
+### Text colors
 - `--color-text-{appearance}` - text color for outline variant
 - `--color-text-filled-{appearance}` - text color for filled variant
 
-### Background Colors
+### Background colors
 - `--color-bg-{appearance}` - background for outline variant
 - `--color-bg-hover-{appearance}` - hover state background
 - `--color-bg-active-{appearance}` - active state background
@@ -9037,13 +9039,14 @@ Replace `{appearance}` in variable names with one of:
 - `--color-bg-layout-{appearance}` - layout component backgrounds
 - `--color-bg-filled-layout-{appearance}` - filled layout backgrounds
 
-### Border Colors
+### Border colors
 - `--color-border-{appearance}` - border color for outline variant
+- `--color-border-form` - border color for unchecked `Checkbox` controls. One step darker than the layout border (`gray-300` vs `gray-200`) so controls stay distinct on light surfaces. Kept off the appearance system, so secondary or tertiary `Card`, `Button`, and `Chip` keep their lighter border.
 
-### Focus Ring Colors
+### Focus ring colors
 - `--color-focus-{appearance}` - focus-visible outline color (used by all variants)
 
-## Base Variables
+## Base variables
 
 VaneUI defines base variables in the `@theme` block (in `tokens.css`) that control the foundation of the sizing system:
 
@@ -9055,7 +9058,7 @@ VaneUI defines base variables in the `@theme` block (in `tokens.css`) that contr
 }
 ```
 
-### Font Size Unit Scale
+### Font size unit scale
 These variables define the font size multipliers for each size. At Tailwind's default `--spacing: 0.25rem`, `--fs-base` = 0.125rem:
 
 ```css
@@ -9066,7 +9069,7 @@ These variables define the font size multipliers for each size. At Tailwind's de
 --fs-unit-xl: 10;  /* xl = 10 × 0.125rem = 1.25rem  (20px) */
 ```
 
-### Component-Specific Sizing
+### Component-specific sizing
 
 Padding, gap, and radius values are set per-component (and per `data-vane-type`) in `rules.css`:
 
@@ -9077,7 +9080,7 @@ Padding, gap, and radius values are set per-component (and per `data-vane-type`)
 /* Layout defaults (Card, Row, Col, Stack, Section, Container, Grid*) */
 [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; }
 
-/* Per-component overrides — Button sets its own --py-unit per size */
+/* Per-component overrides: Button sets its own --py-unit per size */
 .vane-button[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
 ```
 
@@ -9089,7 +9092,7 @@ To customize sizing globally, override the computed variables in your CSS:
 }
 ```
 
-## Global Override (Site-wide)
+## Global override (site-wide)
 ```css
 /* styles/globals.css */
 :root {
@@ -9100,7 +9103,7 @@ To customize sizing globally, override the computed variables in your CSS:
 }
 ```
 
-## Scoped Override (Specific Section)
+## Scoped override (specific section)
 ```css
 /* Only affects components inside .marketing */
 .marketing {
@@ -9110,7 +9113,7 @@ To customize sizing globally, override the computed variables in your CSS:
 }
 ```
 
-## Notes and Tips
+## Notes and tips
 - Use the semantic names above; avoid inventing new variable names.
 - Values cascade. The closest definition (inline, container, :root) wins.
 - Prefer semantic overrides (primary, brand, success, danger) for consistent theming.
@@ -9124,7 +9127,7 @@ URL: https://vaneui.com/docs/customization/customizing-styles
 
 VaneUI components are styled through boolean props and CSS variables, but you can override any visual property using standard Tailwind CSS classes via the `className` prop. This page explains how overrides work, when to use each approach, and common pitfalls.
 
-## How className Overrides Work
+## How className overrides work
 
 VaneUI uses [`tailwind-merge`](https://github.com/dcastil/tailwind-merge) to combine theme-generated classes with your `className`. When a conflict exists, **your class always wins** because `className` is passed last:
 
@@ -9133,13 +9136,13 @@ VaneUI uses [`tailwind-merge`](https://github.com/dcastil/tailwind-merge) to com
 const finalClasses = twMerge(...themeGeneratedClasses, className);
 ```
 
-This means the conflict is resolved at the **JavaScript level** — the losing class is removed from the string entirely before the DOM renders. There are no CSS specificity wars or `!important` hacks.
+This means the conflict is resolved at the **JavaScript level**: the losing class is removed from the string entirely before the DOM renders. There are no CSS specificity wars or `!important` hacks.
 
-## What You Can Override
+## Properties className can override
 
 VaneUI components use CSS variable consumer classes like `border-(--border-color)`, `text-(--text-color)`, and `bg-(--bg-color)`. These compile to standard CSS (`border-color: var(--border-color)`). Any Tailwind utility that targets the same CSS property will override them.
 
-### Border Color
+### Border color
 
 ```tsx
 // VaneUI generates: border-(--border-color)
@@ -9148,7 +9151,7 @@ VaneUI components use CSS variable consumer classes like `border-(--border-color
 <Card className="border-red-300">Custom border</Card>
 ```
 
-### Text Color
+### Text color
 
 ```tsx
 // VaneUI generates: text-(--text-color)
@@ -9157,7 +9160,7 @@ VaneUI components use CSS variable consumer classes like `border-(--border-color
 <Text className="text-emerald-600">Custom text color</Text>
 ```
 
-### Background Color
+### Background color
 
 ```tsx
 // VaneUI generates: bg-(--bg-color)
@@ -9168,9 +9171,9 @@ VaneUI components use CSS variable consumer classes like `border-(--border-color
 </Card>
 ```
 
-### Hover, Active, and Focus States
+### Hover, active, and focus states
 
-State-specific overrides work too — each state variant is resolved independently:
+State-specific overrides work too. Each state variant is resolved independently:
 
 ```tsx
 // Override hover background
@@ -9190,7 +9193,7 @@ State-specific overrides work too — each state variant is resolved independent
 <Card className="shadow-none">No shadow</Card>
 ```
 
-### Non-Conflicting Properties Are Preserved
+### Non-conflicting properties are preserved
 
 `twMerge` only removes classes that target the **same CSS property**. Different properties coexist:
 
@@ -9202,7 +9205,7 @@ State-specific overrides work too — each state variant is resolved independent
 </Card>
 ```
 
-## Override Hierarchy
+## Override hierarchy
 
 From lowest to highest priority:
 
@@ -9217,7 +9220,7 @@ From lowest to highest priority:
 
 For most use cases, `className` (level 5) is the right tool. Use `themeDefaults` or `extraClasses` when you need the override to apply across many components.
 
-## CSS Variable Approach
+## CSS variable approach
 
 Instead of overriding the consumer class with a Tailwind utility, you can override the underlying CSS variable. This keeps VaneUI's consumer class active but changes what value it reads:
 
@@ -9231,8 +9234,8 @@ Instead of overriding the consumer class with a Tailwind utility, you can overri
 
 **When to use CSS variables vs className:**
 
-- **`className="border-red-300"`** — static override, ignores the theme entirely. The component's `border-(--border-color)` class is removed by twMerge.
-- **`style={{ '--border-color': '...' }}`** — theme-aware override. The component still uses its consumer class, but the variable value is different. Children inherit the new value.
+- **`className="border-red-300"`**: static override, ignores the theme entirely. The component's `border-(--border-color)` class is removed by twMerge.
+- **`style={{ '--border-color': '...' }}`**: theme-aware override. The component still uses its consumer class, but the variable value is different. Children inherit the new value.
 
 The CSS variable approach is especially useful when you want descendants to inherit your override:
 
@@ -9244,9 +9247,9 @@ The CSS variable approach is especially useful when you want descendants to inhe
 </Card>
 ```
 
-## When to Use VaneUI Props Instead
+## When to use VaneUI props instead
 
-VaneUI provides boolean props for most common styling needs. Always prefer props over Tailwind classes when a prop exists — this ensures the styling integrates with the size system, responds to theme changes, and works with `ThemeProvider` overrides.
+VaneUI provides boolean props for most common styling needs. Always prefer props over Tailwind classes when a prop exists. This ensures the styling integrates with the size system, responds to theme changes, and works with `ThemeProvider` overrides.
 
 | Instead of Tailwind | Use VaneUI Prop |
 |---------------------|-----------------|
@@ -9259,7 +9262,7 @@ VaneUI provides boolean props for most common styling needs. Always prefer props
 | `className="gap-4"` | Use size props (`xs` through `xl`) |
 | `className="bg-red-500"` | `danger filled` |
 
-## className Is for Things VaneUI Props Don't Cover
+## className is for things VaneUI props don't cover
 
 Good uses of `className`:
 
@@ -9282,7 +9285,7 @@ Good uses of `className`:
 <Img className="aspect-video" src="/banner.jpg" alt="Banner" />
 ```
 
-## Common Pitfalls
+## className pitfalls to avoid
 
 ### Don't override gap with Tailwind classes
 
@@ -9319,7 +9322,7 @@ Padding is also size-driven and scales proportionally:
 <Button danger filled>Delete</Button>
 ```
 
-### Beware of className on Typography Components
+### Beware of className on typography components
 
 Typography components have built-in letter spacing, line height, and font size that scale with the size prop. Overriding these with Tailwind classes breaks the proportional scaling:
 
@@ -9338,13 +9341,13 @@ URL: https://vaneui.com/docs/customization/variant-inheritance
 
 VaneUI components inherit their colors from ancestor components through native CSS custom-property cascade. This page explains how inheritance works, when components set their own colors vs. inherit, and how to control the behavior.
 
-## How It Works
+## How variants and appearances cascade through nesting
 
 VaneUI's color system has three layers:
 
-1. **`:root` fallbacks** — set `--text-color`, `--bg-color`, `--border-color` etc. to the primary outline palette (dark text, white background, light border)
-2. **Direct CSS rules** — when a component has `data-variant` + `data-appearance` attributes, a CSS rule fires and rewrites those variables on the element
-3. **CSS cascade** — children that don't set their own variables inherit from the nearest ancestor that did
+1. **`:root` fallbacks**: set `--text-color`, `--bg-color`, `--border-color` etc. to the primary outline palette (dark text, white background, light border)
+2. **Direct CSS rules**: when a component has `data-variant` + `data-appearance` attributes, a CSS rule fires and rewrites those variables on the element
+3. **CSS cascade**: children that don't set their own variables inherit from the nearest ancestor that did
 
 ```
 :root                           → --text-color: dark, --bg-color: white
@@ -9355,17 +9358,17 @@ VaneUI's color system has three layers:
     <Mark>                      → --text-color: amber (warning)           (identity, own rule fires)
 ```
 
-## Which Components Set vs. Inherit
+## Which components set vs. inherit
 
-### Components That Inherit (no data attributes by default)
+### Components that inherit (no data attributes by default)
 
-These components use the primary + outline defaults from the library baseline. Because `primary + outline` matches the `:root` palette, VaneUI skips data-attribute emission — letting the component inherit from its nearest ancestor that DID set variables.
+These components use the primary + outline defaults from the library baseline. Because `primary + outline` matches the `:root` palette, VaneUI skips data-attribute emission, letting the component inherit from its nearest ancestor that DID set variables.
 
 **Button, Card, Badge, Code, Kbd, Input, IconButton, NavLink, Icon**
 
-A default `<Button>` inside a `<Card filled primary>` inherits the Card's white text and dark background — it automatically looks right on the dark surface. No configuration needed.
+A default `<Button>` inside a `<Card filled primary>` inherits the Card's white text and dark background. It automatically looks right on the dark surface. No configuration needed.
 
-### Components That Set Their Own Colors (identity components)
+### Components that set their own colors (identity components)
 
 These components have defaults that deviate from the primary + outline baseline. VaneUI detects this and emits data attributes so the component's own CSS rule fires, pinning its colors regardless of context.
 
@@ -9376,17 +9379,17 @@ These components have defaults that deviate from the primary + outline baseline.
 | **Link** | link + outline | Blue hyperlink must be recognizable |
 | **Checkbox** | primary + filled | Checked state needs non-white background |
 
-A `<Mark>` inside a `<Card filled danger>` still renders in its warning (yellow) palette — it doesn't turn red.
+A `<Mark>` inside a `<Card filled danger>` still renders in its warning (yellow) palette. It doesn't turn red.
 
-### Components in Inherit Mode (typography)
+### Components in inherit mode (typography)
 
 **Text, Title, SectionTitle, PageTitle, Label, List, ListItem, Divider, Blockquote**
 
-These components default to `inherit` — they never emit data attributes and always read colors from their nearest ancestor. This is how `<Text>` inside a `<Card filled primary>` automatically gets white text without any props.
+These components default to `inherit`. They never emit data attributes and always read colors from their nearest ancestor. This is how `<Text>` inside a `<Card filled primary>` automatically gets white text without any props.
 
-## Explicit Props Always Win
+## Explicit props always win
 
-When you explicitly set an appearance or variant on a component, VaneUI emits data attributes and the component's own CSS rule fires — overriding any inherited values:
+When you explicitly set an appearance or variant on a component, VaneUI emits data attributes and the component's own CSS rule fires, overriding any inherited values:
 
 ```tsx
 <Card filled primary>
@@ -9401,9 +9404,9 @@ When you explicitly set an appearance or variant on a component, VaneUI emits da
 </Card>
 ```
 
-## Nested Layouts
+## Nested layouts
 
-When multiple layout components are nested, each child inherits from its **nearest ancestor** that sets variables — not from the outermost ancestor:
+When multiple layout components are nested, each child inherits from its **nearest ancestor** that sets variables, not from the outermost ancestor:
 
 ```tsx
 <Card filled primary>
@@ -9424,9 +9427,9 @@ When multiple layout components are nested, each child inherits from its **neare
 </Card>
 ```
 
-## ThemeProvider Overrides
+## ThemeProvider overrides
 
-`ThemeProvider.themeDefaults` overrides are treated as user intent — they cause data-attribute emission even if the resolved value matches baseline:
+`ThemeProvider.themeDefaults` overrides are treated as user intent: they cause data-attribute emission even if the resolved value matches baseline:
 
 ```tsx
 {/* All Badges in this subtree render as danger, with data attributes */}
@@ -9438,11 +9441,11 @@ When multiple layout components are nested, each child inherits from its **neare
 </ThemeProvider>
 ```
 
-## The Baseline Rule
+## The baseline rule
 
-The data-attribute gate uses a simple rule:
+The data-attribute gate uses one rule:
 
-> **Emit `data-appearance` and `data-variant` when the resolved values deviate from `primary + outline`** — either because the user explicitly set props, because `themeDefaults` changed them, or because the component's library defaults are non-baseline (identity components).
+> **Emit `data-appearance` and `data-variant` when the resolved values deviate from `primary + outline`**: either because the user explicitly set props, because `themeDefaults` changed them, or because the component's library defaults are non-baseline (identity components).
 
 This means:
 - `<Button>` → primary + outline (baseline) → no attrs → inherits
@@ -9451,9 +9454,9 @@ This means:
 - `<Mark>` → warning + outline (warning ≠ primary) → attrs emitted → own rule
 - `<Text>` → inherit + outline (inherit excluded) → no attrs → inherits
 
-## Granular Inheritance Props
+## Granular inheritance props
 
-By default, the `inherit` appearance keyword inherits **everything** — color, size, background, and border — from the nearest ancestor. But sometimes you need selective inheritance: a `Link` inside a `Title` should inherit font-size (so the link matches the heading size) but keep its own link-blue color.
+By default, the `inherit` appearance keyword inherits **everything** (color, size, background, and border) from the nearest ancestor. But sometimes you need selective inheritance: a `Link` inside a `Title` should inherit font-size (so the link matches the heading size) but keep its own link-blue color.
 
 VaneUI provides four independent boolean toggle props for this:
 
@@ -9466,7 +9469,7 @@ VaneUI provides four independent boolean toggle props for this:
 
 ### How `inherit` expands
 
-When a component has `inherit` appearance (the default for Text, Title, Label, List, Divider, Blockquote), VaneUI expands it into color, background, and border inheritance — but **not size**:
+When a component has `inherit` appearance (the default for Text, Title, Label, List, Divider, Blockquote), VaneUI expands it into color, background, and border inheritance, but **not size**:
 
 ```
 <Text inherit>
@@ -9475,7 +9478,7 @@ When a component has `inherit` appearance (the default for Text, Title, Label, L
   (NOT inheritSize — size uses own --fs variable so <Text sm> works as expected)
 ```
 
-Size inheritance is separate — only inline components like Link, Code, Kbd, and Mark have `inheritSize: true` in their defaults. You can also set it explicitly:
+Size inheritance is separate. Only inline components like Link, Code, Kbd, and Mark have `inheritSize: true` in their defaults. You can also set it explicitly:
 
 ```tsx
 <Card filled primary>
@@ -9487,9 +9490,9 @@ Size inheritance is separate — only inline components like Link, Code, Kbd, an
 </Card>
 ```
 
-### Link, Mark — exact size inheritance via `inheritSize`
+### Link, Mark: exact size inheritance via `inheritSize`
 
-Link and Mark have their own appearance (Link = `link`, Mark = `warning`) so the `inherit` expansion does NOT fire. Instead, they have `inheritSize: true` set explicitly in their defaults — they render at the *exact* font-size of the nearest typography ancestor.
+Link and Mark have their own appearance (Link = `link`, Mark = `warning`) so the `inherit` expansion does NOT fire. Instead, they have `inheritSize: true` set explicitly in their defaults. They render at the *exact* font-size of the nearest typography ancestor.
 
 ```tsx
 <Title lg>
@@ -9500,9 +9503,9 @@ Link and Mark have their own appearance (Link = `link`, Mark = `warning`) so the
 - **Link** renders at the Title's `lg` font-size (inherited 1:1) but stays **link-blue** (own appearance)
 - **Mark** renders at parent size with its own warning highlight color
 
-### Code, Kbd — em-relative geometry
+### Code, Kbd: em-relative geometry
 
-Code and Kbd use a different mechanism: their `.vane-code` / `.vane-kbd` rules override `--spacing` to `0.25em` locally, so the entire geometry pipeline (font-size, padding, border-radius, gap) resolves in em — proportional to the parent's font-size.
+Code and Kbd use a different mechanism: their `.vane-code` / `.vane-kbd` rules override `--spacing` to `0.25em` locally, so the entire geometry pipeline (font-size, padding, border-radius, gap) resolves in em, proportional to the parent's font-size.
 
 ```tsx
 <Title lg>
@@ -9513,7 +9516,7 @@ Code and Kbd use a different mechanism: their `.vane-code` / `.vane-kbd` rules o
 - **Code** renders at 87.5% of Title's `lg` font-size (Code's default `md` ratio = 0.875×)
 - The size prop adjusts the ratio: `xs` = 0.625, `sm` = 0.75, `md` = 0.875 (default), `lg` = 1 (matches parent), `xl` = 1.125
 
-So inline Code feels right-sized in every context — body text at 14 px / 16 px, headings at 21 px / 24 px, hero displays at 42 px / 48 px.
+So inline Code feels right-sized in every context: body text at 14px / 16px, headings at 21px / 24px, hero displays at 42px / 48px.
 
 ### Opting out (Link, Mark)
 
@@ -9525,11 +9528,11 @@ Use `noInheritSize` to keep Link or Mark at its own size instead of the parent's
 </Title>
 ```
 
-The Link renders at its default `md` size while the Title is `lg`. For Code/Kbd, the size prop already controls the ratio — pass any of `xs` / `sm` / `md` / `lg` / `xl` to adjust.
+The Link renders at its default `md` size while the Title is `lg`. For Code/Kbd, the size prop already controls the ratio: pass any of `xs` / `sm` / `md` / `lg` / `xl` to adjust.
 
-### Responsive overrides inheritSize
+### Responsive overrides `inheritSize`
 
-Title, PageTitle, and SectionTitle have `responsive: true` in their defaults. Responsive sizing takes priority over `inheritSize` — a responsive heading always uses its viewport-scaled size, even if `inheritSize` is set via the `inherit` expansion.
+Title, PageTitle, and SectionTitle have `responsive: true` in their defaults. Responsive sizing takes priority over `inheritSize`: a responsive heading always uses its viewport-scaled size, even if `inheritSize` is set via the `inherit` expansion.
 
 ## Reference
 
@@ -9544,7 +9547,7 @@ URL: https://vaneui.com/docs/reference/common-props
 
 Layout and utility props shared across most VaneUI components. Documented here once instead of on every component page. Per-component pages link here from the "Layout & utility props" disclosure under their props table.
 
-Component-specific categories — **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`brand`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`link`/`inherit`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, **textAlign**, etc. — are listed on each component's own page because defaults differ. Default **size** is `md`, except `Button`, `NavLink`, `Label`, and `MenuItem` which default to `sm`.
+Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`brand`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`link`/`inherit`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except `Button`, `NavLink`, `Label`, and `MenuItem` which default to `sm`.
 
 ## Hide
 
@@ -9654,7 +9657,7 @@ Spacing between flex/grid items.
 | `gap` | Enable gap spacing between children |
 | `noGap` | Disable gap spacing |
 
-## Flex Direction
+## Flex direction
 
 Flex layout direction for arranging children.
 
@@ -9675,13 +9678,13 @@ Reverse the order of flex items.
 
 ## Flex
 
-Flex-grow / flex-shrink shorthand for distributing space along the main axis. Mutually exclusive — only one value can be active.
+Flex-grow / flex-shrink shorthand for distributing space along the main axis. Mutually exclusive: only one value can be active.
 
 | Prop | Description |
 |------|-------------|
-| `flex1` | Take up remaining space (`flex: 1 1 0%`) — the standard "fill the rest" behavior |
+| `flex1` | Take up remaining space (`flex: 1 1 0%`); the standard "fill the rest" behavior |
 | `flexAuto` | Grow but respect intrinsic content size (`flex: 1 1 auto`) |
-| `flexNone` | Don't grow and don't shrink (`flex: none`) — fixed-size in a flex container |
+| `flexNone` | Don't grow and don't shrink (`flex: none`); fixed-size in a flex container |
 
 ## Shrink
 
@@ -9689,7 +9692,7 @@ Flex-shrink override. Independent toggle so it can be combined with `flex1`/`fle
 
 | Prop | Description |
 |------|-------------|
-| `noShrink` | Prevent the item from shrinking below its content size (`shrink-0`) — typical for fixed-width sidebars in a flex row |
+| `noShrink` | Prevent the item from shrinking below its content size (`shrink-0`); typical for fixed-width sidebars in a flex row |
 
 ## Border
 
@@ -9724,7 +9727,7 @@ Focus ring visibility for keyboard navigation feedback.
 | `ring` | Enable focus ring |
 | `noRing` | Disable focus ring |
 
-## Focus Visible
+## Focus visible
 
 Focus-visible outline visibility for keyboard navigation indicators.
 
@@ -9809,7 +9812,7 @@ Enable breakpoint-specific sizing for adaptive layouts.
 |------|-------------|
 | `responsive` | Enable responsive sizing - uses breakpoint-specific classes for font size, padding, and gap |
 
-## Object Fit
+## Object fit
 
 Image and video sizing within their containers.
 
@@ -9830,7 +9833,7 @@ Backdrop blur effect for overlays and visual effects.
 | `blur` | Enable backdrop blur effect |
 | `noBlur` | Disable backdrop blur effect |
 
-## Pointer Events
+## Pointer events
 
 Element interactivity with the pointer.
 
@@ -9839,7 +9842,7 @@ Element interactivity with the pointer.
 | `pointerEventsNone` | Disable pointer events - clicks pass through the element |
 | `pointerEventsAuto` | Enable pointer events (default browser behavior) |
 
-## Min Width
+## Min width
 
 Minimum width constraint for popup and floating components.
 
@@ -9847,7 +9850,7 @@ Minimum width constraint for popup and floating components.
 |------|-------------|
 | `minWidth` | Apply size-dependent minimum width (uses --popup-min-w CSS variable) |
 
-## Max Height
+## Max height
 
 Maximum height constraint for components.
 

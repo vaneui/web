@@ -86,6 +86,7 @@ Replace `{appearance}` in variable names with one of:
 
 ### Border colors
 - `--color-border-{appearance}` - border color for outline variant
+- `--color-border-form` - border color for unchecked `Checkbox` controls. One step darker than the layout border (`gray-300` vs `gray-200`) so controls stay distinct on light surfaces. Kept off the appearance system, so secondary or tertiary `Card`, `Button`, and `Chip` keep their lighter border.
 
 ### Focus ring colors
 - `--color-focus-{appearance}` - focus-visible outline color (used by all variants)
