@@ -51,7 +51,7 @@ export function DocsPageContent(
   return (
     <ThemeProvider
       themeDefaults={{
-        code: { success: true },
+        code: { secondary: true },
       }}
       extraClasses={{
         title: {

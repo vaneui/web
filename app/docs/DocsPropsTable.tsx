@@ -79,6 +79,21 @@ export function getPropTableRows(componentKey: ComponentKey): PropRow[] {
   });
 }
 
+/**
+ * Render a prop description, turning markdown-style `inline code` backtick
+ * spans into <Code> elements. PropDescriptions come from @vaneui/ui JSDoc,
+ * which uses backticks for class names and CSS values (e.g. `flex-1`).
+ */
+function renderDescription(text: string): React.ReactNode {
+  return text.split(/(`[^`]+`)/g).map((part, i) =>
+    part.length > 1 && part.startsWith('`') && part.endsWith('`') ? (
+      <Code key={i}>{part.slice(1, -1)}</Code>
+    ) : (
+      part
+    ),
+  );
+}
+
 function sortRows(rows: PropRow[]): PropRow[] {
   return [...rows].sort((a, b) => {
     if (a.category !== b.category) return a.category.localeCompare(b.category);
@@ -125,7 +140,7 @@ function PropsTable({ rows }: { rows: PropRow[] }) {
               </td>
               <td className={cellClasses}>
                 {row.description ? (
-                  <Text sm>{row.description}</Text>
+                  <Text sm>{renderDescription(row.description)}</Text>
                 ) : null}
               </td>
             </tr>
