@@ -22,16 +22,16 @@ export const docsSectionsMeta: DocSectionMeta[] = [
     description: 'An overview of the library and instructions on how to install and configure it in your project.',
     pages: [
       {
-        slug: 'core-concepts',
-        name: 'Core Concepts',
-        description: 'Understand VaneUI\'s philosophy of boolean props, Tailwind CSS integration, and component customization.',
-        mdPath: 'core-concepts.md',
-      },
-      {
         slug: 'installation',
         name: 'Installation',
         description: 'Follow these steps to get the library installed and ready to use in your application.',
         mdPath: 'installation.md',
+      },
+      {
+        slug: 'core-concepts',
+        name: 'Core Concepts',
+        description: 'Understand VaneUI\'s philosophy of boolean props, Tailwind CSS integration, and component customization.',
+        mdPath: 'core-concepts.md',
       },
       {
         slug: 'usage-basics',
@@ -53,16 +53,16 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         componentKey: "button",
       },
       {
-        slug: 'badge',
-        name: 'Badge',
-        description: 'Highlights important information such as notifications or counts in a non-intrusive way. Badges are typically used in conjunction with other elements like icons or navigation links.',
-        componentKey: "badge",
+        slug: 'icon-button',
+        name: 'IconButton',
+        description: 'A square icon-only button with customizable appearance, size, and shape. Supports loading state and renders as anchor when href is provided.',
+        componentKey: "iconButton",
       },
       {
-        slug: 'chip',
-        name: 'Chip',
-        description: 'Represents a complex entity in a compact form, such as an attribute, tag, or contact. Chips can be interactive, allowing for user input or triggering actions.',
-        componentKey: "chip",
+        slug: 'input',
+        name: 'Input',
+        description: 'Allows users to enter text, numbers, and other data. Inputs are essential form elements with support for various types, validation states, and styling options.',
+        componentKey: "input",
       },
       {
         slug: 'checkbox',
@@ -77,40 +77,22 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         componentKey: "label",
       },
       {
+        slug: 'badge',
+        name: 'Badge',
+        description: 'Highlights important information such as notifications or counts in a non-intrusive way. Badges are typically used in conjunction with other elements like icons or navigation links.',
+        componentKey: "badge",
+      },
+      {
+        slug: 'chip',
+        name: 'Chip',
+        description: 'Represents a complex entity in a compact form, such as an attribute, tag, or contact. Chips can be interactive, allowing for user input or triggering actions.',
+        componentKey: "chip",
+      },
+      {
         slug: 'code',
         name: 'Code',
         description: 'Renders inline code snippets in a themed monospace surface. Use for code examples, commands, file paths, or technical terms within prose; renders as an anchor when given href.',
         componentKey: "code",
-      },
-      {
-        slug: 'divider',
-        name: 'Divider',
-        description: 'Renders a thin line to separate content and create a clear visual hierarchy. Dividers can be used to group related items in lists and layouts.',
-        componentKey: "divider",
-      },
-      {
-        slug: 'input',
-        name: 'Input',
-        description: 'Allows users to enter text, numbers, and other data. Inputs are essential form elements with support for various types, validation states, and styling options.',
-        componentKey: "input",
-      },
-      {
-        slug: 'img',
-        name: 'Img',
-        description: 'Displays images with VaneUI styling support including sizes, shapes, borders, shadows, and object-fit options.',
-        componentKey: "img",
-      },
-      {
-        slug: 'icon',
-        name: 'Icon',
-        description: 'A lightweight SVG wrapper that provides consistent sizing, color inheritance, and themed appearances for icons.',
-        componentKey: "icon",
-      },
-      {
-        slug: 'icon-button',
-        name: 'IconButton',
-        description: 'A square icon-only button with customizable appearance, size, and shape. Supports loading state and renders as anchor when href is provided.',
-        componentKey: "iconButton",
       },
       {
         slug: 'kbd',
@@ -124,6 +106,12 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         description: 'Highlights text with a background color for emphasis. Defaults to warning (yellow) appearance for a natural highlighter effect.',
         componentKey: "mark",
       },
+      {
+        slug: 'icon',
+        name: 'Icon',
+        description: 'A lightweight SVG wrapper that provides consistent sizing, color inheritance, and themed appearances for icons.',
+        componentKey: "icon",
+      },
     ]
   },
   {
@@ -132,16 +120,16 @@ export const docsSectionsMeta: DocSectionMeta[] = [
     description: 'A set of components designed to help structure and organize your page content.',
     pages: [
       {
-        slug: 'section',
-        name: 'Section',
-        description: 'A semantic container used to group related content within a page. This component helps to create a clear document outline and improve accessibility.',
-        componentKey: "section",
-      },
-      {
         slug: 'container',
         name: 'Container',
         description: 'Manages the main content area by centering it and applying a max-width. It ensures a consistent and readable layout across different screen sizes.',
         componentKey: "container",
+      },
+      {
+        slug: 'section',
+        name: 'Section',
+        description: 'A semantic container used to group related content within a page. This component helps to create a clear document outline and improve accessibility.',
+        componentKey: "section",
       },
       {
         slug: 'row',
@@ -196,6 +184,18 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         name: 'Grid6',
         description: 'A six-column grid layout component for creating compact, organized displays. Ideal for icon grids, feature collections, and detailed content arrangements.',
         componentKey: "grid6",
+      },
+      {
+        slug: 'divider',
+        name: 'Divider',
+        description: 'Renders a thin line to separate content and create a clear visual hierarchy. Dividers can be used to group related items in lists and layouts.',
+        componentKey: "divider",
+      },
+      {
+        slug: 'img',
+        name: 'Img',
+        description: 'Displays images with VaneUI styling support including sizes, shapes, borders, shadows, and object-fit options.',
+        componentKey: "img",
       },
     ]
   },
@@ -255,12 +255,6 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         componentKey: "text",
       },
       {
-        slug: 'title',
-        name: 'Title',
-        description: 'Renders a heading to establish a semantic hierarchy on the page. Use this component for the main titles of pages or sections.',
-        componentKey: "title",
-      },
-      {
         slug: 'page-title',
         name: 'PageTitle',
         description: 'A specialized component for the primary heading of a page. It ensures consistent styling for top-level titles across your application.',
@@ -271,6 +265,12 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         name: 'SectionTitle',
         description: 'A component for rendering headings of major sections within a page. It helps to create a clear and accessible document structure.',
         componentKey: "sectionTitle",
+      },
+      {
+        slug: 'title',
+        name: 'Title',
+        description: 'Renders a heading to establish a semantic hierarchy on the page. Use this component for the main titles of pages or sections.',
+        componentKey: "title",
       },
       {
         slug: 'link',

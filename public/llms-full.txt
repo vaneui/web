@@ -17,6 +17,102 @@ props, and conventions.
 An overview of the library and instructions on how to install and configure it in your project.
 
 ---
+Title: Installation
+URL: https://vaneui.com/docs/getting-started/installation
+---
+
+VaneUI is a React component library built with TypeScript and Tailwind CSS. Install using your preferred package manager:
+
+```bash
+npm install @vaneui/ui
+```
+
+```bash
+yarn add @vaneui/ui
+```
+
+```bash
+pnpm add @vaneui/ui
+```
+
+## CSS setup
+
+VaneUI supports two CSS setup options depending on your project configuration.
+
+### Option 1: with Tailwind CSS (recommended)
+
+If your project uses Tailwind CSS v4, VaneUI plugs in directly. Tailwind scans VaneUI components and generates only the CSS classes you use.
+
+Install Tailwind CSS if you haven't already:
+
+```bash
+npm install -D tailwindcss @tailwindcss/postcss
+```
+
+Add the following to your main CSS file:
+
+```css
+@import "tailwindcss";
+@import "@vaneui/ui/tokens";
+@import "@vaneui/ui/vars";
+@source "../node_modules/@vaneui/ui";
+```
+
+This setup:
+- Imports Tailwind CSS base styles
+- Imports VaneUI theme tokens (registers custom breakpoints and design tokens with Tailwind)
+- Imports VaneUI CSS variables and component rules
+- Tells Tailwind to scan VaneUI components for class generation
+
+> The `@vaneui/ui/tokens` import is required for responsive props like `mobileCol`, `tabletHide`, and responsive typography to work. It registers VaneUI's custom breakpoints (`mobile`, `tablet`, `desktop`) with your project's Tailwind CSS instance.
+
+### Option 2: without Tailwind CSS
+
+If your project doesn't use Tailwind CSS, you can import VaneUI's pre-built CSS bundle which includes all component styles.
+
+Add the following to your main CSS file:
+
+```css
+@import "@vaneui/ui/css";
+@import "@vaneui/ui/vars.css";
+```
+
+This setup:
+- Imports the complete pre-built VaneUI stylesheet
+- Imports VaneUI CSS variables for theming
+- Works without any Tailwind configuration
+
+## Usage
+
+Start using VaneUI components in your React application:
+
+```tsx
+import { Button, Stack } from '@vaneui/ui';
+
+function App() {
+  return (
+    <Stack>
+      <Button primary>Get Started</Button>
+    </Stack>
+  );
+}
+```
+
+## Per-component imports
+
+For better tree-shaking, you can import components directly:
+
+```tsx
+import { Button } from '@vaneui/ui/button';
+import { Card } from '@vaneui/ui/card';
+import { ThemeProvider } from '@vaneui/ui/theme';
+```
+
+This is optional. Importing from `@vaneui/ui` works the same way. Per-component imports can reduce bundle size when using only a few components with bundlers that don't fully tree-shake barrel exports.
+
+Available subpath imports include: `@vaneui/ui/button`, `@vaneui/ui/iconButton`, `@vaneui/ui/icon`, `@vaneui/ui/badge`, `@vaneui/ui/card`, `@vaneui/ui/checkbox`, `@vaneui/ui/chip`, `@vaneui/ui/code`, `@vaneui/ui/divider`, `@vaneui/ui/img`, `@vaneui/ui/input`, `@vaneui/ui/kbd`, `@vaneui/ui/label`, `@vaneui/ui/mark`, `@vaneui/ui/menu`, `@vaneui/ui/modal`, `@vaneui/ui/navLink`, `@vaneui/ui/overlay`, `@vaneui/ui/popup`, `@vaneui/ui/section`, `@vaneui/ui/container`, `@vaneui/ui/row`, `@vaneui/ui/col`, `@vaneui/ui/stack`, `@vaneui/ui/grid`, `@vaneui/ui/typography`, `@vaneui/ui/layout`, `@vaneui/ui/theme`, `@vaneui/ui/props`.
+
+---
 Title: Core Concepts
 URL: https://vaneui.com/docs/getting-started/core-concepts
 ---
@@ -186,102 +282,6 @@ For programmatic theme modifications:
   <App />
 </ThemeProvider>
 ```
-
----
-Title: Installation
-URL: https://vaneui.com/docs/getting-started/installation
----
-
-VaneUI is a React component library built with TypeScript and Tailwind CSS. Install using your preferred package manager:
-
-```bash
-npm install @vaneui/ui
-```
-
-```bash
-yarn add @vaneui/ui
-```
-
-```bash
-pnpm add @vaneui/ui
-```
-
-## CSS setup
-
-VaneUI supports two CSS setup options depending on your project configuration.
-
-### Option 1: with Tailwind CSS (recommended)
-
-If your project uses Tailwind CSS v4, VaneUI plugs in directly. Tailwind scans VaneUI components and generates only the CSS classes you use.
-
-Install Tailwind CSS if you haven't already:
-
-```bash
-npm install -D tailwindcss @tailwindcss/postcss
-```
-
-Add the following to your main CSS file:
-
-```css
-@import "tailwindcss";
-@import "@vaneui/ui/tokens";
-@import "@vaneui/ui/vars";
-@source "../node_modules/@vaneui/ui";
-```
-
-This setup:
-- Imports Tailwind CSS base styles
-- Imports VaneUI theme tokens (registers custom breakpoints and design tokens with Tailwind)
-- Imports VaneUI CSS variables and component rules
-- Tells Tailwind to scan VaneUI components for class generation
-
-> The `@vaneui/ui/tokens` import is required for responsive props like `mobileCol`, `tabletHide`, and responsive typography to work. It registers VaneUI's custom breakpoints (`mobile`, `tablet`, `desktop`) with your project's Tailwind CSS instance.
-
-### Option 2: without Tailwind CSS
-
-If your project doesn't use Tailwind CSS, you can import VaneUI's pre-built CSS bundle which includes all component styles.
-
-Add the following to your main CSS file:
-
-```css
-@import "@vaneui/ui/css";
-@import "@vaneui/ui/vars.css";
-```
-
-This setup:
-- Imports the complete pre-built VaneUI stylesheet
-- Imports VaneUI CSS variables for theming
-- Works without any Tailwind configuration
-
-## Usage
-
-Start using VaneUI components in your React application:
-
-```tsx
-import { Button, Stack } from '@vaneui/ui';
-
-function App() {
-  return (
-    <Stack>
-      <Button primary>Get Started</Button>
-    </Stack>
-  );
-}
-```
-
-## Per-component imports
-
-For better tree-shaking, you can import components directly:
-
-```tsx
-import { Button } from '@vaneui/ui/button';
-import { Card } from '@vaneui/ui/card';
-import { ThemeProvider } from '@vaneui/ui/theme';
-```
-
-This is optional. Importing from `@vaneui/ui` works the same way. Per-component imports can reduce bundle size when using only a few components with bundlers that don't fully tree-shake barrel exports.
-
-Available subpath imports include: `@vaneui/ui/button`, `@vaneui/ui/iconButton`, `@vaneui/ui/icon`, `@vaneui/ui/badge`, `@vaneui/ui/card`, `@vaneui/ui/checkbox`, `@vaneui/ui/chip`, `@vaneui/ui/code`, `@vaneui/ui/divider`, `@vaneui/ui/img`, `@vaneui/ui/input`, `@vaneui/ui/kbd`, `@vaneui/ui/label`, `@vaneui/ui/mark`, `@vaneui/ui/menu`, `@vaneui/ui/modal`, `@vaneui/ui/navLink`, `@vaneui/ui/overlay`, `@vaneui/ui/popup`, `@vaneui/ui/section`, `@vaneui/ui/container`, `@vaneui/ui/row`, `@vaneui/ui/col`, `@vaneui/ui/stack`, `@vaneui/ui/grid`, `@vaneui/ui/typography`, `@vaneui/ui/layout`, `@vaneui/ui/theme`, `@vaneui/ui/props`.
 
 ---
 Title: Usage Basics
@@ -970,309 +970,292 @@ import { ThemeProvider, Button } from '@vaneui/ui';
 ```
 
 ---
-Title: Badge
-URL: https://vaneui.com/docs/basic-components/badge
+Title: IconButton
+URL: https://vaneui.com/docs/basic-components/icon-button
 ---
 
-Highlights important information such as notifications or counts in a non-intrusive way. Badges are typically used in conjunction with other elements like icons or navigation links.
+A square icon-only button with customizable appearance, size, and shape. Supports loading state and renders as an `<a>` when given an `href`. Always provide `aria-label` for accessibility.
 
 ## Basic usage
 
-Badge styles and variants.
+Drop an icon directly inside the `IconButton`. Each `appearance` prop maps to a semantic color from the active theme.
 
 ```tsx demo
 <Row flexWrap>
-  <Badge primary>primary</Badge>
-  <Badge brand>brand</Badge>
-  <Badge accent>accent</Badge>
-  <Badge secondary>secondary</Badge>
-  <Badge tertiary>tertiary</Badge>
-  <Badge success>success</Badge>
-  <Badge danger>danger</Badge>
-  <Badge warning>warning</Badge>
-  <Badge info>info</Badge>
-  <Badge link>link</Badge>
-  <Badge inherit>inherit</Badge>
-</Row>
-```
-
-## Badge sizes
-
-Badges come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.
-
-```tsx demo
-<Row flexWrap>
-  <Badge xs>xs</Badge>
-  <Badge sm>sm</Badge>
-  <Badge md>md</Badge>
-  <Badge lg>lg</Badge>
-  <Badge xl>xl</Badge>
-</Row>
-```
-
-## Badge shapes
-
-Badges support different border radius styles: `rounded`, `pill` (default), and `sharp`.
-
-```tsx demo
-<Row flexWrap>
-  <Badge pill>Pro</Badge>
-  <Badge sharp>Pro</Badge>
-  <Badge rounded>Pro</Badge>
-</Row>
-```
-
-## Badge variants
-
-Badges can be styled as `filled`, `outline` (default), or `ghost`.
-
-```tsx demo
-<Col>
-  <Row flexWrap>
-    <Badge filled primary>primary</Badge>
-    <Badge filled brand>brand</Badge>
-    <Badge filled accent>accent</Badge>
-    <Badge filled secondary>secondary</Badge>
-  </Row>
-  <Row flexWrap>
-    <Badge outline primary>primary</Badge>
-    <Badge outline brand>brand</Badge>
-    <Badge outline accent>accent</Badge>
-    <Badge outline secondary>secondary</Badge>
-  </Row>
-  <Row flexWrap>
-    <Badge ghost primary>primary</Badge>
-    <Badge ghost brand>brand</Badge>
-    <Badge ghost accent>accent</Badge>
-    <Badge ghost secondary>secondary</Badge>
-  </Row>
-</Col>
-```
-
-## Font weights
-
-Badges support different font weights.
-
-```tsx demo
-<Row flexWrap>
-  <Badge normal>Premium</Badge>
-  <Badge medium>Premium</Badge>
-  <Badge semibold>Premium</Badge>
-  <Badge bold>Premium</Badge>
-</Row>
-```
-
-## As Link
-
-Pass `href` to render the badge as an `<a>`, useful for clickable status labels. When `href` is set, the badge gains a keyboard focus-visible outline by default (opt out with `noFocusVisible`).
-
-```tsx demo
-<Row flexWrap>
-  <Badge href="#">Status</Badge>
-  <Badge href="#" success filled>Live</Badge>
-  <Badge href="#" warning>Pending</Badge>
-</Row>
-```
-
-## Status badges in context
-
-Badges work well as status indicators inside cards and other layout components.
-
-```tsx demo
-<Card>
-  <Row justifyBetween>
-    <Title>Production deploy</Title>
-    <Badge success filled>Live</Badge>
-  </Row>
-  <Text>Build #1284 promoted to production 2 minutes ago.</Text>
-</Card>
-```
-
----
-Title: Chip
-URL: https://vaneui.com/docs/basic-components/chip
----
-
-Compact, monospace-leaning token for representing tags, attributes, filter values, or other discrete entities inline with text. Chips default to `secondary` appearance, `outline` variant, `rounded` shape, and `mono` font, tuned for code-adjacent and metadata contexts.
-
-## When to use
-
-- Tags, labels, and keyword filters attached to a record.
-- Attribute or metadata pills inside cards and lists (versions, environments, IDs).
-- Removable selections inside an input or filter bar (combine with an inline icon).
-- Inline category markers in code samples and API tables. `mono` is the default.
-
-### When NOT to use
-
-- For status indicators that need uppercase emphasis, prefer `Badge` (pill, uppercase, semibold by default).
-- For triggering actions or navigation, prefer `Button` or `Link`.
-- For inline code snippets, prefer `Code`.
-
-## Basic usage
-
-Each `appearance` prop maps to a semantic color from the active theme.
-
-```tsx demo
-<Row flexWrap>
-  <Chip primary>primary</Chip>
-  <Chip brand>brand</Chip>
-  <Chip accent>accent</Chip>
-  <Chip>secondary</Chip>
-  <Chip tertiary>tertiary</Chip>
-  <Chip success>success</Chip>
-  <Chip danger>danger</Chip>
-  <Chip warning>warning</Chip>
-  <Chip info>info</Chip>
-  <Chip link>link</Chip>
-  <Chip inherit>inherit</Chip>
+  <IconButton><Star /></IconButton>
+  <IconButton secondary><Heart /></IconButton>
+  <IconButton success><Check /></IconButton>
+  <IconButton danger><Trash2 /></IconButton>
+  <IconButton warning><Bell /></IconButton>
+  <IconButton info><Info /></IconButton>
 </Row>
 ```
 
 ## Sizes
 
-Chips come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
+IconButton supports five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size drives the square aspect ratio, padding, and border-radius simultaneously via CSS variables.
 
 ```tsx demo
-<Row flexWrap>
-  <Chip xs>xs</Chip>
-  <Chip sm>sm</Chip>
-  <Chip>md</Chip>
-  <Chip lg>lg</Chip>
-  <Chip xl>xl</Chip>
+<Row flexWrap itemsEnd>
+  <Col itemsCenter>
+    <IconButton xs><Star /></IconButton>
+    <Text sm secondary>xs</Text>
+  </Col>
+  <Col itemsCenter>
+    <IconButton sm><Star /></IconButton>
+    <Text sm secondary>sm</Text>
+  </Col>
+  <Col itemsCenter>
+    <IconButton><Star /></IconButton>
+    <Text sm secondary>md</Text>
+  </Col>
+  <Col itemsCenter>
+    <IconButton lg><Star /></IconButton>
+    <Text sm secondary>lg</Text>
+  </Col>
+  <Col itemsCenter>
+    <IconButton xl><Star /></IconButton>
+    <Text sm secondary>xl</Text>
+  </Col>
 </Row>
 ```
 
 ## Variants
 
-Chips can be styled as `filled`, `outline` (default), or `ghost`.
+IconButton renders as `outline` (default) or `filled`.
 
 ```tsx demo
 <Col>
   <Row flexWrap>
-    <Chip filled primary>primary</Chip>
-    <Chip filled brand>brand</Chip>
-    <Chip filled accent>accent</Chip>
-    <Chip filled>secondary</Chip>
+    <IconButton><Star /></IconButton>
+    <IconButton secondary><Heart /></IconButton>
+    <IconButton success><Check /></IconButton>
+    <IconButton danger><Trash2 /></IconButton>
+    <IconButton warning><Bell /></IconButton>
+    <IconButton info><Info /></IconButton>
   </Row>
   <Row flexWrap>
-    <Chip primary>primary</Chip>
-    <Chip brand>brand</Chip>
-    <Chip accent>accent</Chip>
-    <Chip>secondary</Chip>
-  </Row>
-  <Row flexWrap>
-    <Chip ghost primary>primary</Chip>
-    <Chip ghost brand>brand</Chip>
-    <Chip ghost accent>accent</Chip>
-    <Chip ghost>secondary</Chip>
+    <IconButton filled><Star /></IconButton>
+    <IconButton filled secondary><Heart /></IconButton>
+    <IconButton filled success><Check /></IconButton>
+    <IconButton filled danger><Trash2 /></IconButton>
+    <IconButton filled warning><Bell /></IconButton>
+    <IconButton filled info><Info /></IconButton>
   </Row>
 </Col>
 ```
 
 ## Shapes
 
-Chips support three border-radius styles: `rounded` (default), `pill`, and `sharp`.
+IconButton supports `rounded` (default), `pill`, and `sharp`. `pill` is especially well suited to icon-only buttons.
 
 ```tsx demo
 <Row flexWrap>
-  <Chip>rounded</Chip>
-  <Chip pill>pill</Chip>
-  <Chip sharp>sharp</Chip>
+  <Col itemsCenter>
+    <IconButton filled><Star /></IconButton>
+    <Text sm secondary>rounded</Text>
+  </Col>
+  <Col itemsCenter>
+    <IconButton pill filled><Star /></IconButton>
+    <Text sm secondary>pill</Text>
+  </Col>
+  <Col itemsCenter>
+    <IconButton sharp filled><Star /></IconButton>
+    <Text sm secondary>sharp</Text>
+  </Col>
 </Row>
 ```
 
-## Font family
+## As Link and disabled
 
-Chips default to `mono` to fit code-adjacent contexts. Override with `sans` or `serif` when the surrounding copy calls for it.
+Pass `href` to render the IconButton as an `<a>` for navigation. Use `disabled` to prevent interaction.
 
 ```tsx demo
 <Row flexWrap>
-  <Chip>v1.4.2</Chip>
-  <Chip sans>Active user</Chip>
-  <Chip serif>Editorial</Chip>
+  <IconButton href="https://github.com" target="_blank"><ExternalLink /></IconButton>
+  <IconButton filled success href="#"><ExternalLink /></IconButton>
+  <IconButton disabled><Star /></IconButton>
+  <IconButton filled danger disabled><Trash2 /></IconButton>
 </Row>
 ```
 
-## With icon
+## Next.js Link integration
 
-Drop an icon directly inside the chip. `gap` is on by default, so spacing is automatic.
+Use the `tag` prop to render the IconButton as a Next.js `Link` for client-side navigation.
 
-```tsx demo
-<Row flexWrap>
-  <Chip brand><Heart/> Favorite</Chip>
-  <Chip success><CheckSquare/> Verified</Chip>
-  <Chip danger><X/> Blocked</Chip>
-</Row>
+```tsx
+import Link from 'next/link';
+import { IconButton } from '@vaneui/ui';
+import { Settings } from 'react-feather';
+
+<IconButton href="/settings" tag={Link}><Settings /></IconButton>
 ```
 
-## Tag and filter lists
+## Loading state
 
-The canonical chip pattern: a wrapping row of tokens that classify or filter content.
+Set `loading` to show a spinner and auto-disable the button.
 
-```tsx demo
-<Card>
-  <Title>Article tags</Title>
-  <Row flexWrap>
-    <Chip>typescript</Chip>
-    <Chip>react</Chip>
-    <Chip>tailwind</Chip>
-    <Chip>design-systems</Chip>
-    <Chip>accessibility</Chip>
-  </Row>
-</Card>
-```
+```tsx
+const [loading, setLoading] = useState(false);
 
-## Removable chips
-
-Pair a chip with an inline close icon to represent removable selections inside a filter bar.
-
-```tsx demo
-<Row flexWrap>
-  <Chip>typescript <X/></Chip>
-  <Chip>react <X/></Chip>
-  <Chip danger filled>blocked <X/></Chip>
-</Row>
-```
-
-## As Link
-
-Pass `href` to render the chip as an `<a>`, useful for clickable tag listings. When `href` is set, the chip gains a keyboard focus-visible outline by default. Opt out with `noFocusVisible`.
-
-```tsx demo
-<Row flexWrap>
-  <Chip href="#">typescript</Chip>
-  <Chip href="#" brand>react</Chip>
-  <Chip href="#" accent>tailwind</Chip>
-</Row>
+<IconButton loading={loading} onClick={() => setLoading(true)}>
+  <Star />
+</IconButton>
 ```
 
 ## Customizing
 
-Set app-wide Chip defaults with `ThemeProvider`'s `themeDefaults`:
+Set app-wide IconButton defaults with `ThemeProvider`'s `themeDefaults`:
 
 ```tsx
-import { ThemeProvider, Chip } from '@vaneui/ui';
+import { ThemeProvider, IconButton } from '@vaneui/ui';
 
 <ThemeProvider themeDefaults={{
-  chip: { brand: true, filled: true, pill: true },
+  iconButton: { secondary: true, pill: true, lg: true },
 }}>
-  <Chip>v2.0</Chip>
+  <IconButton><Star /></IconButton>
 </ThemeProvider>
 ```
 
-Add prop-conditional classes with `extraClasses`, applied whenever the matching boolean prop is active:
+---
+Title: Input
+URL: https://vaneui.com/docs/basic-components/input
+---
+
+Allows users to enter text, numbers, and other data. Inputs are essential form elements with support for various types, validation states, and styling options.
+
+## When to use
+
+- Text, email, password, number, search, URL, and tel form fields.
+- Inline editable values in tables, settings panels, or detail pages.
+- Filter/search bars where the value drives a list or query.
+- Pair with `Label` for accessible field labelling.
+
+### When NOT to use
+
+- For long-form text: use a `<textarea>` (autosize support not yet built into VaneUI).
+- For binary toggles: use `Checkbox`.
+- For one-of-many selection: use a select/radio pattern.
+
+## Customizing
+
+Set app-wide Input defaults with `ThemeProvider`'s `themeDefaults` and add a focus-ring colour with `extraClasses`:
 
 ```tsx
-import { ThemeProvider, Chip } from '@vaneui/ui';
+import { ThemeProvider, Input } from '@vaneui/ui';
 
-<ThemeProvider extraClasses={{
-  chip: {
-    danger: 'animate-pulse',
-    success: 'shadow-sm',
-  },
-}}>
-  <Chip danger>blocked</Chip>
+<ThemeProvider
+  themeDefaults={{ input: { lg: true, filled: true } }}
+  extraClasses={{ input: { primary: 'focus:ring-2 focus:ring-brand-500/40' } }}
+>
+  <Input placeholder="Email" />
 </ThemeProvider>
+```
+
+## Basic input
+
+A styled text input field.
+
+```tsx demo
+<Input placeholder="Enter text..." />
+```
+
+## Input sizes
+
+Inputs come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
+
+```tsx demo
+<Col>
+  <Input xs placeholder="Extra small" />
+  <Input sm placeholder="Small" />
+  <Input placeholder="Medium (default)" />
+  <Input lg placeholder="Large" />
+  <Input xl placeholder="Extra large" />
+</Col>
+```
+
+## Input types
+
+The `type` HTML attribute passes through to the underlying `<input>` element.
+
+```tsx demo
+<Col>
+  <Input type="text" placeholder="Text input" />
+  <Input type="email" placeholder="Email input" />
+  <Input type="password" placeholder="Password input" />
+  <Input type="number" placeholder="Number input" />
+  <Input type="search" placeholder="Search input" />
+</Col>
+```
+
+## Input variants
+
+Inputs are `outline` by default. Use `filled` for solid backgrounds.
+
+```tsx demo
+<Col>
+  <Row flexWrap>
+    <Input placeholder="Outline (default)" />
+    <Input success placeholder="Outline success" />
+    <Input danger placeholder="Outline danger" />
+  </Row>
+  <Row flexWrap>
+    <Input filled placeholder="Filled (default)" />
+    <Input filled success placeholder="Filled success" />
+    <Input filled danger placeholder="Filled danger" />
+  </Row>
+</Col>
+```
+
+## Input with labels
+
+Pair inputs with labels for accessibility and better UX. When the `Input` is nested inside a `Label`, it inherits the Label's size. Set it once on the Label.
+
+```tsx demo
+<Col>
+  <Label>
+    Full Name
+    <Input type="text" placeholder="Enter your full name" />
+  </Label>
+  <Label lg>
+    Email Address (large)
+    <Input type="email" placeholder="Enter your email" />
+  </Label>
+</Col>
+```
+
+## Input shapes
+
+Inputs support border radius styles: `rounded` (default), `pill`, and `sharp`.
+
+```tsx demo
+<Row flexWrap>
+  <Input placeholder="Rounded (default)" />
+  <Input pill placeholder="Pill shape" />
+  <Input sharp placeholder="Sharp corners" />
+</Row>
+```
+
+## Input states
+
+Different input states: disabled, readonly, and validation feedback. Use appearance props (`success`, `danger`) for visual feedback, or the `error` status prop for form validation state.
+
+```tsx
+<Input placeholder="Normal input" />
+<Input disabled placeholder="Disabled input" />
+<Input success placeholder="Success state" />
+<Input danger placeholder="Error state" />
+<Input error placeholder="Validation error" />
+```
+
+```tsx demo
+<Col>
+  <Input placeholder="Normal input" />
+  <Input disabled placeholder="Disabled input" />
+  <Input success placeholder="Success state" />
+  <Input danger placeholder="Error state" />
+  <Input error placeholder="Validation error (status)" />
+</Col>
 ```
 
 ---
@@ -1679,6 +1662,312 @@ Use appearances to indicate field status: `danger` for errors, `success` for val
 ```
 
 ---
+Title: Badge
+URL: https://vaneui.com/docs/basic-components/badge
+---
+
+Highlights important information such as notifications or counts in a non-intrusive way. Badges are typically used in conjunction with other elements like icons or navigation links.
+
+## Basic usage
+
+Badge styles and variants.
+
+```tsx demo
+<Row flexWrap>
+  <Badge primary>primary</Badge>
+  <Badge brand>brand</Badge>
+  <Badge accent>accent</Badge>
+  <Badge secondary>secondary</Badge>
+  <Badge tertiary>tertiary</Badge>
+  <Badge success>success</Badge>
+  <Badge danger>danger</Badge>
+  <Badge warning>warning</Badge>
+  <Badge info>info</Badge>
+  <Badge link>link</Badge>
+  <Badge inherit>inherit</Badge>
+</Row>
+```
+
+## Badge sizes
+
+Badges come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.
+
+```tsx demo
+<Row flexWrap>
+  <Badge xs>xs</Badge>
+  <Badge sm>sm</Badge>
+  <Badge md>md</Badge>
+  <Badge lg>lg</Badge>
+  <Badge xl>xl</Badge>
+</Row>
+```
+
+## Badge shapes
+
+Badges support different border radius styles: `rounded`, `pill` (default), and `sharp`.
+
+```tsx demo
+<Row flexWrap>
+  <Badge pill>Pro</Badge>
+  <Badge sharp>Pro</Badge>
+  <Badge rounded>Pro</Badge>
+</Row>
+```
+
+## Badge variants
+
+Badges can be styled as `filled`, `outline` (default), or `ghost`.
+
+```tsx demo
+<Col>
+  <Row flexWrap>
+    <Badge filled primary>primary</Badge>
+    <Badge filled brand>brand</Badge>
+    <Badge filled accent>accent</Badge>
+    <Badge filled secondary>secondary</Badge>
+  </Row>
+  <Row flexWrap>
+    <Badge outline primary>primary</Badge>
+    <Badge outline brand>brand</Badge>
+    <Badge outline accent>accent</Badge>
+    <Badge outline secondary>secondary</Badge>
+  </Row>
+  <Row flexWrap>
+    <Badge ghost primary>primary</Badge>
+    <Badge ghost brand>brand</Badge>
+    <Badge ghost accent>accent</Badge>
+    <Badge ghost secondary>secondary</Badge>
+  </Row>
+</Col>
+```
+
+## Font weights
+
+Badges support different font weights.
+
+```tsx demo
+<Row flexWrap>
+  <Badge normal>Premium</Badge>
+  <Badge medium>Premium</Badge>
+  <Badge semibold>Premium</Badge>
+  <Badge bold>Premium</Badge>
+</Row>
+```
+
+## As Link
+
+Pass `href` to render the badge as an `<a>`, useful for clickable status labels. When `href` is set, the badge gains a keyboard focus-visible outline by default (opt out with `noFocusVisible`).
+
+```tsx demo
+<Row flexWrap>
+  <Badge href="#">Status</Badge>
+  <Badge href="#" success filled>Live</Badge>
+  <Badge href="#" warning>Pending</Badge>
+</Row>
+```
+
+## Status badges in context
+
+Badges work well as status indicators inside cards and other layout components.
+
+```tsx demo
+<Card>
+  <Row justifyBetween>
+    <Title>Production deploy</Title>
+    <Badge success filled>Live</Badge>
+  </Row>
+  <Text>Build #1284 promoted to production 2 minutes ago.</Text>
+</Card>
+```
+
+---
+Title: Chip
+URL: https://vaneui.com/docs/basic-components/chip
+---
+
+Compact, monospace-leaning token for representing tags, attributes, filter values, or other discrete entities inline with text. Chips default to `secondary` appearance, `outline` variant, `rounded` shape, and `mono` font, tuned for code-adjacent and metadata contexts.
+
+## When to use
+
+- Tags, labels, and keyword filters attached to a record.
+- Attribute or metadata pills inside cards and lists (versions, environments, IDs).
+- Removable selections inside an input or filter bar (combine with an inline icon).
+- Inline category markers in code samples and API tables. `mono` is the default.
+
+### When NOT to use
+
+- For status indicators that need uppercase emphasis, prefer `Badge` (pill, uppercase, semibold by default).
+- For triggering actions or navigation, prefer `Button` or `Link`.
+- For inline code snippets, prefer `Code`.
+
+## Basic usage
+
+Each `appearance` prop maps to a semantic color from the active theme.
+
+```tsx demo
+<Row flexWrap>
+  <Chip primary>primary</Chip>
+  <Chip brand>brand</Chip>
+  <Chip accent>accent</Chip>
+  <Chip>secondary</Chip>
+  <Chip tertiary>tertiary</Chip>
+  <Chip success>success</Chip>
+  <Chip danger>danger</Chip>
+  <Chip warning>warning</Chip>
+  <Chip info>info</Chip>
+  <Chip link>link</Chip>
+  <Chip inherit>inherit</Chip>
+</Row>
+```
+
+## Sizes
+
+Chips come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
+
+```tsx demo
+<Row flexWrap>
+  <Chip xs>xs</Chip>
+  <Chip sm>sm</Chip>
+  <Chip>md</Chip>
+  <Chip lg>lg</Chip>
+  <Chip xl>xl</Chip>
+</Row>
+```
+
+## Variants
+
+Chips can be styled as `filled`, `outline` (default), or `ghost`.
+
+```tsx demo
+<Col>
+  <Row flexWrap>
+    <Chip filled primary>primary</Chip>
+    <Chip filled brand>brand</Chip>
+    <Chip filled accent>accent</Chip>
+    <Chip filled>secondary</Chip>
+  </Row>
+  <Row flexWrap>
+    <Chip primary>primary</Chip>
+    <Chip brand>brand</Chip>
+    <Chip accent>accent</Chip>
+    <Chip>secondary</Chip>
+  </Row>
+  <Row flexWrap>
+    <Chip ghost primary>primary</Chip>
+    <Chip ghost brand>brand</Chip>
+    <Chip ghost accent>accent</Chip>
+    <Chip ghost>secondary</Chip>
+  </Row>
+</Col>
+```
+
+## Shapes
+
+Chips support three border-radius styles: `rounded` (default), `pill`, and `sharp`.
+
+```tsx demo
+<Row flexWrap>
+  <Chip>rounded</Chip>
+  <Chip pill>pill</Chip>
+  <Chip sharp>sharp</Chip>
+</Row>
+```
+
+## Font family
+
+Chips default to `mono` to fit code-adjacent contexts. Override with `sans` or `serif` when the surrounding copy calls for it.
+
+```tsx demo
+<Row flexWrap>
+  <Chip>v1.4.2</Chip>
+  <Chip sans>Active user</Chip>
+  <Chip serif>Editorial</Chip>
+</Row>
+```
+
+## With icon
+
+Drop an icon directly inside the chip. `gap` is on by default, so spacing is automatic.
+
+```tsx demo
+<Row flexWrap>
+  <Chip brand><Heart/> Favorite</Chip>
+  <Chip success><CheckSquare/> Verified</Chip>
+  <Chip danger><X/> Blocked</Chip>
+</Row>
+```
+
+## Tag and filter lists
+
+The canonical chip pattern: a wrapping row of tokens that classify or filter content.
+
+```tsx demo
+<Card>
+  <Title>Article tags</Title>
+  <Row flexWrap>
+    <Chip>typescript</Chip>
+    <Chip>react</Chip>
+    <Chip>tailwind</Chip>
+    <Chip>design-systems</Chip>
+    <Chip>accessibility</Chip>
+  </Row>
+</Card>
+```
+
+## Removable chips
+
+Pair a chip with an inline close icon to represent removable selections inside a filter bar.
+
+```tsx demo
+<Row flexWrap>
+  <Chip>typescript <X/></Chip>
+  <Chip>react <X/></Chip>
+  <Chip danger filled>blocked <X/></Chip>
+</Row>
+```
+
+## As Link
+
+Pass `href` to render the chip as an `<a>`, useful for clickable tag listings. When `href` is set, the chip gains a keyboard focus-visible outline by default. Opt out with `noFocusVisible`.
+
+```tsx demo
+<Row flexWrap>
+  <Chip href="#">typescript</Chip>
+  <Chip href="#" brand>react</Chip>
+  <Chip href="#" accent>tailwind</Chip>
+</Row>
+```
+
+## Customizing
+
+Set app-wide Chip defaults with `ThemeProvider`'s `themeDefaults`:
+
+```tsx
+import { ThemeProvider, Chip } from '@vaneui/ui';
+
+<ThemeProvider themeDefaults={{
+  chip: { brand: true, filled: true, pill: true },
+}}>
+  <Chip>v2.0</Chip>
+</ThemeProvider>
+```
+
+Add prop-conditional classes with `extraClasses`, applied whenever the matching boolean prop is active:
+
+```tsx
+import { ThemeProvider, Chip } from '@vaneui/ui';
+
+<ThemeProvider extraClasses={{
+  chip: {
+    danger: 'animate-pulse',
+    success: 'shadow-sm',
+  },
+}}>
+  <Chip danger>blocked</Chip>
+</ThemeProvider>
+```
+
+---
 Title: Code
 URL: https://vaneui.com/docs/basic-components/code
 ---
@@ -1827,852 +2116,6 @@ import { Code, Text } from '@vaneui/ui';
 <Text>
   Read the <Code href="/docs/getting-started" tag={Link}>getting started guide</Code> for setup steps.
 </Text>
-```
-
----
-Title: Divider
-URL: https://vaneui.com/docs/basic-components/divider
----
-
-Renders a thin line to separate content and create a clear visual hierarchy. Dividers can be used to group related items in lists and layouts.
-
-## Basic divider
-
-A horizontal divider.
-
-```tsx demo
-<Col>
-  <Text>Content above the divider</Text>
-  <Divider />
-  <Text>Content below the divider</Text>
-</Col>
-```
-
-## Divider sizes
-
-Sizes (`xs`, `sm`, `md`, `lg`, `xl`) drive the per-size vertical padding via `--py-unit`. The line itself stays one pixel; pass `padding` to make the surrounding spacing visible.
-
-```tsx demo
-<Col lg>
-  <div>
-    <Text semibold>Divider xs</Text>
-    <Divider xs padding />
-    <Text>Content after xs divider</Text>
-  </div>
-  <div>
-    <Text semibold>Divider sm</Text>
-    <Divider sm padding />
-    <Text>Content after sm divider</Text>
-  </div>
-  <div>
-    <Text semibold>Divider md (default)</Text>
-    <Divider padding />
-    <Text>Content after md divider</Text>
-  </div>
-  <div>
-    <Text semibold>Divider lg</Text>
-    <Divider lg padding />
-    <Text>Content after lg divider</Text>
-  </div>
-  <div>
-    <Text semibold>Divider xl</Text>
-    <Divider xl padding />
-    <Text>Content after xl divider</Text>
-  </div>
-</Col>
-```
-
-## Divider appearances
-
-Dividers use `inherit` by default. Pass an explicit appearance for a colored line.
-
-```tsx demo
-<Col lg>
-  <div>
-    <Text semibold>Divider primary</Text>
-    <Divider primary />
-    <Text>Content after primary divider</Text>
-  </div>
-  <div>
-    <Text semibold>Divider brand</Text>
-    <Divider brand />
-    <Text>Content after brand divider</Text>
-  </div>
-  <div>
-    <Text semibold>Divider accent</Text>
-    <Divider accent />
-    <Text>Content after accent divider</Text>
-  </div>
-  <div>
-    <Text semibold>Divider secondary</Text>
-    <Divider secondary />
-    <Text>Content after secondary divider</Text>
-  </div>
-  <div>
-    <Text semibold>Divider tertiary</Text>
-    <Divider tertiary />
-    <Text>Content after tertiary divider</Text>
-  </div>
-  <div>
-    <Text semibold>Divider success</Text>
-    <Divider success />
-    <Text>Content after success divider</Text>
-  </div>
-  <div>
-    <Text semibold>Divider danger</Text>
-    <Divider danger />
-    <Text>Content after danger divider</Text>
-  </div>
-  <div>
-    <Text semibold>Divider warning</Text>
-    <Divider warning />
-    <Text>Content after warning divider</Text>
-  </div>
-</Col>
-```
-
-## Filled variant
-
-`filled` swaps the outline appearance for a solid bar in the same color.
-
-```tsx demo
-<Col lg>
-  <Divider primary filled />
-  <Divider brand filled />
-  <Divider accent filled />
-  <Divider success filled />
-  <Divider danger filled />
-</Col>
-```
-
-## Vertical divider
-
-Pass `vertical` to render a vertical separator. Useful for inline navigation or toolbars; place it inside a `Row` so it can stretch to the row's height.
-
-```tsx demo
-<Row className="h-10">
-  <Text>Home</Text>
-  <Divider vertical />
-  <Text>About</Text>
-  <Divider vertical />
-  <Text>Contact</Text>
-</Row>
-```
-
-## Separating list items
-
-Use `Divider` between items in a `Stack` or `Col` to group related rows.
-
-```tsx demo
-<Stack>
-  <Row justifyBetween>
-    <Text semibold>Plan</Text>
-    <Text>Pro</Text>
-  </Row>
-  <Divider />
-  <Row justifyBetween>
-    <Text semibold>Seats</Text>
-    <Text>12</Text>
-  </Row>
-  <Divider />
-  <Row justifyBetween>
-    <Text semibold>Renews</Text>
-    <Text>May 2026</Text>
-  </Row>
-</Stack>
-```
-
-## Separating content blocks
-
-Dividers also work as section breaks between larger blocks of content.
-
-```tsx demo
-<Col lg>
-  <div>
-    <Text semibold lg>Block 1</Text>
-    <Text>The first block introduces the topic and sets context for the sections that follow.</Text>
-  </div>
-  <Divider />
-  <div>
-    <Text semibold lg>Block 2</Text>
-    <Text>The second block expands on the idea, with the divider providing a clear visual break.</Text>
-  </div>
-  <Divider />
-  <div>
-    <Text semibold lg>Block 3</Text>
-    <Text>The third block closes out the sequence, demonstrating consistent rhythm throughout.</Text>
-  </div>
-</Col>
-```
-
----
-Title: Input
-URL: https://vaneui.com/docs/basic-components/input
----
-
-Allows users to enter text, numbers, and other data. Inputs are essential form elements with support for various types, validation states, and styling options.
-
-## When to use
-
-- Text, email, password, number, search, URL, and tel form fields.
-- Inline editable values in tables, settings panels, or detail pages.
-- Filter/search bars where the value drives a list or query.
-- Pair with `Label` for accessible field labelling.
-
-### When NOT to use
-
-- For long-form text: use a `<textarea>` (autosize support not yet built into VaneUI).
-- For binary toggles: use `Checkbox`.
-- For one-of-many selection: use a select/radio pattern.
-
-## Customizing
-
-Set app-wide Input defaults with `ThemeProvider`'s `themeDefaults` and add a focus-ring colour with `extraClasses`:
-
-```tsx
-import { ThemeProvider, Input } from '@vaneui/ui';
-
-<ThemeProvider
-  themeDefaults={{ input: { lg: true, filled: true } }}
-  extraClasses={{ input: { primary: 'focus:ring-2 focus:ring-brand-500/40' } }}
->
-  <Input placeholder="Email" />
-</ThemeProvider>
-```
-
-## Basic input
-
-A styled text input field.
-
-```tsx demo
-<Input placeholder="Enter text..." />
-```
-
-## Input sizes
-
-Inputs come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
-
-```tsx demo
-<Col>
-  <Input xs placeholder="Extra small" />
-  <Input sm placeholder="Small" />
-  <Input placeholder="Medium (default)" />
-  <Input lg placeholder="Large" />
-  <Input xl placeholder="Extra large" />
-</Col>
-```
-
-## Input types
-
-The `type` HTML attribute passes through to the underlying `<input>` element.
-
-```tsx demo
-<Col>
-  <Input type="text" placeholder="Text input" />
-  <Input type="email" placeholder="Email input" />
-  <Input type="password" placeholder="Password input" />
-  <Input type="number" placeholder="Number input" />
-  <Input type="search" placeholder="Search input" />
-</Col>
-```
-
-## Input variants
-
-Inputs are `outline` by default. Use `filled` for solid backgrounds.
-
-```tsx demo
-<Col>
-  <Row flexWrap>
-    <Input placeholder="Outline (default)" />
-    <Input success placeholder="Outline success" />
-    <Input danger placeholder="Outline danger" />
-  </Row>
-  <Row flexWrap>
-    <Input filled placeholder="Filled (default)" />
-    <Input filled success placeholder="Filled success" />
-    <Input filled danger placeholder="Filled danger" />
-  </Row>
-</Col>
-```
-
-## Input with labels
-
-Pair inputs with labels for accessibility and better UX. When the `Input` is nested inside a `Label`, it inherits the Label's size. Set it once on the Label.
-
-```tsx demo
-<Col>
-  <Label>
-    Full Name
-    <Input type="text" placeholder="Enter your full name" />
-  </Label>
-  <Label lg>
-    Email Address (large)
-    <Input type="email" placeholder="Enter your email" />
-  </Label>
-</Col>
-```
-
-## Input shapes
-
-Inputs support border radius styles: `rounded` (default), `pill`, and `sharp`.
-
-```tsx demo
-<Row flexWrap>
-  <Input placeholder="Rounded (default)" />
-  <Input pill placeholder="Pill shape" />
-  <Input sharp placeholder="Sharp corners" />
-</Row>
-```
-
-## Input states
-
-Different input states: disabled, readonly, and validation feedback. Use appearance props (`success`, `danger`) for visual feedback, or the `error` status prop for form validation state.
-
-```tsx
-<Input placeholder="Normal input" />
-<Input disabled placeholder="Disabled input" />
-<Input success placeholder="Success state" />
-<Input danger placeholder="Error state" />
-<Input error placeholder="Validation error" />
-```
-
-```tsx demo
-<Col>
-  <Input placeholder="Normal input" />
-  <Input disabled placeholder="Disabled input" />
-  <Input success placeholder="Success state" />
-  <Input danger placeholder="Error state" />
-  <Input error placeholder="Validation error (status)" />
-</Col>
-```
-
----
-Title: Img
-URL: https://vaneui.com/docs/basic-components/img
----
-
-Displays images with VaneUI styling support including sizes, shapes, borders, shadows, and object-fit options.
-
-```tsx setup
-const placeholderSrc = "https://placehold.co/300x200/e2e8f0/64748b?text=Image";
-const portraitSrc = "https://placehold.co/200x300/cbd5e1/475569?text=Portrait";
-const avatarSrc = "https://placehold.co/120x120/c7d2fe/4338ca?text=Avatar";
-```
-
-## Basic image
-
-Render an image with the `Img` component.
-
-```tsx demo
-<Img src={placeholderSrc} alt="Sample landscape photo" />
-```
-
-## Alt text
-
-Always pass a descriptive `alt` attribute. Use an empty `alt=""` for decorative images so assistive technology can skip them.
-
-```tsx demo
-<Row flexWrap>
-  <Img src={placeholderSrc} alt="Team standing in front of the office building" />
-  <Img src={placeholderSrc} alt="" />
-</Row>
-```
-
-## Shapes
-
-Control border radius with `rounded` (default), `pill` (great for avatars), and `sharp`.
-
-```tsx demo
-<Row flexWrap>
-  <Col itemsCenter>
-    <Img src={placeholderSrc} alt="Rounded image" />
-    <Text sm secondary>rounded (default)</Text>
-  </Col>
-  <Col itemsCenter>
-    <Img pill src={avatarSrc} alt="Avatar" />
-    <Text sm secondary>pill</Text>
-  </Col>
-  <Col itemsCenter>
-    <Img sharp src={placeholderSrc} alt="Sharp image" />
-    <Text sm secondary>sharp</Text>
-  </Col>
-</Row>
-```
-
-## Border and shadow
-
-Add `border` and `shadow` props for visual emphasis.
-
-```tsx demo
-<Row flexWrap>
-  <Col itemsCenter>
-    <Img border src={placeholderSrc} alt="Bordered image" />
-    <Text sm secondary>border</Text>
-  </Col>
-  <Col itemsCenter>
-    <Img shadow src={placeholderSrc} alt="Image with shadow" />
-    <Text sm secondary>shadow</Text>
-  </Col>
-  <Col itemsCenter>
-    <Img border shadow src={placeholderSrc} alt="Bordered image with shadow" />
-    <Text sm secondary>border + shadow</Text>
-  </Col>
-</Row>
-```
-
-## Sizes
-
-Images support five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size controls border-radius scaling.
-
-```tsx demo
-<Row flexWrap itemsEnd>
-  <Col itemsCenter>
-    <Img xs src={placeholderSrc} alt="xs image" />
-    <Text sm secondary>xs</Text>
-  </Col>
-  <Col itemsCenter>
-    <Img sm src={placeholderSrc} alt="sm image" />
-    <Text sm secondary>sm</Text>
-  </Col>
-  <Col itemsCenter>
-    <Img src={placeholderSrc} alt="md image" />
-    <Text sm secondary>md (default)</Text>
-  </Col>
-  <Col itemsCenter>
-    <Img lg src={placeholderSrc} alt="lg image" />
-    <Text sm secondary>lg</Text>
-  </Col>
-  <Col itemsCenter>
-    <Img xl src={placeholderSrc} alt="xl image" />
-    <Text sm secondary>xl</Text>
-  </Col>
-</Row>
-```
-
-## Object fit
-
-Control how an image fills a sized container with `objectCover` (default), `objectContain`, and `objectFill`. The examples below constrain the image to a fixed box so the difference is visible.
-
-```tsx demo
-<Row flexWrap>
-  <Col itemsCenter>
-    <Img src={portraitSrc} alt="Cover crops to fill the box" style={{ width: 200, height: 150 }} />
-    <Text sm secondary>objectCover (default)</Text>
-  </Col>
-  <Col itemsCenter>
-    <Img objectContain src={portraitSrc} alt="Contain fits inside the box" style={{ width: 200, height: 150 }} />
-    <Text sm secondary>objectContain</Text>
-  </Col>
-  <Col itemsCenter>
-    <Img objectFill src={portraitSrc} alt="Fill stretches to the box" style={{ width: 200, height: 150 }} />
-    <Text sm secondary>objectFill</Text>
-  </Col>
-</Row>
-```
-
-## Inside a Card
-
-`Img` composes naturally inside `Card` for media tiles. Use `wFull` so the image spans the card width.
-
-```tsx demo
-<Row flexWrap>
-  <Card noPadding overflowHidden style={{ width: 240 }}>
-    <Img sharp wFull src={placeholderSrc} alt="Sunset over the harbor" style={{ height: 140 }} />
-    <Stack>
-      <Title sm>Harbor Sunset</Title>
-      <Text sm secondary>Captured last weekend on a walk along the pier.</Text>
-    </Stack>
-  </Card>
-  <Card noPadding overflowHidden style={{ width: 240 }}>
-    <Img sharp wFull src={placeholderSrc} alt="Forest trail at dawn" style={{ height: 140 }} />
-    <Stack>
-      <Title sm>Forest Trail</Title>
-      <Text sm secondary>Early morning hike through the pine forest.</Text>
-    </Stack>
-  </Card>
-</Row>
-```
-
-## Native HTML attributes
-
-`Img` forwards all standard `<img>` attributes including `loading`, `decoding`, `srcSet`, `sizes`, `referrerPolicy`, and `crossOrigin`. Use `loading="lazy"` for below-the-fold images.
-
-```tsx demo
-<Img
-  src={placeholderSrc}
-  alt="Lazy-loaded image"
-  loading="lazy"
-  decoding="async"
-/>
-```
-
----
-Title: Icon
-URL: https://vaneui.com/docs/basic-components/icon
----
-
-A lightweight SVG wrapper that provides consistent sizing, color inheritance, and themed appearances for icons. With `padding` it switches into container mode, gaining shape, border, ring, and shadow around the glyph.
-
-## Basic usage
-
-Wrap any SVG inside `Icon` to apply consistent sizing and color inheritance.
-
-```tsx demo
-<Row flexWrap>
-  <Icon><Star /></Icon>
-  <Icon><Heart /></Icon>
-  <Icon><AlertCircle /></Icon>
-  <Icon><Check /></Icon>
-  <Icon><Info /></Icon>
-</Row>
-```
-
-## Sizes
-
-Icons support five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
-
-```tsx demo
-<Row flexWrap itemsEnd>
-  <Col itemsCenter>
-    <Icon xs><Star /></Icon>
-    <Text sm secondary>xs</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon sm><Star /></Icon>
-    <Text sm secondary>sm</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon md><Star /></Icon>
-    <Text sm secondary>md</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon lg><Star /></Icon>
-    <Text sm secondary>lg</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon xl><Star /></Icon>
-    <Text sm secondary>xl</Text>
-  </Col>
-</Row>
-```
-
-## Appearances
-
-By default, Icon inherits `currentColor` from the parent. Use appearance props to apply themed colors.
-
-```tsx demo
-<Row flexWrap>
-  <Col itemsCenter>
-    <Icon primary><Star /></Icon>
-    <Text xs secondary>primary</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon brand><Star /></Icon>
-    <Text xs secondary>brand</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon accent><Star /></Icon>
-    <Text xs secondary>accent</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon secondary><Star /></Icon>
-    <Text xs secondary>secondary</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon tertiary><Star /></Icon>
-    <Text xs secondary>tertiary</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon success><Star /></Icon>
-    <Text xs secondary>success</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon danger><Star /></Icon>
-    <Text xs secondary>danger</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon warning><Star /></Icon>
-    <Text xs secondary>warning</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon info><Star /></Icon>
-    <Text xs secondary>info</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon link><Star /></Icon>
-    <Text xs secondary>link</Text>
-  </Col>
-</Row>
-```
-
-## Variants
-
-Icons support `outline` (default, text color only) and `filled` (background fill) variants.
-
-```tsx demo
-<Row flexWrap>
-  <Col itemsCenter>
-    <Icon primary><Star /></Icon>
-    <Text xs secondary>outline</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon primary filled><Star /></Icon>
-    <Text xs secondary>filled</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon danger><AlertCircle /></Icon>
-    <Text xs secondary>outline</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon danger filled><AlertCircle /></Icon>
-    <Text xs secondary>filled</Text>
-  </Col>
-</Row>
-```
-
-## Shape
-
-Shape props apply once the icon enters container mode (any of `padding`, `border`, `ring`, `shadow`, `filled`). Without a container, the SVG has no visible box for the radius to act on.
-
-```tsx demo
-<Row flexWrap>
-  <Col itemsCenter>
-    <Icon padding primary filled sharp><Star /></Icon>
-    <Text xs secondary>sharp</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon padding primary filled><Star /></Icon>
-    <Text xs secondary>rounded</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon padding primary filled pill><Star /></Icon>
-    <Text xs secondary>pill</Text>
-  </Col>
-</Row>
-```
-
-## Container mode
-
-Add `padding` to give the icon a sized box, then combine `filled`, `border`, `ring`, or `shadow` to style the container. Padding and radius scale with the size prop.
-
-```tsx demo
-<Row flexWrap itemsCenter>
-  <Col itemsCenter>
-    <Icon padding pill primary filled><Heart /></Icon>
-    <Text xs secondary>filled</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon padding pill primary border><Heart /></Icon>
-    <Text xs secondary>border</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon padding pill primary ring><Heart /></Icon>
-    <Text xs secondary>ring</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon padding pill primary filled shadow><Heart /></Icon>
-    <Text xs secondary>filled + shadow</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon padding pill success filled ring><Check /></Icon>
-    <Text xs secondary>filled + ring</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon lg padding pill danger filled><AlertCircle /></Icon>
-    <Text xs secondary>lg</Text>
-  </Col>
-</Row>
-```
-
-## Transparent
-
-Use `transparent` to keep the container background see-through while still applying the appearance color to the glyph, border, or ring.
-
-```tsx demo
-<Row flexWrap>
-  <Col itemsCenter>
-    <Icon padding pill primary filled transparent border><Star /></Icon>
-    <Text xs secondary>filled + transparent</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon padding pill success filled transparent ring><Check /></Icon>
-    <Text xs secondary>success</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon padding pill danger filled transparent border><AlertCircle /></Icon>
-    <Text xs secondary>danger</Text>
-  </Col>
-</Row>
-```
-
-## In context
-
-Icons work naturally alongside text and inside buttons.
-
-```tsx demo
-<Col>
-  <Row>
-    <Button><Search /> Search</Button>
-    <Button success filled><Check /> Saved</Button>
-    <Button danger><AlertCircle /> Delete</Button>
-  </Row>
-  <Text><Icon sm info><Info /></Icon> Icons inherit inline sizing when placed in text.</Text>
-  <Row itemsCenter>
-    <Icon padding pill primary filled><Star /></Icon>
-    <Col gap noPadding>
-      <Text bold>Container-mode icons</Text>
-      <Text sm secondary>Pair a padded icon with adjacent text for compact summaries.</Text>
-    </Col>
-  </Row>
-</Col>
-```
-
----
-Title: IconButton
-URL: https://vaneui.com/docs/basic-components/icon-button
----
-
-A square icon-only button with customizable appearance, size, and shape. Supports loading state and renders as an `<a>` when given an `href`. Always provide `aria-label` for accessibility.
-
-## Basic usage
-
-Drop an icon directly inside the `IconButton`. Each `appearance` prop maps to a semantic color from the active theme.
-
-```tsx demo
-<Row flexWrap>
-  <IconButton><Star /></IconButton>
-  <IconButton secondary><Heart /></IconButton>
-  <IconButton success><Check /></IconButton>
-  <IconButton danger><Trash2 /></IconButton>
-  <IconButton warning><Bell /></IconButton>
-  <IconButton info><Info /></IconButton>
-</Row>
-```
-
-## Sizes
-
-IconButton supports five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size drives the square aspect ratio, padding, and border-radius simultaneously via CSS variables.
-
-```tsx demo
-<Row flexWrap itemsEnd>
-  <Col itemsCenter>
-    <IconButton xs><Star /></IconButton>
-    <Text sm secondary>xs</Text>
-  </Col>
-  <Col itemsCenter>
-    <IconButton sm><Star /></IconButton>
-    <Text sm secondary>sm</Text>
-  </Col>
-  <Col itemsCenter>
-    <IconButton><Star /></IconButton>
-    <Text sm secondary>md</Text>
-  </Col>
-  <Col itemsCenter>
-    <IconButton lg><Star /></IconButton>
-    <Text sm secondary>lg</Text>
-  </Col>
-  <Col itemsCenter>
-    <IconButton xl><Star /></IconButton>
-    <Text sm secondary>xl</Text>
-  </Col>
-</Row>
-```
-
-## Variants
-
-IconButton renders as `outline` (default) or `filled`.
-
-```tsx demo
-<Col>
-  <Row flexWrap>
-    <IconButton><Star /></IconButton>
-    <IconButton secondary><Heart /></IconButton>
-    <IconButton success><Check /></IconButton>
-    <IconButton danger><Trash2 /></IconButton>
-    <IconButton warning><Bell /></IconButton>
-    <IconButton info><Info /></IconButton>
-  </Row>
-  <Row flexWrap>
-    <IconButton filled><Star /></IconButton>
-    <IconButton filled secondary><Heart /></IconButton>
-    <IconButton filled success><Check /></IconButton>
-    <IconButton filled danger><Trash2 /></IconButton>
-    <IconButton filled warning><Bell /></IconButton>
-    <IconButton filled info><Info /></IconButton>
-  </Row>
-</Col>
-```
-
-## Shapes
-
-IconButton supports `rounded` (default), `pill`, and `sharp`. `pill` is especially well suited to icon-only buttons.
-
-```tsx demo
-<Row flexWrap>
-  <Col itemsCenter>
-    <IconButton filled><Star /></IconButton>
-    <Text sm secondary>rounded</Text>
-  </Col>
-  <Col itemsCenter>
-    <IconButton pill filled><Star /></IconButton>
-    <Text sm secondary>pill</Text>
-  </Col>
-  <Col itemsCenter>
-    <IconButton sharp filled><Star /></IconButton>
-    <Text sm secondary>sharp</Text>
-  </Col>
-</Row>
-```
-
-## As Link and disabled
-
-Pass `href` to render the IconButton as an `<a>` for navigation. Use `disabled` to prevent interaction.
-
-```tsx demo
-<Row flexWrap>
-  <IconButton href="https://github.com" target="_blank"><ExternalLink /></IconButton>
-  <IconButton filled success href="#"><ExternalLink /></IconButton>
-  <IconButton disabled><Star /></IconButton>
-  <IconButton filled danger disabled><Trash2 /></IconButton>
-</Row>
-```
-
-## Next.js Link integration
-
-Use the `tag` prop to render the IconButton as a Next.js `Link` for client-side navigation.
-
-```tsx
-import Link from 'next/link';
-import { IconButton } from '@vaneui/ui';
-import { Settings } from 'react-feather';
-
-<IconButton href="/settings" tag={Link}><Settings /></IconButton>
-```
-
-## Loading state
-
-Set `loading` to show a spinner and auto-disable the button.
-
-```tsx
-const [loading, setLoading] = useState(false);
-
-<IconButton loading={loading} onClick={() => setLoading(true)}>
-  <Star />
-</IconButton>
-```
-
-## Customizing
-
-Set app-wide IconButton defaults with `ThemeProvider`'s `themeDefaults`:
-
-```tsx
-import { ThemeProvider, IconButton } from '@vaneui/ui';
-
-<ThemeProvider themeDefaults={{
-  iconButton: { secondary: true, pill: true, lg: true },
-}}>
-  <IconButton><Star /></IconButton>
-</ThemeProvider>
 ```
 
 ---
@@ -2902,9 +2345,375 @@ Use Mark to highlight search matches within text content.
 </Col>
 ```
 
+---
+Title: Icon
+URL: https://vaneui.com/docs/basic-components/icon
+---
+
+A lightweight SVG wrapper that provides consistent sizing, color inheritance, and themed appearances for icons. With `padding` it switches into container mode, gaining shape, border, ring, and shadow around the glyph.
+
+## Basic usage
+
+Wrap any SVG inside `Icon` to apply consistent sizing and color inheritance.
+
+```tsx demo
+<Row flexWrap>
+  <Icon><Star /></Icon>
+  <Icon><Heart /></Icon>
+  <Icon><AlertCircle /></Icon>
+  <Icon><Check /></Icon>
+  <Icon><Info /></Icon>
+</Row>
+```
+
+## Sizes
+
+Icons support five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
+
+```tsx demo
+<Row flexWrap itemsEnd>
+  <Col itemsCenter>
+    <Icon xs><Star /></Icon>
+    <Text sm secondary>xs</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon sm><Star /></Icon>
+    <Text sm secondary>sm</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon md><Star /></Icon>
+    <Text sm secondary>md</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon lg><Star /></Icon>
+    <Text sm secondary>lg</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon xl><Star /></Icon>
+    <Text sm secondary>xl</Text>
+  </Col>
+</Row>
+```
+
+## Appearances
+
+By default, Icon inherits `currentColor` from the parent. Use appearance props to apply themed colors.
+
+```tsx demo
+<Row flexWrap>
+  <Col itemsCenter>
+    <Icon primary><Star /></Icon>
+    <Text xs secondary>primary</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon brand><Star /></Icon>
+    <Text xs secondary>brand</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon accent><Star /></Icon>
+    <Text xs secondary>accent</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon secondary><Star /></Icon>
+    <Text xs secondary>secondary</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon tertiary><Star /></Icon>
+    <Text xs secondary>tertiary</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon success><Star /></Icon>
+    <Text xs secondary>success</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon danger><Star /></Icon>
+    <Text xs secondary>danger</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon warning><Star /></Icon>
+    <Text xs secondary>warning</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon info><Star /></Icon>
+    <Text xs secondary>info</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon link><Star /></Icon>
+    <Text xs secondary>link</Text>
+  </Col>
+</Row>
+```
+
+## Variants
+
+Icons support `outline` (default, text color only) and `filled` (background fill) variants.
+
+```tsx demo
+<Row flexWrap>
+  <Col itemsCenter>
+    <Icon primary><Star /></Icon>
+    <Text xs secondary>outline</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon primary filled><Star /></Icon>
+    <Text xs secondary>filled</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon danger><AlertCircle /></Icon>
+    <Text xs secondary>outline</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon danger filled><AlertCircle /></Icon>
+    <Text xs secondary>filled</Text>
+  </Col>
+</Row>
+```
+
+## Shape
+
+Shape props apply once the icon enters container mode (any of `padding`, `border`, `ring`, `shadow`, `filled`). Without a container, the SVG has no visible box for the radius to act on.
+
+```tsx demo
+<Row flexWrap>
+  <Col itemsCenter>
+    <Icon padding primary filled sharp><Star /></Icon>
+    <Text xs secondary>sharp</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon padding primary filled><Star /></Icon>
+    <Text xs secondary>rounded</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon padding primary filled pill><Star /></Icon>
+    <Text xs secondary>pill</Text>
+  </Col>
+</Row>
+```
+
+## Container mode
+
+Add `padding` to give the icon a sized box, then combine `filled`, `border`, `ring`, or `shadow` to style the container. Padding and radius scale with the size prop.
+
+```tsx demo
+<Row flexWrap itemsCenter>
+  <Col itemsCenter>
+    <Icon padding pill primary filled><Heart /></Icon>
+    <Text xs secondary>filled</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon padding pill primary border><Heart /></Icon>
+    <Text xs secondary>border</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon padding pill primary ring><Heart /></Icon>
+    <Text xs secondary>ring</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon padding pill primary filled shadow><Heart /></Icon>
+    <Text xs secondary>filled + shadow</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon padding pill success filled ring><Check /></Icon>
+    <Text xs secondary>filled + ring</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon lg padding pill danger filled><AlertCircle /></Icon>
+    <Text xs secondary>lg</Text>
+  </Col>
+</Row>
+```
+
+## Transparent
+
+Use `transparent` to keep the container background see-through while still applying the appearance color to the glyph, border, or ring.
+
+```tsx demo
+<Row flexWrap>
+  <Col itemsCenter>
+    <Icon padding pill primary filled transparent border><Star /></Icon>
+    <Text xs secondary>filled + transparent</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon padding pill success filled transparent ring><Check /></Icon>
+    <Text xs secondary>success</Text>
+  </Col>
+  <Col itemsCenter>
+    <Icon padding pill danger filled transparent border><AlertCircle /></Icon>
+    <Text xs secondary>danger</Text>
+  </Col>
+</Row>
+```
+
+## In context
+
+Icons work naturally alongside text and inside buttons.
+
+```tsx demo
+<Col>
+  <Row>
+    <Button><Search /> Search</Button>
+    <Button success filled><Check /> Saved</Button>
+    <Button danger><AlertCircle /> Delete</Button>
+  </Row>
+  <Text><Icon sm info><Info /></Icon> Icons inherit inline sizing when placed in text.</Text>
+  <Row itemsCenter>
+    <Icon padding pill primary filled><Star /></Icon>
+    <Col gap noPadding>
+      <Text bold>Container-mode icons</Text>
+      <Text sm secondary>Pair a padded icon with adjacent text for compact summaries.</Text>
+    </Col>
+  </Row>
+</Col>
+```
+
 ## Layout Components
 
 A set of components designed to help structure and organize your page content.
+
+---
+Title: Container
+URL: https://vaneui.com/docs/layout-components/container
+---
+
+Manages the main content area by centering it and applying a max-width. It ensures a consistent and readable layout across different screen sizes.
+
+## Basic container
+
+A centered, full-width wrapper that caps content at a readable max-width. `md`, `wFull`, `flex`, `column`, `itemsCenter`, `gap`, `noPadding`, `outline`, and `sharp` are defaults.
+
+```tsx demo
+<Container border>
+  <Title>Page Content</Title>
+  <Text>Container centers content and constrains width for optimal readability.</Text>
+</Container>
+```
+
+## Container sizes
+
+Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control the max-width: `max-w-3xl` through `max-w-7xl`. Resize the viewport to see narrower containers stop growing before wider ones do.
+
+```tsx demo
+<Col>
+  <Container xs border>
+    <Text semibold>xs — max-w-3xl</Text>
+  </Container>
+  <Container sm border>
+    <Text semibold>sm — max-w-4xl</Text>
+  </Container>
+  <Container border>
+    <Text semibold>md (default) — max-w-5xl</Text>
+  </Container>
+  <Container lg border>
+    <Text semibold>lg — max-w-6xl</Text>
+  </Container>
+  <Container xl border>
+    <Text semibold>xl — max-w-7xl</Text>
+  </Container>
+</Col>
+```
+
+## Container padding
+
+Container defaults to `noPadding`: the parent Section usually owns vertical rhythm. Pass `padding` to opt in to size-driven internal padding.
+
+```tsx demo
+<Col>
+  <Container border>
+    <Text semibold>noPadding (default)</Text>
+    <Text>Edges sit flush with the container box.</Text>
+  </Container>
+  <Container padding border>
+    <Text semibold>padding</Text>
+    <Text>Internal padding scales with the size prop.</Text>
+  </Container>
+</Col>
+```
+
+## Container appearances
+
+Containers support color appearances: `primary`, `secondary`, `success`, `danger`, etc.
+
+```tsx demo
+<Col>
+  <Container primary border>
+    <Text semibold>Primary Container</Text>
+    <Text>Highlighted content area</Text>
+  </Container>
+  <Container success border>
+    <Text semibold>Success Container</Text>
+    <Text>Positive feedback area</Text>
+  </Container>
+</Col>
+```
+
+## Container variants
+
+Use `filled` for solid backgrounds. `outline` is the default. Add `shadow` for elevation.
+
+```tsx demo
+<Col>
+  <Container filled primary padding>
+    <Title filled primary>Filled Container</Title>
+    <Text filled primary>Solid background with primary color</Text>
+  </Container>
+  <Container secondary border padding>
+    <Title secondary>Outline Container (default)</Title>
+    <Text secondary>Border only styling</Text>
+  </Container>
+  <Container shadow padding>
+    <Title>Shadow Container</Title>
+    <Text>Elevated with drop shadow</Text>
+  </Container>
+</Col>
+```
+
+## Container shapes
+
+Containers support different border radius styles. `sharp` is the default (no radius).
+
+```tsx demo
+<Col>
+  <Container border>
+    <Text semibold>Sharp (default)</Text>
+  </Container>
+  <Container rounded border>
+    <Text semibold>Rounded corners</Text>
+  </Container>
+  <Container pill border padding>
+    <Text semibold>Pill shape</Text>
+  </Container>
+</Col>
+```
+
+## Responsive breakpoints
+
+Container is a flex column by default. Use `row` to flow horizontally on desktop and `mobileCol` / `tabletCol` to stack on smaller screens.
+
+```tsx demo
+<Container row tabletCol border padding>
+  <Col>
+    <Title>Left Content</Title>
+    <Text>Switches to stacked layout on tablets and below.</Text>
+  </Col>
+  <Col>
+    <Title>Right Content</Title>
+    <Text>Resize your browser to see the responsive behavior.</Text>
+  </Col>
+</Container>
+```
+
+## Page layout pattern
+
+The canonical page layout: a Section owns vertical padding and full-width background, the Container nested inside caps reading width and centers the content.
+
+```tsx demo
+<Section secondary>
+  <Container>
+    <PageTitle>Getting Started</PageTitle>
+    <Text>The Section handles the full-bleed background and outer padding. The Container constrains the inner content to a comfortable reading width.</Text>
+  </Container>
+</Section>
+```
 
 ---
 Title: Section
@@ -3067,151 +2876,6 @@ The canonical full-bleed page band: a Section owns the outer padding and backgro
 
 ```tsx demo
 <Section secondary filled>
-  <Container>
-    <PageTitle>Getting Started</PageTitle>
-    <Text>The Section handles the full-bleed background and outer padding. The Container constrains the inner content to a comfortable reading width.</Text>
-  </Container>
-</Section>
-```
-
----
-Title: Container
-URL: https://vaneui.com/docs/layout-components/container
----
-
-Manages the main content area by centering it and applying a max-width. It ensures a consistent and readable layout across different screen sizes.
-
-## Basic container
-
-A centered, full-width wrapper that caps content at a readable max-width. `md`, `wFull`, `flex`, `column`, `itemsCenter`, `gap`, `noPadding`, `outline`, and `sharp` are defaults.
-
-```tsx demo
-<Container border>
-  <Title>Page Content</Title>
-  <Text>Container centers content and constrains width for optimal readability.</Text>
-</Container>
-```
-
-## Container sizes
-
-Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control the max-width: `max-w-3xl` through `max-w-7xl`. Resize the viewport to see narrower containers stop growing before wider ones do.
-
-```tsx demo
-<Col>
-  <Container xs border>
-    <Text semibold>xs — max-w-3xl</Text>
-  </Container>
-  <Container sm border>
-    <Text semibold>sm — max-w-4xl</Text>
-  </Container>
-  <Container border>
-    <Text semibold>md (default) — max-w-5xl</Text>
-  </Container>
-  <Container lg border>
-    <Text semibold>lg — max-w-6xl</Text>
-  </Container>
-  <Container xl border>
-    <Text semibold>xl — max-w-7xl</Text>
-  </Container>
-</Col>
-```
-
-## Container padding
-
-Container defaults to `noPadding`: the parent Section usually owns vertical rhythm. Pass `padding` to opt in to size-driven internal padding.
-
-```tsx demo
-<Col>
-  <Container border>
-    <Text semibold>noPadding (default)</Text>
-    <Text>Edges sit flush with the container box.</Text>
-  </Container>
-  <Container padding border>
-    <Text semibold>padding</Text>
-    <Text>Internal padding scales with the size prop.</Text>
-  </Container>
-</Col>
-```
-
-## Container appearances
-
-Containers support color appearances: `primary`, `secondary`, `success`, `danger`, etc.
-
-```tsx demo
-<Col>
-  <Container primary border>
-    <Text semibold>Primary Container</Text>
-    <Text>Highlighted content area</Text>
-  </Container>
-  <Container success border>
-    <Text semibold>Success Container</Text>
-    <Text>Positive feedback area</Text>
-  </Container>
-</Col>
-```
-
-## Container variants
-
-Use `filled` for solid backgrounds. `outline` is the default. Add `shadow` for elevation.
-
-```tsx demo
-<Col>
-  <Container filled primary padding>
-    <Title filled primary>Filled Container</Title>
-    <Text filled primary>Solid background with primary color</Text>
-  </Container>
-  <Container secondary border padding>
-    <Title secondary>Outline Container (default)</Title>
-    <Text secondary>Border only styling</Text>
-  </Container>
-  <Container shadow padding>
-    <Title>Shadow Container</Title>
-    <Text>Elevated with drop shadow</Text>
-  </Container>
-</Col>
-```
-
-## Container shapes
-
-Containers support different border radius styles. `sharp` is the default (no radius).
-
-```tsx demo
-<Col>
-  <Container border>
-    <Text semibold>Sharp (default)</Text>
-  </Container>
-  <Container rounded border>
-    <Text semibold>Rounded corners</Text>
-  </Container>
-  <Container pill border padding>
-    <Text semibold>Pill shape</Text>
-  </Container>
-</Col>
-```
-
-## Responsive breakpoints
-
-Container is a flex column by default. Use `row` to flow horizontally on desktop and `mobileCol` / `tabletCol` to stack on smaller screens.
-
-```tsx demo
-<Container row tabletCol border padding>
-  <Col>
-    <Title>Left Content</Title>
-    <Text>Switches to stacked layout on tablets and below.</Text>
-  </Col>
-  <Col>
-    <Title>Right Content</Title>
-    <Text>Resize your browser to see the responsive behavior.</Text>
-  </Col>
-</Container>
-```
-
-## Page layout pattern
-
-The canonical page layout: a Section owns vertical padding and full-width background, the Container nested inside caps reading width and centers the content.
-
-```tsx demo
-<Section secondary>
   <Container>
     <PageTitle>Getting Started</PageTitle>
     <Text>The Section handles the full-bleed background and outer padding. The Container constrains the inner content to a comfortable reading width.</Text>
@@ -5424,6 +5088,342 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
+---
+Title: Divider
+URL: https://vaneui.com/docs/layout-components/divider
+---
+
+Renders a thin line to separate content and create a clear visual hierarchy. Dividers can be used to group related items in lists and layouts.
+
+## Basic divider
+
+A horizontal divider.
+
+```tsx demo
+<Col>
+  <Text>Content above the divider</Text>
+  <Divider />
+  <Text>Content below the divider</Text>
+</Col>
+```
+
+## Divider sizes
+
+Sizes (`xs`, `sm`, `md`, `lg`, `xl`) drive the per-size vertical padding via `--py-unit`. The line itself stays one pixel; pass `padding` to make the surrounding spacing visible.
+
+```tsx demo
+<Col lg>
+  <div>
+    <Text semibold>Divider xs</Text>
+    <Divider xs padding />
+    <Text>Content after xs divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider sm</Text>
+    <Divider sm padding />
+    <Text>Content after sm divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider md (default)</Text>
+    <Divider padding />
+    <Text>Content after md divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider lg</Text>
+    <Divider lg padding />
+    <Text>Content after lg divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider xl</Text>
+    <Divider xl padding />
+    <Text>Content after xl divider</Text>
+  </div>
+</Col>
+```
+
+## Divider appearances
+
+Dividers use `inherit` by default. Pass an explicit appearance for a colored line.
+
+```tsx demo
+<Col lg>
+  <div>
+    <Text semibold>Divider primary</Text>
+    <Divider primary />
+    <Text>Content after primary divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider brand</Text>
+    <Divider brand />
+    <Text>Content after brand divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider accent</Text>
+    <Divider accent />
+    <Text>Content after accent divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider secondary</Text>
+    <Divider secondary />
+    <Text>Content after secondary divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider tertiary</Text>
+    <Divider tertiary />
+    <Text>Content after tertiary divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider success</Text>
+    <Divider success />
+    <Text>Content after success divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider danger</Text>
+    <Divider danger />
+    <Text>Content after danger divider</Text>
+  </div>
+  <div>
+    <Text semibold>Divider warning</Text>
+    <Divider warning />
+    <Text>Content after warning divider</Text>
+  </div>
+</Col>
+```
+
+## Filled variant
+
+`filled` swaps the outline appearance for a solid bar in the same color.
+
+```tsx demo
+<Col lg>
+  <Divider primary filled />
+  <Divider brand filled />
+  <Divider accent filled />
+  <Divider success filled />
+  <Divider danger filled />
+</Col>
+```
+
+## Vertical divider
+
+Pass `vertical` to render a vertical separator. Useful for inline navigation or toolbars; place it inside a `Row` so it can stretch to the row's height.
+
+```tsx demo
+<Row className="h-10">
+  <Text>Home</Text>
+  <Divider vertical />
+  <Text>About</Text>
+  <Divider vertical />
+  <Text>Contact</Text>
+</Row>
+```
+
+## Separating list items
+
+Use `Divider` between items in a `Stack` or `Col` to group related rows.
+
+```tsx demo
+<Stack>
+  <Row justifyBetween>
+    <Text semibold>Plan</Text>
+    <Text>Pro</Text>
+  </Row>
+  <Divider />
+  <Row justifyBetween>
+    <Text semibold>Seats</Text>
+    <Text>12</Text>
+  </Row>
+  <Divider />
+  <Row justifyBetween>
+    <Text semibold>Renews</Text>
+    <Text>May 2026</Text>
+  </Row>
+</Stack>
+```
+
+## Separating content blocks
+
+Dividers also work as section breaks between larger blocks of content.
+
+```tsx demo
+<Col lg>
+  <div>
+    <Text semibold lg>Block 1</Text>
+    <Text>The first block introduces the topic and sets context for the sections that follow.</Text>
+  </div>
+  <Divider />
+  <div>
+    <Text semibold lg>Block 2</Text>
+    <Text>The second block expands on the idea, with the divider providing a clear visual break.</Text>
+  </div>
+  <Divider />
+  <div>
+    <Text semibold lg>Block 3</Text>
+    <Text>The third block closes out the sequence, demonstrating consistent rhythm throughout.</Text>
+  </div>
+</Col>
+```
+
+---
+Title: Img
+URL: https://vaneui.com/docs/layout-components/img
+---
+
+Displays images with VaneUI styling support including sizes, shapes, borders, shadows, and object-fit options.
+
+```tsx setup
+const placeholderSrc = "https://placehold.co/300x200/e2e8f0/64748b?text=Image";
+const portraitSrc = "https://placehold.co/200x300/cbd5e1/475569?text=Portrait";
+const avatarSrc = "https://placehold.co/120x120/c7d2fe/4338ca?text=Avatar";
+```
+
+## Basic image
+
+Render an image with the `Img` component.
+
+```tsx demo
+<Img src={placeholderSrc} alt="Sample landscape photo" />
+```
+
+## Alt text
+
+Always pass a descriptive `alt` attribute. Use an empty `alt=""` for decorative images so assistive technology can skip them.
+
+```tsx demo
+<Row flexWrap>
+  <Img src={placeholderSrc} alt="Team standing in front of the office building" />
+  <Img src={placeholderSrc} alt="" />
+</Row>
+```
+
+## Shapes
+
+Control border radius with `rounded` (default), `pill` (great for avatars), and `sharp`.
+
+```tsx demo
+<Row flexWrap>
+  <Col itemsCenter>
+    <Img src={placeholderSrc} alt="Rounded image" />
+    <Text sm secondary>rounded (default)</Text>
+  </Col>
+  <Col itemsCenter>
+    <Img pill src={avatarSrc} alt="Avatar" />
+    <Text sm secondary>pill</Text>
+  </Col>
+  <Col itemsCenter>
+    <Img sharp src={placeholderSrc} alt="Sharp image" />
+    <Text sm secondary>sharp</Text>
+  </Col>
+</Row>
+```
+
+## Border and shadow
+
+Add `border` and `shadow` props for visual emphasis.
+
+```tsx demo
+<Row flexWrap>
+  <Col itemsCenter>
+    <Img border src={placeholderSrc} alt="Bordered image" />
+    <Text sm secondary>border</Text>
+  </Col>
+  <Col itemsCenter>
+    <Img shadow src={placeholderSrc} alt="Image with shadow" />
+    <Text sm secondary>shadow</Text>
+  </Col>
+  <Col itemsCenter>
+    <Img border shadow src={placeholderSrc} alt="Bordered image with shadow" />
+    <Text sm secondary>border + shadow</Text>
+  </Col>
+</Row>
+```
+
+## Sizes
+
+Images support five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size controls border-radius scaling.
+
+```tsx demo
+<Row flexWrap itemsEnd>
+  <Col itemsCenter>
+    <Img xs src={placeholderSrc} alt="xs image" />
+    <Text sm secondary>xs</Text>
+  </Col>
+  <Col itemsCenter>
+    <Img sm src={placeholderSrc} alt="sm image" />
+    <Text sm secondary>sm</Text>
+  </Col>
+  <Col itemsCenter>
+    <Img src={placeholderSrc} alt="md image" />
+    <Text sm secondary>md (default)</Text>
+  </Col>
+  <Col itemsCenter>
+    <Img lg src={placeholderSrc} alt="lg image" />
+    <Text sm secondary>lg</Text>
+  </Col>
+  <Col itemsCenter>
+    <Img xl src={placeholderSrc} alt="xl image" />
+    <Text sm secondary>xl</Text>
+  </Col>
+</Row>
+```
+
+## Object fit
+
+Control how an image fills a sized container with `objectCover` (default), `objectContain`, and `objectFill`. The examples below constrain the image to a fixed box so the difference is visible.
+
+```tsx demo
+<Row flexWrap>
+  <Col itemsCenter>
+    <Img src={portraitSrc} alt="Cover crops to fill the box" style={{ width: 200, height: 150 }} />
+    <Text sm secondary>objectCover (default)</Text>
+  </Col>
+  <Col itemsCenter>
+    <Img objectContain src={portraitSrc} alt="Contain fits inside the box" style={{ width: 200, height: 150 }} />
+    <Text sm secondary>objectContain</Text>
+  </Col>
+  <Col itemsCenter>
+    <Img objectFill src={portraitSrc} alt="Fill stretches to the box" style={{ width: 200, height: 150 }} />
+    <Text sm secondary>objectFill</Text>
+  </Col>
+</Row>
+```
+
+## Inside a Card
+
+`Img` composes naturally inside `Card` for media tiles. Use `wFull` so the image spans the card width.
+
+```tsx demo
+<Row flexWrap>
+  <Card noPadding overflowHidden style={{ width: 240 }}>
+    <Img sharp wFull src={placeholderSrc} alt="Sunset over the harbor" style={{ height: 140 }} />
+    <Stack>
+      <Title sm>Harbor Sunset</Title>
+      <Text sm secondary>Captured last weekend on a walk along the pier.</Text>
+    </Stack>
+  </Card>
+  <Card noPadding overflowHidden style={{ width: 240 }}>
+    <Img sharp wFull src={placeholderSrc} alt="Forest trail at dawn" style={{ height: 140 }} />
+    <Stack>
+      <Title sm>Forest Trail</Title>
+      <Text sm secondary>Early morning hike through the pine forest.</Text>
+    </Stack>
+  </Card>
+</Row>
+```
+
+## Native HTML attributes
+
+`Img` forwards all standard `<img>` attributes including `loading`, `decoding`, `srcSet`, `sizes`, `referrerPolicy`, and `crossOrigin`. Use `loading="lazy"` for below-the-fold images.
+
+```tsx demo
+<Img
+  src={placeholderSrc}
+  alt="Lazy-loaded image"
+  loading="lazy"
+  decoding="async"
+/>
+```
+
 ## Overlay Components
 
 Components for overlays, dialogs, and floating elements that appear above the page content.
@@ -6650,162 +6650,6 @@ Combining text properties for real-world use cases.
 ```
 
 ---
-Title: Title
-URL: https://vaneui.com/docs/typography-components/title
----
-
-Renders a subsection heading (`<h3>` by default) to establish a semantic hierarchy on the page. Use Title for headings inside a section. Pair it with `PageTitle` (`<h1>`) for the page heading and `SectionTitle` (`<h2>`) for major section headings.
-
-## Basic Title
-
-A heading component (renders as `<h3>`) for subsection headings. Defaults to `semibold` weight, `heading` font family, and left-aligned text.
-
-```tsx demo
-<Title>Subsection Heading</Title>
-```
-
-## Title vs PageTitle vs SectionTitle
-
-Three heading components for a clean semantic hierarchy. Use them together so the document outline matches the visual hierarchy.
-
-```tsx demo
-<Col>
-  <PageTitle>Page Heading (h1)</PageTitle>
-  <SectionTitle>Section Heading (h2)</SectionTitle>
-  <Title>Subsection Heading (h3)</Title>
-</Col>
-```
-
-## Title sizes
-
-Titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
-
-```tsx demo
-<Col>
-  <Title xs>Extra Small Title</Title>
-  <Title sm>Small Title</Title>
-  <Title>Medium Title (default)</Title>
-  <Title lg>Large Title</Title>
-  <Title xl>Extra Large Title</Title>
-</Col>
-```
-
-## Title appearances
-
-By default, Title uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `danger`, `warning`, `info` to override.
-
-```tsx demo
-<Col>
-  <Title primary>Primary Title</Title>
-  <Title secondary>Secondary Title</Title>
-  <Title success>Success Title</Title>
-  <Title warning>Warning Title</Title>
-  <Title danger>Danger Title</Title>
-  <Title info>Info Title</Title>
-</Col>
-```
-
-## Font weights
-
-Title is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
-
-```tsx demo
-<Col>
-  <Title light>Light Title</Title>
-  <Title normal>Normal Title</Title>
-  <Title medium>Medium Title</Title>
-  <Title>Semibold Title (default)</Title>
-  <Title bold>Bold Title</Title>
-  <Title black>Black Title</Title>
-</Col>
-```
-
-## Font families
-
-Switch between `sans`, `serif`, and `mono` font families.
-
-```tsx demo
-<Col>
-  <Title sans>Sans-serif Title</Title>
-  <Title serif>Serif Title</Title>
-  <Title mono>Monospace Title</Title>
-</Col>
-```
-
-## Italic Title
-
-Use the `italic` prop for italic emphasis.
-
-```tsx demo
-<Title italic>Italic Title</Title>
-```
-
-## Uppercase Title
-
-Use the `uppercase` prop to render the title in all caps.
-
-```tsx demo
-<Title uppercase>Uppercase Title</Title>
-```
-
-## Text alignment
-
-Title is left-aligned by default. Use `textCenter`, `textRight`, or `textJustify` to change alignment.
-
-```tsx demo
-<div className="space-y-2 border-2 border-dashed border-gray-300 p-4">
-  <Title>Left Aligned (default)</Title>
-  <Title textCenter>Center Aligned</Title>
-  <Title textRight>Right Aligned</Title>
-</div>
-```
-
-## Custom HTML tag
-
-Override the rendered tag with the `tag` prop when the visual style of Title is wanted but a different semantic level is required.
-
-```tsx demo
-<Col>
-  <Title tag="h1">Rendered as h1</Title>
-  <Title tag="h2">Rendered as h2</Title>
-  <Title>Rendered as h3 (default)</Title>
-  <Title tag="h4">Rendered as h4</Title>
-</Col>
-```
-
-## Title with Badge context
-
-Titles pair naturally with badges, chips, and other inline components.
-
-```tsx demo
-<Col>
-  <Row>
-    <Title>Release Notes</Title>
-    <Badge sm success>New</Badge>
-  </Row>
-  <Row>
-    <Title>Deprecated API</Title>
-    <Badge sm danger>Removed</Badge>
-  </Row>
-</Col>
-```
-
-## Title in context
-
-Titles work well with other typography components in cards and sections.
-
-```tsx demo
-<Card>
-  <Title lg primary bold>Product Features</Title>
-  <Text secondary>Everything you need to build modern applications.</Text>
-  <Title sm>Performance</Title>
-  <Text>Optimized for speed and efficiency.</Text>
-  <Title sm>Accessibility</Title>
-  <Text>Built with ARIA best practices.</Text>
-</Card>
-```
-
----
 Title: PageTitle
 URL: https://vaneui.com/docs/typography-components/page-title
 ---
@@ -7130,6 +6974,162 @@ Combine SectionTitle with Divider and content for a structured section.
   <Divider />
   <Text>Customize the settings to match your requirements.</Text>
 </Col>
+```
+
+---
+Title: Title
+URL: https://vaneui.com/docs/typography-components/title
+---
+
+Renders a subsection heading (`<h3>` by default) to establish a semantic hierarchy on the page. Use Title for headings inside a section. Pair it with `PageTitle` (`<h1>`) for the page heading and `SectionTitle` (`<h2>`) for major section headings.
+
+## Basic Title
+
+A heading component (renders as `<h3>`) for subsection headings. Defaults to `semibold` weight, `heading` font family, and left-aligned text.
+
+```tsx demo
+<Title>Subsection Heading</Title>
+```
+
+## Title vs PageTitle vs SectionTitle
+
+Three heading components for a clean semantic hierarchy. Use them together so the document outline matches the visual hierarchy.
+
+```tsx demo
+<Col>
+  <PageTitle>Page Heading (h1)</PageTitle>
+  <SectionTitle>Section Heading (h2)</SectionTitle>
+  <Title>Subsection Heading (h3)</Title>
+</Col>
+```
+
+## Title sizes
+
+Titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
+
+```tsx demo
+<Col>
+  <Title xs>Extra Small Title</Title>
+  <Title sm>Small Title</Title>
+  <Title>Medium Title (default)</Title>
+  <Title lg>Large Title</Title>
+  <Title xl>Extra Large Title</Title>
+</Col>
+```
+
+## Title appearances
+
+By default, Title uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `danger`, `warning`, `info` to override.
+
+```tsx demo
+<Col>
+  <Title primary>Primary Title</Title>
+  <Title secondary>Secondary Title</Title>
+  <Title success>Success Title</Title>
+  <Title warning>Warning Title</Title>
+  <Title danger>Danger Title</Title>
+  <Title info>Info Title</Title>
+</Col>
+```
+
+## Font weights
+
+Title is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
+
+```tsx demo
+<Col>
+  <Title light>Light Title</Title>
+  <Title normal>Normal Title</Title>
+  <Title medium>Medium Title</Title>
+  <Title>Semibold Title (default)</Title>
+  <Title bold>Bold Title</Title>
+  <Title black>Black Title</Title>
+</Col>
+```
+
+## Font families
+
+Switch between `sans`, `serif`, and `mono` font families.
+
+```tsx demo
+<Col>
+  <Title sans>Sans-serif Title</Title>
+  <Title serif>Serif Title</Title>
+  <Title mono>Monospace Title</Title>
+</Col>
+```
+
+## Italic Title
+
+Use the `italic` prop for italic emphasis.
+
+```tsx demo
+<Title italic>Italic Title</Title>
+```
+
+## Uppercase Title
+
+Use the `uppercase` prop to render the title in all caps.
+
+```tsx demo
+<Title uppercase>Uppercase Title</Title>
+```
+
+## Text alignment
+
+Title is left-aligned by default. Use `textCenter`, `textRight`, or `textJustify` to change alignment.
+
+```tsx demo
+<div className="space-y-2 border-2 border-dashed border-gray-300 p-4">
+  <Title>Left Aligned (default)</Title>
+  <Title textCenter>Center Aligned</Title>
+  <Title textRight>Right Aligned</Title>
+</div>
+```
+
+## Custom HTML tag
+
+Override the rendered tag with the `tag` prop when the visual style of Title is wanted but a different semantic level is required.
+
+```tsx demo
+<Col>
+  <Title tag="h1">Rendered as h1</Title>
+  <Title tag="h2">Rendered as h2</Title>
+  <Title>Rendered as h3 (default)</Title>
+  <Title tag="h4">Rendered as h4</Title>
+</Col>
+```
+
+## Title with Badge context
+
+Titles pair naturally with badges, chips, and other inline components.
+
+```tsx demo
+<Col>
+  <Row>
+    <Title>Release Notes</Title>
+    <Badge sm success>New</Badge>
+  </Row>
+  <Row>
+    <Title>Deprecated API</Title>
+    <Badge sm danger>Removed</Badge>
+  </Row>
+</Col>
+```
+
+## Title in context
+
+Titles work well with other typography components in cards and sections.
+
+```tsx demo
+<Card>
+  <Title lg primary bold>Product Features</Title>
+  <Text secondary>Everything you need to build modern applications.</Text>
+  <Title sm>Performance</Title>
+  <Text>Optimized for speed and efficiency.</Text>
+  <Title sm>Accessibility</Title>
+  <Text>Built with ARIA best practices.</Text>
+</Card>
 ```
 
 ---

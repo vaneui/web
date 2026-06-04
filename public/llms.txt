@@ -40,28 +40,26 @@ For complete documentation of every page in a single document, see
 ## Docs
 
 ### Getting Started
-- [Core Concepts](https://vaneui.com/docs/getting-started/core-concepts): Understand VaneUI's philosophy of boolean props, Tailwind CSS integration, and component customization.
 - [Installation](https://vaneui.com/docs/getting-started/installation): Follow these steps to get the library installed and ready to use in your application.
+- [Core Concepts](https://vaneui.com/docs/getting-started/core-concepts): Understand VaneUI's philosophy of boolean props, Tailwind CSS integration, and component customization.
 - [Usage Basics](https://vaneui.com/docs/getting-started/usage-basics): Learn fundamental patterns and concepts for using VaneUI components effectively.
 
 ### Basic Components
 - [Button](https://vaneui.com/docs/basic-components/button): Triggers an action or event when the user clicks on it. Buttons are a primary way for users to interact with the application and can contain text, an icon, or both.
-- [Badge](https://vaneui.com/docs/basic-components/badge): Highlights important information such as notifications or counts in a non-intrusive way. Badges are typically used in conjunction with other elements like icons or navigation links.
-- [Chip](https://vaneui.com/docs/basic-components/chip): Represents a complex entity in a compact form, such as an attribute, tag, or contact. Chips can be interactive, allowing for user input or triggering actions.
+- [IconButton](https://vaneui.com/docs/basic-components/icon-button): A square icon-only button with customizable appearance, size, and shape. Supports loading state and renders as anchor when href is provided.
+- [Input](https://vaneui.com/docs/basic-components/input): Allows users to enter text, numbers, and other data. Inputs are essential form elements with support for various types, validation states, and styling options.
 - [Checkbox](https://vaneui.com/docs/basic-components/checkbox): Allows users to select one or more options from a set. Checkboxes are ideal for binary choices and multiple selections within forms.
 - [Label](https://vaneui.com/docs/basic-components/label): Displays text with various styling options for categorization, status indicators, or highlighting important information. Labels can be styled with different colors, sizes, and variants.
+- [Badge](https://vaneui.com/docs/basic-components/badge): Highlights important information such as notifications or counts in a non-intrusive way. Badges are typically used in conjunction with other elements like icons or navigation links.
+- [Chip](https://vaneui.com/docs/basic-components/chip): Represents a complex entity in a compact form, such as an attribute, tag, or contact. Chips can be interactive, allowing for user input or triggering actions.
 - [Code](https://vaneui.com/docs/basic-components/code): Renders inline code snippets in a themed monospace surface. Use for code examples, commands, file paths, or technical terms within prose; renders as an anchor when given href.
-- [Divider](https://vaneui.com/docs/basic-components/divider): Renders a thin line to separate content and create a clear visual hierarchy. Dividers can be used to group related items in lists and layouts.
-- [Input](https://vaneui.com/docs/basic-components/input): Allows users to enter text, numbers, and other data. Inputs are essential form elements with support for various types, validation states, and styling options.
-- [Img](https://vaneui.com/docs/basic-components/img): Displays images with VaneUI styling support including sizes, shapes, borders, shadows, and object-fit options.
-- [Icon](https://vaneui.com/docs/basic-components/icon): A lightweight SVG wrapper that provides consistent sizing, color inheritance, and themed appearances for icons.
-- [IconButton](https://vaneui.com/docs/basic-components/icon-button): A square icon-only button with customizable appearance, size, and shape. Supports loading state and renders as anchor when href is provided.
 - [Kbd](https://vaneui.com/docs/basic-components/kbd): Displays keyboard keys and shortcuts with monospace font, border, and a raised 3D effect. Ideal for documenting keyboard shortcuts.
 - [Mark](https://vaneui.com/docs/basic-components/mark): Highlights text with a background color for emphasis. Defaults to warning (yellow) appearance for a natural highlighter effect.
+- [Icon](https://vaneui.com/docs/basic-components/icon): A lightweight SVG wrapper that provides consistent sizing, color inheritance, and themed appearances for icons.
 
 ### Layout Components
-- [Section](https://vaneui.com/docs/layout-components/section): A semantic container used to group related content within a page. This component helps to create a clear document outline and improve accessibility.
 - [Container](https://vaneui.com/docs/layout-components/container): Manages the main content area by centering it and applying a max-width. It ensures a consistent and readable layout across different screen sizes.
+- [Section](https://vaneui.com/docs/layout-components/section): A semantic container used to group related content within a page. This component helps to create a clear document outline and improve accessibility.
 - [Row](https://vaneui.com/docs/layout-components/row): A fundamental layout component that arranges its children in a horizontal line. It is built on the flexbox model and is used to create columns.
 - [Col](https://vaneui.com/docs/layout-components/col): A container that organizes content vertically within a Row. It provides a simple way to create flexible and responsive column-based layouts.
 - [Stack](https://vaneui.com/docs/layout-components/stack): A flexible layout component that arranges its children with consistent spacing. It can be used for both vertical and horizontal layouts.
@@ -71,6 +69,8 @@ For complete documentation of every page in a single document, see
 - [Grid4](https://vaneui.com/docs/layout-components/grid4): A responsive layout component that arranges its children into a four-column grid. This is ideal for displaying a collection of items or features.
 - [Grid5](https://vaneui.com/docs/layout-components/grid5): A responsive layout component that creates a five-column grid. Perfect for organizing content into balanced, visually appealing arrangements.
 - [Grid6](https://vaneui.com/docs/layout-components/grid6): A six-column grid layout component for creating compact, organized displays. Ideal for icon grids, feature collections, and detailed content arrangements.
+- [Divider](https://vaneui.com/docs/layout-components/divider): Renders a thin line to separate content and create a clear visual hierarchy. Dividers can be used to group related items in lists and layouts.
+- [Img](https://vaneui.com/docs/layout-components/img): Displays images with VaneUI styling support including sizes, shapes, borders, shadows, and object-fit options.
 
 ### Overlay Components
 - [Overlay](https://vaneui.com/docs/overlay-components/overlay): A fullscreen backdrop overlay for creating modal backgrounds, loading screens, and lightbox effects. Renders via portal with click-to-close and optional blur.
@@ -83,9 +83,9 @@ For complete documentation of every page in a single document, see
 
 ### Typography Components
 - [Text](https://vaneui.com/docs/typography-components/text): The primary component for rendering all text content. It provides props to control typographic properties like size, weight, color, and alignment.
-- [Title](https://vaneui.com/docs/typography-components/title): Renders a heading to establish a semantic hierarchy on the page. Use this component for the main titles of pages or sections.
 - [PageTitle](https://vaneui.com/docs/typography-components/page-title): A specialized component for the primary heading of a page. It ensures consistent styling for top-level titles across your application.
 - [SectionTitle](https://vaneui.com/docs/typography-components/section-title): A component for rendering headings of major sections within a page. It helps to create a clear and accessible document structure.
+- [Title](https://vaneui.com/docs/typography-components/title): Renders a heading to establish a semantic hierarchy on the page. Use this component for the main titles of pages or sections.
 - [Link](https://vaneui.com/docs/typography-components/link): Renders an accessible and themeable anchor link for navigation. Use this to direct users to other pages or external websites.
 - [List](https://vaneui.com/docs/typography-components/list): A container for displaying a series of related items in an ordered or unordered fashion. It provides consistent styling for list elements.
 - [Blockquote](https://vaneui.com/docs/typography-components/blockquote): Displays quoted content with a left border accent. Inherits appearance from the parent by default for seamless embedding in themed containers.
