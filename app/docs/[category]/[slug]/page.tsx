@@ -35,13 +35,31 @@ export async function generateMetadata({params}: DocsPageProps): Promise<Metadat
   const title = `${pageName} - ${categoryName} - VaneUI`;
   const description = docsPage?.description
     ?? docsCategory?.description
-    ?? `${pageName} documentation for VaneUI — a React component library powered by Tailwind CSS.`;
+    ?? `${pageName} documentation for VaneUI, a React component library powered by Tailwind CSS.`;
 
+  const url = `/docs/${category}/${slug}`;
+
+  // Per-page Open Graph + Twitter. Without these, Next.js leaves every docs
+  // page inheriting the root layout's homepage card (wrong title + url when a
+  // deep link is shared or surfaced by an AI). The og:image is supplied by the
+  // co-located opengraph-image route, so it is intentionally omitted here.
   return {
     title,
     description,
     alternates: {
-      canonical: `/docs/${category}/${slug}`,
+      canonical: url,
+    },
+    openGraph: {
+      type: 'article',
+      url,
+      siteName: 'VaneUI',
+      title,
+      description,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
     },
   }
 }
