@@ -8,6 +8,8 @@ export const COMMON_DOC_CATEGORIES = new Set<ComponentCategoryKey>([
   'hide',
   'items',
   'justify',
+  'alignSelf',
+  'justifySelf',
   'position',
   'display',
   'overflow',

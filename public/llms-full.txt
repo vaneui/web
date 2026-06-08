@@ -9656,6 +9656,31 @@ Main-axis alignment for flex items (justify-content). Controls how flex children
 | `justifyStretch` | Stretch items to fill the main axis |
 | `justifyBaseline` | Align items along their baseline on main axis |
 
+## Align self
+
+Cross-axis alignment for a single flex or grid item (align-self), overriding the parent's `items` value for that one child.
+
+| Prop | Description |
+|------|-------------|
+| `selfAuto` | Use the parent's align-items value (`align-self: auto`) |
+| `selfStart` | Align this item to the start of the cross axis |
+| `selfEnd` | Align this item to the end of the cross axis |
+| `selfCenter` | Center this item on the cross axis |
+| `selfStretch` | Stretch this item to fill the cross axis |
+| `selfBaseline` | Align this item to its baseline |
+
+## Justify self
+
+Inline-axis alignment for a single grid item within its grid area (justify-self). Useful with CSS anchor positioning.
+
+| Prop | Description |
+|------|-------------|
+| `justifySelfAuto` | Use the parent's justify-items value (`justify-self: auto`) |
+| `justifySelfStart` | Align this item to the start of the inline axis |
+| `justifySelfEnd` | Align this item to the end of the inline axis |
+| `justifySelfCenter` | Center this item on the inline axis |
+| `justifySelfStretch` | Stretch this item to fill the inline axis |
+
 ## Position
 
 CSS positioning property values for controlling element position behavior.
