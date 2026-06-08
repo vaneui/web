@@ -285,6 +285,12 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         componentKey: "list",
       },
       {
+        slug: 'list-item',
+        name: 'ListItem',
+        description: 'A single entry inside a List. Renders an <li> with the same typography props as Text, plus an icon prop for replacing the native marker.',
+        componentKey: "listItem",
+      },
+      {
         slug: 'blockquote',
         name: 'Blockquote',
         description: 'Displays quoted content with a left border accent. Inherits appearance from the parent by default for seamless embedding in themed containers.',

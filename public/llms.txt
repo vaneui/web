@@ -88,6 +88,7 @@ For complete documentation of every page in a single document, see
 - [Title](https://vaneui.com/docs/typography-components/title): Renders a heading to establish a semantic hierarchy on the page. Use this component for the main titles of pages or sections.
 - [Link](https://vaneui.com/docs/typography-components/link): Renders an accessible and themeable anchor link for navigation. Use this to direct users to other pages or external websites.
 - [List](https://vaneui.com/docs/typography-components/list): A container for displaying a series of related items in an ordered or unordered fashion. It provides consistent styling for list elements.
+- [ListItem](https://vaneui.com/docs/typography-components/list-item): A single entry inside a List. Renders an <li> with the same typography props as Text, plus an icon prop for replacing the native marker.
 - [Blockquote](https://vaneui.com/docs/typography-components/blockquote): Displays quoted content with a left border accent. Inherits appearance from the parent by default for seamless embedding in themed containers.
 
 ### Customization
