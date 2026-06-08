@@ -53,7 +53,7 @@ Rules:
 - Anything answered explicitly elsewhere on the same page (link to the section instead)
 - Speculative future-roadmap questions ("Will VaneUI support X?")
 - Questions about unrelated tooling ("Is this Tailwind compatible?" — covered globally in getting-started)
-- Marketing-flavoured questions ("Why is VaneUI better than antd?")
+- Marketing-flavoured questions ("Why is VaneUI better than other libraries?")
 
 ## Workflow
 

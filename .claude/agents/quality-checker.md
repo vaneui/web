@@ -90,7 +90,7 @@ If any check fails, list specific issues so the writer / editor knows what to fi
 
 ### 9. External links
 - All external URLs return 2xx (use `Bash` with `curl -sI -o /dev/null -w "%{http_code}\n"` per URL; cap at 10 to avoid rate-limiting)
-- No links to competitor component libraries (Ant Design, antd, shadcn, Mantine, Chakra UI, Radix UI, Material UI)
+- No links to, or mentions of, competitor component libraries (per the workspace `CLAUDE.md` no-framework-names rule)
 
 ### 10. FAQ (conditional)
 - Component pages with non-obvious prop tradeoffs SHOULD have an FAQ
