@@ -24,7 +24,7 @@
   "dependencies": {
     "@mdx-js/react": "^3.0.1",
     "@tailwindcss/postcss": "^4.0.14",
-    "@vaneui/md": "^0.9.0-alpha.20260603130855.101bce0",
+    "@vaneui/md": "^0.9.0-alpha.20260702130743.0bca922",
     "@vaneui/ui": "^0.9.0-alpha.20260702092736.513aa7f",
     "@vercel/analytics": "^1.6.1",
     "autoprefixer": "^10.4.19",
