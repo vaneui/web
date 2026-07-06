@@ -7,7 +7,7 @@ since: 0.9.0
 
 A fullscreen backdrop overlay for creating modal backgrounds, loading screens, and lightbox effects. Renders via portal with click-to-close and optional blur.
 
-Overlay ships its own layout defaults: `fixed`, `flex`, `itemsCenter`, `justifyCenter`. It covers the viewport via `inset-0` and reads its `z-index` from a managed stacking context so nested overlays layer correctly. `Modal` is built on top of `Overlay` and reuses these defaults.
+Overlay ships its own layout defaults: `fixed`, `flex`, `itemsCenter`, `justifyCenter`. It covers the viewport via `inset-0` and reads its `z-index` from a managed stacking context so nested overlays layer correctly. `Modal` provides its own backdrop layer using the same layout defaults.
 
 ## Basic Overlay
 
@@ -102,7 +102,7 @@ const [open, setOpen] = useState(false);
 
 ## Foundation for Modal
 
-`Modal` is built on `Overlay`. The dialog surface renders inside an Overlay that handles portaling, backdrop click, and stacking. For accessible dialogs with focus trap, scroll lock, and ARIA wiring, prefer `Modal`. Reach for `Overlay` directly when you need a custom backdrop layer (lightbox, loading shade, drawer scrim) without dialog semantics.
+`Modal` layers a dialog surface over its own portal-rendered backdrop, which handles portaling, backdrop click, and stacking (the same mechanics as `Overlay`). For accessible dialogs with focus trap, scroll lock, and ARIA wiring, prefer `Modal`. Reach for `Overlay` directly when you need a custom backdrop layer (lightbox, loading shade, drawer scrim) without dialog semantics.
 
 ```tsx
 {/* High-level: use Modal for dialogs */}
@@ -168,7 +168,7 @@ Control how the overlay transitions in and out. Use `transitionDuration` to set 
 | Prop | Default | Description |
 |------|---------|-------------|
 | `open` | `true` | Whether the overlay is visible |
-| `onClose` | - | Called when the backdrop is clicked |
+| `onClose` | - | Called when the overlay is dismissed (backdrop click or `Escape`) |
 | `portal` | `true` | Render into `document.body` via React portal |
 | `keepMounted` | `false` | Keep DOM mounted when closed (useful for transition state preservation) |
 | `noAnimation` | `false` | Disable enter/exit transitions |
