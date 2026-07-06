@@ -144,7 +144,7 @@ Use `truncate` for single-line ellipsis, or `lineClamp2`/`lineClamp3`/`lineClamp
 
 ## Letter spacing
 
-Control letter spacing with `trackingTighter`, `trackingTight`, `trackingNormal` (default), `trackingWide`, `trackingWider`, `trackingWidest`.
+Control letter spacing with `trackingTighter`, `trackingTight`, `trackingNormal`, `trackingWide`, `trackingWider`, `trackingWidest`. Text defaults to a compact `-0.011em` tracking; `trackingNormal` resets it to `0`.
 
 ```tsx demo
 <Col>
