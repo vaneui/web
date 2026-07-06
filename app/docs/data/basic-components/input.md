@@ -83,7 +83,7 @@ Inputs are `outline` by default. Use `filled` for solid backgrounds.
     <Input danger placeholder="Outline danger" />
   </Row>
   <Row flexWrap>
-    <Input filled placeholder="Filled (default)" />
+    <Input filled placeholder="Filled" />
     <Input filled success placeholder="Filled success" />
     <Input filled danger placeholder="Filled danger" />
   </Row>
