@@ -5,7 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typograp
 since: 0.9.0
 ---
 
-A single entry inside a `List`. It renders an `<li>` and carries the same typography props as `Text` (appearance, size, weight, alignment), plus an `icon` prop for replacing the native marker. Always render it inside a `List`, which supplies the marker style and size.
+A single entry inside a `List`. It renders an `<li>` and carries the core typography props (appearance, size, weight, alignment), plus an `icon` prop for replacing the native marker. It omits the margin, letter-spacing, and cursor props that `Text` has. Always render it inside a `List`, which supplies the marker style and size.
 
 ## Custom markers with the icon prop
 
@@ -22,7 +22,7 @@ Pass an `icon` node to replace the native marker on that item only. The icon wra
 
 ## Coloring a single item
 
-`ListItem` defaults to `inherit`, taking its color from the parent `List`. Set an explicit appearance on one item to override just that row while its siblings keep the inherited color.
+`ListItem` has no appearance of its own, so it takes its color from the parent `List`. Set an explicit appearance on one item to override just that row while its siblings keep the inherited color.
 
 ```tsx demo
 <List>
@@ -48,13 +48,13 @@ Typography toggles like `bold`, `italic`, and `mono` apply per item, so one entr
 
 ## Size and color inheritance
 
-By default `ListItem` has `inheritSize` and `inheritColor` on, so `<List xl success>` propagates to every item without repeating the props. Set `noInheritSize` or `noInheritColor` (or an explicit size/appearance) on an item to opt out.
+`ListItem` has no size or appearance default of its own, so each item's font-size and color cascade from the parent `List`: `<List xl success>` propagates to every item. Set an explicit size or appearance on an item to opt out.
 
 ```tsx demo
 <List xl success>
   <ListItem>Inherits xl size and success color</ListItem>
-  <ListItem sm noInheritSize>Opts out: small, still inherits color</ListItem>
-  <ListItem primary noInheritColor>Opts out: primary color</ListItem>
+  <ListItem sm>Opts out of size: small, still inherits color</ListItem>
+  <ListItem primary>Opts out of color: primary</ListItem>
 </List>
 ```
 
