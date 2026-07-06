@@ -5,7 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/code/Cod
 since: 0.9.0
 ---
 
-Renders inline code snippets with syntax highlighting. Perfect for displaying code examples, commands, file paths, or technical terms within text content.
+Renders inline code snippets with monospace styling. Perfect for displaying code examples, commands, file paths, or technical terms within text content.
 
 ## Basic usage
 
@@ -34,7 +34,7 @@ Code elements in different sizes - `xs`, `sm`, `md`, `lg`, `xl`.
 
 ## Appearances
 
-Different code color variants for syntax highlighting.
+Different appearance colors for inline code.
 
 ```tsx demo
 <Row flexWrap>
