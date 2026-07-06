@@ -157,6 +157,18 @@ Control letter spacing with `trackingTighter`, `trackingTight`, `trackingNormal`
 </Col>
 ```
 
+## Margins
+
+Block typography (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`) accepts size-driven margin props: `margin` (all sides), `marginX`, `marginY`, `marginT`, and `marginB`. `Text` defaults to `noMargin`, so opt in where you need vertical rhythm outside a gap-based layout. The margin scales with the size prop.
+
+```tsx demo
+<Col noGap>
+  <Text>No margin (default), sits flush.</Text>
+  <Text marginT marginB>Margin above and below, scales with size.</Text>
+  <Text>Another flush line.</Text>
+</Col>
+```
+
 ## Text in context
 
 Combining text properties for real-world use cases.
