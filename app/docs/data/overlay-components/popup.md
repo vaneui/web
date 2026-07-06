@@ -9,7 +9,7 @@ A floating element anchored to a trigger element using CSS Anchor Positioning. S
 
 Popup ships its own surface defaults: `md`, `flex column`, `padding`, `gap`, `rounded`, `border`, `shadow`, `primary`, `outline`, `wFit`, `maxHeight`, `overflowAuto`, `bottom`. Render children directly. Wrapping content in another `Card` is usually redundant.
 
-> **Browser support:** Popup uses the CSS Anchor Positioning API (Chrome 125+, Edge 125+). Other browsers fall back to a JS positioning path that recomputes on scroll/resize.
+> **Browser support:** Popup uses the CSS Anchor Positioning API (Chrome/Edge 129+, for the `span-*` alignment it relies on). Other browsers fall back to a JS positioning path that recomputes on scroll/resize.
 
 ## Basic Popup
 
@@ -105,7 +105,7 @@ When the requested placement would overflow the viewport, Popup falls back throu
 
 ## Match anchor width
 
-`matchWidth` makes the popup track the anchor's width, useful for select-like dropdowns. Combine with `wFit` removal (Popup defaults to `wFit`) is automatic when `matchWidth` is set.
+`matchWidth` makes the popup track the anchor's width, useful for select-like dropdowns. It sets the popup width to the anchor's width, overriding the default `wFit`.
 
 ```tsx
 const [open, setOpen] = useState(false);
