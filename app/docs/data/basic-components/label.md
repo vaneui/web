@@ -37,10 +37,10 @@ Wrap an `Input` inside a `Label` to make the label clickable and associate them 
 
 ## With Checkbox
 
-Place a `Checkbox` inside a `Label` so the label text expands the toggle's hit area.
+Place a `Checkbox` inside a `Label` so the label text expands the toggle's hit area. `Label` defaults to a stacked column layout, so add `row itemsCenter` to sit the checkbox inline with its text.
 
 ```tsx demo
-<Label>
+<Label row itemsCenter>
   <Checkbox />
   Subscribe to product updates
 </Label>
@@ -127,11 +127,11 @@ When an `Input` or `Checkbox` is nested inside a `Label`, it automatically picks
 
 ```tsx demo
 <Col>
-  <Label xl>
+  <Label xl row itemsCenter>
     <Checkbox />
     Extra-large checkbox option
   </Label>
-  <Label lg>
+  <Label lg row itemsCenter>
     <Checkbox xs />
     Explicit <Code>xs</Code> checkbox overrides the <Code>lg</Code> label
   </Label>
