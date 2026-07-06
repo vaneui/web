@@ -1291,7 +1291,7 @@ import { ThemeProvider, Checkbox } from '@vaneui/ui';
 
 ## Basic usage
 
-Checkbox should be used inside a Label with matching `id`/`htmlFor`. `Label` defaults to a stacked column layout, so add `row itemsCenter` to place the checkbox inline with its text.
+Checkbox should be used inside a Label with matching `id`/`htmlFor`. `Label` defaults to a stacked column layout, so add `row itemsCenter` to place the checkbox inline with its text. The checkbox takes its size from the Label, so match the Label's size to its text (here `md`) to keep the box centered on the first line of a multi-line label.
 
 ```tsx demo
 <Col>
@@ -1300,7 +1300,7 @@ Checkbox should be used inside a Label with matching `id`/`htmlFor`. `Label` def
     <span>I agree to the <Link href="#">Terms of Service</Link> and <Link href="#">Privacy Policy</Link>.</span>
   </Label>
 
-  <Label row itemsCenter htmlFor="emails">
+  <Label md row itemsCenter htmlFor="emails">
     <Checkbox defaultChecked id="emails"/>
     <Col noGap tag="span">
       <Text>Receive product updates</Text>
