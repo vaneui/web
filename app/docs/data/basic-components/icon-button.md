@@ -24,7 +24,7 @@ Drop an icon directly inside the `IconButton`. Each `appearance` prop maps to a 
 
 ## Sizes
 
-IconButton supports five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size drives the square aspect ratio, padding, and border-radius simultaneously via CSS variables.
+IconButton supports five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Size drives the button's dimensions, padding, and border-radius; the aspect ratio stays square at every size.
 
 ```tsx demo
 <Row flexWrap itemsEnd>
@@ -37,7 +37,7 @@ IconButton supports five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size dri
     <Text sm secondary>sm</Text>
   </Col>
   <Col itemsCenter>
-    <IconButton><Star /></IconButton>
+    <IconButton md><Star /></IconButton>
     <Text sm secondary>md</Text>
   </Col>
   <Col itemsCenter>
