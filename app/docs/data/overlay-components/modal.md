@@ -5,7 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/modal/Mo
 since: 0.9.0
 ---
 
-An accessible dialog component with focus trapping, scroll lock, and keyboard navigation. Built on Overlay with ARIA `role="dialog"` and `aria-modal="true"`. Sub-components: `ModalHeader`, `ModalBody`, `ModalFooter`, `ModalCloseButton`.
+An accessible dialog component with focus trapping, scroll lock, and keyboard navigation. It layers a dialog surface over its own portal-rendered backdrop (the same mechanics as Overlay), with ARIA `role="dialog"` and `aria-modal="true"`. Sub-components: `ModalHeader`, `ModalBody`, `ModalFooter`, `ModalCloseButton`.
 
 ## When to use
 
@@ -27,7 +27,7 @@ Set app-wide Modal defaults with `ThemeProvider`'s `themeDefaults`:
 import { ThemeProvider, Modal } from '@vaneui/ui';
 
 <ThemeProvider themeDefaults={{
-  modal: { lg: true, border: true },
+  modal: { content: { lg: true, border: true } },
 }}>
   <Modal open={open} onClose={onClose}>Content</Modal>
 </ThemeProvider>
@@ -91,7 +91,7 @@ const [open, setOpen] = useState(false);
 
 ## Convenience props
 
-Use the `title`, `footer`, and `withCloseButton` shorthand props to compose a structured modal without writing sub-components. When `title` is set, a close button is shown by default (toggle with `withCloseButton`). Children become the body.
+Use the `title`, `footer`, and `withCloseButton` shorthand props to compose a structured modal without writing sub-components. A close button is shown by default regardless of `title` (toggle with `withCloseButton`): with a title it sits in the header, without one it floats top-right. Children become the body.
 
 ```tsx
 import { Modal, Button, Text, Row } from "@vaneui/ui";
