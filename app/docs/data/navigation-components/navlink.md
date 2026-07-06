@@ -33,7 +33,7 @@ NavLink renders as an `<a>` when `href` is provided. Defaults to `sm` size, `pri
 
 ## Active state
 
-Use the `active` prop to indicate the current page. Active NavLinks get `aria-current="page"` and a `data-active` attribute for styling.
+Use the `active` prop to indicate the current page. Active NavLinks get a `data-active` attribute for styling; the `href` (anchor) form also gets `aria-current="page"` (the no-href button form omits it).
 
 ```tsx demo
 <Col className="w-64">
@@ -96,7 +96,7 @@ NavLinks default to `primary outline`. Use `filled` for solid backgrounds. Activ
 
 ## Disabled state
 
-Use `disabled` to prevent interaction. When `disabled` is combined with `href`, the anchor is replaced with a disabled `<button>` so the link cannot be followed.
+Use `disabled` to prevent interaction. When `disabled` is combined with `href`, the `href` is dropped and it renders as a non-navigable anchor (`role="link"`, `aria-disabled="true"`) that stays focusable but cannot be followed.
 
 ```tsx demo
 <Col className="w-64">
@@ -156,15 +156,20 @@ import { NavLink } from '@vaneui/ui';
 
 ## Customizing
 
-Set app-wide NavLink defaults with `ThemeProvider`'s `themeDefaults` and active-state styling with `extraClasses`:
+Set app-wide NavLink defaults with `ThemeProvider`'s `themeDefaults`. Style the active state by targeting the emitted `data-active` attribute in your own CSS: `extraClasses` keys apply only to category props, so an `active` key there has no effect.
 
 ```tsx
 import { ThemeProvider, NavLink } from '@vaneui/ui';
 
-<ThemeProvider
-  themeDefaults={{ navLink: { root: { md: true } } }}
-  extraClasses={{ navLink: { root: { active: 'bg-brand-50 text-brand-700 font-semibold' } } }}
->
+<ThemeProvider themeDefaults={{ navLink: { root: { md: true } } }}>
   <NavLink href="/docs" active>Docs</NavLink>
 </ThemeProvider>
+```
+
+```css
+.vane-nav-link[data-active] {
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 600;
+}
 ```
