@@ -60,16 +60,18 @@ Italic is not a default. Opt in with the `italic` prop for traditional quotation
 </Col>
 ```
 
-## Variants
+## Source attribution
 
-Use `filled` for solid background blockquotes or `outline` (default) for the left-border accent style.
+Pass `cite` to set the native `<blockquote cite>` attribute and render a visible source line below the quote. `Blockquote` has a single visual style, the reading-direction-start accent border (the `outline` default); it does not paint a background, so wrap it in a `Card` or `Section` to place a quote on a colored surface.
 
 ```tsx demo
 <Col>
-  <Blockquote primary>Outline (default), with a left border accent.</Blockquote>
-  <Blockquote primary filled>Filled, solid background for emphasis.</Blockquote>
-  <Blockquote info>Outline info, informational note.</Blockquote>
-  <Blockquote info filled>Filled info, strong callout.</Blockquote>
+  <Blockquote primary cite="Ada Lovelace">
+    That brain of mine is something more than merely mortal, as time will show.
+  </Blockquote>
+  <Blockquote info cite="Alan Turing">
+    We can only see a short distance ahead, but we can see plenty there that needs to be done.
+  </Blockquote>
 </Col>
 ```
 
