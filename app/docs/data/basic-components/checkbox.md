@@ -205,25 +205,45 @@ const [checked, setChecked] = useState(false);
 
 ## Indeterminate state
 
-Use the `indeterminate` prop for "select all" checkboxes that represent a partially selected group. The indeterminate state is visual only and does not affect the `checked` value.
-
-```tsx
-<Checkbox indeterminate />
-```
+Use the `indeterminate` prop for "select all" checkboxes that represent a partially selected group. It is visual only: it renders a dash (the box fills like a checked one) and does not change the `checked` value, so you set it from your own state and manage the real values yourself.
 
 ```tsx demo
-<Col>
-  <Label row itemsCenter htmlFor="select-all">
-    <Checkbox id="select-all" indeterminate/>
-    Select all (2 of 4 selected)
-  </Label>
-  <Col style={{ paddingLeft: 24 }}>
-    <Label row itemsCenter htmlFor="ind-1"><Checkbox id="ind-1" defaultChecked/> Item one</Label>
-    <Label row itemsCenter htmlFor="ind-2"><Checkbox id="ind-2" defaultChecked/> Item two</Label>
-    <Label row itemsCenter htmlFor="ind-3"><Checkbox id="ind-3"/> Item three</Label>
-    <Label row itemsCenter htmlFor="ind-4"><Checkbox id="ind-4"/> Item four</Label>
+<Label row itemsCenter>
+  <Checkbox indeterminate />
+  Indeterminate
+</Label>
+```
+
+Wire it to a group so "Select all" reflects and controls the children: `checked` when all are on, `indeterminate` when some are on, and clicking it toggles them all.
+
+```tsx demo
+const [items, setItems] = React.useState([true, true, false, false]);
+const allChecked = items.every(Boolean);
+const anyChecked = items.some(Boolean);
+const labels = ['Item one', 'Item two', 'Item three', 'Item four'];
+return (
+  <Col>
+    <Label row itemsCenter>
+      <Checkbox
+        checked={allChecked}
+        indeterminate={anyChecked && !allChecked}
+        onChange={() => setItems(items.map(() => !allChecked))}
+      />
+      Select all ({items.filter(Boolean).length} of {items.length} selected)
+    </Label>
+    <Col style={{ paddingLeft: 24 }}>
+      {labels.map((label, i) => (
+        <Label row itemsCenter key={label}>
+          <Checkbox
+            checked={items[i]}
+            onChange={() => setItems(items.map((v, idx) => (idx === i ? !v : v)))}
+          />
+          {label}
+        </Label>
+      ))}
+    </Col>
   </Col>
-</Col>
+);
 ```
 
 ## Checkbox group
