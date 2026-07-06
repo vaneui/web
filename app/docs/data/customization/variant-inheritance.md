@@ -35,7 +35,7 @@ These components have defaults that deviate from the primary + outline baseline.
 |-----------|-------------------|-----|
 | **Mark** | warning + outline | Yellow highlighter must be visible everywhere |
 | **Chip** | secondary + outline | Muted tag should look consistent |
-| **Link** | link + outline | Blue hyperlink must be recognizable |
+| **Link** | link (no variant default) | Blue hyperlink must be recognizable |
 | **Checkbox** | primary + filled | Checked state needs non-white background |
 
 A `<Mark>` inside a `<Card filled danger>` still renders in its warning (yellow) palette. It doesn't turn red.
@@ -137,7 +137,7 @@ When a component has `inherit` appearance (the default for Text, Title, Label, L
   (NOT inheritSize — size uses own --fs variable so <Text sm> works as expected)
 ```
 
-Size inheritance is separate. Only inline components like Link, Code, Kbd, and Mark have `inheritSize: true` in their defaults. You can also set it explicitly:
+Size inheritance is separate. Only Link and Mark have `inheritSize: true` in their defaults (Code and Kbd achieve the same effect via em-relative geometry, described below). You can also set it explicitly:
 
 ```tsx
 <Card filled primary>
