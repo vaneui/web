@@ -53,7 +53,7 @@ function AppearanceExample() {
 
 ### Filled and outline variants
 
-All components support `filled` and `outline` variants. `outline` is the default for most components:
+All components support `filled`, `outline`, and `ghost` variants. `outline` is the default for most components:
 
 ```tsx
 import { Button, Card, Stack, Container, Row } from '@vaneui/ui';
