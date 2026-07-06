@@ -74,12 +74,10 @@ Add the following to your main CSS file:
 
 ```css
 @import "@vaneui/ui/css";
-@import "@vaneui/ui/vars.css";
 ```
 
 This setup:
-- Imports the complete pre-built VaneUI stylesheet
-- Imports VaneUI CSS variables for theming
+- Imports the complete pre-built VaneUI stylesheet (component styles and CSS variables in one file)
 - Works without any Tailwind configuration
 
 ## Usage
@@ -134,13 +132,13 @@ At its core, VaneUI uses **boolean props** instead of string enums for cleaner J
 Props are organized into **categories**:
 - **size**: `xs`, `sm`, `md`, `lg`, `xl`
 - **appearance**: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`, `inherit`
-- **variant**: `filled`, `outline`
+- **variant**: `filled`, `outline`, `ghost`
 - **shape**: `rounded`, `pill`, `sharp`
 - **typography**: `sans`, `serif`, `mono`, `semibold`, `bold`, etc.
 - **layout**: `flex`, `column`, `itemsCenter`, `justifyBetween`, etc.
 - **inheritance**: `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder` (and `noInherit*` toggles)
 
-Typography components (Text, Title, SectionTitle, PageTitle), Label, List, and Divider default to `inherit`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Inline components like Link, Code, Kbd, and Mark default to `inheritSize`. They inherit font-size from their parent while keeping their own appearance color.
+Typography components (Text, Title, SectionTitle, PageTitle, Blockquote), Label, List, and Divider default to `inherit`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Link and Mark default to `inheritSize`, so they inherit font-size from their parent while keeping their own appearance color; Code and Kbd achieve the same effect through em-relative geometry.
 
 ## How components work
 
@@ -153,7 +151,7 @@ Each component gets its theme from `ThemeContext` via `useTheme()` and passes pr
 The `ComponentTheme` class orchestrates class generation. It walks a tree of `BaseTheme` subclasses (like `FontSizeTheme`, `RadiusTheme`) that each generate specific CSS classes based on the active props.
 
 ### Layer 3: CSS variables
-Components output **data attributes** (`data-size`, `data-appearance`, `data-variant`) that CSS rules in `vars.css` use to set CSS variables. These variables are then consumed by Tailwind utility classes.
+Components output **data attributes** (`data-size`, `data-appearance`, `data-variant`) that CSS rules in `rules.css` use to set CSS variables. These variables are then consumed by Tailwind utility classes.
 
 ## Prop extraction
 
@@ -201,7 +199,6 @@ Set by component class based on `data-size`:
 .vane-button[data-size="md"] {
   --fs-unit: 8;   /* Font size unit */
   --py-unit: 2;   /* Padding Y unit */
-  --br-unit: 2;   /* Border radius unit */
 }
 ```
 
@@ -276,7 +273,7 @@ For programmatic theme modifications:
 ```tsx
 <ThemeProvider themeOverride={(theme) => {
   // Modify base classes
-  theme.button.base += ' uppercase tracking-wide';
+  theme.button.main.base += ' uppercase tracking-wide';
   return theme;
 }}>
   <App />
@@ -343,7 +340,7 @@ function AppearanceExample() {
 
 ### Filled and outline variants
 
-All components support `filled` and `outline` variants. `outline` is the default for most components:
+All components support `filled`, `outline`, and `ghost` variants. `outline` is the default for most components:
 
 ```tsx
 import { Button, Card, Stack, Container, Row } from '@vaneui/ui';
@@ -993,7 +990,7 @@ Drop an icon directly inside the `IconButton`. Each `appearance` prop maps to a 
 
 ## Sizes
 
-IconButton supports five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size drives the square aspect ratio, padding, and border-radius simultaneously via CSS variables.
+IconButton supports five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Size drives the button's dimensions, padding, and border-radius; the aspect ratio stays square at every size.
 
 ```tsx demo
 <Row flexWrap itemsEnd>
@@ -1006,7 +1003,7 @@ IconButton supports five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size dri
     <Text sm secondary>sm</Text>
   </Col>
   <Col itemsCenter>
-    <IconButton><Star /></IconButton>
+    <IconButton md><Star /></IconButton>
     <Text sm secondary>md</Text>
   </Col>
   <Col itemsCenter>
@@ -1200,7 +1197,7 @@ Inputs are `outline` by default. Use `filled` for solid backgrounds.
     <Input danger placeholder="Outline danger" />
   </Row>
   <Row flexWrap>
-    <Input filled placeholder="Filled (default)" />
+    <Input filled placeholder="Filled" />
     <Input filled success placeholder="Filled success" />
     <Input filled danger placeholder="Filled danger" />
   </Row>
@@ -1294,16 +1291,16 @@ import { ThemeProvider, Checkbox } from '@vaneui/ui';
 
 ## Basic usage
 
-Checkbox should be used inside a Label with matching `id`/`htmlFor`.
+Checkbox should be used inside a Label with matching `id`/`htmlFor`. `Label` defaults to a stacked column layout, so add `row itemsCenter` to place the checkbox inline with its text.
 
 ```tsx demo
 <Col>
-  <Label htmlFor="terms">
+  <Label row itemsCenter htmlFor="terms">
     <Checkbox id="terms"/>
     <span>I agree to the <Link href="#">Terms of Service</Link> and <Link href="#">Privacy Policy</Link>.</span>
   </Label>
 
-  <Label htmlFor="emails">
+  <Label row itemsCenter htmlFor="emails">
     <Checkbox defaultChecked id="emails"/>
     <Col noGap tag="span">
       <Text>Receive product updates</Text>
@@ -1319,23 +1316,23 @@ Checkboxes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. A `Checkb
 
 ```tsx demo
 <Row flexWrap>
-  <Label xs htmlFor="size-xs">
+  <Label row itemsCenter xs htmlFor="size-xs">
     <Checkbox id="size-xs" defaultChecked/>
     Size: xs
   </Label>
-  <Label sm htmlFor="size-sm">
+  <Label row itemsCenter sm htmlFor="size-sm">
     <Checkbox id="size-sm" defaultChecked/>
     Size: sm
   </Label>
-  <Label md htmlFor="size-md">
+  <Label row itemsCenter md htmlFor="size-md">
     <Checkbox id="size-md" defaultChecked/>
     Size: md
   </Label>
-  <Label lg htmlFor="size-lg">
+  <Label row itemsCenter lg htmlFor="size-lg">
     <Checkbox id="size-lg" defaultChecked/>
     Size: lg
   </Label>
-  <Label xl htmlFor="size-xl">
+  <Label row itemsCenter xl htmlFor="size-xl">
     <Checkbox id="size-xl" defaultChecked/>
     Size: xl
   </Label>
@@ -1348,47 +1345,47 @@ Different color appearances applied to the Checkbox; always place inside a Label
 
 ```tsx demo
 <Row flexWrap>
-  <Label htmlFor="appearance-primary">
+  <Label row itemsCenter htmlFor="appearance-primary">
     <Checkbox id="appearance-primary" defaultChecked/>
     Enable primary style
   </Label>
-  <Label brand htmlFor="appearance-brand">
+  <Label row itemsCenter brand htmlFor="appearance-brand">
     <Checkbox brand id="appearance-brand" defaultChecked/>
     Enable brand style
   </Label>
-  <Label accent htmlFor="appearance-accent">
+  <Label row itemsCenter accent htmlFor="appearance-accent">
     <Checkbox accent id="appearance-accent" defaultChecked/>
     Enable accent style
   </Label>
-  <Label secondary htmlFor="appearance-secondary">
+  <Label row itemsCenter secondary htmlFor="appearance-secondary">
     <Checkbox secondary id="appearance-secondary" defaultChecked/>
     Enable secondary style
   </Label>
-  <Label tertiary htmlFor="appearance-tertiary">
+  <Label row itemsCenter tertiary htmlFor="appearance-tertiary">
     <Checkbox tertiary id="appearance-tertiary" defaultChecked/>
     Enable tertiary style
   </Label>
-  <Label success htmlFor="appearance-success">
+  <Label row itemsCenter success htmlFor="appearance-success">
     <Checkbox success id="appearance-success" defaultChecked/>
     Enable success style
   </Label>
-  <Label danger htmlFor="appearance-danger">
+  <Label row itemsCenter danger htmlFor="appearance-danger">
     <Checkbox danger id="appearance-danger" defaultChecked/>
     Enable danger style
   </Label>
-  <Label warning htmlFor="appearance-warning">
+  <Label row itemsCenter warning htmlFor="appearance-warning">
     <Checkbox warning id="appearance-warning" defaultChecked/>
     Enable warning style
   </Label>
-  <Label info htmlFor="appearance-info">
+  <Label row itemsCenter info htmlFor="appearance-info">
     <Checkbox info id="appearance-info" defaultChecked/>
     Enable info style
   </Label>
-  <Label link htmlFor="appearance-link">
+  <Label row itemsCenter link htmlFor="appearance-link">
     <Checkbox link id="appearance-link" defaultChecked/>
     Enable link style
   </Label>
-  <Label inherit htmlFor="appearance-inherit">
+  <Label row itemsCenter inherit htmlFor="appearance-inherit">
     <Checkbox inherit id="appearance-inherit" defaultChecked/>
     Enable inherit style
   </Label>
@@ -1401,15 +1398,15 @@ Checkboxes support border radius styles: `rounded` (default), `pill`, and `sharp
 
 ```tsx demo
 <Row flexWrap>
-  <Label htmlFor="shape-rounded">
+  <Label row itemsCenter htmlFor="shape-rounded">
     <Checkbox id="shape-rounded" defaultChecked/>
     Rounded (default)
   </Label>
-  <Label htmlFor="shape-pill">
+  <Label row itemsCenter htmlFor="shape-pill">
     <Checkbox pill id="shape-pill" defaultChecked/>
     Pill
   </Label>
-  <Label htmlFor="shape-sharp">
+  <Label row itemsCenter htmlFor="shape-sharp">
     <Checkbox sharp id="shape-sharp" defaultChecked/>
     Sharp
   </Label>
@@ -1422,11 +1419,11 @@ Use the `disabled` HTML attribute to prevent interaction.
 
 ```tsx demo
 <Col>
-  <Label htmlFor="disabled-unchecked">
+  <Label row itemsCenter htmlFor="disabled-unchecked">
     <Checkbox disabled id="disabled-unchecked"/>
     Disabled (unchecked)
   </Label>
-  <Label htmlFor="disabled-checked">
+  <Label row itemsCenter htmlFor="disabled-checked">
     <Checkbox disabled defaultChecked id="disabled-checked"/>
     Disabled (checked)
   </Label>
@@ -1440,7 +1437,7 @@ Checkbox forwards every HTML input attribute, so use `defaultChecked` for uncont
 Uncontrolled: initial value only, the input manages its own state.
 
 ```tsx demo
-<Label htmlFor="uncontrolled">
+<Label row itemsCenter htmlFor="uncontrolled">
   <Checkbox defaultChecked id="uncontrolled"/>
   Uncontrolled (defaultChecked)
 </Label>
@@ -1451,7 +1448,7 @@ Controlled: parent owns the value via `useState`.
 ```tsx
 const [checked, setChecked] = useState(false);
 
-<Label htmlFor="controlled">
+<Label row itemsCenter htmlFor="controlled">
   <Checkbox
     id="controlled"
     checked={checked}
@@ -1471,15 +1468,15 @@ Use the `indeterminate` prop for "select all" checkboxes that represent a partia
 
 ```tsx demo
 <Col>
-  <Label htmlFor="select-all">
+  <Label row itemsCenter htmlFor="select-all">
     <Checkbox id="select-all" indeterminate/>
     Select all (2 of 4 selected)
   </Label>
   <Col style={{ paddingLeft: 24 }}>
-    <Label htmlFor="ind-1"><Checkbox id="ind-1" defaultChecked/> Item one</Label>
-    <Label htmlFor="ind-2"><Checkbox id="ind-2" defaultChecked/> Item two</Label>
-    <Label htmlFor="ind-3"><Checkbox id="ind-3"/> Item three</Label>
-    <Label htmlFor="ind-4"><Checkbox id="ind-4"/> Item four</Label>
+    <Label row itemsCenter htmlFor="ind-1"><Checkbox id="ind-1" defaultChecked/> Item one</Label>
+    <Label row itemsCenter htmlFor="ind-2"><Checkbox id="ind-2" defaultChecked/> Item two</Label>
+    <Label row itemsCenter htmlFor="ind-3"><Checkbox id="ind-3"/> Item three</Label>
+    <Label row itemsCenter htmlFor="ind-4"><Checkbox id="ind-4"/> Item four</Label>
   </Col>
 </Col>
 ```
@@ -1490,15 +1487,15 @@ Multiple labeled checkboxes working together.
 
 ```tsx demo
 <Col>
-  <Label htmlFor="opt-1">
+  <Label row itemsCenter htmlFor="opt-1">
     <Checkbox id="opt-1" defaultChecked/>
     Email notifications
   </Label>
-  <Label htmlFor="opt-2">
+  <Label row itemsCenter htmlFor="opt-2">
     <Checkbox id="opt-2"/>
     SMS alerts
   </Label>
-  <Label htmlFor="opt-3">
+  <Label row itemsCenter htmlFor="opt-3">
     <Checkbox id="opt-3"/>
     Push notifications
   </Label>
@@ -1542,10 +1539,10 @@ Wrap an `Input` inside a `Label` to make the label clickable and associate them 
 
 ## With Checkbox
 
-Place a `Checkbox` inside a `Label` so the label text expands the toggle's hit area.
+Place a `Checkbox` inside a `Label` so the label text expands the toggle's hit area. `Label` defaults to a stacked column layout, so add `row itemsCenter` to sit the checkbox inline with its text.
 
 ```tsx demo
-<Label>
+<Label row itemsCenter>
   <Checkbox />
   Subscribe to product updates
 </Label>
@@ -1632,11 +1629,11 @@ When an `Input` or `Checkbox` is nested inside a `Label`, it automatically picks
 
 ```tsx demo
 <Col>
-  <Label xl>
+  <Label xl row itemsCenter>
     <Checkbox />
     Extra-large checkbox option
   </Label>
-  <Label lg>
+  <Label lg row itemsCenter>
     <Checkbox xs />
     Explicit <Code>xs</Code> checkbox overrides the <Code>lg</Code> label
   </Label>
@@ -1972,11 +1969,11 @@ Title: Code
 URL: https://vaneui.com/docs/basic-components/code
 ---
 
-Renders inline code snippets with syntax highlighting. Perfect for displaying code examples, commands, file paths, or technical terms within text content.
+Renders inline code snippets with monospace styling. Perfect for displaying code examples, commands, file paths, or technical terms within text content.
 
 ## Basic usage
 
-Inline code snippets with default styling. `Code` is `align-middle`, so it sits centered with the surrounding text. Pass `href` to render `Code` as `<a>` instead of `<code>`. A focus-visible outline auto-enables when `href` is set.
+Inline code snippets with default styling. `Code` aligns to the surrounding text's baseline, so it lines up with the text it's inlined in. Pass `href` to render `Code` as `<a>` instead of `<code>`. A focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Col>
@@ -2001,7 +1998,7 @@ Code elements in different sizes - `xs`, `sm`, `md`, `lg`, `xl`.
 
 ## Appearances
 
-Different code color variants for syntax highlighting.
+Different appearance colors for inline code.
 
 ```tsx demo
 <Row flexWrap>
@@ -5435,7 +5432,7 @@ URL: https://vaneui.com/docs/overlay-components/overlay
 
 A fullscreen backdrop overlay for creating modal backgrounds, loading screens, and lightbox effects. Renders via portal with click-to-close and optional blur.
 
-Overlay ships its own layout defaults: `fixed`, `flex`, `itemsCenter`, `justifyCenter`. It covers the viewport via `inset-0` and reads its `z-index` from a managed stacking context so nested overlays layer correctly. `Modal` is built on top of `Overlay` and reuses these defaults.
+Overlay ships its own layout defaults: `fixed`, `flex`, `itemsCenter`, `justifyCenter`. It covers the viewport via `inset-0` and reads its `z-index` from a managed stacking context so nested overlays layer correctly. `Modal` provides its own backdrop layer using the same layout defaults.
 
 ## Basic Overlay
 
@@ -5530,7 +5527,7 @@ const [open, setOpen] = useState(false);
 
 ## Foundation for Modal
 
-`Modal` is built on `Overlay`. The dialog surface renders inside an Overlay that handles portaling, backdrop click, and stacking. For accessible dialogs with focus trap, scroll lock, and ARIA wiring, prefer `Modal`. Reach for `Overlay` directly when you need a custom backdrop layer (lightbox, loading shade, drawer scrim) without dialog semantics.
+`Modal` layers a dialog surface over its own portal-rendered backdrop, which handles portaling, backdrop click, and stacking (the same mechanics as `Overlay`). For accessible dialogs with focus trap, scroll lock, and ARIA wiring, prefer `Modal`. Reach for `Overlay` directly when you need a custom backdrop layer (lightbox, loading shade, drawer scrim) without dialog semantics.
 
 ```tsx
 {/* High-level: use Modal for dialogs */}
@@ -5596,7 +5593,7 @@ Control how the overlay transitions in and out. Use `transitionDuration` to set 
 | Prop | Default | Description |
 |------|---------|-------------|
 | `open` | `true` | Whether the overlay is visible |
-| `onClose` | - | Called when the backdrop is clicked |
+| `onClose` | - | Called when the overlay is dismissed (backdrop click or `Escape`) |
 | `portal` | `true` | Render into `document.body` via React portal |
 | `keepMounted` | `false` | Keep DOM mounted when closed (useful for transition state preservation) |
 | `noAnimation` | `false` | Disable enter/exit transitions |
@@ -5621,7 +5618,7 @@ Title: Modal
 URL: https://vaneui.com/docs/overlay-components/modal
 ---
 
-An accessible dialog component with focus trapping, scroll lock, and keyboard navigation. Built on Overlay with ARIA `role="dialog"` and `aria-modal="true"`. Sub-components: `ModalHeader`, `ModalBody`, `ModalFooter`, `ModalCloseButton`.
+An accessible dialog component with focus trapping, scroll lock, and keyboard navigation. It layers a dialog surface over its own portal-rendered backdrop (the same mechanics as Overlay), with ARIA `role="dialog"` and `aria-modal="true"`. Sub-components: `ModalHeader`, `ModalBody`, `ModalFooter`, `ModalCloseButton`.
 
 ## When to use
 
@@ -5643,7 +5640,7 @@ Set app-wide Modal defaults with `ThemeProvider`'s `themeDefaults`:
 import { ThemeProvider, Modal } from '@vaneui/ui';
 
 <ThemeProvider themeDefaults={{
-  modal: { lg: true, border: true },
+  modal: { content: { lg: true, border: true } },
 }}>
   <Modal open={open} onClose={onClose}>Content</Modal>
 </ThemeProvider>
@@ -5707,7 +5704,7 @@ const [open, setOpen] = useState(false);
 
 ## Convenience props
 
-Use the `title`, `footer`, and `withCloseButton` shorthand props to compose a structured modal without writing sub-components. When `title` is set, a close button is shown by default (toggle with `withCloseButton`). Children become the body.
+Use the `title`, `footer`, and `withCloseButton` shorthand props to compose a structured modal without writing sub-components. A close button is shown by default regardless of `title` (toggle with `withCloseButton`): with a title it sits in the header, without one it floats top-right. Children become the body.
 
 ```tsx
 import { Modal, Button, Text, Row } from "@vaneui/ui";
@@ -5879,7 +5876,7 @@ A floating element anchored to a trigger element using CSS Anchor Positioning. S
 
 Popup ships its own surface defaults: `md`, `flex column`, `padding`, `gap`, `rounded`, `border`, `shadow`, `primary`, `outline`, `wFit`, `maxHeight`, `overflowAuto`, `bottom`. Render children directly. Wrapping content in another `Card` is usually redundant.
 
-> **Browser support:** Popup uses the CSS Anchor Positioning API (Chrome 125+, Edge 125+). Other browsers fall back to a JS positioning path that recomputes on scroll/resize.
+> **Browser support:** Popup uses the CSS Anchor Positioning API (Chrome/Edge 129+, for the `span-*` alignment it relies on). Other browsers fall back to a JS positioning path that recomputes on scroll/resize.
 
 ## Basic Popup
 
@@ -5975,7 +5972,7 @@ When the requested placement would overflow the viewport, Popup falls back throu
 
 ## Match anchor width
 
-`matchWidth` makes the popup track the anchor's width, useful for select-like dropdowns. Combine with `wFit` removal (Popup defaults to `wFit`) is automatic when `matchWidth` is set.
+`matchWidth` makes the popup track the anchor's width, useful for select-like dropdowns. It sets the popup width to the anchor's width, overriding the default `wFit`.
 
 ```tsx
 const [open, setOpen] = useState(false);
@@ -6337,7 +6334,7 @@ NavLink renders as an `<a>` when `href` is provided. Defaults to `sm` size, `pri
 
 ## Active state
 
-Use the `active` prop to indicate the current page. Active NavLinks get `aria-current="page"` and a `data-active` attribute for styling.
+Use the `active` prop to indicate the current page. Active NavLinks get a `data-active` attribute for styling; the `href` (anchor) form also gets `aria-current="page"` (the no-href button form omits it).
 
 ```tsx demo
 <Col className="w-64">
@@ -6400,7 +6397,7 @@ NavLinks default to `primary outline`. Use `filled` for solid backgrounds. Activ
 
 ## Disabled state
 
-Use `disabled` to prevent interaction. When `disabled` is combined with `href`, the anchor is replaced with a disabled `<button>` so the link cannot be followed.
+Use `disabled` to prevent interaction. When `disabled` is combined with `href`, the `href` is dropped and it renders as a non-navigable anchor (`role="link"`, `aria-disabled="true"`) that stays focusable but cannot be followed.
 
 ```tsx demo
 <Col className="w-64">
@@ -6460,17 +6457,22 @@ import { NavLink } from '@vaneui/ui';
 
 ## Customizing
 
-Set app-wide NavLink defaults with `ThemeProvider`'s `themeDefaults` and active-state styling with `extraClasses`:
+Set app-wide NavLink defaults with `ThemeProvider`'s `themeDefaults`. Style the active state by targeting the emitted `data-active` attribute in your own CSS: `extraClasses` keys apply only to category props, so an `active` key there has no effect.
 
 ```tsx
 import { ThemeProvider, NavLink } from '@vaneui/ui';
 
-<ThemeProvider
-  themeDefaults={{ navLink: { root: { md: true } } }}
-  extraClasses={{ navLink: { root: { active: 'bg-brand-50 text-brand-700 font-semibold' } } }}
->
+<ThemeProvider themeDefaults={{ navLink: { root: { md: true } } }}>
   <NavLink href="/docs" active>Docs</NavLink>
 </ThemeProvider>
+```
+
+```css
+.vane-nav-link[data-active] {
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 600;
+}
 ```
 
 ## Typography Components
@@ -6621,7 +6623,7 @@ Use `truncate` for single-line ellipsis, or `lineClamp2`/`lineClamp3`/`lineClamp
 
 ## Letter spacing
 
-Control letter spacing with `trackingTighter`, `trackingTight`, `trackingNormal` (default), `trackingWide`, `trackingWider`, `trackingWidest`.
+Control letter spacing with `trackingTighter`, `trackingTight`, `trackingNormal`, `trackingWide`, `trackingWider`, `trackingWidest`. Text defaults to a compact `-0.011em` tracking; `trackingNormal` resets it to `0`.
 
 ```tsx demo
 <Col>
@@ -7574,7 +7576,7 @@ Title: ListItem
 URL: https://vaneui.com/docs/typography-components/list-item
 ---
 
-A single entry inside a `List`. It renders an `<li>` and carries the same typography props as `Text` (appearance, size, weight, alignment), plus an `icon` prop for replacing the native marker. Always render it inside a `List`, which supplies the marker style and size.
+A single entry inside a `List`. It renders an `<li>` and carries the core typography props (appearance, size, weight, alignment), plus an `icon` prop for replacing the native marker. It omits the margin, letter-spacing, and cursor props that `Text` has. Always render it inside a `List`, which supplies the marker style and size.
 
 ## Custom markers with the icon prop
 
@@ -7591,7 +7593,7 @@ Pass an `icon` node to replace the native marker on that item only. The icon wra
 
 ## Coloring a single item
 
-`ListItem` defaults to `inherit`, taking its color from the parent `List`. Set an explicit appearance on one item to override just that row while its siblings keep the inherited color.
+`ListItem` has no appearance of its own, so it takes its color from the parent `List`. Set an explicit appearance on one item to override just that row while its siblings keep the inherited color.
 
 ```tsx demo
 <List>
@@ -7617,13 +7619,13 @@ Typography toggles like `bold`, `italic`, and `mono` apply per item, so one entr
 
 ## Size and color inheritance
 
-By default `ListItem` has `inheritSize` and `inheritColor` on, so `<List xl success>` propagates to every item without repeating the props. Set `noInheritSize` or `noInheritColor` (or an explicit size/appearance) on an item to opt out.
+`ListItem` has no size or appearance default of its own, so each item's font-size and color cascade from the parent `List`: `<List xl success>` propagates to every item. Set an explicit size or appearance on an item to opt out.
 
 ```tsx demo
 <List xl success>
   <ListItem>Inherits xl size and success color</ListItem>
-  <ListItem sm noInheritSize>Opts out: small, still inherits color</ListItem>
-  <ListItem primary noInheritColor>Opts out: primary color</ListItem>
+  <ListItem sm>Opts out of size: small, still inherits color</ListItem>
+  <ListItem primary>Opts out of color: primary</ListItem>
 </List>
 ```
 
@@ -7699,16 +7701,18 @@ Italic is not a default. Opt in with the `italic` prop for traditional quotation
 </Col>
 ```
 
-## Variants
+## Source attribution
 
-Use `filled` for solid background blockquotes or `outline` (default) for the left-border accent style.
+Pass `cite` to set the native `<blockquote cite>` attribute and render a visible source line below the quote. `Blockquote` has a single visual style, the reading-direction-start accent border (the `outline` default); it does not paint a background, so wrap it in a `Card` or `Section` to place a quote on a colored surface.
 
 ```tsx demo
 <Col>
-  <Blockquote primary>Outline (default), with a left border accent.</Blockquote>
-  <Blockquote primary filled>Filled, solid background for emphasis.</Blockquote>
-  <Blockquote info>Outline info, informational note.</Blockquote>
-  <Blockquote info filled>Filled info, strong callout.</Blockquote>
+  <Blockquote primary cite="Ada Lovelace">
+    That brain of mine is something more than merely mortal, as time will show.
+  </Blockquote>
+  <Blockquote info cite="Alan Turing">
+    We can only see a short distance ahead, but we can see plenty there that needs to be done.
+  </Blockquote>
 </Col>
 ```
 
@@ -8502,7 +8506,7 @@ function BrandedApp() {
 - `success`, `danger`, `warning`, `info`, `link`, `inherit`
 
 ### Variant props
-- `filled`, `outline`
+- `filled`, `outline`, `ghost`
 
 ### Shape props
 - `rounded`, `pill`, `sharp`
@@ -8723,7 +8727,7 @@ VaneUI components come with sensible built-in defaults. Only set defaults that d
 - **Section**: `md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `noBorder`, `noRing`, `noShadow`, `outline`, `sharp`, `responsive`
 - **Container**: `md`, `wFull`, `flex`, `column`, `itemsCenter`, `gap`, `noPadding`, `outline`, `sharp`
 - **Input**: `md`, `wFull`, `primary`, `outline`, `rounded`, `padding`, `ring`, `focusVisible`
-- **Label**: `sm`, `flex`, `itemsCenter`, `gap`, `inherit` (not `primary`), `medium` (`itemsCenter` vertically centers the label text next to a nested `Input` or `Checkbox`)
+- **Label**: `sm`, `flex`, `column`, `itemsStart`, `gap`, `inherit` (not `primary`), `medium` (stacked label above field; use `<Label row itemsCenter>` for inline controls like `Checkbox`)
 - **Badge**: `md`, `primary`, `outline`, `pill`, `semibold`, `uppercase`
 - **Chip**: `md`, `secondary` (not `primary`), `outline`, `rounded`, `mono`
 - **Link**: `md`, `link` (not `primary`), `underline`, `sans`, `cursorPointer`, `inheritSize`, `wFit`, `focusVisible` (no variant default, no `outline`)
@@ -9069,7 +9073,7 @@ Set by `data-variant` + `data-appearance` attribute combinations:
 ```
 
 ### Icon sizing: decoupled from font size
-Components that render icons (`Button`, `IconButton`, `Icon`, `Badge`, `Chip`, `Menu`, `NavLink`, `Link`, `ListItem`) size icons via `--icon-size`, not `--fs`. For most components this is `calc(var(--fs) * var(--lh))`, but `Icon` sets it independently per size as `calc(var(--spacing) * N)`. An `<Icon md>` is 8 × `--spacing` regardless of any inherited font-size:
+Components that render icons (`Button`, `IconButton`, `Icon`, `Badge`, `Chip`, `Menu`, `NavLink`, `Link`, `ListItem`) size icons via `--icon-size`, not `--fs`. For most components this is `var(--fs)` (the element's own font-size), but `Icon` sets it independently per size as `calc(var(--spacing) * N)`. An `<Icon md>` is 8 × `--spacing` regardless of any inherited font-size:
 
 ```css
 .vane-icon[data-size="md"] { --icon-size: calc(var(--spacing) * 8); }
@@ -9091,7 +9095,7 @@ Replace `{appearance}` in variable names with one of:
 - `link` - link color (blue)
 - `inherit` - inherits from parent element
 
-> The `inherit` appearance works differently from all other appearances. Instead of setting `data-appearance` and `data-variant` attributes, it omits them entirely. This allows the semantic color CSS variables (`--text-color`, `--bg-color`, `--border-color`) to cascade from parent elements rather than being set explicitly on the component. Typography components (Text, Title, SectionTitle, PageTitle), Label, List, and Divider default to `inherit`.
+> The `inherit` appearance works differently from all other appearances. Instead of setting `data-appearance` and `data-variant` attributes, it omits them entirely. This allows the semantic color CSS variables (`--text-color`, `--bg-color`, `--border-color`) to cascade from parent elements rather than being set explicitly on the component. Typography components (Text, Title, SectionTitle, PageTitle, Blockquote), Label, List, and Divider default to `inherit`.
 
 ## Color variable groups
 
@@ -9106,8 +9110,6 @@ Replace `{appearance}` in variable names with one of:
 - `--color-bg-filled-{appearance}` - background for filled variant
 - `--color-bg-filled-hover-{appearance}` - filled hover state
 - `--color-bg-filled-active-{appearance}` - filled active state
-- `--color-bg-layout-{appearance}` - layout component backgrounds
-- `--color-bg-filled-layout-{appearance}` - filled layout backgrounds
 
 ### Border colors
 - `--color-border-{appearance}` - border color for outline variant
@@ -9446,7 +9448,7 @@ These components have defaults that deviate from the primary + outline baseline.
 |-----------|-------------------|-----|
 | **Mark** | warning + outline | Yellow highlighter must be visible everywhere |
 | **Chip** | secondary + outline | Muted tag should look consistent |
-| **Link** | link + outline | Blue hyperlink must be recognizable |
+| **Link** | link (no variant default) | Blue hyperlink must be recognizable |
 | **Checkbox** | primary + filled | Checked state needs non-white background |
 
 A `<Mark>` inside a `<Card filled danger>` still renders in its warning (yellow) palette. It doesn't turn red.
@@ -9548,7 +9550,7 @@ When a component has `inherit` appearance (the default for Text, Title, Label, L
   (NOT inheritSize — size uses own --fs variable so <Text sm> works as expected)
 ```
 
-Size inheritance is separate. Only inline components like Link, Code, Kbd, and Mark have `inheritSize: true` in their defaults. You can also set it explicitly:
+Size inheritance is separate. Only Link and Mark have `inheritSize: true` in their defaults (Code and Kbd achieve the same effect via em-relative geometry, described below). You can also set it explicitly:
 
 ```tsx
 <Card filled primary>
