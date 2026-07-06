@@ -51,12 +51,10 @@ Add the following to your main CSS file:
 
 ```css
 @import "@vaneui/ui/css";
-@import "@vaneui/ui/vars.css";
 ```
 
 This setup:
-- Imports the complete pre-built VaneUI stylesheet
-- Imports VaneUI CSS variables for theming
+- Imports the complete pre-built VaneUI stylesheet (component styles and CSS variables in one file)
 - Works without any Tailwind configuration
 
 ## Usage
