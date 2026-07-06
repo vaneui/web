@@ -9,7 +9,7 @@ Renders inline code snippets with syntax highlighting. Perfect for displaying co
 
 ## Basic usage
 
-Inline code snippets with default styling. `Code` is `align-middle`, so it sits centered with the surrounding text. Pass `href` to render `Code` as `<a>` instead of `<code>`. A focus-visible outline auto-enables when `href` is set.
+Inline code snippets with default styling. `Code` aligns to the surrounding text's baseline, so it lines up with the text it's inlined in. Pass `href` to render `Code` as `<a>` instead of `<code>`. A focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Col>
