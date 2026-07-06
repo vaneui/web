@@ -44,7 +44,7 @@ Set by `data-variant` + `data-appearance` attribute combinations:
 ```
 
 ### Icon sizing: decoupled from font size
-Components that render icons (`Button`, `IconButton`, `Icon`, `Badge`, `Chip`, `Menu`, `NavLink`, `Link`, `ListItem`) size icons via `--icon-size`, not `--fs`. For most components this is `calc(var(--fs) * var(--lh))`, but `Icon` sets it independently per size as `calc(var(--spacing) * N)`. An `<Icon md>` is 8 × `--spacing` regardless of any inherited font-size:
+Components that render icons (`Button`, `IconButton`, `Icon`, `Badge`, `Chip`, `Menu`, `NavLink`, `Link`, `ListItem`) size icons via `--icon-size`, not `--fs`. For most components this is `var(--fs)` (the element's own font-size), but `Icon` sets it independently per size as `calc(var(--spacing) * N)`. An `<Icon md>` is 8 × `--spacing` regardless of any inherited font-size:
 
 ```css
 .vane-icon[data-size="md"] { --icon-size: calc(var(--spacing) * 8); }
@@ -66,7 +66,7 @@ Replace `{appearance}` in variable names with one of:
 - `link` - link color (blue)
 - `inherit` - inherits from parent element
 
-> The `inherit` appearance works differently from all other appearances. Instead of setting `data-appearance` and `data-variant` attributes, it omits them entirely. This allows the semantic color CSS variables (`--text-color`, `--bg-color`, `--border-color`) to cascade from parent elements rather than being set explicitly on the component. Typography components (Text, Title, SectionTitle, PageTitle), Label, List, and Divider default to `inherit`.
+> The `inherit` appearance works differently from all other appearances. Instead of setting `data-appearance` and `data-variant` attributes, it omits them entirely. This allows the semantic color CSS variables (`--text-color`, `--bg-color`, `--border-color`) to cascade from parent elements rather than being set explicitly on the component. Typography components (Text, Title, SectionTitle, PageTitle, Blockquote), Label, List, and Divider default to `inherit`.
 
 ## Color variable groups
 
@@ -81,8 +81,6 @@ Replace `{appearance}` in variable names with one of:
 - `--color-bg-filled-{appearance}` - background for filled variant
 - `--color-bg-filled-hover-{appearance}` - filled hover state
 - `--color-bg-filled-active-{appearance}` - filled active state
-- `--color-bg-layout-{appearance}` - layout component backgrounds
-- `--color-bg-filled-layout-{appearance}` - filled layout backgrounds
 
 ### Border colors
 - `--color-border-{appearance}` - border color for outline variant
