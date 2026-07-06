@@ -15,13 +15,13 @@ At its core, VaneUI uses **boolean props** instead of string enums for cleaner J
 Props are organized into **categories**:
 - **size**: `xs`, `sm`, `md`, `lg`, `xl`
 - **appearance**: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`, `inherit`
-- **variant**: `filled`, `outline`
+- **variant**: `filled`, `outline`, `ghost`
 - **shape**: `rounded`, `pill`, `sharp`
 - **typography**: `sans`, `serif`, `mono`, `semibold`, `bold`, etc.
 - **layout**: `flex`, `column`, `itemsCenter`, `justifyBetween`, etc.
 - **inheritance**: `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder` (and `noInherit*` toggles)
 
-Typography components (Text, Title, SectionTitle, PageTitle), Label, List, and Divider default to `inherit`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Inline components like Link, Code, Kbd, and Mark default to `inheritSize`. They inherit font-size from their parent while keeping their own appearance color.
+Typography components (Text, Title, SectionTitle, PageTitle, Blockquote), Label, List, and Divider default to `inherit`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Link and Mark default to `inheritSize`, so they inherit font-size from their parent while keeping their own appearance color; Code and Kbd achieve the same effect through em-relative geometry.
 
 ## How components work
 
@@ -34,7 +34,7 @@ Each component gets its theme from `ThemeContext` via `useTheme()` and passes pr
 The `ComponentTheme` class orchestrates class generation. It walks a tree of `BaseTheme` subclasses (like `FontSizeTheme`, `RadiusTheme`) that each generate specific CSS classes based on the active props.
 
 ### Layer 3: CSS variables
-Components output **data attributes** (`data-size`, `data-appearance`, `data-variant`) that CSS rules in `vars.css` use to set CSS variables. These variables are then consumed by Tailwind utility classes.
+Components output **data attributes** (`data-size`, `data-appearance`, `data-variant`) that CSS rules in `rules.css` use to set CSS variables. These variables are then consumed by Tailwind utility classes.
 
 ## Prop extraction
 
@@ -82,7 +82,6 @@ Set by component class based on `data-size`:
 .vane-button[data-size="md"] {
   --fs-unit: 8;   /* Font size unit */
   --py-unit: 2;   /* Padding Y unit */
-  --br-unit: 2;   /* Border radius unit */
 }
 ```
 
@@ -157,7 +156,7 @@ For programmatic theme modifications:
 ```tsx
 <ThemeProvider themeOverride={(theme) => {
   // Modify base classes
-  theme.button.base += ' uppercase tracking-wide';
+  theme.button.main.base += ' uppercase tracking-wide';
   return theme;
 }}>
   <App />
