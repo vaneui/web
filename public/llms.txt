@@ -51,7 +51,7 @@ For complete documentation of every page in a single document, see
 - [Checkbox](https://vaneui.com/docs/basic-components/checkbox): Allows users to select one or more options from a set. Checkboxes are ideal for binary choices and multiple selections within forms.
 - [Label](https://vaneui.com/docs/basic-components/label): Displays text with various styling options for categorization, status indicators, or highlighting important information. Labels can be styled with different colors, sizes, and variants.
 - [Badge](https://vaneui.com/docs/basic-components/badge): Highlights important information such as notifications or counts in a non-intrusive way. Badges are typically used in conjunction with other elements like icons or navigation links.
-- [Chip](https://vaneui.com/docs/basic-components/chip): Compact token for tags, attributes, filter values, or other discrete entities inline with text. Defaults to secondary appearance, outline variant, and rounded shape.
+- [Chip](https://vaneui.com/docs/basic-components/chip): Compact token for tags, attributes, or other discrete entities inline with text. Defaults to secondary appearance, outline variant, and rounded shape.
 - [Code](https://vaneui.com/docs/basic-components/code): Renders inline code snippets in a themed monospace surface. Use for code examples, commands, file paths, or technical terms within prose; renders as an anchor when given href.
 - [Kbd](https://vaneui.com/docs/basic-components/kbd): Displays keyboard keys and shortcuts with monospace font, border, and a raised 3D effect. Ideal for documenting keyboard shortcuts.
 - [Mark](https://vaneui.com/docs/basic-components/mark): Highlights text with a background color for emphasis. Defaults to warning (yellow) appearance for a natural highlighter effect.
@@ -59,7 +59,7 @@ For complete documentation of every page in a single document, see
 
 ### Layout Components
 - [Container](https://vaneui.com/docs/layout-components/container): Manages the main content area by centering it and applying a max-width. It ensures a consistent and readable layout across different screen sizes.
-- [Section](https://vaneui.com/docs/layout-components/section): A semantic container used to group related content within a page. This component helps to create a clear document outline and improve accessibility.
+- [Section](https://vaneui.com/docs/layout-components/section): A container that groups related content and owns the outer padding and background of a page band. It renders as a plain wrapper by default; pass tag="section" for a semantic landmark.
 - [Row](https://vaneui.com/docs/layout-components/row): A fundamental layout component that arranges its children in a horizontal line. It is built on the flexbox model and is used to create columns.
 - [Col](https://vaneui.com/docs/layout-components/col): A container that organizes content vertically within a Row. It provides a simple way to create flexible and responsive column-based layouts.
 - [Stack](https://vaneui.com/docs/layout-components/stack): A flexible layout component that arranges its children with consistent spacing. It can be used for both vertical and horizontal layouts.
@@ -74,7 +74,7 @@ For complete documentation of every page in a single document, see
 
 ### Overlay Components
 - [Overlay](https://vaneui.com/docs/overlay-components/overlay): A fullscreen backdrop overlay for creating modal backgrounds, loading screens, and lightbox effects. Renders via portal with click-to-close and optional blur.
-- [Modal](https://vaneui.com/docs/overlay-components/modal): An accessible dialog component with focus trapping, scroll lock, and keyboard navigation. Built on Overlay with ARIA role="dialog" and aria-modal="true".
+- [Modal](https://vaneui.com/docs/overlay-components/modal): An accessible dialog component with focus trapping, scroll lock, and keyboard navigation. Provides its own portal-rendered backdrop (the same mechanics as Overlay) with ARIA role="dialog" and aria-modal="true".
 - [Popup](https://vaneui.com/docs/overlay-components/popup): A floating element anchored to a trigger element using CSS Anchor Positioning. Supports 12 placement options, width matching, and click-outside dismissal.
 - [Menu](https://vaneui.com/docs/overlay-components/menu): A dropdown menu triggered by a button with full keyboard navigation. Contains MenuItem, Divider, and MenuLabel subcomponents.
 
@@ -88,7 +88,7 @@ For complete documentation of every page in a single document, see
 - [Title](https://vaneui.com/docs/typography-components/title): Renders a heading to establish a semantic hierarchy on the page. Use this component for the main titles of pages or sections.
 - [Link](https://vaneui.com/docs/typography-components/link): Renders an accessible and themeable anchor link for navigation. Use this to direct users to other pages or external websites.
 - [List](https://vaneui.com/docs/typography-components/list): A container for displaying a series of related items in an ordered or unordered fashion. It provides consistent styling for list elements.
-- [ListItem](https://vaneui.com/docs/typography-components/list-item): A single entry inside a List. Renders an <li> with the same typography props as Text, plus an icon prop for replacing the native marker.
+- [ListItem](https://vaneui.com/docs/typography-components/list-item): A single entry inside a List. Renders an <li> with Text's typography props (except margin, letter-spacing, and cursor), plus an icon prop for replacing the native marker.
 - [Blockquote](https://vaneui.com/docs/typography-components/blockquote): Displays quoted content with a left border accent. Inherits appearance from the parent by default, so it blends into themed containers.
 
 ### Customization

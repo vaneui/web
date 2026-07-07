@@ -243,12 +243,15 @@ Multiple labeled checkboxes working together.
 Set app-wide Checkbox defaults with `ThemeProvider`'s `themeDefaults` and tune the checked-state visuals with `extraClasses`:
 
 ```tsx
-import { ThemeProvider, Checkbox } from '@vaneui/ui';
+import { ThemeProvider, Checkbox, Label } from '@vaneui/ui';
 
 <ThemeProvider
   themeDefaults={{ checkbox: { input: { lg: true } } }}
   extraClasses={{ checkbox: { input: { primary: 'checked:bg-brand-600 checked:border-brand-600' } } }}
 >
-  <Checkbox>I agree to the terms</Checkbox>
+  <Label row itemsCenter htmlFor="terms">
+    <Checkbox id="terms"/>
+    I agree to the terms
+  </Label>
 </ThemeProvider>
 ```

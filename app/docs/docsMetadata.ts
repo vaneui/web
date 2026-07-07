@@ -85,7 +85,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'chip',
         name: 'Chip',
-        description: 'Compact token for tags, attributes, filter values, or other discrete entities inline with text. Defaults to secondary appearance, outline variant, and rounded shape.',
+        description: 'Compact token for tags, attributes, or other discrete entities inline with text. Defaults to secondary appearance, outline variant, and rounded shape.',
         componentKey: "chip",
       },
       {
@@ -128,7 +128,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'section',
         name: 'Section',
-        description: 'A semantic container used to group related content within a page. This component helps to create a clear document outline and improve accessibility.',
+        description: 'A container that groups related content and owns the outer padding and background of a page band. It renders as a plain wrapper by default; pass tag="section" for a semantic landmark.',
         componentKey: "section",
       },
       {
@@ -213,7 +213,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'modal',
         name: 'Modal',
-        description: 'An accessible dialog component with focus trapping, scroll lock, and keyboard navigation. Built on Overlay with ARIA role="dialog" and aria-modal="true".',
+        description: 'An accessible dialog component with focus trapping, scroll lock, and keyboard navigation. Provides its own portal-rendered backdrop (the same mechanics as Overlay) with ARIA role="dialog" and aria-modal="true".',
         componentKey: "modal",
       },
       {
@@ -287,7 +287,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'list-item',
         name: 'ListItem',
-        description: 'A single entry inside a List. Renders an <li> with the same typography props as Text, plus an icon prop for replacing the native marker.',
+        description: 'A single entry inside a List. Renders an <li> with Text\'s typography props (except margin, letter-spacing, and cursor), plus an icon prop for replacing the native marker.',
         componentKey: "listItem",
       },
       {

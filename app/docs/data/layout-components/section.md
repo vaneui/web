@@ -9,7 +9,7 @@ Sections own the outer padding and background; nest a `Container` inside to cap 
 
 ## Basic usage
 
-`md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `outline`, `sharp`, and `responsive` are defaults. Padding, gap, and font size automatically scale at tablet and mobile breakpoints because `responsive` is on.
+`md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `outline`, `sharp`, and `responsive` are defaults. Padding and gap automatically scale at tablet and mobile breakpoints because `responsive` is on.
 
 ```tsx demo
 <Section border>
@@ -123,7 +123,7 @@ Use `mobileCol` or `tabletCol` to switch from row to column layout on smaller sc
 
 ## Responsive sizing
 
-`responsive` (default) scales padding, gap, and font size at tablet and mobile breakpoints using `--py-tablet`, `--gap-mobile`, etc. Pass `responsive={false}` to lock a single size across all viewports.
+`responsive` (default) scales padding and gap at tablet and mobile breakpoints using `--py-tablet`, `--gap-mobile`, etc. Pass `responsive={false}` to lock a single size across all viewports.
 
 ```tsx demo
 <Col>

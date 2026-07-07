@@ -102,9 +102,9 @@ Drop an icon directly inside the chip. `gap` is on by default, so spacing is aut
 </Row>
 ```
 
-## Tag and filter lists
+## Tag lists
 
-The canonical chip pattern: a wrapping row of tokens that classify or filter content.
+The canonical chip pattern: a wrapping row of tokens that label or categorize content. Chip is presentational, so for clickable tags give it an `href` (see As Link) or wire your own `onClick`.
 
 ```tsx demo
 <Card>
@@ -121,14 +121,23 @@ The canonical chip pattern: a wrapping row of tokens that classify or filter con
 
 ## Removable chips
 
-Pair a chip with an inline close icon to represent removable selections inside a filter bar.
+Chip is presentational, so wire removal yourself: compose an `IconButton` as the close control and drop the tag from your own state. The trailing `IconButton` owns the click target and carries an accessible label.
 
 ```tsx demo
-<Row flexWrap>
-  <Chip>typescript <X/></Chip>
-  <Chip>react <X/></Chip>
-  <Chip danger filled>blocked <X/></Chip>
-</Row>
+const [tags, setTags] = React.useState(['typescript', 'react', 'tailwind']);
+return (
+  <Row flexWrap>
+    {tags.map(tag => (
+      <Chip key={tag}>
+        {tag}
+        <IconButton xs ghost aria-label={`Remove ${tag}`} onClick={() => setTags(tags.filter(t => t !== tag))}>
+          <X/>
+        </IconButton>
+      </Chip>
+    ))}
+    {tags.length === 0 && <Text secondary>All tags removed.</Text>}
+  </Row>
+);
 ```
 
 ## As Link

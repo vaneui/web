@@ -1466,13 +1466,16 @@ Multiple labeled checkboxes working together.
 Set app-wide Checkbox defaults with `ThemeProvider`'s `themeDefaults` and tune the checked-state visuals with `extraClasses`:
 
 ```tsx
-import { ThemeProvider, Checkbox } from '@vaneui/ui';
+import { ThemeProvider, Checkbox, Label } from '@vaneui/ui';
 
 <ThemeProvider
   themeDefaults={{ checkbox: { input: { lg: true } } }}
   extraClasses={{ checkbox: { input: { primary: 'checked:bg-brand-600 checked:border-brand-600' } } }}
 >
-  <Checkbox>I agree to the terms</Checkbox>
+  <Label row itemsCenter htmlFor="terms">
+    <Checkbox id="terms"/>
+    I agree to the terms
+  </Label>
 </ThemeProvider>
 ```
 
@@ -1842,9 +1845,9 @@ Drop an icon directly inside the chip. `gap` is on by default, so spacing is aut
 </Row>
 ```
 
-## Tag and filter lists
+## Tag lists
 
-The canonical chip pattern: a wrapping row of tokens that classify or filter content.
+The canonical chip pattern: a wrapping row of tokens that label or categorize content. Chip is presentational, so for clickable tags give it an `href` (see As Link) or wire your own `onClick`.
 
 ```tsx demo
 <Card>
@@ -1861,14 +1864,23 @@ The canonical chip pattern: a wrapping row of tokens that classify or filter con
 
 ## Removable chips
 
-Pair a chip with an inline close icon to represent removable selections inside a filter bar.
+Chip is presentational, so wire removal yourself: compose an `IconButton` as the close control and drop the tag from your own state. The trailing `IconButton` owns the click target and carries an accessible label.
 
 ```tsx demo
-<Row flexWrap>
-  <Chip>typescript <X/></Chip>
-  <Chip>react <X/></Chip>
-  <Chip danger filled>blocked <X/></Chip>
-</Row>
+const [tags, setTags] = React.useState(['typescript', 'react', 'tailwind']);
+return (
+  <Row flexWrap>
+    {tags.map(tag => (
+      <Chip key={tag}>
+        {tag}
+        <IconButton xs ghost aria-label={`Remove ${tag}`} onClick={() => setTags(tags.filter(t => t !== tag))}>
+          <X/>
+        </IconButton>
+      </Chip>
+    ))}
+    {tags.length === 0 && <Text secondary>All tags removed.</Text>}
+  </Row>
+);
 ```
 
 ## As Link
@@ -2659,7 +2671,7 @@ Sections own the outer padding and background; nest a `Container` inside to cap 
 
 ## Basic usage
 
-`md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `outline`, `sharp`, and `responsive` are defaults. Padding, gap, and font size automatically scale at tablet and mobile breakpoints because `responsive` is on.
+`md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `outline`, `sharp`, and `responsive` are defaults. Padding and gap automatically scale at tablet and mobile breakpoints because `responsive` is on.
 
 ```tsx demo
 <Section border>
@@ -2773,7 +2785,7 @@ Use `mobileCol` or `tabletCol` to switch from row to column layout on smaller sc
 
 ## Responsive sizing
 
-`responsive` (default) scales padding, gap, and font size at tablet and mobile breakpoints using `--py-tablet`, `--gap-mobile`, etc. Pass `responsive={false}` to lock a single size across all viewports.
+`responsive` (default) scales padding and gap at tablet and mobile breakpoints using `--py-tablet`, `--gap-mobile`, etc. Pass `responsive={false}` to lock a single size across all viewports.
 
 ```tsx demo
 <Col>
@@ -7163,7 +7175,7 @@ Lists come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Font size
 
 ## Appearances
 
-Lists use `inherit` appearance by default: they inherit color from their parent and are `transparent` (no background). Use explicit appearances like `primary`, `success`, `danger` to override the text color. To add a background, combine an appearance with `filled`.
+Lists use `inherit` appearance by default: they inherit color from their parent and stay `transparent` with no background of their own. Use explicit appearances like `primary`, `success`, `danger` to override the text color. Because a List has no background of its own, place it inside a filled container like `Card` when you want a surface behind it.
 
 ```tsx demo
 <Col>
@@ -7179,14 +7191,12 @@ Lists use `inherit` appearance by default: they inherit color from their parent 
     <ListItem>Danger colored item</ListItem>
     <ListItem>Another danger item</ListItem>
   </List>
-  <List primary filled>
-    <ListItem>Filled primary</ListItem>
-    <ListItem>Second item</ListItem>
-  </List>
-  <List success filled>
-    <ListItem>Filled success</ListItem>
-    <ListItem>Second item</ListItem>
-  </List>
+  <Card secondary filled>
+    <List>
+      <ListItem>List on a filled Card surface</ListItem>
+      <ListItem>The Card provides the background</ListItem>
+    </List>
+  </Card>
 </Col>
 ```
 

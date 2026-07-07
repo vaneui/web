@@ -44,7 +44,7 @@ Lists come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Font size
 
 ## Appearances
 
-Lists use `inherit` appearance by default: they inherit color from their parent and are `transparent` (no background). Use explicit appearances like `primary`, `success`, `danger` to override the text color. To add a background, combine an appearance with `filled`.
+Lists use `inherit` appearance by default: they inherit color from their parent and stay `transparent` with no background of their own. Use explicit appearances like `primary`, `success`, `danger` to override the text color. Because a List has no background of its own, place it inside a filled container like `Card` when you want a surface behind it.
 
 ```tsx demo
 <Col>
@@ -60,14 +60,12 @@ Lists use `inherit` appearance by default: they inherit color from their parent 
     <ListItem>Danger colored item</ListItem>
     <ListItem>Another danger item</ListItem>
   </List>
-  <List primary filled>
-    <ListItem>Filled primary</ListItem>
-    <ListItem>Second item</ListItem>
-  </List>
-  <List success filled>
-    <ListItem>Filled success</ListItem>
-    <ListItem>Second item</ListItem>
-  </List>
+  <Card secondary filled>
+    <List>
+      <ListItem>List on a filled Card surface</ListItem>
+      <ListItem>The Card provides the background</ListItem>
+    </List>
+  </Card>
 </Col>
 ```
 
