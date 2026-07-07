@@ -5,35 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/modal/Mo
 since: 0.9.0
 ---
 
-An accessible dialog component with focus trapping, scroll lock, and keyboard navigation. It layers a dialog surface over its own portal-rendered backdrop (the same mechanics as Overlay), with ARIA `role="dialog"` and `aria-modal="true"`. Sub-components: `ModalHeader`, `ModalBody`, `ModalFooter`, `ModalCloseButton`.
-
-## When to use
-
-- Confirmations for destructive or non-reversible actions.
-- Multi-step or focused forms that should block interaction with the page behind.
-- Detail views that need to escape the surrounding layout (full-screen image, video player).
-- Required acknowledgements where dismissal must be intentional (`closeOnOverlayClick={false}`).
-
-### When NOT to use
-
-- For passive notifications, toasts, or status messages: these should not block the user.
-- For inline disclosure of additional details: prefer `Popup` or an expandable section.
-
-## Customizing
-
-Set app-wide Modal defaults with `ThemeProvider`'s `themeDefaults`:
-
-```tsx
-import { ThemeProvider, Modal } from '@vaneui/ui';
-
-<ThemeProvider themeDefaults={{
-  modal: { content: { lg: true, border: true } },
-}}>
-  <Modal open={open} onClose={onClose}>Content</Modal>
-</ThemeProvider>
-```
-
-## Basic Modal
+## Basic usage
 
 A controlled modal opened by a Button. The Modal portals to `document.body`, traps focus inside the dialog while open, locks body scroll, and closes on overlay click or `Escape`.
 
@@ -168,7 +140,7 @@ const nameRef = useRef<HTMLInputElement>(null);
 </Modal>
 ```
 
-## Modal sizes
+## Sizes
 
 Size props control modal content width via the `--fs-unit` / `--py-unit` / `--br-unit` chain. Font-size, padding, gap, and border-radius all scale together.
 
@@ -177,7 +149,7 @@ Size props control modal content width via the `--fs-unit` / `--py-unit` / `--br
 <Modal open={open} onClose={onClose} lg>Large modal</Modal>
 ```
 
-## Modal appearances
+## Appearances
 
 Apply appearance and variant props to style the content surface (border, text, background).
 
@@ -252,4 +224,18 @@ Modal ships accessibility features enabled by default. The dialog renders with `
 <Modal open={open} onClose={onClose} keepMounted transitionDuration={300}>
   <Text>Stays in DOM when closed</Text>
 </Modal>
+```
+
+## Customizing
+
+Set app-wide Modal defaults with `ThemeProvider`'s `themeDefaults`:
+
+```tsx
+import { ThemeProvider, Modal } from '@vaneui/ui';
+
+<ThemeProvider themeDefaults={{
+  modal: { content: { lg: true, border: true } },
+}}>
+  <Modal open={open} onClose={onClose}>Content</Modal>
+</ThemeProvider>
 ```

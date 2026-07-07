@@ -5,35 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/grid/Gri
 since: 0.9.0
 ---
 
-A responsive layout component that arranges its children in a six-column CSS grid. Ideal for icon grids, compact feature listings, and dense card collections.
-
-## When to use
-
-- Icon or logo grids (clients, integrations, badges).
-- Compact feature collections with small tiles.
-- Dense layouts where the item count is a multiple of six.
-
-### When NOT to use
-
-- For five or fewer columns: use `Grid2` to `Grid5` instead.
-- For variable-width items: use `Row flexWrap` and let children size themselves.
-- For column-spanning layouts: use raw CSS grid with `className` instead.
-
-## Customizing
-
-Set app-wide Grid6 defaults with `ThemeProvider`'s `themeDefaults`:
-
-```tsx
-import { ThemeProvider, Grid6 } from '@vaneui/ui';
-
-<ThemeProvider themeDefaults={{
-  grid6: { sm: true },
-}}>
-  <Grid6>{/* ... */}</Grid6>
-</ThemeProvider>
-```
-
-## Basic Grid6
+## Basic usage
 
 A six-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults: no need to specify them.
 
@@ -54,7 +26,7 @@ A six-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are d
 </Grid6>
 ```
 
-## Grid sizes
+## Sizes
 
 Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 
@@ -108,34 +80,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 </Col>
 ```
 
-## Grid with gap
-
-`gap` is on by default. Use `noGap` to remove spacing between cells.
-
-```tsx demo
-<Col>
-  <Text semibold>Default gap</Text>
-  <Grid6>
-    <Card><Text textCenter>1</Text></Card>
-    <Card><Text textCenter>2</Text></Card>
-    <Card><Text textCenter>3</Text></Card>
-    <Card><Text textCenter>4</Text></Card>
-    <Card><Text textCenter>5</Text></Card>
-    <Card><Text textCenter>6</Text></Card>
-  </Grid6>
-  <Text semibold>noGap</Text>
-  <Grid6 noGap>
-    <Card sharp><Text textCenter>1</Text></Card>
-    <Card sharp><Text textCenter>2</Text></Card>
-    <Card sharp><Text textCenter>3</Text></Card>
-    <Card sharp><Text textCenter>4</Text></Card>
-    <Card sharp><Text textCenter>5</Text></Card>
-    <Card sharp><Text textCenter>6</Text></Card>
-  </Grid6>
-</Col>
-```
-
-## Grid appearances
+## Appearances
 
 Grid supports color appearances. Pair with `filled` or `border` to make the surface visible.
 
@@ -176,7 +121,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
-## Grid variants
+## Variants
 
 `outline` is the default. Use `filled` for a solid background, or add `border` for a visible outline.
 
@@ -201,7 +146,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
-## Grid shapes
+## Shapes
 
 `sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself: pair with `filled` or `border` to see it.
 
@@ -224,4 +169,45 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
     <Card><Text textCenter>6</Text></Card>
   </Grid6>
 </Col>
+```
+
+## With gap
+
+`gap` is on by default. Use `noGap` to remove spacing between cells.
+
+```tsx demo
+<Col>
+  <Text semibold>Default gap</Text>
+  <Grid6>
+    <Card><Text textCenter>1</Text></Card>
+    <Card><Text textCenter>2</Text></Card>
+    <Card><Text textCenter>3</Text></Card>
+    <Card><Text textCenter>4</Text></Card>
+    <Card><Text textCenter>5</Text></Card>
+    <Card><Text textCenter>6</Text></Card>
+  </Grid6>
+  <Text semibold>noGap</Text>
+  <Grid6 noGap>
+    <Card sharp><Text textCenter>1</Text></Card>
+    <Card sharp><Text textCenter>2</Text></Card>
+    <Card sharp><Text textCenter>3</Text></Card>
+    <Card sharp><Text textCenter>4</Text></Card>
+    <Card sharp><Text textCenter>5</Text></Card>
+    <Card sharp><Text textCenter>6</Text></Card>
+  </Grid6>
+</Col>
+```
+
+## Customizing
+
+Set app-wide Grid6 defaults with `ThemeProvider`'s `themeDefaults`:
+
+```tsx
+import { ThemeProvider, Grid6 } from '@vaneui/ui';
+
+<ThemeProvider themeDefaults={{
+  grid6: { sm: true },
+}}>
+  <Grid6>{/* ... */}</Grid6>
+</ThemeProvider>
 ```

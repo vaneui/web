@@ -51,7 +51,7 @@ For complete documentation of every page in a single document, see
 - [Checkbox](https://vaneui.com/docs/basic-components/checkbox): Allows users to select one or more options from a set. Checkboxes are ideal for binary choices and multiple selections within forms.
 - [Label](https://vaneui.com/docs/basic-components/label): Displays text with various styling options for categorization, status indicators, or highlighting important information. Labels can be styled with different colors, sizes, and variants.
 - [Badge](https://vaneui.com/docs/basic-components/badge): Highlights important information such as notifications or counts in a non-intrusive way. Badges are typically used in conjunction with other elements like icons or navigation links.
-- [Chip](https://vaneui.com/docs/basic-components/chip): Represents a complex entity in a compact form, such as an attribute, tag, or contact. Chips can be interactive, allowing for user input or triggering actions.
+- [Chip](https://vaneui.com/docs/basic-components/chip): Compact token for tags, attributes, filter values, or other discrete entities inline with text. Defaults to secondary appearance, outline variant, and rounded shape.
 - [Code](https://vaneui.com/docs/basic-components/code): Renders inline code snippets in a themed monospace surface. Use for code examples, commands, file paths, or technical terms within prose; renders as an anchor when given href.
 - [Kbd](https://vaneui.com/docs/basic-components/kbd): Displays keyboard keys and shortcuts with monospace font, border, and a raised 3D effect. Ideal for documenting keyboard shortcuts.
 - [Mark](https://vaneui.com/docs/basic-components/mark): Highlights text with a background color for emphasis. Defaults to warning (yellow) appearance for a natural highlighter effect.
@@ -89,7 +89,7 @@ For complete documentation of every page in a single document, see
 - [Link](https://vaneui.com/docs/typography-components/link): Renders an accessible and themeable anchor link for navigation. Use this to direct users to other pages or external websites.
 - [List](https://vaneui.com/docs/typography-components/list): A container for displaying a series of related items in an ordered or unordered fashion. It provides consistent styling for list elements.
 - [ListItem](https://vaneui.com/docs/typography-components/list-item): A single entry inside a List. Renders an <li> with the same typography props as Text, plus an icon prop for replacing the native marker.
-- [Blockquote](https://vaneui.com/docs/typography-components/blockquote): Displays quoted content with a left border accent. Inherits appearance from the parent by default for seamless embedding in themed containers.
+- [Blockquote](https://vaneui.com/docs/typography-components/blockquote): Displays quoted content with a left border accent. Inherits appearance from the parent by default, so it blends into themed containers.
 
 ### Customization
 - [Theming Overview](https://vaneui.com/docs/customization/theming-overview): Understand VaneUI's powerful theming system and design token architecture.

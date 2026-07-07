@@ -5,15 +5,13 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/img/Img.
 since: 0.9.0
 ---
 
-Displays images with VaneUI styling support including sizes, shapes, borders, shadows, and object-fit options.
-
 ```tsx setup
 const placeholderSrc = "https://placehold.co/300x200/e2e8f0/64748b?text=Image";
 const portraitSrc = "https://placehold.co/200x300/cbd5e1/475569?text=Portrait";
 const avatarSrc = "https://placehold.co/120x120/c7d2fe/4338ca?text=Avatar";
 ```
 
-## Basic image
+## Basic usage
 
 Render an image with the `Img` component.
 

@@ -5,20 +5,6 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/navLink/
 since: 0.9.0
 ---
 
-A navigation link for sidebars, nav menus, and headers. Supports active state, icons, and renders as `<a>` when `href` is provided, or `<button>` otherwise.
-
-## When to use
-
-- Sidebar navigation items (docs nav, app shell sidebar, settings menus).
-- Header navigation links that need an active-state indicator.
-- Vertical or horizontal nav menus where each item routes to a page or section.
-- On-page table-of-contents items (paired with `active` based on scroll position).
-
-### When NOT to use
-
-- For inline links inside prose: use `Link`, which sits on the typography baseline.
-- For primary calls-to-action: use `Button primary filled`.
-
 ## Basic usage
 
 NavLink renders as an `<a>` when `href` is provided. Defaults to `sm` size, `primary` appearance, `outline` variant, `wFull` and `textLeft` layout, ideal for stacking inside a sidebar `Col`.
@@ -28,6 +14,20 @@ NavLink renders as an `<a>` when `href` is provided. Defaults to `sm` size, `pri
   <NavLink href="#">Home</NavLink>
   <NavLink href="#">Dashboard</NavLink>
   <NavLink href="#">Settings</NavLink>
+</Col>
+```
+
+## Sizes
+
+NavLink supports five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
+
+```tsx demo
+<Col className="w-72">
+  <NavLink xs href="#"><Home size={12} /> XS NavLink</NavLink>
+  <NavLink href="#"><Home size={14} /> SM NavLink</NavLink>
+  <NavLink md href="#"><Home size={16} /> MD NavLink</NavLink>
+  <NavLink lg href="#"><Home size={18} /> LG NavLink</NavLink>
+  <NavLink xl href="#"><Home size={20} /> XL NavLink</NavLink>
 </Col>
 ```
 
@@ -54,20 +54,6 @@ Drop an icon directly inside the NavLink. `gap` is on by default, so spacing is 
   <NavLink href="#" active><FileText size={16} /> Documents</NavLink>
   <NavLink href="#"><Users size={16} /> Team</NavLink>
   <NavLink href="#"><Settings size={16} /> Settings</NavLink>
-</Col>
-```
-
-## Sizes
-
-NavLink supports five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
-
-```tsx demo
-<Col className="w-72">
-  <NavLink xs href="#"><Home size={12} /> XS NavLink</NavLink>
-  <NavLink href="#"><Home size={14} /> SM NavLink</NavLink>
-  <NavLink md href="#"><Home size={16} /> MD NavLink</NavLink>
-  <NavLink lg href="#"><Home size={18} /> LG NavLink</NavLink>
-  <NavLink xl href="#"><Home size={20} /> XL NavLink</NavLink>
 </Col>
 ```
 

@@ -5,9 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typograp
 since: 0.9.0
 ---
 
-A container for displaying a series of related items in an ordered or unordered fashion. It provides consistent styling for list elements.
-
-## Basic List
+## Basic usage
 
 An unordered list with bullet points.
 
@@ -17,6 +15,60 @@ An unordered list with bullet points.
   <ListItem>Second item in the list</ListItem>
   <ListItem>Third item in the list</ListItem>
 </List>
+```
+
+## Sizes
+
+Lists come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Font size, line height, padding, and the gap between items all scale together via the CSS-variable pipeline. `ListItem` has no size default of its own. It inherits from the parent `List`, so `<List xl>` propagates to every item without repeating the prop.
+
+```tsx demo
+<Col>
+  <List xs>
+    <ListItem>Extra small item</ListItem>
+    <ListItem>Extra small item two</ListItem>
+  </List>
+  <List sm>
+    <ListItem>Small list item</ListItem>
+    <ListItem>Another small item</ListItem>
+  </List>
+  <List lg>
+    <ListItem>Large list item</ListItem>
+    <ListItem>Another large item</ListItem>
+  </List>
+  <List xl>
+    <ListItem>Extra large item</ListItem>
+    <ListItem>Another extra large item</ListItem>
+  </List>
+</Col>
+```
+
+## Appearances
+
+Lists use `inherit` appearance by default: they inherit color from their parent and are `transparent` (no background). Use explicit appearances like `primary`, `success`, `danger` to override the text color. To add a background, combine an appearance with `filled`.
+
+```tsx demo
+<Col>
+  <List primary>
+    <ListItem>Primary colored item</ListItem>
+    <ListItem>Another primary item</ListItem>
+  </List>
+  <List success>
+    <ListItem>Success colored item</ListItem>
+    <ListItem>Another success item</ListItem>
+  </List>
+  <List danger>
+    <ListItem>Danger colored item</ListItem>
+    <ListItem>Another danger item</ListItem>
+  </List>
+  <List primary filled>
+    <ListItem>Filled primary</ListItem>
+    <ListItem>Second item</ListItem>
+  </List>
+  <List success filled>
+    <ListItem>Filled success</ListItem>
+    <ListItem>Second item</ListItem>
+  </List>
+</Col>
 ```
 
 ## List style types
@@ -90,60 +142,6 @@ Use `outside` (the default) to hang markers outside the content box so multi-lin
       <ListItem>A much longer item that wraps onto a second line, markers flow inline with the text.</ListItem>
     </List>
   </div>
-</Col>
-```
-
-## List sizes
-
-Lists come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Font size, line height, padding, and the gap between items all scale together via the CSS-variable pipeline. `ListItem` has no size default of its own. It inherits from the parent `List`, so `<List xl>` propagates to every item without repeating the prop.
-
-```tsx demo
-<Col>
-  <List xs>
-    <ListItem>Extra small item</ListItem>
-    <ListItem>Extra small item two</ListItem>
-  </List>
-  <List sm>
-    <ListItem>Small list item</ListItem>
-    <ListItem>Another small item</ListItem>
-  </List>
-  <List lg>
-    <ListItem>Large list item</ListItem>
-    <ListItem>Another large item</ListItem>
-  </List>
-  <List xl>
-    <ListItem>Extra large item</ListItem>
-    <ListItem>Another extra large item</ListItem>
-  </List>
-</Col>
-```
-
-## List appearances
-
-Lists use `inherit` appearance by default: they inherit color from their parent and are `transparent` (no background). Use explicit appearances like `primary`, `success`, `danger` to override the text color. To add a background, combine an appearance with `filled`.
-
-```tsx demo
-<Col>
-  <List primary>
-    <ListItem>Primary colored item</ListItem>
-    <ListItem>Another primary item</ListItem>
-  </List>
-  <List success>
-    <ListItem>Success colored item</ListItem>
-    <ListItem>Another success item</ListItem>
-  </List>
-  <List danger>
-    <ListItem>Danger colored item</ListItem>
-    <ListItem>Another danger item</ListItem>
-  </List>
-  <List primary filled>
-    <ListItem>Filled primary</ListItem>
-    <ListItem>Second item</ListItem>
-  </List>
-  <List success filled>
-    <ListItem>Filled success</ListItem>
-    <ListItem>Second item</ListItem>
-  </List>
 </Col>
 ```
 
@@ -230,7 +228,7 @@ Pass an `icon` node to a `ListItem` to replace the native marker on that item on
 </List>
 ```
 
-## List styling
+## Styling
 
 Combine font properties like `bold`, `italic`, `mono` with lists.
 

@@ -5,35 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/card/Car
 since: 0.9.0
 ---
 
-A container component that groups related content with consistent styling. Cards can contain text, images, and other components.
-
-## When to use
-
-- Group related content into a visually distinct surface (article preview, settings block, summary panel).
-- Establish hierarchy on a page where multiple sections need to feel like discrete units.
-- Wrap clickable surfaces (link/anchor cards) where the entire block is the affordance.
-- Build form sections, dashboard tiles, or pricing tables.
-
-### When NOT to use
-
-- For inline groupings of a few elements: prefer `Stack` or `Row` directly without the surface treatment.
-- For modal/dialog content: `Modal` already provides the surface and shadow.
-
-## Customizing
-
-Set app-wide Card defaults with `ThemeProvider`'s `themeDefaults`:
-
-```tsx
-import { ThemeProvider, Card } from '@vaneui/ui';
-
-<ThemeProvider themeDefaults={{
-  card: { main: { shadow: true } },
-}}>
-  <Card>Content</Card>
-</ThemeProvider>
-```
-
-## Basic card
+## Basic usage
 
 A card container with default styling. `md`, `primary`, `outline`, `rounded`, `border`, `padding`, `gap`, `flex`, and `column` are all defaults: no need to specify them.
 
@@ -44,7 +16,7 @@ A card container with default styling. `md`, `primary`, `outline`, `rounded`, `b
 </Card>
 ```
 
-## Card sizes
+## Sizes
 
 Cards come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size also scales padding, gap, and border-radius.
 
@@ -73,7 +45,7 @@ Cards come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size also
 </Row>
 ```
 
-## Card appearances
+## Appearances
 
 Cards support color appearances: `primary` (default), `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`.
 
@@ -118,7 +90,7 @@ Cards support color appearances: `primary` (default), `brand`, `accent`, `second
 </Row>
 ```
 
-## Card variants
+## Variants
 
 `outline` is the default. Use `filled` for solid backgrounds. Add `shadow` for elevation.
 
@@ -139,7 +111,7 @@ Cards support color appearances: `primary` (default), `brand`, `accent`, `second
 </Row>
 ```
 
-## Card shapes
+## Shapes
 
 `rounded` is the default. Use `pill` for fully rounded corners or `sharp` for none.
 
@@ -216,7 +188,7 @@ Cards can be nested. Pair a `secondary` or `tertiary` inner card with the defaul
 </Card>
 ```
 
-## Card as Link
+## As Link
 
 Add `href` to make the card a clickable link. The card automatically renders as an `<a>` tag when `href` is provided, ensuring valid HTML. When `href` is set, the card gains a keyboard focus-visible outline by default. Opt out with `noFocusVisible`.
 
@@ -249,4 +221,18 @@ import { Card, Title, Text } from '@vaneui/ui';
   <Title>Documentation</Title>
   <Text>Browse component guides and API reference.</Text>
 </Card>
+```
+
+## Customizing
+
+Set app-wide Card defaults with `ThemeProvider`'s `themeDefaults`:
+
+```tsx
+import { ThemeProvider, Card } from '@vaneui/ui';
+
+<ThemeProvider themeDefaults={{
+  card: { main: { shadow: true } },
+}}>
+  <Card>Content</Card>
+</ThemeProvider>
 ```

@@ -5,9 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/col/Col.
 since: 0.9.0
 ---
 
-A vertical flex container. Pairs with `Row` to build column-based layouts.
-
-## Basic Col
+## Basic usage
 
 `Col` defaults to `column`, `flex`, `gap`, `md`, `noPadding`, `noBorder`, `noRing`, `outline`, and `sharp`: you don't need to pass any of these. Pass `href` to render `Col` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
 
@@ -19,7 +17,7 @@ A vertical flex container. Pairs with `Row` to build column-based layouts.
 </Col>
 ```
 
-## Col spacing
+## Spacing
 
 Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to control the gap, or `noGap` to disable.
 
@@ -144,7 +142,7 @@ Use `columnReverse` to reverse the visual order of children.
 </Col>
 ```
 
-## Col variants
+## Variants
 
 Use `filled` with an appearance prop for a filled background. Col defaults to `sharp`: pair with `rounded` or `pill` for curved corners, and add `padding` so the background has breathing room.
 

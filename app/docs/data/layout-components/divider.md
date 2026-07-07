@@ -5,9 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/divider/
 since: 0.9.0
 ---
 
-Renders a thin line to separate content and create a clear visual hierarchy. Dividers can be used to group related items in lists and layouts.
-
-## Basic divider
+## Basic usage
 
 A horizontal divider.
 
@@ -19,7 +17,7 @@ A horizontal divider.
 </Col>
 ```
 
-## Divider sizes
+## Sizes
 
 Sizes (`xs`, `sm`, `md`, `lg`, `xl`) drive the per-size vertical padding via `--py-unit`. The line itself stays one pixel; pass `padding` to make the surrounding spacing visible.
 
@@ -53,7 +51,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) drive the per-size vertical padding via `--
 </Col>
 ```
 
-## Divider appearances
+## Appearances
 
 Dividers use `inherit` by default. Pass an explicit appearance for a colored line.
 
@@ -102,7 +100,7 @@ Dividers use `inherit` by default. Pass an explicit appearance for a colored lin
 </Col>
 ```
 
-## Filled variant
+## Variants
 
 `filled` swaps the outline appearance for a solid bar in the same color.
 

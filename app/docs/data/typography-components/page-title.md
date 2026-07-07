@@ -5,9 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typograp
 since: 0.9.0
 ---
 
-Renders the primary page heading (`<h1>` by default) for the top-level title of a page. Pair it with `SectionTitle` (`<h2>`) for major section headings and `Title` (`<h3>`) for subsection headings to keep the document outline aligned with the visual hierarchy.
-
-## Basic PageTitle
+## Basic usage
 
 A large heading component (renders as `<h1>`) for page titles. Defaults to `semibold` weight, `heading` font family, `trackingTight` letter spacing, and `inherit` appearance for a compact, impactful look.
 
@@ -15,19 +13,7 @@ A large heading component (renders as `<h1>`) for page titles. Defaults to `semi
 <PageTitle>Welcome to VaneUI</PageTitle>
 ```
 
-## PageTitle vs SectionTitle vs Title
-
-Three heading components for a clean semantic hierarchy. Use them together so the document outline matches the visual hierarchy.
-
-```tsx demo
-<Col>
-  <PageTitle>Page Heading (h1)</PageTitle>
-  <SectionTitle>Section Heading (h2)</SectionTitle>
-  <Title>Subsection Heading (h3)</Title>
-</Col>
-```
-
-## PageTitle sizes
+## Sizes
 
 Page titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
@@ -41,7 +27,7 @@ Page titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 </Col>
 ```
 
-## PageTitle appearances
+## Appearances
 
 By default, PageTitle uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
 
@@ -53,6 +39,18 @@ By default, PageTitle uses the `inherit` appearance: it inherits color from its 
   <PageTitle warning>Warning Page Title</PageTitle>
   <PageTitle danger>Danger Page Title</PageTitle>
   <PageTitle info>Info Page Title</PageTitle>
+</Col>
+```
+
+## PageTitle vs SectionTitle vs Title
+
+Three heading components for a clean semantic hierarchy. Use them together so the document outline matches the visual hierarchy.
+
+```tsx demo
+<Col>
+  <PageTitle>Page Heading (h1)</PageTitle>
+  <SectionTitle>Section Heading (h2)</SectionTitle>
+  <Title>Subsection Heading (h3)</Title>
 </Col>
 ```
 
@@ -83,7 +81,7 @@ Switch between `sans`, `serif`, and `mono` font families.
 </Col>
 ```
 
-## Italic PageTitle
+## Italic
 
 Use the `italic` prop for italic emphasis.
 

@@ -5,13 +5,11 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/popup/Po
 since: 0.9.0
 ---
 
-A floating element anchored to a trigger element using CSS Anchor Positioning. Supports 12 placement options, width matching, and click-outside dismissal.
-
 Popup ships its own surface defaults: `md`, `flex column`, `padding`, `gap`, `rounded`, `border`, `shadow`, `primary`, `outline`, `wFit`, `maxHeight`, `overflowAuto`, `bottom`. Render children directly. Wrapping content in another `Card` is usually redundant.
 
 > **Browser support:** Popup uses the CSS Anchor Positioning API (Chrome/Edge 129+, for the `span-*` alignment it relies on). Other browsers fall back to a JS positioning path that recomputes on scroll/resize.
 
-## Basic Popup
+## Basic usage
 
 A controlled floating element anchored to a button. Closes on outside click or `Escape`. Pass an `anchorRef` pointing at the trigger element.
 

@@ -5,9 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/row/Row.
 since: 0.9.0
 ---
 
-A fundamental layout component that arranges its children in a horizontal line. It is built on the flexbox model and is used to create columns.
-
-## Basic Row
+## Basic usage
 
 A horizontal flex container. `Row` defaults to `gap`, `itemsCenter`, `noPadding`, `noBorder`, `noRing`, `outline`, and `sharp`: you don't need to pass these explicitly. Pass `href` to render `Row` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
 
@@ -19,7 +17,7 @@ A horizontal flex container. `Row` defaults to `gap`, `itemsCenter`, `noPadding`
 </Row>
 ```
 
-## Row spacing
+## Spacing
 
 Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to control the gap amount, or `noGap` to disable.
 
@@ -148,7 +146,7 @@ Control vertical alignment with `itemsStart`, `itemsEnd`, `itemsCenter` (default
 </Col>
 ```
 
-## Row wrap
+## Wrap
 
 Use `flexWrap` to allow items to wrap to the next line when they overflow.
 
@@ -205,7 +203,7 @@ Use `mobileCol` to stack on mobile, or `tabletCol` to stack on tablet and below.
 </Col>
 ```
 
-## Row variants
+## Variants
 
 Use `filled` or `outline` with appearance props for styled rows. Row uses `sharp` (no border-radius) by default: pair with `rounded` or `pill` for curved corners.
 

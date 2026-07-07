@@ -5,8 +5,6 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typograp
 since: 0.9.0
 ---
 
-Displays quoted content as a semantic `<blockquote>` with a left border accent. Inherits appearance from the parent by default so it blends with themed containers.
-
 ## Basic usage
 
 A blockquote with attribution. The element renders as `<blockquote>` and inherits color from its surroundings.
@@ -16,6 +14,20 @@ A blockquote with attribution. The element renders as `<blockquote>` and inherit
   <Text italic>The only way to do great work is to love what you do.</Text>
   <Text sm secondary> - Steve Jobs</Text>
 </Blockquote>
+```
+
+## Sizes
+
+Blockquote supports five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
+
+```tsx demo
+<Col>
+  <Blockquote xs primary>Size xs: The best way to predict the future is to create it.</Blockquote>
+  <Blockquote sm primary>Size sm: The best way to predict the future is to create it.</Blockquote>
+  <Blockquote primary>Size md: The best way to predict the future is to create it.</Blockquote>
+  <Blockquote lg primary>Size lg: The best way to predict the future is to create it.</Blockquote>
+  <Blockquote xl primary>Size xl: The best way to predict the future is to create it.</Blockquote>
+</Col>
 ```
 
 ## Appearances
@@ -32,20 +44,6 @@ Apply appearance props to color the blockquote. The default is `inherit`, which 
   <Blockquote danger>Danger appearance blockquote.</Blockquote>
   <Blockquote warning>Warning appearance blockquote.</Blockquote>
   <Blockquote info>Info appearance blockquote.</Blockquote>
-</Col>
-```
-
-## Sizes
-
-Blockquote supports five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
-
-```tsx demo
-<Col>
-  <Blockquote xs primary>Size xs: The best way to predict the future is to create it.</Blockquote>
-  <Blockquote sm primary>Size sm: The best way to predict the future is to create it.</Blockquote>
-  <Blockquote primary>Size md: The best way to predict the future is to create it.</Blockquote>
-  <Blockquote lg primary>Size lg: The best way to predict the future is to create it.</Blockquote>
-  <Blockquote xl primary>Size xl: The best way to predict the future is to create it.</Blockquote>
 </Col>
 ```
 

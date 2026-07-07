@@ -5,7 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typograp
 since: 0.9.0
 ---
 
-A single entry inside a `List`. It renders an `<li>` and carries the core typography props (appearance, size, weight, alignment), plus an `icon` prop for replacing the native marker. It omits the margin, letter-spacing, and cursor props that `Text` has. Always render it inside a `List`, which supplies the marker style and size.
+`ListItem` carries the core typography props (appearance, size, weight, alignment) but omits the margin, letter-spacing, and cursor props that `Text` has. Always render it inside a `List`, which supplies the marker style and size.
 
 ## Custom markers with the icon prop
 

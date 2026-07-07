@@ -5,9 +5,9 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/stack/St
 since: 0.9.0
 ---
 
-A vertical flex container with built-in `padding` and `flexWrap`. Think of `Stack` as `Col` plus padding and wrap. Reach for it when you want a self-contained surface that breathes, not a structural skeleton.
+Think of `Stack` as `Col` plus built-in `padding` and `flexWrap`.
 
-## Basic Stack
+## Basic usage
 
 `Stack` defaults to `column`, `flex`, `gap`, `padding`, `flexWrap`, `md`, `noBorder`, `noRing`, `outline`, and `sharp`: you don't need to pass any of these. Pass `href` to render `Stack` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
 
@@ -47,7 +47,7 @@ Use `Stack` when the column owns its own breathing room. Use `Col` when an outer
 </Row>
 ```
 
-## Stack direction
+## Direction
 
 Use `row` for horizontal layout. Default is `column` (vertical).
 
@@ -70,7 +70,7 @@ Use `row` for horizontal layout. Default is `column` (vertical).
 </Row>
 ```
 
-## Stack spacing
+## Spacing
 
 Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to scale gap and padding together, or `noGap` to remove the gap.
 
@@ -222,7 +222,7 @@ Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`
 </Col>
 ```
 
-## Stack variants
+## Variants
 
 Use `filled` or `outline` with appearance props for styled containers. Stack defaults to `sharp`: pair with `rounded` or `pill` for curved corners.
 

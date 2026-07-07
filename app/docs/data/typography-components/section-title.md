@@ -5,9 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typograp
 since: 0.9.0
 ---
 
-Renders a section heading (`<h2>` by default) to mark the major divisions of a page. Pair it with `PageTitle` (`<h1>`) for the page heading and `Title` (`<h3>`) for subsection headings to keep the document outline aligned with the visual hierarchy.
-
-## Basic SectionTitle
+## Basic usage
 
 A heading component (renders as `<h2>`) for major section headings. Defaults to `semibold` weight, `heading` font family, `inherit` appearance, and left-aligned text.
 
@@ -15,19 +13,7 @@ A heading component (renders as `<h2>`) for major section headings. Defaults to 
 <SectionTitle>Getting Started</SectionTitle>
 ```
 
-## PageTitle vs SectionTitle vs Title
-
-Three heading components for a clean semantic hierarchy.
-
-```tsx demo
-<Col>
-  <PageTitle>Page Heading (h1)</PageTitle>
-  <SectionTitle>Section Heading (h2)</SectionTitle>
-  <Title>Subsection Heading (h3)</Title>
-</Col>
-```
-
-## SectionTitle sizes
+## Sizes
 
 Section titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
@@ -41,7 +27,7 @@ Section titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 </Col>
 ```
 
-## SectionTitle appearances
+## Appearances
 
 By default, SectionTitle uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
 
@@ -53,6 +39,18 @@ By default, SectionTitle uses the `inherit` appearance: it inherits color from i
   <SectionTitle warning>Warning Section Title</SectionTitle>
   <SectionTitle danger>Danger Section Title</SectionTitle>
   <SectionTitle info>Info Section Title</SectionTitle>
+</Col>
+```
+
+## PageTitle vs SectionTitle vs Title
+
+Three heading components for a clean semantic hierarchy.
+
+```tsx demo
+<Col>
+  <PageTitle>Page Heading (h1)</PageTitle>
+  <SectionTitle>Section Heading (h2)</SectionTitle>
+  <Title>Subsection Heading (h3)</Title>
 </Col>
 ```
 
@@ -83,7 +81,7 @@ Switch between `sans`, `serif`, and `mono` font families.
 </Col>
 ```
 
-## Italic SectionTitle
+## Italic
 
 Use the `italic` prop for italic emphasis.
 
@@ -91,7 +89,7 @@ Use the `italic` prop for italic emphasis.
 <SectionTitle italic>Italic Section Title</SectionTitle>
 ```
 
-## Uppercase SectionTitle
+## Uppercase
 
 Use the `uppercase` prop to render the title in all caps.
 

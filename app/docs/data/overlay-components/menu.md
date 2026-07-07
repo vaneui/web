@@ -5,16 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/menu/Men
 since: 0.9.0
 ---
 
-A dropdown menu triggered by a button with full keyboard navigation. Contains `MenuItem`, `MenuLabel`, and `Divider` subcomponents.
-
-## When to use
-
-- Action menus on a row or card (Edit / Duplicate / Delete).
-- Account / user menus in a header.
-- Overflow menus for secondary actions that don't fit in the toolbar.
-- Any disclosure where the items behave like commands. For navigation between pages, prefer `NavLink`.
-
-## Basic Menu
+## Basic usage
 
 A dropdown menu triggered by a button. Pass the trigger as a React element via the `trigger` prop; children are the menu contents. Includes full keyboard navigation (Arrow keys, Enter, Escape, Tab) and focus management with a keyboard-visible outline on each item. Focus returns to the trigger when the menu closes.
 
@@ -114,7 +105,7 @@ Pass `href` to render a `MenuItem` as an anchor tag. For client-side navigation 
 </Menu>
 ```
 
-## Menu sizes
+## Sizes
 
 Set a size on `Menu` (e.g. `<Menu lg>`) and the dropdown popup, every `MenuItem`, `MenuLabel`, and nested `Divider` scale together automatically. No need to repeat the size on every child. Items render with larger font-size and padding, the popup frame lifts its inner padding, and dividers match. Individual children can still override with their own size prop.
 

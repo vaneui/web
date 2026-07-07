@@ -5,9 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typograp
 since: 0.9.0
 ---
 
-The primary component for rendering all text content. It provides props to control typographic properties like size, weight, color, and alignment.
-
-## Basic Text
+## Basic usage
 
 Default paragraph text styling.
 
@@ -15,7 +13,7 @@ Default paragraph text styling.
 <Text>Compose interfaces with VaneUI components. Text provides consistent typography across your application.</Text>
 ```
 
-## Text sizes
+## Sizes
 
 Text comes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
@@ -26,6 +24,25 @@ Text comes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
   <Text>Medium text (default)</Text>
   <Text lg>Large text for emphasis</Text>
   <Text xl>Extra large text</Text>
+</Col>
+```
+
+## Appearances
+
+Text supports explicit color appearances: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`. Use these to override the default `inherit` behavior.
+
+```tsx demo
+<Col>
+  <Text primary>Primary text for important content</Text>
+  <Text brand>Brand text for brand-colored content</Text>
+  <Text accent>Accent text for highlights</Text>
+  <Text secondary>Secondary text for supporting content</Text>
+  <Text tertiary>Tertiary text for muted content</Text>
+  <Text success>Success text for positive feedback</Text>
+  <Text danger>Danger text for errors or warnings</Text>
+  <Text warning>Warning text for cautionary messages</Text>
+  <Text info>Info text for informational content</Text>
+  <Text link>Link-colored text for clickable content</Text>
 </Col>
 ```
 
@@ -45,25 +62,6 @@ Text defaults to the `inherit` appearance: it picks up its color from the parent
     <Text danger>Explicit danger overrides inherit.</Text>
   </Card>
 </Row>
-```
-
-## Text appearances
-
-Text supports explicit color appearances: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`. Use these to override the default `inherit` behavior.
-
-```tsx demo
-<Col>
-  <Text primary>Primary text for important content</Text>
-  <Text brand>Brand text for brand-colored content</Text>
-  <Text accent>Accent text for highlights</Text>
-  <Text secondary>Secondary text for supporting content</Text>
-  <Text tertiary>Tertiary text for muted content</Text>
-  <Text success>Success text for positive feedback</Text>
-  <Text danger>Danger text for errors or warnings</Text>
-  <Text warning>Warning text for cautionary messages</Text>
-  <Text info>Info text for informational content</Text>
-  <Text link>Link-colored text for clickable content</Text>
-</Col>
 ```
 
 ## Font weights

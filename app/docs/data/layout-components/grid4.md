@@ -5,35 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/grid/Gri
 since: 0.9.0
 ---
 
-A responsive layout component that arranges its children in a four-column CSS grid. Ideal for displaying collections of items, features, or product tiles.
-
-## When to use
-
-- Four-up feature grids, product catalogs, or pricing tier layouts.
-- Card layouts with item counts in multiples of four (4, 8, 12).
-- Image galleries and thumbnail grids needing equal column widths.
-
-### When NOT to use
-
-- For three or five columns: use `Grid3` or `Grid5` instead.
-- For variable-width items: use `Row flexWrap` and let children size themselves.
-- For column-spanning layouts: use raw CSS grid with `className` instead.
-
-## Customizing
-
-Set app-wide Grid4 defaults with `ThemeProvider`'s `themeDefaults`:
-
-```tsx
-import { ThemeProvider, Grid4 } from '@vaneui/ui';
-
-<ThemeProvider themeDefaults={{
-  grid4: { lg: true },
-}}>
-  <Grid4>{/* ... */}</Grid4>
-</ThemeProvider>
-```
-
-## Basic Grid4
+## Basic usage
 
 A four-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults: no need to specify them.
 
@@ -74,7 +46,7 @@ A four-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are 
 </Grid4>
 ```
 
-## Grid sizes
+## Sizes
 
 Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 
@@ -118,30 +90,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 </Col>
 ```
 
-## Grid with gap
-
-`gap` is on by default. Use `noGap` to remove spacing between cells.
-
-```tsx demo
-<Col>
-  <Text semibold>Default gap</Text>
-  <Grid4>
-    <Card><Text>Item 1</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-    <Card><Text>Item 3</Text></Card>
-    <Card><Text>Item 4</Text></Card>
-  </Grid4>
-  <Text semibold>noGap</Text>
-  <Grid4 noGap>
-    <Card sharp><Text>Item 1</Text></Card>
-    <Card sharp><Text>Item 2</Text></Card>
-    <Card sharp><Text>Item 3</Text></Card>
-    <Card sharp><Text>Item 4</Text></Card>
-  </Grid4>
-</Col>
-```
-
-## Grid appearances
+## Appearances
 
 Grid supports color appearances. Pair with `filled` or `border` to make the surface visible.
 
@@ -174,7 +123,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
-## Grid variants
+## Variants
 
 `outline` is the default. Use `filled` for a solid background, or add `border` for a visible outline.
 
@@ -195,7 +144,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
-## Grid shapes
+## Shapes
 
 `sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself: pair with `filled` or `border` to see it.
 
@@ -214,4 +163,41 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
     <Card><Text>Item 4</Text></Card>
   </Grid4>
 </Col>
+```
+
+## With gap
+
+`gap` is on by default. Use `noGap` to remove spacing between cells.
+
+```tsx demo
+<Col>
+  <Text semibold>Default gap</Text>
+  <Grid4>
+    <Card><Text>Item 1</Text></Card>
+    <Card><Text>Item 2</Text></Card>
+    <Card><Text>Item 3</Text></Card>
+    <Card><Text>Item 4</Text></Card>
+  </Grid4>
+  <Text semibold>noGap</Text>
+  <Grid4 noGap>
+    <Card sharp><Text>Item 1</Text></Card>
+    <Card sharp><Text>Item 2</Text></Card>
+    <Card sharp><Text>Item 3</Text></Card>
+    <Card sharp><Text>Item 4</Text></Card>
+  </Grid4>
+</Col>
+```
+
+## Customizing
+
+Set app-wide Grid4 defaults with `ThemeProvider`'s `themeDefaults`:
+
+```tsx
+import { ThemeProvider, Grid4 } from '@vaneui/ui';
+
+<ThemeProvider themeDefaults={{
+  grid4: { lg: true },
+}}>
+  <Grid4>{/* ... */}</Grid4>
+</ThemeProvider>
 ```

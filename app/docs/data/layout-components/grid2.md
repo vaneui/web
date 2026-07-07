@@ -5,35 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/grid/Gri
 since: 0.9.0
 ---
 
-A responsive layout component that arranges its children in a two-column CSS grid. Ideal for side-by-side content layouts and balanced arrangements.
-
-## When to use
-
-- Two-up feature comparisons, pricing tiers, or product highlights.
-- Side-by-side cards (image + details, before/after, problem/solution).
-- Splitting a section into two equal columns without writing custom flex math.
-
-### When NOT to use
-
-- For two children that should align in a single line: use `Row` and let flexbox size them.
-- For 3+ columns: use `Grid3` to `Grid6`.
-- For column-spanning layouts: use raw CSS grid with `className` instead.
-
-## Customizing
-
-Set app-wide Grid2 defaults with `ThemeProvider`'s `themeDefaults`:
-
-```tsx
-import { ThemeProvider, Grid2 } from '@vaneui/ui';
-
-<ThemeProvider themeDefaults={{
-  grid2: { lg: true },
-}}>
-  <Grid2>{/* ... */}</Grid2>
-</ThemeProvider>
-```
-
-## Basic Grid2
+## Basic usage
 
 A two-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults: no need to specify them.
 
@@ -58,7 +30,7 @@ A two-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are d
 </Grid2>
 ```
 
-## Grid sizes
+## Sizes
 
 Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 
@@ -92,26 +64,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 </Col>
 ```
 
-## Grid with gap
-
-`gap` is on by default. Use `noGap` to remove spacing between cells.
-
-```tsx demo
-<Col>
-  <Text semibold>Default gap</Text>
-  <Grid2>
-    <Card><Text>Item 1</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-  </Grid2>
-  <Text semibold>noGap</Text>
-  <Grid2 noGap>
-    <Card sharp><Text>Item 1</Text></Card>
-    <Card sharp><Text>Item 2</Text></Card>
-  </Grid2>
-</Col>
-```
-
-## Grid appearances
+## Appearances
 
 Grid supports color appearances. Pair with `filled` or `border` to make the surface visible.
 
@@ -136,7 +89,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
-## Grid variants
+## Variants
 
 `outline` is the default. Use `filled` for a solid background, or add `border` for a visible outline.
 
@@ -153,7 +106,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
-## Grid shapes
+## Shapes
 
 `sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself: pair with `filled` or `border` to see it.
 
@@ -168,4 +121,37 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
     <Card><Text>Item 2</Text></Card>
   </Grid2>
 </Col>
+```
+
+## With gap
+
+`gap` is on by default. Use `noGap` to remove spacing between cells.
+
+```tsx demo
+<Col>
+  <Text semibold>Default gap</Text>
+  <Grid2>
+    <Card><Text>Item 1</Text></Card>
+    <Card><Text>Item 2</Text></Card>
+  </Grid2>
+  <Text semibold>noGap</Text>
+  <Grid2 noGap>
+    <Card sharp><Text>Item 1</Text></Card>
+    <Card sharp><Text>Item 2</Text></Card>
+  </Grid2>
+</Col>
+```
+
+## Customizing
+
+Set app-wide Grid2 defaults with `ThemeProvider`'s `themeDefaults`:
+
+```tsx
+import { ThemeProvider, Grid2 } from '@vaneui/ui';
+
+<ThemeProvider themeDefaults={{
+  grid2: { lg: true },
+}}>
+  <Grid2>{/* ... */}</Grid2>
+</ThemeProvider>
 ```

@@ -5,11 +5,9 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/overlay/
 since: 0.9.0
 ---
 
-A fullscreen backdrop overlay for creating modal backgrounds, loading screens, and lightbox effects. Renders via portal with click-to-close and optional blur.
-
 Overlay ships its own layout defaults: `fixed`, `flex`, `itemsCenter`, `justifyCenter`. It covers the viewport via `inset-0` and reads its `z-index` from a managed stacking context so nested overlays layer correctly. `Modal` provides its own backdrop layer using the same layout defaults.
 
-## Basic Overlay
+## Basic usage
 
 A fullscreen semi-transparent backdrop. Click the overlay background to dismiss.
 
