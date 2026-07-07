@@ -27,3 +27,35 @@
     scrollbar-color: #e0e0e0 transparent;
     scrollbar-gutter: auto;
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Prose vertical rhythm for @vaneui/md documents (rendered by DocsMarkdown).
+
+   Mirrors the `.vaneui-md` layer shipped in `@vaneui/md/styles`. We inline the
+   rules here instead of importing `@vaneui/md/styles` because that stylesheet
+   bundles all of `@vaneui/ui`'s prebuilt CSS, which this site already loads via
+   `@vaneui/ui/vars` + `@source` — importing it would double-import vaneui's
+   stylesheet (see `.claude/rules/component-usage.md`: never import both). The
+   rules only need `--spacing`/`--gap`, which `@vaneui/ui/vars` already provides.
+
+   MdDocument (@vaneui/md >= alpha.…aed59e7) renders <Col noGap class="vaneui-md">,
+   so this layer owns all inter-block spacing. Keep in sync with
+   C:/GitHub/md/src/styles/index.css.
+   ───────────────────────────────────────────────────────────────────────── */
+.vaneui-md {
+    --md-block-space: calc(var(--spacing) * 5);
+    --md-heading-ratio: 4;
+    --md-after-heading-space: calc(var(--spacing) * 3);
+}
+.vaneui-md > * + * {
+    margin-block-start: var(--md-block-space);
+}
+.vaneui-md > :is(h1, h2, h3, h4, h5, h6) + * {
+    margin-block-start: var(--md-after-heading-space);
+}
+.vaneui-md > :is(h1, h2, h3, h4, h5, h6) {
+    margin-block-start: max(var(--md-block-space), calc(var(--gap) * var(--md-heading-ratio)));
+}
+.vaneui-md > :first-child {
+    margin-block-start: 0;
+}
