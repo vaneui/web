@@ -5,8 +5,6 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/icon/Ico
 since: 0.9.0
 ---
 
-A lightweight SVG wrapper that provides consistent sizing, color inheritance, and themed appearances for icons. With `padding` it switches into container mode, gaining shape, border, ring, and shadow around the glyph.
-
 ## Basic usage
 
 Wrap any SVG inside `Icon` to apply consistent sizing and color inheritance.
@@ -124,7 +122,7 @@ Icons support `outline` (default, text color only) and `filled` (background fill
 </Row>
 ```
 
-## Shape
+## Shapes
 
 Shape props apply once the icon enters container mode (any of `padding`, `border`, `ring`, `shadow`, `filled`). Without a container, the SVG has no visible box for the radius to act on.
 

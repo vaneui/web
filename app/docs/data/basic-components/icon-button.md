@@ -5,8 +5,6 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/iconButt
 since: 0.9.0
 ---
 
-A square icon-only button with customizable appearance, size, and shape. Supports loading state and renders as an `<a>` when given an `href`. Always provide `aria-label` for accessibility.
-
 ## Basic usage
 
 Drop an icon directly inside the `IconButton`. Each `appearance` prop maps to a semantic color from the active theme.

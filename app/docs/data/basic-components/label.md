@@ -5,21 +5,46 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/label/La
 since: 0.9.0
 ---
 
-Renders a `<label>` for form controls. Pairs with `Input` and `Checkbox` to provide accessible field labels, with size automatically propagating to nested form elements.
-
-## When to use
-
-- Labelling text inputs, password fields, and other `Input` controls.
-- Wrapping a `Checkbox` so the label text becomes part of the click target.
-- Marking required fields, validation status, or hint text alongside a control.
-- Use `htmlFor` to associate a label with an external `Input` by `id`.
-
 ## Basic usage
 
 A `Label` defaults to `sm` size and `inherit` appearance, so it picks up text color from its surroundings.
 
 ```tsx demo
 <Label>Email address</Label>
+```
+
+## Sizes
+
+Labels come in five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Nested `Input` and `Checkbox` controls inherit the size.
+
+```tsx demo
+<Col>
+  <Label xs>xs label <Input placeholder="xs input" /></Label>
+  <Label>sm label (default) <Input placeholder="sm input" /></Label>
+  <Label md>md label <Input placeholder="md input" /></Label>
+  <Label lg>lg label <Input placeholder="lg input" /></Label>
+  <Label xl>xl label <Input placeholder="xl input" /></Label>
+</Col>
+```
+
+## Appearances
+
+Labels default to `inherit`: they take their color from the surrounding text. Set an explicit appearance to override.
+
+```tsx demo
+<Row flexWrap>
+  <Label>inherit label (default)</Label>
+  <Label primary>primary label</Label>
+  <Label brand>brand label</Label>
+  <Label accent>accent label</Label>
+  <Label secondary>secondary label</Label>
+  <Label tertiary>tertiary label</Label>
+  <Label success>success label</Label>
+  <Label danger>danger label</Label>
+  <Label warning>warning label</Label>
+  <Label info>info label</Label>
+  <Label link>link label</Label>
+</Row>
 ```
 
 ## With Input
@@ -55,40 +80,6 @@ When the control lives outside the label, use the standard `htmlFor` attribute p
   <Label htmlFor="username">Username</Label>
   <Input id="username" placeholder="Choose a username" />
 </Col>
-```
-
-## Sizes
-
-Labels come in five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Nested `Input` and `Checkbox` controls inherit the size.
-
-```tsx demo
-<Col>
-  <Label xs>xs label <Input placeholder="xs input" /></Label>
-  <Label>sm label (default) <Input placeholder="sm input" /></Label>
-  <Label md>md label <Input placeholder="md input" /></Label>
-  <Label lg>lg label <Input placeholder="lg input" /></Label>
-  <Label xl>xl label <Input placeholder="xl input" /></Label>
-</Col>
-```
-
-## Appearances
-
-Labels default to `inherit`: they take their color from the surrounding text. Set an explicit appearance to override.
-
-```tsx demo
-<Row flexWrap>
-  <Label>inherit label (default)</Label>
-  <Label primary>primary label</Label>
-  <Label brand>brand label</Label>
-  <Label accent>accent label</Label>
-  <Label secondary>secondary label</Label>
-  <Label tertiary>tertiary label</Label>
-  <Label success>success label</Label>
-  <Label danger>danger label</Label>
-  <Label warning>warning label</Label>
-  <Label info>info label</Label>
-  <Label link>link label</Label>
-</Row>
 ```
 
 ## Font weights

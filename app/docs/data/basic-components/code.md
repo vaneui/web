@@ -5,8 +5,6 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/code/Cod
 since: 0.9.0
 ---
 
-Renders inline code snippets with monospace styling. Perfect for displaying code examples, commands, file paths, or technical terms within text content.
-
 ## Basic usage
 
 Inline code snippets with default styling. `Code` aligns to the surrounding text's baseline, so it lines up with the text it's inlined in. Pass `href` to render `Code` as `<a>` instead of `<code>`. A focus-visible outline auto-enables when `href` is set.
@@ -49,6 +47,30 @@ Different appearance colors for inline code.
   <Code info>info code</Code>
   <Code link>link code</Code>
   <Code inherit>inherit code</Code>
+</Row>
+```
+
+## Variants
+
+Code defaults to `outline` variant. Use `filled` for stronger visual emphasis.
+
+```tsx demo
+<Col>
+  <Text>Default outline: <Code>npm install</Code> then <Code>npm run build</Code></Text>
+  <Text>Filled: <Code filled>git commit</Code> then <Code filled>git push</Code></Text>
+  <Text>Colored filled: <Code success filled>200 OK</Code> <Code danger filled>500 Error</Code> <Code warning filled>deprecated</Code></Text>
+</Col>
+```
+
+## Shapes
+
+Code supports `rounded` (default), `pill`, and `sharp` border-radius styles.
+
+```tsx demo
+<Row flexWrap>
+  <Code rounded>rounded</Code>
+  <Code pill>pill</Code>
+  <Code sharp>sharp</Code>
 </Row>
 ```
 
@@ -100,30 +122,6 @@ Code uses an em-based geometry pipeline: at the default `md` size it renders at 
   <SectionTitle>Section: <Code>useState</Code> hook</SectionTitle>
   <PageTitle><Code>@vaneui/ui</Code></PageTitle>
 </Col>
-```
-
-## Filled and outline variants
-
-Code defaults to `outline` variant. Use `filled` for stronger visual emphasis.
-
-```tsx demo
-<Col>
-  <Text>Default outline: <Code>npm install</Code> then <Code>npm run build</Code></Text>
-  <Text>Filled: <Code filled>git commit</Code> then <Code filled>git push</Code></Text>
-  <Text>Colored filled: <Code success filled>200 OK</Code> <Code danger filled>500 Error</Code> <Code warning filled>deprecated</Code></Text>
-</Col>
-```
-
-## Shapes
-
-Code supports `rounded` (default), `pill`, and `sharp` border-radius styles.
-
-```tsx demo
-<Row flexWrap>
-  <Code rounded>rounded</Code>
-  <Code pill>pill</Code>
-  <Code sharp>sharp</Code>
-</Row>
 ```
 
 ## As Link

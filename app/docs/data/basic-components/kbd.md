@@ -5,8 +5,6 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/kbd/Kbd.
 since: 0.9.0
 ---
 
-Displays keyboard keys and shortcuts with monospace font, border, and a raised 3D effect. Ideal for documenting keyboard shortcuts.
-
 ## Basic usage
 
 Display keyboard keys with the `Kbd` component.
@@ -19,19 +17,6 @@ Display keyboard keys with the `Kbd` component.
   <Kbd>Esc</Kbd>
   <Kbd>Tab</Kbd>
 </Row>
-```
-
-## Key combinations
-
-Combine multiple `Kbd` elements to show keyboard shortcuts.
-
-```tsx demo
-<Col>
-  <Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>C</Kbd><Text sm secondary>Copy</Text></Row>
-  <Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>V</Kbd><Text sm secondary>Paste</Text></Row>
-  <Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>Shift</Kbd><Text>+</Text><Kbd>P</Kbd><Text sm secondary>Command Palette</Text></Row>
-  <Row><Kbd>Alt</Kbd><Text>+</Text><Kbd>Tab</Kbd><Text sm secondary>Switch Window</Text></Row>
-</Col>
 ```
 
 ## Sizes
@@ -80,6 +65,19 @@ Different color appearances for keyboard keys.
   <Kbd info>Inf</Kbd>
   <Kbd link>Lin</Kbd>
 </Row>
+```
+
+## Key combinations
+
+Combine multiple `Kbd` elements to show keyboard shortcuts.
+
+```tsx demo
+<Col>
+  <Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>C</Kbd><Text sm secondary>Copy</Text></Row>
+  <Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>V</Kbd><Text sm secondary>Paste</Text></Row>
+  <Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>Shift</Kbd><Text>+</Text><Kbd>P</Kbd><Text sm secondary>Command Palette</Text></Row>
+  <Row><Kbd>Alt</Kbd><Text>+</Text><Kbd>Tab</Kbd><Text sm secondary>Switch Window</Text></Row>
+</Col>
 ```
 
 ## In text context

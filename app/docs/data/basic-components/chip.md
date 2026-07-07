@@ -5,21 +5,6 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/chip/Chi
 since: 0.9.0
 ---
 
-Compact, monospace-leaning token for representing tags, attributes, filter values, or other discrete entities inline with text. Chips default to `secondary` appearance, `outline` variant, `rounded` shape, and `mono` font, tuned for code-adjacent and metadata contexts.
-
-## When to use
-
-- Tags, labels, and keyword filters attached to a record.
-- Attribute or metadata pills inside cards and lists (versions, environments, IDs).
-- Removable selections inside an input or filter bar (combine with an inline icon).
-- Inline category markers in code samples and API tables. `mono` is the default.
-
-### When NOT to use
-
-- For status indicators that need uppercase emphasis, prefer `Badge` (pill, uppercase, semibold by default).
-- For triggering actions or navigation, prefer `Button` or `Link`.
-- For inline code snippets, prefer `Code`.
-
 ## Basic usage
 
 Each `appearance` prop maps to a semantic color from the active theme.
@@ -95,12 +80,12 @@ Chips support three border-radius styles: `rounded` (default), `pill`, and `shar
 
 ## Font family
 
-Chips default to `mono` to fit code-adjacent contexts. Override with `sans` or `serif` when the surrounding copy calls for it.
+Chips default to `sans`. Override with `mono` for code-adjacent tokens or `serif` when the surrounding copy calls for it.
 
 ```tsx demo
 <Row flexWrap>
-  <Chip>v1.4.2</Chip>
-  <Chip sans>Active user</Chip>
+  <Chip mono>v1.4.2</Chip>
+  <Chip>Active user</Chip>
   <Chip serif>Editorial</Chip>
 </Row>
 ```

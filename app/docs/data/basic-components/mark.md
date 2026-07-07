@@ -5,8 +5,6 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/mark/Mar
 since: 0.9.0
 ---
 
-Highlights text with a background color for emphasis. Defaults to warning (yellow) appearance for a natural highlighter effect.
-
 ## Basic usage
 
 Highlight text with the `Mark` component. Defaults to `warning` (yellow) appearance for a natural highlighter effect.

@@ -5,35 +5,6 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/checkbox
 since: 0.9.0
 ---
 
-Allows users to select one or more options from a set. Checkboxes are ideal for binary choices and multiple selections within forms.
-
-## When to use
-
-- Boolean form fields (terms, opt-ins, feature toggles in settings).
-- Multi-select lists where each option is independent of the others.
-- "Select all" / batch actions inside tables or list pages.
-- Pair with a `Label` so the entire label area is clickable.
-
-### When NOT to use
-
-- For mutually exclusive options: use a radio group.
-- For single on/off settings where a switch metaphor is clearer: a switch component is the better pattern.
-
-## Customizing
-
-Set app-wide Checkbox defaults with `ThemeProvider`'s `themeDefaults` and tune the checked-state visuals with `extraClasses`:
-
-```tsx
-import { ThemeProvider, Checkbox } from '@vaneui/ui';
-
-<ThemeProvider
-  themeDefaults={{ checkbox: { input: { lg: true } } }}
-  extraClasses={{ checkbox: { input: { primary: 'checked:bg-brand-600 checked:border-brand-600' } } }}
->
-  <Checkbox>I agree to the terms</Checkbox>
-</ThemeProvider>
-```
-
 ## Basic usage
 
 Checkbox should be used inside a Label with matching `id`/`htmlFor`. `Label` defaults to a stacked column layout, so add `row itemsCenter` to place the checkbox inline with its text. The checkbox takes its size from the Label, so match the Label's size to its text (here `md`) to keep the box centered on the first line of a multi-line label.
@@ -265,4 +236,19 @@ Multiple labeled checkboxes working together.
     Push notifications
   </Label>
 </Col>
+```
+
+## Customizing
+
+Set app-wide Checkbox defaults with `ThemeProvider`'s `themeDefaults` and tune the checked-state visuals with `extraClasses`:
+
+```tsx
+import { ThemeProvider, Checkbox } from '@vaneui/ui';
+
+<ThemeProvider
+  themeDefaults={{ checkbox: { input: { lg: true } } }}
+  extraClasses={{ checkbox: { input: { primary: 'checked:bg-brand-600 checked:border-brand-600' } } }}
+>
+  <Checkbox>I agree to the terms</Checkbox>
+</ThemeProvider>
 ```

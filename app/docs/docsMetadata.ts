@@ -85,7 +85,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'chip',
         name: 'Chip',
-        description: 'Represents a complex entity in a compact form, such as an attribute, tag, or contact. Chips can be interactive, allowing for user input or triggering actions.',
+        description: 'Compact token for tags, attributes, filter values, or other discrete entities inline with text. Defaults to secondary appearance, outline variant, and rounded shape.',
         componentKey: "chip",
       },
       {
@@ -293,7 +293,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'blockquote',
         name: 'Blockquote',
-        description: 'Displays quoted content with a left border accent. Inherits appearance from the parent by default for seamless embedding in themed containers.',
+        description: 'Displays quoted content with a left border accent. Inherits appearance from the parent by default, so it blends into themed containers.',
         componentKey: "blockquote",
       },
     ]

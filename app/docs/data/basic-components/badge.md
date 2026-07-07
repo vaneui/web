@@ -5,8 +5,6 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/badge/Ba
 since: 0.9.0
 ---
 
-Highlights important information such as notifications or counts in a non-intrusive way. Badges are typically used in conjunction with other elements like icons or navigation links.
-
 ## Basic usage
 
 Badge styles and variants.
@@ -27,7 +25,7 @@ Badge styles and variants.
 </Row>
 ```
 
-## Badge sizes
+## Sizes
 
 Badges come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.
 
@@ -41,19 +39,7 @@ Badges come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.
 </Row>
 ```
 
-## Badge shapes
-
-Badges support different border radius styles: `rounded`, `pill` (default), and `sharp`.
-
-```tsx demo
-<Row flexWrap>
-  <Badge pill>Pro</Badge>
-  <Badge sharp>Pro</Badge>
-  <Badge rounded>Pro</Badge>
-</Row>
-```
-
-## Badge variants
+## Variants
 
 Badges can be styled as `filled`, `outline` (default), or `ghost`.
 
@@ -78,6 +64,18 @@ Badges can be styled as `filled`, `outline` (default), or `ghost`.
     <Badge ghost secondary>secondary</Badge>
   </Row>
 </Col>
+```
+
+## Shapes
+
+Badges support different border radius styles: `rounded`, `pill` (default), and `sharp`.
+
+```tsx demo
+<Row flexWrap>
+  <Badge pill>Pro</Badge>
+  <Badge sharp>Pro</Badge>
+  <Badge rounded>Pro</Badge>
+</Row>
 ```
 
 ## Font weights
