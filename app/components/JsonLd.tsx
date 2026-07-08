@@ -85,6 +85,8 @@ export function buildTechArticleSchema(args: {
   description: string;
   url: string;
   articleSection: string;
+  datePublished?: string;
+  dateModified?: string;
 }) {
   return {
     '@context': 'https://schema.org',
@@ -94,6 +96,8 @@ export function buildTechArticleSchema(args: {
     description: args.description,
     url: args.url,
     articleSection: args.articleSection,
+    ...(args.datePublished ? { datePublished: args.datePublished } : {}),
+    ...(args.dateModified ? { dateModified: args.dateModified } : {}),
     author: ORGANIZATION_SCHEMA,
     publisher: ORGANIZATION_SCHEMA,
     inLanguage: 'en',

@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { promises as fs } from 'fs';
 import path from 'path';
 import { parseFrontmatter } from "../../../../lib/docs/frontmatter";
+import { docFilePath, firstGitDate, lastGitDate } from "../../../../lib/docs/gitDate";
 import type { DocPageFrontmatter, DocsPage } from "../../types";
 import { JsonLd, buildBreadcrumbSchema, buildTechArticleSchema } from "../../../components/JsonLd";
 
@@ -39,6 +40,14 @@ export async function generateMetadata({params}: DocsPageProps): Promise<Metadat
 
   const url = `/docs/${category}/${slug}`;
 
+  // Real content dates from git history so the article card exposes accurate
+  // freshness (article:published_time / article:modified_time). Falls back to
+  // build time when git history is unavailable.
+  const buildTime = new Date();
+  const filePath = docFilePath(category, slug, docsPage?.mdPath);
+  const publishedTime = firstGitDate(filePath, buildTime).toISOString();
+  const modifiedTime = lastGitDate(filePath, buildTime).toISOString();
+
   // Per-page Open Graph + Twitter. Without these, Next.js leaves every docs
   // page inheriting the root layout's homepage card (wrong title + url when a
   // deep link is shared or surfaced by an AI). The og:image is supplied by the
@@ -55,6 +64,8 @@ export async function generateMetadata({params}: DocsPageProps): Promise<Metadat
       siteName: 'VaneUI',
       title,
       description,
+      publishedTime,
+      modifiedTime,
     },
     twitter: {
       card: 'summary_large_image',
@@ -128,6 +139,10 @@ export default async function Page({params}: DocsPageProps) {
   };
 
   const pageUrl = `https://vaneui.com/docs/${docsSection.slug}/${docsPage.slug}`;
+  const buildTime = new Date();
+  const filePath = docFilePath(docsSection.slug, docsPage.slug, docsPage.mdPath);
+  const datePublished = firstGitDate(filePath, buildTime).toISOString();
+  const dateModified = lastGitDate(filePath, buildTime).toISOString();
   const breadcrumb = buildBreadcrumbSchema({
     category: docsSection.slug,
     categoryName: docsSection.name,
@@ -139,6 +154,8 @@ export default async function Page({params}: DocsPageProps) {
     description: docsPage.description,
     url: pageUrl,
     articleSection: docsSection.name,
+    datePublished,
+    dateModified,
   });
 
   return (
