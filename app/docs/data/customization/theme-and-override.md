@@ -6,7 +6,7 @@ The `themeOverride` property allows programmatic modifications to component them
 
 Add CSS classes that apply to all instances of a component:
 
-```tsx
+```tsx demo
 <ThemeProvider themeOverride={(theme) => {
   // Compound themes are nested by sub-part — Button is `button.main`,
   // Card is `card.main`. Single-target themes (Badge, Chip, etc.) sit at the top level.
@@ -49,7 +49,7 @@ Note: For changing defaults, prefer using `themeDefaults` instead. It uses fewer
 
 Use `themeOverride` alongside `themeDefaults` and `extraClasses`:
 
-```tsx
+```tsx demo
 <ThemeProvider
   themeDefaults={{ button: { main: { filled: true } } }}
   themeOverride={(theme) => {
@@ -68,7 +68,7 @@ Use `themeOverride` alongside `themeDefaults` and `extraClasses`:
 
 Child overrides build on parent modifications:
 
-```tsx
+```tsx demo
 <ThemeProvider themeOverride={(theme) => {
   theme.button.main.base += ' uppercase';
   return theme;
