@@ -1609,7 +1609,7 @@ Use appearances to indicate field status: `danger` for errors, `success` for val
 ```tsx demo
 <Col>
   <Col noGap>
-    <Label semibold>Username <Label danger>*</Label></Label>
+    <Label semibold>Username <Text tag="span" danger>*</Text></Label>
     <Input placeholder="Choose a username" />
   </Col>
   <Col noGap>
@@ -1936,11 +1936,11 @@ Code elements in different sizes - `xs`, `sm`, `md`, `lg`, `xl`.
 
 ```tsx demo
 <Col>
-  <Row><span>Size xs: <Code xs>{"console.log('Hello')"}</Code></span></Row>
-  <Row><span>Size sm: <Code sm>{"console.log('Hello')"}</Code></span></Row>
-  <Row><span>Size md: <Code md>{"console.log('Hello')"}</Code></span></Row>
-  <Row><span>Size lg: <Code lg>{"console.log('Hello')"}</Code></span></Row>
-  <Row><span>Size xl: <Code xl>{"console.log('Hello')"}</Code></span></Row>
+  <Text>Size xs: <Code xs>{"console.log('Hello')"}</Code></Text>
+  <Text>Size sm: <Code sm>{"console.log('Hello')"}</Code></Text>
+  <Text>Size md: <Code md>{"console.log('Hello')"}</Code></Text>
+  <Text>Size lg: <Code lg>{"console.log('Hello')"}</Code></Text>
+  <Text>Size xl: <Code xl>{"console.log('Hello')"}</Code></Text>
 </Col>
 ```
 
@@ -2014,15 +2014,10 @@ Code elements used within text content.
 Code elements for displaying keyboard shortcuts and commands.
 
 ```tsx demo
-<Row flexWrap>
-  <Text primary>
-    <Code>Ctrl</Code>+<Code>C</Code>
-  </Text>
-  or
-  <Text primary>
-    <Code primary>Cmd</Code>+<Code primary>V</Code>
-  </Text>
-</Row>
+<Col>
+  <Text>Copy with <Code>Ctrl</Code>+<Code>C</Code>.</Text>
+  <Text primary>Paste with <Code primary>Cmd</Code>+<Code primary>V</Code>.</Text>
+</Col>
 ```
 
 ## In heading context
@@ -2117,16 +2112,16 @@ Different color appearances for keyboard keys.
 
 ```tsx demo
 <Row flexWrap>
-  <Kbd>Pri</Kbd>
-  <Kbd brand>Bra</Kbd>
-  <Kbd accent>Acc</Kbd>
-  <Kbd secondary>Sec</Kbd>
-  <Kbd tertiary>Ter</Kbd>
-  <Kbd success>Suc</Kbd>
-  <Kbd danger>Dan</Kbd>
-  <Kbd warning>War</Kbd>
-  <Kbd info>Inf</Kbd>
-  <Kbd link>Lin</Kbd>
+  <Kbd>Ctrl</Kbd>
+  <Kbd brand>Shift</Kbd>
+  <Kbd accent>Alt</Kbd>
+  <Kbd secondary>Tab</Kbd>
+  <Kbd tertiary>Esc</Kbd>
+  <Kbd success>Enter</Kbd>
+  <Kbd danger>Del</Kbd>
+  <Kbd warning>Fn</Kbd>
+  <Kbd info>F5</Kbd>
+  <Kbd link>⌘</Kbd>
 </Row>
 ```
 
@@ -2136,10 +2131,10 @@ Combine multiple `Kbd` elements to show keyboard shortcuts.
 
 ```tsx demo
 <Col>
-  <Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>C</Kbd><Text sm secondary>Copy</Text></Row>
-  <Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>V</Kbd><Text sm secondary>Paste</Text></Row>
-  <Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>Shift</Kbd><Text>+</Text><Kbd>P</Kbd><Text sm secondary>Command Palette</Text></Row>
-  <Row><Kbd>Alt</Kbd><Text>+</Text><Kbd>Tab</Kbd><Text sm secondary>Switch Window</Text></Row>
+  <Text><Kbd>Ctrl</Kbd> + <Kbd>C</Kbd> to copy</Text>
+  <Text><Kbd>Ctrl</Kbd> + <Kbd>V</Kbd> to paste</Text>
+  <Text><Kbd>Ctrl</Kbd> + <Kbd>Shift</Kbd> + <Kbd>P</Kbd> for the command palette</Text>
+  <Text><Kbd>Alt</Kbd> + <Kbd>Tab</Kbd> to switch windows</Text>
 </Col>
 ```
 
@@ -2174,11 +2169,11 @@ Display a set of keyboard shortcuts in a structured layout.
 
 ```tsx demo
 <Col>
-  <Row justifyBetween><Text>Undo</Text><Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>Z</Kbd></Row></Row>
-  <Row justifyBetween><Text>Redo</Text><Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>Shift</Kbd><Text>+</Text><Kbd>Z</Kbd></Row></Row>
-  <Row justifyBetween><Text>Find</Text><Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>F</Kbd></Row></Row>
-  <Row justifyBetween><Text>Save</Text><Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>S</Kbd></Row></Row>
-  <Row justifyBetween><Text>Select All</Text><Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>A</Kbd></Row></Row>
+  <Row justifyBetween><Text>Undo</Text><Text><Kbd>Ctrl</Kbd> + <Kbd>Z</Kbd></Text></Row>
+  <Row justifyBetween><Text>Redo</Text><Text><Kbd>Ctrl</Kbd> + <Kbd>Shift</Kbd> + <Kbd>Z</Kbd></Text></Row>
+  <Row justifyBetween><Text>Find</Text><Text><Kbd>Ctrl</Kbd> + <Kbd>F</Kbd></Text></Row>
+  <Row justifyBetween><Text>Save</Text><Text><Kbd>Ctrl</Kbd> + <Kbd>S</Kbd></Text></Row>
+  <Row justifyBetween><Text>Select all</Text><Text><Kbd>Ctrl</Kbd> + <Kbd>A</Kbd></Text></Row>
 </Col>
 ```
 
@@ -6576,8 +6571,8 @@ Use `truncate` for single-line ellipsis, or `lineClamp2`/`lineClamp3`/`lineClamp
 ```tsx demo
 <Col>
   <Text wFull truncate>Truncated single line of text that will be cut off with an ellipsis when it exceeds the container width.</Text>
-  <Text wFull lineClamp2>Clamped to two lines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</Text>
-  <Text wFull lineClamp3>Clamped to three lines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Text>
+  <Text wFull lineClamp2>Clamped to two lines. This release note covers the new size props, the revised default appearances, and the spacing changes that now scale with the size prop across every typography component in the library.</Text>
+  <Text wFull lineClamp3>Clamped to three lines. The migration guide walks through each change in detail, from the renamed appearance props to the updated default margins, and explains how to update your existing components step by step so nothing renders differently after you upgrade to the latest version.</Text>
 </Col>
 ```
 
@@ -7048,11 +7043,11 @@ Use the `uppercase` prop to render the title in all caps.
 Title is left-aligned by default. Use `textCenter`, `textRight`, or `textJustify` to change alignment.
 
 ```tsx demo
-<div className="space-y-2 border-2 border-dashed border-gray-300 p-4">
-  <Title>Left Aligned (default)</Title>
-  <Title textCenter>Center Aligned</Title>
-  <Title textRight>Right Aligned</Title>
-</div>
+<Card>
+  <Title wFull>Left Aligned (default)</Title>
+  <Title wFull textCenter>Center Aligned</Title>
+  <Title wFull textRight>Right Aligned</Title>
+</Card>
 ```
 
 ## Custom HTML tag

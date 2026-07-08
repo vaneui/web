@@ -22,11 +22,11 @@ Code elements in different sizes - `xs`, `sm`, `md`, `lg`, `xl`.
 
 ```tsx demo
 <Col>
-  <Row><span>Size xs: <Code xs>{"console.log('Hello')"}</Code></span></Row>
-  <Row><span>Size sm: <Code sm>{"console.log('Hello')"}</Code></span></Row>
-  <Row><span>Size md: <Code md>{"console.log('Hello')"}</Code></span></Row>
-  <Row><span>Size lg: <Code lg>{"console.log('Hello')"}</Code></span></Row>
-  <Row><span>Size xl: <Code xl>{"console.log('Hello')"}</Code></span></Row>
+  <Text>Size xs: <Code xs>{"console.log('Hello')"}</Code></Text>
+  <Text>Size sm: <Code sm>{"console.log('Hello')"}</Code></Text>
+  <Text>Size md: <Code md>{"console.log('Hello')"}</Code></Text>
+  <Text>Size lg: <Code lg>{"console.log('Hello')"}</Code></Text>
+  <Text>Size xl: <Code xl>{"console.log('Hello')"}</Code></Text>
 </Col>
 ```
 
@@ -100,15 +100,10 @@ Code elements used within text content.
 Code elements for displaying keyboard shortcuts and commands.
 
 ```tsx demo
-<Row flexWrap>
-  <Text primary>
-    <Code>Ctrl</Code>+<Code>C</Code>
-  </Text>
-  or
-  <Text primary>
-    <Code primary>Cmd</Code>+<Code primary>V</Code>
-  </Text>
-</Row>
+<Col>
+  <Text>Copy with <Code>Ctrl</Code>+<Code>C</Code>.</Text>
+  <Text primary>Paste with <Code primary>Cmd</Code>+<Code primary>V</Code>.</Text>
+</Col>
 ```
 
 ## In heading context

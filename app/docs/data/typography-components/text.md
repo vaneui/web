@@ -135,8 +135,8 @@ Use `truncate` for single-line ellipsis, or `lineClamp2`/`lineClamp3`/`lineClamp
 ```tsx demo
 <Col>
   <Text wFull truncate>Truncated single line of text that will be cut off with an ellipsis when it exceeds the container width.</Text>
-  <Text wFull lineClamp2>Clamped to two lines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</Text>
-  <Text wFull lineClamp3>Clamped to three lines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Text>
+  <Text wFull lineClamp2>Clamped to two lines. This release note covers the new size props, the revised default appearances, and the spacing changes that now scale with the size prop across every typography component in the library.</Text>
+  <Text wFull lineClamp3>Clamped to three lines. The migration guide walks through each change in detail, from the renamed appearance props to the updated default margins, and explains how to update your existing components step by step so nothing renders differently after you upgrade to the latest version.</Text>
 </Col>
 ```
 

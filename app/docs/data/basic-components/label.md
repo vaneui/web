@@ -136,7 +136,7 @@ Use appearances to indicate field status: `danger` for errors, `success` for val
 ```tsx demo
 <Col>
   <Col noGap>
-    <Label semibold>Username <Label danger>*</Label></Label>
+    <Label semibold>Username <Text tag="span" danger>*</Text></Label>
     <Input placeholder="Choose a username" />
   </Col>
   <Col noGap>

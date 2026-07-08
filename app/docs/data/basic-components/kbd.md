@@ -54,16 +54,16 @@ Different color appearances for keyboard keys.
 
 ```tsx demo
 <Row flexWrap>
-  <Kbd>Pri</Kbd>
-  <Kbd brand>Bra</Kbd>
-  <Kbd accent>Acc</Kbd>
-  <Kbd secondary>Sec</Kbd>
-  <Kbd tertiary>Ter</Kbd>
-  <Kbd success>Suc</Kbd>
-  <Kbd danger>Dan</Kbd>
-  <Kbd warning>War</Kbd>
-  <Kbd info>Inf</Kbd>
-  <Kbd link>Lin</Kbd>
+  <Kbd>Ctrl</Kbd>
+  <Kbd brand>Shift</Kbd>
+  <Kbd accent>Alt</Kbd>
+  <Kbd secondary>Tab</Kbd>
+  <Kbd tertiary>Esc</Kbd>
+  <Kbd success>Enter</Kbd>
+  <Kbd danger>Del</Kbd>
+  <Kbd warning>Fn</Kbd>
+  <Kbd info>F5</Kbd>
+  <Kbd link>⌘</Kbd>
 </Row>
 ```
 
@@ -73,10 +73,10 @@ Combine multiple `Kbd` elements to show keyboard shortcuts.
 
 ```tsx demo
 <Col>
-  <Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>C</Kbd><Text sm secondary>Copy</Text></Row>
-  <Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>V</Kbd><Text sm secondary>Paste</Text></Row>
-  <Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>Shift</Kbd><Text>+</Text><Kbd>P</Kbd><Text sm secondary>Command Palette</Text></Row>
-  <Row><Kbd>Alt</Kbd><Text>+</Text><Kbd>Tab</Kbd><Text sm secondary>Switch Window</Text></Row>
+  <Text><Kbd>Ctrl</Kbd> + <Kbd>C</Kbd> to copy</Text>
+  <Text><Kbd>Ctrl</Kbd> + <Kbd>V</Kbd> to paste</Text>
+  <Text><Kbd>Ctrl</Kbd> + <Kbd>Shift</Kbd> + <Kbd>P</Kbd> for the command palette</Text>
+  <Text><Kbd>Alt</Kbd> + <Kbd>Tab</Kbd> to switch windows</Text>
 </Col>
 ```
 
@@ -111,10 +111,10 @@ Display a set of keyboard shortcuts in a structured layout.
 
 ```tsx demo
 <Col>
-  <Row justifyBetween><Text>Undo</Text><Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>Z</Kbd></Row></Row>
-  <Row justifyBetween><Text>Redo</Text><Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>Shift</Kbd><Text>+</Text><Kbd>Z</Kbd></Row></Row>
-  <Row justifyBetween><Text>Find</Text><Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>F</Kbd></Row></Row>
-  <Row justifyBetween><Text>Save</Text><Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>S</Kbd></Row></Row>
-  <Row justifyBetween><Text>Select All</Text><Row><Kbd>Ctrl</Kbd><Text>+</Text><Kbd>A</Kbd></Row></Row>
+  <Row justifyBetween><Text>Undo</Text><Text><Kbd>Ctrl</Kbd> + <Kbd>Z</Kbd></Text></Row>
+  <Row justifyBetween><Text>Redo</Text><Text><Kbd>Ctrl</Kbd> + <Kbd>Shift</Kbd> + <Kbd>Z</Kbd></Text></Row>
+  <Row justifyBetween><Text>Find</Text><Text><Kbd>Ctrl</Kbd> + <Kbd>F</Kbd></Text></Row>
+  <Row justifyBetween><Text>Save</Text><Text><Kbd>Ctrl</Kbd> + <Kbd>S</Kbd></Text></Row>
+  <Row justifyBetween><Text>Select all</Text><Text><Kbd>Ctrl</Kbd> + <Kbd>A</Kbd></Text></Row>
 </Col>
 ```

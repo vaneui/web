@@ -102,11 +102,11 @@ Use the `uppercase` prop to render the title in all caps.
 Title is left-aligned by default. Use `textCenter`, `textRight`, or `textJustify` to change alignment.
 
 ```tsx demo
-<div className="space-y-2 border-2 border-dashed border-gray-300 p-4">
-  <Title>Left Aligned (default)</Title>
-  <Title textCenter>Center Aligned</Title>
-  <Title textRight>Right Aligned</Title>
-</div>
+<Card>
+  <Title wFull>Left Aligned (default)</Title>
+  <Title wFull textCenter>Center Aligned</Title>
+  <Title wFull textRight>Right Aligned</Title>
+</Card>
 ```
 
 ## Custom HTML tag
