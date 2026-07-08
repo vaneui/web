@@ -50,7 +50,7 @@ These components default to `inherit`. They never emit data attributes and alway
 
 When you explicitly set an appearance or variant on a component, VaneUI emits data attributes and the component's own CSS rule fires, overriding any inherited values:
 
-```tsx
+```tsx demo
 <Card filled primary>
   {/* Inherits from Card — white text on dark background */}
   <Text>I'm white</Text>
@@ -67,7 +67,7 @@ When you explicitly set an appearance or variant on a component, VaneUI emits da
 
 When multiple layout components are nested, each child inherits from its **nearest ancestor** that sets variables, not from the outermost ancestor:
 
-```tsx
+```tsx demo
 <Card filled primary>
   {/* Card sets: --text-color = white, --bg-color = dark */}
 
@@ -139,7 +139,7 @@ When a component has `inherit` appearance (the default for Text, Title, Label, L
 
 Size inheritance is separate. Only Link and Mark have `inheritSize: true` in their defaults (Code and Kbd achieve the same effect via em-relative geometry, described below). You can also set it explicitly:
 
-```tsx
+```tsx demo
 <Card filled primary>
   {/* Inherits color (white) but uses own md size */}
   <Text inherit>Inherited color, own size</Text>
@@ -153,7 +153,7 @@ Size inheritance is separate. Only Link and Mark have `inheritSize: true` in the
 
 Link and Mark have their own appearance (Link = `link`, Mark = `warning`) so the `inherit` expansion does NOT fire. Instead, they have `inheritSize: true` set explicitly in their defaults. They render at the *exact* font-size of the nearest typography ancestor.
 
-```tsx
+```tsx demo
 <Title lg>
   Check the <Link href="/docs">documentation</Link> for details
 </Title>
@@ -166,7 +166,7 @@ Link and Mark have their own appearance (Link = `link`, Mark = `warning`) so the
 
 Code and Kbd use a different mechanism: their `.vane-code` / `.vane-kbd` rules override `--spacing` to `0.25em` locally, so the entire geometry pipeline (font-size, padding, border-radius, gap) resolves in em, proportional to the parent's font-size.
 
-```tsx
+```tsx demo
 <Title lg>
   Run <Code>npm install</Code> to add the package
 </Title>
@@ -181,7 +181,7 @@ So inline Code feels right-sized in every context: body text at 14px / 16px, hea
 
 Use `noInheritSize` to keep Link or Mark at its own size instead of the parent's:
 
-```tsx
+```tsx demo
 <Title lg>
   Heading with <Link noInheritSize href="/docs">fixed-size link</Link>
 </Title>

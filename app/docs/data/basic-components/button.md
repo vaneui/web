@@ -151,9 +151,7 @@ import { Button } from '@vaneui/ui';
 
 Set app-wide Button defaults with `ThemeProvider`'s `themeDefaults`:
 
-```tsx
-import { ThemeProvider, Button } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider themeDefaults={{
   button: { main: { primary: true, lg: true, filled: true } },
 }}>
@@ -163,9 +161,7 @@ import { ThemeProvider, Button } from '@vaneui/ui';
 
 Add prop-conditional classes with `extraClasses`, applied whenever the matching boolean prop is active. For compound themes like Button, nest the prop-class map under the sub-theme name (`main` for Button's primary surface):
 
-```tsx
-import { ThemeProvider, Button } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider extraClasses={{
   button: {
     main: {

@@ -227,7 +227,7 @@ Set by `data-variant` + `data-appearance` attributes:
 ## Mixing custom classes
 
 You can always add your own Tailwind classes via `className` to fine-tune any edge case:
-```tsx
+```tsx demo
 <Button primary lg filled className="hover:opacity-80 shadow-xl">
   Get started
 </Button>
@@ -249,7 +249,7 @@ Override colors globally or for any subtree:
 
 ### ThemeProvider defaults
 Set default prop values for all components, including overlay components (Overlay, Modal, Popup):
-```tsx
+```tsx demo
 <ThemeProvider themeDefaults={{
   button: { main: { pill: true, lg: true } }, // button is compound; defaults nest under `main`
   card: { main: { primary: true } }            // card is compound too
@@ -260,7 +260,7 @@ Set default prop values for all components, including overlay components (Overla
 
 ### Extra classes
 Add additional CSS classes based on active props:
-```tsx
+```tsx demo
 <ThemeProvider extraClasses={{
   button: { main: { primary: 'shadow-lg hover:shadow-xl' } }
 }}>
@@ -924,9 +924,7 @@ import { Button } from '@vaneui/ui';
 
 Set app-wide Button defaults with `ThemeProvider`'s `themeDefaults`:
 
-```tsx
-import { ThemeProvider, Button } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider themeDefaults={{
   button: { main: { primary: true, lg: true, filled: true } },
 }}>
@@ -936,9 +934,7 @@ import { ThemeProvider, Button } from '@vaneui/ui';
 
 Add prop-conditional classes with `extraClasses`, applied whenever the matching boolean prop is active. For compound themes like Button, nest the prop-class map under the sub-theme name (`main` for Button's primary surface):
 
-```tsx
-import { ThemeProvider, Button } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider extraClasses={{
   button: {
     main: {
@@ -1075,21 +1071,21 @@ import { Settings } from 'react-feather';
 
 Set `loading` to show a spinner and auto-disable the button.
 
-```tsx
+```tsx demo
 const [loading, setLoading] = useState(false);
 
-<IconButton loading={loading} onClick={() => setLoading(true)}>
-  <Star />
-</IconButton>
+return (
+  <IconButton loading={loading} onClick={() => setLoading(true)}>
+    <Star />
+  </IconButton>
+);
 ```
 
 ## Customizing
 
 Set app-wide IconButton defaults with `ThemeProvider`'s `themeDefaults`:
 
-```tsx
-import { ThemeProvider, IconButton } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider themeDefaults={{
   iconButton: { secondary: true, pill: true, lg: true },
 }}>
@@ -1212,9 +1208,7 @@ Different input states: disabled, readonly, and validation feedback. Use appeara
 
 Set app-wide Input defaults with `ThemeProvider`'s `themeDefaults` and add a focus-ring colour with `extraClasses`:
 
-```tsx
-import { ThemeProvider, Input } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider
   themeDefaults={{ input: { lg: true, filled: true } }}
   extraClasses={{ input: { primary: 'focus:ring-2 focus:ring-brand-500/40' } }}
@@ -1384,17 +1378,19 @@ Uncontrolled: initial value only, the input manages its own state.
 
 Controlled: parent owns the value via `useState`.
 
-```tsx
+```tsx demo
 const [checked, setChecked] = useState(false);
 
-<Label row itemsCenter htmlFor="controlled">
-  <Checkbox
-    id="controlled"
-    checked={checked}
-    onChange={(e) => setChecked(e.target.checked)}
-  />
-  Controlled ({checked ? 'on' : 'off'})
-</Label>
+return (
+  <Label row itemsCenter htmlFor="controlled">
+    <Checkbox
+      id="controlled"
+      checked={checked}
+      onChange={(e) => setChecked(e.target.checked)}
+    />
+    Controlled ({checked ? 'on' : 'off'})
+  </Label>
+);
 ```
 
 ## Indeterminate state
@@ -1465,9 +1461,7 @@ Multiple labeled checkboxes working together.
 
 Set app-wide Checkbox defaults with `ThemeProvider`'s `themeDefaults` and tune the checked-state visuals with `extraClasses`:
 
-```tsx
-import { ThemeProvider, Checkbox, Label } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider
   themeDefaults={{ checkbox: { input: { lg: true } } }}
   extraClasses={{ checkbox: { input: { primary: 'checked:bg-brand-600 checked:border-brand-600' } } }}
@@ -1899,9 +1893,7 @@ Pass `href` to render the chip as an `<a>`, useful for clickable tag listings. W
 
 Set app-wide Chip defaults with `ThemeProvider`'s `themeDefaults`:
 
-```tsx
-import { ThemeProvider, Chip } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider themeDefaults={{
   chip: { brand: true, filled: true, pill: true },
 }}>
@@ -1911,9 +1903,7 @@ import { ThemeProvider, Chip } from '@vaneui/ui';
 
 Add prop-conditional classes with `extraClasses`, applied whenever the matching boolean prop is active:
 
-```tsx
-import { ThemeProvider, Chip } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider extraClasses={{
   chip: {
     danger: 'animate-pulse',
@@ -3963,9 +3953,7 @@ import { Card, Title, Text } from '@vaneui/ui';
 
 Set app-wide Card defaults with `ThemeProvider`'s `themeDefaults`:
 
-```tsx
-import { ThemeProvider, Card } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider themeDefaults={{
   card: { main: { shadow: true } },
 }}>
@@ -4119,9 +4107,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 
 Set app-wide Grid2 defaults with `ThemeProvider`'s `themeDefaults`:
 
-```tsx
-import { ThemeProvider, Grid2 } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider themeDefaults={{
   grid2: { lg: true },
 }}>
@@ -4298,9 +4284,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 
 Set app-wide Grid3 defaults with `ThemeProvider`'s `themeDefaults`:
 
-```tsx
-import { ThemeProvider, Grid3 } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider themeDefaults={{
   grid3: { lg: true },
 }}>
@@ -4500,9 +4484,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 
 Set app-wide Grid4 defaults with `ThemeProvider`'s `themeDefaults`:
 
-```tsx
-import { ThemeProvider, Grid4 } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider themeDefaults={{
   grid4: { lg: true },
 }}>
@@ -4725,9 +4707,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 
 Set app-wide Grid5 defaults with `ThemeProvider`'s `themeDefaults`:
 
-```tsx
-import { ThemeProvider, Grid5 } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider themeDefaults={{
   grid5: { sm: true },
 }}>
@@ -4937,9 +4917,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 
 Set app-wide Grid6 defaults with `ThemeProvider`'s `themeDefaults`:
 
-```tsx
-import { ThemeProvider, Grid6 } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider themeDefaults={{
   grid6: { sm: true },
 }}>
@@ -5295,90 +5273,133 @@ Overlay ships its own layout defaults: `fixed`, `flex`, `itemsCenter`, `justifyC
 A fullscreen semi-transparent backdrop. Click the overlay background to dismiss.
 
 
-```tsx
+```tsx demo
 const [open, setOpen] = useState(false);
 
-<Button onClick={() => setOpen(true)}>Show Overlay</Button>
-<Overlay open={open} onClose={() => setOpen(false)}>
-  <Text>Click anywhere to close</Text>
-</Overlay>
+return (
+  <>
+    <Button onClick={() => setOpen(true)}>Show Overlay</Button>
+    <Overlay open={open} onClose={() => setOpen(false)}>
+      <Text>Click anywhere to close</Text>
+    </Overlay>
+  </>
+);
 ```
 
 ## Overlay with content
 
 Place content inside the overlay. Click handlers on the overlay only fire when the event target is the overlay itself, so children receive their own clicks without dismissing the overlay.
 
-```tsx
-<Overlay open={open} onClose={() => setOpen(false)}>
-  <Card>
-    <Text>Overlay content here</Text>
-    <Button onClick={() => setOpen(false)}>Close</Button>
-  </Card>
-</Overlay>
+```tsx demo
+const [open, setOpen] = useState(false);
+
+return (
+  <>
+    <Button onClick={() => setOpen(true)}>Show Overlay</Button>
+    <Overlay open={open} onClose={() => setOpen(false)}>
+      <Card>
+        <Text>Overlay content here</Text>
+        <Button onClick={() => setOpen(false)}>Close</Button>
+      </Card>
+    </Overlay>
+  </>
+);
 ```
 
 ## Blur effect
 
 Add `blur` for a backdrop-filter blur behind the overlay. Blur intensity follows the `--overlay-blur` CSS variable.
 
-```tsx
-<Overlay open={open} onClose={() => setOpen(false)} blur>
-  <Card>
-    <Text>Blurred background</Text>
-  </Card>
-</Overlay>
+```tsx demo
+const [open, setOpen] = useState(false);
+
+return (
+  <>
+    <Button onClick={() => setOpen(true)}>Show Blur Overlay</Button>
+    <Overlay open={open} onClose={() => setOpen(false)} blur>
+      <Card>
+        <Text>Blurred background</Text>
+      </Card>
+    </Overlay>
+  </>
+);
 ```
 
 ## Custom backdrop appearance
 
 Style the backdrop with appearance + variant + shadow props, or pass a `className` for arbitrary background utilities. The example below uses `danger filled` for a tinted destructive backdrop.
 
-```tsx
-<Overlay open={open} onClose={() => setOpen(false)} danger filled shadow>
-  <Card>
-    <Text>Tinted overlay</Text>
-  </Card>
-</Overlay>
+```tsx demo
+const [open, setOpen] = useState(false);
+
+return (
+  <>
+    <Button onClick={() => setOpen(true)}>Show Tinted Overlay</Button>
+    <Overlay open={open} onClose={() => setOpen(false)} danger filled shadow>
+      <Card>
+        <Text>Tinted overlay</Text>
+      </Card>
+    </Overlay>
+  </>
+);
 ```
 
 Use `className` for gradients or backgrounds the appearance system doesn't cover:
 
-```tsx
-<Overlay
-  open={open}
-  onClose={() => setOpen(false)}
-  className="bg-gradient-to-br from-black/80 to-transparent"
->
-  <Card>
-    <Text>Custom gradient backdrop</Text>
-  </Card>
-</Overlay>
+```tsx demo
+const [open, setOpen] = useState(false);
+
+return (
+  <>
+    <Button onClick={() => setOpen(true)}>Show Gradient Overlay</Button>
+    <Overlay
+      open={open}
+      onClose={() => setOpen(false)}
+      className="bg-gradient-to-br from-black/80 to-transparent"
+    >
+      <Card>
+        <Text>Custom gradient backdrop</Text>
+      </Card>
+    </Overlay>
+  </>
+);
 ```
 
 ## Non-dismissible Overlay
 
 Use `pointerEventsNone` for loading states where the overlay should pass clicks through and never close on its own. Useful for full-screen spinners that sit above the page.
 
-```tsx
-<Overlay open={loading} pointerEventsNone>
-  <Text>Loading...</Text>
-</Overlay>
+```tsx demo
+const [loading, setLoading] = useState(false);
+
+return (
+  <>
+    <Button onClick={() => setLoading(!loading)}>Toggle Loading</Button>
+    <Overlay open={loading} pointerEventsNone>
+      <Text>Loading...</Text>
+    </Overlay>
+  </>
+);
 ```
 
 ## Transparent Overlay
 
 Use `transparent` to create an invisible backdrop that still captures clicks. Useful for click-away dismissal without visually dimming the page.
 
-```tsx
+```tsx demo
 const [open, setOpen] = useState(false);
 
-<Button onClick={() => setOpen(true)}>Show Transparent Overlay</Button>
-<Overlay open={open} onClose={() => setOpen(false)} transparent>
-  <Card>
-    <Text>Content on a transparent overlay</Text>
-    <Button onClick={() => setOpen(false)}>Close</Button>
-  </Card>
-</Overlay>
+return (
+  <>
+    <Button onClick={() => setOpen(true)}>Show Transparent Overlay</Button>
+    <Overlay open={open} onClose={() => setOpen(false)} transparent>
+      <Card>
+        <Text>Content on a transparent overlay</Text>
+        <Button onClick={() => setOpen(false)}>Close</Button>
+      </Card>
+    </Overlay>
+  </>
+);
 ```
 
 ## Foundation for Modal
@@ -5401,13 +5422,18 @@ const [open, setOpen] = useState(false);
 
 Overlay renders into `document.body` by default via React portal. Set `portal={false}` to render in-place, useful when the overlay must be scoped to a positioned ancestor (e.g., scrim over a single card instead of the whole viewport).
 
-```tsx
-<Card relative className="h-64">
-  <Text>Parent card</Text>
-  <Overlay open={open} onClose={() => setOpen(false)} portal={false} absolute>
-    <Text>Scoped to this card</Text>
-  </Overlay>
-</Card>
+```tsx demo
+const [open, setOpen] = useState(false);
+
+return (
+  <Card relative className="h-64">
+    <Text>Parent card</Text>
+    <Button onClick={() => setOpen(true)}>Show scoped overlay</Button>
+    <Overlay open={open} onClose={() => setOpen(false)} portal={false} absolute>
+      <Text>Scoped to this card</Text>
+    </Overlay>
+  </Card>
+);
 ```
 
 When `portal={false}` and `absolute` is set, the overlay anchors to the nearest `relative`/`absolute` ancestor instead of the viewport.
@@ -5416,32 +5442,51 @@ When `portal={false}` and `absolute` is set, the overlay anchors to the nearest 
 
 Overlay reads its `z-index` from a managed stacking context (`--z-index`), so multiple overlays stack in mount order automatically. Override per instance via inline style when you need to layer above a specific element (toasts, page chrome).
 
-```tsx
-<Overlay
-  open={open}
-  onClose={() => setOpen(false)}
-  style={{ '--z-index': 9999 } as React.CSSProperties}
->
-  <Card>
-    <Text>Above everything</Text>
-  </Card>
-</Overlay>
+```tsx demo
+const [open, setOpen] = useState(false);
+
+return (
+  <>
+    <Button onClick={() => setOpen(true)}>Show Overlay</Button>
+    <Overlay
+      open={open}
+      onClose={() => setOpen(false)}
+      style={{ '--z-index': 9999 } as React.CSSProperties}
+    >
+      <Card>
+        <Text>Above everything</Text>
+      </Card>
+    </Overlay>
+  </>
+);
 ```
 
 ## Custom animation duration
 
 Control how the overlay transitions in and out. Use `transitionDuration` to set a custom duration in milliseconds (default `200`), or `noAnimation` to disable transitions entirely for an instant open/close.
 
-```tsx
-{/* Slow fade - 500ms */}
-<Overlay open={open} onClose={() => setOpen(false)} transitionDuration={500}>
-  <Card>Slow transition content</Card>
-</Overlay>
+```tsx demo
+const [openSlow, setOpenSlow] = useState(false);
+const [openInstant, setOpenInstant] = useState(false);
 
-{/* Instant - no animation */}
-<Overlay open={open} onClose={() => setOpen(false)} noAnimation>
-  <Card>Instant content</Card>
-</Overlay>
+return (
+  <>
+    <Row>
+      <Button onClick={() => setOpenSlow(true)}>Slow fade (500ms)</Button>
+      <Button onClick={() => setOpenInstant(true)}>Instant</Button>
+    </Row>
+
+    {/* Slow fade - 500ms */}
+    <Overlay open={openSlow} onClose={() => setOpenSlow(false)} transitionDuration={500}>
+      <Card>Slow transition content</Card>
+    </Overlay>
+
+    {/* Instant - no animation */}
+    <Overlay open={openInstant} onClose={() => setOpenInstant(false)} noAnimation>
+      <Card>Instant content</Card>
+    </Overlay>
+  </>
+);
 ```
 
 ## Lifecycle and mounting
@@ -5457,16 +5502,23 @@ Control how the overlay transitions in and out. Use `transitionDuration` to set 
 | `onEnterComplete` | - | Called when enter transition completes |
 | `onExitComplete` | - | Called when exit transition completes |
 
-```tsx
-<Overlay
-  open={open}
-  onClose={() => setOpen(false)}
-  keepMounted
-  transitionDuration={300}
-  onExitComplete={() => console.log('overlay closed')}
->
-  <Card>Persistent DOM, custom timing</Card>
-</Overlay>
+```tsx demo
+const [open, setOpen] = useState(false);
+
+return (
+  <>
+    <Button onClick={() => setOpen(true)}>Show Overlay</Button>
+    <Overlay
+      open={open}
+      onClose={() => setOpen(false)}
+      keepMounted
+      transitionDuration={300}
+      onExitComplete={() => console.log('overlay closed')}
+    >
+      <Card>Persistent DOM, custom timing</Card>
+    </Overlay>
+  </>
+);
 ```
 
 ---
@@ -5480,20 +5532,24 @@ A controlled modal opened by a Button. The Modal portals to `document.body`, tra
 
 Modal content defaults: `md`, `primary`, `outline`, `rounded`, `shadow`, `flex column`, `gap`, `wFull`, `overflowAuto`, `relative`, `noPadding` (sub-components own their own padding).
 
-```tsx
+```tsx demo
 const [open, setOpen] = useState(false);
 
-<Button onClick={() => setOpen(true)}>Open Modal</Button>
-<Modal open={open} onClose={() => setOpen(false)}>
-  <Stack>
-    <Text bold>Confirm Action</Text>
-    <Text>Are you sure?</Text>
-    <Row justifyEnd>
-      <Button onClick={() => setOpen(false)}>Cancel</Button>
-      <Button primary filled onClick={() => setOpen(false)}>Confirm</Button>
-    </Row>
-  </Stack>
-</Modal>
+return (
+  <>
+    <Button onClick={() => setOpen(true)}>Open Modal</Button>
+    <Modal open={open} onClose={() => setOpen(false)}>
+      <Stack>
+        <Text bold>Confirm Action</Text>
+        <Text>Are you sure?</Text>
+        <Row justifyEnd>
+          <Button onClick={() => setOpen(false)}>Cancel</Button>
+          <Button primary filled onClick={() => setOpen(false)}>Confirm</Button>
+        </Row>
+      </Stack>
+    </Modal>
+  </>
+);
 ```
 
 ## Compound Modal
@@ -5505,167 +5561,225 @@ Use `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton` for full c
 - `ModalFooter`: `flex row`, `itemsCenter`, `justifyEnd`, `gap`, `padding`
 - `ModalCloseButton`: `secondary`, `transparent`, `noShadow`, `noRing`
 
-```tsx
-import { Modal, ModalHeader, ModalBody, ModalFooter, ModalCloseButton, Button, Title, Input, Label, Stack } from "@vaneui/ui";
-
+```tsx demo
 const [open, setOpen] = useState(false);
 
-<Modal open={open} onClose={() => setOpen(false)}>
-  <ModalHeader>
-    <Title>Edit Profile</Title>
-    <ModalCloseButton />
-  </ModalHeader>
-  <ModalBody>
-    <Stack>
-      <Label>Name</Label>
-      <Input placeholder="Enter your name" />
-      <Label>Email</Label>
-      <Input placeholder="Enter your email" />
-    </Stack>
-  </ModalBody>
-  <ModalFooter>
-    <Button sm onClick={() => setOpen(false)}>Cancel</Button>
-    <Button sm primary filled onClick={() => setOpen(false)}>Save</Button>
-  </ModalFooter>
-</Modal>
+return (
+  <>
+    <Button onClick={() => setOpen(true)}>Edit Profile</Button>
+    <Modal open={open} onClose={() => setOpen(false)}>
+      <ModalHeader>
+        <Title>Edit Profile</Title>
+        <ModalCloseButton />
+      </ModalHeader>
+      <ModalBody>
+        <Stack>
+          <Label>Name</Label>
+          <Input placeholder="Enter your name" />
+          <Label>Email</Label>
+          <Input placeholder="Enter your email" />
+        </Stack>
+      </ModalBody>
+      <ModalFooter>
+        <Button sm onClick={() => setOpen(false)}>Cancel</Button>
+        <Button sm primary filled onClick={() => setOpen(false)}>Save</Button>
+      </ModalFooter>
+    </Modal>
+  </>
+);
 ```
 
 ## Convenience props
 
 Use the `title`, `footer`, and `withCloseButton` shorthand props to compose a structured modal without writing sub-components. A close button is shown by default regardless of `title` (toggle with `withCloseButton`): with a title it sits in the header, without one it floats top-right. Children become the body.
 
-```tsx
-import { Modal, Button, Text, Row } from "@vaneui/ui";
-
+```tsx demo
 const [open, setOpen] = useState(false);
 
-<Modal
-  open={open}
-  onClose={() => setOpen(false)}
-  title="Quick Confirmation"
-  footer={
-    <Row justifyEnd>
-      <Button sm onClick={() => setOpen(false)}>Cancel</Button>
-      <Button sm primary filled onClick={() => setOpen(false)}>Confirm</Button>
-    </Row>
-  }
->
-  <Text>Are you sure you want to proceed?</Text>
-</Modal>
+return (
+  <>
+    <Button onClick={() => setOpen(true)}>Open Confirmation</Button>
+    <Modal
+      open={open}
+      onClose={() => setOpen(false)}
+      title="Quick Confirmation"
+      footer={
+        <Row justifyEnd>
+          <Button sm onClick={() => setOpen(false)}>Cancel</Button>
+          <Button sm primary filled onClick={() => setOpen(false)}>Confirm</Button>
+        </Row>
+      }
+    >
+      <Text>Are you sure you want to proceed?</Text>
+    </Modal>
+  </>
+);
 ```
 
 ## Confirmation dialog
 
 A common pattern is a destructive action that requires explicit confirmation. Disable `closeOnOverlayClick` so users can't dismiss accidentally by clicking outside.
 
-```tsx
+```tsx demo
 const [open, setOpen] = useState(false);
 
-<Button danger filled onClick={() => setOpen(true)}>Delete Account</Button>
-<Modal
-  open={open}
-  onClose={() => setOpen(false)}
-  closeOnOverlayClick={false}
-  title="Delete account?"
-  footer={
-    <Row justifyEnd>
-      <Button sm onClick={() => setOpen(false)}>Cancel</Button>
-      <Button sm danger filled onClick={() => setOpen(false)}>Delete</Button>
-    </Row>
-  }
->
-  <Text>This action is permanent and cannot be undone.</Text>
-</Modal>
+return (
+  <>
+    <Button danger filled onClick={() => setOpen(true)}>Delete Account</Button>
+    <Modal
+      open={open}
+      onClose={() => setOpen(false)}
+      closeOnOverlayClick={false}
+      title="Delete account?"
+      footer={
+        <Row justifyEnd>
+          <Button sm onClick={() => setOpen(false)}>Cancel</Button>
+          <Button sm danger filled onClick={() => setOpen(false)}>Delete</Button>
+        </Row>
+      }
+    >
+      <Text>This action is permanent and cannot be undone.</Text>
+    </Modal>
+  </>
+);
 ```
 
 ## Form Modal
 
 Modals can host forms. Focus trapping keeps `Tab` / `Shift+Tab` navigation inside the modal, and pressing `Escape` closes it (unless disabled). Use `initialFocus` to direct keyboard focus to a specific field on open.
 
-```tsx
+```tsx demo
 const [open, setOpen] = useState(false);
-const nameRef = useRef<HTMLInputElement>(null);
+const nameRef = useRef(null);
 
-<Button onClick={() => setOpen(true)}>Edit Profile</Button>
-<Modal
-  open={open}
-  onClose={() => setOpen(false)}
-  initialFocus={nameRef}
-  title="Edit Profile"
-  footer={
-    <Row justifyEnd>
-      <Button sm onClick={() => setOpen(false)}>Cancel</Button>
-      <Button sm primary filled onClick={() => setOpen(false)}>Save</Button>
-    </Row>
-  }
->
-  <Stack>
-    <Label>Name</Label>
-    <Input ref={nameRef} placeholder="Enter your name" />
-    <Label>Email</Label>
-    <Input type="email" placeholder="you@example.com" />
-    <Checkbox>Send me email updates</Checkbox>
-  </Stack>
-</Modal>
+return (
+  <>
+    <Button onClick={() => setOpen(true)}>Edit Profile</Button>
+    <Modal
+      open={open}
+      onClose={() => setOpen(false)}
+      initialFocus={nameRef}
+      title="Edit Profile"
+      footer={
+        <Row justifyEnd>
+          <Button sm onClick={() => setOpen(false)}>Cancel</Button>
+          <Button sm primary filled onClick={() => setOpen(false)}>Save</Button>
+        </Row>
+      }
+    >
+      <Stack>
+        <Label>Name</Label>
+        <Input ref={nameRef} placeholder="Enter your name" />
+        <Label>Email</Label>
+        <Input type="email" placeholder="you@example.com" />
+        <Checkbox>Send me email updates</Checkbox>
+      </Stack>
+    </Modal>
+  </>
+);
 ```
 
 ## Sizes
 
 Size props control modal content width via the `--fs-unit` / `--py-unit` / `--br-unit` chain. Font-size, padding, gap, and border-radius all scale together.
 
-```tsx
-<Modal open={open} onClose={onClose} sm>Small modal</Modal>
-<Modal open={open} onClose={onClose} lg>Large modal</Modal>
+```tsx demo
+const [openSm, setOpenSm] = useState(false);
+const [openLg, setOpenLg] = useState(false);
+
+return (
+  <>
+    <Row>
+      <Button onClick={() => setOpenSm(true)}>Small modal</Button>
+      <Button onClick={() => setOpenLg(true)}>Large modal</Button>
+    </Row>
+    <Modal open={openSm} onClose={() => setOpenSm(false)} sm>Small modal</Modal>
+    <Modal open={openLg} onClose={() => setOpenLg(false)} lg>Large modal</Modal>
+  </>
+);
 ```
 
 ## Appearances
 
 Apply appearance and variant props to style the content surface (border, text, background).
 
-```tsx
-<Modal open={open} onClose={onClose} primary filled>Primary modal</Modal>
-<Modal open={open} onClose={onClose} danger filled>Danger modal</Modal>
+```tsx demo
+const [openPrimary, setOpenPrimary] = useState(false);
+const [openDanger, setOpenDanger] = useState(false);
+
+return (
+  <>
+    <Row>
+      <Button primary filled onClick={() => setOpenPrimary(true)}>Primary modal</Button>
+      <Button danger filled onClick={() => setOpenDanger(true)}>Danger modal</Button>
+    </Row>
+    <Modal open={openPrimary} onClose={() => setOpenPrimary(false)} primary filled>Primary modal</Modal>
+    <Modal open={openDanger} onClose={() => setOpenDanger(false)} danger filled>Danger modal</Modal>
+  </>
+);
 ```
 
 ## Blur overlay
 
 Pass `overlayProps={{ blur: true }}` to add a backdrop-filter blur behind the modal.
 
-```tsx
-<Modal open={open} onClose={onClose} overlayProps={{ blur: true }}>
-  <Text>Blurred background</Text>
-</Modal>
+```tsx demo
+const [open, setOpen] = useState(false);
+
+return (
+  <>
+    <Button onClick={() => setOpen(true)}>Open Modal</Button>
+    <Modal open={open} onClose={() => setOpen(false)} overlayProps={{ blur: true }}>
+      <Text>Blurred background</Text>
+    </Modal>
+  </>
+);
 ```
 
 ## Non-dismissible Modal
 
 Disable `closeOnOverlayClick` and `closeOnEscape` to force the user to take an explicit action (typically a button in the footer) before the modal can close.
 
-```tsx
-<Modal
-  open={open}
-  onClose={onClose}
-  closeOnOverlayClick={false}
-  closeOnEscape={false}
->
-  <Text>Must click a button to close</Text>
-</Modal>
+```tsx demo
+const [open, setOpen] = useState(false);
+
+return (
+  <>
+    <Button onClick={() => setOpen(true)}>Open Modal</Button>
+    <Modal
+      open={open}
+      onClose={() => setOpen(false)}
+      closeOnOverlayClick={false}
+      closeOnEscape={false}
+    >
+      <Text>Must click a button to close</Text>
+      <Button onClick={() => setOpen(false)}>Close</Button>
+    </Modal>
+  </>
+);
 ```
 
 ## Full-screen Modal
 
 Set `fullScreen` to make the modal fill the entire viewport. Full-screen modals have no border-radius (`sharp` is applied automatically) and use a transparent overlay, useful for immersive experiences or mobile-optimized views.
 
-```tsx
-<Modal open={open} onClose={() => setOpen(false)} fullScreen>
-  <ModalHeader>
-    <Title>Full Screen View</Title>
-    <ModalCloseButton />
-  </ModalHeader>
-  <ModalBody>
-    <Text>Content fills the entire viewport.</Text>
-  </ModalBody>
-</Modal>
+```tsx demo
+const [open, setOpen] = useState(false);
+
+return (
+  <>
+    <Button onClick={() => setOpen(true)}>Open Full Screen</Button>
+    <Modal open={open} onClose={() => setOpen(false)} fullScreen>
+      <ModalHeader>
+        <Title>Full Screen View</Title>
+        <ModalCloseButton />
+      </ModalHeader>
+      <ModalBody>
+        <Text>Content fills the entire viewport.</Text>
+      </ModalBody>
+    </Modal>
+  </>
+);
 ```
 
 ## Accessibility and advanced props
@@ -5699,14 +5813,17 @@ Modal ships accessibility features enabled by default. The dialog renders with `
 
 Set app-wide Modal defaults with `ThemeProvider`'s `themeDefaults`:
 
-```tsx
-import { ThemeProvider, Modal } from '@vaneui/ui';
+```tsx demo
+const [open, setOpen] = useState(false);
 
-<ThemeProvider themeDefaults={{
-  modal: { content: { lg: true, border: true } },
-}}>
-  <Modal open={open} onClose={onClose}>Content</Modal>
-</ThemeProvider>
+return (
+  <ThemeProvider themeDefaults={{
+    modal: { content: { lg: true, border: true } },
+  }}>
+    <Button onClick={() => setOpen(true)}>Open Modal</Button>
+    <Modal open={open} onClose={() => setOpen(false)}>Content</Modal>
+  </ThemeProvider>
+);
 ```
 
 ---
@@ -5722,34 +5839,42 @@ Popup ships its own surface defaults: `md`, `flex column`, `padding`, `gap`, `ro
 
 A controlled floating element anchored to a button. Closes on outside click or `Escape`. Pass an `anchorRef` pointing at the trigger element.
 
-```tsx
+```tsx demo
 const [open, setOpen] = useState(false);
 const anchorRef = useRef<HTMLButtonElement>(null);
 
-<Button ref={anchorRef} onClick={() => setOpen(!open)}>Toggle</Button>
-<Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef}>
-  <Text>Popup content</Text>
-</Popup>
+return (
+  <>
+    <Button ref={anchorRef} onClick={() => setOpen(!open)}>Toggle</Button>
+    <Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef}>
+      <Text>Popup content</Text>
+    </Popup>
+  </>
+);
 ```
 
 ## Uncontrolled with `defaultOpen`
 
 Skip `open`/`onClose` and let Popup manage its own state. Use `onOpenChange` to react to opens/closes without owning the state.
 
-```tsx
+```tsx demo
 const anchorRef = useRef<HTMLButtonElement>(null);
 
-<Button ref={anchorRef}>Trigger</Button>
-<Popup defaultOpen anchorRef={anchorRef} onOpenChange={(o) => console.log(o)}>
-  <Text>Uncontrolled popup</Text>
-</Popup>
+return (
+  <>
+    <Button ref={anchorRef}>Trigger</Button>
+    <Popup defaultOpen anchorRef={anchorRef} onOpenChange={(o) => console.log(o)}>
+      <Text>Uncontrolled popup</Text>
+    </Popup>
+  </>
+);
 ```
 
 ## PopupTrigger (click)
 
 `PopupTrigger` is a convenience wrapper that manages open/close state and ref wiring automatically. No `useState` or `useRef` needed: wrap the trigger element and provide popup content via the `popup` prop. Default trigger mode is `"click"`.
 
-```tsx
+```tsx demo
 <PopupTrigger popup={<Text sm>Click-triggered popup</Text>}>
   <Button>Click Me</Button>
 </PopupTrigger>
@@ -5759,7 +5884,7 @@ const anchorRef = useRef<HTMLButtonElement>(null);
 
 Set `triggerOnHover` to show on mouse enter and hide on mouse leave. `openDelay` (default `0`) delays appearance; `closeDelay` (default `150`) delays dismissal so the user can move the cursor over the popup. Keyboard focus also opens it for accessibility.
 
-```tsx
+```tsx demo
 <PopupTrigger
   triggerOnHover
   openDelay={200}
@@ -5773,7 +5898,7 @@ Set `triggerOnHover` to show on mouse enter and hide on mouse leave. `openDelay`
 
 Set `triggerOnFocus` to show on focus and hide on blur. Useful for search autocomplete, input hints, and dropdown suggestions.
 
-```tsx
+```tsx demo
 <PopupTrigger
   triggerOnFocus
   popup={<Text sm>Search suggestions...</Text>}
@@ -5786,26 +5911,30 @@ Set `triggerOnFocus` to show on focus and hide on blur. Useful for search autoco
 
 Placement is set via boolean props: `top`, `topStart`, `topEnd`, `bottom`, `bottomStart`, `bottomEnd`, `left`, `leftStart`, `leftEnd`, `right`, `rightStart`, `rightEnd`. Exactly one wins (first-truthy per category). Default is `bottom`.
 
-```tsx
+```tsx demo
 const ref = useRef<HTMLButtonElement>(null);
 const [open, setOpen] = useState(false);
 
-<Button ref={ref} onClick={() => setOpen(!open)}>Anchor</Button>
+return (
+  <>
+    <Button ref={ref} onClick={() => setOpen(!open)}>Anchor</Button>
 
-{/* Above the anchor, aligned to the anchor's left edge */}
-<Popup topStart open={open} onClose={() => setOpen(false)} anchorRef={ref}>
-  <Text>Top Start</Text>
-</Popup>
+    {/* Above the anchor, aligned to the anchor's left edge */}
+    <Popup topStart open={open} onClose={() => setOpen(false)} anchorRef={ref}>
+      <Text>Top Start</Text>
+    </Popup>
 
-{/* Centered to the right of the anchor */}
-<Popup right open={open} onClose={() => setOpen(false)} anchorRef={ref}>
-  <Text>Right</Text>
-</Popup>
+    {/* Centered to the right of the anchor */}
+    <Popup right open={open} onClose={() => setOpen(false)} anchorRef={ref}>
+      <Text>Right</Text>
+    </Popup>
 
-{/* Below the anchor, aligned to the anchor's right edge */}
-<Popup bottomEnd open={open} onClose={() => setOpen(false)} anchorRef={ref}>
-  <Text>Bottom End</Text>
-</Popup>
+    {/* Below the anchor, aligned to the anchor's right edge */}
+    <Popup bottomEnd open={open} onClose={() => setOpen(false)} anchorRef={ref}>
+      <Text>Bottom End</Text>
+    </Popup>
+  </>
+);
 ```
 
 When the requested placement would overflow the viewport, Popup falls back through `flip-block → flip-inline → shift → clamp` and exposes the resolved placement via the `data-placement` attribute.
@@ -5814,38 +5943,46 @@ When the requested placement would overflow the viewport, Popup falls back throu
 
 `matchWidth` makes the popup track the anchor's width, useful for select-like dropdowns. It sets the popup width to the anchor's width, overriding the default `wFit`.
 
-```tsx
+```tsx demo
 const [open, setOpen] = useState(false);
 const anchorRef = useRef<HTMLButtonElement>(null);
 
-<Button ref={anchorRef} onClick={() => setOpen(!open)} wFull>Select option</Button>
-<Popup matchWidth open={open} onClose={() => setOpen(false)} anchorRef={anchorRef}>
-  <Text>Same width as the anchor</Text>
-</Popup>
+return (
+  <>
+    <Button ref={anchorRef} onClick={() => setOpen(!open)} wFull>Select option</Button>
+    <Popup matchWidth open={open} onClose={() => setOpen(false)} anchorRef={anchorRef}>
+      <Text>Same width as the anchor</Text>
+    </Popup>
+  </>
+);
 ```
 
 ## Rich content
 
 Children render directly inside the Popup surface. Use layout primitives (`Col`, `Row`, `Stack`) to compose multi-element content. Avoid nesting another `Card` inside; Popup already provides the bordered, padded, shadowed surface.
 
-```tsx
+```tsx demo
 const [open, setOpen] = useState(false);
 const anchorRef = useRef<HTMLButtonElement>(null);
 
-<Button ref={anchorRef} onClick={() => setOpen(!open)}>Account</Button>
-<Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef}>
-  <Text bold>User Menu</Text>
-  <Divider />
-  <Button>Profile</Button>
-  <Button danger>Sign Out</Button>
-</Popup>
+return (
+  <>
+    <Button ref={anchorRef} onClick={() => setOpen(!open)}>Account</Button>
+    <Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef}>
+      <Text bold>User Menu</Text>
+      <Divider />
+      <Button>Profile</Button>
+      <Button danger>Sign Out</Button>
+    </Popup>
+  </>
+);
 ```
 
 ## Tooltip pattern
 
 Pair `triggerOnHover` with `arrow` for a classic tooltip. The arrow auto-rotates to match the resolved placement.
 
-```tsx
+```tsx demo
 <PopupTrigger
   triggerOnHover
   openDelay={300}
@@ -5860,7 +5997,7 @@ Pair `triggerOnHover` with `arrow` for a classic tooltip. The arrow auto-rotates
 
 Popup is a low-level primitive. For action menus with keyboard navigation, focus management, and item semantics, prefer the dedicated [`Menu`](./menu) component. It wraps Popup and adds `MenuItem`/`MenuLabel` with full arrow-key navigation. Reach for raw `Popup` only when you need a non-menu surface (filter panels, custom autocompletes, info cards).
 
-```tsx
+```tsx demo
 <PopupTrigger popup={
   <>
     <Button transparent justifyStart>Edit</Button>
@@ -5877,42 +6014,50 @@ Popup is a low-level primitive. For action menus with keyboard navigation, focus
 
 Set `arrow` to render a pointer that visually links the popup to its anchor. The arrow is positioned automatically based on the resolved placement.
 
-```tsx
+```tsx demo
 const [open, setOpen] = useState(false);
 const anchorRef = useRef<HTMLButtonElement>(null);
 
-<Button ref={anchorRef} onClick={() => setOpen(!open)}>Toggle Arrow Popup</Button>
-<Popup arrow open={open} onClose={() => setOpen(false)} anchorRef={anchorRef}>
-  <Text sm>Arrow points at the anchor.</Text>
-</Popup>
+return (
+  <>
+    <Button ref={anchorRef} onClick={() => setOpen(!open)}>Toggle Arrow Popup</Button>
+    <Popup arrow open={open} onClose={() => setOpen(false)} anchorRef={anchorRef}>
+      <Text sm>Arrow points at the anchor.</Text>
+    </Popup>
+  </>
+);
 ```
 
 ## Click-outside behavior
 
 By default, clicking anywhere outside the popup or anchor closes it. Set `closeOnClickOutside={false}` to require an explicit dismiss (e.g., a close button inside the popup). `closeOnEscape={false}` similarly disables the keyboard dismiss.
 
-```tsx
+```tsx demo
 const [open, setOpen] = useState(false);
 const anchorRef = useRef<HTMLButtonElement>(null);
 
-<Button ref={anchorRef} onClick={() => setOpen(true)}>Open Sticky Popup</Button>
-<Popup
-  open={open}
-  onClose={() => setOpen(false)}
-  anchorRef={anchorRef}
-  closeOnClickOutside={false}
-  closeOnEscape={false}
->
-  <Text>Stays open until dismissed.</Text>
-  <Button sm onClick={() => setOpen(false)}>Close</Button>
-</Popup>
+return (
+  <>
+    <Button ref={anchorRef} onClick={() => setOpen(true)}>Open Sticky Popup</Button>
+    <Popup
+      open={open}
+      onClose={() => setOpen(false)}
+      anchorRef={anchorRef}
+      closeOnClickOutside={false}
+      closeOnEscape={false}
+    >
+      <Text>Stays open until dismissed.</Text>
+      <Button sm onClick={() => setOpen(false)}>Close</Button>
+    </Popup>
+  </>
+);
 ```
 
 ## Disabled trigger
 
 Set `disabled` on `Popup` (or `PopupTrigger`) to suppress opening regardless of `open` state. Useful for conditional UI where the trigger remains rendered but inactive.
 
-```tsx
+```tsx demo
 <PopupTrigger disabled popup={<Text>Hidden</Text>}>
   <Button disabled>Cannot open</Button>
 </PopupTrigger>
@@ -5950,21 +6095,25 @@ Set `disabled` on `Popup` (or `PopupTrigger`) to suppress opening regardless of 
 | `popupProps` |   | Props forwarded to the internal `Popup` |
 | `popupId` | auto | Override generated id for `aria-controls` |
 
-```tsx
+```tsx demo
 const [open, setOpen] = useState(false);
 const anchorRef = useRef<HTMLButtonElement>(null);
 
-<Button ref={anchorRef} onClick={() => setOpen(!open)}>Custom Config</Button>
-<Popup
-  open={open}
-  onClose={() => setOpen(false)}
-  anchorRef={anchorRef}
-  offset={8}
-  noAnimation
-  closeOnEscape={false}
->
-  <Text>Custom config</Text>
-</Popup>
+return (
+  <>
+    <Button ref={anchorRef} onClick={() => setOpen(!open)}>Custom Config</Button>
+    <Popup
+      open={open}
+      onClose={() => setOpen(false)}
+      anchorRef={anchorRef}
+      offset={8}
+      noAnimation
+      closeOnEscape={false}
+    >
+      <Text>Custom config</Text>
+    </Popup>
+  </>
+);
 ```
 
 ---
@@ -5976,9 +6125,7 @@ URL: https://vaneui.com/docs/overlay-components/menu
 
 A dropdown menu triggered by a button. Pass the trigger as a React element via the `trigger` prop; children are the menu contents. Includes full keyboard navigation (Arrow keys, Enter, Escape, Tab) and focus management with a keyboard-visible outline on each item. Focus returns to the trigger when the menu closes.
 
-```tsx
-import { Menu, MenuItem, Button } from "@vaneui/ui";
-
+```tsx demo
 <Menu trigger={<Button>Actions</Button>}>
   <MenuItem>Edit</MenuItem>
   <MenuItem>Duplicate</MenuItem>
@@ -5990,7 +6137,7 @@ import { Menu, MenuItem, Button } from "@vaneui/ui";
 
 Use `MenuLabel` for section headings and `Divider` for visual separators between groups. `Divider` automatically picks up the Menu's size via the menu-divider sub-theme.
 
-```tsx
+```tsx demo
 <Menu trigger={<Button>Account</Button>}>
   <MenuLabel>Account</MenuLabel>
   <MenuItem>Profile</MenuItem>
@@ -6008,9 +6155,7 @@ Use `MenuLabel` for section headings and `Divider` for visual separators between
 
 Place SVG icons directly inside `MenuItem`. They are automatically flex-aligned and pointer-events-disabled so clicks pass through to the item.
 
-```tsx
-import { Edit, Copy, Trash2 } from "react-feather";
-
+```tsx demo
 <Menu trigger={<Button>File</Button>}>
   <MenuItem><Edit size={14} /> Edit</MenuItem>
   <MenuItem><Copy size={14} /> Duplicate</MenuItem>
@@ -6023,7 +6168,7 @@ import { Edit, Copy, Trash2 } from "react-feather";
 
 Use the `danger` appearance prop on a `MenuItem` to flag a destructive action. Combine with a `Divider` to visually separate it from safe actions.
 
-```tsx
+```tsx demo
 <Menu trigger={<Button>Manage</Button>}>
   <MenuItem>Rename</MenuItem>
   <MenuItem>Archive</MenuItem>
@@ -6036,7 +6181,7 @@ Use the `danger` appearance prop on a `MenuItem` to flag a destructive action. C
 
 Any appearance prop works on `MenuItem` for semantic coloring of individual actions.
 
-```tsx
+```tsx demo
 <Menu trigger={<Button>Review</Button>}>
   <MenuItem success>Approve</MenuItem>
   <MenuItem warning>Request changes</MenuItem>
@@ -6048,7 +6193,7 @@ Any appearance prop works on `MenuItem` for semantic coloring of individual acti
 
 Set `disabled` on a `MenuItem` to prevent interaction. Disabled items are skipped during keyboard navigation and announced via `aria-disabled`.
 
-```tsx
+```tsx demo
 <Menu trigger={<Button>Edit</Button>}>
   <MenuItem>Undo</MenuItem>
   <MenuItem disabled>Redo</MenuItem>
@@ -6063,7 +6208,7 @@ Set `disabled` on a `MenuItem` to prevent interaction. Disabled items are skippe
 
 Pass `href` to render a `MenuItem` as an anchor tag. For client-side navigation in a Next.js app, also pass `tag={Link}`.
 
-```tsx
+```tsx demo
 <Menu trigger={<Button>Navigate</Button>}>
   <MenuItem href="/settings">Settings</MenuItem>
   <MenuItem href="/profile">Profile</MenuItem>
@@ -6076,7 +6221,7 @@ Pass `href` to render a `MenuItem` as an anchor tag. For client-side navigation 
 
 Set a size on `Menu` (e.g. `<Menu lg>`) and the dropdown popup, every `MenuItem`, `MenuLabel`, and nested `Divider` scale together automatically. No need to repeat the size on every child. Items render with larger font-size and padding, the popup frame lifts its inner padding, and dividers match. Individual children can still override with their own size prop.
 
-```tsx
+```tsx demo
 <Menu lg trigger={<Button lg>Actions</Button>}>
   <MenuLabel>Actions</MenuLabel>
   <MenuItem>Edit</MenuItem>
@@ -6089,18 +6234,20 @@ Set a size on `Menu` (e.g. `<Menu lg>`) and the dropdown popup, every `MenuItem`
 
 Pass `open` and `onOpenChange` to drive the menu from outside state. Useful when you need to open the menu programmatically or react to its state.
 
-```tsx
+```tsx demo
 const [open, setOpen] = useState(false);
 
-<Menu
-  open={open}
-  onOpenChange={setOpen}
-  trigger={<Button>Menu ({open ? "open" : "closed"})</Button>}
->
-  <MenuItem onClick={() => console.log("Edit")}>Edit</MenuItem>
-  <MenuItem closeMenuOnClick={false}>Stay open on click</MenuItem>
-  <MenuItem>Close on click (default)</MenuItem>
-</Menu>
+return (
+  <Menu
+    open={open}
+    onOpenChange={setOpen}
+    trigger={<Button>Menu ({open ? "open" : "closed"})</Button>}
+  >
+    <MenuItem onClick={() => console.log("Edit")}>Edit</MenuItem>
+    <MenuItem closeMenuOnClick={false}>Stay open on click</MenuItem>
+    <MenuItem>Close on click (default)</MenuItem>
+  </Menu>
+);
 ```
 
 ## Advanced props
@@ -6276,9 +6423,7 @@ import { NavLink } from '@vaneui/ui';
 
 Set app-wide NavLink defaults with `ThemeProvider`'s `themeDefaults`. Style the active state by targeting the emitted `data-active` attribute in your own CSS: `extraClasses` keys apply only to category props, so an `active` key there has no effect.
 
-```tsx
-import { ThemeProvider, NavLink } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider themeDefaults={{ navLink: { root: { md: true } } }}>
   <NavLink href="/docs" active>Docs</NavLink>
 </ThemeProvider>
@@ -7121,9 +7266,7 @@ import { Link } from '@vaneui/ui';
 
 Set app-wide Link defaults with `ThemeProvider`'s `themeDefaults`:
 
-```tsx
-import { ThemeProvider, Link } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider themeDefaults={{
   link: { brand: true, noUnderline: true },
 }}>
@@ -7903,7 +8046,7 @@ Set default boolean props per component type:
 
 Add additional CSS classes based on active props:
 
-```tsx
+```tsx demo
 <ThemeProvider extraClasses={{
   button: {
     main: {
@@ -7945,7 +8088,7 @@ Function for programmatic theme modifications:
 
 Control how nested ThemeProviders combine (`'merge'` or `'replace'`):
 
-```tsx
+```tsx demo
 <ThemeProvider themeDefaults={{ button: { main: { lg: true } } }}>
   {/* mergeStrategy='merge' (default): child merges with parent */}
   <ThemeProvider themeDefaults={{ button: { main: { filled: true } } }}>
@@ -8144,7 +8287,7 @@ Add CSS classes that apply to all instances of a component:
 
 Change the default boolean props for components:
 
-```tsx
+```tsx demo
 <ThemeProvider themeOverride={(theme) => {
   theme.button.main.defaults = {
     ...theme.button.main.defaults,
@@ -8660,7 +8803,7 @@ function App() {
 
 Add classes based on size props:
 
-```tsx
+```tsx demo
 <ThemeProvider extraClasses={{
   button: {
     main: {
@@ -8679,7 +8822,7 @@ Add classes based on size props:
 
 Create engaging interactions with animation classes:
 
-```tsx
+```tsx demo
 <ThemeProvider extraClasses={{
   button: {
     main: {
@@ -8702,7 +8845,7 @@ Create engaging interactions with animation classes:
 
 Draw attention to important elements:
 
-```tsx
+```tsx demo
 <ThemeProvider extraClasses={{
   button: {
     main: {
@@ -8723,7 +8866,7 @@ Draw attention to important elements:
 
 When multiple props are active, all their associated classes are combined:
 
-```tsx
+```tsx demo
 <ThemeProvider extraClasses={{
   button: {
     main: {
@@ -9264,7 +9407,7 @@ These components default to `inherit`. They never emit data attributes and alway
 
 When you explicitly set an appearance or variant on a component, VaneUI emits data attributes and the component's own CSS rule fires, overriding any inherited values:
 
-```tsx
+```tsx demo
 <Card filled primary>
   {/* Inherits from Card — white text on dark background */}
   <Text>I'm white</Text>
@@ -9281,7 +9424,7 @@ When you explicitly set an appearance or variant on a component, VaneUI emits da
 
 When multiple layout components are nested, each child inherits from its **nearest ancestor** that sets variables, not from the outermost ancestor:
 
-```tsx
+```tsx demo
 <Card filled primary>
   {/* Card sets: --text-color = white, --bg-color = dark */}
 
@@ -9353,7 +9496,7 @@ When a component has `inherit` appearance (the default for Text, Title, Label, L
 
 Size inheritance is separate. Only Link and Mark have `inheritSize: true` in their defaults (Code and Kbd achieve the same effect via em-relative geometry, described below). You can also set it explicitly:
 
-```tsx
+```tsx demo
 <Card filled primary>
   {/* Inherits color (white) but uses own md size */}
   <Text inherit>Inherited color, own size</Text>
@@ -9367,7 +9510,7 @@ Size inheritance is separate. Only Link and Mark have `inheritSize: true` in the
 
 Link and Mark have their own appearance (Link = `link`, Mark = `warning`) so the `inherit` expansion does NOT fire. Instead, they have `inheritSize: true` set explicitly in their defaults. They render at the *exact* font-size of the nearest typography ancestor.
 
-```tsx
+```tsx demo
 <Title lg>
   Check the <Link href="/docs">documentation</Link> for details
 </Title>
@@ -9380,7 +9523,7 @@ Link and Mark have their own appearance (Link = `link`, Mark = `warning`) so the
 
 Code and Kbd use a different mechanism: their `.vane-code` / `.vane-kbd` rules override `--spacing` to `0.25em` locally, so the entire geometry pipeline (font-size, padding, border-radius, gap) resolves in em, proportional to the parent's font-size.
 
-```tsx
+```tsx demo
 <Title lg>
   Run <Code>npm install</Code> to add the package
 </Title>
@@ -9395,7 +9538,7 @@ So inline Code feels right-sized in every context: body text at 14px / 16px, hea
 
 Use `noInheritSize` to keep Link or Mark at its own size instead of the parent's:
 
-```tsx
+```tsx demo
 <Title lg>
   Heading with <Link noInheritSize href="/docs">fixed-size link</Link>
 </Title>

@@ -23,7 +23,7 @@ Add CSS classes that apply to all instances of a component:
 
 Change the default boolean props for components:
 
-```tsx
+```tsx demo
 <ThemeProvider themeOverride={(theme) => {
   theme.button.main.defaults = {
     ...theme.button.main.defaults,

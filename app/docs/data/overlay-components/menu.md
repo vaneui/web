@@ -9,9 +9,7 @@ since: 0.9.0
 
 A dropdown menu triggered by a button. Pass the trigger as a React element via the `trigger` prop; children are the menu contents. Includes full keyboard navigation (Arrow keys, Enter, Escape, Tab) and focus management with a keyboard-visible outline on each item. Focus returns to the trigger when the menu closes.
 
-```tsx
-import { Menu, MenuItem, Button } from "@vaneui/ui";
-
+```tsx demo
 <Menu trigger={<Button>Actions</Button>}>
   <MenuItem>Edit</MenuItem>
   <MenuItem>Duplicate</MenuItem>
@@ -23,7 +21,7 @@ import { Menu, MenuItem, Button } from "@vaneui/ui";
 
 Use `MenuLabel` for section headings and `Divider` for visual separators between groups. `Divider` automatically picks up the Menu's size via the menu-divider sub-theme.
 
-```tsx
+```tsx demo
 <Menu trigger={<Button>Account</Button>}>
   <MenuLabel>Account</MenuLabel>
   <MenuItem>Profile</MenuItem>
@@ -41,9 +39,7 @@ Use `MenuLabel` for section headings and `Divider` for visual separators between
 
 Place SVG icons directly inside `MenuItem`. They are automatically flex-aligned and pointer-events-disabled so clicks pass through to the item.
 
-```tsx
-import { Edit, Copy, Trash2 } from "react-feather";
-
+```tsx demo
 <Menu trigger={<Button>File</Button>}>
   <MenuItem><Edit size={14} /> Edit</MenuItem>
   <MenuItem><Copy size={14} /> Duplicate</MenuItem>
@@ -56,7 +52,7 @@ import { Edit, Copy, Trash2 } from "react-feather";
 
 Use the `danger` appearance prop on a `MenuItem` to flag a destructive action. Combine with a `Divider` to visually separate it from safe actions.
 
-```tsx
+```tsx demo
 <Menu trigger={<Button>Manage</Button>}>
   <MenuItem>Rename</MenuItem>
   <MenuItem>Archive</MenuItem>
@@ -69,7 +65,7 @@ Use the `danger` appearance prop on a `MenuItem` to flag a destructive action. C
 
 Any appearance prop works on `MenuItem` for semantic coloring of individual actions.
 
-```tsx
+```tsx demo
 <Menu trigger={<Button>Review</Button>}>
   <MenuItem success>Approve</MenuItem>
   <MenuItem warning>Request changes</MenuItem>
@@ -81,7 +77,7 @@ Any appearance prop works on `MenuItem` for semantic coloring of individual acti
 
 Set `disabled` on a `MenuItem` to prevent interaction. Disabled items are skipped during keyboard navigation and announced via `aria-disabled`.
 
-```tsx
+```tsx demo
 <Menu trigger={<Button>Edit</Button>}>
   <MenuItem>Undo</MenuItem>
   <MenuItem disabled>Redo</MenuItem>
@@ -96,7 +92,7 @@ Set `disabled` on a `MenuItem` to prevent interaction. Disabled items are skippe
 
 Pass `href` to render a `MenuItem` as an anchor tag. For client-side navigation in a Next.js app, also pass `tag={Link}`.
 
-```tsx
+```tsx demo
 <Menu trigger={<Button>Navigate</Button>}>
   <MenuItem href="/settings">Settings</MenuItem>
   <MenuItem href="/profile">Profile</MenuItem>
@@ -109,7 +105,7 @@ Pass `href` to render a `MenuItem` as an anchor tag. For client-side navigation 
 
 Set a size on `Menu` (e.g. `<Menu lg>`) and the dropdown popup, every `MenuItem`, `MenuLabel`, and nested `Divider` scale together automatically. No need to repeat the size on every child. Items render with larger font-size and padding, the popup frame lifts its inner padding, and dividers match. Individual children can still override with their own size prop.
 
-```tsx
+```tsx demo
 <Menu lg trigger={<Button lg>Actions</Button>}>
   <MenuLabel>Actions</MenuLabel>
   <MenuItem>Edit</MenuItem>
@@ -122,18 +118,20 @@ Set a size on `Menu` (e.g. `<Menu lg>`) and the dropdown popup, every `MenuItem`
 
 Pass `open` and `onOpenChange` to drive the menu from outside state. Useful when you need to open the menu programmatically or react to its state.
 
-```tsx
+```tsx demo
 const [open, setOpen] = useState(false);
 
-<Menu
-  open={open}
-  onOpenChange={setOpen}
-  trigger={<Button>Menu ({open ? "open" : "closed"})</Button>}
->
-  <MenuItem onClick={() => console.log("Edit")}>Edit</MenuItem>
-  <MenuItem closeMenuOnClick={false}>Stay open on click</MenuItem>
-  <MenuItem>Close on click (default)</MenuItem>
-</Menu>
+return (
+  <Menu
+    open={open}
+    onOpenChange={setOpen}
+    trigger={<Button>Menu ({open ? "open" : "closed"})</Button>}
+  >
+    <MenuItem onClick={() => console.log("Edit")}>Edit</MenuItem>
+    <MenuItem closeMenuOnClick={false}>Stay open on click</MenuItem>
+    <MenuItem>Close on click (default)</MenuItem>
+  </Menu>
+);
 ```
 
 ## Advanced props

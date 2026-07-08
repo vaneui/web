@@ -192,9 +192,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 
 Set app-wide Grid4 defaults with `ThemeProvider`'s `themeDefaults`:
 
-```tsx
-import { ThemeProvider, Grid4 } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider themeDefaults={{
   grid4: { lg: true },
 }}>

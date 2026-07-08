@@ -124,21 +124,21 @@ import { Settings } from 'react-feather';
 
 Set `loading` to show a spinner and auto-disable the button.
 
-```tsx
+```tsx demo
 const [loading, setLoading] = useState(false);
 
-<IconButton loading={loading} onClick={() => setLoading(true)}>
-  <Star />
-</IconButton>
+return (
+  <IconButton loading={loading} onClick={() => setLoading(true)}>
+    <Star />
+  </IconButton>
+);
 ```
 
 ## Customizing
 
 Set app-wide IconButton defaults with `ThemeProvider`'s `themeDefaults`:
 
-```tsx
-import { ThemeProvider, IconButton } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider themeDefaults={{
   iconButton: { secondary: true, pill: true, lg: true },
 }}>

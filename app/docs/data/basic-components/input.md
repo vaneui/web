@@ -115,9 +115,7 @@ Different input states: disabled, readonly, and validation feedback. Use appeara
 
 Set app-wide Input defaults with `ThemeProvider`'s `themeDefaults` and add a focus-ring colour with `extraClasses`:
 
-```tsx
-import { ThemeProvider, Input } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider
   themeDefaults={{ input: { lg: true, filled: true } }}
   extraClasses={{ input: { primary: 'focus:ring-2 focus:ring-brand-500/40' } }}

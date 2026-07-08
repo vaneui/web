@@ -144,9 +144,7 @@ import { NavLink } from '@vaneui/ui';
 
 Set app-wide NavLink defaults with `ThemeProvider`'s `themeDefaults`. Style the active state by targeting the emitted `data-active` attribute in your own CSS: `extraClasses` keys apply only to category props, so an `active` key there has no effect.
 
-```tsx
-import { ThemeProvider, NavLink } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider themeDefaults={{ navLink: { root: { md: true } } }}>
   <NavLink href="/docs" active>Docs</NavLink>
 </ThemeProvider>

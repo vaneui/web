@@ -161,17 +161,19 @@ Uncontrolled: initial value only, the input manages its own state.
 
 Controlled: parent owns the value via `useState`.
 
-```tsx
+```tsx demo
 const [checked, setChecked] = useState(false);
 
-<Label row itemsCenter htmlFor="controlled">
-  <Checkbox
-    id="controlled"
-    checked={checked}
-    onChange={(e) => setChecked(e.target.checked)}
-  />
-  Controlled ({checked ? 'on' : 'off'})
-</Label>
+return (
+  <Label row itemsCenter htmlFor="controlled">
+    <Checkbox
+      id="controlled"
+      checked={checked}
+      onChange={(e) => setChecked(e.target.checked)}
+    />
+    Controlled ({checked ? 'on' : 'off'})
+  </Label>
+);
 ```
 
 ## Indeterminate state
@@ -242,9 +244,7 @@ Multiple labeled checkboxes working together.
 
 Set app-wide Checkbox defaults with `ThemeProvider`'s `themeDefaults` and tune the checked-state visuals with `extraClasses`:
 
-```tsx
-import { ThemeProvider, Checkbox, Label } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider
   themeDefaults={{ checkbox: { input: { lg: true } } }}
   extraClasses={{ checkbox: { input: { primary: 'checked:bg-brand-600 checked:border-brand-600' } } }}

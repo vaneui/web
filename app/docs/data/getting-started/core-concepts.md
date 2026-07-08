@@ -110,7 +110,7 @@ Set by `data-variant` + `data-appearance` attributes:
 ## Mixing custom classes
 
 You can always add your own Tailwind classes via `className` to fine-tune any edge case:
-```tsx
+```tsx demo
 <Button primary lg filled className="hover:opacity-80 shadow-xl">
   Get started
 </Button>
@@ -132,7 +132,7 @@ Override colors globally or for any subtree:
 
 ### ThemeProvider defaults
 Set default prop values for all components, including overlay components (Overlay, Modal, Popup):
-```tsx
+```tsx demo
 <ThemeProvider themeDefaults={{
   button: { main: { pill: true, lg: true } }, // button is compound; defaults nest under `main`
   card: { main: { primary: true } }            // card is compound too
@@ -143,7 +143,7 @@ Set default prop values for all components, including overlay components (Overla
 
 ### Extra classes
 Add additional CSS classes based on active props:
-```tsx
+```tsx demo
 <ThemeProvider extraClasses={{
   button: { main: { primary: 'shadow-lg hover:shadow-xl' } }
 }}>

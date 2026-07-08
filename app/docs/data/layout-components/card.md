@@ -227,9 +227,7 @@ import { Card, Title, Text } from '@vaneui/ui';
 
 Set app-wide Card defaults with `ThemeProvider`'s `themeDefaults`:
 
-```tsx
-import { ThemeProvider, Card } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider themeDefaults={{
   card: { main: { shadow: true } },
 }}>

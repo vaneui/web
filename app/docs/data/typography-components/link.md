@@ -166,9 +166,7 @@ import { Link } from '@vaneui/ui';
 
 Set app-wide Link defaults with `ThemeProvider`'s `themeDefaults`:
 
-```tsx
-import { ThemeProvider, Link } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider themeDefaults={{
   link: { brand: true, noUnderline: true },
 }}>

@@ -74,7 +74,7 @@ Set default boolean props per component type:
 
 Add additional CSS classes based on active props:
 
-```tsx
+```tsx demo
 <ThemeProvider extraClasses={{
   button: {
     main: {
@@ -116,7 +116,7 @@ Function for programmatic theme modifications:
 
 Control how nested ThemeProviders combine (`'merge'` or `'replace'`):
 
-```tsx
+```tsx demo
 <ThemeProvider themeDefaults={{ button: { main: { lg: true } } }}>
   {/* mergeStrategy='merge' (default): child merges with parent */}
   <ThemeProvider themeDefaults={{ button: { main: { filled: true } } }}>

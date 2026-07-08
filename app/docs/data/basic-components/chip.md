@@ -156,9 +156,7 @@ Pass `href` to render the chip as an `<a>`, useful for clickable tag listings. W
 
 Set app-wide Chip defaults with `ThemeProvider`'s `themeDefaults`:
 
-```tsx
-import { ThemeProvider, Chip } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider themeDefaults={{
   chip: { brand: true, filled: true, pill: true },
 }}>
@@ -168,9 +166,7 @@ import { ThemeProvider, Chip } from '@vaneui/ui';
 
 Add prop-conditional classes with `extraClasses`, applied whenever the matching boolean prop is active:
 
-```tsx
-import { ThemeProvider, Chip } from '@vaneui/ui';
-
+```tsx demo
 <ThemeProvider extraClasses={{
   chip: {
     danger: 'animate-pulse',
