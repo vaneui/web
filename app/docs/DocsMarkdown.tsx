@@ -73,14 +73,6 @@ function CustomMdHeading({level, children}: MdHeadingProps) {
   );
 }
 
-function CustomMdBlockquote({children}: { children: React.ReactNode }) {
-  return (
-    <Card noGap shadow>
-      {children}
-    </Card>
-  )
-}
-
 /**
  * Pairing is done by content match: the Nth `tsx`/`jsx` fence Markdoc emits
  * with body B is the entry in `fences[]` whose `body === B` AND whose ordinal
@@ -199,14 +191,10 @@ export function DocsMarkdown({md, slug}: DocsMarkdownProps) {
     <FenceLookupContext.Provider value={lookup}>
       <Md
         content={md}
-        rendererTheme={{
-          mdCode: { secondary: true, noRing: true },
-        }}
         config={{
           components: {
             MdFence: FenceWithLivePreview,
             MdHeading: CustomMdHeading,
-            MdBlockquote: CustomMdBlockquote,
           }
         }}
       />
