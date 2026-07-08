@@ -1,6 +1,20 @@
+import type { Metadata } from 'next';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { Card, Col, Container, Grid2, Section, Code, Text, SectionTitle } from '@vaneui/ui';
+
+// Homepage owns its own canonical now that the root layout no longer sets one.
+// Title/description/OG are inherited from the root layout (correct for '/'); we
+// only add the self-canonical and keep the llms.txt discovery hint attached to
+// the root page where the file actually lives.
+export const metadata: Metadata = {
+  alternates: {
+    canonical: '/',
+    types: {
+      'text/plain': '/llms.txt',
+    },
+  },
+};
 import {
   HeroSection,
   AboutSection,

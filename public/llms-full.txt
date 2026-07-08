@@ -21,7 +21,7 @@ Title: Installation
 URL: https://vaneui.com/docs/getting-started/installation
 ---
 
-VaneUI is a React component library built with TypeScript and Tailwind CSS. Install using your preferred package manager:
+Install VaneUI, a React component library built with TypeScript and Tailwind CSS, using your preferred package manager:
 
 ```bash
 npm install @vaneui/ui
@@ -115,7 +115,7 @@ Title: Core Concepts
 URL: https://vaneui.com/docs/getting-started/core-concepts
 ---
 
-VaneUI turns common design decisions into expressive, readable boolean props. Instead of memorizing property names and values, you compose intent: `primary`, `lg`, `outline`, `rounded`. The result is cleaner code, fewer decisions per component, and a smoother path from wireframe to production.
+VaneUI turns common design decisions into boolean props. Instead of memorizing property names and values, you compose intent: `primary`, `lg`, `outline`, `rounded`. This page covers the boolean props API, the three-layer component architecture, prop extraction priority, and the three-tier CSS variable system.
 
 ## Boolean props API
 
@@ -140,7 +140,7 @@ Props are organized into **categories**:
 
 Typography components (Text, Title, SectionTitle, PageTitle, Blockquote), Label, List, and Divider default to `inherit`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Link and Mark default to `inheritSize`, so they inherit font-size from their parent while keeping their own appearance color; Code and Kbd achieve the same effect through em-relative geometry.
 
-## How components work
+## Three-layer component architecture
 
 VaneUI components follow a three-layer architecture:
 
@@ -285,7 +285,7 @@ Title: Usage Basics
 URL: https://vaneui.com/docs/getting-started/usage-basics
 ---
 
-Learn the fundamental patterns for using VaneUI components.
+VaneUI components share a boolean props API for size, appearance, variant, and layout. This page covers the core usage patterns: size and appearance props, layout components, responsive breakpoints, typography, icons, images, overlays, and when to prefer props over Tailwind classes.
 
 ## Component props
 
@@ -780,7 +780,7 @@ URL: https://vaneui.com/docs/basic-components/button
 
 ## Basic usage
 
-Each `appearance` prop maps to a semantic color from the active theme.
+Button triggers an action when the user clicks it; each `appearance` prop maps to a semantic color from the active theme.
 
 ```tsx demo
 <Row flexWrap>
@@ -1100,7 +1100,7 @@ URL: https://vaneui.com/docs/basic-components/input
 
 ## Basic usage
 
-A styled text input field.
+Input renders a styled text field for entering text, numbers, and other data.
 
 ```tsx demo
 <Input placeholder="Enter text..." />
@@ -1627,7 +1627,7 @@ URL: https://vaneui.com/docs/basic-components/badge
 
 ## Basic usage
 
-Badge styles and variants.
+Badge highlights a short piece of information such as a count or status, and each `appearance` prop maps to a semantic color from the active theme.
 
 ```tsx demo
 <Row flexWrap>
@@ -1744,7 +1744,7 @@ URL: https://vaneui.com/docs/basic-components/chip
 
 ## Basic usage
 
-Each `appearance` prop maps to a semantic color from the active theme.
+Chip is a compact token for tags or attributes, and each `appearance` prop maps to a semantic color from the active theme.
 
 ```tsx demo
 <Row flexWrap>
@@ -1932,7 +1932,7 @@ Inline code snippets with default styling. `Code` aligns to the surrounding text
 
 ## Sizes
 
-Code elements in different sizes - `xs`, `sm`, `md`, `lg`, `xl`.
+Code elements in different sizes: `xs`, `sm`, `md`, `lg`, `xl`.
 
 ```tsx demo
 <Col>
@@ -2527,19 +2527,19 @@ Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control the max-width: `max-w-3xl` 
 ```tsx demo
 <Col>
   <Container xs border>
-    <Text semibold>xs — max-w-3xl</Text>
+    <Text semibold>xs: max-w-3xl</Text>
   </Container>
   <Container sm border>
-    <Text semibold>sm — max-w-4xl</Text>
+    <Text semibold>sm: max-w-4xl</Text>
   </Container>
   <Container border>
-    <Text semibold>md (default) — max-w-5xl</Text>
+    <Text semibold>md (default): max-w-5xl</Text>
   </Container>
   <Container lg border>
-    <Text semibold>lg — max-w-6xl</Text>
+    <Text semibold>lg: max-w-6xl</Text>
   </Container>
   <Container xl border>
-    <Text semibold>xl — max-w-7xl</Text>
+    <Text semibold>xl: max-w-7xl</Text>
   </Container>
 </Col>
 ```
@@ -3596,7 +3596,7 @@ Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`
 
 ```tsx demo
 <Col>
-  <Text semibold>flexWrap (default) — items wrap when they overflow</Text>
+  <Text semibold>flexWrap (default): items wrap when they overflow</Text>
   <Stack row className="max-w-md border-2 border-dashed border-gray-300">
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
@@ -3604,7 +3604,7 @@ Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`
     <div className="p-3 bg-gray-100 rounded">Item 4</div>
     <div className="p-3 bg-gray-100 rounded">Item 5</div>
   </Stack>
-  <Text semibold>flexNoWrap — items shrink to fit</Text>
+  <Text semibold>flexNoWrap: items shrink to fit</Text>
   <Stack row flexNoWrap className="max-w-md border-2 border-dashed border-gray-300">
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
@@ -6443,7 +6443,7 @@ URL: https://vaneui.com/docs/typography-components/text
 
 ## Basic usage
 
-Default paragraph text styling.
+Text renders paragraph text with default styling.
 
 ```tsx demo
 <Text>Compose interfaces with VaneUI components. Text provides consistent typography across your application.</Text>
@@ -6625,7 +6625,7 @@ URL: https://vaneui.com/docs/typography-components/page-title
 
 ## Basic usage
 
-A large heading component (renders as `<h1>`) for page titles. Defaults to `semibold` weight, `heading` font family, `trackingTight` letter spacing, and `inherit` appearance for a compact, impactful look.
+PageTitle renders a large `<h1>` heading for page titles. It defaults to `semibold` weight, `heading` font family, `trackingTight` letter spacing, and `inherit` appearance.
 
 ```tsx demo
 <PageTitle>Welcome to VaneUI</PageTitle>
@@ -6779,7 +6779,7 @@ URL: https://vaneui.com/docs/typography-components/section-title
 
 ## Basic usage
 
-A heading component (renders as `<h2>`) for major section headings. Defaults to `semibold` weight, `heading` font family, `inherit` appearance, and left-aligned text.
+SectionTitle renders an `<h2>` heading for major section headings. It defaults to `semibold` weight, `heading` font family, `inherit` appearance, and left-aligned text.
 
 ```tsx demo
 <SectionTitle>Getting Started</SectionTitle>
@@ -6948,7 +6948,7 @@ URL: https://vaneui.com/docs/typography-components/title
 
 ## Basic usage
 
-A heading component (renders as `<h3>`) for subsection headings. Defaults to `semibold` weight, `heading` font family, and left-aligned text.
+Title renders an `<h3>` heading for subsection headings. It defaults to `semibold` weight, `heading` font family, and left-aligned text.
 
 ```tsx demo
 <Title>Subsection Heading</Title>
@@ -7102,7 +7102,7 @@ URL: https://vaneui.com/docs/typography-components/link
 
 ## Basic usage
 
-A styled anchor element for navigation. Unlike other typography components which default to `inherit`, Link defaults to the `link` appearance (blue color) with `underline`, and ships with `focusVisible` on for a keyboard focus outline.
+Link renders a styled anchor element for navigation. Unlike other typography components which default to `inherit`, Link defaults to the `link` appearance (blue color) with `underline`, and ships with `focusVisible` on for a keyboard focus outline.
 
 ```tsx demo
 <Link href="#">Click here to learn more</Link>
@@ -7276,7 +7276,7 @@ URL: https://vaneui.com/docs/typography-components/list
 
 ## Basic usage
 
-An unordered list with bullet points.
+List renders an unordered list with bullet points by default.
 
 ```tsx demo
 <List>
@@ -7412,7 +7412,7 @@ Use `outside` (the default) to hang markers outside the content box so multi-lin
 </Col>
 ```
 
-## Nested Lists: automatic marker progression
+## Nested lists: automatic marker progression
 
 Nested unordered lists automatically progress `disc` → `circle` → `square`. Nested ordered lists progress `decimal` → `lowerAlpha` → `lowerRoman`. Override a specific nested list with inline `style={{ listStyleType: "..." }}`. The parent descendant selector wins over a child utility class on specificity, so inline style is the escape hatch.
 
@@ -7589,7 +7589,7 @@ URL: https://vaneui.com/docs/typography-components/blockquote
 
 ## Basic usage
 
-A blockquote with attribution. The element renders as `<blockquote>` and inherits color from its surroundings.
+Blockquote displays quoted content, shown here with an attribution line. The element renders as `<blockquote>` and inherits color from its surroundings.
 
 ```tsx demo
 <Blockquote>
@@ -7948,7 +7948,7 @@ CSS rules in `rules.css` set unit variables per `data-size` and per-component cl
 
 `primary + outline` matches the `:root` palette, so VaneUI **omits** `data-appearance` and `data-variant` for components resolving to those values. The component then inherits color variables from its nearest ancestor. This is what lets a default `<Button>` inside a filled `<Card>` automatically pick up the Card's text and background colors. Identity components (`Mark`, `Chip`, `Link`, `Checkbox`) deviate from baseline and always emit their own attributes. See [Variant Inheritance](./variant-inheritance) for details.
 
-## Flow summary
+## Style resolution flow
 
 1. User writes: `<Button danger lg filled>Click</Button>`
 2. Button component calls `useTheme()` to get `theme.button.main`
@@ -8267,7 +8267,7 @@ Add CSS classes that apply to all instances of a component:
 
 ```tsx demo
 <ThemeProvider themeOverride={(theme) => {
-  // Compound themes are nested by sub-part — Button is `button.main`,
+  // Compound themes are nested by sub-part: Button is `button.main`,
   // Card is `card.main`. Single-target themes (Badge, Chip, etc.) sit at the top level.
   theme.button.main.base += ' uppercase tracking-wide';
   theme.card.main.base += ' shadow-sm';
@@ -8948,12 +8948,12 @@ const extraClasses = {
 Be careful not to add classes that conflict with VaneUI's size-driven system (padding, gap, font-size, border-radius scale via the size prop):
 
 ```tsx
-// Avoid — fights the size system; padding is set by --py-unit per size
+// Avoid: fights the size system; padding is set by --py-unit per size
 extraClasses: {
   button: { main: { primary: 'p-8' } }
 }
 
-// Better — adds effects that complement base styles
+// Better: adds effects that complement base styles
 extraClasses: {
   button: { main: { primary: 'hover:brightness-110' } }
 }
@@ -9236,7 +9236,7 @@ For most use cases, `className` (level 5) is the right tool. Use `themeDefaults`
 Instead of overriding the consumer class with a Tailwind utility, you can override the underlying CSS variable. This keeps VaneUI's consumer class active but changes what value it reads:
 
 ```tsx
-// Override the variable — the component's own border-(--border-color) still fires,
+// Override the variable: the component's own border-(--border-color) still fires,
 // but reads your custom value instead of the theme's
 <Card style={{ '--border-color': 'var(--color-red-300)' } as React.CSSProperties}>
   Theme-aware border override
@@ -9303,10 +9303,10 @@ Good uses of `className`:
 Gap is controlled by VaneUI's size system. Use size props instead:
 
 ```tsx
-// Wrong — fights the size system
+// Wrong: fights the size system
 <Row className="gap-10">Content</Row>
 
-// Right — gap scales with size
+// Right: gap scales with size
 <Row lg>Content</Row>
 <Row xs>Tight content</Row>
 ```
@@ -9319,17 +9319,17 @@ Padding is also size-driven and scales proportionally:
 // Wrong
 <Card className="p-8">Content</Card>
 
-// Right — padding scales with size
+// Right: padding scales with size
 <Card lg>Content</Card>
 ```
 
 ### Don't use appearance-colored Tailwind classes when an appearance prop exists
 
 ```tsx
-// Wrong — bypasses the theme system
+// Wrong: bypasses the theme system
 <Button className="bg-red-500 text-white border-red-600">Delete</Button>
 
-// Right — uses the theme system
+// Right: uses the theme system
 <Button danger filled>Delete</Button>
 ```
 
@@ -9338,10 +9338,10 @@ Padding is also size-driven and scales proportionally:
 Typography components have built-in letter spacing, line height, and font size that scale with the size prop. Overriding these with Tailwind classes breaks the proportional scaling:
 
 ```tsx
-// Wrong — breaks size scaling
+// Wrong: breaks size scaling
 <Text className="text-2xl tracking-wide leading-10">Content</Text>
 
-// Right — use size props
+// Right: use size props
 <Text xl>Content</Text>
 ```
 
@@ -9404,13 +9404,13 @@ When you explicitly set an appearance or variant on a component, VaneUI emits da
 
 ```tsx demo
 <Card filled primary>
-  {/* Inherits from Card — white text on dark background */}
+  {/* Inherits from Card: white text on dark background */}
   <Text>I'm white</Text>
 
-  {/* Explicit props — own CSS rule fires, dark text */}
+  {/* Explicit props: own CSS rule fires, dark text */}
   <Text primary outline>I'm dark, even inside a filled Card</Text>
 
-  {/* Explicit different appearance — own CSS rule fires */}
+  {/* Explicit different appearance: own CSS rule fires */}
   <Text success>I'm green</Text>
 </Card>
 ```
@@ -9486,7 +9486,7 @@ When a component has `inherit` appearance (the default for Text, Title, Label, L
 <Text inherit>
   ↓ expands to:
   inheritColor + inheritBg + inheritBorder
-  (NOT inheritSize — size uses own --fs variable so <Text sm> works as expected)
+  (NOT inheritSize: size uses own --fs variable so <Text sm> works as expected)
 ```
 
 Size inheritance is separate. Only Link and Mark have `inheritSize: true` in their defaults (Code and Kbd achieve the same effect via em-relative geometry, described below). You can also set it explicitly:
@@ -9496,7 +9496,7 @@ Size inheritance is separate. Only Link and Mark have `inheritSize: true` in the
   {/* Inherits color (white) but uses own md size */}
   <Text inherit>Inherited color, own size</Text>
 
-  {/* Explicit inheritSize — also inherits font-size from parent */}
+  {/* Explicit inheritSize: also inherits font-size from parent */}
   <Text inherit inheritSize>Inherited color AND size</Text>
 </Card>
 ```

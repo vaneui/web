@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-A large heading component (renders as `<h1>`) for page titles. Defaults to `semibold` weight, `heading` font family, `trackingTight` letter spacing, and `inherit` appearance for a compact, impactful look.
+PageTitle renders a large `<h1>` heading for page titles. It defaults to `semibold` weight, `heading` font family, `trackingTight` letter spacing, and `inherit` appearance.
 
 ```tsx demo
 <PageTitle>Welcome to VaneUI</PageTitle>

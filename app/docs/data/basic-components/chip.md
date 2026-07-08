@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-Each `appearance` prop maps to a semantic color from the active theme.
+Chip is a compact token for tags or attributes, and each `appearance` prop maps to a semantic color from the active theme.
 
 ```tsx demo
 <Row flexWrap>

@@ -232,7 +232,7 @@ CSS rules in `rules.css` set unit variables per `data-size` and per-component cl
 
 `primary + outline` matches the `:root` palette, so VaneUI **omits** `data-appearance` and `data-variant` for components resolving to those values. The component then inherits color variables from its nearest ancestor. This is what lets a default `<Button>` inside a filled `<Card>` automatically pick up the Card's text and background colors. Identity components (`Mark`, `Chip`, `Link`, `Checkbox`) deviate from baseline and always emit their own attributes. See [Variant Inheritance](./variant-inheritance) for details.
 
-## Flow summary
+## Style resolution flow
 
 1. User writes: `<Button danger lg filled>Click</Button>`
 2. Button component calls `useTheme()` to get `theme.button.main`

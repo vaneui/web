@@ -23,19 +23,19 @@ Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control the max-width: `max-w-3xl` 
 ```tsx demo
 <Col>
   <Container xs border>
-    <Text semibold>xs — max-w-3xl</Text>
+    <Text semibold>xs: max-w-3xl</Text>
   </Container>
   <Container sm border>
-    <Text semibold>sm — max-w-4xl</Text>
+    <Text semibold>sm: max-w-4xl</Text>
   </Container>
   <Container border>
-    <Text semibold>md (default) — max-w-5xl</Text>
+    <Text semibold>md (default): max-w-5xl</Text>
   </Container>
   <Container lg border>
-    <Text semibold>lg — max-w-6xl</Text>
+    <Text semibold>lg: max-w-6xl</Text>
   </Container>
   <Container xl border>
-    <Text semibold>xl — max-w-7xl</Text>
+    <Text semibold>xl: max-w-7xl</Text>
   </Container>
 </Col>
 ```

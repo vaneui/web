@@ -1,4 +1,4 @@
-Learn the fundamental patterns for using VaneUI components.
+VaneUI components share a boolean props API for size, appearance, variant, and layout. This page covers the core usage patterns: size and appearance props, layout components, responsive breakpoints, typography, icons, images, overlays, and when to prefer props over Tailwind classes.
 
 ## Component props
 

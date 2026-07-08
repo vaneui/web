@@ -49,7 +49,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'button',
         name: 'Button',
-        description: 'Triggers an action or event when the user clicks on it. Buttons are a primary way for users to interact with the application and can contain text, an icon, or both.',
+        description: 'Button triggers an action or event when clicked. It can contain text, an icon, or both, and is a primary way for users to interact with the app.',
         componentKey: "button",
       },
       {
@@ -61,7 +61,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'input',
         name: 'Input',
-        description: 'Allows users to enter text, numbers, and other data. Inputs are essential form elements with support for various types, validation states, and styling options.',
+        description: 'Input lets users enter text, numbers, and other data. A form element with support for various types, validation states, and styling options.',
         componentKey: "input",
       },
       {
@@ -73,13 +73,13 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'label',
         name: 'Label',
-        description: 'Displays text with various styling options for categorization, status indicators, or highlighting important information. Labels can be styled with different colors, sizes, and variants.',
+        description: 'Label displays text for categorization, status indicators, or highlighting information. Can be styled with different colors, sizes, and variants.',
         componentKey: "label",
       },
       {
         slug: 'badge',
         name: 'Badge',
-        description: 'Highlights important information such as notifications or counts in a non-intrusive way. Badges are typically used in conjunction with other elements like icons or navigation links.',
+        description: 'Badge highlights information such as notifications or counts in a non-intrusive way. Often paired with other elements like icons or navigation links.',
         componentKey: "badge",
       },
       {
@@ -91,7 +91,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'code',
         name: 'Code',
-        description: 'Renders inline code snippets in a themed monospace surface. Use for code examples, commands, file paths, or technical terms within prose; renders as an anchor when given href.',
+        description: 'Renders inline code snippets in a themed monospace surface. Use for commands, file paths, or technical terms in prose; renders as an anchor when given href.',
         componentKey: "code",
       },
       {
@@ -128,7 +128,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'section',
         name: 'Section',
-        description: 'A container that groups related content and owns the outer padding and background of a page band. It renders as a plain wrapper by default; pass tag="section" for a semantic landmark.',
+        description: 'Groups related content and owns the outer padding and background of a page band. Renders as a plain wrapper by default; pass tag="section" for a landmark.',
         componentKey: "section",
       },
       {
@@ -140,19 +140,19 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'col',
         name: 'Col',
-        description: 'A container that organizes content vertically within a Row. It provides a simple way to create flexible and responsive column-based layouts.',
+        description: 'Col organizes content vertically within a Row, creating responsive column-based layouts.',
         componentKey: "col",
       },
       {
         slug: 'stack',
         name: 'Stack',
-        description: 'A flexible layout component that arranges its children with consistent spacing. It can be used for both vertical and horizontal layouts.',
+        description: 'Stack arranges its children with consistent spacing. Works for both vertical and horizontal layouts.',
         componentKey: "stack",
       },
       {
         slug: 'card',
         name: 'Card',
-        description: 'A flexible container component that groups related content with consistent styling. Cards can contain text, images, and other components.',
+        description: 'Card is a container that groups related content with consistent styling. It can contain text, images, and other components.',
         componentKey: "card",
       },
       {
@@ -213,7 +213,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'modal',
         name: 'Modal',
-        description: 'An accessible dialog component with focus trapping, scroll lock, and keyboard navigation. Provides its own portal-rendered backdrop (the same mechanics as Overlay) with ARIA role="dialog" and aria-modal="true".',
+        description: 'Modal is an accessible dialog with focus trapping, scroll lock, and keyboard navigation. Renders its portal backdrop with role="dialog" and aria-modal="true".',
         componentKey: "modal",
       },
       {
@@ -287,7 +287,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'list-item',
         name: 'ListItem',
-        description: 'A single entry inside a List. Renders an <li> with Text\'s typography props (except margin, letter-spacing, and cursor), plus an icon prop for replacing the native marker.',
+        description: 'A single entry inside a List. Renders an <li> with Text\'s typography props (minus margin, letter-spacing, cursor), plus an icon prop for the marker.',
         componentKey: "listItem",
       },
       {
@@ -306,7 +306,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'theming-overview',
         name: 'Theming Overview',
-        description: 'Understand VaneUI\'s powerful theming system and design token architecture.',
+        description: 'Understand VaneUI\'s theming system and design token architecture.',
         mdPath: 'theming-overview.md',
       },
       {

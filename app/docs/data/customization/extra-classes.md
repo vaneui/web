@@ -192,12 +192,12 @@ const extraClasses = {
 Be careful not to add classes that conflict with VaneUI's size-driven system (padding, gap, font-size, border-radius scale via the size prop):
 
 ```tsx
-// Avoid — fights the size system; padding is set by --py-unit per size
+// Avoid: fights the size system; padding is set by --py-unit per size
 extraClasses: {
   button: { main: { primary: 'p-8' } }
 }
 
-// Better — adds effects that complement base styles
+// Better: adds effects that complement base styles
 extraClasses: {
   button: { main: { primary: 'hover:brightness-110' } }
 }

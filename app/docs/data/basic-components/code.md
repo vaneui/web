@@ -18,7 +18,7 @@ Inline code snippets with default styling. `Code` aligns to the surrounding text
 
 ## Sizes
 
-Code elements in different sizes - `xs`, `sm`, `md`, `lg`, `xl`.
+Code elements in different sizes: `xs`, `sm`, `md`, `lg`, `xl`.
 
 ```tsx demo
 <Col>

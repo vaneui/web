@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-A heading component (renders as `<h3>`) for subsection headings. Defaults to `semibold` weight, `heading` font family, and left-aligned text.
+Title renders an `<h3>` heading for subsection headings. It defaults to `semibold` weight, `heading` font family, and left-aligned text.
 
 ```tsx demo
 <Title>Subsection Heading</Title>

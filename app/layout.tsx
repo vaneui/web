@@ -67,13 +67,10 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: ['/og-default.png'],
   },
-  alternates: {
-    canonical: '/',
-    types: {
-      // Discovery hint for AI crawlers that look for llms.txt by convention.
-      'text/plain': '/llms.txt',
-    },
-  },
+  // NOTE: no `alternates.canonical` here. A static canonical on the root layout
+  // is inherited by every page that does not override `alternates`, which would
+  // point non-overriding routes (e.g. /docs) at the homepage. Each page sets its
+  // own self-referential canonical instead.
 };
 
 export const viewport: Viewport = {

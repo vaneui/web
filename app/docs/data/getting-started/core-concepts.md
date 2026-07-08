@@ -1,4 +1,4 @@
-VaneUI turns common design decisions into expressive, readable boolean props. Instead of memorizing property names and values, you compose intent: `primary`, `lg`, `outline`, `rounded`. The result is cleaner code, fewer decisions per component, and a smoother path from wireframe to production.
+VaneUI turns common design decisions into boolean props. Instead of memorizing property names and values, you compose intent: `primary`, `lg`, `outline`, `rounded`. This page covers the boolean props API, the three-layer component architecture, prop extraction priority, and the three-tier CSS variable system.
 
 ## Boolean props API
 
@@ -23,7 +23,7 @@ Props are organized into **categories**:
 
 Typography components (Text, Title, SectionTitle, PageTitle, Blockquote), Label, List, and Divider default to `inherit`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Link and Mark default to `inheritSize`, so they inherit font-size from their parent while keeping their own appearance color; Code and Kbd achieve the same effect through em-relative geometry.
 
-## How components work
+## Three-layer component architecture
 
 VaneUI components follow a three-layer architecture:
 

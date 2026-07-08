@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-Default paragraph text styling.
+Text renders paragraph text with default styling.
 
 ```tsx demo
 <Text>Compose interfaces with VaneUI components. Text provides consistent typography across your application.</Text>

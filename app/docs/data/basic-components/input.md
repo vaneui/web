@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-A styled text input field.
+Input renders a styled text field for entering text, numbers, and other data.
 
 ```tsx demo
 <Input placeholder="Enter text..." />

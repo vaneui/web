@@ -52,13 +52,13 @@ When you explicitly set an appearance or variant on a component, VaneUI emits da
 
 ```tsx demo
 <Card filled primary>
-  {/* Inherits from Card — white text on dark background */}
+  {/* Inherits from Card: white text on dark background */}
   <Text>I'm white</Text>
 
-  {/* Explicit props — own CSS rule fires, dark text */}
+  {/* Explicit props: own CSS rule fires, dark text */}
   <Text primary outline>I'm dark, even inside a filled Card</Text>
 
-  {/* Explicit different appearance — own CSS rule fires */}
+  {/* Explicit different appearance: own CSS rule fires */}
   <Text success>I'm green</Text>
 </Card>
 ```
@@ -134,7 +134,7 @@ When a component has `inherit` appearance (the default for Text, Title, Label, L
 <Text inherit>
   ↓ expands to:
   inheritColor + inheritBg + inheritBorder
-  (NOT inheritSize — size uses own --fs variable so <Text sm> works as expected)
+  (NOT inheritSize: size uses own --fs variable so <Text sm> works as expected)
 ```
 
 Size inheritance is separate. Only Link and Mark have `inheritSize: true` in their defaults (Code and Kbd achieve the same effect via em-relative geometry, described below). You can also set it explicitly:
@@ -144,7 +144,7 @@ Size inheritance is separate. Only Link and Mark have `inheritSize: true` in the
   {/* Inherits color (white) but uses own md size */}
   <Text inherit>Inherited color, own size</Text>
 
-  {/* Explicit inheritSize — also inherits font-size from parent */}
+  {/* Explicit inheritSize: also inherits font-size from parent */}
   <Text inherit inheritSize>Inherited color AND size</Text>
 </Card>
 ```

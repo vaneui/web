@@ -203,7 +203,7 @@ Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`
 
 ```tsx demo
 <Col>
-  <Text semibold>flexWrap (default) — items wrap when they overflow</Text>
+  <Text semibold>flexWrap (default): items wrap when they overflow</Text>
   <Stack row className="max-w-md border-2 border-dashed border-gray-300">
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
@@ -211,7 +211,7 @@ Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`
     <div className="p-3 bg-gray-100 rounded">Item 4</div>
     <div className="p-3 bg-gray-100 rounded">Item 5</div>
   </Stack>
-  <Text semibold>flexNoWrap — items shrink to fit</Text>
+  <Text semibold>flexNoWrap: items shrink to fit</Text>
   <Stack row flexNoWrap className="max-w-md border-2 border-dashed border-gray-300">
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>

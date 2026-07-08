@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-Badge styles and variants.
+Badge highlights a short piece of information such as a count or status, and each `appearance` prop maps to a semantic color from the active theme.
 
 ```tsx demo
 <Row flexWrap>

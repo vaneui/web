@@ -8,7 +8,7 @@ Add CSS classes that apply to all instances of a component:
 
 ```tsx demo
 <ThemeProvider themeOverride={(theme) => {
-  // Compound themes are nested by sub-part — Button is `button.main`,
+  // Compound themes are nested by sub-part: Button is `button.main`,
   // Card is `card.main`. Single-target themes (Badge, Chip, etc.) sit at the top level.
   theme.button.main.base += ' uppercase tracking-wide';
   theme.card.main.base += ' shadow-sm';

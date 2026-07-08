@@ -1,38 +1,35 @@
-'use client'
+import type { Metadata } from 'next';
+import DocsIndex from './DocsIndex';
 
-import React from 'react';
-import { Card, Col, Grid3, PageTitle, Text, Container, SectionTitle } from '@vaneui/ui';
-import { docsSections } from "./docsSections";
-import Link from "next/link";
+// This page is a server component so it can own its metadata. The interactive
+// grid lives in the DocsIndex client component. Without a dedicated metadata
+// export the docs hub inherited the root layout's homepage title, description,
+// and canonical ('/') — telling crawlers this page was a duplicate of the
+// homepage.
+const title = 'Documentation - VaneUI';
+const description =
+  'Browse VaneUI documentation: components, layout primitives, typography, and theming guides for the React component library powered by Tailwind CSS.';
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: {
+    canonical: '/docs',
+  },
+  openGraph: {
+    type: 'website',
+    url: '/docs',
+    siteName: 'VaneUI',
+    title,
+    description,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+  },
+};
 
 export default function DocsPage() {
-  return (
-    <Container xl itemsStart wFull className="py-10">
-      <Col xl>
-        <PageTitle>Documentation</PageTitle>
-        <Text lg>
-          VaneUI provides a collection of reusable components that can be used to build modern and responsive web
-          applications.
-        </Text>
-      </Col>
-      <Col xl>
-        {docsSections.map((section, groupIndex) => (
-          <Col key={groupIndex}>
-            <SectionTitle sm semibold>{section.name}</SectionTitle>
-            <Text>{section.description}</Text>
-            <Grid3>
-              {section.pages.map((component, i) => (
-                <Card key={i} href={`/docs/${section.slug}/${component.slug}`} tag={Link}
-                      shadow relative overflowHidden cursorPointer
-                      hFull className="hover:bg-secondary">
-                  <Text lg primary semibold>{component.name}</Text>
-                  <Text sm secondary>{component.description}</Text>
-                </Card>
-              ))}
-            </Grid3>
-          </Col>
-        ))}
-      </Col>
-    </Container>
-  );
+  return <DocsIndex />;
 }

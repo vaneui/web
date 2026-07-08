@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-A heading component (renders as `<h2>`) for major section headings. Defaults to `semibold` weight, `heading` font family, `inherit` appearance, and left-aligned text.
+SectionTitle renders an `<h2>` heading for major section headings. It defaults to `semibold` weight, `heading` font family, `inherit` appearance, and left-aligned text.
 
 ```tsx demo
 <SectionTitle>Getting Started</SectionTitle>

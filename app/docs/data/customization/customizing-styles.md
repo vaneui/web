@@ -98,7 +98,7 @@ For most use cases, `className` (level 5) is the right tool. Use `themeDefaults`
 Instead of overriding the consumer class with a Tailwind utility, you can override the underlying CSS variable. This keeps VaneUI's consumer class active but changes what value it reads:
 
 ```tsx
-// Override the variable — the component's own border-(--border-color) still fires,
+// Override the variable: the component's own border-(--border-color) still fires,
 // but reads your custom value instead of the theme's
 <Card style={{ '--border-color': 'var(--color-red-300)' } as React.CSSProperties}>
   Theme-aware border override
@@ -165,10 +165,10 @@ Good uses of `className`:
 Gap is controlled by VaneUI's size system. Use size props instead:
 
 ```tsx
-// Wrong — fights the size system
+// Wrong: fights the size system
 <Row className="gap-10">Content</Row>
 
-// Right — gap scales with size
+// Right: gap scales with size
 <Row lg>Content</Row>
 <Row xs>Tight content</Row>
 ```
@@ -181,17 +181,17 @@ Padding is also size-driven and scales proportionally:
 // Wrong
 <Card className="p-8">Content</Card>
 
-// Right — padding scales with size
+// Right: padding scales with size
 <Card lg>Content</Card>
 ```
 
 ### Don't use appearance-colored Tailwind classes when an appearance prop exists
 
 ```tsx
-// Wrong — bypasses the theme system
+// Wrong: bypasses the theme system
 <Button className="bg-red-500 text-white border-red-600">Delete</Button>
 
-// Right — uses the theme system
+// Right: uses the theme system
 <Button danger filled>Delete</Button>
 ```
 
@@ -200,9 +200,9 @@ Padding is also size-driven and scales proportionally:
 Typography components have built-in letter spacing, line height, and font size that scale with the size prop. Overriding these with Tailwind classes breaks the proportional scaling:
 
 ```tsx
-// Wrong — breaks size scaling
+// Wrong: breaks size scaling
 <Text className="text-2xl tracking-wide leading-10">Content</Text>
 
-// Right — use size props
+// Right: use size props
 <Text xl>Content</Text>
 ```

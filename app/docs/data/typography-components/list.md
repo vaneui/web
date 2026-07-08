@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-An unordered list with bullet points.
+List renders an unordered list with bullet points by default.
 
 ```tsx demo
 <List>
@@ -143,7 +143,7 @@ Use `outside` (the default) to hang markers outside the content box so multi-lin
 </Col>
 ```
 
-## Nested Lists: automatic marker progression
+## Nested lists: automatic marker progression
 
 Nested unordered lists automatically progress `disc` → `circle` → `square`. Nested ordered lists progress `decimal` → `lowerAlpha` → `lowerRoman`. Override a specific nested list with inline `style={{ listStyleType: "..." }}`. The parent descendant selector wins over a child utility class on specificity, so inline style is the escape hatch.
 

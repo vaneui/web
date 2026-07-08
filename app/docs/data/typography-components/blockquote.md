@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-A blockquote with attribution. The element renders as `<blockquote>` and inherits color from its surroundings.
+Blockquote displays quoted content, shown here with an attribution line. The element renders as `<blockquote>` and inherits color from its surroundings.
 
 ```tsx demo
 <Blockquote>
