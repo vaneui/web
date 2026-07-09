@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Text, Col, Row, NavLink, Divider } from '@vaneui/ui';
+import { Col, NavLink, Divider, Chip } from '@vaneui/ui';
 import { docsSections } from "./docsSections";
 import { BookOpen, Box, Compass, FileText, GitHub, Layers, Maximize2, Settings } from "react-feather";
 import Link from "next/link";
@@ -20,11 +20,11 @@ export function DocsNav({currentPath, onMenuItemClickAction}: { currentPath?: st
   return (
     <Col>
       <Col noGap>
-        <NavLink secondary md href="/docs" tag={Link}>
+        <NavLink md href="/docs" tag={Link}>
           <BookOpen />
           Documentation
         </NavLink>
-        <NavLink secondary md href={PRODUCT.githubUrl} tag="a" target="_blank" rel="noopener noreferrer">
+        <NavLink md href={PRODUCT.githubUrl} tag="a" target="_blank" rel="noopener noreferrer">
           <GitHub />
           GitHub
         </NavLink>
@@ -34,13 +34,8 @@ export function DocsNav({currentPath, onMenuItemClickAction}: { currentPath?: st
         const Icon = icons[section.slug];
         return (
           <Col xs key={i}>
-            <Row xs>
-              {Icon && <Icon className="size-5 text-(--color-text-secondary)"/>}
-              <Text uppercase sm mono secondary medium>
-                {section.name}
-              </Text>
-            </Row>
-            <Col noGap className="pl-[calc(var(--spacing)*2.5-1px)]">
+            <Chip ghost noPadding uppercase secondary noRing mono>{Icon && <Icon />}{section.name}</Chip>
+            <Col noGap className="pl-[calc(var(--spacing)*2-1px)]">
               {section.pages.map((page, j) => {
                 const path = `/docs/${section.slug}/${page.slug}`;
                 const isActive = currentPath === path;
