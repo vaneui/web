@@ -22,10 +22,8 @@ export default function DocsIndex() {
             <Text>{section.description}</Text>
             <Grid3>
               {section.pages.map((component, i) => (
-                <Card key={i} href={`/docs/${section.slug}/${component.slug}`} tag={Link}
-                      shadow relative overflowHidden cursorPointer
-                      hFull className="hover:bg-secondary">
-                  <Text lg primary semibold>{component.name}</Text>
+                <Card sm shadow cursorPointer hFull key={i} href={`/docs/${section.slug}/${component.slug}`} tag={Link}>
+                  <Text lg semibold>{component.name}</Text>
                   <Text sm secondary>{component.description}</Text>
                 </Card>
               ))}
