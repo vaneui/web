@@ -93,7 +93,7 @@ Add additional CSS classes based on active props:
 
 ### themeOverride
 
-Function for programmatic theme modifications:
+A function with direct access to the full theme, for changes the declarative options can't express (like appending to a component's base classes):
 
 ```tsx
 <ThemeProvider themeOverride={(theme) => {

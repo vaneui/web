@@ -215,7 +215,7 @@ Lists apply a size-driven `gap` by default: a sibling margin between items that 
 
 ## Custom item icons
 
-Pass an `icon` node to a `ListItem` to replace the native marker on that item only. The icon wrapper is sized to match the text line-height and scales with the list size, so checkmarks, arrows, or any custom SVG align cleanly with the text. For decorative glyphs, include `aria-hidden="true"` on the icon node.
+Pass an `icon` node to a `ListItem` to replace the native marker on that item only. The icon wrapper is sized to match the text font size (1em) and scales with the list size, so checkmarks, arrows, or any custom SVG align cleanly with the text. For decorative glyphs, include `aria-hidden="true"` on the icon node.
 
 ```tsx demo
 <List>

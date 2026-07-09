@@ -1,50 +1,37 @@
-VaneUI components inherit their colors from ancestor components through native CSS custom-property cascade. This page explains how inheritance works, when components set their own colors vs. inherit, and how to control the behavior.
+VaneUI has two color behaviors. Components with their own appearance (Button, Card, Badge, and most others) emit `data-appearance`/`data-variant` and paint their own colors regardless of context. Inherit-mode components (the typography components, plus Icon) emit nothing and read their colors from the nearest ancestor through native CSS custom-property cascade. This page explains the split, how the cascade works, and how to control it.
 
 ## How variants and appearances cascade through nesting
 
 VaneUI's color system has three layers:
 
-1. **`:root` fallbacks**: set `--text-color`, `--bg-color`, `--border-color` etc. to the primary outline palette (dark text, white background, light border)
-2. **Direct CSS rules**: when a component has `data-variant` + `data-appearance` attributes, a CSS rule fires and rewrites those variables on the element
-3. **CSS cascade**: children that don't set their own variables inherit from the nearest ancestor that did
+1. **`:root` fallbacks**: set `--text-color`, `--bg-color`, `--border-color` etc. to the primary outline palette (dark text, white background, light border). Inherit-mode components fall back to these when no ancestor sets colors.
+2. **Direct CSS rules**: when a component emits `data-appearance` (and `data-variant`), a CSS rule fires and sets those variables on the element and its subtree. Every component with a concrete appearance emits these.
+3. **CSS cascade**: inherit-mode components set no variables of their own, so they read them from the nearest ancestor that did.
 
 ```
 :root                           → --text-color: dark, --bg-color: white
-  <Card filled primary>         → --text-color: white, --bg-color: dark  (CSS rule fires)
-    <Button>                    → inherits white text from Card           (no attrs, no rule)
-    <Button primary outline>    → --text-color: dark                     (explicit attrs, own rule fires)
-    <Text>                      → inherits white text from Card           (inherit mode)
-    <Mark>                      → --text-color: amber (warning)           (identity, own rule fires)
+  <Card filled primary>         → --text-color: white, --bg-color: dark  (emits attrs, own rule fires)
+    <Button>                    → --text-color: dark, --bg-color: white  (emits its own primary-outline attrs)
+    <Text>                      → inherits white text from Card          (inherit mode, no attrs)
+    <Mark>                      → --text-color: amber (warning)          (emits its own warning attrs)
 ```
 
 ## Which components set vs. inherit
 
-### Components that inherit (no data attributes by default)
+### Components that paint their own colors
 
-These components use the primary + outline defaults from the library baseline. Because `primary + outline` matches the `:root` palette, VaneUI skips data-attribute emission, letting the component inherit from its nearest ancestor that DID set variables.
+Every component with a concrete appearance default emits `data-appearance` and `data-variant`, so its own CSS rule fires and it keeps its colors regardless of the surrounding context:
 
-**Button, Card, Badge, Code, Kbd, Input, IconButton, NavLink, Icon**
+**Button, Card, Badge, Chip, Code, Kbd, Mark, Input, Checkbox, IconButton, NavLink** (and any component you give an explicit appearance).
 
-A default `<Button>` inside a `<Card filled primary>` inherits the Card's white text and dark background. It automatically looks right on the dark surface. No configuration needed.
+A default `<Button>` inside a `<Card filled primary>` renders in its own primary-outline palette (dark text on white), not the Card's white-on-dark. A `<Mark>` inside a `<Card filled danger>` stays warning-yellow, and a `<Badge>` keeps its secondary colors. These components do not inherit color; set an explicit appearance to change them.
 
-### Components that set their own colors (identity components)
+### Components that inherit
 
-These components have defaults that deviate from the primary + outline baseline. VaneUI detects this and emits data attributes so the component's own CSS rule fires, pinning its colors regardless of context.
+Two kinds of components emit no `data-appearance`, so they read colors from the nearest ancestor that set them:
 
-| Component | Default Appearance | Why |
-|-----------|-------------------|-----|
-| **Mark** | warning + outline | Yellow highlighter must be visible everywhere |
-| **Chip** | secondary + outline | Muted tag should look consistent |
-| **Link** | link (no variant default) | Blue hyperlink must be recognizable |
-| **Checkbox** | primary + filled | Checked state needs non-white background |
-
-A `<Mark>` inside a `<Card filled danger>` still renders in its warning (yellow) palette. It doesn't turn red.
-
-### Components in inherit mode (typography)
-
-**Text, Title, SectionTitle, PageTitle, Label, List, ListItem, Divider, Blockquote**
-
-These components default to `inherit`. They never emit data attributes and always read colors from their nearest ancestor. This is how `<Text>` inside a `<Card filled primary>` automatically gets white text without any props.
+- **Inherit mode**: `Text`, `Title`, `SectionTitle`, `PageTitle`, `Label`, `List`, `ListItem`, `Blockquote`, and `Divider` default to `appearance="inherit"`. This is how a `<Text>` inside a `<Card filled primary>` gets white text with no props.
+- **Icon**: has no appearance default at all, so it inherits `currentColor` from its surroundings.
 
 ## Explicit props always win
 
@@ -88,30 +75,30 @@ When multiple layout components are nested, each child inherits from its **neare
 
 ## ThemeProvider overrides
 
-`ThemeProvider.themeDefaults` overrides are treated as user intent: they cause data-attribute emission even if the resolved value matches baseline:
+`ThemeProvider.themeDefaults` sets a component's default appearance for a subtree. A concrete appearance emits data attributes and pins the color; giving an inherit-mode component a concrete appearance makes it stop inheriting:
 
 ```tsx
-{/* All Badges in this subtree render as danger, with data attributes */}
+{/* All Badges in this subtree default to danger */}
 <ThemeProvider themeDefaults={{ badge: { danger: true } }}>
   <Card filled primary>
-    {/* This Badge renders red (danger), not inherited from Card */}
+    {/* This Badge renders red (danger), unaffected by the Card */}
     <Badge>Alert</Badge>
   </Card>
 </ThemeProvider>
 ```
 
-## The baseline rule
+## The emission rule
 
 The data-attribute gate uses one rule:
 
-> **Emit `data-appearance` and `data-variant` when the resolved values deviate from `primary + outline`**: either because the user explicitly set props, because `themeDefaults` changed them, or because the component's library defaults are non-baseline (identity components).
+> **Emit `data-appearance` and `data-variant` for any concrete (non-`inherit`) appearance.** They are suppressed only in inherit mode (`appearance="inherit"`, which activates `inheritColor`) or when a component has no appearance at all (Icon).
 
 This means:
-- `<Button>` → primary + outline (baseline) → no attrs → inherits
-- `<Button filled>` → primary + filled (filled ≠ outline) → attrs emitted → own rule
-- `<Button danger>` → danger + outline (danger ≠ primary) → attrs emitted → own rule
-- `<Mark>` → warning + outline (warning ≠ primary) → attrs emitted → own rule
-- `<Text>` → inherit + outline (inherit excluded) → no attrs → inherits
+- `<Button>` → primary → attrs emitted → own primary-outline colors
+- `<Button filled>` → primary + filled → attrs emitted → own rule
+- `<Badge>` → secondary → attrs emitted → own colors
+- `<Text>` → inherit → no attrs → inherits from the nearest ancestor
+- `<Icon>` → no appearance → no attrs → inherits `currentColor`
 
 ## Granular inheritance props
 

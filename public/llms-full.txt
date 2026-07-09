@@ -5275,7 +5275,7 @@ return (
   <>
     <Button onClick={() => setOpen(true)}>Show Overlay</Button>
     <Overlay open={open} onClose={() => setOpen(false)}>
-      <Text>Click anywhere to close</Text>
+      <Text>Click the background to close</Text>
     </Overlay>
   </>
 );
@@ -7164,7 +7164,7 @@ When `noInheritSize` is set (or the parent has no size context), choose an expli
 
 ## Styling
 
-Use `bold`, `semibold`, `italic`, or `noUnderline` to remove the default underline.
+Use `bold`, `semibold`, or `italic` for emphasis, or `noUnderline` to remove the default underline.
 
 ```tsx demo
 <Col>
@@ -7484,7 +7484,7 @@ Lists apply a size-driven `gap` by default: a sibling margin between items that 
 
 ## Custom item icons
 
-Pass an `icon` node to a `ListItem` to replace the native marker on that item only. The icon wrapper is sized to match the text line-height and scales with the list size, so checkmarks, arrows, or any custom SVG align cleanly with the text. For decorative glyphs, include `aria-hidden="true"` on the icon node.
+Pass an `icon` node to a `ListItem` to replace the native marker on that item only. The icon wrapper is sized to match the text font size (1em) and scales with the list size, so checkmarks, arrows, or any custom SVG align cleanly with the text. For decorative glyphs, include `aria-hidden="true"` on the icon node.
 
 ```tsx demo
 <List>
@@ -7521,7 +7521,7 @@ URL: https://vaneui.com/docs/typography-components/list-item
 
 ## Custom markers with the icon prop
 
-Pass an `icon` node to replace the native marker on that item only. The icon wrapper matches the text line-height and scales with the list size. Mark decorative glyphs with `aria-hidden="true"`.
+Pass an `icon` node to replace the native marker on that item only. The icon wrapper matches the text font size (1em) and scales with the list size. Mark decorative glyphs with `aria-hidden="true"`.
 
 ```tsx demo
 <List>
@@ -7861,7 +7861,7 @@ const extraClasses: ThemeExtraClasses = {
 
 ### themeOverride
 
-Function for programmatic theme modifications:
+A function with direct access to the full theme, for changes the declarative options can't express (like appending to a component's base classes):
 
 ```tsx
 <ThemeProvider themeOverride={(theme) => {
@@ -7944,9 +7944,9 @@ CSS rules in `rules.css` set unit variables per `data-size` and per-component cl
 }
 ```
 
-## Baseline inheritance
+## Color inheritance
 
-`primary + outline` matches the `:root` palette, so VaneUI **omits** `data-appearance` and `data-variant` for components resolving to those values. The component then inherits color variables from its nearest ancestor. This is what lets a default `<Button>` inside a filled `<Card>` automatically pick up the Card's text and background colors. Identity components (`Mark`, `Chip`, `Link`, `Checkbox`) deviate from baseline and always emit their own attributes. See [Variant Inheritance](./variant-inheritance) for details.
+Components with a concrete appearance emit `data-appearance` and `data-variant` and paint their own colors, so a default `<Button>` inside a filled `<Card>` keeps its own primary-outline palette. Inheritance is opt-in: only inherit-mode components (the typography components, which default to `appearance="inherit"`) and appearance-less `Icon` emit nothing and read their colors from the nearest ancestor. The `:root` palette is the fallback those inherit-mode components use when no ancestor sets colors. See [Variant Inheritance](./variant-inheritance) for details.
 
 ## Style resolution flow
 
@@ -7955,7 +7955,7 @@ CSS rules in `rules.css` set unit variables per `data-size` and per-component cl
 3. `ThemedComponent` calls `theme.getComponentConfig(props)`
 4. Props merged with defaults, then extracted by category: `{ size: 'lg', appearance: 'danger', variant: 'filled' }`
 5. Theme tree is walked, each `BaseTheme.getClasses()` returns CSS classes
-6. Classes are merged with `twMerge()`, data attributes are added (because `danger` + `filled` deviate from the `primary + outline` baseline)
+6. Classes are merged with `twMerge()`, data attributes are added (because `danger` is a concrete, non-`inherit` appearance)
 7. Final render: `<button class="..." data-vane-type="ui" data-size="lg" data-appearance="danger" data-variant="filled">`
 8. CSS rules in `rules.css` set unit variables and the appearance/variant palette
 9. Browser computes final styles from CSS variables
@@ -8060,7 +8060,7 @@ Add additional CSS classes based on active props:
 
 ### themeOverride
 
-Function for programmatic theme modifications:
+A function with direct access to the full theme, for changes the declarative options can't express (like appending to a component's base classes):
 
 ```tsx
 <ThemeProvider themeOverride={(theme) => {
@@ -8257,7 +8257,7 @@ Title: Theme & ThemeOverride
 URL: https://vaneui.com/docs/customization/theme-and-override
 ---
 
-The `themeOverride` property allows programmatic modifications to component themes. Use it to add base classes or change defaults for any subtree of your application.
+The `themeOverride` property is a function that receives the theme and returns it modified. Use it for changes the declarative options can't express, like adding base classes or changing defaults for any subtree of your application.
 
 ## Basic usage
 
@@ -8667,8 +8667,8 @@ VaneUI components come with sensible built-in defaults. Only set defaults that d
 - **Container**: `md`, `wFull`, `flex`, `column`, `itemsCenter`, `gap`, `noPadding`, `outline`, `sharp`
 - **Input**: `md`, `wFull`, `primary`, `outline`, `rounded`, `padding`, `ring`, `focusVisible`
 - **Label**: `sm`, `flex`, `column`, `itemsStart`, `gap`, `inherit` (not `primary`), `medium` (stacked label above field; use `<Label row itemsCenter>` for inline controls like `Checkbox`)
-- **Badge**: `md`, `primary`, `outline`, `pill`, `semibold`, `uppercase`
-- **Chip**: `md`, `secondary` (not `primary`), `outline`, `rounded`, `mono`
+- **Badge**: `md`, `secondary` (not `primary`), `outline`, `pill`, `semibold`, `uppercase`
+- **Chip**: `md`, `secondary` (not `primary`), `outline`, `rounded`, `sans`
 - **Link**: `md`, `link` (not `primary`), `underline`, `sans`, `cursorPointer`, `inheritSize`, `wFit`, `focusVisible` (no variant default, no `outline`)
 - **NavLink**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`
 - **MenuItem**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`
@@ -9350,53 +9350,40 @@ Title: Variant Inheritance
 URL: https://vaneui.com/docs/customization/variant-inheritance
 ---
 
-VaneUI components inherit their colors from ancestor components through native CSS custom-property cascade. This page explains how inheritance works, when components set their own colors vs. inherit, and how to control the behavior.
+VaneUI has two color behaviors. Components with their own appearance (Button, Card, Badge, and most others) emit `data-appearance`/`data-variant` and paint their own colors regardless of context. Inherit-mode components (the typography components, plus Icon) emit nothing and read their colors from the nearest ancestor through native CSS custom-property cascade. This page explains the split, how the cascade works, and how to control it.
 
 ## How variants and appearances cascade through nesting
 
 VaneUI's color system has three layers:
 
-1. **`:root` fallbacks**: set `--text-color`, `--bg-color`, `--border-color` etc. to the primary outline palette (dark text, white background, light border)
-2. **Direct CSS rules**: when a component has `data-variant` + `data-appearance` attributes, a CSS rule fires and rewrites those variables on the element
-3. **CSS cascade**: children that don't set their own variables inherit from the nearest ancestor that did
+1. **`:root` fallbacks**: set `--text-color`, `--bg-color`, `--border-color` etc. to the primary outline palette (dark text, white background, light border). Inherit-mode components fall back to these when no ancestor sets colors.
+2. **Direct CSS rules**: when a component emits `data-appearance` (and `data-variant`), a CSS rule fires and sets those variables on the element and its subtree. Every component with a concrete appearance emits these.
+3. **CSS cascade**: inherit-mode components set no variables of their own, so they read them from the nearest ancestor that did.
 
 ```
 :root                           → --text-color: dark, --bg-color: white
-  <Card filled primary>         → --text-color: white, --bg-color: dark  (CSS rule fires)
-    <Button>                    → inherits white text from Card           (no attrs, no rule)
-    <Button primary outline>    → --text-color: dark                     (explicit attrs, own rule fires)
-    <Text>                      → inherits white text from Card           (inherit mode)
-    <Mark>                      → --text-color: amber (warning)           (identity, own rule fires)
+  <Card filled primary>         → --text-color: white, --bg-color: dark  (emits attrs, own rule fires)
+    <Button>                    → --text-color: dark, --bg-color: white  (emits its own primary-outline attrs)
+    <Text>                      → inherits white text from Card          (inherit mode, no attrs)
+    <Mark>                      → --text-color: amber (warning)          (emits its own warning attrs)
 ```
 
 ## Which components set vs. inherit
 
-### Components that inherit (no data attributes by default)
+### Components that paint their own colors
 
-These components use the primary + outline defaults from the library baseline. Because `primary + outline` matches the `:root` palette, VaneUI skips data-attribute emission, letting the component inherit from its nearest ancestor that DID set variables.
+Every component with a concrete appearance default emits `data-appearance` and `data-variant`, so its own CSS rule fires and it keeps its colors regardless of the surrounding context:
 
-**Button, Card, Badge, Code, Kbd, Input, IconButton, NavLink, Icon**
+**Button, Card, Badge, Chip, Code, Kbd, Mark, Input, Checkbox, IconButton, NavLink** (and any component you give an explicit appearance).
 
-A default `<Button>` inside a `<Card filled primary>` inherits the Card's white text and dark background. It automatically looks right on the dark surface. No configuration needed.
+A default `<Button>` inside a `<Card filled primary>` renders in its own primary-outline palette (dark text on white), not the Card's white-on-dark. A `<Mark>` inside a `<Card filled danger>` stays warning-yellow, and a `<Badge>` keeps its secondary colors. These components do not inherit color; set an explicit appearance to change them.
 
-### Components that set their own colors (identity components)
+### Components that inherit
 
-These components have defaults that deviate from the primary + outline baseline. VaneUI detects this and emits data attributes so the component's own CSS rule fires, pinning its colors regardless of context.
+Two kinds of components emit no `data-appearance`, so they read colors from the nearest ancestor that set them:
 
-| Component | Default Appearance | Why |
-|-----------|-------------------|-----|
-| **Mark** | warning + outline | Yellow highlighter must be visible everywhere |
-| **Chip** | secondary + outline | Muted tag should look consistent |
-| **Link** | link (no variant default) | Blue hyperlink must be recognizable |
-| **Checkbox** | primary + filled | Checked state needs non-white background |
-
-A `<Mark>` inside a `<Card filled danger>` still renders in its warning (yellow) palette. It doesn't turn red.
-
-### Components in inherit mode (typography)
-
-**Text, Title, SectionTitle, PageTitle, Label, List, ListItem, Divider, Blockquote**
-
-These components default to `inherit`. They never emit data attributes and always read colors from their nearest ancestor. This is how `<Text>` inside a `<Card filled primary>` automatically gets white text without any props.
+- **Inherit mode**: `Text`, `Title`, `SectionTitle`, `PageTitle`, `Label`, `List`, `ListItem`, `Blockquote`, and `Divider` default to `appearance="inherit"`. This is how a `<Text>` inside a `<Card filled primary>` gets white text with no props.
+- **Icon**: has no appearance default at all, so it inherits `currentColor` from its surroundings.
 
 ## Explicit props always win
 
@@ -9440,30 +9427,30 @@ When multiple layout components are nested, each child inherits from its **neare
 
 ## ThemeProvider overrides
 
-`ThemeProvider.themeDefaults` overrides are treated as user intent: they cause data-attribute emission even if the resolved value matches baseline:
+`ThemeProvider.themeDefaults` sets a component's default appearance for a subtree. A concrete appearance emits data attributes and pins the color; giving an inherit-mode component a concrete appearance makes it stop inheriting:
 
 ```tsx
-{/* All Badges in this subtree render as danger, with data attributes */}
+{/* All Badges in this subtree default to danger */}
 <ThemeProvider themeDefaults={{ badge: { danger: true } }}>
   <Card filled primary>
-    {/* This Badge renders red (danger), not inherited from Card */}
+    {/* This Badge renders red (danger), unaffected by the Card */}
     <Badge>Alert</Badge>
   </Card>
 </ThemeProvider>
 ```
 
-## The baseline rule
+## The emission rule
 
 The data-attribute gate uses one rule:
 
-> **Emit `data-appearance` and `data-variant` when the resolved values deviate from `primary + outline`**: either because the user explicitly set props, because `themeDefaults` changed them, or because the component's library defaults are non-baseline (identity components).
+> **Emit `data-appearance` and `data-variant` for any concrete (non-`inherit`) appearance.** They are suppressed only in inherit mode (`appearance="inherit"`, which activates `inheritColor`) or when a component has no appearance at all (Icon).
 
 This means:
-- `<Button>` → primary + outline (baseline) → no attrs → inherits
-- `<Button filled>` → primary + filled (filled ≠ outline) → attrs emitted → own rule
-- `<Button danger>` → danger + outline (danger ≠ primary) → attrs emitted → own rule
-- `<Mark>` → warning + outline (warning ≠ primary) → attrs emitted → own rule
-- `<Text>` → inherit + outline (inherit excluded) → no attrs → inherits
+- `<Button>` → primary → attrs emitted → own primary-outline colors
+- `<Button filled>` → primary + filled → attrs emitted → own rule
+- `<Badge>` → secondary → attrs emitted → own colors
+- `<Text>` → inherit → no attrs → inherits from the nearest ancestor
+- `<Icon>` → no appearance → no attrs → inherits `currentColor`
 
 ## Granular inheritance props
 

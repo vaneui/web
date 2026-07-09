@@ -1,4 +1,4 @@
-The `themeOverride` property allows programmatic modifications to component themes. Use it to add base classes or change defaults for any subtree of your application.
+The `themeOverride` property is a function that receives the theme and returns it modified. Use it for changes the declarative options can't express, like adding base classes or changing defaults for any subtree of your application.
 
 ## Basic usage
 

@@ -69,7 +69,7 @@ When `noInheritSize` is set (or the parent has no size context), choose an expli
 
 ## Styling
 
-Use `bold`, `semibold`, `italic`, or `noUnderline` to remove the default underline.
+Use `bold`, `semibold`, or `italic` for emphasis, or `noUnderline` to remove the default underline.
 
 ```tsx demo
 <Col>

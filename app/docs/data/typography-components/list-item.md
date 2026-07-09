@@ -9,7 +9,7 @@ since: 0.9.0
 
 ## Custom markers with the icon prop
 
-Pass an `icon` node to replace the native marker on that item only. The icon wrapper matches the text line-height and scales with the list size. Mark decorative glyphs with `aria-hidden="true"`.
+Pass an `icon` node to replace the native marker on that item only. The icon wrapper matches the text font size (1em) and scales with the list size. Mark decorative glyphs with `aria-hidden="true"`.
 
 ```tsx demo
 <List>

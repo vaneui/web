@@ -19,7 +19,7 @@ return (
   <>
     <Button onClick={() => setOpen(true)}>Show Overlay</Button>
     <Overlay open={open} onClose={() => setOpen(false)}>
-      <Text>Click anywhere to close</Text>
+      <Text>Click the background to close</Text>
     </Overlay>
   </>
 );

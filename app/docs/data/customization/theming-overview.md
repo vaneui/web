@@ -145,7 +145,7 @@ const extraClasses: ThemeExtraClasses = {
 
 ### themeOverride
 
-Function for programmatic theme modifications:
+A function with direct access to the full theme, for changes the declarative options can't express (like appending to a component's base classes):
 
 ```tsx
 <ThemeProvider themeOverride={(theme) => {
@@ -228,9 +228,9 @@ CSS rules in `rules.css` set unit variables per `data-size` and per-component cl
 }
 ```
 
-## Baseline inheritance
+## Color inheritance
 
-`primary + outline` matches the `:root` palette, so VaneUI **omits** `data-appearance` and `data-variant` for components resolving to those values. The component then inherits color variables from its nearest ancestor. This is what lets a default `<Button>` inside a filled `<Card>` automatically pick up the Card's text and background colors. Identity components (`Mark`, `Chip`, `Link`, `Checkbox`) deviate from baseline and always emit their own attributes. See [Variant Inheritance](./variant-inheritance) for details.
+Components with a concrete appearance emit `data-appearance` and `data-variant` and paint their own colors, so a default `<Button>` inside a filled `<Card>` keeps its own primary-outline palette. Inheritance is opt-in: only inherit-mode components (the typography components, which default to `appearance="inherit"`) and appearance-less `Icon` emit nothing and read their colors from the nearest ancestor. The `:root` palette is the fallback those inherit-mode components use when no ancestor sets colors. See [Variant Inheritance](./variant-inheritance) for details.
 
 ## Style resolution flow
 
@@ -239,7 +239,7 @@ CSS rules in `rules.css` set unit variables per `data-size` and per-component cl
 3. `ThemedComponent` calls `theme.getComponentConfig(props)`
 4. Props merged with defaults, then extracted by category: `{ size: 'lg', appearance: 'danger', variant: 'filled' }`
 5. Theme tree is walked, each `BaseTheme.getClasses()` returns CSS classes
-6. Classes are merged with `twMerge()`, data attributes are added (because `danger` + `filled` deviate from the `primary + outline` baseline)
+6. Classes are merged with `twMerge()`, data attributes are added (because `danger` is a concrete, non-`inherit` appearance)
 7. Final render: `<button class="..." data-vane-type="ui" data-size="lg" data-appearance="danger" data-variant="filled">`
 8. CSS rules in `rules.css` set unit variables and the appearance/variant palette
 9. Browser computes final styles from CSS variables
