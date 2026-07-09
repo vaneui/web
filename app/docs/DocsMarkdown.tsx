@@ -3,7 +3,7 @@
 import React from 'react';
 import { CodeBlock } from '../components/CodeBlock';
 import { Card, Title, SectionTitle } from '@vaneui/ui';
-import { Md } from "@vaneui/md";
+import { Md, headingAnchors } from "@vaneui/md";
 import { toHtmlId } from '../utils/stringUtils';
 import { extractFences, type ExtractedFence } from '../../lib/docs/extractFences';
 import { LivePreview } from './LivePreview';
@@ -24,13 +24,11 @@ interface DocsMarkdownProps {
 interface MdHeadingProps {
   level: number;
   children: React.ReactNode;
+  /** Slug id supplied by the headingAnchors({ slug: toHtmlId }) transform. */
+  id?: string;
 }
 
-function CustomMdHeading({level, children}: MdHeadingProps) {
-  const titleText = typeof children === 'string' ? children :
-    React.Children.toArray(children).join('');
-  const id = toHtmlId(titleText);
-
+function CustomMdHeading({level, children, id}: MdHeadingProps) {
   const titleClasses = "after:content-['#'] after:invisible hover:after:visible after:ml-2 after:opacity-25";
 
   // Markdown ## (level 2) → SectionTitle (h2), ### and below → Title (h3)
@@ -191,6 +189,7 @@ export function DocsMarkdown({md, slug}: DocsMarkdownProps) {
     <FenceLookupContext.Provider value={lookup}>
       <Md
         content={md}
+        transform={headingAnchors({ slug: toHtmlId })}
         config={{
           components: {
             MdFence: FenceWithLivePreview,
