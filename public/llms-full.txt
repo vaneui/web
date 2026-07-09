@@ -269,7 +269,7 @@ Add additional CSS classes based on active props:
 ```
 
 ### Theme override function
-For programmatic theme modifications:
+A function that receives the resolved theme and returns it modified. Unlike `themeDefaults` (which sets default props) and `extraClasses` (which adds classes keyed by active prop), it has direct access to the whole theme tree, including each component's always-on base classes:
 ```tsx
 <ThemeProvider themeOverride={(theme) => {
   // Modify base classes
