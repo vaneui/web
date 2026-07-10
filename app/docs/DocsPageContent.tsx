@@ -54,17 +54,11 @@ export function DocsPageContent(
         code: { secondary: true },
       }}
       extraClasses={{
-        title: {
-          xs: "pt-2 " + titleClasses,
-          sm: "pt-3 " + titleClasses,
-          md: "pt-4 " + titleClasses,
-          lg: "pt-5 " + titleClasses,
-          xl: "pt-6 " + titleClasses
-        },
+        // Anchor "#" affordance on the page H1. Markdown-body headings get their
+        // own "#" from CustomMdHeading, and their vertical rhythm from the
+        // @vaneui/md/styles (.vaneui-md) layer — no per-size pt-* ramp here.
         pageTitle: {
           md: titleClasses,
-        },
-        text: {
         },
       }}>
       <Container wFull>
@@ -97,7 +91,7 @@ export function DocsPageContent(
                 layout/utility categories collapse into a <details>. */}
             {componentKey && (
               <Col wFull id={propsTitleId}>
-                <Title xl>
+                <Title xl className={titleClasses}>
                   <Link href={`#${propsTitleId}`}>{propsTitle}</Link>
                 </Title>
                 <DocsPropsTable componentKey={componentKey as ComponentKey} />
