@@ -64,9 +64,9 @@ return (
 );
 ```
 
-## Custom backdrop appearance
+## Custom backdrop color
 
-Style the backdrop with appearance + variant + shadow props, or pass a `className` for arbitrary background utilities. The example below uses `danger filled` for a tinted destructive backdrop.
+The backdrop paints the `--overlay-bg` scrim by default. Pass a `className` with a background utility to override it, or `transparent` to drop the scrim entirely.
 
 ```tsx demo
 const [open, setOpen] = useState(false);
@@ -74,7 +74,7 @@ const [open, setOpen] = useState(false);
 return (
   <>
     <Button onClick={() => setOpen(true)}>Show Tinted Overlay</Button>
-    <Overlay open={open} onClose={() => setOpen(false)} danger filled shadow>
+    <Overlay open={open} onClose={() => setOpen(false)} className="bg-red-500/40">
       <Card>
         <Text>Tinted overlay</Text>
       </Card>
