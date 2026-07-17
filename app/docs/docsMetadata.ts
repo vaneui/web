@@ -197,6 +197,12 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         description: 'Displays images with VaneUI styling support including sizes, shapes, borders, shadows, and object-fit options.',
         componentKey: "img",
       },
+      {
+        slug: 'table',
+        name: 'Table',
+        description: 'Renders semantic table markup with Table, Thead, Tbody, Tfoot, Tr, Th, Td, and Caption. The size prop cascades from the table to every cell, and a cell or row can override it.',
+        componentKey: "table",
+      },
     ]
   },
   {

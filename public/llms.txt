@@ -71,6 +71,7 @@ For complete documentation of every page in a single document, see
 - [Grid6](https://vaneui.com/docs/layout-components/grid6): A six-column grid layout component for creating compact, organized displays. Ideal for icon grids, feature collections, and detailed content arrangements.
 - [Divider](https://vaneui.com/docs/layout-components/divider): Renders a thin line to separate content and create a clear visual hierarchy. Dividers can be used to group related items in lists and layouts.
 - [Img](https://vaneui.com/docs/layout-components/img): Displays images with VaneUI styling support including sizes, shapes, borders, shadows, and object-fit options.
+- [Table](https://vaneui.com/docs/layout-components/table): Renders semantic table markup with Table, Thead, Tbody, Tfoot, Tr, Th, Td, and Caption. The size prop cascades from the table to every cell, and a cell or row can override it.
 
 ### Overlay Components
 - [Overlay](https://vaneui.com/docs/overlay-components/overlay): A fullscreen backdrop overlay for creating modal backgrounds, loading screens, and lightbox effects. Renders via portal with click-to-close and optional blur.
