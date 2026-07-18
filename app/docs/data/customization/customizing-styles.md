@@ -89,32 +89,32 @@ From lowest to highest priority:
 | 3 | `extraClasses` | Provider subtree | Add classes based on active props |
 | 4 | `themeOverride` | Provider subtree | Modify theme internals programmatically |
 | 5 | **`className`** | Single instance | One-off style adjustments |
-| 6 | `style` | Single instance | Dynamic values, CSS variable overrides |
+| 6 | `style` | Single instance | Runtime-computed values that can't be a class |
 
 For most use cases, `className` (level 5) is the right tool. Use `themeDefaults` or `extraClasses` when you need the override to apply across many components.
 
 ## CSS variable approach
 
-Instead of overriding the consumer class with a Tailwind utility, you can override the underlying CSS variable. This keeps VaneUI's consumer class active but changes what value it reads:
+Instead of replacing the consumer class with a utility like `border-red-300`, set the underlying CSS variable with an arbitrary-property class. This keeps VaneUI's consumer class active but changes the value it reads:
 
 ```tsx
-// Override the variable: the component's own border-(--border-color) still fires,
-// but reads your custom value instead of the theme's
-<Card style={{ '--border-color': 'var(--color-red-300)' } as React.CSSProperties}>
+// Set the variable with an arbitrary-property class: the component's own
+// border-(--border-color) still fires, but reads your custom value instead of the theme's
+<Card className="[--border-color:var(--color-red-300)]">
   Theme-aware border override
 </Card>
 ```
 
-**When to use CSS variables vs className:**
+**Replacing the utility vs setting the variable:**
 
 - **`className="border-red-300"`**: static override, ignores the theme entirely. The component's `border-(--border-color)` class is removed by twMerge.
-- **`style={{ '--border-color': '...' }}`**: theme-aware override. The component still uses its consumer class, but the variable value is different. Children inherit the new value.
+- **`className="[--border-color:...]"`**: theme-aware override. The component still uses its consumer class, but the variable value is different. Children inherit the new value.
 
 The CSS variable approach is especially useful when you want descendants to inherit your override:
 
 ```tsx
 // All children of this Card inherit the custom border color
-<Card style={{ '--border-color': 'red' } as React.CSSProperties}>
+<Card className="[--border-color:red]">
   <Input /> {/* This Input also gets a red border */}
   <Divider /> {/* Red divider too */}
 </Card>

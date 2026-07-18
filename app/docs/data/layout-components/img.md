@@ -108,15 +108,15 @@ Control how an image fills a sized container with `objectCover` (default), `obje
 ```tsx demo
 <Row flexWrap>
   <Col itemsCenter>
-    <Img src={portraitSrc} alt="Cover crops to fill the box" style={{ width: 200, height: 150 }} />
+    <Img src={portraitSrc} alt="Cover crops to fill the box" className="w-[200px] h-[150px]" />
     <Text sm secondary>objectCover (default)</Text>
   </Col>
   <Col itemsCenter>
-    <Img objectContain src={portraitSrc} alt="Contain fits inside the box" style={{ width: 200, height: 150 }} />
+    <Img objectContain src={portraitSrc} alt="Contain fits inside the box" className="w-[200px] h-[150px]" />
     <Text sm secondary>objectContain</Text>
   </Col>
   <Col itemsCenter>
-    <Img objectFill src={portraitSrc} alt="Fill stretches to the box" style={{ width: 200, height: 150 }} />
+    <Img objectFill src={portraitSrc} alt="Fill stretches to the box" className="w-[200px] h-[150px]" />
     <Text sm secondary>objectFill</Text>
   </Col>
 </Row>
@@ -128,15 +128,15 @@ Control how an image fills a sized container with `objectCover` (default), `obje
 
 ```tsx demo
 <Row flexWrap>
-  <Card noPadding overflowHidden style={{ width: 240 }}>
-    <Img sharp wFull src={placeholderSrc} alt="Sunset over the harbor" style={{ height: 140 }} />
+  <Card noPadding overflowHidden className="w-[240px]">
+    <Img sharp wFull src={placeholderSrc} alt="Sunset over the harbor" className="h-[140px]" />
     <Stack>
       <Title sm>Harbor Sunset</Title>
       <Text sm secondary>Captured last weekend on a walk along the pier.</Text>
     </Stack>
   </Card>
-  <Card noPadding overflowHidden style={{ width: 240 }}>
-    <Img sharp wFull src={placeholderSrc} alt="Forest trail at dawn" style={{ height: 140 }} />
+  <Card noPadding overflowHidden className="w-[240px]">
+    <Img sharp wFull src={placeholderSrc} alt="Forest trail at dawn" className="h-[140px]" />
     <Stack>
       <Title sm>Forest Trail</Title>
       <Text sm secondary>Early morning hike through the pine forest.</Text>

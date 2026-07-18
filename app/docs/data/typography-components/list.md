@@ -145,7 +145,7 @@ Use `outside` (the default) to hang markers outside the content box so multi-lin
 
 ## Nested lists: automatic marker progression
 
-Nested unordered lists automatically progress `disc` → `circle` → `square`. Nested ordered lists progress `decimal` → `lowerAlpha` → `lowerRoman`. Override a specific nested list with inline `style={{ listStyleType: "..." }}`. The parent descendant selector wins over a child utility class on specificity, so inline style is the escape hatch.
+Nested unordered lists automatically progress `disc` → `circle` → `square`. Nested ordered lists progress `decimal` → `lowerAlpha` → `lowerRoman`. Override a specific nested list by forcing the marker with an important utility like `list-[square]!`. The parent's descendant selector outranks a plain child utility on specificity, so the trailing `!` is what makes the override win.
 
 ```tsx demo
 <Col>

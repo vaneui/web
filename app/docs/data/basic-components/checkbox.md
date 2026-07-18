@@ -204,7 +204,7 @@ return (
       />
       Select all ({items.filter(Boolean).length} of {items.length} selected)
     </Label>
-    <Col style={{ paddingLeft: 24 }}>
+    <Col className="pl-6">
       {labels.map((label, i) => (
         <Label row itemsCenter key={label}>
           <Checkbox

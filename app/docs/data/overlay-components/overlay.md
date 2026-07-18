@@ -179,7 +179,7 @@ When `portal={false}` and `absolute` is set, the overlay anchors to the nearest 
 
 ## Z-index / stacking
 
-Overlay reads its `z-index` from a managed stacking context (`--z-index`), so multiple overlays stack in mount order automatically. Override per instance via inline style when you need to layer above a specific element (toasts, page chrome).
+Overlay reads its `z-index` from a managed stacking context (`--z-index`), so multiple overlays stack in mount order automatically. Override per instance by setting the variable with an arbitrary-property class (`[--z-index:9999]`) when you need to layer above a specific element (toasts, page chrome).
 
 ```tsx demo
 const [open, setOpen] = useState(false);
@@ -190,7 +190,7 @@ return (
     <Overlay
       open={open}
       onClose={() => setOpen(false)}
-      style={{ '--z-index': 9999 } as React.CSSProperties}
+      className="[--z-index:9999]"
     >
       <Card>
         <Text>Above everything</Text>
