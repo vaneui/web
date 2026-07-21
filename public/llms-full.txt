@@ -1094,530 +1094,161 @@ Set app-wide IconButton defaults with `ThemeProvider`'s `themeDefaults`:
 ```
 
 ---
-Title: Input
-URL: https://vaneui.com/docs/basic-components/input
+Title: NavLink
+URL: https://vaneui.com/docs/basic-components/navlink
 ---
 
 ## Basic usage
 
-Input renders a styled text field for entering text, numbers, and other data.
+NavLink renders as an `<a>` when `href` is provided. Defaults to `sm` size, `primary` appearance, `outline` variant, `wFull` and `textLeft` layout, ideal for stacking inside a sidebar `Col`.
 
 ```tsx demo
-<Input placeholder="Enter text..." />
+<Col className="w-64">
+  <NavLink href="#">Home</NavLink>
+  <NavLink href="#">Dashboard</NavLink>
+  <NavLink href="#">Settings</NavLink>
+</Col>
 ```
 
 ## Sizes
 
-Inputs come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
+NavLink supports five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
 
 ```tsx demo
-<Col>
-  <Input xs placeholder="Extra small" />
-  <Input sm placeholder="Small" />
-  <Input placeholder="Medium (default)" />
-  <Input lg placeholder="Large" />
-  <Input xl placeholder="Extra large" />
+<Col className="w-72">
+  <NavLink xs href="#"><Home size={12} /> XS NavLink</NavLink>
+  <NavLink href="#"><Home size={14} /> SM NavLink</NavLink>
+  <NavLink md href="#"><Home size={16} /> MD NavLink</NavLink>
+  <NavLink lg href="#"><Home size={18} /> LG NavLink</NavLink>
+  <NavLink xl href="#"><Home size={20} /> XL NavLink</NavLink>
 </Col>
 ```
 
-## Variants
+## Active state
 
-Inputs are `outline` by default. Use `filled` for solid backgrounds.
+Use the `active` prop to indicate the current page. Active NavLinks get a `data-active` attribute for styling; the `href` (anchor) form also gets `aria-current="page"` (the no-href button form omits it).
 
 ```tsx demo
-<Col>
-  <Row flexWrap>
-    <Input placeholder="Outline (default)" />
-    <Input success placeholder="Outline success" />
-    <Input danger placeholder="Outline danger" />
-  </Row>
-  <Row flexWrap>
-    <Input filled placeholder="Filled" />
-    <Input filled success placeholder="Filled success" />
-    <Input filled danger placeholder="Filled danger" />
-  </Row>
+<Col className="w-64">
+  <NavLink href="#">Home</NavLink>
+  <NavLink href="#" active>Dashboard</NavLink>
+  <NavLink href="#">Settings</NavLink>
+  <NavLink href="#">Profile</NavLink>
 </Col>
 ```
 
-## Shapes
+## With icon
 
-Inputs support border radius styles: `rounded` (default), `pill`, and `sharp`.
+Drop an icon directly inside the NavLink. `gap` is on by default, so spacing is automatic. React elements rendered before any text become the leading icon; text is auto-wrapped in a label span with truncation; elements after text become trailing accessories.
+
+```tsx demo
+<Col className="w-64">
+  <NavLink href="#"><Home size={16} /> Home</NavLink>
+  <NavLink href="#" active><FileText size={16} /> Documents</NavLink>
+  <NavLink href="#"><Users size={16} /> Team</NavLink>
+  <NavLink href="#"><Settings size={16} /> Settings</NavLink>
+</Col>
+```
+
+## Appearances and variants
+
+NavLinks default to `primary outline`. Use `filled` for solid backgrounds. Active state works with all appearances.
 
 ```tsx demo
 <Row flexWrap>
-  <Input placeholder="Rounded (default)" />
-  <Input pill placeholder="Pill shape" />
-  <Input sharp placeholder="Sharp corners" />
+  <Col className="w-48">
+    <Text sm semibold secondary>Outline (default)</Text>
+    <NavLink href="#" active>Primary</NavLink>
+    <NavLink href="#" success active>Success</NavLink>
+    <NavLink href="#" danger active>Danger</NavLink>
+    <NavLink href="#" secondary active>Secondary</NavLink>
+  </Col>
+  <Col className="w-48">
+    <Text sm semibold secondary>Filled</Text>
+    <NavLink href="#" filled active>Primary</NavLink>
+    <NavLink href="#" success filled active>Success</NavLink>
+    <NavLink href="#" danger filled active>Danger</NavLink>
+    <NavLink href="#" secondary filled active>Secondary</NavLink>
+  </Col>
 </Row>
 ```
 
-## Types
+## Disabled state
 
-The `type` HTML attribute passes through to the underlying `<input>` element.
+Use `disabled` to prevent interaction. When `disabled` is combined with `href`, the `href` is dropped and it renders as a non-navigable anchor (`role="link"`, `aria-disabled="true"`) that stays focusable but cannot be followed.
 
 ```tsx demo
-<Col>
-  <Input type="text" placeholder="Text input" />
-  <Input type="email" placeholder="Email input" />
-  <Input type="password" placeholder="Password input" />
-  <Input type="number" placeholder="Number input" />
-  <Input type="search" placeholder="Search input" />
+<Col className="w-64">
+  <NavLink href="#"><Home size={16} /> Active Link</NavLink>
+  <NavLink href="#" disabled><Lock size={16} /> Disabled Link</NavLink>
+  <NavLink href="#" active><Settings size={16} /> Current Page</NavLink>
+  <NavLink href="#" disabled><Users size={16} /> Restricted</NavLink>
 </Col>
 ```
 
-## With labels
+## As Button (no href)
 
-Pair inputs with labels for accessibility and better UX. When the `Input` is nested inside a `Label`, it inherits the Label's size. Set it once on the Label.
+Without `href`, NavLink renders as a `<button>`, useful for menu items that trigger actions instead of navigating.
 
 ```tsx demo
-<Col>
-  <Label>
-    Full Name
-    <Input type="text" placeholder="Enter your full name" />
-  </Label>
-  <Label lg>
-    Email Address (large)
-    <Input type="email" placeholder="Enter your email" />
-  </Label>
+<Col className="w-64">
+  <NavLink onClick={() => alert('Profile')}><User size={16} /> Profile</NavLink>
+  <NavLink onClick={() => alert('Sign out')}><LogOut size={16} /> Sign out</NavLink>
 </Col>
 ```
 
-## States
+## Sidebar navigation
 
-Different input states: disabled, readonly, and validation feedback. Use appearance props (`success`, `danger`) for visual feedback, or the `error` status prop for form validation state.
+A real-world sidebar pattern with icons, active state, dividers, and trailing badges.
+
+```tsx demo
+<Card className="w-64" noGap>
+  <Text sm semibold secondary className="px-3 py-2">Navigation</Text>
+  <Divider />
+  <NavLink href="#"><Home size={16} /> Home</NavLink>
+  <NavLink href="#" active><FileText size={16} /> Documents</NavLink>
+  <NavLink href="#"><Mail size={16} /> Messages <Badge xs info>3</Badge></NavLink>
+  <NavLink href="#"><Bell size={16} /> Notifications <Badge xs danger>12</Badge></NavLink>
+  <NavLink href="#"><Star size={16} /> Favorites</NavLink>
+  <Divider />
+  <NavLink href="#"><Users size={16} /> Team</NavLink>
+  <NavLink href="#"><Settings size={16} /> Settings</NavLink>
+</Card>
+```
+
+## Keyboard focus
+
+NavLink renders a keyboard focus-visible outline by default so keyboard users can see where they are. Opt out with `noFocusVisible`.
+
+## Next.js Link integration
+
+Use the `tag` prop to render NavLink as a Next.js `Link` for client-side navigation.
 
 ```tsx
-<Input placeholder="Normal input" />
-<Input disabled placeholder="Disabled input" />
-<Input success placeholder="Success state" />
-<Input danger placeholder="Error state" />
-<Input error placeholder="Validation error" />
-```
+import Link from 'next/link';
+import { NavLink } from '@vaneui/ui';
 
-```tsx demo
-<Col>
-  <Input placeholder="Normal input" />
-  <Input disabled placeholder="Disabled input" />
-  <Input success placeholder="Success state" />
-  <Input danger placeholder="Error state" />
-  <Input error placeholder="Validation error (status)" />
-</Col>
+<NavLink href="/docs" tag={Link} active={pathname === '/docs'}>
+  Documentation
+</NavLink>
 ```
 
 ## Customizing
 
-Set app-wide Input defaults with `ThemeProvider`'s `themeDefaults` and add a focus-ring colour with `extraClasses`:
+Set app-wide NavLink defaults with `ThemeProvider`'s `themeDefaults`. Style the active state by targeting the emitted `data-active` attribute in your own CSS: `extraClasses` keys apply only to category props, so an `active` key there has no effect.
 
 ```tsx demo
-<ThemeProvider
-  themeDefaults={{ input: { lg: true, filled: true } }}
-  extraClasses={{ input: { primary: 'focus:ring-2 focus:ring-brand-500/40' } }}
->
-  <Input placeholder="Email" />
+<ThemeProvider themeDefaults={{ navLink: { root: { md: true } } }}>
+  <NavLink href="/docs" active>Docs</NavLink>
 </ThemeProvider>
 ```
 
----
-Title: Checkbox
-URL: https://vaneui.com/docs/basic-components/checkbox
----
-
-## Basic usage
-
-Checkbox should be used inside a Label with matching `id`/`htmlFor`. `Label` defaults to a stacked column layout, so add `row itemsCenter` to place the checkbox inline with its text. The checkbox takes its size from the Label, so match the Label's size to its text (here `md`) to keep the box centered on the first line of a multi-line label.
-
-```tsx demo
-<Col>
-  <Label row itemsCenter htmlFor="terms">
-    <Checkbox id="terms"/>
-    <span>I agree to the <Link href="#">Terms of Service</Link> and <Link href="#">Privacy Policy</Link>.</span>
-  </Label>
-
-  <Label md row itemsCenter htmlFor="emails">
-    <Checkbox defaultChecked id="emails"/>
-    <Col noGap tag="span">
-      <Text>Receive product updates</Text>
-      <Text xs secondary>Occasional emails about new features</Text>
-    </Col>
-  </Label>
-</Col>
-```
-
-## Sizes
-
-Checkboxes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. A `Checkbox` nested inside a `Label` inherits the Label's size automatically. Set it once on the Label and both scale together.
-
-```tsx demo
-<Row flexWrap>
-  <Label row itemsCenter xs htmlFor="size-xs">
-    <Checkbox id="size-xs" defaultChecked/>
-    Size: xs
-  </Label>
-  <Label row itemsCenter sm htmlFor="size-sm">
-    <Checkbox id="size-sm" defaultChecked/>
-    Size: sm
-  </Label>
-  <Label row itemsCenter md htmlFor="size-md">
-    <Checkbox id="size-md" defaultChecked/>
-    Size: md
-  </Label>
-  <Label row itemsCenter lg htmlFor="size-lg">
-    <Checkbox id="size-lg" defaultChecked/>
-    Size: lg
-  </Label>
-  <Label row itemsCenter xl htmlFor="size-xl">
-    <Checkbox id="size-xl" defaultChecked/>
-    Size: xl
-  </Label>
-</Row>
-```
-
-## Appearances
-
-Different color appearances applied to the Checkbox; always place inside a Label.
-
-```tsx demo
-<Row flexWrap>
-  <Label row itemsCenter htmlFor="appearance-primary">
-    <Checkbox id="appearance-primary" defaultChecked/>
-    Enable primary style
-  </Label>
-  <Label row itemsCenter brand htmlFor="appearance-brand">
-    <Checkbox brand id="appearance-brand" defaultChecked/>
-    Enable brand style
-  </Label>
-  <Label row itemsCenter accent htmlFor="appearance-accent">
-    <Checkbox accent id="appearance-accent" defaultChecked/>
-    Enable accent style
-  </Label>
-  <Label row itemsCenter secondary htmlFor="appearance-secondary">
-    <Checkbox secondary id="appearance-secondary" defaultChecked/>
-    Enable secondary style
-  </Label>
-  <Label row itemsCenter tertiary htmlFor="appearance-tertiary">
-    <Checkbox tertiary id="appearance-tertiary" defaultChecked/>
-    Enable tertiary style
-  </Label>
-  <Label row itemsCenter success htmlFor="appearance-success">
-    <Checkbox success id="appearance-success" defaultChecked/>
-    Enable success style
-  </Label>
-  <Label row itemsCenter danger htmlFor="appearance-danger">
-    <Checkbox danger id="appearance-danger" defaultChecked/>
-    Enable danger style
-  </Label>
-  <Label row itemsCenter warning htmlFor="appearance-warning">
-    <Checkbox warning id="appearance-warning" defaultChecked/>
-    Enable warning style
-  </Label>
-  <Label row itemsCenter info htmlFor="appearance-info">
-    <Checkbox info id="appearance-info" defaultChecked/>
-    Enable info style
-  </Label>
-  <Label row itemsCenter link htmlFor="appearance-link">
-    <Checkbox link id="appearance-link" defaultChecked/>
-    Enable link style
-  </Label>
-  <Label row itemsCenter inherit htmlFor="appearance-inherit">
-    <Checkbox inherit id="appearance-inherit" defaultChecked/>
-    Enable inherit style
-  </Label>
-</Row>
-```
-
-## Shapes
-
-Checkboxes support border radius styles: `rounded` (default), `pill`, and `sharp`.
-
-```tsx demo
-<Row flexWrap>
-  <Label row itemsCenter htmlFor="shape-rounded">
-    <Checkbox id="shape-rounded" defaultChecked/>
-    Rounded (default)
-  </Label>
-  <Label row itemsCenter htmlFor="shape-pill">
-    <Checkbox pill id="shape-pill" defaultChecked/>
-    Pill
-  </Label>
-  <Label row itemsCenter htmlFor="shape-sharp">
-    <Checkbox sharp id="shape-sharp" defaultChecked/>
-    Sharp
-  </Label>
-</Row>
-```
-
-## Disabled
-
-Use the `disabled` HTML attribute to prevent interaction.
-
-```tsx demo
-<Col>
-  <Label row itemsCenter htmlFor="disabled-unchecked">
-    <Checkbox disabled id="disabled-unchecked"/>
-    Disabled (unchecked)
-  </Label>
-  <Label row itemsCenter htmlFor="disabled-checked">
-    <Checkbox disabled defaultChecked id="disabled-checked"/>
-    Disabled (checked)
-  </Label>
-</Col>
-```
-
-## Controlled vs uncontrolled
-
-Checkbox forwards every HTML input attribute, so use `defaultChecked` for uncontrolled state and `checked` + `onChange` for controlled state.
-
-Uncontrolled: initial value only, the input manages its own state.
-
-```tsx demo
-<Label row itemsCenter htmlFor="uncontrolled">
-  <Checkbox defaultChecked id="uncontrolled"/>
-  Uncontrolled (defaultChecked)
-</Label>
-```
-
-Controlled: parent owns the value via `useState`.
-
-```tsx demo
-const [checked, setChecked] = useState(false);
-
-return (
-  <Label row itemsCenter htmlFor="controlled">
-    <Checkbox
-      id="controlled"
-      checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
-    />
-    Controlled ({checked ? 'on' : 'off'})
-  </Label>
-);
-```
-
-## Indeterminate state
-
-Use the `indeterminate` prop for "select all" checkboxes that represent a partially selected group. It is visual only: it renders a dash (the box fills like a checked one) and does not change the `checked` value, so you set it from your own state and manage the real values yourself.
-
-```tsx demo
-<Label row itemsCenter>
-  <Checkbox indeterminate />
-  Indeterminate
-</Label>
-```
-
-Wire it to a group so "Select all" reflects and controls the children: `checked` when all are on, `indeterminate` when some are on, and clicking it toggles them all.
-
-```tsx demo
-const [items, setItems] = React.useState([true, true, false, false]);
-const allChecked = items.every(Boolean);
-const anyChecked = items.some(Boolean);
-const labels = ['Item one', 'Item two', 'Item three', 'Item four'];
-return (
-  <Col>
-    <Label row itemsCenter>
-      <Checkbox
-        checked={allChecked}
-        indeterminate={anyChecked && !allChecked}
-        onChange={() => setItems(items.map(() => !allChecked))}
-      />
-      Select all ({items.filter(Boolean).length} of {items.length} selected)
-    </Label>
-    <Col className="pl-6">
-      {labels.map((label, i) => (
-        <Label row itemsCenter key={label}>
-          <Checkbox
-            checked={items[i]}
-            onChange={() => setItems(items.map((v, idx) => (idx === i ? !v : v)))}
-          />
-          {label}
-        </Label>
-      ))}
-    </Col>
-  </Col>
-);
-```
-
-## Checkbox group
-
-Multiple labeled checkboxes working together.
-
-```tsx demo
-<Col>
-  <Label row itemsCenter htmlFor="opt-1">
-    <Checkbox id="opt-1" defaultChecked/>
-    Email notifications
-  </Label>
-  <Label row itemsCenter htmlFor="opt-2">
-    <Checkbox id="opt-2"/>
-    SMS alerts
-  </Label>
-  <Label row itemsCenter htmlFor="opt-3">
-    <Checkbox id="opt-3"/>
-    Push notifications
-  </Label>
-</Col>
-```
-
-## Customizing
-
-Set app-wide Checkbox defaults with `ThemeProvider`'s `themeDefaults` and tune the checked-state visuals with `extraClasses`:
-
-```tsx demo
-<ThemeProvider
-  themeDefaults={{ checkbox: { input: { lg: true } } }}
-  extraClasses={{ checkbox: { input: { primary: 'checked:bg-brand-600 checked:border-brand-600' } } }}
->
-  <Label row itemsCenter htmlFor="terms">
-    <Checkbox id="terms"/>
-    I agree to the terms
-  </Label>
-</ThemeProvider>
-```
-
----
-Title: Label
-URL: https://vaneui.com/docs/basic-components/label
----
-
-## Basic usage
-
-A `Label` defaults to `sm` size and `inherit` appearance, so it picks up text color from its surroundings.
-
-```tsx demo
-<Label>Email address</Label>
-```
-
-## Sizes
-
-Labels come in five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Nested `Input` and `Checkbox` controls inherit the size.
-
-```tsx demo
-<Col>
-  <Label xs>xs label <Input placeholder="xs input" /></Label>
-  <Label>sm label (default) <Input placeholder="sm input" /></Label>
-  <Label md>md label <Input placeholder="md input" /></Label>
-  <Label lg>lg label <Input placeholder="lg input" /></Label>
-  <Label xl>xl label <Input placeholder="xl input" /></Label>
-</Col>
-```
-
-## Appearances
-
-Labels default to `inherit`: they take their color from the surrounding text. Set an explicit appearance to override.
-
-```tsx demo
-<Row flexWrap>
-  <Label>inherit label (default)</Label>
-  <Label primary>primary label</Label>
-  <Label brand>brand label</Label>
-  <Label accent>accent label</Label>
-  <Label secondary>secondary label</Label>
-  <Label tertiary>tertiary label</Label>
-  <Label success>success label</Label>
-  <Label danger>danger label</Label>
-  <Label warning>warning label</Label>
-  <Label info>info label</Label>
-  <Label link>link label</Label>
-</Row>
-```
-
-## With Input
-
-Wrap an `Input` inside a `Label` to make the label clickable and associate them implicitly. No `htmlFor`/`id` wiring required.
-
-```tsx demo
-<Col noGap>
-  <Label>
-    Email
-    <Input placeholder="you@example.com" />
-  </Label>
-</Col>
-```
-
-## With Checkbox
-
-Place a `Checkbox` inside a `Label` so the label text expands the toggle's hit area. `Label` defaults to a stacked column layout, so add `row itemsCenter` to sit the checkbox inline with its text.
-
-```tsx demo
-<Label row itemsCenter>
-  <Checkbox />
-  Subscribe to product updates
-</Label>
-```
-
-## htmlFor association
-
-When the control lives outside the label, use the standard `htmlFor` attribute pointing at the input's `id`.
-
-```tsx demo
-<Col noGap>
-  <Label htmlFor="username">Username</Label>
-  <Input id="username" placeholder="Choose a username" />
-</Col>
-```
-
-## Font weights
-
-The default weight is `medium`. Override with any weight prop from `thin` to `black`.
-
-```tsx demo
-<Col>
-  <Label thin>thin weight</Label>
-  <Label extralight>extralight weight</Label>
-  <Label light>light weight</Label>
-  <Label normal>normal weight</Label>
-  <Label>medium weight (default)</Label>
-  <Label semibold>semibold weight</Label>
-  <Label bold>bold weight</Label>
-  <Label extrabold>extrabold weight</Label>
-  <Label black>black weight</Label>
-</Col>
-```
-
-## Text decorations
-
-Apply text decorations as needed.
-
-```tsx demo
-<Row flexWrap>
-  <Label underline>underline text</Label>
-  <Label lineThrough>lineThrough text</Label>
-  <Label overline>overline text</Label>
-</Row>
-```
-
-## Size propagation
-
-When an `Input` or `Checkbox` is nested inside a `Label`, it automatically picks up the label's size. Set it once and everything scales together. Pass a size on the child to opt out for that one element.
-
-```tsx demo
-<Col>
-  <Label xl row itemsCenter>
-    <Checkbox />
-    Extra-large checkbox option
-  </Label>
-  <Label lg row itemsCenter>
-    <Checkbox xs />
-    Explicit <Code>xs</Code> checkbox overrides the <Code>lg</Code> label
-  </Label>
-</Col>
-```
-
-## Required and status
-
-Use appearances to indicate field status: `danger` for errors, `success` for valid, `secondary` for hints.
-
-```tsx demo
-<Col>
-  <Col noGap>
-    <Label semibold>Username <Text tag="span" danger>*</Text></Label>
-    <Input placeholder="Choose a username" />
-  </Col>
-  <Col noGap>
-    <Label success semibold>Email verified</Label>
-    <Input placeholder="verified@example.com" />
-  </Col>
-  <Label secondary>All fields marked with * are required.</Label>
-</Col>
+```css
+.vane-nav-link[data-active] {
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 600;
+}
 ```
 
 ---
@@ -2497,6 +2128,1775 @@ Icons work naturally alongside text and inside buttons.
       <Text sm secondary>Pair a padded icon with adjacent text for compact summaries.</Text>
     </Col>
   </Row>
+</Col>
+```
+
+## Form Components
+
+Controls for capturing user input, and the label that ties them to their text.
+
+---
+Title: Input
+URL: https://vaneui.com/docs/form-components/input
+---
+
+## Basic usage
+
+Input renders a styled text field for entering text, numbers, and other data.
+
+```tsx demo
+<Input placeholder="Enter text..." />
+```
+
+## Sizes
+
+Inputs come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
+
+```tsx demo
+<Col>
+  <Input xs placeholder="Extra small" />
+  <Input sm placeholder="Small" />
+  <Input placeholder="Medium (default)" />
+  <Input lg placeholder="Large" />
+  <Input xl placeholder="Extra large" />
+</Col>
+```
+
+## Variants
+
+Inputs are `outline` by default. Use `filled` for solid backgrounds.
+
+```tsx demo
+<Col>
+  <Row flexWrap>
+    <Input placeholder="Outline (default)" />
+    <Input success placeholder="Outline success" />
+    <Input danger placeholder="Outline danger" />
+  </Row>
+  <Row flexWrap>
+    <Input filled placeholder="Filled" />
+    <Input filled success placeholder="Filled success" />
+    <Input filled danger placeholder="Filled danger" />
+  </Row>
+</Col>
+```
+
+## Shapes
+
+Inputs support border radius styles: `rounded` (default), `pill`, and `sharp`.
+
+```tsx demo
+<Row flexWrap>
+  <Input placeholder="Rounded (default)" />
+  <Input pill placeholder="Pill shape" />
+  <Input sharp placeholder="Sharp corners" />
+</Row>
+```
+
+## Types
+
+The `type` HTML attribute passes through to the underlying `<input>` element.
+
+```tsx demo
+<Col>
+  <Input type="text" placeholder="Text input" />
+  <Input type="email" placeholder="Email input" />
+  <Input type="password" placeholder="Password input" />
+  <Input type="number" placeholder="Number input" />
+  <Input type="search" placeholder="Search input" />
+</Col>
+```
+
+## With labels
+
+Pair inputs with labels for accessibility and better UX. When the `Input` is nested inside a `Label`, it inherits the Label's size. Set it once on the Label.
+
+```tsx demo
+<Col>
+  <Label>
+    Full Name
+    <Input type="text" placeholder="Enter your full name" />
+  </Label>
+  <Label lg>
+    Email Address (large)
+    <Input type="email" placeholder="Enter your email" />
+  </Label>
+</Col>
+```
+
+## States
+
+Different input states: disabled, readonly, and validation feedback. Use appearance props (`success`, `danger`) for visual feedback, or the `error` status prop for form validation state.
+
+```tsx
+<Input placeholder="Normal input" />
+<Input disabled placeholder="Disabled input" />
+<Input success placeholder="Success state" />
+<Input danger placeholder="Error state" />
+<Input error placeholder="Validation error" />
+```
+
+```tsx demo
+<Col>
+  <Input placeholder="Normal input" />
+  <Input disabled placeholder="Disabled input" />
+  <Input success placeholder="Success state" />
+  <Input danger placeholder="Error state" />
+  <Input error placeholder="Validation error (status)" />
+</Col>
+```
+
+## Customizing
+
+Set app-wide Input defaults with `ThemeProvider`'s `themeDefaults` and add a focus-ring colour with `extraClasses`:
+
+```tsx demo
+<ThemeProvider
+  themeDefaults={{ input: { lg: true, filled: true } }}
+  extraClasses={{ input: { primary: 'focus:ring-2 focus:ring-brand-500/40' } }}
+>
+  <Input placeholder="Email" />
+</ThemeProvider>
+```
+
+---
+Title: Checkbox
+URL: https://vaneui.com/docs/form-components/checkbox
+---
+
+## Basic usage
+
+Checkbox should be used inside a Label with matching `id`/`htmlFor`. `Label` defaults to a stacked column layout, so add `row itemsCenter` to place the checkbox inline with its text. The checkbox takes its size from the Label, so match the Label's size to its text (here `md`) to keep the box centered on the first line of a multi-line label.
+
+```tsx demo
+<Col>
+  <Label row itemsCenter htmlFor="terms">
+    <Checkbox id="terms"/>
+    <span>I agree to the <Link href="#">Terms of Service</Link> and <Link href="#">Privacy Policy</Link>.</span>
+  </Label>
+
+  <Label md row itemsCenter htmlFor="emails">
+    <Checkbox defaultChecked id="emails"/>
+    <Col noGap tag="span">
+      <Text>Receive product updates</Text>
+      <Text xs secondary>Occasional emails about new features</Text>
+    </Col>
+  </Label>
+</Col>
+```
+
+## Sizes
+
+Checkboxes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. A `Checkbox` nested inside a `Label` inherits the Label's size automatically. Set it once on the Label and both scale together.
+
+```tsx demo
+<Row flexWrap>
+  <Label row itemsCenter xs htmlFor="size-xs">
+    <Checkbox id="size-xs" defaultChecked/>
+    Size: xs
+  </Label>
+  <Label row itemsCenter sm htmlFor="size-sm">
+    <Checkbox id="size-sm" defaultChecked/>
+    Size: sm
+  </Label>
+  <Label row itemsCenter md htmlFor="size-md">
+    <Checkbox id="size-md" defaultChecked/>
+    Size: md
+  </Label>
+  <Label row itemsCenter lg htmlFor="size-lg">
+    <Checkbox id="size-lg" defaultChecked/>
+    Size: lg
+  </Label>
+  <Label row itemsCenter xl htmlFor="size-xl">
+    <Checkbox id="size-xl" defaultChecked/>
+    Size: xl
+  </Label>
+</Row>
+```
+
+## Appearances
+
+Different color appearances applied to the Checkbox; always place inside a Label.
+
+```tsx demo
+<Row flexWrap>
+  <Label row itemsCenter htmlFor="appearance-primary">
+    <Checkbox id="appearance-primary" defaultChecked/>
+    Enable primary style
+  </Label>
+  <Label row itemsCenter brand htmlFor="appearance-brand">
+    <Checkbox brand id="appearance-brand" defaultChecked/>
+    Enable brand style
+  </Label>
+  <Label row itemsCenter accent htmlFor="appearance-accent">
+    <Checkbox accent id="appearance-accent" defaultChecked/>
+    Enable accent style
+  </Label>
+  <Label row itemsCenter secondary htmlFor="appearance-secondary">
+    <Checkbox secondary id="appearance-secondary" defaultChecked/>
+    Enable secondary style
+  </Label>
+  <Label row itemsCenter tertiary htmlFor="appearance-tertiary">
+    <Checkbox tertiary id="appearance-tertiary" defaultChecked/>
+    Enable tertiary style
+  </Label>
+  <Label row itemsCenter success htmlFor="appearance-success">
+    <Checkbox success id="appearance-success" defaultChecked/>
+    Enable success style
+  </Label>
+  <Label row itemsCenter danger htmlFor="appearance-danger">
+    <Checkbox danger id="appearance-danger" defaultChecked/>
+    Enable danger style
+  </Label>
+  <Label row itemsCenter warning htmlFor="appearance-warning">
+    <Checkbox warning id="appearance-warning" defaultChecked/>
+    Enable warning style
+  </Label>
+  <Label row itemsCenter info htmlFor="appearance-info">
+    <Checkbox info id="appearance-info" defaultChecked/>
+    Enable info style
+  </Label>
+  <Label row itemsCenter link htmlFor="appearance-link">
+    <Checkbox link id="appearance-link" defaultChecked/>
+    Enable link style
+  </Label>
+  <Label row itemsCenter inherit htmlFor="appearance-inherit">
+    <Checkbox inherit id="appearance-inherit" defaultChecked/>
+    Enable inherit style
+  </Label>
+</Row>
+```
+
+## Shapes
+
+Checkboxes support border radius styles: `rounded` (default), `pill`, and `sharp`.
+
+```tsx demo
+<Row flexWrap>
+  <Label row itemsCenter htmlFor="shape-rounded">
+    <Checkbox id="shape-rounded" defaultChecked/>
+    Rounded (default)
+  </Label>
+  <Label row itemsCenter htmlFor="shape-pill">
+    <Checkbox pill id="shape-pill" defaultChecked/>
+    Pill
+  </Label>
+  <Label row itemsCenter htmlFor="shape-sharp">
+    <Checkbox sharp id="shape-sharp" defaultChecked/>
+    Sharp
+  </Label>
+</Row>
+```
+
+## Disabled
+
+Use the `disabled` HTML attribute to prevent interaction.
+
+```tsx demo
+<Col>
+  <Label row itemsCenter htmlFor="disabled-unchecked">
+    <Checkbox disabled id="disabled-unchecked"/>
+    Disabled (unchecked)
+  </Label>
+  <Label row itemsCenter htmlFor="disabled-checked">
+    <Checkbox disabled defaultChecked id="disabled-checked"/>
+    Disabled (checked)
+  </Label>
+</Col>
+```
+
+## Controlled vs uncontrolled
+
+Checkbox forwards every HTML input attribute, so use `defaultChecked` for uncontrolled state and `checked` + `onChange` for controlled state.
+
+Uncontrolled: initial value only, the input manages its own state.
+
+```tsx demo
+<Label row itemsCenter htmlFor="uncontrolled">
+  <Checkbox defaultChecked id="uncontrolled"/>
+  Uncontrolled (defaultChecked)
+</Label>
+```
+
+Controlled: parent owns the value via `useState`.
+
+```tsx demo
+const [checked, setChecked] = useState(false);
+
+return (
+  <Label row itemsCenter htmlFor="controlled">
+    <Checkbox
+      id="controlled"
+      checked={checked}
+      onChange={(e) => setChecked(e.target.checked)}
+    />
+    Controlled ({checked ? 'on' : 'off'})
+  </Label>
+);
+```
+
+## Indeterminate state
+
+Use the `indeterminate` prop for "select all" checkboxes that represent a partially selected group. It is visual only: it renders a dash (the box fills like a checked one) and does not change the `checked` value, so you set it from your own state and manage the real values yourself.
+
+```tsx demo
+<Label row itemsCenter>
+  <Checkbox indeterminate />
+  Indeterminate
+</Label>
+```
+
+Wire it to a group so "Select all" reflects and controls the children: `checked` when all are on, `indeterminate` when some are on, and clicking it toggles them all.
+
+```tsx demo
+const [items, setItems] = React.useState([true, true, false, false]);
+const allChecked = items.every(Boolean);
+const anyChecked = items.some(Boolean);
+const labels = ['Item one', 'Item two', 'Item three', 'Item four'];
+return (
+  <Col>
+    <Label row itemsCenter>
+      <Checkbox
+        checked={allChecked}
+        indeterminate={anyChecked && !allChecked}
+        onChange={() => setItems(items.map(() => !allChecked))}
+      />
+      Select all ({items.filter(Boolean).length} of {items.length} selected)
+    </Label>
+    <Col className="pl-6">
+      {labels.map((label, i) => (
+        <Label row itemsCenter key={label}>
+          <Checkbox
+            checked={items[i]}
+            onChange={() => setItems(items.map((v, idx) => (idx === i ? !v : v)))}
+          />
+          {label}
+        </Label>
+      ))}
+    </Col>
+  </Col>
+);
+```
+
+## Checkbox group
+
+Multiple labeled checkboxes working together.
+
+```tsx demo
+<Col>
+  <Label row itemsCenter htmlFor="opt-1">
+    <Checkbox id="opt-1" defaultChecked/>
+    Email notifications
+  </Label>
+  <Label row itemsCenter htmlFor="opt-2">
+    <Checkbox id="opt-2"/>
+    SMS alerts
+  </Label>
+  <Label row itemsCenter htmlFor="opt-3">
+    <Checkbox id="opt-3"/>
+    Push notifications
+  </Label>
+</Col>
+```
+
+## Customizing
+
+Set app-wide Checkbox defaults with `ThemeProvider`'s `themeDefaults` and tune the checked-state visuals with `extraClasses`:
+
+```tsx demo
+<ThemeProvider
+  themeDefaults={{ checkbox: { input: { lg: true } } }}
+  extraClasses={{ checkbox: { input: { primary: 'checked:bg-brand-600 checked:border-brand-600' } } }}
+>
+  <Label row itemsCenter htmlFor="terms">
+    <Checkbox id="terms"/>
+    I agree to the terms
+  </Label>
+</ThemeProvider>
+```
+
+---
+Title: Label
+URL: https://vaneui.com/docs/form-components/label
+---
+
+## Basic usage
+
+A `Label` defaults to `sm` size and `inherit` appearance, so it picks up text color from its surroundings.
+
+```tsx demo
+<Label>Email address</Label>
+```
+
+## Sizes
+
+Labels come in five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Nested `Input` and `Checkbox` controls inherit the size.
+
+```tsx demo
+<Col>
+  <Label xs>xs label <Input placeholder="xs input" /></Label>
+  <Label>sm label (default) <Input placeholder="sm input" /></Label>
+  <Label md>md label <Input placeholder="md input" /></Label>
+  <Label lg>lg label <Input placeholder="lg input" /></Label>
+  <Label xl>xl label <Input placeholder="xl input" /></Label>
+</Col>
+```
+
+## Appearances
+
+Labels default to `inherit`: they take their color from the surrounding text. Set an explicit appearance to override.
+
+```tsx demo
+<Row flexWrap>
+  <Label>inherit label (default)</Label>
+  <Label primary>primary label</Label>
+  <Label brand>brand label</Label>
+  <Label accent>accent label</Label>
+  <Label secondary>secondary label</Label>
+  <Label tertiary>tertiary label</Label>
+  <Label success>success label</Label>
+  <Label danger>danger label</Label>
+  <Label warning>warning label</Label>
+  <Label info>info label</Label>
+  <Label link>link label</Label>
+</Row>
+```
+
+## With Input
+
+Wrap an `Input` inside a `Label` to make the label clickable and associate them implicitly. No `htmlFor`/`id` wiring required.
+
+```tsx demo
+<Col noGap>
+  <Label>
+    Email
+    <Input placeholder="you@example.com" />
+  </Label>
+</Col>
+```
+
+## With Checkbox
+
+Place a `Checkbox` inside a `Label` so the label text expands the toggle's hit area. `Label` defaults to a stacked column layout, so add `row itemsCenter` to sit the checkbox inline with its text.
+
+```tsx demo
+<Label row itemsCenter>
+  <Checkbox />
+  Subscribe to product updates
+</Label>
+```
+
+## htmlFor association
+
+When the control lives outside the label, use the standard `htmlFor` attribute pointing at the input's `id`.
+
+```tsx demo
+<Col noGap>
+  <Label htmlFor="username">Username</Label>
+  <Input id="username" placeholder="Choose a username" />
+</Col>
+```
+
+## Font weights
+
+The default weight is `medium`. Override with any weight prop from `thin` to `black`.
+
+```tsx demo
+<Col>
+  <Label thin>thin weight</Label>
+  <Label extralight>extralight weight</Label>
+  <Label light>light weight</Label>
+  <Label normal>normal weight</Label>
+  <Label>medium weight (default)</Label>
+  <Label semibold>semibold weight</Label>
+  <Label bold>bold weight</Label>
+  <Label extrabold>extrabold weight</Label>
+  <Label black>black weight</Label>
+</Col>
+```
+
+## Text decorations
+
+Apply text decorations as needed.
+
+```tsx demo
+<Row flexWrap>
+  <Label underline>underline text</Label>
+  <Label lineThrough>lineThrough text</Label>
+  <Label overline>overline text</Label>
+</Row>
+```
+
+## Size propagation
+
+When an `Input` or `Checkbox` is nested inside a `Label`, it automatically picks up the label's size. Set it once and everything scales together. Pass a size on the child to opt out for that one element.
+
+```tsx demo
+<Col>
+  <Label xl row itemsCenter>
+    <Checkbox />
+    Extra-large checkbox option
+  </Label>
+  <Label lg row itemsCenter>
+    <Checkbox xs />
+    Explicit <Code>xs</Code> checkbox overrides the <Code>lg</Code> label
+  </Label>
+</Col>
+```
+
+## Required and status
+
+Use appearances to indicate field status: `danger` for errors, `success` for valid, `secondary` for hints.
+
+```tsx demo
+<Col>
+  <Col noGap>
+    <Label semibold>Username <Text tag="span" danger>*</Text></Label>
+    <Input placeholder="Choose a username" />
+  </Col>
+  <Col noGap>
+    <Label success semibold>Email verified</Label>
+    <Input placeholder="verified@example.com" />
+  </Col>
+  <Label secondary>All fields marked with * are required.</Label>
+</Col>
+```
+
+## Typography Components
+
+A suite of components for rendering text and establishing a clear typographic hierarchy.
+
+---
+Title: Text
+URL: https://vaneui.com/docs/typography-components/text
+---
+
+## Basic usage
+
+Text renders paragraph text with default styling.
+
+```tsx demo
+<Text>Compose interfaces with VaneUI components. Text provides consistent typography across your application.</Text>
+```
+
+## Sizes
+
+Text comes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
+
+```tsx demo
+<Col>
+  <Text xs>Extra small text</Text>
+  <Text sm>Small text for captions</Text>
+  <Text>Medium text (default)</Text>
+  <Text lg>Large text for emphasis</Text>
+  <Text xl>Extra large text</Text>
+</Col>
+```
+
+## Appearances
+
+Text supports explicit color appearances: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`. Use these to override the default `inherit` behavior.
+
+```tsx demo
+<Col>
+  <Text primary>Primary text for important content</Text>
+  <Text brand>Brand text for brand-colored content</Text>
+  <Text accent>Accent text for highlights</Text>
+  <Text secondary>Secondary text for supporting content</Text>
+  <Text tertiary>Tertiary text for muted content</Text>
+  <Text success>Success text for positive feedback</Text>
+  <Text danger>Danger text for errors or warnings</Text>
+  <Text warning>Warning text for cautionary messages</Text>
+  <Text info>Info text for informational content</Text>
+  <Text link>Link-colored text for clickable content</Text>
+</Col>
+```
+
+## Inherit appearance (default)
+
+Text defaults to the `inherit` appearance: it picks up its color from the parent via CSS cascade instead of applying its own. Set an explicit appearance to override.
+
+```tsx demo
+<Row flexWrap>
+  <Card primary filled>
+    <Text bold>Inherited Primary</Text>
+    <Text>This text inherits primary from the Card.</Text>
+  </Card>
+  <Card success filled>
+    <Text bold>Inherited Success</Text>
+    <Text>Inherits success color automatically.</Text>
+    <Text danger>Explicit danger overrides inherit.</Text>
+  </Card>
+</Row>
+```
+
+## Font weights
+
+Control weight with `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
+
+```tsx demo
+<Col>
+  <Text thin>Thin weight</Text>
+  <Text light>Light weight</Text>
+  <Text normal>Normal weight</Text>
+  <Text medium>Medium weight</Text>
+  <Text semibold>Semibold weight</Text>
+  <Text bold>Bold weight</Text>
+  <Text extrabold>Extra bold weight</Text>
+  <Text black>Black weight</Text>
+</Col>
+```
+
+## Font families
+
+Switch font family with `sans` (default), `serif`, `mono`.
+
+```tsx demo
+<Col>
+  <Text sans>Sans-serif font (default)</Text>
+  <Text serif>Serif font for editorial content</Text>
+  <Text mono>Monospace for code or technical content</Text>
+</Col>
+```
+
+## Italic, underline, line-through
+
+```tsx demo
+<Col>
+  <Text italic>Italic text for quotes or terms</Text>
+  <Text underline>Underlined text for emphasis</Text>
+  <Text lineThrough>Line-through for deleted content</Text>
+</Col>
+```
+
+## Text transform
+
+Use `uppercase`, `lowercase`, `capitalize`.
+
+```tsx demo
+<Col>
+  <Text uppercase>Uppercase for labels</Text>
+  <Text lowercase>LOWERCASE NORMALIZED</Text>
+  <Text capitalize>capitalized words example</Text>
+</Col>
+```
+
+## Text alignment
+
+Align text with `textLeft` (default), `textCenter`, `textRight`, `textJustify`. Text defaults to `wFit`, so set `wFull` to see alignment effects across the container.
+
+```tsx demo
+<Col>
+  <Text wFull>Left aligned (default)</Text>
+  <Text wFull textCenter>Center aligned</Text>
+  <Text wFull textRight>Right aligned</Text>
+  <Text wFull textJustify>Justified text spreads to fill the line, distributing extra space between words across the full container width.</Text>
+</Col>
+```
+
+## Truncate and line clamp
+
+Use `truncate` for single-line ellipsis, or `lineClamp2`/`lineClamp3`/`lineClamp4`/`lineClamp5` for multi-line clamping.
+
+```tsx demo
+<Col>
+  <Text wFull truncate>Truncated single line of text that will be cut off with an ellipsis when it exceeds the container width.</Text>
+  <Text wFull lineClamp2>Clamped to two lines. This release note covers the new size props, the revised default appearances, and the spacing changes that now scale with the size prop across every typography component in the library.</Text>
+  <Text wFull lineClamp3>Clamped to three lines. The migration guide walks through each change in detail, from the renamed appearance props to the updated default margins, and explains how to update your existing components step by step so nothing renders differently after you upgrade to the latest version.</Text>
+</Col>
+```
+
+## Letter spacing
+
+Control letter spacing with `trackingTighter`, `trackingTight`, `trackingNormal`, `trackingWide`, `trackingWider`, `trackingWidest`. Text defaults to a compact `-0.011em` tracking; `trackingNormal` resets it to `0`.
+
+```tsx demo
+<Col>
+  <Text trackingTighter>Tighter letter spacing</Text>
+  <Text trackingTight>Tight letter spacing</Text>
+  <Text trackingNormal>Normal letter spacing (default)</Text>
+  <Text trackingWide>Wide letter spacing</Text>
+  <Text trackingWider>Wider letter spacing</Text>
+  <Text trackingWidest>Widest letter spacing</Text>
+</Col>
+```
+
+## Margins
+
+Block typography (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`) accepts size-driven margin props: `margin` (all sides), `marginX`, `marginY`, `marginT`, and `marginB`. `Text` defaults to `noMargin`, so opt in where you need vertical rhythm outside a gap-based layout. The margin scales with the size prop.
+
+```tsx demo
+<Col noGap>
+  <Text>No margin (default), sits flush.</Text>
+  <Text marginT marginB>Margin above and below, scales with size.</Text>
+  <Text>Another flush line.</Text>
+</Col>
+```
+
+## Text in context
+
+Combining text properties for real-world use cases.
+
+```tsx demo
+<Col>
+  <Card>
+    <Text lg bold>Product Title</Text>
+    <Text secondary>Category • 4.5 ★ (128 reviews)</Text>
+    <Text>High-quality component library for building modern web applications with React and TypeScript.</Text>
+    <Text sm primary semibold>$99.00</Text>
+  </Card>
+</Col>
+```
+
+---
+Title: PageTitle
+URL: https://vaneui.com/docs/typography-components/page-title
+---
+
+## Basic usage
+
+PageTitle renders a large `<h1>` heading for page titles. It defaults to `semibold` weight, `heading` font family, `trackingTight` letter spacing, and `inherit` appearance.
+
+```tsx demo
+<PageTitle>Welcome to VaneUI</PageTitle>
+```
+
+## Sizes
+
+Page titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
+
+```tsx demo
+<Col>
+  <PageTitle xs>Extra Small Page Title</PageTitle>
+  <PageTitle sm>Small Page Title</PageTitle>
+  <PageTitle>Medium Page Title (default)</PageTitle>
+  <PageTitle lg>Large Page Title</PageTitle>
+  <PageTitle xl>Extra Large Page Title</PageTitle>
+</Col>
+```
+
+## Appearances
+
+By default, PageTitle uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
+
+```tsx demo
+<Col>
+  <PageTitle primary>Primary Page Title</PageTitle>
+  <PageTitle secondary>Secondary Page Title</PageTitle>
+  <PageTitle success>Success Page Title</PageTitle>
+  <PageTitle warning>Warning Page Title</PageTitle>
+  <PageTitle danger>Danger Page Title</PageTitle>
+  <PageTitle info>Info Page Title</PageTitle>
+</Col>
+```
+
+## PageTitle vs SectionTitle vs Title
+
+Three heading components for a clean semantic hierarchy. Use them together so the document outline matches the visual hierarchy.
+
+```tsx demo
+<Col>
+  <PageTitle>Page Heading (h1)</PageTitle>
+  <SectionTitle>Section Heading (h2)</SectionTitle>
+  <Title>Subsection Heading (h3)</Title>
+</Col>
+```
+
+## Font weights
+
+PageTitle is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
+
+```tsx demo
+<Col>
+  <PageTitle light>Light Page Title</PageTitle>
+  <PageTitle normal>Normal Page Title</PageTitle>
+  <PageTitle medium>Medium Page Title</PageTitle>
+  <PageTitle>Semibold Page Title (default)</PageTitle>
+  <PageTitle bold>Bold Page Title</PageTitle>
+  <PageTitle black>Black Page Title</PageTitle>
+</Col>
+```
+
+## Font families
+
+Switch between `sans`, `serif`, and `mono` font families.
+
+```tsx demo
+<Col>
+  <PageTitle sans>Sans-serif Page Title</PageTitle>
+  <PageTitle serif>Serif Page Title</PageTitle>
+  <PageTitle mono>Monospace Page Title</PageTitle>
+</Col>
+```
+
+## Italic
+
+Use the `italic` prop for italic emphasis.
+
+```tsx demo
+<PageTitle italic>Italic Page Title</PageTitle>
+```
+
+## Text alignment
+
+PageTitle is left-aligned by default. Use `textCenter`, `textRight`, or `textJustify` to change alignment.
+
+```tsx demo
+<Card>
+  <PageTitle wFull>Left Aligned (default)</PageTitle>
+  <PageTitle wFull textCenter>Center Aligned</PageTitle>
+  <PageTitle wFull textRight>Right Aligned</PageTitle>
+</Card>
+```
+
+## Custom HTML tag
+
+Override the rendered tag with the `tag` prop when the visual style of PageTitle is wanted but a different semantic level is required.
+
+```tsx demo
+<Col>
+  <PageTitle>Rendered as h1 (default)</PageTitle>
+  <PageTitle tag="h2">Rendered as h2</PageTitle>
+  <PageTitle tag="h3">Rendered as h3</PageTitle>
+  <PageTitle tag="div">Rendered as div</PageTitle>
+</Col>
+```
+
+## PageTitle in context
+
+Page titles work well as the main heading of a page, paired with a subtitle.
+
+```tsx demo
+<Card>
+  <PageTitle lg primary>Product Documentation</PageTitle>
+  <Text secondary>Learn how to use VaneUI components in your projects.</Text>
+  <Text>Get started with our comprehensive guides and examples.</Text>
+</Card>
+```
+
+## Page header pattern
+
+Combine PageTitle with Text and Divider for a complete page header.
+
+```tsx demo
+<Col>
+  <PageTitle xl>Dashboard</PageTitle>
+  <Text lg secondary>Welcome back. Here is an overview of your projects.</Text>
+  <Divider />
+  <Text>Content goes here...</Text>
+</Col>
+```
+
+## Hero page header
+
+Combine an `xl` PageTitle with a large subtitle and a call to action for a marketing-style hero.
+
+```tsx demo
+<Stack itemsCenter>
+  <PageTitle xl textCenter>Build Faster with VaneUI</PageTitle>
+  <Text lg secondary textCenter>A boolean-props React component library powered by Tailwind CSS v4.</Text>
+  <Row>
+    <Button filled>Get Started</Button>
+    <Button>View on GitHub</Button>
+  </Row>
+</Stack>
+```
+
+---
+Title: SectionTitle
+URL: https://vaneui.com/docs/typography-components/section-title
+---
+
+## Basic usage
+
+SectionTitle renders an `<h2>` heading for major section headings. It defaults to `semibold` weight, `heading` font family, `inherit` appearance, and left-aligned text.
+
+```tsx demo
+<SectionTitle>Getting Started</SectionTitle>
+```
+
+## Sizes
+
+Section titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
+
+```tsx demo
+<Col>
+  <SectionTitle xs>Extra Small Section Title</SectionTitle>
+  <SectionTitle sm>Small Section Title</SectionTitle>
+  <SectionTitle>Medium Section Title (default)</SectionTitle>
+  <SectionTitle lg>Large Section Title</SectionTitle>
+  <SectionTitle xl>Extra Large Section Title</SectionTitle>
+</Col>
+```
+
+## Appearances
+
+By default, SectionTitle uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
+
+```tsx demo
+<Col>
+  <SectionTitle primary>Primary Section Title</SectionTitle>
+  <SectionTitle secondary>Secondary Section Title</SectionTitle>
+  <SectionTitle success>Success Section Title</SectionTitle>
+  <SectionTitle warning>Warning Section Title</SectionTitle>
+  <SectionTitle danger>Danger Section Title</SectionTitle>
+  <SectionTitle info>Info Section Title</SectionTitle>
+</Col>
+```
+
+## PageTitle vs SectionTitle vs Title
+
+Three heading components for a clean semantic hierarchy.
+
+```tsx demo
+<Col>
+  <PageTitle>Page Heading (h1)</PageTitle>
+  <SectionTitle>Section Heading (h2)</SectionTitle>
+  <Title>Subsection Heading (h3)</Title>
+</Col>
+```
+
+## Font weights
+
+SectionTitle is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
+
+```tsx demo
+<Col>
+  <SectionTitle light>Light Section Title</SectionTitle>
+  <SectionTitle normal>Normal Section Title</SectionTitle>
+  <SectionTitle medium>Medium Section Title</SectionTitle>
+  <SectionTitle>Semibold Section Title (default)</SectionTitle>
+  <SectionTitle bold>Bold Section Title</SectionTitle>
+  <SectionTitle black>Black Section Title</SectionTitle>
+</Col>
+```
+
+## Font families
+
+Switch between `sans`, `serif`, and `mono` font families.
+
+```tsx demo
+<Col>
+  <SectionTitle sans>Sans-serif Section Title</SectionTitle>
+  <SectionTitle serif>Serif Section Title</SectionTitle>
+  <SectionTitle mono>Monospace Section Title</SectionTitle>
+</Col>
+```
+
+## Italic
+
+Use the `italic` prop for italic emphasis.
+
+```tsx demo
+<SectionTitle italic>Italic Section Title</SectionTitle>
+```
+
+## Uppercase
+
+Use the `uppercase` prop to render the title in all caps.
+
+```tsx demo
+<SectionTitle uppercase>Uppercase Section Title</SectionTitle>
+```
+
+## Text alignment
+
+SectionTitle is left-aligned by default. Use `textCenter`, `textRight`, or `textJustify` to change alignment.
+
+```tsx demo
+<Col>
+  <SectionTitle>Left Aligned (default)</SectionTitle>
+  <SectionTitle textCenter>Center Aligned</SectionTitle>
+  <SectionTitle textRight>Right Aligned</SectionTitle>
+</Col>
+```
+
+## Custom HTML tag
+
+Override the rendered tag with the `tag` prop when the visual style of SectionTitle is wanted but a different semantic level is required.
+
+```tsx demo
+<Col>
+  <SectionTitle tag="h1">Rendered as h1</SectionTitle>
+  <SectionTitle>Rendered as h2 (default)</SectionTitle>
+  <SectionTitle tag="h3">Rendered as h3</SectionTitle>
+  <SectionTitle tag="h4">Rendered as h4</SectionTitle>
+</Col>
+```
+
+## SectionTitle in a Section
+
+`SectionTitle` is designed to head a `<Section>`. Use them together so the visual structure matches the semantic outline.
+
+```tsx demo
+<Col>
+  <Section>
+    <SectionTitle>Installation</SectionTitle>
+    <Text>Install VaneUI using npm or yarn.</Text>
+  </Section>
+  <Section>
+    <SectionTitle>Usage</SectionTitle>
+    <Text>Import components and start building.</Text>
+  </Section>
+</Col>
+```
+
+## SectionTitle in context
+
+Section titles work well with other typography components in cards.
+
+```tsx demo
+<Card>
+  <SectionTitle lg primary>Product Features</SectionTitle>
+  <Text secondary>Everything you need to build modern applications.</Text>
+  <SectionTitle sm>Performance</SectionTitle>
+  <Text>Optimized for speed and efficiency.</Text>
+  <SectionTitle sm>Accessibility</SectionTitle>
+  <Text>Built with ARIA best practices.</Text>
+</Card>
+```
+
+## Section header pattern
+
+Combine SectionTitle with Divider and content for a structured section.
+
+```tsx demo
+<Col>
+  <SectionTitle primary>Getting Started</SectionTitle>
+  <Divider />
+  <Text>Follow the steps below to set up your project.</Text>
+  <SectionTitle primary>Configuration</SectionTitle>
+  <Divider />
+  <Text>Customize the settings to match your requirements.</Text>
+</Col>
+```
+
+---
+Title: Title
+URL: https://vaneui.com/docs/typography-components/title
+---
+
+## Basic usage
+
+Title renders an `<h3>` heading for subsection headings. It defaults to `semibold` weight, `heading` font family, and left-aligned text.
+
+```tsx demo
+<Title>Subsection Heading</Title>
+```
+
+## Sizes
+
+Titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
+
+```tsx demo
+<Col>
+  <Title xs>Extra Small Title</Title>
+  <Title sm>Small Title</Title>
+  <Title>Medium Title (default)</Title>
+  <Title lg>Large Title</Title>
+  <Title xl>Extra Large Title</Title>
+</Col>
+```
+
+## Appearances
+
+By default, Title uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `danger`, `warning`, `info` to override.
+
+```tsx demo
+<Col>
+  <Title primary>Primary Title</Title>
+  <Title secondary>Secondary Title</Title>
+  <Title success>Success Title</Title>
+  <Title warning>Warning Title</Title>
+  <Title danger>Danger Title</Title>
+  <Title info>Info Title</Title>
+</Col>
+```
+
+## Title vs PageTitle vs SectionTitle
+
+Three heading components for a clean semantic hierarchy. Use them together so the document outline matches the visual hierarchy.
+
+```tsx demo
+<Col>
+  <PageTitle>Page Heading (h1)</PageTitle>
+  <SectionTitle>Section Heading (h2)</SectionTitle>
+  <Title>Subsection Heading (h3)</Title>
+</Col>
+```
+
+## Font weights
+
+Title is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
+
+```tsx demo
+<Col>
+  <Title light>Light Title</Title>
+  <Title normal>Normal Title</Title>
+  <Title medium>Medium Title</Title>
+  <Title>Semibold Title (default)</Title>
+  <Title bold>Bold Title</Title>
+  <Title black>Black Title</Title>
+</Col>
+```
+
+## Font families
+
+Switch between `sans`, `serif`, and `mono` font families.
+
+```tsx demo
+<Col>
+  <Title sans>Sans-serif Title</Title>
+  <Title serif>Serif Title</Title>
+  <Title mono>Monospace Title</Title>
+</Col>
+```
+
+## Italic
+
+Use the `italic` prop for italic emphasis.
+
+```tsx demo
+<Title italic>Italic Title</Title>
+```
+
+## Uppercase
+
+Use the `uppercase` prop to render the title in all caps.
+
+```tsx demo
+<Title uppercase>Uppercase Title</Title>
+```
+
+## Text alignment
+
+Title is left-aligned by default. Use `textCenter`, `textRight`, or `textJustify` to change alignment.
+
+```tsx demo
+<Card>
+  <Title wFull>Left Aligned (default)</Title>
+  <Title wFull textCenter>Center Aligned</Title>
+  <Title wFull textRight>Right Aligned</Title>
+</Card>
+```
+
+## Custom HTML tag
+
+Override the rendered tag with the `tag` prop when the visual style of Title is wanted but a different semantic level is required.
+
+```tsx demo
+<Col>
+  <Title tag="h1">Rendered as h1</Title>
+  <Title tag="h2">Rendered as h2</Title>
+  <Title>Rendered as h3 (default)</Title>
+  <Title tag="h4">Rendered as h4</Title>
+</Col>
+```
+
+## Title with Badge context
+
+Titles pair naturally with badges, chips, and other inline components.
+
+```tsx demo
+<Col>
+  <Row>
+    <Title>Release Notes</Title>
+    <Badge sm success>New</Badge>
+  </Row>
+  <Row>
+    <Title>Deprecated API</Title>
+    <Badge sm danger>Removed</Badge>
+  </Row>
+</Col>
+```
+
+## Title in context
+
+Titles work well with other typography components in cards and sections.
+
+```tsx demo
+<Card>
+  <Title lg primary bold>Product Features</Title>
+  <Text secondary>Everything you need to build modern applications.</Text>
+  <Title sm>Performance</Title>
+  <Text>Optimized for speed and efficiency.</Text>
+  <Title sm>Accessibility</Title>
+  <Text>Built with ARIA best practices.</Text>
+</Card>
+```
+
+---
+Title: Link
+URL: https://vaneui.com/docs/typography-components/link
+---
+
+## Basic usage
+
+Link renders a styled anchor element for navigation. Unlike other typography components which default to `inherit`, Link defaults to the `link` appearance (blue color) with `underline`, and ships with `focusVisible` on for a keyboard focus outline.
+
+```tsx demo
+<Link href="#">Click here to learn more</Link>
+```
+
+## Appearances
+
+Links default to the `link` appearance (blue). Override with: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`.
+
+```tsx demo
+<Row flexWrap>
+  <Link primary href="#">Primary</Link>
+  <Link brand href="#">Brand</Link>
+  <Link accent href="#">Accent</Link>
+  <Link secondary href="#">Secondary</Link>
+  <Link success href="#">Success</Link>
+  <Link danger href="#">Danger</Link>
+  <Link warning href="#">Warning</Link>
+  <Link info href="#">Info</Link>
+</Row>
+```
+
+## Size inherits from context
+
+Link defaults to `inheritSize: true` so a link inside a heading renders at the heading's font-size automatically. No `size` prop needed. The link keeps its own blue colour.
+
+```tsx demo
+<Col>
+  <Text>Body text with a <Link href="#">link inline</Link>.</Text>
+  <Title>Subheading with a <Link href="#">link</Link> inside.</Title>
+  <SectionTitle>Section heading with a <Link href="#">link</Link>.</SectionTitle>
+  <PageTitle>Page title <Link href="#">link</Link></PageTitle>
+</Col>
+```
+
+## Fixed size with noInheritSize
+
+Pass `noInheritSize` to render the Link at its own size instead of the parent's, useful when a link inside a heading should stay at body-text size.
+
+```tsx demo
+<Title>
+  Subheading with <Link href="#" noInheritSize>a fixed-size link</Link> mid-sentence.
+</Title>
+```
+
+## Explicit sizes
+
+When `noInheritSize` is set (or the parent has no size context), choose an explicit size with `xs`, `sm`, `md` (default), `lg`, `xl`.
+
+```tsx demo
+<Col>
+  <Link href="#" noInheritSize xs>Extra small link</Link>
+  <Link href="#" noInheritSize sm>Small link</Link>
+  <Link href="#" noInheritSize>Medium link (default)</Link>
+  <Link href="#" noInheritSize lg>Large link</Link>
+  <Link href="#" noInheritSize xl>Extra large link</Link>
+</Col>
+```
+
+## Styling
+
+Use `bold`, `semibold`, or `italic` for emphasis, or `noUnderline` to remove the default underline.
+
+```tsx demo
+<Col>
+  <Link bold href="#">Bold link</Link>
+  <Link semibold href="#">Semibold link</Link>
+  <Link italic href="#">Italic link</Link>
+  <Link noUnderline href="#">Link without underline</Link>
+</Col>
+```
+
+## Hover state
+
+Links keep an underline at rest. With `noUnderline`, the underline appears on hover for affordance. Links also render a keyboard focus-visible outline by default for keyboard users (opt out with `noFocusVisible`).
+
+```tsx demo
+<Col>
+  <Link href="#">Underlined at rest, stays underlined on hover</Link>
+  <Link noUnderline href="#">No underline at rest, hover to reveal it</Link>
+</Col>
+```
+
+## External links
+
+Pass the `external` prop and Link auto-applies `target="_blank"` and `rel="noopener noreferrer"` for safe cross-origin navigation.
+
+```tsx demo
+<Link href="https://github.com/vaneui/vaneui" external>VaneUI on GitHub</Link>
+```
+
+## Manual target="_blank"
+
+Setting `target="_blank"` directly also auto-applies `rel="noopener noreferrer"`. No need to spell it out.
+
+```tsx demo
+<Link href="https://github.com/vaneui/vaneui" target="_blank">Open in a new tab</Link>
+```
+
+## Inline in Text
+
+Links integrate naturally with surrounding prose. Drop them inline inside `Text` and they inherit the parent size.
+
+```tsx demo
+<Text>
+  Check out our <Link href="#">documentation</Link> to learn more about the features.
+  You can also visit the <Link href="#">GitHub repository</Link> for source code.
+</Text>
+```
+
+## Inherits parent Text size
+
+Links inside body text inherit the surrounding `Text` size. Set the size on the parent and the Link follows along.
+
+```tsx demo
+<Col>
+  <Text sm>Read the <Link href="#">terms and conditions</Link> before proceeding.</Text>
+  <Text>Visit our <Link href="#">help center</Link> for more information.</Text>
+  <Text lg>Check out the <Link href="#">getting started guide</Link> to begin.</Text>
+</Col>
+```
+
+## With icons
+
+Combine links with icons using Row for visual navigation cues.
+
+```tsx demo
+<Col>
+  <Row itemsCenter>
+    <ExternalLink size={14} />
+    <Link href="#">Open in new window</Link>
+  </Row>
+  <Row itemsCenter>
+    <FileText size={14} />
+    <Link href="#">View documentation</Link>
+  </Row>
+  <Row itemsCenter>
+    <GitHub size={14} />
+    <Link href="#">Source on GitHub</Link>
+  </Row>
+</Col>
+```
+
+## Next.js Link integration
+
+Use the `tag` prop to render the VaneUI Link as a Next.js `Link` for client-side navigation. Alias the Next.js import so it doesn't shadow `Link` from `@vaneui/ui`.
+
+```tsx
+import NextLink from 'next/link';
+import { Link } from '@vaneui/ui';
+
+<Link href="/docs" tag={NextLink}>Documentation</Link>
+```
+
+## Customizing
+
+Set app-wide Link defaults with `ThemeProvider`'s `themeDefaults`:
+
+```tsx demo
+<ThemeProvider themeDefaults={{
+  link: { brand: true, noUnderline: true },
+}}>
+  <Link href="/docs">Read more</Link>
+</ThemeProvider>
+```
+
+---
+Title: List
+URL: https://vaneui.com/docs/typography-components/list
+---
+
+## Basic usage
+
+List renders an unordered list with bullet points by default. Each entry is a `ListItem`, which renders an `<li>` and carries the core typography props (appearance, size, weight, alignment) minus the margin, letter-spacing, and cursor props that `Text` has. Always render `ListItem` inside a `List`, which supplies the marker style and size.
+
+```tsx demo
+<List>
+  <ListItem>First item in the list</ListItem>
+  <ListItem>Second item in the list</ListItem>
+  <ListItem>Third item in the list</ListItem>
+</List>
+```
+
+## Sizes
+
+Lists come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Font size, line height, padding, and the gap between items all scale together via the CSS-variable pipeline. `ListItem` has no size default of its own. It inherits from the parent `List`, so `<List xl>` propagates to every item without repeating the prop.
+
+```tsx demo
+<Col>
+  <List xs>
+    <ListItem>Extra small item</ListItem>
+    <ListItem>Extra small item two</ListItem>
+  </List>
+  <List sm>
+    <ListItem>Small list item</ListItem>
+    <ListItem>Another small item</ListItem>
+  </List>
+  <List lg>
+    <ListItem>Large list item</ListItem>
+    <ListItem>Another large item</ListItem>
+  </List>
+  <List xl>
+    <ListItem>Extra large item</ListItem>
+    <ListItem>Another extra large item</ListItem>
+  </List>
+</Col>
+```
+
+## Appearances
+
+Lists use `inherit` appearance by default: they inherit color from their parent and stay `transparent` with no background of their own. Use explicit appearances like `primary`, `success`, `danger` to override the text color. Because a List has no background of its own, place it inside a filled container like `Card` when you want a surface behind it.
+
+```tsx demo
+<Col>
+  <List primary>
+    <ListItem>Primary colored item</ListItem>
+    <ListItem>Another primary item</ListItem>
+  </List>
+  <List success>
+    <ListItem>Success colored item</ListItem>
+    <ListItem>Another success item</ListItem>
+  </List>
+  <List danger>
+    <ListItem>Danger colored item</ListItem>
+    <ListItem>Another danger item</ListItem>
+  </List>
+  <Card secondary filled>
+    <List>
+      <ListItem>List on a filled Card surface</ListItem>
+      <ListItem>The Card provides the background</ListItem>
+    </List>
+  </Card>
+</Col>
+```
+
+## List style types
+
+List supports six marker types: `disc` (default for unordered), `decimal` (default for ordered), `circle`, `square`, `lowerAlpha`, and `lowerRoman`. Setting `decimal`, `lowerAlpha`, or `lowerRoman` switches the element from `<ul>` to `<ol>`.
+
+```tsx demo
+<Col>
+  <div>
+    <Text semibold>Unordered (disc)</Text>
+    <List disc>
+      <ListItem>Bullet point one</ListItem>
+      <ListItem>Bullet point two</ListItem>
+    </List>
+  </div>
+  <div>
+    <Text semibold>circle</Text>
+    <List circle>
+      <ListItem>Hollow circle marker</ListItem>
+      <ListItem>Second item</ListItem>
+    </List>
+  </div>
+  <div>
+    <Text semibold>square</Text>
+    <List square>
+      <ListItem>Filled square marker</ListItem>
+      <ListItem>Second item</ListItem>
+    </List>
+  </div>
+  <div>
+    <Text semibold>Ordered (decimal)</Text>
+    <List decimal>
+      <ListItem>Step one</ListItem>
+      <ListItem>Step two</ListItem>
+    </List>
+  </div>
+  <div>
+    <Text semibold>lowerAlpha</Text>
+    <List lowerAlpha>
+      <ListItem>Lowercase letters</ListItem>
+      <ListItem>Second item</ListItem>
+    </List>
+  </div>
+  <div>
+    <Text semibold>lowerRoman</Text>
+    <List lowerRoman>
+      <ListItem>Lowercase roman</ListItem>
+      <ListItem>Second item</ListItem>
+    </List>
+  </div>
+</Col>
+```
+
+## Marker position (inside vs outside)
+
+Use `outside` (the default) to hang markers outside the content box so multi-line items align under the first character. Use `inside` to place markers inline with text. Compact, but wrapped lines flow under the marker.
+
+```tsx demo
+<Col>
+  <div>
+    <Text semibold>outside (default)</Text>
+    <List outside className="w-64">
+      <ListItem>A short item.</ListItem>
+      <ListItem>A much longer item that wraps onto a second line so you can see the hanging marker behaviour.</ListItem>
+    </List>
+  </div>
+  <div>
+    <Text semibold>inside</Text>
+    <List inside className="w-64">
+      <ListItem>A short item.</ListItem>
+      <ListItem>A much longer item that wraps onto a second line, markers flow inline with the text.</ListItem>
+    </List>
+  </div>
+</Col>
+```
+
+## Nested lists: automatic marker progression
+
+Nested unordered lists automatically progress `disc` → `circle` → `square`. Nested ordered lists progress `decimal` → `lowerAlpha` → `lowerRoman`. Override a specific nested list by forcing the marker with an important utility like `list-[square]!`. The parent's descendant selector outranks a plain child utility on specificity, so the trailing `!` is what makes the override win.
+
+```tsx demo
+<Col>
+  <div>
+    <Text semibold>Unordered (ul)</Text>
+    <List>
+      <ListItem>Level 0: disc</ListItem>
+      <ListItem>
+        Parent
+        <List>
+          <ListItem>Level 1: circle</ListItem>
+          <ListItem>
+            Parent
+            <List>
+              <ListItem>Level 2: square</ListItem>
+            </List>
+          </ListItem>
+        </List>
+      </ListItem>
+    </List>
+  </div>
+  <div>
+    <Text semibold>Ordered (ol)</Text>
+    <List decimal>
+      <ListItem>Level 0: decimal</ListItem>
+      <ListItem>
+        Parent
+        <List decimal>
+          <ListItem>Level 1: lowerAlpha</ListItem>
+          <ListItem>
+            Parent
+            <List decimal>
+              <ListItem>Level 2: lowerRoman</ListItem>
+            </List>
+          </ListItem>
+        </List>
+      </ListItem>
+    </List>
+  </div>
+</Col>
+```
+
+## Item spacing (gap vs noGap)
+
+Lists apply a size-driven `gap` by default: a sibling margin between items that scales with the list's size prop. Use `noGap` to remove it entirely for a compact layout (useful for checklists or dense content).
+
+```tsx demo
+<Col>
+  <div>
+    <Text semibold>Default gap</Text>
+    <List>
+      <ListItem>Item one</ListItem>
+      <ListItem>Item two</ListItem>
+      <ListItem>Item three</ListItem>
+    </List>
+  </div>
+  <div>
+    <Text semibold>noGap</Text>
+    <List noGap>
+      <ListItem>Item one</ListItem>
+      <ListItem>Item two</ListItem>
+      <ListItem>Item three</ListItem>
+    </List>
+  </div>
+</Col>
+```
+
+## Custom item icons
+
+Pass an `icon` node to a `ListItem` to replace the native marker on that item only. The icon wrapper is sized to match the text font size (1em) and scales with the list size, so checkmarks, arrows, or any custom SVG align cleanly with the text. For decorative glyphs, include `aria-hidden="true"` on the icon node.
+
+```tsx demo
+<List>
+  <ListItem icon={<span aria-hidden="true">✓</span>}>Ship the feature</ListItem>
+  <ListItem icon={<span aria-hidden="true">✓</span>}>Write the tests</ListItem>
+  <ListItem icon={<span aria-hidden="true">→</span>}>Update the docs</ListItem>
+  <ListItem>Plain item keeps the native marker</ListItem>
+</List>
+```
+
+## Overriding size and color per item
+
+`ListItem` has no size or appearance default of its own, so both cascade from the parent `List`: `<List xl success>` propagates to every item. Set an explicit size or appearance on one item to opt out of just that row while its siblings keep the inherited values.
+
+```tsx demo
+<List xl success>
+  <ListItem>Inherits xl size and success color</ListItem>
+  <ListItem sm>Opts out of size: small, still inherits color</ListItem>
+  <ListItem primary>Opts out of color: primary</ListItem>
+</List>
+```
+
+## Styling
+
+Combine font properties like `bold`, `italic`, `mono` with lists.
+
+```tsx demo
+<Col>
+  <List semibold>
+    <ListItem>Bold list items</ListItem>
+    <ListItem>Another bold item</ListItem>
+  </List>
+  <List mono>
+    <ListItem>code --install extension</ListItem>
+    <ListItem>npm run build</ListItem>
+  </List>
+</Col>
+```
+
+The same toggles apply per item, so one entry can stand out without affecting the rest of the list.
+
+```tsx demo
+<List>
+  <ListItem bold>Bold item</ListItem>
+  <ListItem italic>Italic item</ListItem>
+  <ListItem mono>monospace-item</ListItem>
+  <ListItem>Default item</ListItem>
+</List>
+```
+
+## Truncating long items
+
+Use `truncate` for a single clipped line, or `lineClamp2` through `lineClamp5` to cap an item at a fixed number of lines.
+
+```tsx demo
+<List className="w-72">
+  <ListItem truncate>This item is clipped to one line with an ellipsis when it runs past the width.</ListItem>
+  <ListItem lineClamp2>This item is clamped to two lines, so longer content wraps once and then cuts off with an ellipsis at the end of the second line.</ListItem>
+  <ListItem>A short item.</ListItem>
+</List>
+```
+
+---
+Title: Blockquote
+URL: https://vaneui.com/docs/typography-components/blockquote
+---
+
+## Basic usage
+
+Blockquote displays quoted content, shown here with an attribution line. The element renders as `<blockquote>` and inherits color from its surroundings.
+
+```tsx demo
+<Blockquote>
+  <Text italic>The only way to do great work is to love what you do.</Text>
+  <Text sm secondary> - Steve Jobs</Text>
+</Blockquote>
+```
+
+## Sizes
+
+Blockquote supports five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
+
+```tsx demo
+<Col>
+  <Blockquote xs primary>Size xs: The best way to predict the future is to create it.</Blockquote>
+  <Blockquote sm primary>Size sm: The best way to predict the future is to create it.</Blockquote>
+  <Blockquote primary>Size md: The best way to predict the future is to create it.</Blockquote>
+  <Blockquote lg primary>Size lg: The best way to predict the future is to create it.</Blockquote>
+  <Blockquote xl primary>Size xl: The best way to predict the future is to create it.</Blockquote>
+</Col>
+```
+
+## Appearances
+
+Apply appearance props to color the blockquote. The default is `inherit`, which picks up the parent color.
+
+```tsx demo
+<Col>
+  <Blockquote primary>Primary appearance blockquote.</Blockquote>
+  <Blockquote brand>Brand appearance blockquote.</Blockquote>
+  <Blockquote accent>Accent appearance blockquote.</Blockquote>
+  <Blockquote secondary>Secondary appearance blockquote.</Blockquote>
+  <Blockquote success>Success appearance blockquote.</Blockquote>
+  <Blockquote danger>Danger appearance blockquote.</Blockquote>
+  <Blockquote warning>Warning appearance blockquote.</Blockquote>
+  <Blockquote info>Info appearance blockquote.</Blockquote>
+</Col>
+```
+
+## Italic
+
+Italic is not a default. Opt in with the `italic` prop for traditional quotation styling.
+
+```tsx demo
+<Col>
+  <Blockquote primary>Upright (default), no italic styling.</Blockquote>
+  <Blockquote primary italic>Italic, traditional quotation styling.</Blockquote>
+</Col>
+```
+
+## Source attribution
+
+Pass `cite` to set the native `<blockquote cite>` attribute and render a visible source line below the quote. `Blockquote` has a single visual style, the reading-direction-start accent border (the `outline` default); it does not paint a background, so wrap it in a `Card` or `Section` to place a quote on a colored surface.
+
+```tsx demo
+<Col>
+  <Blockquote primary cite="Ada Lovelace">
+    That brain of mine is something more than merely mortal, as time will show.
+  </Blockquote>
+  <Blockquote info cite="Alan Turing">
+    We can only see a short distance ahead, but we can see plenty there that needs to be done.
+  </Blockquote>
+</Col>
+```
+
+## Inside a Card
+
+Blockquote inherits the parent appearance, so it blends into themed containers.
+
+```tsx demo
+<Row flexWrap>
+  <Card primary>
+    <Blockquote>Inherits primary from the card.</Blockquote>
+  </Card>
+  <Card success>
+    <Blockquote>Inherits success from the card.</Blockquote>
+  </Card>
+  <Card danger>
+    <Blockquote>Inherits danger from the card.</Blockquote>
+  </Card>
+</Row>
+```
+
+## With rich content
+
+Blockquotes can contain multiple paragraphs and nested components.
+
+```tsx demo
+<Blockquote primary>
+  <Text bold>Steve Jobs</Text>
+  <Text>Innovation distinguishes between a leader and a follower. Stay hungry, stay foolish.</Text>
+</Blockquote>
+```
+
+## Testimonial pattern
+
+Use blockquotes with attribution for testimonials and customer quotes.
+
+```tsx demo
+<Col>
+  <Card brand>
+    <Blockquote>
+      <Text italic>VaneUI cut our migration time in half. The boolean props API is concise and the theming covers our cases.</Text>
+      <Text sm bold> - Sarah Chen, Lead Engineer</Text>
+    </Blockquote>
+  </Card>
+  <Card success>
+    <Blockquote>
+      <Text italic>We shipped our new dashboard in half the time thanks to VaneUI components.</Text>
+      <Text sm bold> - Alex Rivera, Product Manager</Text>
+    </Blockquote>
+  </Card>
 </Col>
 ```
 
@@ -6452,1441 +7852,6 @@ Menu supports additional configuration for fine-tuning behavior:
 | `disabled` | `false` | Prevent interaction |
 | `focusVisible` | `true` | Render a keyboard focus-visible outline |
 | `noFocusVisible` |   | Disable the keyboard focus-visible outline |
-
-## Navigation Components
-
-Components for building navigation interfaces like sidebars, menus, and header links.
-
----
-Title: NavLink
-URL: https://vaneui.com/docs/navigation-components/navlink
----
-
-## Basic usage
-
-NavLink renders as an `<a>` when `href` is provided. Defaults to `sm` size, `primary` appearance, `outline` variant, `wFull` and `textLeft` layout, ideal for stacking inside a sidebar `Col`.
-
-```tsx demo
-<Col className="w-64">
-  <NavLink href="#">Home</NavLink>
-  <NavLink href="#">Dashboard</NavLink>
-  <NavLink href="#">Settings</NavLink>
-</Col>
-```
-
-## Sizes
-
-NavLink supports five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
-
-```tsx demo
-<Col className="w-72">
-  <NavLink xs href="#"><Home size={12} /> XS NavLink</NavLink>
-  <NavLink href="#"><Home size={14} /> SM NavLink</NavLink>
-  <NavLink md href="#"><Home size={16} /> MD NavLink</NavLink>
-  <NavLink lg href="#"><Home size={18} /> LG NavLink</NavLink>
-  <NavLink xl href="#"><Home size={20} /> XL NavLink</NavLink>
-</Col>
-```
-
-## Active state
-
-Use the `active` prop to indicate the current page. Active NavLinks get a `data-active` attribute for styling; the `href` (anchor) form also gets `aria-current="page"` (the no-href button form omits it).
-
-```tsx demo
-<Col className="w-64">
-  <NavLink href="#">Home</NavLink>
-  <NavLink href="#" active>Dashboard</NavLink>
-  <NavLink href="#">Settings</NavLink>
-  <NavLink href="#">Profile</NavLink>
-</Col>
-```
-
-## With icon
-
-Drop an icon directly inside the NavLink. `gap` is on by default, so spacing is automatic. React elements rendered before any text become the leading icon; text is auto-wrapped in a label span with truncation; elements after text become trailing accessories.
-
-```tsx demo
-<Col className="w-64">
-  <NavLink href="#"><Home size={16} /> Home</NavLink>
-  <NavLink href="#" active><FileText size={16} /> Documents</NavLink>
-  <NavLink href="#"><Users size={16} /> Team</NavLink>
-  <NavLink href="#"><Settings size={16} /> Settings</NavLink>
-</Col>
-```
-
-## Appearances and variants
-
-NavLinks default to `primary outline`. Use `filled` for solid backgrounds. Active state works with all appearances.
-
-```tsx demo
-<Row flexWrap>
-  <Col className="w-48">
-    <Text sm semibold secondary>Outline (default)</Text>
-    <NavLink href="#" active>Primary</NavLink>
-    <NavLink href="#" success active>Success</NavLink>
-    <NavLink href="#" danger active>Danger</NavLink>
-    <NavLink href="#" secondary active>Secondary</NavLink>
-  </Col>
-  <Col className="w-48">
-    <Text sm semibold secondary>Filled</Text>
-    <NavLink href="#" filled active>Primary</NavLink>
-    <NavLink href="#" success filled active>Success</NavLink>
-    <NavLink href="#" danger filled active>Danger</NavLink>
-    <NavLink href="#" secondary filled active>Secondary</NavLink>
-  </Col>
-</Row>
-```
-
-## Disabled state
-
-Use `disabled` to prevent interaction. When `disabled` is combined with `href`, the `href` is dropped and it renders as a non-navigable anchor (`role="link"`, `aria-disabled="true"`) that stays focusable but cannot be followed.
-
-```tsx demo
-<Col className="w-64">
-  <NavLink href="#"><Home size={16} /> Active Link</NavLink>
-  <NavLink href="#" disabled><Lock size={16} /> Disabled Link</NavLink>
-  <NavLink href="#" active><Settings size={16} /> Current Page</NavLink>
-  <NavLink href="#" disabled><Users size={16} /> Restricted</NavLink>
-</Col>
-```
-
-## As Button (no href)
-
-Without `href`, NavLink renders as a `<button>`, useful for menu items that trigger actions instead of navigating.
-
-```tsx demo
-<Col className="w-64">
-  <NavLink onClick={() => alert('Profile')}><User size={16} /> Profile</NavLink>
-  <NavLink onClick={() => alert('Sign out')}><LogOut size={16} /> Sign out</NavLink>
-</Col>
-```
-
-## Sidebar navigation
-
-A real-world sidebar pattern with icons, active state, dividers, and trailing badges.
-
-```tsx demo
-<Card className="w-64" noGap>
-  <Text sm semibold secondary className="px-3 py-2">Navigation</Text>
-  <Divider />
-  <NavLink href="#"><Home size={16} /> Home</NavLink>
-  <NavLink href="#" active><FileText size={16} /> Documents</NavLink>
-  <NavLink href="#"><Mail size={16} /> Messages <Badge xs info>3</Badge></NavLink>
-  <NavLink href="#"><Bell size={16} /> Notifications <Badge xs danger>12</Badge></NavLink>
-  <NavLink href="#"><Star size={16} /> Favorites</NavLink>
-  <Divider />
-  <NavLink href="#"><Users size={16} /> Team</NavLink>
-  <NavLink href="#"><Settings size={16} /> Settings</NavLink>
-</Card>
-```
-
-## Keyboard focus
-
-NavLink renders a keyboard focus-visible outline by default so keyboard users can see where they are. Opt out with `noFocusVisible`.
-
-## Next.js Link integration
-
-Use the `tag` prop to render NavLink as a Next.js `Link` for client-side navigation.
-
-```tsx
-import Link from 'next/link';
-import { NavLink } from '@vaneui/ui';
-
-<NavLink href="/docs" tag={Link} active={pathname === '/docs'}>
-  Documentation
-</NavLink>
-```
-
-## Customizing
-
-Set app-wide NavLink defaults with `ThemeProvider`'s `themeDefaults`. Style the active state by targeting the emitted `data-active` attribute in your own CSS: `extraClasses` keys apply only to category props, so an `active` key there has no effect.
-
-```tsx demo
-<ThemeProvider themeDefaults={{ navLink: { root: { md: true } } }}>
-  <NavLink href="/docs" active>Docs</NavLink>
-</ThemeProvider>
-```
-
-```css
-.vane-nav-link[data-active] {
-  background: #eff6ff;
-  color: #1d4ed8;
-  font-weight: 600;
-}
-```
-
-## Typography Components
-
-A suite of components for rendering text and establishing a clear typographic hierarchy.
-
----
-Title: Text
-URL: https://vaneui.com/docs/typography-components/text
----
-
-## Basic usage
-
-Text renders paragraph text with default styling.
-
-```tsx demo
-<Text>Compose interfaces with VaneUI components. Text provides consistent typography across your application.</Text>
-```
-
-## Sizes
-
-Text comes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
-
-```tsx demo
-<Col>
-  <Text xs>Extra small text</Text>
-  <Text sm>Small text for captions</Text>
-  <Text>Medium text (default)</Text>
-  <Text lg>Large text for emphasis</Text>
-  <Text xl>Extra large text</Text>
-</Col>
-```
-
-## Appearances
-
-Text supports explicit color appearances: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`. Use these to override the default `inherit` behavior.
-
-```tsx demo
-<Col>
-  <Text primary>Primary text for important content</Text>
-  <Text brand>Brand text for brand-colored content</Text>
-  <Text accent>Accent text for highlights</Text>
-  <Text secondary>Secondary text for supporting content</Text>
-  <Text tertiary>Tertiary text for muted content</Text>
-  <Text success>Success text for positive feedback</Text>
-  <Text danger>Danger text for errors or warnings</Text>
-  <Text warning>Warning text for cautionary messages</Text>
-  <Text info>Info text for informational content</Text>
-  <Text link>Link-colored text for clickable content</Text>
-</Col>
-```
-
-## Inherit appearance (default)
-
-Text defaults to the `inherit` appearance: it picks up its color from the parent via CSS cascade instead of applying its own. Set an explicit appearance to override.
-
-```tsx demo
-<Row flexWrap>
-  <Card primary filled>
-    <Text bold>Inherited Primary</Text>
-    <Text>This text inherits primary from the Card.</Text>
-  </Card>
-  <Card success filled>
-    <Text bold>Inherited Success</Text>
-    <Text>Inherits success color automatically.</Text>
-    <Text danger>Explicit danger overrides inherit.</Text>
-  </Card>
-</Row>
-```
-
-## Font weights
-
-Control weight with `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
-
-```tsx demo
-<Col>
-  <Text thin>Thin weight</Text>
-  <Text light>Light weight</Text>
-  <Text normal>Normal weight</Text>
-  <Text medium>Medium weight</Text>
-  <Text semibold>Semibold weight</Text>
-  <Text bold>Bold weight</Text>
-  <Text extrabold>Extra bold weight</Text>
-  <Text black>Black weight</Text>
-</Col>
-```
-
-## Font families
-
-Switch font family with `sans` (default), `serif`, `mono`.
-
-```tsx demo
-<Col>
-  <Text sans>Sans-serif font (default)</Text>
-  <Text serif>Serif font for editorial content</Text>
-  <Text mono>Monospace for code or technical content</Text>
-</Col>
-```
-
-## Italic, underline, line-through
-
-```tsx demo
-<Col>
-  <Text italic>Italic text for quotes or terms</Text>
-  <Text underline>Underlined text for emphasis</Text>
-  <Text lineThrough>Line-through for deleted content</Text>
-</Col>
-```
-
-## Text transform
-
-Use `uppercase`, `lowercase`, `capitalize`.
-
-```tsx demo
-<Col>
-  <Text uppercase>Uppercase for labels</Text>
-  <Text lowercase>LOWERCASE NORMALIZED</Text>
-  <Text capitalize>capitalized words example</Text>
-</Col>
-```
-
-## Text alignment
-
-Align text with `textLeft` (default), `textCenter`, `textRight`, `textJustify`. Text defaults to `wFit`, so set `wFull` to see alignment effects across the container.
-
-```tsx demo
-<Col>
-  <Text wFull>Left aligned (default)</Text>
-  <Text wFull textCenter>Center aligned</Text>
-  <Text wFull textRight>Right aligned</Text>
-  <Text wFull textJustify>Justified text spreads to fill the line, distributing extra space between words across the full container width.</Text>
-</Col>
-```
-
-## Truncate and line clamp
-
-Use `truncate` for single-line ellipsis, or `lineClamp2`/`lineClamp3`/`lineClamp4`/`lineClamp5` for multi-line clamping.
-
-```tsx demo
-<Col>
-  <Text wFull truncate>Truncated single line of text that will be cut off with an ellipsis when it exceeds the container width.</Text>
-  <Text wFull lineClamp2>Clamped to two lines. This release note covers the new size props, the revised default appearances, and the spacing changes that now scale with the size prop across every typography component in the library.</Text>
-  <Text wFull lineClamp3>Clamped to three lines. The migration guide walks through each change in detail, from the renamed appearance props to the updated default margins, and explains how to update your existing components step by step so nothing renders differently after you upgrade to the latest version.</Text>
-</Col>
-```
-
-## Letter spacing
-
-Control letter spacing with `trackingTighter`, `trackingTight`, `trackingNormal`, `trackingWide`, `trackingWider`, `trackingWidest`. Text defaults to a compact `-0.011em` tracking; `trackingNormal` resets it to `0`.
-
-```tsx demo
-<Col>
-  <Text trackingTighter>Tighter letter spacing</Text>
-  <Text trackingTight>Tight letter spacing</Text>
-  <Text trackingNormal>Normal letter spacing (default)</Text>
-  <Text trackingWide>Wide letter spacing</Text>
-  <Text trackingWider>Wider letter spacing</Text>
-  <Text trackingWidest>Widest letter spacing</Text>
-</Col>
-```
-
-## Margins
-
-Block typography (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`) accepts size-driven margin props: `margin` (all sides), `marginX`, `marginY`, `marginT`, and `marginB`. `Text` defaults to `noMargin`, so opt in where you need vertical rhythm outside a gap-based layout. The margin scales with the size prop.
-
-```tsx demo
-<Col noGap>
-  <Text>No margin (default), sits flush.</Text>
-  <Text marginT marginB>Margin above and below, scales with size.</Text>
-  <Text>Another flush line.</Text>
-</Col>
-```
-
-## Text in context
-
-Combining text properties for real-world use cases.
-
-```tsx demo
-<Col>
-  <Card>
-    <Text lg bold>Product Title</Text>
-    <Text secondary>Category • 4.5 ★ (128 reviews)</Text>
-    <Text>High-quality component library for building modern web applications with React and TypeScript.</Text>
-    <Text sm primary semibold>$99.00</Text>
-  </Card>
-</Col>
-```
-
----
-Title: PageTitle
-URL: https://vaneui.com/docs/typography-components/page-title
----
-
-## Basic usage
-
-PageTitle renders a large `<h1>` heading for page titles. It defaults to `semibold` weight, `heading` font family, `trackingTight` letter spacing, and `inherit` appearance.
-
-```tsx demo
-<PageTitle>Welcome to VaneUI</PageTitle>
-```
-
-## Sizes
-
-Page titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
-
-```tsx demo
-<Col>
-  <PageTitle xs>Extra Small Page Title</PageTitle>
-  <PageTitle sm>Small Page Title</PageTitle>
-  <PageTitle>Medium Page Title (default)</PageTitle>
-  <PageTitle lg>Large Page Title</PageTitle>
-  <PageTitle xl>Extra Large Page Title</PageTitle>
-</Col>
-```
-
-## Appearances
-
-By default, PageTitle uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
-
-```tsx demo
-<Col>
-  <PageTitle primary>Primary Page Title</PageTitle>
-  <PageTitle secondary>Secondary Page Title</PageTitle>
-  <PageTitle success>Success Page Title</PageTitle>
-  <PageTitle warning>Warning Page Title</PageTitle>
-  <PageTitle danger>Danger Page Title</PageTitle>
-  <PageTitle info>Info Page Title</PageTitle>
-</Col>
-```
-
-## PageTitle vs SectionTitle vs Title
-
-Three heading components for a clean semantic hierarchy. Use them together so the document outline matches the visual hierarchy.
-
-```tsx demo
-<Col>
-  <PageTitle>Page Heading (h1)</PageTitle>
-  <SectionTitle>Section Heading (h2)</SectionTitle>
-  <Title>Subsection Heading (h3)</Title>
-</Col>
-```
-
-## Font weights
-
-PageTitle is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
-
-```tsx demo
-<Col>
-  <PageTitle light>Light Page Title</PageTitle>
-  <PageTitle normal>Normal Page Title</PageTitle>
-  <PageTitle medium>Medium Page Title</PageTitle>
-  <PageTitle>Semibold Page Title (default)</PageTitle>
-  <PageTitle bold>Bold Page Title</PageTitle>
-  <PageTitle black>Black Page Title</PageTitle>
-</Col>
-```
-
-## Font families
-
-Switch between `sans`, `serif`, and `mono` font families.
-
-```tsx demo
-<Col>
-  <PageTitle sans>Sans-serif Page Title</PageTitle>
-  <PageTitle serif>Serif Page Title</PageTitle>
-  <PageTitle mono>Monospace Page Title</PageTitle>
-</Col>
-```
-
-## Italic
-
-Use the `italic` prop for italic emphasis.
-
-```tsx demo
-<PageTitle italic>Italic Page Title</PageTitle>
-```
-
-## Text alignment
-
-PageTitle is left-aligned by default. Use `textCenter`, `textRight`, or `textJustify` to change alignment.
-
-```tsx demo
-<Card>
-  <PageTitle wFull>Left Aligned (default)</PageTitle>
-  <PageTitle wFull textCenter>Center Aligned</PageTitle>
-  <PageTitle wFull textRight>Right Aligned</PageTitle>
-</Card>
-```
-
-## Custom HTML tag
-
-Override the rendered tag with the `tag` prop when the visual style of PageTitle is wanted but a different semantic level is required.
-
-```tsx demo
-<Col>
-  <PageTitle>Rendered as h1 (default)</PageTitle>
-  <PageTitle tag="h2">Rendered as h2</PageTitle>
-  <PageTitle tag="h3">Rendered as h3</PageTitle>
-  <PageTitle tag="div">Rendered as div</PageTitle>
-</Col>
-```
-
-## PageTitle in context
-
-Page titles work well as the main heading of a page, paired with a subtitle.
-
-```tsx demo
-<Card>
-  <PageTitle lg primary>Product Documentation</PageTitle>
-  <Text secondary>Learn how to use VaneUI components in your projects.</Text>
-  <Text>Get started with our comprehensive guides and examples.</Text>
-</Card>
-```
-
-## Page header pattern
-
-Combine PageTitle with Text and Divider for a complete page header.
-
-```tsx demo
-<Col>
-  <PageTitle xl>Dashboard</PageTitle>
-  <Text lg secondary>Welcome back. Here is an overview of your projects.</Text>
-  <Divider />
-  <Text>Content goes here...</Text>
-</Col>
-```
-
-## Hero page header
-
-Combine an `xl` PageTitle with a large subtitle and a call to action for a marketing-style hero.
-
-```tsx demo
-<Stack itemsCenter>
-  <PageTitle xl textCenter>Build Faster with VaneUI</PageTitle>
-  <Text lg secondary textCenter>A boolean-props React component library powered by Tailwind CSS v4.</Text>
-  <Row>
-    <Button filled>Get Started</Button>
-    <Button>View on GitHub</Button>
-  </Row>
-</Stack>
-```
-
----
-Title: SectionTitle
-URL: https://vaneui.com/docs/typography-components/section-title
----
-
-## Basic usage
-
-SectionTitle renders an `<h2>` heading for major section headings. It defaults to `semibold` weight, `heading` font family, `inherit` appearance, and left-aligned text.
-
-```tsx demo
-<SectionTitle>Getting Started</SectionTitle>
-```
-
-## Sizes
-
-Section titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
-
-```tsx demo
-<Col>
-  <SectionTitle xs>Extra Small Section Title</SectionTitle>
-  <SectionTitle sm>Small Section Title</SectionTitle>
-  <SectionTitle>Medium Section Title (default)</SectionTitle>
-  <SectionTitle lg>Large Section Title</SectionTitle>
-  <SectionTitle xl>Extra Large Section Title</SectionTitle>
-</Col>
-```
-
-## Appearances
-
-By default, SectionTitle uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
-
-```tsx demo
-<Col>
-  <SectionTitle primary>Primary Section Title</SectionTitle>
-  <SectionTitle secondary>Secondary Section Title</SectionTitle>
-  <SectionTitle success>Success Section Title</SectionTitle>
-  <SectionTitle warning>Warning Section Title</SectionTitle>
-  <SectionTitle danger>Danger Section Title</SectionTitle>
-  <SectionTitle info>Info Section Title</SectionTitle>
-</Col>
-```
-
-## PageTitle vs SectionTitle vs Title
-
-Three heading components for a clean semantic hierarchy.
-
-```tsx demo
-<Col>
-  <PageTitle>Page Heading (h1)</PageTitle>
-  <SectionTitle>Section Heading (h2)</SectionTitle>
-  <Title>Subsection Heading (h3)</Title>
-</Col>
-```
-
-## Font weights
-
-SectionTitle is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
-
-```tsx demo
-<Col>
-  <SectionTitle light>Light Section Title</SectionTitle>
-  <SectionTitle normal>Normal Section Title</SectionTitle>
-  <SectionTitle medium>Medium Section Title</SectionTitle>
-  <SectionTitle>Semibold Section Title (default)</SectionTitle>
-  <SectionTitle bold>Bold Section Title</SectionTitle>
-  <SectionTitle black>Black Section Title</SectionTitle>
-</Col>
-```
-
-## Font families
-
-Switch between `sans`, `serif`, and `mono` font families.
-
-```tsx demo
-<Col>
-  <SectionTitle sans>Sans-serif Section Title</SectionTitle>
-  <SectionTitle serif>Serif Section Title</SectionTitle>
-  <SectionTitle mono>Monospace Section Title</SectionTitle>
-</Col>
-```
-
-## Italic
-
-Use the `italic` prop for italic emphasis.
-
-```tsx demo
-<SectionTitle italic>Italic Section Title</SectionTitle>
-```
-
-## Uppercase
-
-Use the `uppercase` prop to render the title in all caps.
-
-```tsx demo
-<SectionTitle uppercase>Uppercase Section Title</SectionTitle>
-```
-
-## Text alignment
-
-SectionTitle is left-aligned by default. Use `textCenter`, `textRight`, or `textJustify` to change alignment.
-
-```tsx demo
-<Col>
-  <SectionTitle>Left Aligned (default)</SectionTitle>
-  <SectionTitle textCenter>Center Aligned</SectionTitle>
-  <SectionTitle textRight>Right Aligned</SectionTitle>
-</Col>
-```
-
-## Custom HTML tag
-
-Override the rendered tag with the `tag` prop when the visual style of SectionTitle is wanted but a different semantic level is required.
-
-```tsx demo
-<Col>
-  <SectionTitle tag="h1">Rendered as h1</SectionTitle>
-  <SectionTitle>Rendered as h2 (default)</SectionTitle>
-  <SectionTitle tag="h3">Rendered as h3</SectionTitle>
-  <SectionTitle tag="h4">Rendered as h4</SectionTitle>
-</Col>
-```
-
-## SectionTitle in a Section
-
-`SectionTitle` is designed to head a `<Section>`. Use them together so the visual structure matches the semantic outline.
-
-```tsx demo
-<Col>
-  <Section>
-    <SectionTitle>Installation</SectionTitle>
-    <Text>Install VaneUI using npm or yarn.</Text>
-  </Section>
-  <Section>
-    <SectionTitle>Usage</SectionTitle>
-    <Text>Import components and start building.</Text>
-  </Section>
-</Col>
-```
-
-## SectionTitle in context
-
-Section titles work well with other typography components in cards.
-
-```tsx demo
-<Card>
-  <SectionTitle lg primary>Product Features</SectionTitle>
-  <Text secondary>Everything you need to build modern applications.</Text>
-  <SectionTitle sm>Performance</SectionTitle>
-  <Text>Optimized for speed and efficiency.</Text>
-  <SectionTitle sm>Accessibility</SectionTitle>
-  <Text>Built with ARIA best practices.</Text>
-</Card>
-```
-
-## Section header pattern
-
-Combine SectionTitle with Divider and content for a structured section.
-
-```tsx demo
-<Col>
-  <SectionTitle primary>Getting Started</SectionTitle>
-  <Divider />
-  <Text>Follow the steps below to set up your project.</Text>
-  <SectionTitle primary>Configuration</SectionTitle>
-  <Divider />
-  <Text>Customize the settings to match your requirements.</Text>
-</Col>
-```
-
----
-Title: Title
-URL: https://vaneui.com/docs/typography-components/title
----
-
-## Basic usage
-
-Title renders an `<h3>` heading for subsection headings. It defaults to `semibold` weight, `heading` font family, and left-aligned text.
-
-```tsx demo
-<Title>Subsection Heading</Title>
-```
-
-## Sizes
-
-Titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
-
-```tsx demo
-<Col>
-  <Title xs>Extra Small Title</Title>
-  <Title sm>Small Title</Title>
-  <Title>Medium Title (default)</Title>
-  <Title lg>Large Title</Title>
-  <Title xl>Extra Large Title</Title>
-</Col>
-```
-
-## Appearances
-
-By default, Title uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `danger`, `warning`, `info` to override.
-
-```tsx demo
-<Col>
-  <Title primary>Primary Title</Title>
-  <Title secondary>Secondary Title</Title>
-  <Title success>Success Title</Title>
-  <Title warning>Warning Title</Title>
-  <Title danger>Danger Title</Title>
-  <Title info>Info Title</Title>
-</Col>
-```
-
-## Title vs PageTitle vs SectionTitle
-
-Three heading components for a clean semantic hierarchy. Use them together so the document outline matches the visual hierarchy.
-
-```tsx demo
-<Col>
-  <PageTitle>Page Heading (h1)</PageTitle>
-  <SectionTitle>Section Heading (h2)</SectionTitle>
-  <Title>Subsection Heading (h3)</Title>
-</Col>
-```
-
-## Font weights
-
-Title is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
-
-```tsx demo
-<Col>
-  <Title light>Light Title</Title>
-  <Title normal>Normal Title</Title>
-  <Title medium>Medium Title</Title>
-  <Title>Semibold Title (default)</Title>
-  <Title bold>Bold Title</Title>
-  <Title black>Black Title</Title>
-</Col>
-```
-
-## Font families
-
-Switch between `sans`, `serif`, and `mono` font families.
-
-```tsx demo
-<Col>
-  <Title sans>Sans-serif Title</Title>
-  <Title serif>Serif Title</Title>
-  <Title mono>Monospace Title</Title>
-</Col>
-```
-
-## Italic
-
-Use the `italic` prop for italic emphasis.
-
-```tsx demo
-<Title italic>Italic Title</Title>
-```
-
-## Uppercase
-
-Use the `uppercase` prop to render the title in all caps.
-
-```tsx demo
-<Title uppercase>Uppercase Title</Title>
-```
-
-## Text alignment
-
-Title is left-aligned by default. Use `textCenter`, `textRight`, or `textJustify` to change alignment.
-
-```tsx demo
-<Card>
-  <Title wFull>Left Aligned (default)</Title>
-  <Title wFull textCenter>Center Aligned</Title>
-  <Title wFull textRight>Right Aligned</Title>
-</Card>
-```
-
-## Custom HTML tag
-
-Override the rendered tag with the `tag` prop when the visual style of Title is wanted but a different semantic level is required.
-
-```tsx demo
-<Col>
-  <Title tag="h1">Rendered as h1</Title>
-  <Title tag="h2">Rendered as h2</Title>
-  <Title>Rendered as h3 (default)</Title>
-  <Title tag="h4">Rendered as h4</Title>
-</Col>
-```
-
-## Title with Badge context
-
-Titles pair naturally with badges, chips, and other inline components.
-
-```tsx demo
-<Col>
-  <Row>
-    <Title>Release Notes</Title>
-    <Badge sm success>New</Badge>
-  </Row>
-  <Row>
-    <Title>Deprecated API</Title>
-    <Badge sm danger>Removed</Badge>
-  </Row>
-</Col>
-```
-
-## Title in context
-
-Titles work well with other typography components in cards and sections.
-
-```tsx demo
-<Card>
-  <Title lg primary bold>Product Features</Title>
-  <Text secondary>Everything you need to build modern applications.</Text>
-  <Title sm>Performance</Title>
-  <Text>Optimized for speed and efficiency.</Text>
-  <Title sm>Accessibility</Title>
-  <Text>Built with ARIA best practices.</Text>
-</Card>
-```
-
----
-Title: Link
-URL: https://vaneui.com/docs/typography-components/link
----
-
-## Basic usage
-
-Link renders a styled anchor element for navigation. Unlike other typography components which default to `inherit`, Link defaults to the `link` appearance (blue color) with `underline`, and ships with `focusVisible` on for a keyboard focus outline.
-
-```tsx demo
-<Link href="#">Click here to learn more</Link>
-```
-
-## Appearances
-
-Links default to the `link` appearance (blue). Override with: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`.
-
-```tsx demo
-<Row flexWrap>
-  <Link primary href="#">Primary</Link>
-  <Link brand href="#">Brand</Link>
-  <Link accent href="#">Accent</Link>
-  <Link secondary href="#">Secondary</Link>
-  <Link success href="#">Success</Link>
-  <Link danger href="#">Danger</Link>
-  <Link warning href="#">Warning</Link>
-  <Link info href="#">Info</Link>
-</Row>
-```
-
-## Size inherits from context
-
-Link defaults to `inheritSize: true` so a link inside a heading renders at the heading's font-size automatically. No `size` prop needed. The link keeps its own blue colour.
-
-```tsx demo
-<Col>
-  <Text>Body text with a <Link href="#">link inline</Link>.</Text>
-  <Title>Subheading with a <Link href="#">link</Link> inside.</Title>
-  <SectionTitle>Section heading with a <Link href="#">link</Link>.</SectionTitle>
-  <PageTitle>Page title <Link href="#">link</Link></PageTitle>
-</Col>
-```
-
-## Fixed size with noInheritSize
-
-Pass `noInheritSize` to render the Link at its own size instead of the parent's, useful when a link inside a heading should stay at body-text size.
-
-```tsx demo
-<Title>
-  Subheading with <Link href="#" noInheritSize>a fixed-size link</Link> mid-sentence.
-</Title>
-```
-
-## Explicit sizes
-
-When `noInheritSize` is set (or the parent has no size context), choose an explicit size with `xs`, `sm`, `md` (default), `lg`, `xl`.
-
-```tsx demo
-<Col>
-  <Link href="#" noInheritSize xs>Extra small link</Link>
-  <Link href="#" noInheritSize sm>Small link</Link>
-  <Link href="#" noInheritSize>Medium link (default)</Link>
-  <Link href="#" noInheritSize lg>Large link</Link>
-  <Link href="#" noInheritSize xl>Extra large link</Link>
-</Col>
-```
-
-## Styling
-
-Use `bold`, `semibold`, or `italic` for emphasis, or `noUnderline` to remove the default underline.
-
-```tsx demo
-<Col>
-  <Link bold href="#">Bold link</Link>
-  <Link semibold href="#">Semibold link</Link>
-  <Link italic href="#">Italic link</Link>
-  <Link noUnderline href="#">Link without underline</Link>
-</Col>
-```
-
-## Hover state
-
-Links keep an underline at rest. With `noUnderline`, the underline appears on hover for affordance. Links also render a keyboard focus-visible outline by default for keyboard users (opt out with `noFocusVisible`).
-
-```tsx demo
-<Col>
-  <Link href="#">Underlined at rest, stays underlined on hover</Link>
-  <Link noUnderline href="#">No underline at rest, hover to reveal it</Link>
-</Col>
-```
-
-## External links
-
-Pass the `external` prop and Link auto-applies `target="_blank"` and `rel="noopener noreferrer"` for safe cross-origin navigation.
-
-```tsx demo
-<Link href="https://github.com/vaneui/vaneui" external>VaneUI on GitHub</Link>
-```
-
-## Manual target="_blank"
-
-Setting `target="_blank"` directly also auto-applies `rel="noopener noreferrer"`. No need to spell it out.
-
-```tsx demo
-<Link href="https://github.com/vaneui/vaneui" target="_blank">Open in a new tab</Link>
-```
-
-## Inline in Text
-
-Links integrate naturally with surrounding prose. Drop them inline inside `Text` and they inherit the parent size.
-
-```tsx demo
-<Text>
-  Check out our <Link href="#">documentation</Link> to learn more about the features.
-  You can also visit the <Link href="#">GitHub repository</Link> for source code.
-</Text>
-```
-
-## Inherits parent Text size
-
-Links inside body text inherit the surrounding `Text` size. Set the size on the parent and the Link follows along.
-
-```tsx demo
-<Col>
-  <Text sm>Read the <Link href="#">terms and conditions</Link> before proceeding.</Text>
-  <Text>Visit our <Link href="#">help center</Link> for more information.</Text>
-  <Text lg>Check out the <Link href="#">getting started guide</Link> to begin.</Text>
-</Col>
-```
-
-## With icons
-
-Combine links with icons using Row for visual navigation cues.
-
-```tsx demo
-<Col>
-  <Row itemsCenter>
-    <ExternalLink size={14} />
-    <Link href="#">Open in new window</Link>
-  </Row>
-  <Row itemsCenter>
-    <FileText size={14} />
-    <Link href="#">View documentation</Link>
-  </Row>
-  <Row itemsCenter>
-    <GitHub size={14} />
-    <Link href="#">Source on GitHub</Link>
-  </Row>
-</Col>
-```
-
-## Next.js Link integration
-
-Use the `tag` prop to render the VaneUI Link as a Next.js `Link` for client-side navigation. Alias the Next.js import so it doesn't shadow `Link` from `@vaneui/ui`.
-
-```tsx
-import NextLink from 'next/link';
-import { Link } from '@vaneui/ui';
-
-<Link href="/docs" tag={NextLink}>Documentation</Link>
-```
-
-## Customizing
-
-Set app-wide Link defaults with `ThemeProvider`'s `themeDefaults`:
-
-```tsx demo
-<ThemeProvider themeDefaults={{
-  link: { brand: true, noUnderline: true },
-}}>
-  <Link href="/docs">Read more</Link>
-</ThemeProvider>
-```
-
----
-Title: List
-URL: https://vaneui.com/docs/typography-components/list
----
-
-## Basic usage
-
-List renders an unordered list with bullet points by default.
-
-```tsx demo
-<List>
-  <ListItem>First item in the list</ListItem>
-  <ListItem>Second item in the list</ListItem>
-  <ListItem>Third item in the list</ListItem>
-</List>
-```
-
-## Sizes
-
-Lists come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Font size, line height, padding, and the gap between items all scale together via the CSS-variable pipeline. `ListItem` has no size default of its own. It inherits from the parent `List`, so `<List xl>` propagates to every item without repeating the prop.
-
-```tsx demo
-<Col>
-  <List xs>
-    <ListItem>Extra small item</ListItem>
-    <ListItem>Extra small item two</ListItem>
-  </List>
-  <List sm>
-    <ListItem>Small list item</ListItem>
-    <ListItem>Another small item</ListItem>
-  </List>
-  <List lg>
-    <ListItem>Large list item</ListItem>
-    <ListItem>Another large item</ListItem>
-  </List>
-  <List xl>
-    <ListItem>Extra large item</ListItem>
-    <ListItem>Another extra large item</ListItem>
-  </List>
-</Col>
-```
-
-## Appearances
-
-Lists use `inherit` appearance by default: they inherit color from their parent and stay `transparent` with no background of their own. Use explicit appearances like `primary`, `success`, `danger` to override the text color. Because a List has no background of its own, place it inside a filled container like `Card` when you want a surface behind it.
-
-```tsx demo
-<Col>
-  <List primary>
-    <ListItem>Primary colored item</ListItem>
-    <ListItem>Another primary item</ListItem>
-  </List>
-  <List success>
-    <ListItem>Success colored item</ListItem>
-    <ListItem>Another success item</ListItem>
-  </List>
-  <List danger>
-    <ListItem>Danger colored item</ListItem>
-    <ListItem>Another danger item</ListItem>
-  </List>
-  <Card secondary filled>
-    <List>
-      <ListItem>List on a filled Card surface</ListItem>
-      <ListItem>The Card provides the background</ListItem>
-    </List>
-  </Card>
-</Col>
-```
-
-## List style types
-
-List supports six marker types: `disc` (default for unordered), `decimal` (default for ordered), `circle`, `square`, `lowerAlpha`, and `lowerRoman`. Setting `decimal`, `lowerAlpha`, or `lowerRoman` switches the element from `<ul>` to `<ol>`.
-
-```tsx demo
-<Col>
-  <div>
-    <Text semibold>Unordered (disc)</Text>
-    <List disc>
-      <ListItem>Bullet point one</ListItem>
-      <ListItem>Bullet point two</ListItem>
-    </List>
-  </div>
-  <div>
-    <Text semibold>circle</Text>
-    <List circle>
-      <ListItem>Hollow circle marker</ListItem>
-      <ListItem>Second item</ListItem>
-    </List>
-  </div>
-  <div>
-    <Text semibold>square</Text>
-    <List square>
-      <ListItem>Filled square marker</ListItem>
-      <ListItem>Second item</ListItem>
-    </List>
-  </div>
-  <div>
-    <Text semibold>Ordered (decimal)</Text>
-    <List decimal>
-      <ListItem>Step one</ListItem>
-      <ListItem>Step two</ListItem>
-    </List>
-  </div>
-  <div>
-    <Text semibold>lowerAlpha</Text>
-    <List lowerAlpha>
-      <ListItem>Lowercase letters</ListItem>
-      <ListItem>Second item</ListItem>
-    </List>
-  </div>
-  <div>
-    <Text semibold>lowerRoman</Text>
-    <List lowerRoman>
-      <ListItem>Lowercase roman</ListItem>
-      <ListItem>Second item</ListItem>
-    </List>
-  </div>
-</Col>
-```
-
-## Marker position (inside vs outside)
-
-Use `outside` (the default) to hang markers outside the content box so multi-line items align under the first character. Use `inside` to place markers inline with text. Compact, but wrapped lines flow under the marker.
-
-```tsx demo
-<Col>
-  <div>
-    <Text semibold>outside (default)</Text>
-    <List outside className="w-64">
-      <ListItem>A short item.</ListItem>
-      <ListItem>A much longer item that wraps onto a second line so you can see the hanging marker behaviour.</ListItem>
-    </List>
-  </div>
-  <div>
-    <Text semibold>inside</Text>
-    <List inside className="w-64">
-      <ListItem>A short item.</ListItem>
-      <ListItem>A much longer item that wraps onto a second line, markers flow inline with the text.</ListItem>
-    </List>
-  </div>
-</Col>
-```
-
-## Nested lists: automatic marker progression
-
-Nested unordered lists automatically progress `disc` → `circle` → `square`. Nested ordered lists progress `decimal` → `lowerAlpha` → `lowerRoman`. Override a specific nested list by forcing the marker with an important utility like `list-[square]!`. The parent's descendant selector outranks a plain child utility on specificity, so the trailing `!` is what makes the override win.
-
-```tsx demo
-<Col>
-  <div>
-    <Text semibold>Unordered (ul)</Text>
-    <List>
-      <ListItem>Level 0: disc</ListItem>
-      <ListItem>
-        Parent
-        <List>
-          <ListItem>Level 1: circle</ListItem>
-          <ListItem>
-            Parent
-            <List>
-              <ListItem>Level 2: square</ListItem>
-            </List>
-          </ListItem>
-        </List>
-      </ListItem>
-    </List>
-  </div>
-  <div>
-    <Text semibold>Ordered (ol)</Text>
-    <List decimal>
-      <ListItem>Level 0: decimal</ListItem>
-      <ListItem>
-        Parent
-        <List decimal>
-          <ListItem>Level 1: lowerAlpha</ListItem>
-          <ListItem>
-            Parent
-            <List decimal>
-              <ListItem>Level 2: lowerRoman</ListItem>
-            </List>
-          </ListItem>
-        </List>
-      </ListItem>
-    </List>
-  </div>
-</Col>
-```
-
-## Item spacing (gap vs noGap)
-
-Lists apply a size-driven `gap` by default: a sibling margin between items that scales with the list's size prop. Use `noGap` to remove it entirely for a compact layout (useful for checklists or dense content).
-
-```tsx demo
-<Col>
-  <div>
-    <Text semibold>Default gap</Text>
-    <List>
-      <ListItem>Item one</ListItem>
-      <ListItem>Item two</ListItem>
-      <ListItem>Item three</ListItem>
-    </List>
-  </div>
-  <div>
-    <Text semibold>noGap</Text>
-    <List noGap>
-      <ListItem>Item one</ListItem>
-      <ListItem>Item two</ListItem>
-      <ListItem>Item three</ListItem>
-    </List>
-  </div>
-</Col>
-```
-
-## Custom item icons
-
-Pass an `icon` node to a `ListItem` to replace the native marker on that item only. The icon wrapper is sized to match the text font size (1em) and scales with the list size, so checkmarks, arrows, or any custom SVG align cleanly with the text. For decorative glyphs, include `aria-hidden="true"` on the icon node.
-
-```tsx demo
-<List>
-  <ListItem icon={<span aria-hidden="true">✓</span>}>Ship the feature</ListItem>
-  <ListItem icon={<span aria-hidden="true">✓</span>}>Write the tests</ListItem>
-  <ListItem icon={<span aria-hidden="true">→</span>}>Update the docs</ListItem>
-  <ListItem>Plain item keeps the native marker</ListItem>
-</List>
-```
-
-## Styling
-
-Combine font properties like `bold`, `italic`, `mono` with lists.
-
-```tsx demo
-<Col>
-  <List semibold>
-    <ListItem>Bold list items</ListItem>
-    <ListItem>Another bold item</ListItem>
-  </List>
-  <List mono>
-    <ListItem>code --install extension</ListItem>
-    <ListItem>npm run build</ListItem>
-  </List>
-</Col>
-```
-
----
-Title: ListItem
-URL: https://vaneui.com/docs/typography-components/list-item
----
-
-`ListItem` carries the core typography props (appearance, size, weight, alignment) but omits the margin, letter-spacing, and cursor props that `Text` has. Always render it inside a `List`, which supplies the marker style and size.
-
-## Custom markers with the icon prop
-
-Pass an `icon` node to replace the native marker on that item only. The icon wrapper matches the text font size (1em) and scales with the list size. Mark decorative glyphs with `aria-hidden="true"`.
-
-```tsx demo
-<List>
-  <ListItem icon={<span aria-hidden="true">✓</span>}>Ship the feature</ListItem>
-  <ListItem icon={<span aria-hidden="true">✓</span>}>Write the tests</ListItem>
-  <ListItem icon={<span aria-hidden="true">→</span>}>Update the docs</ListItem>
-  <ListItem>Plain item keeps the native marker</ListItem>
-</List>
-```
-
-## Coloring a single item
-
-`ListItem` has no appearance of its own, so it takes its color from the parent `List`. Set an explicit appearance on one item to override just that row while its siblings keep the inherited color.
-
-```tsx demo
-<List>
-  <ListItem>Inherited color</ListItem>
-  <ListItem success>Success item</ListItem>
-  <ListItem danger>Danger item</ListItem>
-  <ListItem>Inherited again</ListItem>
-</List>
-```
-
-## Emphasizing individual items
-
-Typography toggles like `bold`, `italic`, and `mono` apply per item, so one entry can stand out without affecting the rest of the list.
-
-```tsx demo
-<List>
-  <ListItem bold>Bold item</ListItem>
-  <ListItem italic>Italic item</ListItem>
-  <ListItem mono>monospace-item</ListItem>
-  <ListItem>Default item</ListItem>
-</List>
-```
-
-## Size and color inheritance
-
-`ListItem` has no size or appearance default of its own, so each item's font-size and color cascade from the parent `List`: `<List xl success>` propagates to every item. Set an explicit size or appearance on an item to opt out.
-
-```tsx demo
-<List xl success>
-  <ListItem>Inherits xl size and success color</ListItem>
-  <ListItem sm>Opts out of size: small, still inherits color</ListItem>
-  <ListItem primary>Opts out of color: primary</ListItem>
-</List>
-```
-
-## Truncating long items
-
-Use `truncate` for a single clipped line, or `lineClamp2` through `lineClamp5` to cap an item at a fixed number of lines.
-
-```tsx demo
-<List className="w-72">
-  <ListItem truncate>This item is clipped to one line with an ellipsis when it runs past the width.</ListItem>
-  <ListItem lineClamp2>This item is clamped to two lines, so longer content wraps once and then cuts off with an ellipsis at the end of the second line.</ListItem>
-  <ListItem>A short item.</ListItem>
-</List>
-```
-
----
-Title: Blockquote
-URL: https://vaneui.com/docs/typography-components/blockquote
----
-
-## Basic usage
-
-Blockquote displays quoted content, shown here with an attribution line. The element renders as `<blockquote>` and inherits color from its surroundings.
-
-```tsx demo
-<Blockquote>
-  <Text italic>The only way to do great work is to love what you do.</Text>
-  <Text sm secondary> - Steve Jobs</Text>
-</Blockquote>
-```
-
-## Sizes
-
-Blockquote supports five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
-
-```tsx demo
-<Col>
-  <Blockquote xs primary>Size xs: The best way to predict the future is to create it.</Blockquote>
-  <Blockquote sm primary>Size sm: The best way to predict the future is to create it.</Blockquote>
-  <Blockquote primary>Size md: The best way to predict the future is to create it.</Blockquote>
-  <Blockquote lg primary>Size lg: The best way to predict the future is to create it.</Blockquote>
-  <Blockquote xl primary>Size xl: The best way to predict the future is to create it.</Blockquote>
-</Col>
-```
-
-## Appearances
-
-Apply appearance props to color the blockquote. The default is `inherit`, which picks up the parent color.
-
-```tsx demo
-<Col>
-  <Blockquote primary>Primary appearance blockquote.</Blockquote>
-  <Blockquote brand>Brand appearance blockquote.</Blockquote>
-  <Blockquote accent>Accent appearance blockquote.</Blockquote>
-  <Blockquote secondary>Secondary appearance blockquote.</Blockquote>
-  <Blockquote success>Success appearance blockquote.</Blockquote>
-  <Blockquote danger>Danger appearance blockquote.</Blockquote>
-  <Blockquote warning>Warning appearance blockquote.</Blockquote>
-  <Blockquote info>Info appearance blockquote.</Blockquote>
-</Col>
-```
-
-## Italic
-
-Italic is not a default. Opt in with the `italic` prop for traditional quotation styling.
-
-```tsx demo
-<Col>
-  <Blockquote primary>Upright (default), no italic styling.</Blockquote>
-  <Blockquote primary italic>Italic, traditional quotation styling.</Blockquote>
-</Col>
-```
-
-## Source attribution
-
-Pass `cite` to set the native `<blockquote cite>` attribute and render a visible source line below the quote. `Blockquote` has a single visual style, the reading-direction-start accent border (the `outline` default); it does not paint a background, so wrap it in a `Card` or `Section` to place a quote on a colored surface.
-
-```tsx demo
-<Col>
-  <Blockquote primary cite="Ada Lovelace">
-    That brain of mine is something more than merely mortal, as time will show.
-  </Blockquote>
-  <Blockquote info cite="Alan Turing">
-    We can only see a short distance ahead, but we can see plenty there that needs to be done.
-  </Blockquote>
-</Col>
-```
-
-## Inside a Card
-
-Blockquote inherits the parent appearance, so it blends into themed containers.
-
-```tsx demo
-<Row flexWrap>
-  <Card primary>
-    <Blockquote>Inherits primary from the card.</Blockquote>
-  </Card>
-  <Card success>
-    <Blockquote>Inherits success from the card.</Blockquote>
-  </Card>
-  <Card danger>
-    <Blockquote>Inherits danger from the card.</Blockquote>
-  </Card>
-</Row>
-```
-
-## With rich content
-
-Blockquotes can contain multiple paragraphs and nested components.
-
-```tsx demo
-<Blockquote primary>
-  <Text bold>Steve Jobs</Text>
-  <Text>Innovation distinguishes between a leader and a follower. Stay hungry, stay foolish.</Text>
-</Blockquote>
-```
-
-## Testimonial pattern
-
-Use blockquotes with attribution for testimonials and customer quotes.
-
-```tsx demo
-<Col>
-  <Card brand>
-    <Blockquote>
-      <Text italic>VaneUI cut our migration time in half. The boolean props API is concise and the theming covers our cases.</Text>
-      <Text sm bold> - Sarah Chen, Lead Engineer</Text>
-    </Blockquote>
-  </Card>
-  <Card success>
-    <Blockquote>
-      <Text italic>We shipped our new dashboard in half the time thanks to VaneUI components.</Text>
-      <Text sm bold> - Alex Rivera, Product Manager</Text>
-    </Blockquote>
-  </Card>
-</Col>
-```
 
 ## Customization
 

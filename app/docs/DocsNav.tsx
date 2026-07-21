@@ -3,7 +3,7 @@
 import React from 'react';
 import { Col, NavLink, Divider, Chip } from '@vaneui/ui';
 import { docsSections } from "./docsSections";
-import { BookOpen, Box, Compass, FileText, GitHub, Layers, Maximize2, Settings } from "react-feather";
+import { BookOpen, Box, CheckSquare, Compass, FileText, GitHub, Layers, Maximize2, Settings } from "react-feather";
 import Link from "next/link";
 import { PRODUCT } from "../constants";
 
@@ -11,11 +11,12 @@ export function DocsNav({currentPath, onMenuItemClickAction}: { currentPath?: st
   const icons: Record<string, React.ComponentType<{ className?: string }>> = {
     'getting-started': BookOpen,
     'basic-components': Box,
+    'form-components': CheckSquare,
     'layout-components': Layers,
     'overlay-components': Maximize2,
-    'navigation-components': Compass,
     'typography-components': FileText,
     'customization': Settings,
+    'reference': Compass,
   };
   return (
     <Col>

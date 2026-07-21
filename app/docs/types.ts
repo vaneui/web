@@ -19,6 +19,10 @@ export interface DocsPage {
   description: string;
   mdPath?: string;
   componentKey?: ComponentKey;
+  /** Subcomponent documented on the same page; renders a second props table. */
+  secondaryComponentKey?: ComponentKey;
+  /** Label for the secondary props table (defaults to the component key). */
+  secondaryComponentName?: string;
   /** Parsed frontmatter for MD-first pages. */
   frontmatter?: DocPageFrontmatter;
 }

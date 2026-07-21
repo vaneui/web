@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-List renders an unordered list with bullet points by default.
+List renders an unordered list with bullet points by default. Each entry is a `ListItem`, which renders an `<li>` and carries the core typography props (appearance, size, weight, alignment) minus the margin, letter-spacing, and cursor props that `Text` has. Always render `ListItem` inside a `List`, which supplies the marker style and size.
 
 ```tsx demo
 <List>
@@ -226,6 +226,18 @@ Pass an `icon` node to a `ListItem` to replace the native marker on that item on
 </List>
 ```
 
+## Overriding size and color per item
+
+`ListItem` has no size or appearance default of its own, so both cascade from the parent `List`: `<List xl success>` propagates to every item. Set an explicit size or appearance on one item to opt out of just that row while its siblings keep the inherited values.
+
+```tsx demo
+<List xl success>
+  <ListItem>Inherits xl size and success color</ListItem>
+  <ListItem sm>Opts out of size: small, still inherits color</ListItem>
+  <ListItem primary>Opts out of color: primary</ListItem>
+</List>
+```
+
 ## Styling
 
 Combine font properties like `bold`, `italic`, `mono` with lists.
@@ -241,4 +253,27 @@ Combine font properties like `bold`, `italic`, `mono` with lists.
     <ListItem>npm run build</ListItem>
   </List>
 </Col>
+```
+
+The same toggles apply per item, so one entry can stand out without affecting the rest of the list.
+
+```tsx demo
+<List>
+  <ListItem bold>Bold item</ListItem>
+  <ListItem italic>Italic item</ListItem>
+  <ListItem mono>monospace-item</ListItem>
+  <ListItem>Default item</ListItem>
+</List>
+```
+
+## Truncating long items
+
+Use `truncate` for a single clipped line, or `lineClamp2` through `lineClamp5` to cap an item at a fixed number of lines.
+
+```tsx demo
+<List className="w-72">
+  <ListItem truncate>This item is clipped to one line with an ellipsis when it runs past the width.</ListItem>
+  <ListItem lineClamp2>This item is clamped to two lines, so longer content wraps once and then cuts off with an ellipsis at the end of the second line.</ListItem>
+  <ListItem>A short item.</ListItem>
+</List>
 ```

@@ -30,6 +30,12 @@ export function DocsPageContent(
   const propsTitle = pageTitle + " Props";
   const propsTitleId = toHtmlId(propsTitle);
 
+  // Subcomponents documented on the parent page (e.g. ListItem on List) get
+  // their own props table so merging the pages doesn't lose the prop reference.
+  const secondaryKey = pageData.secondaryComponentKey;
+  const secondaryTitle = (pageData.secondaryComponentName ?? secondaryKey ?? "") + " Props";
+  const secondaryTitleId = toHtmlId(secondaryTitle);
+
   // Build sections for OnThisPage navigation. Computed inline — server
   // components don't need useMemo (no re-renders).
   const sections: Array<{ title: string; id: string; level: number }> = [
@@ -43,6 +49,9 @@ export function DocsPageContent(
       : []),
     ...(componentKey
       ? [{ title: propsTitle, id: propsTitleId, level: 0 }]
+      : []),
+    ...(secondaryKey
+      ? [{ title: secondaryTitle, id: secondaryTitleId, level: 0 }]
       : []),
   ];
 
@@ -95,6 +104,15 @@ export function DocsPageContent(
                   <Link href={`#${propsTitleId}`}>{propsTitle}</Link>
                 </Title>
                 <DocsPropsTable componentKey={componentKey as ComponentKey} />
+              </Col>
+            )}
+
+            {secondaryKey && (
+              <Col wFull id={secondaryTitleId}>
+                <Title xl className={titleClasses}>
+                  <Link href={`#${secondaryTitleId}`}>{secondaryTitle}</Link>
+                </Title>
+                <DocsPropsTable componentKey={secondaryKey as ComponentKey} />
               </Col>
             )}
 

@@ -6,6 +6,10 @@ export interface DocPageMeta {
   description: string;
   mdPath?: string;
   componentKey?: ComponentKey;
+  /** Subcomponent documented on the same page; renders a second props table. */
+  secondaryComponentKey?: ComponentKey;
+  /** Label for the secondary props table (defaults to the component key). */
+  secondaryComponentName?: string;
 }
 
 export interface DocSectionMeta {
@@ -59,22 +63,10 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         componentKey: "iconButton",
       },
       {
-        slug: 'input',
-        name: 'Input',
-        description: 'Input lets users enter text, numbers, and other data. A form element with support for various types, validation states, and styling options.',
-        componentKey: "input",
-      },
-      {
-        slug: 'checkbox',
-        name: 'Checkbox',
-        description: 'Allows users to select one or more options from a set. Checkboxes are ideal for binary choices and multiple selections within forms.',
-        componentKey: "checkbox",
-      },
-      {
-        slug: 'label',
-        name: 'Label',
-        description: 'Label displays text for categorization, status indicators, or highlighting information. Can be styled with different colors, sizes, and variants.',
-        componentKey: "label",
+        slug: 'navlink',
+        name: 'NavLink',
+        description: 'A navigation link for sidebars, nav menus, and headers. Supports active state, icons, and renders as anchor or button.',
+        componentKey: "navLink",
       },
       {
         slug: 'badge',
@@ -111,6 +103,82 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         name: 'Icon',
         description: 'A lightweight SVG wrapper that provides consistent sizing, color inheritance, and themed appearances for icons.',
         componentKey: "icon",
+      },
+    ]
+  },
+  {
+    name: 'Form Components',
+    slug: 'form-components',
+    description: 'Controls for capturing user input, and the label that ties them to their text.',
+    pages: [
+      {
+        slug: 'input',
+        name: 'Input',
+        description: 'Input lets users enter text, numbers, and other data. A form element with support for various types, validation states, and styling options.',
+        componentKey: "input",
+      },
+      {
+        slug: 'checkbox',
+        name: 'Checkbox',
+        description: 'Allows users to select one or more options from a set. Checkboxes are ideal for binary choices and multiple selections within forms.',
+        componentKey: "checkbox",
+      },
+      {
+        slug: 'label',
+        name: 'Label',
+        description: 'Label associates text with a form control. Wrap an Input or Checkbox to make the label clickable, or use htmlFor when the control sits outside.',
+        componentKey: "label",
+      },
+    ]
+  },
+  {
+    name: 'Typography Components',
+    slug: 'typography-components',
+    description: 'A suite of components for rendering text and establishing a clear typographic hierarchy.',
+    pages: [
+      {
+        slug: 'text',
+        name: 'Text',
+        description: 'The primary component for rendering all text content. It provides props to control typographic properties like size, weight, color, and alignment.',
+        componentKey: "text",
+      },
+      {
+        slug: 'page-title',
+        name: 'PageTitle',
+        description: 'A specialized component for the primary heading of a page. It ensures consistent styling for top-level titles across your application.',
+        componentKey: "pageTitle",
+      },
+      {
+        slug: 'section-title',
+        name: 'SectionTitle',
+        description: 'A component for rendering headings of major sections within a page. It helps to create a clear and accessible document structure.',
+        componentKey: "sectionTitle",
+      },
+      {
+        slug: 'title',
+        name: 'Title',
+        description: 'Renders a heading to establish a semantic hierarchy on the page. Use this component for the main titles of pages or sections.',
+        componentKey: "title",
+      },
+      {
+        slug: 'link',
+        name: 'Link',
+        description: 'Renders an accessible and themeable anchor link for navigation. Use this to direct users to other pages or external websites.',
+        componentKey: "link",
+      },
+      {
+        slug: 'list',
+        name: 'List',
+        description: 'A container for displaying a series of related items in an ordered or unordered fashion. Documents both List and its ListItem entries.',
+        componentKey: "list",
+        secondaryComponentKey: "listItem",
+        secondaryComponentName: "ListItem",
+      },
+      {
+        slug: 'blockquote',
+        name: 'Blockquote',
+        description: 'Displays quoted content with a left border accent. Inherits appearance from the parent by default, so it blends into themed containers.',
+        componentKey: "blockquote",
       },
     ]
   },
@@ -233,74 +301,6 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         name: 'Menu',
         description: 'A dropdown menu triggered by a button with full keyboard navigation. Contains MenuItem, Divider, and MenuLabel subcomponents.',
         componentKey: "menu",
-      },
-    ]
-  },
-  {
-    name: 'Navigation Components',
-    slug: 'navigation-components',
-    description: 'Components for building navigation interfaces like sidebars, menus, and header links.',
-    pages: [
-      {
-        slug: 'navlink',
-        name: 'NavLink',
-        description: 'A navigation link for sidebars, nav menus, and headers. Supports active state, icons, and renders as anchor or button.',
-        componentKey: "navLink",
-      },
-    ]
-  },
-  {
-    name: 'Typography Components',
-    slug: 'typography-components',
-    description: 'A suite of components for rendering text and establishing a clear typographic hierarchy.',
-    pages: [
-      {
-        slug: 'text',
-        name: 'Text',
-        description: 'The primary component for rendering all text content. It provides props to control typographic properties like size, weight, color, and alignment.',
-        componentKey: "text",
-      },
-      {
-        slug: 'page-title',
-        name: 'PageTitle',
-        description: 'A specialized component for the primary heading of a page. It ensures consistent styling for top-level titles across your application.',
-        componentKey: "pageTitle",
-      },
-      {
-        slug: 'section-title',
-        name: 'SectionTitle',
-        description: 'A component for rendering headings of major sections within a page. It helps to create a clear and accessible document structure.',
-        componentKey: "sectionTitle",
-      },
-      {
-        slug: 'title',
-        name: 'Title',
-        description: 'Renders a heading to establish a semantic hierarchy on the page. Use this component for the main titles of pages or sections.',
-        componentKey: "title",
-      },
-      {
-        slug: 'link',
-        name: 'Link',
-        description: 'Renders an accessible and themeable anchor link for navigation. Use this to direct users to other pages or external websites.',
-        componentKey: "link",
-      },
-      {
-        slug: 'list',
-        name: 'List',
-        description: 'A container for displaying a series of related items in an ordered or unordered fashion. It provides consistent styling for list elements.',
-        componentKey: "list",
-      },
-      {
-        slug: 'list-item',
-        name: 'ListItem',
-        description: 'A single entry inside a List. Renders an <li> with Text\'s typography props (minus margin, letter-spacing, cursor), plus an icon prop for the marker.',
-        componentKey: "listItem",
-      },
-      {
-        slug: 'blockquote',
-        name: 'Blockquote',
-        description: 'Displays quoted content with a left border accent. Inherits appearance from the parent by default, so it blends into themed containers.',
-        componentKey: "blockquote",
       },
     ]
   },
