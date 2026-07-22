@@ -21,6 +21,9 @@ export function Header() {
           <Button sm normal primary noShadow noRing href="/docs" tag={Link}>
             Documentation
           </Button>
+          <Button sm normal primary noShadow noRing href="/playground" tag={Link}>
+            Playground
+          </Button>
           <Button sm normal href={PRODUCT.githubUrl} tag="a" target="_blank" rel="noopener noreferrer"
                   aria-label="GitHub repository (opens in new tab)">
             <GitHub className="size-4" aria-hidden="true"/>
@@ -57,6 +60,12 @@ export function Header() {
                       onClick={() => setIsMobileMenuOpen(false)}
               >
                 Documentation
+              </Button>
+              <Button sm normal primary noShadow noRing wFull
+                      href="/playground" tag={Link}
+                      onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Playground
               </Button>
               <Button sm normal wFull
                       href={PRODUCT.githubUrl} tag="a" target="_blank" rel="noopener noreferrer"
