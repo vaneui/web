@@ -224,34 +224,10 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         componentKey: "card",
       },
       {
-        slug: 'grid2',
-        name: 'Grid2',
-        description: 'A responsive layout component for creating a two-column grid. Ideal for side-by-side content layouts and balanced arrangements.',
-        componentKey: "grid2",
-      },
-      {
-        slug: 'grid3',
-        name: 'Grid3',
-        description: 'A specialized layout component for creating a responsive three-column grid. It simplifies the arrangement of content into a balanced and organized structure.',
+        slug: 'grid',
+        name: 'Grid',
+        description: 'Responsive equal-width column layouts. Grid2 through Grid6 render two to six columns that reduce on smaller screens; they share one API and differ only in column count.',
         componentKey: "grid3",
-      },
-      {
-        slug: 'grid4',
-        name: 'Grid4',
-        description: 'A responsive layout component that arranges its children into a four-column grid. This is ideal for displaying a collection of items or features.',
-        componentKey: "grid4",
-      },
-      {
-        slug: 'grid5',
-        name: 'Grid5',
-        description: 'A responsive layout component that creates a five-column grid. Perfect for organizing content into balanced, visually appealing arrangements.',
-        componentKey: "grid5",
-      },
-      {
-        slug: 'grid6',
-        name: 'Grid6',
-        description: 'A six-column grid layout component for creating compact, organized displays. Ideal for icon grids, feature collections, and detailed content arrangements.',
-        componentKey: "grid6",
       },
       {
         slug: 'divider',

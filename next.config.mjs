@@ -13,6 +13,11 @@ const nextConfig = {
       { source: '/docs/navigation-components/navlink', destination: '/docs/basic-components/navlink', permanent: true },
       { source: '/docs/navigation-components', destination: '/docs/basic-components/navlink', permanent: true },
       { source: '/docs/typography-components/list-item', destination: '/docs/typography-components/list', permanent: true },
+      { source: '/docs/layout-components/grid2', destination: '/docs/layout-components/grid', permanent: true },
+      { source: '/docs/layout-components/grid3', destination: '/docs/layout-components/grid', permanent: true },
+      { source: '/docs/layout-components/grid4', destination: '/docs/layout-components/grid', permanent: true },
+      { source: '/docs/layout-components/grid5', destination: '/docs/layout-components/grid', permanent: true },
+      { source: '/docs/layout-components/grid6', destination: '/docs/layout-components/grid', permanent: true },
     ];
   },
 };

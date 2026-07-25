@@ -5346,167 +5346,13 @@ Set app-wide Card defaults with `ThemeProvider`'s `themeDefaults`:
 ```
 
 ---
-Title: Grid2
-URL: https://vaneui.com/docs/layout-components/grid2
+Title: Grid
+URL: https://vaneui.com/docs/layout-components/grid
 ---
 
 ## Basic usage
 
-A two-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults: no need to specify them.
-
-```tsx demo
-<Grid2>
-  <Card>
-    <Title>Item 1</Title>
-    <Text>Two-column layout</Text>
-  </Card>
-  <Card>
-    <Title>Item 2</Title>
-    <Text>Balanced columns</Text>
-  </Card>
-  <Card>
-    <Title>Item 3</Title>
-    <Text>Wraps to next row</Text>
-  </Card>
-  <Card>
-    <Title>Item 4</Title>
-    <Text>Equal widths</Text>
-  </Card>
-</Grid2>
-```
-
-## Sizes
-
-Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
-
-```tsx demo
-<Col>
-  <Text semibold>xs</Text>
-  <Grid2 xs>
-    <Card xs><Text xs>Item 1</Text></Card>
-    <Card xs><Text xs>Item 2</Text></Card>
-  </Grid2>
-  <Text semibold>sm</Text>
-  <Grid2 sm>
-    <Card sm><Text sm>Item 1</Text></Card>
-    <Card sm><Text sm>Item 2</Text></Card>
-  </Grid2>
-  <Text semibold>md (default)</Text>
-  <Grid2>
-    <Card><Text>Item 1</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-  </Grid2>
-  <Text semibold>lg</Text>
-  <Grid2 lg>
-    <Card lg><Text lg>Item 1</Text></Card>
-    <Card lg><Text lg>Item 2</Text></Card>
-  </Grid2>
-  <Text semibold>xl</Text>
-  <Grid2 xl>
-    <Card xl><Text xl>Item 1</Text></Card>
-    <Card xl><Text xl>Item 2</Text></Card>
-  </Grid2>
-</Col>
-```
-
-## Appearances
-
-Grid supports color appearances. Pair with `filled` or `border` to make the surface visible.
-
-```tsx demo
-<Col>
-  <Grid2 filled primary>
-    <Card><Text>Item 1</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-  </Grid2>
-  <Grid2 filled secondary>
-    <Card><Text>Item 1</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-  </Grid2>
-  <Grid2 filled success>
-    <Card><Text>Item 1</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-  </Grid2>
-  <Grid2 filled warning>
-    <Card><Text>Item 1</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-  </Grid2>
-</Col>
-```
-
-## Variants
-
-`outline` is the default. Use `filled` for a solid background, or add `border` for a visible outline.
-
-```tsx demo
-<Col>
-  <Grid2 filled primary>
-    <Card><Text>Filled primary</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-  </Grid2>
-  <Grid2 border success>
-    <Card><Text>Outline success</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-  </Grid2>
-</Col>
-```
-
-## Shapes
-
-`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself: pair with `filled` or `border` to see it.
-
-```tsx demo
-<Col>
-  <Grid2 filled secondary sharp padding>
-    <Card><Text>Sharp (default)</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-  </Grid2>
-  <Grid2 filled secondary rounded padding>
-    <Card><Text>Rounded</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-  </Grid2>
-</Col>
-```
-
-## With gap
-
-`gap` is on by default. Use `noGap` to remove spacing between cells.
-
-```tsx demo
-<Col>
-  <Text semibold>Default gap</Text>
-  <Grid2>
-    <Card><Text>Item 1</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-  </Grid2>
-  <Text semibold>noGap</Text>
-  <Grid2 noGap>
-    <Card sharp><Text>Item 1</Text></Card>
-    <Card sharp><Text>Item 2</Text></Card>
-  </Grid2>
-</Col>
-```
-
-## Customizing
-
-Set app-wide Grid2 defaults with `ThemeProvider`'s `themeDefaults`:
-
-```tsx demo
-<ThemeProvider themeDefaults={{
-  grid2: { lg: true },
-}}>
-  <Grid2>{/* ... */}</Grid2>
-</ThemeProvider>
-```
-
----
-Title: Grid3
-URL: https://vaneui.com/docs/layout-components/grid3
----
-
-## Basic usage
-
-A three-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults: no need to specify them.
+The Grid family renders equal-width column layouts: `Grid2` through `Grid6` for two to six columns. Children flow left to right and wrap to the next row. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults, so none of them need to be specified.
 
 ```tsx demo
 <Grid3>
@@ -5520,22 +5366,58 @@ A three-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are
   </Card>
   <Card>
     <Title>Item 3</Title>
-    <Text>Wraps after three</Text>
-  </Card>
-  <Card>
-    <Title>Item 4</Title>
-    <Text>Second row</Text>
-  </Card>
-  <Card>
-    <Title>Item 5</Title>
-    <Text>Continues</Text>
-  </Card>
-  <Card>
-    <Title>Item 6</Title>
-    <Text>And fills</Text>
+    <Text>Wraps to next row</Text>
   </Card>
 </Grid3>
 ```
+
+## Column counts
+
+Pick the component for the number of columns you need, from `Grid2` to `Grid6`. They share the same API and differ only in the column count.
+
+```tsx demo
+<Col>
+  <Text semibold>Grid2</Text>
+  <Grid2>
+    <Card><Text textCenter>1</Text></Card>
+    <Card><Text textCenter>2</Text></Card>
+  </Grid2>
+  <Text semibold>Grid3</Text>
+  <Grid3>
+    <Card><Text textCenter>1</Text></Card>
+    <Card><Text textCenter>2</Text></Card>
+    <Card><Text textCenter>3</Text></Card>
+  </Grid3>
+  <Text semibold>Grid4</Text>
+  <Grid4>
+    <Card><Text textCenter>1</Text></Card>
+    <Card><Text textCenter>2</Text></Card>
+    <Card><Text textCenter>3</Text></Card>
+    <Card><Text textCenter>4</Text></Card>
+  </Grid4>
+  <Text semibold>Grid6</Text>
+  <Grid6>
+    <Card><Text textCenter>1</Text></Card>
+    <Card><Text textCenter>2</Text></Card>
+    <Card><Text textCenter>3</Text></Card>
+    <Card><Text textCenter>4</Text></Card>
+    <Card><Text textCenter>5</Text></Card>
+    <Card><Text textCenter>6</Text></Card>
+  </Grid6>
+</Col>
+```
+
+## Responsive columns
+
+Each grid reduces its column count on smaller screens so cells never get too narrow. The breakpoints are tablet (≤1024px) and mobile (≤768px). Resize the window to see the reflow.
+
+| Component | Desktop | Tablet | Mobile |
+|-----------|---------|--------|--------|
+| `Grid2`   | 2       | 2      | 1      |
+| `Grid3`   | 3       | 2      | 1      |
+| `Grid4`   | 4       | 3      | 2      |
+| `Grid5`   | 5       | 3      | 2      |
+| `Grid6`   | 6       | 4      | 2      |
 
 ## Sizes
 
@@ -5549,23 +5431,11 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
     <Card xs><Text xs>Item 2</Text></Card>
     <Card xs><Text xs>Item 3</Text></Card>
   </Grid3>
-  <Text semibold>sm</Text>
-  <Grid3 sm>
-    <Card sm><Text sm>Item 1</Text></Card>
-    <Card sm><Text sm>Item 2</Text></Card>
-    <Card sm><Text sm>Item 3</Text></Card>
-  </Grid3>
   <Text semibold>md (default)</Text>
   <Grid3>
     <Card><Text>Item 1</Text></Card>
     <Card><Text>Item 2</Text></Card>
     <Card><Text>Item 3</Text></Card>
-  </Grid3>
-  <Text semibold>lg</Text>
-  <Grid3 lg>
-    <Card lg><Text lg>Item 1</Text></Card>
-    <Card lg><Text lg>Item 2</Text></Card>
-    <Card lg><Text lg>Item 3</Text></Card>
   </Grid3>
   <Text semibold>xl</Text>
   <Grid3 xl>
@@ -5587,17 +5457,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
     <Card><Text>Item 2</Text></Card>
     <Card><Text>Item 3</Text></Card>
   </Grid3>
-  <Grid3 filled secondary>
-    <Card><Text>Item 1</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-    <Card><Text>Item 3</Text></Card>
-  </Grid3>
   <Grid3 filled success>
-    <Card><Text>Item 1</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-    <Card><Text>Item 3</Text></Card>
-  </Grid3>
-  <Grid3 filled warning>
     <Card><Text>Item 1</Text></Card>
     <Card><Text>Item 2</Text></Card>
     <Card><Text>Item 3</Text></Card>
@@ -5626,7 +5486,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 
 ## Shapes
 
-`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself: pair with `filled` or `border` to see it.
+`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself, so pair with `filled` or `border` to see it.
 
 ```tsx demo
 <Col>
@@ -5666,646 +5526,17 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 
 ## Customizing
 
-Set app-wide Grid3 defaults with `ThemeProvider`'s `themeDefaults`:
+Set app-wide Grid defaults with `ThemeProvider`'s `themeDefaults`. Each column count has its own key (`grid2` through `grid6`).
 
 ```tsx demo
 <ThemeProvider themeDefaults={{
   grid3: { lg: true },
 }}>
-  <Grid3>{/* ... */}</Grid3>
-</ThemeProvider>
-```
-
----
-Title: Grid4
-URL: https://vaneui.com/docs/layout-components/grid4
----
-
-## Basic usage
-
-A four-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults: no need to specify them.
-
-```tsx demo
-<Grid4>
-  <Card>
-    <Title>Item 1</Title>
-    <Text>Four-column layout</Text>
-  </Card>
-  <Card>
-    <Title>Item 2</Title>
-    <Text>Equal widths</Text>
-  </Card>
-  <Card>
-    <Title>Item 3</Title>
-    <Text>Wraps after four</Text>
-  </Card>
-  <Card>
-    <Title>Item 4</Title>
-    <Text>End of first row</Text>
-  </Card>
-  <Card>
-    <Title>Item 5</Title>
-    <Text>Second row</Text>
-  </Card>
-  <Card>
-    <Title>Item 6</Title>
-    <Text>Continues</Text>
-  </Card>
-  <Card>
-    <Title>Item 7</Title>
-    <Text>And fills</Text>
-  </Card>
-  <Card>
-    <Title>Item 8</Title>
-    <Text>Out evenly</Text>
-  </Card>
-</Grid4>
-```
-
-## Sizes
-
-Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
-
-```tsx demo
-<Col>
-  <Text semibold>xs</Text>
-  <Grid4 xs>
-    <Card xs><Text xs>Item 1</Text></Card>
-    <Card xs><Text xs>Item 2</Text></Card>
-    <Card xs><Text xs>Item 3</Text></Card>
-    <Card xs><Text xs>Item 4</Text></Card>
-  </Grid4>
-  <Text semibold>sm</Text>
-  <Grid4 sm>
-    <Card sm><Text sm>Item 1</Text></Card>
-    <Card sm><Text sm>Item 2</Text></Card>
-    <Card sm><Text sm>Item 3</Text></Card>
-    <Card sm><Text sm>Item 4</Text></Card>
-  </Grid4>
-  <Text semibold>md (default)</Text>
-  <Grid4>
+  <Grid3>
     <Card><Text>Item 1</Text></Card>
     <Card><Text>Item 2</Text></Card>
     <Card><Text>Item 3</Text></Card>
-    <Card><Text>Item 4</Text></Card>
-  </Grid4>
-  <Text semibold>lg</Text>
-  <Grid4 lg>
-    <Card lg><Text lg>Item 1</Text></Card>
-    <Card lg><Text lg>Item 2</Text></Card>
-    <Card lg><Text lg>Item 3</Text></Card>
-    <Card lg><Text lg>Item 4</Text></Card>
-  </Grid4>
-  <Text semibold>xl</Text>
-  <Grid4 xl>
-    <Card xl><Text xl>Item 1</Text></Card>
-    <Card xl><Text xl>Item 2</Text></Card>
-    <Card xl><Text xl>Item 3</Text></Card>
-    <Card xl><Text xl>Item 4</Text></Card>
-  </Grid4>
-</Col>
-```
-
-## Appearances
-
-Grid supports color appearances. Pair with `filled` or `border` to make the surface visible.
-
-```tsx demo
-<Col>
-  <Grid4 filled primary>
-    <Card><Text>Item 1</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-    <Card><Text>Item 3</Text></Card>
-    <Card><Text>Item 4</Text></Card>
-  </Grid4>
-  <Grid4 filled secondary>
-    <Card><Text>Item 1</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-    <Card><Text>Item 3</Text></Card>
-    <Card><Text>Item 4</Text></Card>
-  </Grid4>
-  <Grid4 filled success>
-    <Card><Text>Item 1</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-    <Card><Text>Item 3</Text></Card>
-    <Card><Text>Item 4</Text></Card>
-  </Grid4>
-  <Grid4 filled warning>
-    <Card><Text>Item 1</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-    <Card><Text>Item 3</Text></Card>
-    <Card><Text>Item 4</Text></Card>
-  </Grid4>
-</Col>
-```
-
-## Variants
-
-`outline` is the default. Use `filled` for a solid background, or add `border` for a visible outline.
-
-```tsx demo
-<Col>
-  <Grid4 filled primary>
-    <Card><Text>Filled primary</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-    <Card><Text>Item 3</Text></Card>
-    <Card><Text>Item 4</Text></Card>
-  </Grid4>
-  <Grid4 border success>
-    <Card><Text>Outline success</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-    <Card><Text>Item 3</Text></Card>
-    <Card><Text>Item 4</Text></Card>
-  </Grid4>
-</Col>
-```
-
-## Shapes
-
-`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself: pair with `filled` or `border` to see it.
-
-```tsx demo
-<Col>
-  <Grid4 filled secondary sharp padding>
-    <Card><Text>Sharp (default)</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-    <Card><Text>Item 3</Text></Card>
-    <Card><Text>Item 4</Text></Card>
-  </Grid4>
-  <Grid4 filled secondary rounded padding>
-    <Card><Text>Rounded</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-    <Card><Text>Item 3</Text></Card>
-    <Card><Text>Item 4</Text></Card>
-  </Grid4>
-</Col>
-```
-
-## With gap
-
-`gap` is on by default. Use `noGap` to remove spacing between cells.
-
-```tsx demo
-<Col>
-  <Text semibold>Default gap</Text>
-  <Grid4>
-    <Card><Text>Item 1</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-    <Card><Text>Item 3</Text></Card>
-    <Card><Text>Item 4</Text></Card>
-  </Grid4>
-  <Text semibold>noGap</Text>
-  <Grid4 noGap>
-    <Card sharp><Text>Item 1</Text></Card>
-    <Card sharp><Text>Item 2</Text></Card>
-    <Card sharp><Text>Item 3</Text></Card>
-    <Card sharp><Text>Item 4</Text></Card>
-  </Grid4>
-</Col>
-```
-
-## Customizing
-
-Set app-wide Grid4 defaults with `ThemeProvider`'s `themeDefaults`:
-
-```tsx demo
-<ThemeProvider themeDefaults={{
-  grid4: { lg: true },
-}}>
-  <Grid4>{/* ... */}</Grid4>
-</ThemeProvider>
-```
-
----
-Title: Grid5
-URL: https://vaneui.com/docs/layout-components/grid5
----
-
-## Basic usage
-
-A five-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults: no need to specify them.
-
-```tsx demo
-<Grid5>
-  <Card>
-    <Title sm>Item 1</Title>
-    <Text>Five-column layout</Text>
-  </Card>
-  <Card>
-    <Title sm>Item 2</Title>
-    <Text>Equal widths</Text>
-  </Card>
-  <Card>
-    <Title sm>Item 3</Title>
-    <Text>Five across</Text>
-  </Card>
-  <Card>
-    <Title sm>Item 4</Title>
-    <Text>Wraps after five</Text>
-  </Card>
-  <Card>
-    <Title sm>Item 5</Title>
-    <Text>End of row</Text>
-  </Card>
-  <Card>
-    <Title sm>Item 6</Title>
-    <Text>Second row</Text>
-  </Card>
-  <Card>
-    <Title sm>Item 7</Title>
-    <Text>Continues</Text>
-  </Card>
-  <Card>
-    <Title sm>Item 8</Title>
-    <Text>And fills</Text>
-  </Card>
-  <Card>
-    <Title sm>Item 9</Title>
-    <Text>Out evenly</Text>
-  </Card>
-  <Card>
-    <Title sm>Item 10</Title>
-    <Text>Across rows</Text>
-  </Card>
-</Grid5>
-```
-
-## Sizes
-
-Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
-
-```tsx demo
-<Col>
-  <Text semibold>xs</Text>
-  <Grid5 xs>
-    <Card xs><Text xs>1</Text></Card>
-    <Card xs><Text xs>2</Text></Card>
-    <Card xs><Text xs>3</Text></Card>
-    <Card xs><Text xs>4</Text></Card>
-    <Card xs><Text xs>5</Text></Card>
-  </Grid5>
-  <Text semibold>sm</Text>
-  <Grid5 sm>
-    <Card sm><Text sm>1</Text></Card>
-    <Card sm><Text sm>2</Text></Card>
-    <Card sm><Text sm>3</Text></Card>
-    <Card sm><Text sm>4</Text></Card>
-    <Card sm><Text sm>5</Text></Card>
-  </Grid5>
-  <Text semibold>md (default)</Text>
-  <Grid5>
-    <Card><Text>1</Text></Card>
-    <Card><Text>2</Text></Card>
-    <Card><Text>3</Text></Card>
-    <Card><Text>4</Text></Card>
-    <Card><Text>5</Text></Card>
-  </Grid5>
-  <Text semibold>lg</Text>
-  <Grid5 lg>
-    <Card lg><Text lg>1</Text></Card>
-    <Card lg><Text lg>2</Text></Card>
-    <Card lg><Text lg>3</Text></Card>
-    <Card lg><Text lg>4</Text></Card>
-    <Card lg><Text lg>5</Text></Card>
-  </Grid5>
-  <Text semibold>xl</Text>
-  <Grid5 xl>
-    <Card xl><Text xl>1</Text></Card>
-    <Card xl><Text xl>2</Text></Card>
-    <Card xl><Text xl>3</Text></Card>
-    <Card xl><Text xl>4</Text></Card>
-    <Card xl><Text xl>5</Text></Card>
-  </Grid5>
-</Col>
-```
-
-## Appearances
-
-Grid supports color appearances. Pair with `filled` or `border` to make the surface visible.
-
-```tsx demo
-<Col>
-  <Grid5 filled primary>
-    <Card><Text>1</Text></Card>
-    <Card><Text>2</Text></Card>
-    <Card><Text>3</Text></Card>
-    <Card><Text>4</Text></Card>
-    <Card><Text>5</Text></Card>
-  </Grid5>
-  <Grid5 filled secondary>
-    <Card><Text>1</Text></Card>
-    <Card><Text>2</Text></Card>
-    <Card><Text>3</Text></Card>
-    <Card><Text>4</Text></Card>
-    <Card><Text>5</Text></Card>
-  </Grid5>
-  <Grid5 filled success>
-    <Card><Text>1</Text></Card>
-    <Card><Text>2</Text></Card>
-    <Card><Text>3</Text></Card>
-    <Card><Text>4</Text></Card>
-    <Card><Text>5</Text></Card>
-  </Grid5>
-  <Grid5 filled warning>
-    <Card><Text>1</Text></Card>
-    <Card><Text>2</Text></Card>
-    <Card><Text>3</Text></Card>
-    <Card><Text>4</Text></Card>
-    <Card><Text>5</Text></Card>
-  </Grid5>
-</Col>
-```
-
-## Variants
-
-`outline` is the default. Use `filled` for a solid background, or add `border` for a visible outline.
-
-```tsx demo
-<Col>
-  <Grid5 filled primary>
-    <Card><Text>Filled primary</Text></Card>
-    <Card><Text>2</Text></Card>
-    <Card><Text>3</Text></Card>
-    <Card><Text>4</Text></Card>
-    <Card><Text>5</Text></Card>
-  </Grid5>
-  <Grid5 border success>
-    <Card><Text>Outline success</Text></Card>
-    <Card><Text>2</Text></Card>
-    <Card><Text>3</Text></Card>
-    <Card><Text>4</Text></Card>
-    <Card><Text>5</Text></Card>
-  </Grid5>
-</Col>
-```
-
-## Shapes
-
-`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself: pair with `filled` or `border` to see it.
-
-```tsx demo
-<Col>
-  <Grid5 filled secondary sharp padding>
-    <Card><Text>Sharp (default)</Text></Card>
-    <Card><Text>2</Text></Card>
-    <Card><Text>3</Text></Card>
-    <Card><Text>4</Text></Card>
-    <Card><Text>5</Text></Card>
-  </Grid5>
-  <Grid5 filled secondary rounded padding>
-    <Card><Text>Rounded</Text></Card>
-    <Card><Text>2</Text></Card>
-    <Card><Text>3</Text></Card>
-    <Card><Text>4</Text></Card>
-    <Card><Text>5</Text></Card>
-  </Grid5>
-</Col>
-```
-
-## With gap
-
-`gap` is on by default. Use `noGap` to remove spacing between cells.
-
-```tsx demo
-<Col>
-  <Text semibold>Default gap</Text>
-  <Grid5>
-    <Card><Text>1</Text></Card>
-    <Card><Text>2</Text></Card>
-    <Card><Text>3</Text></Card>
-    <Card><Text>4</Text></Card>
-    <Card><Text>5</Text></Card>
-  </Grid5>
-  <Text semibold>noGap</Text>
-  <Grid5 noGap>
-    <Card sharp><Text>1</Text></Card>
-    <Card sharp><Text>2</Text></Card>
-    <Card sharp><Text>3</Text></Card>
-    <Card sharp><Text>4</Text></Card>
-    <Card sharp><Text>5</Text></Card>
-  </Grid5>
-</Col>
-```
-
-## Customizing
-
-Set app-wide Grid5 defaults with `ThemeProvider`'s `themeDefaults`:
-
-```tsx demo
-<ThemeProvider themeDefaults={{
-  grid5: { sm: true },
-}}>
-  <Grid5>{/* ... */}</Grid5>
-</ThemeProvider>
-```
-
----
-Title: Grid6
-URL: https://vaneui.com/docs/layout-components/grid6
----
-
-## Basic usage
-
-A six-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults: no need to specify them.
-
-```tsx demo
-<Grid6>
-  <Card><Text textCenter>Item 1</Text></Card>
-  <Card><Text textCenter>Item 2</Text></Card>
-  <Card><Text textCenter>Item 3</Text></Card>
-  <Card><Text textCenter>Item 4</Text></Card>
-  <Card><Text textCenter>Item 5</Text></Card>
-  <Card><Text textCenter>Item 6</Text></Card>
-  <Card><Text textCenter>Item 7</Text></Card>
-  <Card><Text textCenter>Item 8</Text></Card>
-  <Card><Text textCenter>Item 9</Text></Card>
-  <Card><Text textCenter>Item 10</Text></Card>
-  <Card><Text textCenter>Item 11</Text></Card>
-  <Card><Text textCenter>Item 12</Text></Card>
-</Grid6>
-```
-
-## Sizes
-
-Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
-
-```tsx demo
-<Col>
-  <Text semibold>xs</Text>
-  <Grid6 xs>
-    <Card xs><Text xs textCenter>1</Text></Card>
-    <Card xs><Text xs textCenter>2</Text></Card>
-    <Card xs><Text xs textCenter>3</Text></Card>
-    <Card xs><Text xs textCenter>4</Text></Card>
-    <Card xs><Text xs textCenter>5</Text></Card>
-    <Card xs><Text xs textCenter>6</Text></Card>
-  </Grid6>
-  <Text semibold>sm</Text>
-  <Grid6 sm>
-    <Card sm><Text sm textCenter>1</Text></Card>
-    <Card sm><Text sm textCenter>2</Text></Card>
-    <Card sm><Text sm textCenter>3</Text></Card>
-    <Card sm><Text sm textCenter>4</Text></Card>
-    <Card sm><Text sm textCenter>5</Text></Card>
-    <Card sm><Text sm textCenter>6</Text></Card>
-  </Grid6>
-  <Text semibold>md (default)</Text>
-  <Grid6>
-    <Card><Text textCenter>1</Text></Card>
-    <Card><Text textCenter>2</Text></Card>
-    <Card><Text textCenter>3</Text></Card>
-    <Card><Text textCenter>4</Text></Card>
-    <Card><Text textCenter>5</Text></Card>
-    <Card><Text textCenter>6</Text></Card>
-  </Grid6>
-  <Text semibold>lg</Text>
-  <Grid6 lg>
-    <Card lg><Text lg textCenter>1</Text></Card>
-    <Card lg><Text lg textCenter>2</Text></Card>
-    <Card lg><Text lg textCenter>3</Text></Card>
-    <Card lg><Text lg textCenter>4</Text></Card>
-    <Card lg><Text lg textCenter>5</Text></Card>
-    <Card lg><Text lg textCenter>6</Text></Card>
-  </Grid6>
-  <Text semibold>xl</Text>
-  <Grid6 xl>
-    <Card xl><Text xl textCenter>1</Text></Card>
-    <Card xl><Text xl textCenter>2</Text></Card>
-    <Card xl><Text xl textCenter>3</Text></Card>
-    <Card xl><Text xl textCenter>4</Text></Card>
-    <Card xl><Text xl textCenter>5</Text></Card>
-    <Card xl><Text xl textCenter>6</Text></Card>
-  </Grid6>
-</Col>
-```
-
-## Appearances
-
-Grid supports color appearances. Pair with `filled` or `border` to make the surface visible.
-
-```tsx demo
-<Col>
-  <Grid6 filled primary>
-    <Card><Text textCenter>1</Text></Card>
-    <Card><Text textCenter>2</Text></Card>
-    <Card><Text textCenter>3</Text></Card>
-    <Card><Text textCenter>4</Text></Card>
-    <Card><Text textCenter>5</Text></Card>
-    <Card><Text textCenter>6</Text></Card>
-  </Grid6>
-  <Grid6 filled secondary>
-    <Card><Text textCenter>1</Text></Card>
-    <Card><Text textCenter>2</Text></Card>
-    <Card><Text textCenter>3</Text></Card>
-    <Card><Text textCenter>4</Text></Card>
-    <Card><Text textCenter>5</Text></Card>
-    <Card><Text textCenter>6</Text></Card>
-  </Grid6>
-  <Grid6 filled success>
-    <Card><Text textCenter>1</Text></Card>
-    <Card><Text textCenter>2</Text></Card>
-    <Card><Text textCenter>3</Text></Card>
-    <Card><Text textCenter>4</Text></Card>
-    <Card><Text textCenter>5</Text></Card>
-    <Card><Text textCenter>6</Text></Card>
-  </Grid6>
-  <Grid6 filled warning>
-    <Card><Text textCenter>1</Text></Card>
-    <Card><Text textCenter>2</Text></Card>
-    <Card><Text textCenter>3</Text></Card>
-    <Card><Text textCenter>4</Text></Card>
-    <Card><Text textCenter>5</Text></Card>
-    <Card><Text textCenter>6</Text></Card>
-  </Grid6>
-</Col>
-```
-
-## Variants
-
-`outline` is the default. Use `filled` for a solid background, or add `border` for a visible outline.
-
-```tsx demo
-<Col>
-  <Grid6 filled primary>
-    <Card><Text textCenter>Filled</Text></Card>
-    <Card><Text textCenter>2</Text></Card>
-    <Card><Text textCenter>3</Text></Card>
-    <Card><Text textCenter>4</Text></Card>
-    <Card><Text textCenter>5</Text></Card>
-    <Card><Text textCenter>6</Text></Card>
-  </Grid6>
-  <Grid6 border success>
-    <Card><Text textCenter>Outline</Text></Card>
-    <Card><Text textCenter>2</Text></Card>
-    <Card><Text textCenter>3</Text></Card>
-    <Card><Text textCenter>4</Text></Card>
-    <Card><Text textCenter>5</Text></Card>
-    <Card><Text textCenter>6</Text></Card>
-  </Grid6>
-</Col>
-```
-
-## Shapes
-
-`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself: pair with `filled` or `border` to see it.
-
-```tsx demo
-<Col>
-  <Grid6 filled secondary sharp padding>
-    <Card><Text textCenter>Sharp</Text></Card>
-    <Card><Text textCenter>2</Text></Card>
-    <Card><Text textCenter>3</Text></Card>
-    <Card><Text textCenter>4</Text></Card>
-    <Card><Text textCenter>5</Text></Card>
-    <Card><Text textCenter>6</Text></Card>
-  </Grid6>
-  <Grid6 filled secondary rounded padding>
-    <Card><Text textCenter>Rounded</Text></Card>
-    <Card><Text textCenter>2</Text></Card>
-    <Card><Text textCenter>3</Text></Card>
-    <Card><Text textCenter>4</Text></Card>
-    <Card><Text textCenter>5</Text></Card>
-    <Card><Text textCenter>6</Text></Card>
-  </Grid6>
-</Col>
-```
-
-## With gap
-
-`gap` is on by default. Use `noGap` to remove spacing between cells.
-
-```tsx demo
-<Col>
-  <Text semibold>Default gap</Text>
-  <Grid6>
-    <Card><Text textCenter>1</Text></Card>
-    <Card><Text textCenter>2</Text></Card>
-    <Card><Text textCenter>3</Text></Card>
-    <Card><Text textCenter>4</Text></Card>
-    <Card><Text textCenter>5</Text></Card>
-    <Card><Text textCenter>6</Text></Card>
-  </Grid6>
-  <Text semibold>noGap</Text>
-  <Grid6 noGap>
-    <Card sharp><Text textCenter>1</Text></Card>
-    <Card sharp><Text textCenter>2</Text></Card>
-    <Card sharp><Text textCenter>3</Text></Card>
-    <Card sharp><Text textCenter>4</Text></Card>
-    <Card sharp><Text textCenter>5</Text></Card>
-    <Card sharp><Text textCenter>6</Text></Card>
-  </Grid6>
-</Col>
-```
-
-## Customizing
-
-Set app-wide Grid6 defaults with `ThemeProvider`'s `themeDefaults`:
-
-```tsx demo
-<ThemeProvider themeDefaults={{
-  grid6: { sm: true },
-}}>
-  <Grid6>{/* ... */}</Grid6>
+  </Grid3>
 </ThemeProvider>
 ```
 

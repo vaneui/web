@@ -76,11 +76,7 @@ For complete documentation of every page in a single document, see
 - [Col](https://vaneui.com/docs/layout-components/col): Col organizes content vertically within a Row, creating responsive column-based layouts.
 - [Stack](https://vaneui.com/docs/layout-components/stack): Stack arranges its children with consistent spacing. Works for both vertical and horizontal layouts.
 - [Card](https://vaneui.com/docs/layout-components/card): Card is a container that groups related content with consistent styling. It can contain text, images, and other components.
-- [Grid2](https://vaneui.com/docs/layout-components/grid2): A responsive layout component for creating a two-column grid. Ideal for side-by-side content layouts and balanced arrangements.
-- [Grid3](https://vaneui.com/docs/layout-components/grid3): A specialized layout component for creating a responsive three-column grid. It simplifies the arrangement of content into a balanced and organized structure.
-- [Grid4](https://vaneui.com/docs/layout-components/grid4): A responsive layout component that arranges its children into a four-column grid. This is ideal for displaying a collection of items or features.
-- [Grid5](https://vaneui.com/docs/layout-components/grid5): A responsive layout component that creates a five-column grid. Perfect for organizing content into balanced, visually appealing arrangements.
-- [Grid6](https://vaneui.com/docs/layout-components/grid6): A six-column grid layout component for creating compact, organized displays. Ideal for icon grids, feature collections, and detailed content arrangements.
+- [Grid](https://vaneui.com/docs/layout-components/grid): Responsive equal-width column layouts. Grid2 through Grid6 render two to six columns that reduce on smaller screens; they share one API and differ only in column count.
 - [Divider](https://vaneui.com/docs/layout-components/divider): Renders a thin line to separate content and create a clear visual hierarchy. Dividers can be used to group related items in lists and layouts.
 - [Img](https://vaneui.com/docs/layout-components/img): Displays images with VaneUI styling support including sizes, shapes, borders, shadows, and object-fit options.
 - [Table](https://vaneui.com/docs/layout-components/table): Renders semantic table markup with Table, Thead, Tbody, Tfoot, Tr, Th, Td, and Caption. The size prop cascades from the table to every cell, and a cell or row can override it.

@@ -1,13 +1,13 @@
 ---
 componentKey: grid3
-importPath: 'import { Grid3 } from "@vaneui/ui"'
+importPath: 'import { Grid2, Grid3, Grid4, Grid5, Grid6 } from "@vaneui/ui"'
 sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/grid/Grid3.tsx
 since: 0.9.0
 ---
 
 ## Basic usage
 
-A three-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults: no need to specify them.
+The Grid family renders equal-width column layouts: `Grid2` through `Grid6` for two to six columns. Children flow left to right and wrap to the next row. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults, so none of them need to be specified.
 
 ```tsx demo
 <Grid3>
@@ -21,22 +21,58 @@ A three-column grid layout. `md`, `gap`, `noPadding`, `outline`, and `sharp` are
   </Card>
   <Card>
     <Title>Item 3</Title>
-    <Text>Wraps after three</Text>
-  </Card>
-  <Card>
-    <Title>Item 4</Title>
-    <Text>Second row</Text>
-  </Card>
-  <Card>
-    <Title>Item 5</Title>
-    <Text>Continues</Text>
-  </Card>
-  <Card>
-    <Title>Item 6</Title>
-    <Text>And fills</Text>
+    <Text>Wraps to next row</Text>
   </Card>
 </Grid3>
 ```
+
+## Column counts
+
+Pick the component for the number of columns you need, from `Grid2` to `Grid6`. They share the same API and differ only in the column count.
+
+```tsx demo
+<Col>
+  <Text semibold>Grid2</Text>
+  <Grid2>
+    <Card><Text textCenter>1</Text></Card>
+    <Card><Text textCenter>2</Text></Card>
+  </Grid2>
+  <Text semibold>Grid3</Text>
+  <Grid3>
+    <Card><Text textCenter>1</Text></Card>
+    <Card><Text textCenter>2</Text></Card>
+    <Card><Text textCenter>3</Text></Card>
+  </Grid3>
+  <Text semibold>Grid4</Text>
+  <Grid4>
+    <Card><Text textCenter>1</Text></Card>
+    <Card><Text textCenter>2</Text></Card>
+    <Card><Text textCenter>3</Text></Card>
+    <Card><Text textCenter>4</Text></Card>
+  </Grid4>
+  <Text semibold>Grid6</Text>
+  <Grid6>
+    <Card><Text textCenter>1</Text></Card>
+    <Card><Text textCenter>2</Text></Card>
+    <Card><Text textCenter>3</Text></Card>
+    <Card><Text textCenter>4</Text></Card>
+    <Card><Text textCenter>5</Text></Card>
+    <Card><Text textCenter>6</Text></Card>
+  </Grid6>
+</Col>
+```
+
+## Responsive columns
+
+Each grid reduces its column count on smaller screens so cells never get too narrow. The breakpoints are tablet (≤1024px) and mobile (≤768px). Resize the window to see the reflow.
+
+| Component | Desktop | Tablet | Mobile |
+|-----------|---------|--------|--------|
+| `Grid2`   | 2       | 2      | 1      |
+| `Grid3`   | 3       | 2      | 1      |
+| `Grid4`   | 4       | 3      | 2      |
+| `Grid5`   | 5       | 3      | 2      |
+| `Grid6`   | 6       | 4      | 2      |
 
 ## Sizes
 
@@ -50,23 +86,11 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
     <Card xs><Text xs>Item 2</Text></Card>
     <Card xs><Text xs>Item 3</Text></Card>
   </Grid3>
-  <Text semibold>sm</Text>
-  <Grid3 sm>
-    <Card sm><Text sm>Item 1</Text></Card>
-    <Card sm><Text sm>Item 2</Text></Card>
-    <Card sm><Text sm>Item 3</Text></Card>
-  </Grid3>
   <Text semibold>md (default)</Text>
   <Grid3>
     <Card><Text>Item 1</Text></Card>
     <Card><Text>Item 2</Text></Card>
     <Card><Text>Item 3</Text></Card>
-  </Grid3>
-  <Text semibold>lg</Text>
-  <Grid3 lg>
-    <Card lg><Text lg>Item 1</Text></Card>
-    <Card lg><Text lg>Item 2</Text></Card>
-    <Card lg><Text lg>Item 3</Text></Card>
   </Grid3>
   <Text semibold>xl</Text>
   <Grid3 xl>
@@ -88,17 +112,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
     <Card><Text>Item 2</Text></Card>
     <Card><Text>Item 3</Text></Card>
   </Grid3>
-  <Grid3 filled secondary>
-    <Card><Text>Item 1</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-    <Card><Text>Item 3</Text></Card>
-  </Grid3>
   <Grid3 filled success>
-    <Card><Text>Item 1</Text></Card>
-    <Card><Text>Item 2</Text></Card>
-    <Card><Text>Item 3</Text></Card>
-  </Grid3>
-  <Grid3 filled warning>
     <Card><Text>Item 1</Text></Card>
     <Card><Text>Item 2</Text></Card>
     <Card><Text>Item 3</Text></Card>
@@ -127,7 +141,7 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 
 ## Shapes
 
-`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself: pair with `filled` or `border` to see it.
+`sharp` is the default. Use `rounded` for soft corners or `pill` for fully rounded edges. Shape applies to the grid container itself, so pair with `filled` or `border` to see it.
 
 ```tsx demo
 <Col>
@@ -167,12 +181,16 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 
 ## Customizing
 
-Set app-wide Grid3 defaults with `ThemeProvider`'s `themeDefaults`:
+Set app-wide Grid defaults with `ThemeProvider`'s `themeDefaults`. Each column count has its own key (`grid2` through `grid6`).
 
 ```tsx demo
 <ThemeProvider themeDefaults={{
   grid3: { lg: true },
 }}>
-  <Grid3>{/* ... */}</Grid3>
+  <Grid3>
+    <Card><Text>Item 1</Text></Card>
+    <Card><Text>Item 2</Text></Card>
+    <Card><Text>Item 3</Text></Card>
+  </Grid3>
 </ThemeProvider>
 ```
