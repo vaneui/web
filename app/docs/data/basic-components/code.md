@@ -95,17 +95,6 @@ Code elements used within text content.
 </Col>
 ```
 
-## Keyboard shortcuts
-
-Code elements for displaying keyboard shortcuts and commands.
-
-```tsx demo
-<Col>
-  <Text>Copy with <Code>Ctrl</Code>+<Code>C</Code>.</Text>
-  <Text primary>Paste with <Code primary>Cmd</Code>+<Code primary>V</Code>.</Text>
-</Col>
-```
-
 ## In heading context
 
 Code uses an em-based geometry pipeline: at the default `md` size it renders at ~87.5% of the surrounding text's font-size, with padding and border-radius scaling proportionally. The same `<Code>` looks right inside body copy, a subheading, a section heading, or a page title.
