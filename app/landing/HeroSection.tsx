@@ -55,7 +55,7 @@ export function HeroSection() {
         className="inset-0 bg-[radial-gradient(var(--color-slate-200)_1px,transparent_1px)] [background-size:calc(var(--spacing)*4)_calc(var(--spacing)*4)]" />
       <Container xs className="z-10">
         <Col xl itemsCenter>
-          <Badge normalCase light className="break-words">
+          <Badge normalCase light xl primary className="break-words">
             {gh} v0.9.0 · Open Source
           </Badge>
           <PageTitle xl sans textCenter medium>
