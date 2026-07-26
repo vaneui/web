@@ -45,14 +45,14 @@ const tabs: Tab[] = [
 
 const basicContent = (
   <>
-    <Card lg>
+    <Card lg className="max-w-80">
       <Title sm>Create Account</Title>
-      <Col xs>
+      <Col>
         <Label htmlFor="name">Name</Label>
         <Input id="name" placeholder="Enter your name" />
         <Label htmlFor="email">Email</Label>
         <Input id="email" placeholder="you@example.com" type="email" />
-        <Label>
+        <Label sm row>
           <Checkbox />
           I agree to the Terms of Service and Privacy Policy
         </Label>
