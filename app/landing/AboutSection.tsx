@@ -59,7 +59,7 @@ export function AboutSection() {
     <Section xl relative borderB primary>
       <Container xl>
         <Col xl>
-          <Chip lg pill>What is VaneUI?</Chip>
+          <Chip xl primary pill>What is VaneUI?</Chip>
           <SectionTitle xl>
             A modern React component library powered by Tailwind CSS.
           </SectionTitle>
