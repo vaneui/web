@@ -126,7 +126,7 @@ VaneUI provides boolean props for most common styling needs. Always prefer props
 
 | Instead of Tailwind | Use VaneUI Prop |
 |---------------------|-----------------|
-| `className="font-bold"` | `bold` |
+| `className="font-bold"` | `fontBold` |
 | `className="text-center"` | `textCenter` |
 | `className="uppercase"` | `uppercase` |
 | `className="rounded-full"` | `pill` |

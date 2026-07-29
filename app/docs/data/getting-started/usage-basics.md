@@ -276,7 +276,7 @@ function IconExample() {
 
 ### Icon container mode
 
-By default `Icon` renders as a bare glyph that inherits color from its parent. Adding any of `padding`, `border`, `ring`, `shadow`, or `filled` switches it into *container mode*: the icon gains a sized box that shape props (`rounded`, `pill`, `sharp`) can act on:
+By default `Icon` renders as a bare glyph that inherits color from its parent. Adding any of `padding`, `border`, `insetRing`, `shadow`, or `filled` switches it into *container mode*: the icon gains a sized box that shape props (`rounded`, `pill`, `sharp`) can act on:
 
 ```tsx
 import { Icon, Row } from '@vaneui/ui';
@@ -287,7 +287,7 @@ function IconContainerExample() {
     <Row>
       <Icon padding pill primary filled><Heart /></Icon>
       <Icon padding pill success border><Check /></Icon>
-      <Icon padding danger filled ring><AlertCircle /></Icon>
+      <Icon padding danger filled insetRing><AlertCircle /></Icon>
     </Row>
   );
 }
@@ -311,7 +311,7 @@ function ModalExample() {
       <Button onClick={() => setOpen(true)}>Open Modal</Button>
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalHeader>
-          <Text bold>Dialog Title</Text>
+          <Text fontBold>Dialog Title</Text>
           <ModalCloseButton />
         </ModalHeader>
         <ModalBody>
@@ -412,9 +412,9 @@ VaneUI provides boolean props for most common styling needs. Use these instead o
 | Instead of Tailwind | Use VaneUI prop |
 |---------------------|-----------------|
 | `className="uppercase"` | `uppercase` |
-| `className="font-bold"` | `bold` |
-| `className="font-semibold"` | `semibold` |
-| `className="font-mono"` | `mono` |
+| `className="font-bold"` | `fontBold` |
+| `className="font-semibold"` | `fontSemibold` |
+| `className="font-mono"` | `fontMono` |
 | `className="italic"` | `italic` |
 | `className="text-center"` | `textCenter` |
 | `className="sticky"` | `sticky` |
@@ -426,7 +426,7 @@ VaneUI provides boolean props for most common styling needs. Use these instead o
 
 ```tsx
 // Good: Using VaneUI props
-<Text uppercase semibold>IMPORTANT</Text>
+<Text uppercase fontSemibold>IMPORTANT</Text>
 <Card borderB>Card with bottom border</Card>
 <Row itemsCenter justifyBetween>Spaced content</Row>
 

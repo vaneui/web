@@ -97,7 +97,7 @@ Blockquotes can contain multiple paragraphs and nested components.
 
 ```tsx demo
 <Blockquote primary>
-  <Text bold>Steve Jobs</Text>
+  <Text fontBold>Steve Jobs</Text>
   <Text>Innovation distinguishes between a leader and a follower. Stay hungry, stay foolish.</Text>
 </Blockquote>
 ```
@@ -111,13 +111,13 @@ Use blockquotes with attribution for testimonials and customer quotes.
   <Card brand>
     <Blockquote>
       <Text italic>VaneUI cut our migration time in half. The boolean props API is concise and the theming covers our cases.</Text>
-      <Text sm bold> - Sarah Chen, Lead Engineer</Text>
+      <Text sm fontBold> - Sarah Chen, Lead Engineer</Text>
     </Blockquote>
   </Card>
   <Card success>
     <Blockquote>
       <Text italic>We shipped our new dashboard in half the time thanks to VaneUI components.</Text>
-      <Text sm bold> - Alex Rivera, Product Manager</Text>
+      <Text sm fontBold> - Alex Rivera, Product Manager</Text>
     </Blockquote>
   </Card>
 </Col>

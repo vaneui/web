@@ -155,7 +155,7 @@ A function with direct access to the full theme, for changes the declarative opt
   // Modify defaults
   theme.button.main.defaults = {
     ...theme.button.main.defaults,
-    bold: true,
+    fontBold: true,
   };
 
   return theme;

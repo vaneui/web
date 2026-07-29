@@ -19,6 +19,6 @@ export const balancedDefaults: ThemeDefaults = {
   },
   chip: {
     sm: true,
-    bold: true,
+    fontBold: true,
   },
 }

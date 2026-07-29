@@ -16,7 +16,6 @@ export const COMMON_DOC_CATEGORIES = new Set<ComponentCategoryKey>([
   'wrap',
   'gap',
   'flexDirection',
-  'reverse',
   'border',
   'shadow',
   'ring',

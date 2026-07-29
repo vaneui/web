@@ -73,7 +73,7 @@ export function ThemeCustomizationSection() {
             <Stack itemsCenter lg wFull>
               <Stack row pill tertiary xs justifyCenter border padding rounded className="inset-shadow-xs">
                 {Object.entries(themes).map(([key, theme]) => (
-                  <Button sm noRing pill
+                  <Button sm noInsetRing pill
                     className="min-w-[80px]"
                     key={key}
                     onClick={() => setSelectedTheme(key as ThemeKey)}

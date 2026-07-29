@@ -47,7 +47,7 @@ return (
 
 ## Blur effect
 
-Add `blur` for a backdrop-filter blur behind the overlay. Blur intensity follows the `--overlay-blur` CSS variable.
+Add `backdropBlur` for a backdrop-filter blur behind the overlay. Blur intensity follows the `--overlay-blur` CSS variable.
 
 ```tsx demo
 const [open, setOpen] = useState(false);
@@ -55,7 +55,7 @@ const [open, setOpen] = useState(false);
 return (
   <>
     <Button onClick={() => setOpen(true)}>Show Blur Overlay</Button>
-    <Overlay open={open} onClose={() => setOpen(false)} blur>
+    <Overlay open={open} onClose={() => setOpen(false)} backdropBlur>
       <Card>
         <Text>Blurred background</Text>
       </Card>
@@ -152,7 +152,7 @@ return (
 </Modal>
 
 {/* Low-level: use Overlay for custom backdrops */}
-<Overlay open={open} onClose={() => setOpen(false)} blur>
+<Overlay open={open} onClose={() => setOpen(false)} backdropBlur>
   <Img src="/photo.jpg" className="max-h-[90vh]" />
 </Overlay>
 ```

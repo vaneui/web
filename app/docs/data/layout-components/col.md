@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-`Col` defaults to `column`, `flex`, `gap`, `md`, `noPadding`, `noBorder`, `noRing`, `outline`, and `sharp`: you don't need to pass any of these. Pass `href` to render `Col` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
+`Col` defaults to `column`, `flex`, `gap`, `md`, `noPadding`, `noBorder`, `noInsetRing`, `outline`, and `sharp`: you don't need to pass any of these. Pass `href` to render `Col` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Col>
@@ -24,37 +24,37 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to control the gap, or `noGap` to 
 ```tsx demo
 <Row itemsStart>
   <Col xs flex1>
-    <Text semibold>xs</Text>
+    <Text fontSemibold>xs</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Col>
   <Col sm flex1>
-    <Text semibold>sm</Text>
+    <Text fontSemibold>sm</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Col>
   <Col flex1>
-    <Text semibold>md (default)</Text>
+    <Text fontSemibold>md (default)</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Col>
   <Col lg flex1>
-    <Text semibold>lg</Text>
+    <Text fontSemibold>lg</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Col>
   <Col xl flex1>
-    <Text semibold>xl</Text>
+    <Text fontSemibold>xl</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Col>
   <Col noGap flex1>
-    <Text semibold>noGap</Text>
+    <Text fontSemibold>noGap</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
@@ -69,22 +69,22 @@ Col has no `items` default, so children stretch to fill the width. Use `itemsSta
 ```tsx demo
 <Row itemsStart>
   <Col flex1 className="border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>default (stretch)</Text>
+    <Text fontSemibold>default (stretch)</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
   <Col itemsStart flex1 className="border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>itemsStart</Text>
+    <Text fontSemibold>itemsStart</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
   <Col itemsCenter flex1 className="border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>itemsCenter</Text>
+    <Text fontSemibold>itemsCenter</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
   <Col itemsEnd flex1 className="border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>itemsEnd</Text>
+    <Text fontSemibold>itemsEnd</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
@@ -98,32 +98,32 @@ Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`
 ```tsx demo
 <Row itemsStart>
   <Col justifyStart flex1 className="h-48 border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>justifyStart</Text>
+    <Text fontSemibold>justifyStart</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
   <Col justifyCenter flex1 className="h-48 border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>justifyCenter</Text>
+    <Text fontSemibold>justifyCenter</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
   <Col justifyEnd flex1 className="h-48 border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>justifyEnd</Text>
+    <Text fontSemibold>justifyEnd</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
   <Col justifyBetween flex1 className="h-48 border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>justifyBetween</Text>
+    <Text fontSemibold>justifyBetween</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
   <Col justifyAround flex1 className="h-48 border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>justifyAround</Text>
+    <Text fontSemibold>justifyAround</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
   <Col justifyEvenly flex1 className="h-48 border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>justifyEvenly</Text>
+    <Text fontSemibold>justifyEvenly</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
@@ -166,15 +166,15 @@ Use `textLeft`, `textCenter`, `textRight`, or `textJustify` to control text alig
 ```tsx demo
 <Row itemsStart>
   <Col textLeft flex1 className="border-2 border-dashed border-gray-300 p-4">
-    <Text semibold>Left Aligned</Text>
+    <Text fontSemibold>Left Aligned</Text>
     <Text>Content aligned to the left.</Text>
   </Col>
   <Col textCenter flex1 className="border-2 border-dashed border-gray-300 p-4">
-    <Text semibold>Center Aligned</Text>
+    <Text fontSemibold>Center Aligned</Text>
     <Text>Content centered within the column.</Text>
   </Col>
   <Col textRight flex1 className="border-2 border-dashed border-gray-300 p-4">
-    <Text semibold>Right Aligned</Text>
+    <Text fontSemibold>Right Aligned</Text>
     <Text>Content aligned to the right.</Text>
   </Col>
 </Row>
@@ -221,11 +221,11 @@ Col composes naturally inside a Card to lay out a vertical cluster: labelled fie
     </Row>
     <Row justifyBetween>
       <Text secondary>Seats</Text>
-      <Text semibold>12 / 25</Text>
+      <Text fontSemibold>12 / 25</Text>
     </Row>
     <Row justifyBetween>
       <Text secondary>Renews</Text>
-      <Text semibold>Jan 14, 2026</Text>
+      <Text fontSemibold>Jan 14, 2026</Text>
     </Row>
   </Col>
   <Row justifyEnd>

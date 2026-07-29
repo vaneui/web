@@ -25,15 +25,15 @@ Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control padding and gap.
 ```tsx demo
 <Col>
   <Section sm border>
-    <Text semibold>Small Section</Text>
+    <Text fontSemibold>Small Section</Text>
     <Text>Compact padding</Text>
   </Section>
   <Section border>
-    <Text semibold>Medium Section (default)</Text>
+    <Text fontSemibold>Medium Section (default)</Text>
     <Text>Standard padding</Text>
   </Section>
   <Section lg border>
-    <Text semibold>Large Section</Text>
+    <Text fontSemibold>Large Section</Text>
     <Text>Generous padding</Text>
   </Section>
 </Col>
@@ -46,19 +46,19 @@ Sections support color appearances: `primary`, `secondary`, `success`, `danger`,
 ```tsx demo
 <Col>
   <Section secondary filled>
-    <Text semibold>Secondary band</Text>
+    <Text fontSemibold>Secondary band</Text>
     <Text>Subtle background to break up a long page.</Text>
   </Section>
   <Section primary>
-    <Text semibold>Primary Section</Text>
+    <Text fontSemibold>Primary Section</Text>
     <Text>Highlighted content area</Text>
   </Section>
   <Section success>
-    <Text semibold>Success Section</Text>
+    <Text fontSemibold>Success Section</Text>
     <Text>Positive feedback area</Text>
   </Section>
   <Section danger>
-    <Text semibold>Danger Section</Text>
+    <Text fontSemibold>Danger Section</Text>
     <Text>Warning or error area</Text>
   </Section>
 </Col>
@@ -92,12 +92,12 @@ Use `row` for horizontal layout. `gap` is already on by default; pair with `noPa
 ```tsx demo
 <Col>
   <Section row border>
-    <Text semibold>Row Layout</Text>
+    <Text fontSemibold>Row Layout</Text>
     <Text>Content flows horizontally</Text>
     <Text>With gap between items</Text>
   </Section>
   <Section border>
-    <Text semibold>Column Layout (default)</Text>
+    <Text fontSemibold>Column Layout (default)</Text>
     <Text>Content flows vertically</Text>
     <Text>With gap between items</Text>
   </Section>
@@ -128,11 +128,11 @@ Use `mobileCol` or `tabletCol` to switch from row to column layout on smaller sc
 ```tsx demo
 <Col>
   <Section lg border>
-    <Text semibold>responsive (default)</Text>
+    <Text fontSemibold>responsive (default)</Text>
     <Text>Padding shrinks at tablet and mobile.</Text>
   </Section>
   <Section lg responsive={false} border>
-    <Text semibold>responsive=&#123;false&#125;</Text>
+    <Text fontSemibold>responsive=&#123;false&#125;</Text>
     <Text>Padding stays fixed at the lg size on every viewport.</Text>
   </Section>
 </Col>

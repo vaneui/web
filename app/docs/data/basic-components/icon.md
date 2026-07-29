@@ -124,7 +124,7 @@ Icons support `outline` (default, text color only) and `filled` (background fill
 
 ## Shapes
 
-Shape props apply once the icon enters container mode (any of `padding`, `border`, `ring`, `shadow`, `filled`). Without a container, the SVG has no visible box for the radius to act on.
+Shape props apply once the icon enters container mode (any of `padding`, `border`, `insetRing`, `shadow`, `filled`). Without a container, the SVG has no visible box for the radius to act on.
 
 ```tsx demo
 <Row flexWrap>
@@ -145,7 +145,7 @@ Shape props apply once the icon enters container mode (any of `padding`, `border
 
 ## Container mode
 
-Add `padding` to give the icon a sized box, then combine `filled`, `border`, `ring`, or `shadow` to style the container. Padding and radius scale with the size prop.
+Add `padding` to give the icon a sized box, then combine `filled`, `border`, `insetRing`, or `shadow` to style the container. Padding and radius scale with the size prop.
 
 ```tsx demo
 <Row flexWrap itemsCenter>
@@ -158,7 +158,7 @@ Add `padding` to give the icon a sized box, then combine `filled`, `border`, `ri
     <Text xs secondary>border</Text>
   </Col>
   <Col itemsCenter>
-    <Icon padding pill primary ring><Heart /></Icon>
+    <Icon padding pill primary insetRing><Heart /></Icon>
     <Text xs secondary>ring</Text>
   </Col>
   <Col itemsCenter>
@@ -166,7 +166,7 @@ Add `padding` to give the icon a sized box, then combine `filled`, `border`, `ri
     <Text xs secondary>filled + shadow</Text>
   </Col>
   <Col itemsCenter>
-    <Icon padding pill success filled ring><Check /></Icon>
+    <Icon padding pill success filled insetRing><Check /></Icon>
     <Text xs secondary>filled + ring</Text>
   </Col>
   <Col itemsCenter>
@@ -187,7 +187,7 @@ Use `transparent` to keep the container background see-through while still apply
     <Text xs secondary>filled + transparent</Text>
   </Col>
   <Col itemsCenter>
-    <Icon padding pill success filled transparent ring><Check /></Icon>
+    <Icon padding pill success filled transparent insetRing><Check /></Icon>
     <Text xs secondary>success</Text>
   </Col>
   <Col itemsCenter>
@@ -212,7 +212,7 @@ Icons work naturally alongside text and inside buttons.
   <Row itemsCenter>
     <Icon padding pill primary filled><Star /></Icon>
     <Col gap noPadding>
-      <Text bold>Container-mode icons</Text>
+      <Text fontBold>Container-mode icons</Text>
       <Text sm secondary>Pair a padded icon with adjacent text for compact summaries.</Text>
     </Col>
   </Row>

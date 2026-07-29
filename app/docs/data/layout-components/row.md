@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-A horizontal flex container. `Row` defaults to `gap`, `itemsCenter`, `noPadding`, `noBorder`, `noRing`, `outline`, and `sharp`: you don't need to pass these explicitly. Pass `href` to render `Row` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
+A horizontal flex container. `Row` defaults to `gap`, `itemsCenter`, `noPadding`, `noBorder`, `noInsetRing`, `outline`, and `sharp`: you don't need to pass these explicitly. Pass `href` to render `Row` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Row>
@@ -23,37 +23,37 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to control the gap amount, or `noG
 
 ```tsx demo
 <Col>
-  <Text semibold>xs</Text>
+  <Text fontSemibold>xs</Text>
   <Row xs>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Row>
-  <Text semibold>sm</Text>
+  <Text fontSemibold>sm</Text>
   <Row sm>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Row>
-  <Text semibold>md (default)</Text>
+  <Text fontSemibold>md (default)</Text>
   <Row>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Row>
-  <Text semibold>lg</Text>
+  <Text fontSemibold>lg</Text>
   <Row lg>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Row>
-  <Text semibold>xl</Text>
+  <Text fontSemibold>xl</Text>
   <Row xl>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Row>
-  <Text semibold>noGap</Text>
+  <Text fontSemibold>noGap</Text>
   <Row noGap>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
@@ -68,37 +68,37 @@ Control horizontal distribution with `justifyStart`, `justifyEnd`, `justifyCente
 
 ```tsx demo
 <Col>
-  <Text semibold>justifyStart</Text>
+  <Text fontSemibold>justifyStart</Text>
   <Row justifyStart className="border-2 border-dashed border-gray-300 p-2">
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
     <div className="p-2 bg-gray-100 rounded">C</div>
   </Row>
-  <Text semibold>justifyEnd</Text>
+  <Text fontSemibold>justifyEnd</Text>
   <Row justifyEnd className="border-2 border-dashed border-gray-300 p-2">
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
     <div className="p-2 bg-gray-100 rounded">C</div>
   </Row>
-  <Text semibold>justifyCenter</Text>
+  <Text fontSemibold>justifyCenter</Text>
   <Row justifyCenter className="border-2 border-dashed border-gray-300 p-2">
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
     <div className="p-2 bg-gray-100 rounded">C</div>
   </Row>
-  <Text semibold>justifyBetween</Text>
+  <Text fontSemibold>justifyBetween</Text>
   <Row justifyBetween className="border-2 border-dashed border-gray-300 p-2">
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
     <div className="p-2 bg-gray-100 rounded">C</div>
   </Row>
-  <Text semibold>justifyAround</Text>
+  <Text fontSemibold>justifyAround</Text>
   <Row justifyAround className="border-2 border-dashed border-gray-300 p-2">
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
     <div className="p-2 bg-gray-100 rounded">C</div>
   </Row>
-  <Text semibold>justifyEvenly</Text>
+  <Text fontSemibold>justifyEvenly</Text>
   <Row justifyEvenly className="border-2 border-dashed border-gray-300 p-2">
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
@@ -113,31 +113,31 @@ Control vertical alignment with `itemsStart`, `itemsEnd`, `itemsCenter` (default
 
 ```tsx demo
 <Col>
-  <Text semibold>itemsStart</Text>
+  <Text fontSemibold>itemsStart</Text>
   <Row itemsStart className="border-2 border-dashed border-gray-300 p-2 h-24">
     <div className="p-2 bg-gray-100 rounded">Small</div>
     <div className="p-6 bg-gray-100 rounded">Tall</div>
     <div className="p-2 bg-gray-100 rounded">Small</div>
   </Row>
-  <Text semibold>itemsEnd</Text>
+  <Text fontSemibold>itemsEnd</Text>
   <Row itemsEnd className="border-2 border-dashed border-gray-300 p-2 h-24">
     <div className="p-2 bg-gray-100 rounded">Small</div>
     <div className="p-6 bg-gray-100 rounded">Tall</div>
     <div className="p-2 bg-gray-100 rounded">Small</div>
   </Row>
-  <Text semibold>itemsCenter (default)</Text>
+  <Text fontSemibold>itemsCenter (default)</Text>
   <Row className="border-2 border-dashed border-gray-300 p-2 h-24">
     <div className="p-2 bg-gray-100 rounded">Small</div>
     <div className="p-6 bg-gray-100 rounded">Tall</div>
     <div className="p-2 bg-gray-100 rounded">Small</div>
   </Row>
-  <Text semibold>itemsBaseline</Text>
+  <Text fontSemibold>itemsBaseline</Text>
   <Row itemsBaseline className="border-2 border-dashed border-gray-300 p-2 h-24">
     <Text sm>Small text</Text>
     <Text xl>Large text</Text>
     <Text>Default</Text>
   </Row>
-  <Text semibold>itemsStretch</Text>
+  <Text fontSemibold>itemsStretch</Text>
   <Row itemsStretch className="border-2 border-dashed border-gray-300 p-2 h-24">
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
@@ -178,25 +178,25 @@ Use `mobileCol` to stack on mobile, or `tabletCol` to stack on tablet and below.
 
 ```tsx demo
 <Col>
-  <Text semibold>tabletCol (stacks at ≤1024px)</Text>
+  <Text fontSemibold>tabletCol (stacks at ≤1024px)</Text>
   <Row tabletCol>
     <Col flex1 className="p-4 bg-primary-100 rounded">
-      <Text semibold>Column 1</Text>
+      <Text fontSemibold>Column 1</Text>
       <Text>Horizontal on desktop, stacked on tablet and below.</Text>
     </Col>
     <Col flex1 className="p-4 bg-primary-100 rounded">
-      <Text semibold>Column 2</Text>
+      <Text fontSemibold>Column 2</Text>
       <Text>Resize to see the responsive behavior.</Text>
     </Col>
   </Row>
-  <Text semibold>mobileCol (stacks at ≤768px)</Text>
+  <Text fontSemibold>mobileCol (stacks at ≤768px)</Text>
   <Row mobileCol>
     <Col flex1 className="p-4 bg-primary-100 rounded">
-      <Text semibold>Column 1</Text>
+      <Text fontSemibold>Column 1</Text>
       <Text>Horizontal until mobile.</Text>
     </Col>
     <Col flex1 className="p-4 bg-primary-100 rounded">
-      <Text semibold>Column 2</Text>
+      <Text fontSemibold>Column 2</Text>
       <Text>Stacks only on narrow viewports.</Text>
     </Col>
   </Row>
@@ -263,15 +263,15 @@ Add `href` to render the Row as an `<a>` tag, useful for clickable list rows. A 
 ```tsx demo
 <Col>
   <Row href="#inbox" justifyBetween padding border rounded>
-    <Text semibold>Inbox</Text>
+    <Text fontSemibold>Inbox</Text>
     <Badge primary filled>12</Badge>
   </Row>
   <Row href="#drafts" justifyBetween padding border rounded>
-    <Text semibold>Drafts</Text>
+    <Text fontSemibold>Drafts</Text>
     <Badge secondary>3</Badge>
   </Row>
   <Row href="https://github.com" target="_blank" rel="noopener noreferrer" justifyBetween padding border rounded>
-    <Text semibold>GitHub</Text>
+    <Text fontSemibold>GitHub</Text>
     <Text sm secondary>External</Text>
   </Row>
 </Col>
@@ -286,7 +286,7 @@ import Link from 'next/link';
 import { Row, Text, Badge } from '@vaneui/ui';
 
 <Row href="/inbox" tag={Link} justifyBetween padding border rounded>
-  <Text semibold>Inbox</Text>
+  <Text fontSemibold>Inbox</Text>
   <Badge primary filled>12</Badge>
 </Row>
 ```

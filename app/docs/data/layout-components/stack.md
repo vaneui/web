@@ -9,7 +9,7 @@ Think of `Stack` as `Col` plus built-in `padding` and `flexWrap`.
 
 ## Basic usage
 
-`Stack` defaults to `column`, `flex`, `gap`, `padding`, `flexWrap`, `md`, `noBorder`, `noRing`, `outline`, and `sharp`: you don't need to pass any of these. Pass `href` to render `Stack` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
+`Stack` defaults to `column`, `flex`, `gap`, `padding`, `flexWrap`, `md`, `noBorder`, `noInsetRing`, `outline`, and `sharp`: you don't need to pass any of these. Pass `href` to render `Stack` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Stack>
@@ -31,14 +31,14 @@ Use `Stack` when the column owns its own breathing room. Use `Col` when an outer
 ```tsx demo
 <Row itemsStart>
   <Col flex1>
-    <Text semibold>Stack (padded by default)</Text>
+    <Text fontSemibold>Stack (padded by default)</Text>
     <Stack className="border-2 border-dashed border-gray-300">
       <div className="p-3 bg-gray-100 rounded">Item 1</div>
       <div className="p-3 bg-gray-100 rounded">Item 2</div>
     </Stack>
   </Col>
   <Col flex1>
-    <Text semibold>Col (no padding)</Text>
+    <Text fontSemibold>Col (no padding)</Text>
     <Col className="border-2 border-dashed border-gray-300">
       <div className="p-3 bg-gray-100 rounded">Item 1</div>
       <div className="p-3 bg-gray-100 rounded">Item 2</div>
@@ -54,14 +54,14 @@ Use `row` for horizontal layout. Default is `column` (vertical).
 ```tsx demo
 <Row itemsStart>
   <Col flex1>
-    <Text semibold>column (default)</Text>
+    <Text fontSemibold>column (default)</Text>
     <Stack className="border-2 border-dashed border-gray-300">
       <div className="p-3 bg-gray-100 rounded">Item 1</div>
       <div className="p-3 bg-gray-100 rounded">Item 2</div>
     </Stack>
   </Col>
   <Col flex1>
-    <Text semibold>row</Text>
+    <Text fontSemibold>row</Text>
     <Stack row className="border-2 border-dashed border-gray-300">
       <div className="p-3 bg-gray-100 rounded">Item 1</div>
       <div className="p-3 bg-gray-100 rounded">Item 2</div>
@@ -77,27 +77,27 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to scale gap and padding together,
 ```tsx demo
 <Row itemsStart>
   <Stack xs flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>xs</Text>
+    <Text fontSemibold>xs</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
   </Stack>
   <Stack sm flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>sm</Text>
+    <Text fontSemibold>sm</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
   </Stack>
   <Stack flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>md (default)</Text>
+    <Text fontSemibold>md (default)</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
   </Stack>
   <Stack lg flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>lg</Text>
+    <Text fontSemibold>lg</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
   </Stack>
   <Stack xl flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>xl</Text>
+    <Text fontSemibold>xl</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
   </Stack>
@@ -111,19 +111,19 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to scale gap and padding together,
 ```tsx demo
 <Row itemsStart>
   <Stack xs filled secondary flex1>
-    <Text semibold>xs padding</Text>
+    <Text fontSemibold>xs padding</Text>
     <div className="p-2 bg-white/80 rounded">Item</div>
   </Stack>
   <Stack filled secondary flex1>
-    <Text semibold>md padding (default)</Text>
+    <Text fontSemibold>md padding (default)</Text>
     <div className="p-2 bg-white/80 rounded">Item</div>
   </Stack>
   <Stack xl filled secondary flex1>
-    <Text semibold>xl padding</Text>
+    <Text fontSemibold>xl padding</Text>
     <div className="p-2 bg-white/80 rounded">Item</div>
   </Stack>
   <Stack noPadding filled secondary flex1>
-    <Text semibold>noPadding</Text>
+    <Text fontSemibold>noPadding</Text>
     <div className="p-2 bg-white/80 rounded">Item</div>
   </Stack>
 </Row>
@@ -136,22 +136,22 @@ Stack has no `items` default, so children stretch to fill the width. Override wi
 ```tsx demo
 <Row itemsStart>
   <Stack flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>default (stretch)</Text>
+    <Text fontSemibold>default (stretch)</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
   <Stack itemsStart flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>itemsStart</Text>
+    <Text fontSemibold>itemsStart</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
   <Stack itemsCenter flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>itemsCenter</Text>
+    <Text fontSemibold>itemsCenter</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
   <Stack itemsEnd flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>itemsEnd</Text>
+    <Text fontSemibold>itemsEnd</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
@@ -165,32 +165,32 @@ Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`
 ```tsx demo
 <Row itemsStart>
   <Stack justifyStart flex1 className="h-48 border-2 border-dashed border-gray-300">
-    <Text semibold>justifyStart</Text>
+    <Text fontSemibold>justifyStart</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
   <Stack justifyCenter flex1 className="h-48 border-2 border-dashed border-gray-300">
-    <Text semibold>justifyCenter</Text>
+    <Text fontSemibold>justifyCenter</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
   <Stack justifyEnd flex1 className="h-48 border-2 border-dashed border-gray-300">
-    <Text semibold>justifyEnd</Text>
+    <Text fontSemibold>justifyEnd</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
   <Stack justifyBetween flex1 className="h-48 border-2 border-dashed border-gray-300">
-    <Text semibold>justifyBetween</Text>
+    <Text fontSemibold>justifyBetween</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
   <Stack justifyAround flex1 className="h-48 border-2 border-dashed border-gray-300">
-    <Text semibold>justifyAround</Text>
+    <Text fontSemibold>justifyAround</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
   <Stack justifyEvenly flex1 className="h-48 border-2 border-dashed border-gray-300">
-    <Text semibold>justifyEvenly</Text>
+    <Text fontSemibold>justifyEvenly</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
@@ -203,7 +203,7 @@ Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`
 
 ```tsx demo
 <Col>
-  <Text semibold>flexWrap (default): items wrap when they overflow</Text>
+  <Text fontSemibold>flexWrap (default): items wrap when they overflow</Text>
   <Stack row className="max-w-md border-2 border-dashed border-gray-300">
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
@@ -211,7 +211,7 @@ Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`
     <div className="p-3 bg-gray-100 rounded">Item 4</div>
     <div className="p-3 bg-gray-100 rounded">Item 5</div>
   </Stack>
-  <Text semibold>flexNoWrap: items shrink to fit</Text>
+  <Text fontSemibold>flexNoWrap: items shrink to fit</Text>
   <Stack row flexNoWrap className="max-w-md border-2 border-dashed border-gray-300">
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
@@ -246,15 +246,15 @@ Use `textLeft`, `textCenter`, `textRight`, or `textJustify` to control text alig
 ```tsx demo
 <Row itemsStart>
   <Stack textLeft flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>Left Aligned</Text>
+    <Text fontSemibold>Left Aligned</Text>
     <Text>Content aligned to the left.</Text>
   </Stack>
   <Stack textCenter flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>Center Aligned</Text>
+    <Text fontSemibold>Center Aligned</Text>
     <Text>Content centered within the stack.</Text>
   </Stack>
   <Stack textRight flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>Right Aligned</Text>
+    <Text fontSemibold>Right Aligned</Text>
     <Text>Content aligned to the right.</Text>
   </Stack>
 </Row>
@@ -267,11 +267,11 @@ Use `mobileCol` or `tabletCol` on a horizontal Stack to switch back to a column 
 ```tsx demo
 <Stack row tabletCol>
   <Col flex1 className="p-4 bg-primary-100 rounded">
-    <Text semibold>Column 1</Text>
+    <Text fontSemibold>Column 1</Text>
     <Text>Horizontal on desktop, stacked on tablet and below.</Text>
   </Col>
   <Col flex1 className="p-4 bg-primary-100 rounded">
-    <Text semibold>Column 2</Text>
+    <Text fontSemibold>Column 2</Text>
     <Text>Resize to see the responsive behavior.</Text>
   </Col>
 </Stack>

@@ -64,14 +64,14 @@ NavLinks default to `primary outline`. Use `filled` for solid backgrounds. Activ
 ```tsx demo
 <Row flexWrap>
   <Col className="w-48">
-    <Text sm semibold secondary>Outline (default)</Text>
+    <Text sm fontSemibold secondary>Outline (default)</Text>
     <NavLink href="#" active>Primary</NavLink>
     <NavLink href="#" success active>Success</NavLink>
     <NavLink href="#" danger active>Danger</NavLink>
     <NavLink href="#" secondary active>Secondary</NavLink>
   </Col>
   <Col className="w-48">
-    <Text sm semibold secondary>Filled</Text>
+    <Text sm fontSemibold secondary>Filled</Text>
     <NavLink href="#" filled active>Primary</NavLink>
     <NavLink href="#" success filled active>Success</NavLink>
     <NavLink href="#" danger filled active>Danger</NavLink>
@@ -110,7 +110,7 @@ A real-world sidebar pattern with icons, active state, dividers, and trailing ba
 
 ```tsx demo
 <Card className="w-64" noGap>
-  <Text sm semibold secondary className="px-3 py-2">Navigation</Text>
+  <Text sm fontSemibold secondary className="px-3 py-2">Navigation</Text>
   <Divider />
   <NavLink href="#"><Home size={16} /> Home</NavLink>
   <NavLink href="#" active><FileText size={16} /> Documents</NavLink>

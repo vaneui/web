@@ -18,13 +18,13 @@ export function Header() {
 
         {/* Desktop menu items - hidden on mobile */}
         <Row tabletHide>
-          <Button sm normal primary noShadow noRing href="/docs" tag={Link}>
+          <Button sm fontNormal primary noShadow noInsetRing href="/docs" tag={Link}>
             Documentation
           </Button>
-          <Button sm normal primary noShadow noRing href="/playground" tag={Link}>
+          <Button sm fontNormal primary noShadow noInsetRing href="/playground" tag={Link}>
             Playground
           </Button>
-          <Button sm normal href={PRODUCT.githubUrl} tag="a" target="_blank" rel="noopener noreferrer"
+          <Button sm fontNormal href={PRODUCT.githubUrl} tag="a" target="_blank" rel="noopener noreferrer"
                   aria-label="GitHub repository (opens in new tab)">
             <GitHub className="size-4" aria-hidden="true"/>
             GitHub
@@ -55,19 +55,19 @@ export function Header() {
 
             {/* Scrollable content */}
             <Stack sm flex1 overflowYAuto className="styled-scrollbar">
-              <Button sm normal primary noShadow noRing wFull
+              <Button sm fontNormal primary noShadow noInsetRing wFull
                       href="/docs" tag={Link}
                       onClick={() => setIsMobileMenuOpen(false)}
               >
                 Documentation
               </Button>
-              <Button sm normal primary noShadow noRing wFull
+              <Button sm fontNormal primary noShadow noInsetRing wFull
                       href="/playground" tag={Link}
                       onClick={() => setIsMobileMenuOpen(false)}
               >
                 Playground
               </Button>
-              <Button sm normal wFull
+              <Button sm fontNormal wFull
                       href={PRODUCT.githubUrl} tag="a" target="_blank" rel="noopener noreferrer"
                       onClick={() => setIsMobileMenuOpen(false)}
                       aria-label="GitHub repository (opens in new tab)"

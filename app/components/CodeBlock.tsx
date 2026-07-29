@@ -64,7 +64,7 @@ export function CodeBlock({
           <span className="w-5 h-5 grayscale">
             {Icon}
           </span>
-          {fileName && <Text sm mono secondary>{fileName}</Text>}
+          {fileName && <Text sm fontMono secondary>{fileName}</Text>}
         </Row>
         <Button xs onClick={copyToClipboard} primary={!copied} success={copied}>
           {copied ? <Check className="size-4"/> : <Copy className="size-4"/>}

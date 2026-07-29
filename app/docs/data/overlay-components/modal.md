@@ -19,7 +19,7 @@ return (
     <Button onClick={() => setOpen(true)}>Open Modal</Button>
     <Modal open={open} onClose={() => setOpen(false)}>
       <Stack>
-        <Text bold>Confirm Action</Text>
+        <Text fontBold>Confirm Action</Text>
         <Text>Are you sure?</Text>
         <Row justifyEnd>
           <Button onClick={() => setOpen(false)}>Cancel</Button>
@@ -38,7 +38,7 @@ Use `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton` for full c
 - `ModalHeader`: `flex row`, `itemsCenter`, `justifyBetween`, `gap`, `padding`
 - `ModalBody`: `flex column`, `gap`, `padding`, `overflowAuto`
 - `ModalFooter`: `flex row`, `itemsCenter`, `justifyEnd`, `gap`, `padding`
-- `ModalCloseButton`: `secondary`, `transparent`, `noShadow`, `noRing`
+- `ModalCloseButton`: `secondary`, `transparent`, `noShadow`, `noInsetRing`
 
 ```tsx demo
 const [open, setOpen] = useState(false);
@@ -200,7 +200,7 @@ return (
 
 ## Blur overlay
 
-Pass `overlayProps={{ blur: true }}` to add a backdrop-filter blur behind the modal.
+Pass `overlayProps={{ backdropBlur: true }}` to add a backdrop-filter blur behind the modal.
 
 ```tsx demo
 const [open, setOpen] = useState(false);
@@ -208,7 +208,7 @@ const [open, setOpen] = useState(false);
 return (
   <>
     <Button onClick={() => setOpen(true)}>Open Modal</Button>
-    <Modal open={open} onClose={() => setOpen(false)} overlayProps={{ blur: true }}>
+    <Modal open={open} onClose={() => setOpen(false)} overlayProps={{ backdropBlur: true }}>
       <Text>Blurred background</Text>
     </Modal>
   </>

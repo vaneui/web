@@ -71,48 +71,48 @@ Lists use `inherit` appearance by default: they inherit color from their parent 
 
 ## List style types
 
-List supports six marker types: `disc` (default for unordered), `decimal` (default for ordered), `circle`, `square`, `lowerAlpha`, and `lowerRoman`. Setting `decimal`, `lowerAlpha`, or `lowerRoman` switches the element from `<ul>` to `<ol>`.
+List supports six marker types: `listDisc` (default for unordered), `listDecimal` (default for ordered), `listCircle`, `listSquare`, `listLowerAlpha`, and `listLowerRoman`. Setting `listDecimal`, `listLowerAlpha`, or `listLowerRoman` switches the element from `<ul>` to `<ol>`.
 
 ```tsx demo
 <Col>
   <div>
-    <Text semibold>Unordered (disc)</Text>
-    <List disc>
+    <Text fontSemibold>Unordered (disc)</Text>
+    <List listDisc>
       <ListItem>Bullet point one</ListItem>
       <ListItem>Bullet point two</ListItem>
     </List>
   </div>
   <div>
-    <Text semibold>circle</Text>
-    <List circle>
+    <Text fontSemibold>circle</Text>
+    <List listCircle>
       <ListItem>Hollow circle marker</ListItem>
       <ListItem>Second item</ListItem>
     </List>
   </div>
   <div>
-    <Text semibold>square</Text>
-    <List square>
+    <Text fontSemibold>square</Text>
+    <List listSquare>
       <ListItem>Filled square marker</ListItem>
       <ListItem>Second item</ListItem>
     </List>
   </div>
   <div>
-    <Text semibold>Ordered (decimal)</Text>
-    <List decimal>
+    <Text fontSemibold>Ordered (decimal)</Text>
+    <List listDecimal>
       <ListItem>Step one</ListItem>
       <ListItem>Step two</ListItem>
     </List>
   </div>
   <div>
-    <Text semibold>lowerAlpha</Text>
-    <List lowerAlpha>
+    <Text fontSemibold>lowerAlpha</Text>
+    <List listLowerAlpha>
       <ListItem>Lowercase letters</ListItem>
       <ListItem>Second item</ListItem>
     </List>
   </div>
   <div>
-    <Text semibold>lowerRoman</Text>
-    <List lowerRoman>
+    <Text fontSemibold>lowerRoman</Text>
+    <List listLowerRoman>
       <ListItem>Lowercase roman</ListItem>
       <ListItem>Second item</ListItem>
     </List>
@@ -122,20 +122,20 @@ List supports six marker types: `disc` (default for unordered), `decimal` (defau
 
 ## Marker position (inside vs outside)
 
-Use `outside` (the default) to hang markers outside the content box so multi-line items align under the first character. Use `inside` to place markers inline with text. Compact, but wrapped lines flow under the marker.
+Use `listOutside` (the default) to hang markers outside the content box so multi-line items align under the first character. Use `listInside` to place markers inline with text. Compact, but wrapped lines flow under the marker.
 
 ```tsx demo
 <Col>
   <div>
-    <Text semibold>outside (default)</Text>
-    <List outside className="w-64">
+    <Text fontSemibold>outside (default)</Text>
+    <List listOutside className="w-64">
       <ListItem>A short item.</ListItem>
       <ListItem>A much longer item that wraps onto a second line so you can see the hanging marker behaviour.</ListItem>
     </List>
   </div>
   <div>
-    <Text semibold>inside</Text>
-    <List inside className="w-64">
+    <Text fontSemibold>inside</Text>
+    <List listInside className="w-64">
       <ListItem>A short item.</ListItem>
       <ListItem>A much longer item that wraps onto a second line, markers flow inline with the text.</ListItem>
     </List>
@@ -145,12 +145,12 @@ Use `outside` (the default) to hang markers outside the content box so multi-lin
 
 ## Nested lists: automatic marker progression
 
-Nested unordered lists automatically progress `disc` → `circle` → `square`. Nested ordered lists progress `decimal` → `lowerAlpha` → `lowerRoman`. Override a specific nested list by forcing the marker with an important utility like `list-[square]!`. The parent's descendant selector outranks a plain child utility on specificity, so the trailing `!` is what makes the override win.
+Nested unordered lists automatically progress `listDisc` → `listCircle` → `listSquare`. Nested ordered lists progress `listDecimal` → `listLowerAlpha` → `listLowerRoman`. Override a specific nested list by forcing the marker with an important utility like `list-[square]!`. The parent's descendant selector outranks a plain child utility on specificity, so the trailing `!` is what makes the override win.
 
 ```tsx demo
 <Col>
   <div>
-    <Text semibold>Unordered (ul)</Text>
+    <Text fontSemibold>Unordered (ul)</Text>
     <List>
       <ListItem>Level 0: disc</ListItem>
       <ListItem>
@@ -168,16 +168,16 @@ Nested unordered lists automatically progress `disc` → `circle` → `square`. 
     </List>
   </div>
   <div>
-    <Text semibold>Ordered (ol)</Text>
-    <List decimal>
+    <Text fontSemibold>Ordered (ol)</Text>
+    <List listDecimal>
       <ListItem>Level 0: decimal</ListItem>
       <ListItem>
         Parent
-        <List decimal>
+        <List listDecimal>
           <ListItem>Level 1: lowerAlpha</ListItem>
           <ListItem>
             Parent
-            <List decimal>
+            <List listDecimal>
               <ListItem>Level 2: lowerRoman</ListItem>
             </List>
           </ListItem>
@@ -195,7 +195,7 @@ Lists apply a size-driven `gap` by default: a sibling margin between items that 
 ```tsx demo
 <Col>
   <div>
-    <Text semibold>Default gap</Text>
+    <Text fontSemibold>Default gap</Text>
     <List>
       <ListItem>Item one</ListItem>
       <ListItem>Item two</ListItem>
@@ -203,7 +203,7 @@ Lists apply a size-driven `gap` by default: a sibling margin between items that 
     </List>
   </div>
   <div>
-    <Text semibold>noGap</Text>
+    <Text fontSemibold>noGap</Text>
     <List noGap>
       <ListItem>Item one</ListItem>
       <ListItem>Item two</ListItem>
@@ -240,15 +240,15 @@ Pass an `icon` node to a `ListItem` to replace the native marker on that item on
 
 ## Styling
 
-Combine font properties like `bold`, `italic`, `mono` with lists.
+Combine font properties like `fontBold`, `italic`, `fontMono` with lists.
 
 ```tsx demo
 <Col>
-  <List semibold>
+  <List fontSemibold>
     <ListItem>Bold list items</ListItem>
     <ListItem>Another bold item</ListItem>
   </List>
-  <List mono>
+  <List fontMono>
     <ListItem>code --install extension</ListItem>
     <ListItem>npm run build</ListItem>
   </List>
@@ -259,9 +259,9 @@ The same toggles apply per item, so one entry can stand out without affecting th
 
 ```tsx demo
 <List>
-  <ListItem bold>Bold item</ListItem>
+  <ListItem fontBold>Bold item</ListItem>
   <ListItem italic>Italic item</ListItem>
-  <ListItem mono>monospace-item</ListItem>
+  <ListItem fontMono>monospace-item</ListItem>
   <ListItem>Default item</ListItem>
 </List>
 ```

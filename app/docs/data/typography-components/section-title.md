@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-SectionTitle renders an `<h2>` heading for major section headings. It defaults to `semibold` weight, `heading` font family, `inherit` appearance, and left-aligned text.
+SectionTitle renders an `<h2>` heading for major section headings. It defaults to `fontSemibold` weight, `fontHeading` font family, `inherit` appearance, and left-aligned text.
 
 ```tsx demo
 <SectionTitle>Getting Started</SectionTitle>
@@ -56,28 +56,28 @@ Three heading components for a clean semantic hierarchy.
 
 ## Font weights
 
-SectionTitle is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
+SectionTitle is `fontSemibold` by default. Override with any weight prop: `fontThin`, `fontExtralight`, `fontLight`, `fontNormal`, `fontMedium`, `fontSemibold`, `fontBold`, `fontExtrabold`, `fontBlack`.
 
 ```tsx demo
 <Col>
-  <SectionTitle light>Light Section Title</SectionTitle>
-  <SectionTitle normal>Normal Section Title</SectionTitle>
-  <SectionTitle medium>Medium Section Title</SectionTitle>
+  <SectionTitle fontLight>Light Section Title</SectionTitle>
+  <SectionTitle fontNormal>Normal Section Title</SectionTitle>
+  <SectionTitle fontMedium>Medium Section Title</SectionTitle>
   <SectionTitle>Semibold Section Title (default)</SectionTitle>
-  <SectionTitle bold>Bold Section Title</SectionTitle>
-  <SectionTitle black>Black Section Title</SectionTitle>
+  <SectionTitle fontBold>Bold Section Title</SectionTitle>
+  <SectionTitle fontBlack>Black Section Title</SectionTitle>
 </Col>
 ```
 
 ## Font families
 
-Switch between `sans`, `serif`, and `mono` font families.
+Switch between `fontSans`, `fontSerif`, and `fontMono` font families.
 
 ```tsx demo
 <Col>
-  <SectionTitle sans>Sans-serif Section Title</SectionTitle>
-  <SectionTitle serif>Serif Section Title</SectionTitle>
-  <SectionTitle mono>Monospace Section Title</SectionTitle>
+  <SectionTitle fontSans>Sans-serif Section Title</SectionTitle>
+  <SectionTitle fontSerif>Serif Section Title</SectionTitle>
+  <SectionTitle fontMono>Monospace Section Title</SectionTitle>
 </Col>
 ```
 

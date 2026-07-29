@@ -37,7 +37,7 @@ export function HeroSection() {
       <Stack sm>
         <Row justifyBetween>
           <Title>{dog.name}</Title>
-          <Chip sm bold>{dog.gender}</Chip>
+          <Chip sm fontBold>{dog.gender}</Chip>
         </Row>
         <Divider />
         <Text sm>{dog.description}</Text>
@@ -55,10 +55,10 @@ export function HeroSection() {
         className="inset-0 bg-[radial-gradient(var(--color-slate-200)_1px,transparent_1px)] [background-size:calc(var(--spacing)*4)_calc(var(--spacing)*4)]" />
       <Container xs className="z-10">
         <Col xl itemsCenter>
-          <Badge normalCase light xl primary className="break-words">
+          <Badge normalCase fontLight xl primary className="break-words">
             {gh} v0.9.0 · Open Source
           </Badge>
-          <PageTitle xl sans textCenter medium>
+          <PageTitle xl fontSans textCenter fontMedium>
             {PRODUCT.slogan}
           </PageTitle>
           <Text lg textCenter>{PRODUCT.description}</Text>

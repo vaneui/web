@@ -143,7 +143,7 @@ return (
   <>
     <Button ref={anchorRef} onClick={() => setOpen(!open)}>Account</Button>
     <Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef}>
-      <Text bold>User Menu</Text>
+      <Text fontBold>User Menu</Text>
       <Divider />
       <Button>Profile</Button>
       <Button danger>Sign Out</Button>

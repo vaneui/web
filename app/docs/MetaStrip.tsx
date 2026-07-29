@@ -98,7 +98,7 @@ export function MetaStrip({ frontmatter, slug, category }: MetaStripProps) {
           xs
           secondary
           noShadow
-          mono
+          fontMono
           onClick={handleCopyImport}
           title={importStatus === 'copied' ? 'Copied!' : `Click to copy: ${importPath}`}
           aria-label="Copy import statement"

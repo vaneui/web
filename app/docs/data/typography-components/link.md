@@ -69,12 +69,12 @@ When `noInheritSize` is set (or the parent has no size context), choose an expli
 
 ## Styling
 
-Use `bold`, `semibold`, or `italic` for emphasis, or `noUnderline` to remove the default underline.
+Use `fontBold`, `fontSemibold`, or `italic` for emphasis, or `noUnderline` to remove the default underline.
 
 ```tsx demo
 <Col>
-  <Link bold href="#">Bold link</Link>
-  <Link semibold href="#">Semibold link</Link>
+  <Link fontBold href="#">Bold link</Link>
+  <Link fontSemibold href="#">Semibold link</Link>
   <Link italic href="#">Italic link</Link>
   <Link noUnderline href="#">Link without underline</Link>
 </Col>

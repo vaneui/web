@@ -18,12 +18,12 @@ export default function DocsIndex() {
       <Col xl>
         {docsSections.map((section, groupIndex) => (
           <Col key={groupIndex}>
-            <SectionTitle sm semibold>{section.name}</SectionTitle>
+            <SectionTitle sm fontSemibold>{section.name}</SectionTitle>
             <Text>{section.description}</Text>
             <Grid3>
               {section.pages.map((component, i) => (
                 <Card sm shadow cursorPointer hFull key={i} href={`/docs/${section.slug}/${component.slug}`} tag={Link}>
-                  <Text lg semibold>{component.name}</Text>
+                  <Text lg fontSemibold>{component.name}</Text>
                   <Text sm secondary>{component.description}</Text>
                 </Card>
               ))}

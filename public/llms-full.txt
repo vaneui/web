@@ -134,7 +134,7 @@ Props are organized into **categories**:
 - **appearance**: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`, `inherit`
 - **variant**: `filled`, `outline`, `ghost`
 - **shape**: `rounded`, `pill`, `sharp`
-- **typography**: `sans`, `serif`, `mono`, `semibold`, `bold`, etc.
+- **typography**: `fontSans`, `fontSerif`, `fontMono`, `fontSemibold`, `fontBold`, etc.
 - **layout**: `flex`, `column`, `itemsCenter`, `justifyBetween`, etc.
 - **inheritance**: `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder` (and `noInherit*` toggles)
 
@@ -563,7 +563,7 @@ function IconExample() {
 
 ### Icon container mode
 
-By default `Icon` renders as a bare glyph that inherits color from its parent. Adding any of `padding`, `border`, `ring`, `shadow`, or `filled` switches it into *container mode*: the icon gains a sized box that shape props (`rounded`, `pill`, `sharp`) can act on:
+By default `Icon` renders as a bare glyph that inherits color from its parent. Adding any of `padding`, `border`, `insetRing`, `shadow`, or `filled` switches it into *container mode*: the icon gains a sized box that shape props (`rounded`, `pill`, `sharp`) can act on:
 
 ```tsx
 import { Icon, Row } from '@vaneui/ui';
@@ -574,7 +574,7 @@ function IconContainerExample() {
     <Row>
       <Icon padding pill primary filled><Heart /></Icon>
       <Icon padding pill success border><Check /></Icon>
-      <Icon padding danger filled ring><AlertCircle /></Icon>
+      <Icon padding danger filled insetRing><AlertCircle /></Icon>
     </Row>
   );
 }
@@ -598,7 +598,7 @@ function ModalExample() {
       <Button onClick={() => setOpen(true)}>Open Modal</Button>
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalHeader>
-          <Text bold>Dialog Title</Text>
+          <Text fontBold>Dialog Title</Text>
           <ModalCloseButton />
         </ModalHeader>
         <ModalBody>
@@ -699,9 +699,9 @@ VaneUI provides boolean props for most common styling needs. Use these instead o
 | Instead of Tailwind | Use VaneUI prop |
 |---------------------|-----------------|
 | `className="uppercase"` | `uppercase` |
-| `className="font-bold"` | `bold` |
-| `className="font-semibold"` | `semibold` |
-| `className="font-mono"` | `mono` |
+| `className="font-bold"` | `fontBold` |
+| `className="font-semibold"` | `fontSemibold` |
+| `className="font-mono"` | `fontMono` |
 | `className="italic"` | `italic` |
 | `className="text-center"` | `textCenter` |
 | `className="sticky"` | `sticky` |
@@ -713,7 +713,7 @@ VaneUI provides boolean props for most common styling needs. Use these instead o
 
 ```tsx
 // Good: Using VaneUI props
-<Text uppercase semibold>IMPORTANT</Text>
+<Text uppercase fontSemibold>IMPORTANT</Text>
 <Card borderB>Card with bottom border</Card>
 <Row itemsCenter justifyBetween>Spaced content</Row>
 
@@ -880,19 +880,19 @@ The same size matrix paired with an inline icon.
 
 ## Font weights
 
-Buttons default to `semibold`. Use any of the standard weight props to override.
+Buttons default to `fontSemibold`. Use any of the standard weight props to override.
 
 ```tsx demo
 <Row flexWrap>
-  <Button thin>Submit</Button>
-  <Button extralight>Submit</Button>
-  <Button light>Submit</Button>
-  <Button normal>Submit</Button>
-  <Button medium>Submit</Button>
-  <Button semibold>Submit</Button>
-  <Button bold>Submit</Button>
-  <Button extrabold>Submit</Button>
-  <Button black>Submit</Button>
+  <Button fontThin>Submit</Button>
+  <Button fontExtralight>Submit</Button>
+  <Button fontLight>Submit</Button>
+  <Button fontNormal>Submit</Button>
+  <Button fontMedium>Submit</Button>
+  <Button fontSemibold>Submit</Button>
+  <Button fontBold>Submit</Button>
+  <Button fontExtrabold>Submit</Button>
+  <Button fontBlack>Submit</Button>
 </Row>
 ```
 
@@ -1157,14 +1157,14 @@ NavLinks default to `primary outline`. Use `filled` for solid backgrounds. Activ
 ```tsx demo
 <Row flexWrap>
   <Col className="w-48">
-    <Text sm semibold secondary>Outline (default)</Text>
+    <Text sm fontSemibold secondary>Outline (default)</Text>
     <NavLink href="#" active>Primary</NavLink>
     <NavLink href="#" success active>Success</NavLink>
     <NavLink href="#" danger active>Danger</NavLink>
     <NavLink href="#" secondary active>Secondary</NavLink>
   </Col>
   <Col className="w-48">
-    <Text sm semibold secondary>Filled</Text>
+    <Text sm fontSemibold secondary>Filled</Text>
     <NavLink href="#" filled active>Primary</NavLink>
     <NavLink href="#" success filled active>Success</NavLink>
     <NavLink href="#" danger filled active>Danger</NavLink>
@@ -1203,7 +1203,7 @@ A real-world sidebar pattern with icons, active state, dividers, and trailing ba
 
 ```tsx demo
 <Card className="w-64" noGap>
-  <Text sm semibold secondary className="px-3 py-2">Navigation</Text>
+  <Text sm fontSemibold secondary className="px-3 py-2">Navigation</Text>
   <Divider />
   <NavLink href="#"><Home size={16} /> Home</NavLink>
   <NavLink href="#" active><FileText size={16} /> Documents</NavLink>
@@ -1335,10 +1335,10 @@ Badges support different font weights.
 
 ```tsx demo
 <Row flexWrap>
-  <Badge normal>Premium</Badge>
-  <Badge medium>Premium</Badge>
-  <Badge semibold>Premium</Badge>
-  <Badge bold>Premium</Badge>
+  <Badge fontNormal>Premium</Badge>
+  <Badge fontMedium>Premium</Badge>
+  <Badge fontSemibold>Premium</Badge>
+  <Badge fontBold>Premium</Badge>
 </Row>
 ```
 
@@ -1448,13 +1448,13 @@ Chips support three border-radius styles: `rounded` (default), `pill`, and `shar
 
 ## Font family
 
-Chips default to `sans`. Override with `mono` for code-adjacent tokens or `serif` when the surrounding copy calls for it.
+Chips default to `fontSans`. Override with `fontMono` for code-adjacent tokens or `fontSerif` when the surrounding copy calls for it.
 
 ```tsx demo
 <Row flexWrap>
-  <Chip mono>v1.4.2</Chip>
+  <Chip fontMono>v1.4.2</Chip>
   <Chip>Active user</Chip>
-  <Chip serif>Editorial</Chip>
+  <Chip fontSerif>Editorial</Chip>
 </Row>
 ```
 
@@ -2025,7 +2025,7 @@ Icons support `outline` (default, text color only) and `filled` (background fill
 
 ## Shapes
 
-Shape props apply once the icon enters container mode (any of `padding`, `border`, `ring`, `shadow`, `filled`). Without a container, the SVG has no visible box for the radius to act on.
+Shape props apply once the icon enters container mode (any of `padding`, `border`, `insetRing`, `shadow`, `filled`). Without a container, the SVG has no visible box for the radius to act on.
 
 ```tsx demo
 <Row flexWrap>
@@ -2046,7 +2046,7 @@ Shape props apply once the icon enters container mode (any of `padding`, `border
 
 ## Container mode
 
-Add `padding` to give the icon a sized box, then combine `filled`, `border`, `ring`, or `shadow` to style the container. Padding and radius scale with the size prop.
+Add `padding` to give the icon a sized box, then combine `filled`, `border`, `insetRing`, or `shadow` to style the container. Padding and radius scale with the size prop.
 
 ```tsx demo
 <Row flexWrap itemsCenter>
@@ -2059,7 +2059,7 @@ Add `padding` to give the icon a sized box, then combine `filled`, `border`, `ri
     <Text xs secondary>border</Text>
   </Col>
   <Col itemsCenter>
-    <Icon padding pill primary ring><Heart /></Icon>
+    <Icon padding pill primary insetRing><Heart /></Icon>
     <Text xs secondary>ring</Text>
   </Col>
   <Col itemsCenter>
@@ -2067,7 +2067,7 @@ Add `padding` to give the icon a sized box, then combine `filled`, `border`, `ri
     <Text xs secondary>filled + shadow</Text>
   </Col>
   <Col itemsCenter>
-    <Icon padding pill success filled ring><Check /></Icon>
+    <Icon padding pill success filled insetRing><Check /></Icon>
     <Text xs secondary>filled + ring</Text>
   </Col>
   <Col itemsCenter>
@@ -2088,7 +2088,7 @@ Use `transparent` to keep the container background see-through while still apply
     <Text xs secondary>filled + transparent</Text>
   </Col>
   <Col itemsCenter>
-    <Icon padding pill success filled transparent ring><Check /></Icon>
+    <Icon padding pill success filled transparent insetRing><Check /></Icon>
     <Text xs secondary>success</Text>
   </Col>
   <Col itemsCenter>
@@ -2113,7 +2113,7 @@ Icons work naturally alongside text and inside buttons.
   <Row itemsCenter>
     <Icon padding pill primary filled><Star /></Icon>
     <Col gap noPadding>
-      <Text bold>Container-mode icons</Text>
+      <Text fontBold>Container-mode icons</Text>
       <Text sm secondary>Pair a padded icon with adjacent text for compact summaries.</Text>
     </Col>
   </Row>
@@ -2588,19 +2588,19 @@ When the control lives outside the label, use the standard `htmlFor` attribute p
 
 ## Font weights
 
-The default weight is `medium`. Override with any weight prop from `thin` to `black`.
+The default weight is `fontMedium`. Override with any weight prop from `fontThin` to `fontBlack`.
 
 ```tsx demo
 <Col>
-  <Label thin>thin weight</Label>
-  <Label extralight>extralight weight</Label>
-  <Label light>light weight</Label>
-  <Label normal>normal weight</Label>
+  <Label fontThin>thin weight</Label>
+  <Label fontExtralight>extralight weight</Label>
+  <Label fontLight>light weight</Label>
+  <Label fontNormal>normal weight</Label>
   <Label>medium weight (default)</Label>
-  <Label semibold>semibold weight</Label>
-  <Label bold>bold weight</Label>
-  <Label extrabold>extrabold weight</Label>
-  <Label black>black weight</Label>
+  <Label fontSemibold>semibold weight</Label>
+  <Label fontBold>bold weight</Label>
+  <Label fontExtrabold>extrabold weight</Label>
+  <Label fontBlack>black weight</Label>
 </Col>
 ```
 
@@ -2640,11 +2640,11 @@ Use appearances to indicate field status: `danger` for errors, `success` for val
 ```tsx demo
 <Col>
   <Col noGap>
-    <Label semibold>Username <Text tag="span" danger>*</Text></Label>
+    <Label fontSemibold>Username <Text tag="span" danger>*</Text></Label>
     <Input placeholder="Choose a username" />
   </Col>
   <Col noGap>
-    <Label success semibold>Email verified</Label>
+    <Label success fontSemibold>Email verified</Label>
     <Input placeholder="verified@example.com" />
   </Col>
   <Label secondary>All fields marked with * are required.</Label>
@@ -2708,11 +2708,11 @@ Text defaults to the `inherit` appearance: it picks up its color from the parent
 ```tsx demo
 <Row flexWrap>
   <Card primary filled>
-    <Text bold>Inherited Primary</Text>
+    <Text fontBold>Inherited Primary</Text>
     <Text>This text inherits primary from the Card.</Text>
   </Card>
   <Card success filled>
-    <Text bold>Inherited Success</Text>
+    <Text fontBold>Inherited Success</Text>
     <Text>Inherits success color automatically.</Text>
     <Text danger>Explicit danger overrides inherit.</Text>
   </Card>
@@ -2721,30 +2721,30 @@ Text defaults to the `inherit` appearance: it picks up its color from the parent
 
 ## Font weights
 
-Control weight with `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
+Control weight with `fontThin`, `fontExtralight`, `fontLight`, `fontNormal`, `fontMedium`, `fontSemibold`, `fontBold`, `fontExtrabold`, `fontBlack`.
 
 ```tsx demo
 <Col>
-  <Text thin>Thin weight</Text>
-  <Text light>Light weight</Text>
-  <Text normal>Normal weight</Text>
-  <Text medium>Medium weight</Text>
-  <Text semibold>Semibold weight</Text>
-  <Text bold>Bold weight</Text>
-  <Text extrabold>Extra bold weight</Text>
-  <Text black>Black weight</Text>
+  <Text fontThin>Thin weight</Text>
+  <Text fontLight>Light weight</Text>
+  <Text fontNormal>Normal weight</Text>
+  <Text fontMedium>Medium weight</Text>
+  <Text fontSemibold>Semibold weight</Text>
+  <Text fontBold>Bold weight</Text>
+  <Text fontExtrabold>Extra bold weight</Text>
+  <Text fontBlack>Black weight</Text>
 </Col>
 ```
 
 ## Font families
 
-Switch font family with `sans` (default), `serif`, `mono`.
+Switch font family with `fontSans` (default), `fontSerif`, `fontMono`.
 
 ```tsx demo
 <Col>
-  <Text sans>Sans-serif font (default)</Text>
-  <Text serif>Serif font for editorial content</Text>
-  <Text mono>Monospace for code or technical content</Text>
+  <Text fontSans>Sans-serif font (default)</Text>
+  <Text fontSerif>Serif font for editorial content</Text>
+  <Text fontMono>Monospace for code or technical content</Text>
 </Col>
 ```
 
@@ -2847,10 +2847,10 @@ Combining text properties for real-world use cases.
 ```tsx demo
 <Col>
   <Card>
-    <Text lg bold>Product Title</Text>
+    <Text lg fontBold>Product Title</Text>
     <Text secondary>Category • 4.5 ★ (128 reviews)</Text>
     <Text>High-quality component library for building modern web applications with React and TypeScript.</Text>
-    <Text sm primary semibold>$99.00</Text>
+    <Text sm primary fontSemibold>$99.00</Text>
   </Card>
 </Col>
 ```
@@ -2862,7 +2862,7 @@ URL: https://vaneui.com/docs/typography-components/page-title
 
 ## Basic usage
 
-PageTitle renders a large `<h1>` heading for page titles. It defaults to `semibold` weight, `heading` font family, `trackingTight` letter spacing, and `inherit` appearance.
+PageTitle renders a large `<h1>` heading for page titles. It defaults to `fontSemibold` weight, `fontHeading` font family, `trackingTight` letter spacing, and `inherit` appearance.
 
 ```tsx demo
 <PageTitle>Welcome to VaneUI</PageTitle>
@@ -2911,28 +2911,28 @@ Three heading components for a clean semantic hierarchy. Use them together so th
 
 ## Font weights
 
-PageTitle is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
+PageTitle is `fontSemibold` by default. Override with any weight prop: `fontThin`, `fontExtralight`, `fontLight`, `fontNormal`, `fontMedium`, `fontSemibold`, `fontBold`, `fontExtrabold`, `fontBlack`.
 
 ```tsx demo
 <Col>
-  <PageTitle light>Light Page Title</PageTitle>
-  <PageTitle normal>Normal Page Title</PageTitle>
-  <PageTitle medium>Medium Page Title</PageTitle>
+  <PageTitle fontLight>Light Page Title</PageTitle>
+  <PageTitle fontNormal>Normal Page Title</PageTitle>
+  <PageTitle fontMedium>Medium Page Title</PageTitle>
   <PageTitle>Semibold Page Title (default)</PageTitle>
-  <PageTitle bold>Bold Page Title</PageTitle>
-  <PageTitle black>Black Page Title</PageTitle>
+  <PageTitle fontBold>Bold Page Title</PageTitle>
+  <PageTitle fontBlack>Black Page Title</PageTitle>
 </Col>
 ```
 
 ## Font families
 
-Switch between `sans`, `serif`, and `mono` font families.
+Switch between `fontSans`, `fontSerif`, and `fontMono` font families.
 
 ```tsx demo
 <Col>
-  <PageTitle sans>Sans-serif Page Title</PageTitle>
-  <PageTitle serif>Serif Page Title</PageTitle>
-  <PageTitle mono>Monospace Page Title</PageTitle>
+  <PageTitle fontSans>Sans-serif Page Title</PageTitle>
+  <PageTitle fontSerif>Serif Page Title</PageTitle>
+  <PageTitle fontMono>Monospace Page Title</PageTitle>
 </Col>
 ```
 
@@ -3016,7 +3016,7 @@ URL: https://vaneui.com/docs/typography-components/section-title
 
 ## Basic usage
 
-SectionTitle renders an `<h2>` heading for major section headings. It defaults to `semibold` weight, `heading` font family, `inherit` appearance, and left-aligned text.
+SectionTitle renders an `<h2>` heading for major section headings. It defaults to `fontSemibold` weight, `fontHeading` font family, `inherit` appearance, and left-aligned text.
 
 ```tsx demo
 <SectionTitle>Getting Started</SectionTitle>
@@ -3065,28 +3065,28 @@ Three heading components for a clean semantic hierarchy.
 
 ## Font weights
 
-SectionTitle is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
+SectionTitle is `fontSemibold` by default. Override with any weight prop: `fontThin`, `fontExtralight`, `fontLight`, `fontNormal`, `fontMedium`, `fontSemibold`, `fontBold`, `fontExtrabold`, `fontBlack`.
 
 ```tsx demo
 <Col>
-  <SectionTitle light>Light Section Title</SectionTitle>
-  <SectionTitle normal>Normal Section Title</SectionTitle>
-  <SectionTitle medium>Medium Section Title</SectionTitle>
+  <SectionTitle fontLight>Light Section Title</SectionTitle>
+  <SectionTitle fontNormal>Normal Section Title</SectionTitle>
+  <SectionTitle fontMedium>Medium Section Title</SectionTitle>
   <SectionTitle>Semibold Section Title (default)</SectionTitle>
-  <SectionTitle bold>Bold Section Title</SectionTitle>
-  <SectionTitle black>Black Section Title</SectionTitle>
+  <SectionTitle fontBold>Bold Section Title</SectionTitle>
+  <SectionTitle fontBlack>Black Section Title</SectionTitle>
 </Col>
 ```
 
 ## Font families
 
-Switch between `sans`, `serif`, and `mono` font families.
+Switch between `fontSans`, `fontSerif`, and `fontMono` font families.
 
 ```tsx demo
 <Col>
-  <SectionTitle sans>Sans-serif Section Title</SectionTitle>
-  <SectionTitle serif>Serif Section Title</SectionTitle>
-  <SectionTitle mono>Monospace Section Title</SectionTitle>
+  <SectionTitle fontSans>Sans-serif Section Title</SectionTitle>
+  <SectionTitle fontSerif>Serif Section Title</SectionTitle>
+  <SectionTitle fontMono>Monospace Section Title</SectionTitle>
 </Col>
 ```
 
@@ -3185,7 +3185,7 @@ URL: https://vaneui.com/docs/typography-components/title
 
 ## Basic usage
 
-Title renders an `<h3>` heading for subsection headings. It defaults to `semibold` weight, `heading` font family, and left-aligned text.
+Title renders an `<h3>` heading for subsection headings. It defaults to `fontSemibold` weight, `fontHeading` font family, and left-aligned text.
 
 ```tsx demo
 <Title>Subsection Heading</Title>
@@ -3234,28 +3234,28 @@ Three heading components for a clean semantic hierarchy. Use them together so th
 
 ## Font weights
 
-Title is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
+Title is `fontSemibold` by default. Override with any weight prop: `fontThin`, `fontExtralight`, `fontLight`, `fontNormal`, `fontMedium`, `fontSemibold`, `fontBold`, `fontExtrabold`, `fontBlack`.
 
 ```tsx demo
 <Col>
-  <Title light>Light Title</Title>
-  <Title normal>Normal Title</Title>
-  <Title medium>Medium Title</Title>
+  <Title fontLight>Light Title</Title>
+  <Title fontNormal>Normal Title</Title>
+  <Title fontMedium>Medium Title</Title>
   <Title>Semibold Title (default)</Title>
-  <Title bold>Bold Title</Title>
-  <Title black>Black Title</Title>
+  <Title fontBold>Bold Title</Title>
+  <Title fontBlack>Black Title</Title>
 </Col>
 ```
 
 ## Font families
 
-Switch between `sans`, `serif`, and `mono` font families.
+Switch between `fontSans`, `fontSerif`, and `fontMono` font families.
 
 ```tsx demo
 <Col>
-  <Title sans>Sans-serif Title</Title>
-  <Title serif>Serif Title</Title>
-  <Title mono>Monospace Title</Title>
+  <Title fontSans>Sans-serif Title</Title>
+  <Title fontSerif>Serif Title</Title>
+  <Title fontMono>Monospace Title</Title>
 </Col>
 ```
 
@@ -3323,7 +3323,7 @@ Titles work well with other typography components in cards and sections.
 
 ```tsx demo
 <Card>
-  <Title lg primary bold>Product Features</Title>
+  <Title lg primary fontBold>Product Features</Title>
   <Text secondary>Everything you need to build modern applications.</Text>
   <Title sm>Performance</Title>
   <Text>Optimized for speed and efficiency.</Text>
@@ -3401,12 +3401,12 @@ When `noInheritSize` is set (or the parent has no size context), choose an expli
 
 ## Styling
 
-Use `bold`, `semibold`, or `italic` for emphasis, or `noUnderline` to remove the default underline.
+Use `fontBold`, `fontSemibold`, or `italic` for emphasis, or `noUnderline` to remove the default underline.
 
 ```tsx demo
 <Col>
-  <Link bold href="#">Bold link</Link>
-  <Link semibold href="#">Semibold link</Link>
+  <Link fontBold href="#">Bold link</Link>
+  <Link fontSemibold href="#">Semibold link</Link>
   <Link italic href="#">Italic link</Link>
   <Link noUnderline href="#">Link without underline</Link>
 </Col>
@@ -3577,48 +3577,48 @@ Lists use `inherit` appearance by default: they inherit color from their parent 
 
 ## List style types
 
-List supports six marker types: `disc` (default for unordered), `decimal` (default for ordered), `circle`, `square`, `lowerAlpha`, and `lowerRoman`. Setting `decimal`, `lowerAlpha`, or `lowerRoman` switches the element from `<ul>` to `<ol>`.
+List supports six marker types: `listDisc` (default for unordered), `listDecimal` (default for ordered), `listCircle`, `listSquare`, `listLowerAlpha`, and `listLowerRoman`. Setting `listDecimal`, `listLowerAlpha`, or `listLowerRoman` switches the element from `<ul>` to `<ol>`.
 
 ```tsx demo
 <Col>
   <div>
-    <Text semibold>Unordered (disc)</Text>
-    <List disc>
+    <Text fontSemibold>Unordered (disc)</Text>
+    <List listDisc>
       <ListItem>Bullet point one</ListItem>
       <ListItem>Bullet point two</ListItem>
     </List>
   </div>
   <div>
-    <Text semibold>circle</Text>
-    <List circle>
+    <Text fontSemibold>circle</Text>
+    <List listCircle>
       <ListItem>Hollow circle marker</ListItem>
       <ListItem>Second item</ListItem>
     </List>
   </div>
   <div>
-    <Text semibold>square</Text>
-    <List square>
+    <Text fontSemibold>square</Text>
+    <List listSquare>
       <ListItem>Filled square marker</ListItem>
       <ListItem>Second item</ListItem>
     </List>
   </div>
   <div>
-    <Text semibold>Ordered (decimal)</Text>
-    <List decimal>
+    <Text fontSemibold>Ordered (decimal)</Text>
+    <List listDecimal>
       <ListItem>Step one</ListItem>
       <ListItem>Step two</ListItem>
     </List>
   </div>
   <div>
-    <Text semibold>lowerAlpha</Text>
-    <List lowerAlpha>
+    <Text fontSemibold>lowerAlpha</Text>
+    <List listLowerAlpha>
       <ListItem>Lowercase letters</ListItem>
       <ListItem>Second item</ListItem>
     </List>
   </div>
   <div>
-    <Text semibold>lowerRoman</Text>
-    <List lowerRoman>
+    <Text fontSemibold>lowerRoman</Text>
+    <List listLowerRoman>
       <ListItem>Lowercase roman</ListItem>
       <ListItem>Second item</ListItem>
     </List>
@@ -3628,20 +3628,20 @@ List supports six marker types: `disc` (default for unordered), `decimal` (defau
 
 ## Marker position (inside vs outside)
 
-Use `outside` (the default) to hang markers outside the content box so multi-line items align under the first character. Use `inside` to place markers inline with text. Compact, but wrapped lines flow under the marker.
+Use `listOutside` (the default) to hang markers outside the content box so multi-line items align under the first character. Use `listInside` to place markers inline with text. Compact, but wrapped lines flow under the marker.
 
 ```tsx demo
 <Col>
   <div>
-    <Text semibold>outside (default)</Text>
-    <List outside className="w-64">
+    <Text fontSemibold>outside (default)</Text>
+    <List listOutside className="w-64">
       <ListItem>A short item.</ListItem>
       <ListItem>A much longer item that wraps onto a second line so you can see the hanging marker behaviour.</ListItem>
     </List>
   </div>
   <div>
-    <Text semibold>inside</Text>
-    <List inside className="w-64">
+    <Text fontSemibold>inside</Text>
+    <List listInside className="w-64">
       <ListItem>A short item.</ListItem>
       <ListItem>A much longer item that wraps onto a second line, markers flow inline with the text.</ListItem>
     </List>
@@ -3651,12 +3651,12 @@ Use `outside` (the default) to hang markers outside the content box so multi-lin
 
 ## Nested lists: automatic marker progression
 
-Nested unordered lists automatically progress `disc` → `circle` → `square`. Nested ordered lists progress `decimal` → `lowerAlpha` → `lowerRoman`. Override a specific nested list by forcing the marker with an important utility like `list-[square]!`. The parent's descendant selector outranks a plain child utility on specificity, so the trailing `!` is what makes the override win.
+Nested unordered lists automatically progress `listDisc` → `listCircle` → `listSquare`. Nested ordered lists progress `listDecimal` → `listLowerAlpha` → `listLowerRoman`. Override a specific nested list by forcing the marker with an important utility like `list-[square]!`. The parent's descendant selector outranks a plain child utility on specificity, so the trailing `!` is what makes the override win.
 
 ```tsx demo
 <Col>
   <div>
-    <Text semibold>Unordered (ul)</Text>
+    <Text fontSemibold>Unordered (ul)</Text>
     <List>
       <ListItem>Level 0: disc</ListItem>
       <ListItem>
@@ -3674,16 +3674,16 @@ Nested unordered lists automatically progress `disc` → `circle` → `square`. 
     </List>
   </div>
   <div>
-    <Text semibold>Ordered (ol)</Text>
-    <List decimal>
+    <Text fontSemibold>Ordered (ol)</Text>
+    <List listDecimal>
       <ListItem>Level 0: decimal</ListItem>
       <ListItem>
         Parent
-        <List decimal>
+        <List listDecimal>
           <ListItem>Level 1: lowerAlpha</ListItem>
           <ListItem>
             Parent
-            <List decimal>
+            <List listDecimal>
               <ListItem>Level 2: lowerRoman</ListItem>
             </List>
           </ListItem>
@@ -3701,7 +3701,7 @@ Lists apply a size-driven `gap` by default: a sibling margin between items that 
 ```tsx demo
 <Col>
   <div>
-    <Text semibold>Default gap</Text>
+    <Text fontSemibold>Default gap</Text>
     <List>
       <ListItem>Item one</ListItem>
       <ListItem>Item two</ListItem>
@@ -3709,7 +3709,7 @@ Lists apply a size-driven `gap` by default: a sibling margin between items that 
     </List>
   </div>
   <div>
-    <Text semibold>noGap</Text>
+    <Text fontSemibold>noGap</Text>
     <List noGap>
       <ListItem>Item one</ListItem>
       <ListItem>Item two</ListItem>
@@ -3746,15 +3746,15 @@ Pass an `icon` node to a `ListItem` to replace the native marker on that item on
 
 ## Styling
 
-Combine font properties like `bold`, `italic`, `mono` with lists.
+Combine font properties like `fontBold`, `italic`, `fontMono` with lists.
 
 ```tsx demo
 <Col>
-  <List semibold>
+  <List fontSemibold>
     <ListItem>Bold list items</ListItem>
     <ListItem>Another bold item</ListItem>
   </List>
-  <List mono>
+  <List fontMono>
     <ListItem>code --install extension</ListItem>
     <ListItem>npm run build</ListItem>
   </List>
@@ -3765,9 +3765,9 @@ The same toggles apply per item, so one entry can stand out without affecting th
 
 ```tsx demo
 <List>
-  <ListItem bold>Bold item</ListItem>
+  <ListItem fontBold>Bold item</ListItem>
   <ListItem italic>Italic item</ListItem>
-  <ListItem mono>monospace-item</ListItem>
+  <ListItem fontMono>monospace-item</ListItem>
   <ListItem>Default item</ListItem>
 </List>
 ```
@@ -3881,7 +3881,7 @@ Blockquotes can contain multiple paragraphs and nested components.
 
 ```tsx demo
 <Blockquote primary>
-  <Text bold>Steve Jobs</Text>
+  <Text fontBold>Steve Jobs</Text>
   <Text>Innovation distinguishes between a leader and a follower. Stay hungry, stay foolish.</Text>
 </Blockquote>
 ```
@@ -3895,13 +3895,13 @@ Use blockquotes with attribution for testimonials and customer quotes.
   <Card brand>
     <Blockquote>
       <Text italic>VaneUI cut our migration time in half. The boolean props API is concise and the theming covers our cases.</Text>
-      <Text sm bold> - Sarah Chen, Lead Engineer</Text>
+      <Text sm fontBold> - Sarah Chen, Lead Engineer</Text>
     </Blockquote>
   </Card>
   <Card success>
     <Blockquote>
       <Text italic>We shipped our new dashboard in half the time thanks to VaneUI components.</Text>
-      <Text sm bold> - Alex Rivera, Product Manager</Text>
+      <Text sm fontBold> - Alex Rivera, Product Manager</Text>
     </Blockquote>
   </Card>
 </Col>
@@ -3934,19 +3934,19 @@ Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control the max-width: `max-w-3xl` 
 ```tsx demo
 <Col>
   <Container xs border>
-    <Text semibold>xs: max-w-3xl</Text>
+    <Text fontSemibold>xs: max-w-3xl</Text>
   </Container>
   <Container sm border>
-    <Text semibold>sm: max-w-4xl</Text>
+    <Text fontSemibold>sm: max-w-4xl</Text>
   </Container>
   <Container border>
-    <Text semibold>md (default): max-w-5xl</Text>
+    <Text fontSemibold>md (default): max-w-5xl</Text>
   </Container>
   <Container lg border>
-    <Text semibold>lg: max-w-6xl</Text>
+    <Text fontSemibold>lg: max-w-6xl</Text>
   </Container>
   <Container xl border>
-    <Text semibold>xl: max-w-7xl</Text>
+    <Text fontSemibold>xl: max-w-7xl</Text>
   </Container>
 </Col>
 ```
@@ -3958,11 +3958,11 @@ Container defaults to `noPadding`: the parent Section usually owns vertical rhyt
 ```tsx demo
 <Col>
   <Container border>
-    <Text semibold>noPadding (default)</Text>
+    <Text fontSemibold>noPadding (default)</Text>
     <Text>Edges sit flush with the container box.</Text>
   </Container>
   <Container padding border>
-    <Text semibold>padding</Text>
+    <Text fontSemibold>padding</Text>
     <Text>Internal padding scales with the size prop.</Text>
   </Container>
 </Col>
@@ -3975,11 +3975,11 @@ Containers support color appearances: `primary`, `secondary`, `success`, `danger
 ```tsx demo
 <Col>
   <Container primary border>
-    <Text semibold>Primary Container</Text>
+    <Text fontSemibold>Primary Container</Text>
     <Text>Highlighted content area</Text>
   </Container>
   <Container success border>
-    <Text semibold>Success Container</Text>
+    <Text fontSemibold>Success Container</Text>
     <Text>Positive feedback area</Text>
   </Container>
 </Col>
@@ -4013,13 +4013,13 @@ Containers support different border radius styles. `sharp` is the default (no ra
 ```tsx demo
 <Col>
   <Container border>
-    <Text semibold>Sharp (default)</Text>
+    <Text fontSemibold>Sharp (default)</Text>
   </Container>
   <Container rounded border>
-    <Text semibold>Rounded corners</Text>
+    <Text fontSemibold>Rounded corners</Text>
   </Container>
   <Container pill border padding>
-    <Text semibold>Pill shape</Text>
+    <Text fontSemibold>Pill shape</Text>
   </Container>
 </Col>
 ```
@@ -4079,15 +4079,15 @@ Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control padding and gap.
 ```tsx demo
 <Col>
   <Section sm border>
-    <Text semibold>Small Section</Text>
+    <Text fontSemibold>Small Section</Text>
     <Text>Compact padding</Text>
   </Section>
   <Section border>
-    <Text semibold>Medium Section (default)</Text>
+    <Text fontSemibold>Medium Section (default)</Text>
     <Text>Standard padding</Text>
   </Section>
   <Section lg border>
-    <Text semibold>Large Section</Text>
+    <Text fontSemibold>Large Section</Text>
     <Text>Generous padding</Text>
   </Section>
 </Col>
@@ -4100,19 +4100,19 @@ Sections support color appearances: `primary`, `secondary`, `success`, `danger`,
 ```tsx demo
 <Col>
   <Section secondary filled>
-    <Text semibold>Secondary band</Text>
+    <Text fontSemibold>Secondary band</Text>
     <Text>Subtle background to break up a long page.</Text>
   </Section>
   <Section primary>
-    <Text semibold>Primary Section</Text>
+    <Text fontSemibold>Primary Section</Text>
     <Text>Highlighted content area</Text>
   </Section>
   <Section success>
-    <Text semibold>Success Section</Text>
+    <Text fontSemibold>Success Section</Text>
     <Text>Positive feedback area</Text>
   </Section>
   <Section danger>
-    <Text semibold>Danger Section</Text>
+    <Text fontSemibold>Danger Section</Text>
     <Text>Warning or error area</Text>
   </Section>
 </Col>
@@ -4146,12 +4146,12 @@ Use `row` for horizontal layout. `gap` is already on by default; pair with `noPa
 ```tsx demo
 <Col>
   <Section row border>
-    <Text semibold>Row Layout</Text>
+    <Text fontSemibold>Row Layout</Text>
     <Text>Content flows horizontally</Text>
     <Text>With gap between items</Text>
   </Section>
   <Section border>
-    <Text semibold>Column Layout (default)</Text>
+    <Text fontSemibold>Column Layout (default)</Text>
     <Text>Content flows vertically</Text>
     <Text>With gap between items</Text>
   </Section>
@@ -4182,11 +4182,11 @@ Use `mobileCol` or `tabletCol` to switch from row to column layout on smaller sc
 ```tsx demo
 <Col>
   <Section lg border>
-    <Text semibold>responsive (default)</Text>
+    <Text fontSemibold>responsive (default)</Text>
     <Text>Padding shrinks at tablet and mobile.</Text>
   </Section>
   <Section lg responsive={false} border>
-    <Text semibold>responsive=&#123;false&#125;</Text>
+    <Text fontSemibold>responsive=&#123;false&#125;</Text>
     <Text>Padding stays fixed at the lg size on every viewport.</Text>
   </Section>
 </Col>
@@ -4229,7 +4229,7 @@ URL: https://vaneui.com/docs/layout-components/row
 
 ## Basic usage
 
-A horizontal flex container. `Row` defaults to `gap`, `itemsCenter`, `noPadding`, `noBorder`, `noRing`, `outline`, and `sharp`: you don't need to pass these explicitly. Pass `href` to render `Row` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
+A horizontal flex container. `Row` defaults to `gap`, `itemsCenter`, `noPadding`, `noBorder`, `noInsetRing`, `outline`, and `sharp`: you don't need to pass these explicitly. Pass `href` to render `Row` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Row>
@@ -4245,37 +4245,37 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to control the gap amount, or `noG
 
 ```tsx demo
 <Col>
-  <Text semibold>xs</Text>
+  <Text fontSemibold>xs</Text>
   <Row xs>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Row>
-  <Text semibold>sm</Text>
+  <Text fontSemibold>sm</Text>
   <Row sm>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Row>
-  <Text semibold>md (default)</Text>
+  <Text fontSemibold>md (default)</Text>
   <Row>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Row>
-  <Text semibold>lg</Text>
+  <Text fontSemibold>lg</Text>
   <Row lg>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Row>
-  <Text semibold>xl</Text>
+  <Text fontSemibold>xl</Text>
   <Row xl>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Row>
-  <Text semibold>noGap</Text>
+  <Text fontSemibold>noGap</Text>
   <Row noGap>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
@@ -4290,37 +4290,37 @@ Control horizontal distribution with `justifyStart`, `justifyEnd`, `justifyCente
 
 ```tsx demo
 <Col>
-  <Text semibold>justifyStart</Text>
+  <Text fontSemibold>justifyStart</Text>
   <Row justifyStart className="border-2 border-dashed border-gray-300 p-2">
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
     <div className="p-2 bg-gray-100 rounded">C</div>
   </Row>
-  <Text semibold>justifyEnd</Text>
+  <Text fontSemibold>justifyEnd</Text>
   <Row justifyEnd className="border-2 border-dashed border-gray-300 p-2">
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
     <div className="p-2 bg-gray-100 rounded">C</div>
   </Row>
-  <Text semibold>justifyCenter</Text>
+  <Text fontSemibold>justifyCenter</Text>
   <Row justifyCenter className="border-2 border-dashed border-gray-300 p-2">
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
     <div className="p-2 bg-gray-100 rounded">C</div>
   </Row>
-  <Text semibold>justifyBetween</Text>
+  <Text fontSemibold>justifyBetween</Text>
   <Row justifyBetween className="border-2 border-dashed border-gray-300 p-2">
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
     <div className="p-2 bg-gray-100 rounded">C</div>
   </Row>
-  <Text semibold>justifyAround</Text>
+  <Text fontSemibold>justifyAround</Text>
   <Row justifyAround className="border-2 border-dashed border-gray-300 p-2">
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
     <div className="p-2 bg-gray-100 rounded">C</div>
   </Row>
-  <Text semibold>justifyEvenly</Text>
+  <Text fontSemibold>justifyEvenly</Text>
   <Row justifyEvenly className="border-2 border-dashed border-gray-300 p-2">
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
@@ -4335,31 +4335,31 @@ Control vertical alignment with `itemsStart`, `itemsEnd`, `itemsCenter` (default
 
 ```tsx demo
 <Col>
-  <Text semibold>itemsStart</Text>
+  <Text fontSemibold>itemsStart</Text>
   <Row itemsStart className="border-2 border-dashed border-gray-300 p-2 h-24">
     <div className="p-2 bg-gray-100 rounded">Small</div>
     <div className="p-6 bg-gray-100 rounded">Tall</div>
     <div className="p-2 bg-gray-100 rounded">Small</div>
   </Row>
-  <Text semibold>itemsEnd</Text>
+  <Text fontSemibold>itemsEnd</Text>
   <Row itemsEnd className="border-2 border-dashed border-gray-300 p-2 h-24">
     <div className="p-2 bg-gray-100 rounded">Small</div>
     <div className="p-6 bg-gray-100 rounded">Tall</div>
     <div className="p-2 bg-gray-100 rounded">Small</div>
   </Row>
-  <Text semibold>itemsCenter (default)</Text>
+  <Text fontSemibold>itemsCenter (default)</Text>
   <Row className="border-2 border-dashed border-gray-300 p-2 h-24">
     <div className="p-2 bg-gray-100 rounded">Small</div>
     <div className="p-6 bg-gray-100 rounded">Tall</div>
     <div className="p-2 bg-gray-100 rounded">Small</div>
   </Row>
-  <Text semibold>itemsBaseline</Text>
+  <Text fontSemibold>itemsBaseline</Text>
   <Row itemsBaseline className="border-2 border-dashed border-gray-300 p-2 h-24">
     <Text sm>Small text</Text>
     <Text xl>Large text</Text>
     <Text>Default</Text>
   </Row>
-  <Text semibold>itemsStretch</Text>
+  <Text fontSemibold>itemsStretch</Text>
   <Row itemsStretch className="border-2 border-dashed border-gray-300 p-2 h-24">
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
@@ -4400,25 +4400,25 @@ Use `mobileCol` to stack on mobile, or `tabletCol` to stack on tablet and below.
 
 ```tsx demo
 <Col>
-  <Text semibold>tabletCol (stacks at ≤1024px)</Text>
+  <Text fontSemibold>tabletCol (stacks at ≤1024px)</Text>
   <Row tabletCol>
     <Col flex1 className="p-4 bg-primary-100 rounded">
-      <Text semibold>Column 1</Text>
+      <Text fontSemibold>Column 1</Text>
       <Text>Horizontal on desktop, stacked on tablet and below.</Text>
     </Col>
     <Col flex1 className="p-4 bg-primary-100 rounded">
-      <Text semibold>Column 2</Text>
+      <Text fontSemibold>Column 2</Text>
       <Text>Resize to see the responsive behavior.</Text>
     </Col>
   </Row>
-  <Text semibold>mobileCol (stacks at ≤768px)</Text>
+  <Text fontSemibold>mobileCol (stacks at ≤768px)</Text>
   <Row mobileCol>
     <Col flex1 className="p-4 bg-primary-100 rounded">
-      <Text semibold>Column 1</Text>
+      <Text fontSemibold>Column 1</Text>
       <Text>Horizontal until mobile.</Text>
     </Col>
     <Col flex1 className="p-4 bg-primary-100 rounded">
-      <Text semibold>Column 2</Text>
+      <Text fontSemibold>Column 2</Text>
       <Text>Stacks only on narrow viewports.</Text>
     </Col>
   </Row>
@@ -4485,15 +4485,15 @@ Add `href` to render the Row as an `<a>` tag, useful for clickable list rows. A 
 ```tsx demo
 <Col>
   <Row href="#inbox" justifyBetween padding border rounded>
-    <Text semibold>Inbox</Text>
+    <Text fontSemibold>Inbox</Text>
     <Badge primary filled>12</Badge>
   </Row>
   <Row href="#drafts" justifyBetween padding border rounded>
-    <Text semibold>Drafts</Text>
+    <Text fontSemibold>Drafts</Text>
     <Badge secondary>3</Badge>
   </Row>
   <Row href="https://github.com" target="_blank" rel="noopener noreferrer" justifyBetween padding border rounded>
-    <Text semibold>GitHub</Text>
+    <Text fontSemibold>GitHub</Text>
     <Text sm secondary>External</Text>
   </Row>
 </Col>
@@ -4508,7 +4508,7 @@ import Link from 'next/link';
 import { Row, Text, Badge } from '@vaneui/ui';
 
 <Row href="/inbox" tag={Link} justifyBetween padding border rounded>
-  <Text semibold>Inbox</Text>
+  <Text fontSemibold>Inbox</Text>
   <Badge primary filled>12</Badge>
 </Row>
 ```
@@ -4520,7 +4520,7 @@ URL: https://vaneui.com/docs/layout-components/col
 
 ## Basic usage
 
-`Col` defaults to `column`, `flex`, `gap`, `md`, `noPadding`, `noBorder`, `noRing`, `outline`, and `sharp`: you don't need to pass any of these. Pass `href` to render `Col` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
+`Col` defaults to `column`, `flex`, `gap`, `md`, `noPadding`, `noBorder`, `noInsetRing`, `outline`, and `sharp`: you don't need to pass any of these. Pass `href` to render `Col` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Col>
@@ -4537,37 +4537,37 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to control the gap, or `noGap` to 
 ```tsx demo
 <Row itemsStart>
   <Col xs flex1>
-    <Text semibold>xs</Text>
+    <Text fontSemibold>xs</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Col>
   <Col sm flex1>
-    <Text semibold>sm</Text>
+    <Text fontSemibold>sm</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Col>
   <Col flex1>
-    <Text semibold>md (default)</Text>
+    <Text fontSemibold>md (default)</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Col>
   <Col lg flex1>
-    <Text semibold>lg</Text>
+    <Text fontSemibold>lg</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Col>
   <Col xl flex1>
-    <Text semibold>xl</Text>
+    <Text fontSemibold>xl</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
   </Col>
   <Col noGap flex1>
-    <Text semibold>noGap</Text>
+    <Text fontSemibold>noGap</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
     <div className="p-3 bg-gray-100 rounded">Item 3</div>
@@ -4582,22 +4582,22 @@ Col has no `items` default, so children stretch to fill the width. Use `itemsSta
 ```tsx demo
 <Row itemsStart>
   <Col flex1 className="border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>default (stretch)</Text>
+    <Text fontSemibold>default (stretch)</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
   <Col itemsStart flex1 className="border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>itemsStart</Text>
+    <Text fontSemibold>itemsStart</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
   <Col itemsCenter flex1 className="border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>itemsCenter</Text>
+    <Text fontSemibold>itemsCenter</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
   <Col itemsEnd flex1 className="border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>itemsEnd</Text>
+    <Text fontSemibold>itemsEnd</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
@@ -4611,32 +4611,32 @@ Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`
 ```tsx demo
 <Row itemsStart>
   <Col justifyStart flex1 className="h-48 border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>justifyStart</Text>
+    <Text fontSemibold>justifyStart</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
   <Col justifyCenter flex1 className="h-48 border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>justifyCenter</Text>
+    <Text fontSemibold>justifyCenter</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
   <Col justifyEnd flex1 className="h-48 border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>justifyEnd</Text>
+    <Text fontSemibold>justifyEnd</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
   <Col justifyBetween flex1 className="h-48 border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>justifyBetween</Text>
+    <Text fontSemibold>justifyBetween</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
   <Col justifyAround flex1 className="h-48 border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>justifyAround</Text>
+    <Text fontSemibold>justifyAround</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
   <Col justifyEvenly flex1 className="h-48 border-2 border-dashed border-gray-300 p-2">
-    <Text semibold>justifyEvenly</Text>
+    <Text fontSemibold>justifyEvenly</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Col>
@@ -4679,15 +4679,15 @@ Use `textLeft`, `textCenter`, `textRight`, or `textJustify` to control text alig
 ```tsx demo
 <Row itemsStart>
   <Col textLeft flex1 className="border-2 border-dashed border-gray-300 p-4">
-    <Text semibold>Left Aligned</Text>
+    <Text fontSemibold>Left Aligned</Text>
     <Text>Content aligned to the left.</Text>
   </Col>
   <Col textCenter flex1 className="border-2 border-dashed border-gray-300 p-4">
-    <Text semibold>Center Aligned</Text>
+    <Text fontSemibold>Center Aligned</Text>
     <Text>Content centered within the column.</Text>
   </Col>
   <Col textRight flex1 className="border-2 border-dashed border-gray-300 p-4">
-    <Text semibold>Right Aligned</Text>
+    <Text fontSemibold>Right Aligned</Text>
     <Text>Content aligned to the right.</Text>
   </Col>
 </Row>
@@ -4734,11 +4734,11 @@ Col composes naturally inside a Card to lay out a vertical cluster: labelled fie
     </Row>
     <Row justifyBetween>
       <Text secondary>Seats</Text>
-      <Text semibold>12 / 25</Text>
+      <Text fontSemibold>12 / 25</Text>
     </Row>
     <Row justifyBetween>
       <Text secondary>Renews</Text>
-      <Text semibold>Jan 14, 2026</Text>
+      <Text fontSemibold>Jan 14, 2026</Text>
     </Row>
   </Col>
   <Row justifyEnd>
@@ -4809,7 +4809,7 @@ Think of `Stack` as `Col` plus built-in `padding` and `flexWrap`.
 
 ## Basic usage
 
-`Stack` defaults to `column`, `flex`, `gap`, `padding`, `flexWrap`, `md`, `noBorder`, `noRing`, `outline`, and `sharp`: you don't need to pass any of these. Pass `href` to render `Stack` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
+`Stack` defaults to `column`, `flex`, `gap`, `padding`, `flexWrap`, `md`, `noBorder`, `noInsetRing`, `outline`, and `sharp`: you don't need to pass any of these. Pass `href` to render `Stack` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
 
 ```tsx demo
 <Stack>
@@ -4831,14 +4831,14 @@ Use `Stack` when the column owns its own breathing room. Use `Col` when an outer
 ```tsx demo
 <Row itemsStart>
   <Col flex1>
-    <Text semibold>Stack (padded by default)</Text>
+    <Text fontSemibold>Stack (padded by default)</Text>
     <Stack className="border-2 border-dashed border-gray-300">
       <div className="p-3 bg-gray-100 rounded">Item 1</div>
       <div className="p-3 bg-gray-100 rounded">Item 2</div>
     </Stack>
   </Col>
   <Col flex1>
-    <Text semibold>Col (no padding)</Text>
+    <Text fontSemibold>Col (no padding)</Text>
     <Col className="border-2 border-dashed border-gray-300">
       <div className="p-3 bg-gray-100 rounded">Item 1</div>
       <div className="p-3 bg-gray-100 rounded">Item 2</div>
@@ -4854,14 +4854,14 @@ Use `row` for horizontal layout. Default is `column` (vertical).
 ```tsx demo
 <Row itemsStart>
   <Col flex1>
-    <Text semibold>column (default)</Text>
+    <Text fontSemibold>column (default)</Text>
     <Stack className="border-2 border-dashed border-gray-300">
       <div className="p-3 bg-gray-100 rounded">Item 1</div>
       <div className="p-3 bg-gray-100 rounded">Item 2</div>
     </Stack>
   </Col>
   <Col flex1>
-    <Text semibold>row</Text>
+    <Text fontSemibold>row</Text>
     <Stack row className="border-2 border-dashed border-gray-300">
       <div className="p-3 bg-gray-100 rounded">Item 1</div>
       <div className="p-3 bg-gray-100 rounded">Item 2</div>
@@ -4877,27 +4877,27 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to scale gap and padding together,
 ```tsx demo
 <Row itemsStart>
   <Stack xs flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>xs</Text>
+    <Text fontSemibold>xs</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
   </Stack>
   <Stack sm flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>sm</Text>
+    <Text fontSemibold>sm</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
   </Stack>
   <Stack flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>md (default)</Text>
+    <Text fontSemibold>md (default)</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
   </Stack>
   <Stack lg flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>lg</Text>
+    <Text fontSemibold>lg</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
   </Stack>
   <Stack xl flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>xl</Text>
+    <Text fontSemibold>xl</Text>
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
   </Stack>
@@ -4911,19 +4911,19 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to scale gap and padding together,
 ```tsx demo
 <Row itemsStart>
   <Stack xs filled secondary flex1>
-    <Text semibold>xs padding</Text>
+    <Text fontSemibold>xs padding</Text>
     <div className="p-2 bg-white/80 rounded">Item</div>
   </Stack>
   <Stack filled secondary flex1>
-    <Text semibold>md padding (default)</Text>
+    <Text fontSemibold>md padding (default)</Text>
     <div className="p-2 bg-white/80 rounded">Item</div>
   </Stack>
   <Stack xl filled secondary flex1>
-    <Text semibold>xl padding</Text>
+    <Text fontSemibold>xl padding</Text>
     <div className="p-2 bg-white/80 rounded">Item</div>
   </Stack>
   <Stack noPadding filled secondary flex1>
-    <Text semibold>noPadding</Text>
+    <Text fontSemibold>noPadding</Text>
     <div className="p-2 bg-white/80 rounded">Item</div>
   </Stack>
 </Row>
@@ -4936,22 +4936,22 @@ Stack has no `items` default, so children stretch to fill the width. Override wi
 ```tsx demo
 <Row itemsStart>
   <Stack flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>default (stretch)</Text>
+    <Text fontSemibold>default (stretch)</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
   <Stack itemsStart flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>itemsStart</Text>
+    <Text fontSemibold>itemsStart</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
   <Stack itemsCenter flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>itemsCenter</Text>
+    <Text fontSemibold>itemsCenter</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
   <Stack itemsEnd flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>itemsEnd</Text>
+    <Text fontSemibold>itemsEnd</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
@@ -4965,32 +4965,32 @@ Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`
 ```tsx demo
 <Row itemsStart>
   <Stack justifyStart flex1 className="h-48 border-2 border-dashed border-gray-300">
-    <Text semibold>justifyStart</Text>
+    <Text fontSemibold>justifyStart</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
   <Stack justifyCenter flex1 className="h-48 border-2 border-dashed border-gray-300">
-    <Text semibold>justifyCenter</Text>
+    <Text fontSemibold>justifyCenter</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
   <Stack justifyEnd flex1 className="h-48 border-2 border-dashed border-gray-300">
-    <Text semibold>justifyEnd</Text>
+    <Text fontSemibold>justifyEnd</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
   <Stack justifyBetween flex1 className="h-48 border-2 border-dashed border-gray-300">
-    <Text semibold>justifyBetween</Text>
+    <Text fontSemibold>justifyBetween</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
   <Stack justifyAround flex1 className="h-48 border-2 border-dashed border-gray-300">
-    <Text semibold>justifyAround</Text>
+    <Text fontSemibold>justifyAround</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
   <Stack justifyEvenly flex1 className="h-48 border-2 border-dashed border-gray-300">
-    <Text semibold>justifyEvenly</Text>
+    <Text fontSemibold>justifyEvenly</Text>
     <div className="p-2 bg-gray-100 rounded">A</div>
     <div className="p-2 bg-gray-100 rounded">B</div>
   </Stack>
@@ -5003,7 +5003,7 @@ Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`
 
 ```tsx demo
 <Col>
-  <Text semibold>flexWrap (default): items wrap when they overflow</Text>
+  <Text fontSemibold>flexWrap (default): items wrap when they overflow</Text>
   <Stack row className="max-w-md border-2 border-dashed border-gray-300">
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
@@ -5011,7 +5011,7 @@ Control vertical distribution with `justifyStart`, `justifyEnd`, `justifyCenter`
     <div className="p-3 bg-gray-100 rounded">Item 4</div>
     <div className="p-3 bg-gray-100 rounded">Item 5</div>
   </Stack>
-  <Text semibold>flexNoWrap: items shrink to fit</Text>
+  <Text fontSemibold>flexNoWrap: items shrink to fit</Text>
   <Stack row flexNoWrap className="max-w-md border-2 border-dashed border-gray-300">
     <div className="p-3 bg-gray-100 rounded">Item 1</div>
     <div className="p-3 bg-gray-100 rounded">Item 2</div>
@@ -5046,15 +5046,15 @@ Use `textLeft`, `textCenter`, `textRight`, or `textJustify` to control text alig
 ```tsx demo
 <Row itemsStart>
   <Stack textLeft flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>Left Aligned</Text>
+    <Text fontSemibold>Left Aligned</Text>
     <Text>Content aligned to the left.</Text>
   </Stack>
   <Stack textCenter flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>Center Aligned</Text>
+    <Text fontSemibold>Center Aligned</Text>
     <Text>Content centered within the stack.</Text>
   </Stack>
   <Stack textRight flex1 className="border-2 border-dashed border-gray-300">
-    <Text semibold>Right Aligned</Text>
+    <Text fontSemibold>Right Aligned</Text>
     <Text>Content aligned to the right.</Text>
   </Stack>
 </Row>
@@ -5067,11 +5067,11 @@ Use `mobileCol` or `tabletCol` on a horizontal Stack to switch back to a column 
 ```tsx demo
 <Stack row tabletCol>
   <Col flex1 className="p-4 bg-primary-100 rounded">
-    <Text semibold>Column 1</Text>
+    <Text fontSemibold>Column 1</Text>
     <Text>Horizontal on desktop, stacked on tablet and below.</Text>
   </Col>
   <Col flex1 className="p-4 bg-primary-100 rounded">
-    <Text semibold>Column 2</Text>
+    <Text fontSemibold>Column 2</Text>
     <Text>Resize to see the responsive behavior.</Text>
   </Col>
 </Stack>
@@ -5395,25 +5395,25 @@ Pick the component for the number of columns you need, from `Grid2` to `Grid6`. 
 
 ```tsx demo
 <Col>
-  <Text semibold>Grid2</Text>
+  <Text fontSemibold>Grid2</Text>
   <Grid2>
     <Card><Text textCenter>1</Text></Card>
     <Card><Text textCenter>2</Text></Card>
   </Grid2>
-  <Text semibold>Grid3</Text>
+  <Text fontSemibold>Grid3</Text>
   <Grid3>
     <Card><Text textCenter>1</Text></Card>
     <Card><Text textCenter>2</Text></Card>
     <Card><Text textCenter>3</Text></Card>
   </Grid3>
-  <Text semibold>Grid4</Text>
+  <Text fontSemibold>Grid4</Text>
   <Grid4>
     <Card><Text textCenter>1</Text></Card>
     <Card><Text textCenter>2</Text></Card>
     <Card><Text textCenter>3</Text></Card>
     <Card><Text textCenter>4</Text></Card>
   </Grid4>
-  <Text semibold>Grid6</Text>
+  <Text fontSemibold>Grid6</Text>
   <Grid6>
     <Card><Text textCenter>1</Text></Card>
     <Card><Text textCenter>2</Text></Card>
@@ -5443,19 +5443,19 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 
 ```tsx demo
 <Col>
-  <Text semibold>xs</Text>
+  <Text fontSemibold>xs</Text>
   <Grid3 xs>
     <Card xs><Text xs>Item 1</Text></Card>
     <Card xs><Text xs>Item 2</Text></Card>
     <Card xs><Text xs>Item 3</Text></Card>
   </Grid3>
-  <Text semibold>md (default)</Text>
+  <Text fontSemibold>md (default)</Text>
   <Grid3>
     <Card><Text>Item 1</Text></Card>
     <Card><Text>Item 2</Text></Card>
     <Card><Text>Item 3</Text></Card>
   </Grid3>
-  <Text semibold>xl</Text>
+  <Text fontSemibold>xl</Text>
   <Grid3 xl>
     <Card xl><Text xl>Item 1</Text></Card>
     <Card xl><Text xl>Item 2</Text></Card>
@@ -5527,13 +5527,13 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 
 ```tsx demo
 <Col>
-  <Text semibold>Default gap</Text>
+  <Text fontSemibold>Default gap</Text>
   <Grid3>
     <Card><Text>Item 1</Text></Card>
     <Card><Text>Item 2</Text></Card>
     <Card><Text>Item 3</Text></Card>
   </Grid3>
-  <Text semibold>noGap</Text>
+  <Text fontSemibold>noGap</Text>
   <Grid3 noGap>
     <Card sharp><Text>Item 1</Text></Card>
     <Card sharp><Text>Item 2</Text></Card>
@@ -5582,27 +5582,27 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) drive the per-size vertical padding via `--
 ```tsx demo
 <Col lg>
   <div>
-    <Text semibold>Divider xs</Text>
+    <Text fontSemibold>Divider xs</Text>
     <Divider xs padding />
     <Text>Content after xs divider</Text>
   </div>
   <div>
-    <Text semibold>Divider sm</Text>
+    <Text fontSemibold>Divider sm</Text>
     <Divider sm padding />
     <Text>Content after sm divider</Text>
   </div>
   <div>
-    <Text semibold>Divider md (default)</Text>
+    <Text fontSemibold>Divider md (default)</Text>
     <Divider padding />
     <Text>Content after md divider</Text>
   </div>
   <div>
-    <Text semibold>Divider lg</Text>
+    <Text fontSemibold>Divider lg</Text>
     <Divider lg padding />
     <Text>Content after lg divider</Text>
   </div>
   <div>
-    <Text semibold>Divider xl</Text>
+    <Text fontSemibold>Divider xl</Text>
     <Divider xl padding />
     <Text>Content after xl divider</Text>
   </div>
@@ -5616,42 +5616,42 @@ Dividers use `inherit` by default. Pass an explicit appearance for a colored lin
 ```tsx demo
 <Col lg>
   <div>
-    <Text semibold>Divider primary</Text>
+    <Text fontSemibold>Divider primary</Text>
     <Divider primary />
     <Text>Content after primary divider</Text>
   </div>
   <div>
-    <Text semibold>Divider brand</Text>
+    <Text fontSemibold>Divider brand</Text>
     <Divider brand />
     <Text>Content after brand divider</Text>
   </div>
   <div>
-    <Text semibold>Divider accent</Text>
+    <Text fontSemibold>Divider accent</Text>
     <Divider accent />
     <Text>Content after accent divider</Text>
   </div>
   <div>
-    <Text semibold>Divider secondary</Text>
+    <Text fontSemibold>Divider secondary</Text>
     <Divider secondary />
     <Text>Content after secondary divider</Text>
   </div>
   <div>
-    <Text semibold>Divider tertiary</Text>
+    <Text fontSemibold>Divider tertiary</Text>
     <Divider tertiary />
     <Text>Content after tertiary divider</Text>
   </div>
   <div>
-    <Text semibold>Divider success</Text>
+    <Text fontSemibold>Divider success</Text>
     <Divider success />
     <Text>Content after success divider</Text>
   </div>
   <div>
-    <Text semibold>Divider danger</Text>
+    <Text fontSemibold>Divider danger</Text>
     <Divider danger />
     <Text>Content after danger divider</Text>
   </div>
   <div>
-    <Text semibold>Divider warning</Text>
+    <Text fontSemibold>Divider warning</Text>
     <Divider warning />
     <Text>Content after warning divider</Text>
   </div>
@@ -5693,17 +5693,17 @@ Use `Divider` between items in a `Stack` or `Col` to group related rows.
 ```tsx demo
 <Stack>
   <Row justifyBetween>
-    <Text semibold>Plan</Text>
+    <Text fontSemibold>Plan</Text>
     <Text>Pro</Text>
   </Row>
   <Divider />
   <Row justifyBetween>
-    <Text semibold>Seats</Text>
+    <Text fontSemibold>Seats</Text>
     <Text>12</Text>
   </Row>
   <Divider />
   <Row justifyBetween>
-    <Text semibold>Renews</Text>
+    <Text fontSemibold>Renews</Text>
     <Text>May 2026</Text>
   </Row>
 </Stack>
@@ -5716,17 +5716,17 @@ Dividers also work as section breaks between larger blocks of content.
 ```tsx demo
 <Col lg>
   <div>
-    <Text semibold lg>Block 1</Text>
+    <Text fontSemibold lg>Block 1</Text>
     <Text>The first block introduces the topic and sets context for the sections that follow.</Text>
   </div>
   <Divider />
   <div>
-    <Text semibold lg>Block 2</Text>
+    <Text fontSemibold lg>Block 2</Text>
     <Text>The second block expands on the idea, with the divider providing a clear visual break.</Text>
   </div>
   <Divider />
   <div>
-    <Text semibold lg>Block 3</Text>
+    <Text fontSemibold lg>Block 3</Text>
     <Text>The third block closes out the sequence, demonstrating consistent rhythm throughout.</Text>
   </div>
 </Col>
@@ -6124,7 +6124,7 @@ return (
 
 ## Blur effect
 
-Add `blur` for a backdrop-filter blur behind the overlay. Blur intensity follows the `--overlay-blur` CSS variable.
+Add `backdropBlur` for a backdrop-filter blur behind the overlay. Blur intensity follows the `--overlay-blur` CSS variable.
 
 ```tsx demo
 const [open, setOpen] = useState(false);
@@ -6132,7 +6132,7 @@ const [open, setOpen] = useState(false);
 return (
   <>
     <Button onClick={() => setOpen(true)}>Show Blur Overlay</Button>
-    <Overlay open={open} onClose={() => setOpen(false)} blur>
+    <Overlay open={open} onClose={() => setOpen(false)} backdropBlur>
       <Card>
         <Text>Blurred background</Text>
       </Card>
@@ -6229,7 +6229,7 @@ return (
 </Modal>
 
 {/* Low-level: use Overlay for custom backdrops */}
-<Overlay open={open} onClose={() => setOpen(false)} blur>
+<Overlay open={open} onClose={() => setOpen(false)} backdropBlur>
   <Img src="/photo.jpg" className="max-h-[90vh]" />
 </Overlay>
 ```
@@ -6356,7 +6356,7 @@ return (
     <Button onClick={() => setOpen(true)}>Open Modal</Button>
     <Modal open={open} onClose={() => setOpen(false)}>
       <Stack>
-        <Text bold>Confirm Action</Text>
+        <Text fontBold>Confirm Action</Text>
         <Text>Are you sure?</Text>
         <Row justifyEnd>
           <Button onClick={() => setOpen(false)}>Cancel</Button>
@@ -6375,7 +6375,7 @@ Use `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton` for full c
 - `ModalHeader`: `flex row`, `itemsCenter`, `justifyBetween`, `gap`, `padding`
 - `ModalBody`: `flex column`, `gap`, `padding`, `overflowAuto`
 - `ModalFooter`: `flex row`, `itemsCenter`, `justifyEnd`, `gap`, `padding`
-- `ModalCloseButton`: `secondary`, `transparent`, `noShadow`, `noRing`
+- `ModalCloseButton`: `secondary`, `transparent`, `noShadow`, `noInsetRing`
 
 ```tsx demo
 const [open, setOpen] = useState(false);
@@ -6537,7 +6537,7 @@ return (
 
 ## Blur overlay
 
-Pass `overlayProps={{ blur: true }}` to add a backdrop-filter blur behind the modal.
+Pass `overlayProps={{ backdropBlur: true }}` to add a backdrop-filter blur behind the modal.
 
 ```tsx demo
 const [open, setOpen] = useState(false);
@@ -6545,7 +6545,7 @@ const [open, setOpen] = useState(false);
 return (
   <>
     <Button onClick={() => setOpen(true)}>Open Modal</Button>
-    <Modal open={open} onClose={() => setOpen(false)} overlayProps={{ blur: true }}>
+    <Modal open={open} onClose={() => setOpen(false)} overlayProps={{ backdropBlur: true }}>
       <Text>Blurred background</Text>
     </Modal>
   </>
@@ -6785,7 +6785,7 @@ return (
   <>
     <Button ref={anchorRef} onClick={() => setOpen(!open)}>Account</Button>
     <Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef}>
-      <Text bold>User Menu</Text>
+      <Text fontBold>User Menu</Text>
       <Divider />
       <Button>Profile</Button>
       <Button danger>Sign Out</Button>
@@ -7257,7 +7257,7 @@ A function with direct access to the full theme, for changes the declarative opt
   // Modify defaults
   theme.button.main.defaults = {
     ...theme.button.main.defaults,
-    bold: true,
+    fontBold: true,
   };
 
   return theme;
@@ -7456,7 +7456,7 @@ A function with direct access to the full theme, for changes the declarative opt
   // Modify default props
   theme.button.main.defaults = {
     ...theme.button.main.defaults,
-    bold: true,
+    fontBold: true,
   };
 
   return theme;
@@ -7496,7 +7496,7 @@ import { ThemeProvider, Button, Badge, Section } from '@vaneui/ui';
 function NestedThemeApp() {
   return (
     <ThemeProvider themeDefaults={{
-      button: { main: { bold: true } } // bold buttons across the app
+      button: { main: { fontBold: true } } // bold buttons across the app
     }}>
       <div>
         <Button>Bold Primary Outline Button</Button>
@@ -7837,8 +7837,8 @@ function BrandedApp() {
 - `rounded`, `pill`, `sharp`
 
 ### Typography props
-- `sans`, `serif`, `mono`, `heading`
-- `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`
+- `fontSans`, `fontSerif`, `fontMono`, `fontHeading`
+- `fontThin`, `fontExtralight`, `fontLight`, `fontNormal`, `fontMedium`, `fontSemibold`, `fontBold`, `fontExtrabold`, `fontBlack`
 - `italic`, `underline`, `lineThrough`, `noUnderline`, `uppercase`, `lowercase`, `capitalize`
 
 ### Layout props
@@ -7849,7 +7849,7 @@ function BrandedApp() {
 - `flexWrap`, `flexNoWrap`
 - `gap`, `noGap`, `padding`, `noPadding`
 - `border`, `noBorder`, `borderT`, `borderB`, `borderL`, `borderR`, `borderX`, `borderY`
-- `ring`, `noRing`, `shadow`, `noShadow`, `transparent`
+- `insetRing`, `noInsetRing`, `shadow`, `noShadow`, `transparent`
 
 ### Width / height props
 - `wFull`, `wFit`, `wAuto`, `wScreen`
@@ -7874,7 +7874,7 @@ function BrandedApp() {
 ### Misc
 - `transition`, `noTransition`, `focusVisible`, `noFocusVisible`
 - `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder`
-- `responsive`, `horizontal`, `vertical`, `disc`, `decimal`
+- `responsive`, `horizontal`, `vertical`, `listDisc`, `listDecimal`
 
 ## Override priority
 
@@ -8044,22 +8044,22 @@ VaneUI components come with sensible built-in defaults. Only set defaults that d
 
 **Built-in defaults you don't need to specify** (cite the component's `{component}Defaults.ts` file as the source of truth when in doubt). Components that tag-switch to `<a>` via `href` (Badge, Card, Chip, Code, Row, Col, Stack) also get `focusVisible: true` auto-injected when `href` is set. Opt out per-instance with `noFocusVisible`.
 
-- **Button**: `sm`, `primary`, `outline`, `rounded`, `semibold`, `padding`, `gap`, `ring`, `focusVisible`, `cursorPointer`, `transition` (note: defaults to `sm`, not `md`; no `shadow`)
+- **Button**: `sm`, `primary`, `outline`, `rounded`, `fontSemibold`, `padding`, `gap`, `insetRing`, `focusVisible`, `cursorPointer`, `transition` (note: defaults to `sm`, not `md`; no `shadow`)
 - **Card**: `md`, `primary`, `outline`, `rounded`, `border`, `padding`, `gap`, `flex`, `column`
-- **Row**: `md`, `row`, `flex`, `itemsCenter`, `gap`, `noPadding`, `noBorder`, `noRing`, `outline`, `sharp`
-- **Col**: `md`, `column`, `flex`, `gap`, `noPadding`, `noBorder`, `noRing`, `outline`, `sharp`
-- **Stack**: `md`, `flex`, `column`, `flexWrap`, `gap`, `padding`, `noBorder`, `noRing`, `outline`, `sharp`
-- **Section**: `md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `noBorder`, `noRing`, `noShadow`, `outline`, `sharp`, `responsive`
+- **Row**: `md`, `row`, `flex`, `itemsCenter`, `gap`, `noPadding`, `noBorder`, `noInsetRing`, `outline`, `sharp`
+- **Col**: `md`, `column`, `flex`, `gap`, `noPadding`, `noBorder`, `noInsetRing`, `outline`, `sharp`
+- **Stack**: `md`, `flex`, `column`, `flexWrap`, `gap`, `padding`, `noBorder`, `noInsetRing`, `outline`, `sharp`
+- **Section**: `md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `noBorder`, `noInsetRing`, `noShadow`, `outline`, `sharp`, `responsive`
 - **Container**: `md`, `wFull`, `flex`, `column`, `itemsCenter`, `gap`, `noPadding`, `outline`, `sharp`
-- **Input**: `md`, `wFull`, `primary`, `outline`, `rounded`, `padding`, `ring`, `focusVisible`
-- **Label**: `sm`, `flex`, `column`, `itemsStart`, `gap`, `inherit` (not `primary`), `medium` (stacked label above field; use `<Label row itemsCenter>` for inline controls like `Checkbox`)
-- **Badge**: `md`, `secondary` (not `primary`), `outline`, `pill`, `semibold`, `uppercase`
-- **Chip**: `md`, `secondary` (not `primary`), `outline`, `rounded`, `sans`
-- **Link**: `md`, `link` (not `primary`), `underline`, `sans`, `cursorPointer`, `inheritSize`, `wFit`, `focusVisible` (no variant default, no `outline`)
+- **Input**: `md`, `wFull`, `primary`, `outline`, `rounded`, `padding`, `insetRing`, `focusVisible`
+- **Label**: `sm`, `flex`, `column`, `itemsStart`, `gap`, `inherit` (not `primary`), `fontMedium` (stacked label above field; use `<Label row itemsCenter>` for inline controls like `Checkbox`)
+- **Badge**: `md`, `secondary` (not `primary`), `outline`, `pill`, `fontSemibold`, `uppercase`
+- **Chip**: `md`, `secondary` (not `primary`), `outline`, `rounded`, `fontSans`
+- **Link**: `md`, `link` (not `primary`), `underline`, `fontSans`, `cursorPointer`, `inheritSize`, `wFit`, `focusVisible` (no variant default, no `outline`)
 - **NavLink**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`
 - **MenuItem**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`
 - **Typography** (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`): `md`, `inherit` (not `primary`), `outline`
-- **Icon**: `md`, `inlineFlex`, `itemsCenter`, `justifyCenter`, `outline`, `rounded`, `noPadding`, `noBorder`, `noRing`, `noShadow`, `noShrink`, `noTransition`, `wFit`
+- **Icon**: `md`, `inlineFlex`, `itemsCenter`, `justifyCenter`, `outline`, `rounded`, `noPadding`, `noBorder`, `noInsetRing`, `noShadow`, `noShrink`, `noTransition`, `wFit`
 - **Modal** content: `md`, `wFull`, `flex`, `column`, `rounded`, `shadow`, `primary`, `outline`
 - **Popup**: `md`, `flex`, `column`, `padding`, `gap`, `rounded`, `shadow`, `border`, `primary`, `outline`
 
@@ -8650,7 +8650,7 @@ VaneUI provides boolean props for most common styling needs. Always prefer props
 
 | Instead of Tailwind | Use VaneUI Prop |
 |---------------------|-----------------|
-| `className="font-bold"` | `bold` |
+| `className="font-bold"` | `fontBold` |
 | `className="text-center"` | `textCenter` |
 | `className="uppercase"` | `uppercase` |
 | `className="rounded-full"` | `pill` |
@@ -9077,14 +9077,6 @@ Flex layout direction for arranging children.
 | `rowReverse` | Flex direction row-reverse |
 | `columnReverse` | Flex direction column-reverse |
 
-## Reverse
-
-Reverse the order of flex items.
-
-| Prop | Description |
-|------|-------------|
-| `reverse` | Reverse the order of children |
-
 ## Flex
 
 Flex-grow / flex-shrink shorthand for distributing space along the main axis. Mutually exclusive: only one value can be active.
@@ -9129,12 +9121,12 @@ Drop shadow visibility.
 
 ## Ring
 
-Focus ring visibility for keyboard navigation feedback.
+Inset ring visibility. `insetRing` is an always-on decorative inset ring, not the keyboard focus indicator (that is `focusVisible`, in the Focus visible section).
 
 | Prop | Description |
 |------|-------------|
-| `ring` | Enable focus ring |
-| `noRing` | Disable focus ring |
+| `insetRing` | Enable the inset ring |
+| `noInsetRing` | Disable the inset ring |
 
 ## Focus visible
 
@@ -9239,8 +9231,8 @@ Backdrop blur effect for overlays and visual effects.
 
 | Prop | Description |
 |------|-------------|
-| `blur` | Enable backdrop blur effect |
-| `noBlur` | Disable backdrop blur effect |
+| `backdropBlur` | Enable backdrop blur effect |
+| `noBackdropBlur` | Disable backdrop blur effect |
 
 ## Pointer events
 

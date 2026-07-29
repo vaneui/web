@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-Title renders an `<h3>` heading for subsection headings. It defaults to `semibold` weight, `heading` font family, and left-aligned text.
+Title renders an `<h3>` heading for subsection headings. It defaults to `fontSemibold` weight, `fontHeading` font family, and left-aligned text.
 
 ```tsx demo
 <Title>Subsection Heading</Title>
@@ -56,28 +56,28 @@ Three heading components for a clean semantic hierarchy. Use them together so th
 
 ## Font weights
 
-Title is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
+Title is `fontSemibold` by default. Override with any weight prop: `fontThin`, `fontExtralight`, `fontLight`, `fontNormal`, `fontMedium`, `fontSemibold`, `fontBold`, `fontExtrabold`, `fontBlack`.
 
 ```tsx demo
 <Col>
-  <Title light>Light Title</Title>
-  <Title normal>Normal Title</Title>
-  <Title medium>Medium Title</Title>
+  <Title fontLight>Light Title</Title>
+  <Title fontNormal>Normal Title</Title>
+  <Title fontMedium>Medium Title</Title>
   <Title>Semibold Title (default)</Title>
-  <Title bold>Bold Title</Title>
-  <Title black>Black Title</Title>
+  <Title fontBold>Bold Title</Title>
+  <Title fontBlack>Black Title</Title>
 </Col>
 ```
 
 ## Font families
 
-Switch between `sans`, `serif`, and `mono` font families.
+Switch between `fontSans`, `fontSerif`, and `fontMono` font families.
 
 ```tsx demo
 <Col>
-  <Title sans>Sans-serif Title</Title>
-  <Title serif>Serif Title</Title>
-  <Title mono>Monospace Title</Title>
+  <Title fontSans>Sans-serif Title</Title>
+  <Title fontSerif>Serif Title</Title>
+  <Title fontMono>Monospace Title</Title>
 </Col>
 ```
 
@@ -145,7 +145,7 @@ Titles work well with other typography components in cards and sections.
 
 ```tsx demo
 <Card>
-  <Title lg primary bold>Product Features</Title>
+  <Title lg primary fontBold>Product Features</Title>
   <Text secondary>Everything you need to build modern applications.</Text>
   <Title sm>Performance</Title>
   <Text>Optimized for speed and efficiency.</Text>

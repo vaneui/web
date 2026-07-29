@@ -75,7 +75,7 @@ export function DocsPageContent(
           {/* Main Content */}
           <Col flex1 className="min-w-0">
             <Col>
-              <Text sm uppercase secondary mono>{section.name}</Text>
+              <Text sm uppercase secondary fontMono>{section.name}</Text>
               <PageTitle>
                 <Link href={`#${pageTitleId}`} id={pageTitleId}>{pageTitle}</Link>
               </PageTitle>
@@ -124,7 +124,7 @@ export function DocsPageContent(
                 refs can't cross the server/client boundary). */}
             {section.pages.length > 1 && (
               <Col wFull>
-                <Text sm uppercase secondary mono>More in {section.name}</Text>
+                <Text sm uppercase secondary fontMono>More in {section.name}</Text>
                 <Row flexWrap>
                   {section.pages
                     .filter(p => p.slug !== pageData.slug)

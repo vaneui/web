@@ -112,7 +112,7 @@ export function OnThisPage({sections}: OnThisPageProps) {
 
   return (
     <Col ref={containerRef} overflowYAuto sm hFit>
-      <Text sm uppercase secondary mono>On this page</Text>
+      <Text sm uppercase secondary fontMono>On this page</Text>
       <Col noGap>
         {sections.map((section, index) => {
           const isActive = activeSection === section.id;
@@ -122,7 +122,7 @@ export function OnThisPage({sections}: OnThisPageProps) {
               href={`#${section.id}`}
               active={isActive}
               xs sharp noPadding
-              semibold={isActive}
+              fontSemibold={isActive}
               className={`border-l-2 ${isActive ? "border-(--color-text-primary)" : "border-(--color-border-primary) hover:border-(--color-text-tertiary)"} py-1.5 ${
                 section.level === 0 ? 'pl-3' :
                 section.level === 1 ? 'pl-6' :

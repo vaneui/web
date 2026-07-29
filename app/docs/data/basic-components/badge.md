@@ -84,10 +84,10 @@ Badges support different font weights.
 
 ```tsx demo
 <Row flexWrap>
-  <Badge normal>Premium</Badge>
-  <Badge medium>Premium</Badge>
-  <Badge semibold>Premium</Badge>
-  <Badge bold>Premium</Badge>
+  <Badge fontNormal>Premium</Badge>
+  <Badge fontMedium>Premium</Badge>
+  <Badge fontSemibold>Premium</Badge>
+  <Badge fontBold>Premium</Badge>
 </Row>
 ```
 

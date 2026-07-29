@@ -13,7 +13,7 @@ export default function NotFound() {
   return (
     <Container justifyCenter className="min-h-screen">
       <Col xl itemsCenter>
-        <PageTitle xl mono secondary bold>404</PageTitle>
+        <PageTitle xl fontMono secondary fontBold>404</PageTitle>
         <SectionTitle>Page Not Found</SectionTitle>
         <Text textCenter secondary className="max-w-sm">
           The page you are looking for does not exist or has been moved.

@@ -95,8 +95,8 @@ function BrandedApp() {
 - `rounded`, `pill`, `sharp`
 
 ### Typography props
-- `sans`, `serif`, `mono`, `heading`
-- `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`
+- `fontSans`, `fontSerif`, `fontMono`, `fontHeading`
+- `fontThin`, `fontExtralight`, `fontLight`, `fontNormal`, `fontMedium`, `fontSemibold`, `fontBold`, `fontExtrabold`, `fontBlack`
 - `italic`, `underline`, `lineThrough`, `noUnderline`, `uppercase`, `lowercase`, `capitalize`
 
 ### Layout props
@@ -107,7 +107,7 @@ function BrandedApp() {
 - `flexWrap`, `flexNoWrap`
 - `gap`, `noGap`, `padding`, `noPadding`
 - `border`, `noBorder`, `borderT`, `borderB`, `borderL`, `borderR`, `borderX`, `borderY`
-- `ring`, `noRing`, `shadow`, `noShadow`, `transparent`
+- `insetRing`, `noInsetRing`, `shadow`, `noShadow`, `transparent`
 
 ### Width / height props
 - `wFull`, `wFit`, `wAuto`, `wScreen`
@@ -132,7 +132,7 @@ function BrandedApp() {
 ### Misc
 - `transition`, `noTransition`, `focusVisible`, `noFocusVisible`
 - `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder`
-- `responsive`, `horizontal`, `vertical`, `disc`, `decimal`
+- `responsive`, `horizontal`, `vertical`, `listDisc`, `listDecimal`
 
 ## Override priority
 
@@ -302,22 +302,22 @@ VaneUI components come with sensible built-in defaults. Only set defaults that d
 
 **Built-in defaults you don't need to specify** (cite the component's `{component}Defaults.ts` file as the source of truth when in doubt). Components that tag-switch to `<a>` via `href` (Badge, Card, Chip, Code, Row, Col, Stack) also get `focusVisible: true` auto-injected when `href` is set. Opt out per-instance with `noFocusVisible`.
 
-- **Button**: `sm`, `primary`, `outline`, `rounded`, `semibold`, `padding`, `gap`, `ring`, `focusVisible`, `cursorPointer`, `transition` (note: defaults to `sm`, not `md`; no `shadow`)
+- **Button**: `sm`, `primary`, `outline`, `rounded`, `fontSemibold`, `padding`, `gap`, `insetRing`, `focusVisible`, `cursorPointer`, `transition` (note: defaults to `sm`, not `md`; no `shadow`)
 - **Card**: `md`, `primary`, `outline`, `rounded`, `border`, `padding`, `gap`, `flex`, `column`
-- **Row**: `md`, `row`, `flex`, `itemsCenter`, `gap`, `noPadding`, `noBorder`, `noRing`, `outline`, `sharp`
-- **Col**: `md`, `column`, `flex`, `gap`, `noPadding`, `noBorder`, `noRing`, `outline`, `sharp`
-- **Stack**: `md`, `flex`, `column`, `flexWrap`, `gap`, `padding`, `noBorder`, `noRing`, `outline`, `sharp`
-- **Section**: `md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `noBorder`, `noRing`, `noShadow`, `outline`, `sharp`, `responsive`
+- **Row**: `md`, `row`, `flex`, `itemsCenter`, `gap`, `noPadding`, `noBorder`, `noInsetRing`, `outline`, `sharp`
+- **Col**: `md`, `column`, `flex`, `gap`, `noPadding`, `noBorder`, `noInsetRing`, `outline`, `sharp`
+- **Stack**: `md`, `flex`, `column`, `flexWrap`, `gap`, `padding`, `noBorder`, `noInsetRing`, `outline`, `sharp`
+- **Section**: `md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `noBorder`, `noInsetRing`, `noShadow`, `outline`, `sharp`, `responsive`
 - **Container**: `md`, `wFull`, `flex`, `column`, `itemsCenter`, `gap`, `noPadding`, `outline`, `sharp`
-- **Input**: `md`, `wFull`, `primary`, `outline`, `rounded`, `padding`, `ring`, `focusVisible`
-- **Label**: `sm`, `flex`, `column`, `itemsStart`, `gap`, `inherit` (not `primary`), `medium` (stacked label above field; use `<Label row itemsCenter>` for inline controls like `Checkbox`)
-- **Badge**: `md`, `secondary` (not `primary`), `outline`, `pill`, `semibold`, `uppercase`
-- **Chip**: `md`, `secondary` (not `primary`), `outline`, `rounded`, `sans`
-- **Link**: `md`, `link` (not `primary`), `underline`, `sans`, `cursorPointer`, `inheritSize`, `wFit`, `focusVisible` (no variant default, no `outline`)
+- **Input**: `md`, `wFull`, `primary`, `outline`, `rounded`, `padding`, `insetRing`, `focusVisible`
+- **Label**: `sm`, `flex`, `column`, `itemsStart`, `gap`, `inherit` (not `primary`), `fontMedium` (stacked label above field; use `<Label row itemsCenter>` for inline controls like `Checkbox`)
+- **Badge**: `md`, `secondary` (not `primary`), `outline`, `pill`, `fontSemibold`, `uppercase`
+- **Chip**: `md`, `secondary` (not `primary`), `outline`, `rounded`, `fontSans`
+- **Link**: `md`, `link` (not `primary`), `underline`, `fontSans`, `cursorPointer`, `inheritSize`, `wFit`, `focusVisible` (no variant default, no `outline`)
 - **NavLink**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`
 - **MenuItem**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`
 - **Typography** (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`): `md`, `inherit` (not `primary`), `outline`
-- **Icon**: `md`, `inlineFlex`, `itemsCenter`, `justifyCenter`, `outline`, `rounded`, `noPadding`, `noBorder`, `noRing`, `noShadow`, `noShrink`, `noTransition`, `wFit`
+- **Icon**: `md`, `inlineFlex`, `itemsCenter`, `justifyCenter`, `outline`, `rounded`, `noPadding`, `noBorder`, `noInsetRing`, `noShadow`, `noShrink`, `noTransition`, `wFit`
 - **Modal** content: `md`, `wFull`, `flex`, `column`, `rounded`, `shadow`, `primary`, `outline`
 - **Popup**: `md`, `flex`, `column`, `padding`, `gap`, `rounded`, `shadow`, `border`, `primary`, `outline`
 

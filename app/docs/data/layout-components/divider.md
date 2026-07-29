@@ -24,27 +24,27 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) drive the per-size vertical padding via `--
 ```tsx demo
 <Col lg>
   <div>
-    <Text semibold>Divider xs</Text>
+    <Text fontSemibold>Divider xs</Text>
     <Divider xs padding />
     <Text>Content after xs divider</Text>
   </div>
   <div>
-    <Text semibold>Divider sm</Text>
+    <Text fontSemibold>Divider sm</Text>
     <Divider sm padding />
     <Text>Content after sm divider</Text>
   </div>
   <div>
-    <Text semibold>Divider md (default)</Text>
+    <Text fontSemibold>Divider md (default)</Text>
     <Divider padding />
     <Text>Content after md divider</Text>
   </div>
   <div>
-    <Text semibold>Divider lg</Text>
+    <Text fontSemibold>Divider lg</Text>
     <Divider lg padding />
     <Text>Content after lg divider</Text>
   </div>
   <div>
-    <Text semibold>Divider xl</Text>
+    <Text fontSemibold>Divider xl</Text>
     <Divider xl padding />
     <Text>Content after xl divider</Text>
   </div>
@@ -58,42 +58,42 @@ Dividers use `inherit` by default. Pass an explicit appearance for a colored lin
 ```tsx demo
 <Col lg>
   <div>
-    <Text semibold>Divider primary</Text>
+    <Text fontSemibold>Divider primary</Text>
     <Divider primary />
     <Text>Content after primary divider</Text>
   </div>
   <div>
-    <Text semibold>Divider brand</Text>
+    <Text fontSemibold>Divider brand</Text>
     <Divider brand />
     <Text>Content after brand divider</Text>
   </div>
   <div>
-    <Text semibold>Divider accent</Text>
+    <Text fontSemibold>Divider accent</Text>
     <Divider accent />
     <Text>Content after accent divider</Text>
   </div>
   <div>
-    <Text semibold>Divider secondary</Text>
+    <Text fontSemibold>Divider secondary</Text>
     <Divider secondary />
     <Text>Content after secondary divider</Text>
   </div>
   <div>
-    <Text semibold>Divider tertiary</Text>
+    <Text fontSemibold>Divider tertiary</Text>
     <Divider tertiary />
     <Text>Content after tertiary divider</Text>
   </div>
   <div>
-    <Text semibold>Divider success</Text>
+    <Text fontSemibold>Divider success</Text>
     <Divider success />
     <Text>Content after success divider</Text>
   </div>
   <div>
-    <Text semibold>Divider danger</Text>
+    <Text fontSemibold>Divider danger</Text>
     <Divider danger />
     <Text>Content after danger divider</Text>
   </div>
   <div>
-    <Text semibold>Divider warning</Text>
+    <Text fontSemibold>Divider warning</Text>
     <Divider warning />
     <Text>Content after warning divider</Text>
   </div>
@@ -135,17 +135,17 @@ Use `Divider` between items in a `Stack` or `Col` to group related rows.
 ```tsx demo
 <Stack>
   <Row justifyBetween>
-    <Text semibold>Plan</Text>
+    <Text fontSemibold>Plan</Text>
     <Text>Pro</Text>
   </Row>
   <Divider />
   <Row justifyBetween>
-    <Text semibold>Seats</Text>
+    <Text fontSemibold>Seats</Text>
     <Text>12</Text>
   </Row>
   <Divider />
   <Row justifyBetween>
-    <Text semibold>Renews</Text>
+    <Text fontSemibold>Renews</Text>
     <Text>May 2026</Text>
   </Row>
 </Stack>
@@ -158,17 +158,17 @@ Dividers also work as section breaks between larger blocks of content.
 ```tsx demo
 <Col lg>
   <div>
-    <Text semibold lg>Block 1</Text>
+    <Text fontSemibold lg>Block 1</Text>
     <Text>The first block introduces the topic and sets context for the sections that follow.</Text>
   </div>
   <Divider />
   <div>
-    <Text semibold lg>Block 2</Text>
+    <Text fontSemibold lg>Block 2</Text>
     <Text>The second block expands on the idea, with the divider providing a clear visual break.</Text>
   </div>
   <Divider />
   <div>
-    <Text semibold lg>Block 3</Text>
+    <Text fontSemibold lg>Block 3</Text>
     <Text>The third block closes out the sequence, demonstrating consistent rhythm throughout.</Text>
   </div>
 </Col>

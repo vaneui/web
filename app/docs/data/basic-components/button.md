@@ -107,19 +107,19 @@ The same size matrix paired with an inline icon.
 
 ## Font weights
 
-Buttons default to `semibold`. Use any of the standard weight props to override.
+Buttons default to `fontSemibold`. Use any of the standard weight props to override.
 
 ```tsx demo
 <Row flexWrap>
-  <Button thin>Submit</Button>
-  <Button extralight>Submit</Button>
-  <Button light>Submit</Button>
-  <Button normal>Submit</Button>
-  <Button medium>Submit</Button>
-  <Button semibold>Submit</Button>
-  <Button bold>Submit</Button>
-  <Button extrabold>Submit</Button>
-  <Button black>Submit</Button>
+  <Button fontThin>Submit</Button>
+  <Button fontExtralight>Submit</Button>
+  <Button fontLight>Submit</Button>
+  <Button fontNormal>Submit</Button>
+  <Button fontMedium>Submit</Button>
+  <Button fontSemibold>Submit</Button>
+  <Button fontBold>Submit</Button>
+  <Button fontExtrabold>Submit</Button>
+  <Button fontBlack>Submit</Button>
 </Row>
 ```
 

@@ -41,7 +41,7 @@ export function Footer() {
               }
             ].map((item, index) => (
               <Col sm key={index}>
-                <Text tertiary uppercase medium>
+                <Text tertiary uppercase fontMedium>
                   {item.text}
                 </Text>
                 <Col xs>

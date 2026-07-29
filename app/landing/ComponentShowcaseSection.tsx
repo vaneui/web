@@ -148,7 +148,7 @@ export function ComponentShowcaseSection() {
 
           <Stack row pill tertiary xs border padding rounded className="self-center inset-shadow-xs">
             {tabs.map(tab => (
-              <Button sm noRing pill
+              <Button sm noInsetRing pill
                 className="min-w-[80px]"
                 key={tab.id}
                 filled={activeTab === tab.id}

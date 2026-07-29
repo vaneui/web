@@ -80,13 +80,13 @@ Chips support three border-radius styles: `rounded` (default), `pill`, and `shar
 
 ## Font family
 
-Chips default to `sans`. Override with `mono` for code-adjacent tokens or `serif` when the surrounding copy calls for it.
+Chips default to `fontSans`. Override with `fontMono` for code-adjacent tokens or `fontSerif` when the surrounding copy calls for it.
 
 ```tsx demo
 <Row flexWrap>
-  <Chip mono>v1.4.2</Chip>
+  <Chip fontMono>v1.4.2</Chip>
   <Chip>Active user</Chip>
-  <Chip serif>Editorial</Chip>
+  <Chip fontSerif>Editorial</Chip>
 </Row>
 ```
 

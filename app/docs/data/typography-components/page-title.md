@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-PageTitle renders a large `<h1>` heading for page titles. It defaults to `semibold` weight, `heading` font family, `trackingTight` letter spacing, and `inherit` appearance.
+PageTitle renders a large `<h1>` heading for page titles. It defaults to `fontSemibold` weight, `fontHeading` font family, `trackingTight` letter spacing, and `inherit` appearance.
 
 ```tsx demo
 <PageTitle>Welcome to VaneUI</PageTitle>
@@ -56,28 +56,28 @@ Three heading components for a clean semantic hierarchy. Use them together so th
 
 ## Font weights
 
-PageTitle is `semibold` by default. Override with any weight prop: `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
+PageTitle is `fontSemibold` by default. Override with any weight prop: `fontThin`, `fontExtralight`, `fontLight`, `fontNormal`, `fontMedium`, `fontSemibold`, `fontBold`, `fontExtrabold`, `fontBlack`.
 
 ```tsx demo
 <Col>
-  <PageTitle light>Light Page Title</PageTitle>
-  <PageTitle normal>Normal Page Title</PageTitle>
-  <PageTitle medium>Medium Page Title</PageTitle>
+  <PageTitle fontLight>Light Page Title</PageTitle>
+  <PageTitle fontNormal>Normal Page Title</PageTitle>
+  <PageTitle fontMedium>Medium Page Title</PageTitle>
   <PageTitle>Semibold Page Title (default)</PageTitle>
-  <PageTitle bold>Bold Page Title</PageTitle>
-  <PageTitle black>Black Page Title</PageTitle>
+  <PageTitle fontBold>Bold Page Title</PageTitle>
+  <PageTitle fontBlack>Black Page Title</PageTitle>
 </Col>
 ```
 
 ## Font families
 
-Switch between `sans`, `serif`, and `mono` font families.
+Switch between `fontSans`, `fontSerif`, and `fontMono` font families.
 
 ```tsx demo
 <Col>
-  <PageTitle sans>Sans-serif Page Title</PageTitle>
-  <PageTitle serif>Serif Page Title</PageTitle>
-  <PageTitle mono>Monospace Page Title</PageTitle>
+  <PageTitle fontSans>Sans-serif Page Title</PageTitle>
+  <PageTitle fontSerif>Serif Page Title</PageTitle>
+  <PageTitle fontMono>Monospace Page Title</PageTitle>
 </Col>
 ```
 

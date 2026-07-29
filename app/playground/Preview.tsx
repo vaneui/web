@@ -7,8 +7,8 @@ import { compile } from './compile';
 function ErrorNotice({ message }: { message: string }) {
   return (
     <Col danger filled className="rounded-md p-4">
-      <Text sm semibold>Error</Text>
-      <Text sm mono className="whitespace-pre-wrap break-words">{message}</Text>
+      <Text sm fontSemibold>Error</Text>
+      <Text sm fontMono className="whitespace-pre-wrap break-words">{message}</Text>
     </Col>
   );
 }

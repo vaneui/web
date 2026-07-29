@@ -20,11 +20,11 @@ export function StackSection() {
             <Text secondary textCenter>VaneUI works with any React framework. No runtime CSS — just Tailwind utility classes.</Text>
           </Col>
           <Row lg flexWrap justifyCenter>
-            <Badge shadow accent normalCase medium xl>React 19</Badge>
-            <Badge shadow success normalCase medium xl>Tailwind CSS v4</Badge>
-            <Badge shadow info normalCase medium xl>TypeScript</Badge>
-            <Badge shadow warning normalCase medium xl>Next.js</Badge>
-            <Badge shadow link normalCase medium xl>Vite</Badge>
+            <Badge shadow accent normalCase fontMedium xl>React 19</Badge>
+            <Badge shadow success normalCase fontMedium xl>Tailwind CSS v4</Badge>
+            <Badge shadow info normalCase fontMedium xl>TypeScript</Badge>
+            <Badge shadow warning normalCase fontMedium xl>Next.js</Badge>
+            <Badge shadow link normalCase fontMedium xl>Vite</Badge>
           </Row>
         </Col>
       </Container>

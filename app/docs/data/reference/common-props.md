@@ -148,14 +148,6 @@ Flex layout direction for arranging children.
 | `rowReverse` | Flex direction row-reverse |
 | `columnReverse` | Flex direction column-reverse |
 
-## Reverse
-
-Reverse the order of flex items.
-
-| Prop | Description |
-|------|-------------|
-| `reverse` | Reverse the order of children |
-
 ## Flex
 
 Flex-grow / flex-shrink shorthand for distributing space along the main axis. Mutually exclusive: only one value can be active.
@@ -200,12 +192,12 @@ Drop shadow visibility.
 
 ## Ring
 
-Focus ring visibility for keyboard navigation feedback.
+Inset ring visibility. `insetRing` is an always-on decorative inset ring, not the keyboard focus indicator (that is `focusVisible`, in the Focus visible section).
 
 | Prop | Description |
 |------|-------------|
-| `ring` | Enable focus ring |
-| `noRing` | Disable focus ring |
+| `insetRing` | Enable the inset ring |
+| `noInsetRing` | Disable the inset ring |
 
 ## Focus visible
 
@@ -310,8 +302,8 @@ Backdrop blur effect for overlays and visual effects.
 
 | Prop | Description |
 |------|-------------|
-| `blur` | Enable backdrop blur effect |
-| `noBlur` | Disable backdrop blur effect |
+| `backdropBlur` | Enable backdrop blur effect |
+| `noBackdropBlur` | Disable backdrop blur effect |
 
 ## Pointer events
 

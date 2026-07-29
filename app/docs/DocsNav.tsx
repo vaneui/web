@@ -35,7 +35,7 @@ export function DocsNav({currentPath, onMenuItemClickAction}: { currentPath?: st
         const Icon = icons[section.slug];
         return (
           <Col xs key={i}>
-            <Chip ghost noPadding uppercase secondary noRing mono>{Icon && <Icon />}{section.name}</Chip>
+            <Chip ghost noPadding uppercase secondary noInsetRing fontMono>{Icon && <Icon />}{section.name}</Chip>
             <Col noGap className="pl-[calc(var(--spacing)*2-1px)]">
               {section.pages.map((page, j) => {
                 const path = `/docs/${section.slug}/${page.slug}`;
@@ -44,7 +44,7 @@ export function DocsNav({currentPath, onMenuItemClickAction}: { currentPath?: st
                   <NavLink
                     sharp tag={Link} key={j} href={path}
                     active={isActive}
-                    semibold={isActive}
+                    fontSemibold={isActive}
                     className={`border-l-2 border-(--color-border-primary) ${!isActive ? "hover:border-(--color-text-tertiary)" : "border-(--color-text-primary)"} pl-4`}
                     onClick={onMenuItemClickAction}
                   >

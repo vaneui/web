@@ -20,11 +20,11 @@ export const strictCssVars = `
 
 export const strictDefaults: ThemeDefaults = {
   title: {
-    mono: true,
+    fontMono: true,
     uppercase: true,
   },
   text: {
-    mono: true,
+    fontMono: true,
   },
   img: {
     sm: true,

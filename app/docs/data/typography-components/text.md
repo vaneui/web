@@ -53,11 +53,11 @@ Text defaults to the `inherit` appearance: it picks up its color from the parent
 ```tsx demo
 <Row flexWrap>
   <Card primary filled>
-    <Text bold>Inherited Primary</Text>
+    <Text fontBold>Inherited Primary</Text>
     <Text>This text inherits primary from the Card.</Text>
   </Card>
   <Card success filled>
-    <Text bold>Inherited Success</Text>
+    <Text fontBold>Inherited Success</Text>
     <Text>Inherits success color automatically.</Text>
     <Text danger>Explicit danger overrides inherit.</Text>
   </Card>
@@ -66,30 +66,30 @@ Text defaults to the `inherit` appearance: it picks up its color from the parent
 
 ## Font weights
 
-Control weight with `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, `black`.
+Control weight with `fontThin`, `fontExtralight`, `fontLight`, `fontNormal`, `fontMedium`, `fontSemibold`, `fontBold`, `fontExtrabold`, `fontBlack`.
 
 ```tsx demo
 <Col>
-  <Text thin>Thin weight</Text>
-  <Text light>Light weight</Text>
-  <Text normal>Normal weight</Text>
-  <Text medium>Medium weight</Text>
-  <Text semibold>Semibold weight</Text>
-  <Text bold>Bold weight</Text>
-  <Text extrabold>Extra bold weight</Text>
-  <Text black>Black weight</Text>
+  <Text fontThin>Thin weight</Text>
+  <Text fontLight>Light weight</Text>
+  <Text fontNormal>Normal weight</Text>
+  <Text fontMedium>Medium weight</Text>
+  <Text fontSemibold>Semibold weight</Text>
+  <Text fontBold>Bold weight</Text>
+  <Text fontExtrabold>Extra bold weight</Text>
+  <Text fontBlack>Black weight</Text>
 </Col>
 ```
 
 ## Font families
 
-Switch font family with `sans` (default), `serif`, `mono`.
+Switch font family with `fontSans` (default), `fontSerif`, `fontMono`.
 
 ```tsx demo
 <Col>
-  <Text sans>Sans-serif font (default)</Text>
-  <Text serif>Serif font for editorial content</Text>
-  <Text mono>Monospace for code or technical content</Text>
+  <Text fontSans>Sans-serif font (default)</Text>
+  <Text fontSerif>Serif font for editorial content</Text>
+  <Text fontMono>Monospace for code or technical content</Text>
 </Col>
 ```
 
@@ -192,10 +192,10 @@ Combining text properties for real-world use cases.
 ```tsx demo
 <Col>
   <Card>
-    <Text lg bold>Product Title</Text>
+    <Text lg fontBold>Product Title</Text>
     <Text secondary>Category • 4.5 ★ (128 reviews)</Text>
     <Text>High-quality component library for building modern web applications with React and TypeScript.</Text>
-    <Text sm primary semibold>$99.00</Text>
+    <Text sm primary fontSemibold>$99.00</Text>
   </Card>
 </Col>
 ```

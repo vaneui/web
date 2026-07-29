@@ -23,19 +23,19 @@ Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control the max-width: `max-w-3xl` 
 ```tsx demo
 <Col>
   <Container xs border>
-    <Text semibold>xs: max-w-3xl</Text>
+    <Text fontSemibold>xs: max-w-3xl</Text>
   </Container>
   <Container sm border>
-    <Text semibold>sm: max-w-4xl</Text>
+    <Text fontSemibold>sm: max-w-4xl</Text>
   </Container>
   <Container border>
-    <Text semibold>md (default): max-w-5xl</Text>
+    <Text fontSemibold>md (default): max-w-5xl</Text>
   </Container>
   <Container lg border>
-    <Text semibold>lg: max-w-6xl</Text>
+    <Text fontSemibold>lg: max-w-6xl</Text>
   </Container>
   <Container xl border>
-    <Text semibold>xl: max-w-7xl</Text>
+    <Text fontSemibold>xl: max-w-7xl</Text>
   </Container>
 </Col>
 ```
@@ -47,11 +47,11 @@ Container defaults to `noPadding`: the parent Section usually owns vertical rhyt
 ```tsx demo
 <Col>
   <Container border>
-    <Text semibold>noPadding (default)</Text>
+    <Text fontSemibold>noPadding (default)</Text>
     <Text>Edges sit flush with the container box.</Text>
   </Container>
   <Container padding border>
-    <Text semibold>padding</Text>
+    <Text fontSemibold>padding</Text>
     <Text>Internal padding scales with the size prop.</Text>
   </Container>
 </Col>
@@ -64,11 +64,11 @@ Containers support color appearances: `primary`, `secondary`, `success`, `danger
 ```tsx demo
 <Col>
   <Container primary border>
-    <Text semibold>Primary Container</Text>
+    <Text fontSemibold>Primary Container</Text>
     <Text>Highlighted content area</Text>
   </Container>
   <Container success border>
-    <Text semibold>Success Container</Text>
+    <Text fontSemibold>Success Container</Text>
     <Text>Positive feedback area</Text>
   </Container>
 </Col>
@@ -102,13 +102,13 @@ Containers support different border radius styles. `sharp` is the default (no ra
 ```tsx demo
 <Col>
   <Container border>
-    <Text semibold>Sharp (default)</Text>
+    <Text fontSemibold>Sharp (default)</Text>
   </Container>
   <Container rounded border>
-    <Text semibold>Rounded corners</Text>
+    <Text fontSemibold>Rounded corners</Text>
   </Container>
   <Container pill border padding>
-    <Text semibold>Pill shape</Text>
+    <Text fontSemibold>Pill shape</Text>
   </Container>
 </Col>
 ```

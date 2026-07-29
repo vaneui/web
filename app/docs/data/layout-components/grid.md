@@ -32,25 +32,25 @@ Pick the component for the number of columns you need, from `Grid2` to `Grid6`. 
 
 ```tsx demo
 <Col>
-  <Text semibold>Grid2</Text>
+  <Text fontSemibold>Grid2</Text>
   <Grid2>
     <Card><Text textCenter>1</Text></Card>
     <Card><Text textCenter>2</Text></Card>
   </Grid2>
-  <Text semibold>Grid3</Text>
+  <Text fontSemibold>Grid3</Text>
   <Grid3>
     <Card><Text textCenter>1</Text></Card>
     <Card><Text textCenter>2</Text></Card>
     <Card><Text textCenter>3</Text></Card>
   </Grid3>
-  <Text semibold>Grid4</Text>
+  <Text fontSemibold>Grid4</Text>
   <Grid4>
     <Card><Text textCenter>1</Text></Card>
     <Card><Text textCenter>2</Text></Card>
     <Card><Text textCenter>3</Text></Card>
     <Card><Text textCenter>4</Text></Card>
   </Grid4>
-  <Text semibold>Grid6</Text>
+  <Text fontSemibold>Grid6</Text>
   <Grid6>
     <Card><Text textCenter>1</Text></Card>
     <Card><Text textCenter>2</Text></Card>
@@ -80,19 +80,19 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
 
 ```tsx demo
 <Col>
-  <Text semibold>xs</Text>
+  <Text fontSemibold>xs</Text>
   <Grid3 xs>
     <Card xs><Text xs>Item 1</Text></Card>
     <Card xs><Text xs>Item 2</Text></Card>
     <Card xs><Text xs>Item 3</Text></Card>
   </Grid3>
-  <Text semibold>md (default)</Text>
+  <Text fontSemibold>md (default)</Text>
   <Grid3>
     <Card><Text>Item 1</Text></Card>
     <Card><Text>Item 2</Text></Card>
     <Card><Text>Item 3</Text></Card>
   </Grid3>
-  <Text semibold>xl</Text>
+  <Text fontSemibold>xl</Text>
   <Grid3 xl>
     <Card xl><Text xl>Item 1</Text></Card>
     <Card xl><Text xl>Item 2</Text></Card>
@@ -164,13 +164,13 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 
 ```tsx demo
 <Col>
-  <Text semibold>Default gap</Text>
+  <Text fontSemibold>Default gap</Text>
   <Grid3>
     <Card><Text>Item 1</Text></Card>
     <Card><Text>Item 2</Text></Card>
     <Card><Text>Item 3</Text></Card>
   </Grid3>
-  <Text semibold>noGap</Text>
+  <Text fontSemibold>noGap</Text>
   <Grid3 noGap>
     <Card sharp><Text>Item 1</Text></Card>
     <Card sharp><Text>Item 2</Text></Card>

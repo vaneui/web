@@ -25,17 +25,17 @@ export const playfulCssVars = `
 
 export const playfulDefaults: ThemeDefaults = {
   button: {
-    main: { pill: true, filled: true, lg: true, bold: true, serif: true },
+    main: { pill: true, filled: true, lg: true, fontBold: true, fontSerif: true },
   },
   card: {
     main: { lg: true },
   },
   chip: {
     pill: true,
-    bold: true,
-    serif: true,
+    fontBold: true,
+    fontSerif: true,
   },
   title: {
-    serif: true,
+    fontSerif: true,
   }
 };

@@ -84,19 +84,19 @@ When the control lives outside the label, use the standard `htmlFor` attribute p
 
 ## Font weights
 
-The default weight is `medium`. Override with any weight prop from `thin` to `black`.
+The default weight is `fontMedium`. Override with any weight prop from `fontThin` to `fontBlack`.
 
 ```tsx demo
 <Col>
-  <Label thin>thin weight</Label>
-  <Label extralight>extralight weight</Label>
-  <Label light>light weight</Label>
-  <Label normal>normal weight</Label>
+  <Label fontThin>thin weight</Label>
+  <Label fontExtralight>extralight weight</Label>
+  <Label fontLight>light weight</Label>
+  <Label fontNormal>normal weight</Label>
   <Label>medium weight (default)</Label>
-  <Label semibold>semibold weight</Label>
-  <Label bold>bold weight</Label>
-  <Label extrabold>extrabold weight</Label>
-  <Label black>black weight</Label>
+  <Label fontSemibold>semibold weight</Label>
+  <Label fontBold>bold weight</Label>
+  <Label fontExtrabold>extrabold weight</Label>
+  <Label fontBlack>black weight</Label>
 </Col>
 ```
 
@@ -136,11 +136,11 @@ Use appearances to indicate field status: `danger` for errors, `success` for val
 ```tsx demo
 <Col>
   <Col noGap>
-    <Label semibold>Username <Text tag="span" danger>*</Text></Label>
+    <Label fontSemibold>Username <Text tag="span" danger>*</Text></Label>
     <Input placeholder="Choose a username" />
   </Col>
   <Col noGap>
-    <Label success semibold>Email verified</Label>
+    <Label success fontSemibold>Email verified</Label>
     <Input placeholder="verified@example.com" />
   </Col>
   <Label secondary>All fields marked with * are required.</Label>
