@@ -55,7 +55,6 @@ Different color appearances for keyboard keys.
 ```tsx demo
 <Row flexWrap>
   <Kbd>Ctrl</Kbd>
-  <Kbd brand>Shift</Kbd>
   <Kbd accent>Alt</Kbd>
   <Kbd secondary>Tab</Kbd>
   <Kbd tertiary>Esc</Kbd>
@@ -63,7 +62,6 @@ Different color appearances for keyboard keys.
   <Kbd danger>Del</Kbd>
   <Kbd warning>Fn</Kbd>
   <Kbd info>F5</Kbd>
-  <Kbd link>⌘</Kbd>
 </Row>
 ```
 

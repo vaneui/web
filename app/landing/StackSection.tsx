@@ -24,7 +24,7 @@ export function StackSection() {
             <Badge shadow success normalCase fontMedium xl>Tailwind CSS v4</Badge>
             <Badge shadow info normalCase fontMedium xl>TypeScript</Badge>
             <Badge shadow warning normalCase fontMedium xl>Next.js</Badge>
-            <Badge shadow link normalCase fontMedium xl>Vite</Badge>
+            <Badge shadow primary normalCase fontMedium xl>Vite</Badge>
           </Row>
         </Col>
       </Container>

@@ -63,11 +63,6 @@ Dividers use `inherit` by default. Pass an explicit appearance for a colored lin
     <Text>Content after primary divider</Text>
   </div>
   <div>
-    <Text fontSemibold>Divider brand</Text>
-    <Divider brand />
-    <Text>Content after brand divider</Text>
-  </div>
-  <div>
     <Text fontSemibold>Divider accent</Text>
     <Divider accent />
     <Text>Content after accent divider</Text>
@@ -107,7 +102,6 @@ Dividers use `inherit` by default. Pass an explicit appearance for a colored lin
 ```tsx demo
 <Col lg>
   <Divider primary filled />
-  <Divider brand filled />
   <Divider accent filled />
   <Divider success filled />
   <Divider danger filled />

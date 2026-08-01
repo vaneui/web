@@ -138,7 +138,7 @@ Size inheritance is separate. Only Link and Mark have `inheritSize: true` in the
 
 ### Link, Mark: exact size inheritance via `inheritSize`
 
-Link and Mark have their own appearance (Link = `link`, Mark = `warning`) so the `inherit` expansion does NOT fire. Instead, they have `inheritSize: true` set explicitly in their defaults. They render at the *exact* font-size of the nearest typography ancestor.
+Link and Mark are not `inherit`-default components (Link sets no appearance and renders its own link-blue, Mark defaults to `warning`), so the `inherit` expansion does NOT fire. Instead, they have `inheritSize: true` set explicitly in their defaults. They render at the *exact* font-size of the nearest typography ancestor.
 
 ```tsx demo
 <Title lg>
@@ -146,7 +146,7 @@ Link and Mark have their own appearance (Link = `link`, Mark = `warning`) so the
 </Title>
 ```
 
-- **Link** renders at the Title's `lg` font-size (inherited 1:1) but stays **link-blue** (own appearance)
+- **Link** renders at the Title's `lg` font-size (inherited 1:1) but stays **link-blue** (its own link color)
 - **Mark** renders at parent size with its own warning highlight color
 
 ### Code, Kbd: em-relative geometry

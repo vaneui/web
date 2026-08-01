@@ -195,8 +195,8 @@ VaneUI uses CSS variables for colors. Override them globally or for specific sec
 
 /* Scoped color override */
 .marketing-section {
-  --color-text-brand: #6366f1;
-  --color-bg-brand: #eef2ff;
+  --color-text-info: #6366f1;
+  --color-bg-info: #eef2ff;
 }
 ```
 
@@ -207,7 +207,7 @@ function App() {
       <Button primary>Uses CSS variable colors</Button>
       
       <div className="marketing-section">
-        <Button brand>Uses scoped brand colors</Button>
+        <Button info>Uses scoped info colors</Button>
       </div>
     </ThemeProvider>
   );
@@ -216,17 +216,17 @@ function App() {
 
 ## Recurring ThemeProvider patterns
 
-### Brand theme
+### Consistent appearance theme
 
-Create a consistent brand experience:
+Apply one appearance across components for a consistent look:
 
 ```tsx
-function BrandedApp() {
+function ConsistentThemeApp() {
   return (
     <ThemeProvider themeDefaults={{
-      button: { main: { brand: true, filled: true } },
-      card: { main: { brand: true } },
-      badge: { brand: true },
+      button: { main: { info: true, filled: true } },
+      card: { main: { info: true } },
+      badge: { info: true },
     }}>
       <nav>
         <Button>Home</Button>

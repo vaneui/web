@@ -131,7 +131,7 @@ At its core, VaneUI uses **boolean props** instead of string enums for cleaner J
 
 Props are organized into **categories**:
 - **size**: `xs`, `sm`, `md`, `lg`, `xl`
-- **appearance**: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`, `inherit`
+- **appearance**: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inherit`
 - **variant**: `filled`, `outline`, `ghost`
 - **shape**: `rounded`, `pill`, `sharp`
 - **typography**: `fontSans`, `fontSerif`, `fontMono`, `fontSemibold`, `fontBold`, etc.
@@ -324,7 +324,6 @@ function AppearanceExample() {
   return (
     <Row>
       <Button primary>Primary</Button>
-      <Button brand>Brand</Button>
       <Button accent>Accent</Button>
       <Button secondary>Secondary</Button>
       <Button tertiary>Tertiary</Button>
@@ -332,7 +331,6 @@ function AppearanceExample() {
       <Button danger>Danger</Button>
       <Button warning>Warning</Button>
       <Button info>Info</Button>
-      <Button link>Link</Button>
     </Row>
   );
 }
@@ -785,7 +783,6 @@ Button triggers an action when the user clicks it; each `appearance` prop maps t
 ```tsx demo
 <Row flexWrap>
   <Button primary>primary</Button>
-  <Button brand>brand</Button>
   <Button accent>accent</Button>
   <Button secondary>secondary</Button>
   <Button tertiary>tertiary</Button>
@@ -793,7 +790,6 @@ Button triggers an action when the user clicks it; each `appearance` prop maps t
   <Button danger>danger</Button>
   <Button warning>warning</Button>
   <Button info>info</Button>
-  <Button link>link</Button>
   <Button inherit>inherit</Button>
 </Row>
 ```
@@ -820,19 +816,16 @@ Buttons can be styled as `filled`, `outline` (default), or `ghost`.
 <Col>
   <Row flexWrap>
     <Button filled primary>primary</Button>
-    <Button filled brand>brand</Button>
     <Button filled accent>accent</Button>
     <Button filled secondary>secondary</Button>
   </Row>
   <Row flexWrap>
     <Button primary>primary</Button>
-    <Button brand>brand</Button>
     <Button accent>accent</Button>
     <Button secondary>secondary</Button>
   </Row>
   <Row flexWrap>
     <Button ghost primary>primary</Button>
-    <Button ghost brand>brand</Button>
     <Button ghost accent>accent</Button>
     <Button ghost secondary>secondary</Button>
   </Row>
@@ -1263,7 +1256,6 @@ Badge highlights a short piece of information such as a count or status, and eac
 ```tsx demo
 <Row flexWrap>
   <Badge primary>primary</Badge>
-  <Badge brand>brand</Badge>
   <Badge accent>accent</Badge>
   <Badge secondary>secondary</Badge>
   <Badge tertiary>tertiary</Badge>
@@ -1271,7 +1263,6 @@ Badge highlights a short piece of information such as a count or status, and eac
   <Badge danger>danger</Badge>
   <Badge warning>warning</Badge>
   <Badge info>info</Badge>
-  <Badge link>link</Badge>
   <Badge inherit>inherit</Badge>
 </Row>
 ```
@@ -1298,19 +1289,16 @@ Badges can be styled as `filled`, `outline` (default), or `ghost`.
 <Col>
   <Row flexWrap>
     <Badge filled primary>primary</Badge>
-    <Badge filled brand>brand</Badge>
     <Badge filled accent>accent</Badge>
     <Badge filled secondary>secondary</Badge>
   </Row>
   <Row flexWrap>
     <Badge outline primary>primary</Badge>
-    <Badge outline brand>brand</Badge>
     <Badge outline accent>accent</Badge>
     <Badge outline secondary>secondary</Badge>
   </Row>
   <Row flexWrap>
     <Badge ghost primary>primary</Badge>
-    <Badge ghost brand>brand</Badge>
     <Badge ghost accent>accent</Badge>
     <Badge ghost secondary>secondary</Badge>
   </Row>
@@ -1380,7 +1368,6 @@ Chip is a compact token for tags or attributes, and each `appearance` prop maps 
 ```tsx demo
 <Row flexWrap>
   <Chip primary>primary</Chip>
-  <Chip brand>brand</Chip>
   <Chip accent>accent</Chip>
   <Chip>secondary</Chip>
   <Chip tertiary>tertiary</Chip>
@@ -1388,7 +1375,6 @@ Chip is a compact token for tags or attributes, and each `appearance` prop maps 
   <Chip danger>danger</Chip>
   <Chip warning>warning</Chip>
   <Chip info>info</Chip>
-  <Chip link>link</Chip>
   <Chip inherit>inherit</Chip>
 </Row>
 ```
@@ -1415,19 +1401,16 @@ Chips can be styled as `filled`, `outline` (default), or `ghost`.
 <Col>
   <Row flexWrap>
     <Chip filled primary>primary</Chip>
-    <Chip filled brand>brand</Chip>
     <Chip filled accent>accent</Chip>
     <Chip filled>secondary</Chip>
   </Row>
   <Row flexWrap>
     <Chip primary>primary</Chip>
-    <Chip brand>brand</Chip>
     <Chip accent>accent</Chip>
     <Chip>secondary</Chip>
   </Row>
   <Row flexWrap>
     <Chip ghost primary>primary</Chip>
-    <Chip ghost brand>brand</Chip>
     <Chip ghost accent>accent</Chip>
     <Chip ghost>secondary</Chip>
   </Row>
@@ -1464,7 +1447,7 @@ Drop an icon directly inside the chip. `gap` is on by default, so spacing is aut
 
 ```tsx demo
 <Row flexWrap>
-  <Chip brand><Heart/> Favorite</Chip>
+  <Chip info><Heart/> Favorite</Chip>
   <Chip success><CheckSquare/> Verified</Chip>
   <Chip danger><X/> Blocked</Chip>
 </Row>
@@ -1515,7 +1498,7 @@ Pass `href` to render the chip as an `<a>`, useful for clickable tag listings. W
 ```tsx demo
 <Row flexWrap>
   <Chip href="#">typescript</Chip>
-  <Chip href="#" brand>react</Chip>
+  <Chip href="#" info>react</Chip>
   <Chip href="#" accent>tailwind</Chip>
 </Row>
 ```
@@ -1526,7 +1509,7 @@ Set app-wide Chip defaults with `ThemeProvider`'s `themeDefaults`:
 
 ```tsx demo
 <ThemeProvider themeDefaults={{
-  chip: { brand: true, filled: true, pill: true },
+  chip: { info: true, filled: true, pill: true },
 }}>
   <Chip>v2.0</Chip>
 </ThemeProvider>
@@ -1582,7 +1565,6 @@ Different appearance colors for inline code.
 ```tsx demo
 <Row flexWrap>
   <Code primary>primary code</Code>
-  <Code brand>brand code</Code>
   <Code accent>accent code</Code>
   <Code secondary>secondary code</Code>
   <Code tertiary>tertiary code</Code>
@@ -1590,7 +1572,6 @@ Different appearance colors for inline code.
   <Code danger>danger code</Code>
   <Code warning>warning code</Code>
   <Code info>info code</Code>
-  <Code link>link code</Code>
   <Code inherit>inherit code</Code>
 </Row>
 ```
@@ -1733,7 +1714,6 @@ Different color appearances for keyboard keys.
 ```tsx demo
 <Row flexWrap>
   <Kbd>Ctrl</Kbd>
-  <Kbd brand>Shift</Kbd>
   <Kbd accent>Alt</Kbd>
   <Kbd secondary>Tab</Kbd>
   <Kbd tertiary>Esc</Kbd>
@@ -1741,7 +1721,6 @@ Different color appearances for keyboard keys.
   <Kbd danger>Del</Kbd>
   <Kbd warning>Fn</Kbd>
   <Kbd info>F5</Kbd>
-  <Kbd link>⌘</Kbd>
 </Row>
 ```
 
@@ -1821,14 +1800,12 @@ Different color appearances for highlights.
 ```tsx demo
 <Row flexWrap>
   <Mark primary>Primary</Mark>
-  <Mark brand>Brand</Mark>
   <Mark accent>Accent</Mark>
   <Mark secondary>Secondary</Mark>
   <Mark tertiary>Tertiary</Mark>
   <Mark success>Success</Mark>
   <Mark danger>Danger</Mark>
   <Mark info>Info</Mark>
-  <Mark link>Link</Mark>
 </Row>
 ```
 
@@ -1960,10 +1937,6 @@ By default, Icon inherits `currentColor` from the parent. Use appearance props t
     <Text xs secondary>primary</Text>
   </Col>
   <Col itemsCenter>
-    <Icon brand><Star /></Icon>
-    <Text xs secondary>brand</Text>
-  </Col>
-  <Col itemsCenter>
     <Icon accent><Star /></Icon>
     <Text xs secondary>accent</Text>
   </Col>
@@ -1990,10 +1963,6 @@ By default, Icon inherits `currentColor` from the parent. Use appearance props t
   <Col itemsCenter>
     <Icon info><Star /></Icon>
     <Text xs secondary>info</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon link><Star /></Icon>
-    <Text xs secondary>link</Text>
   </Col>
 </Row>
 ```
@@ -2242,7 +2211,7 @@ Set app-wide Input defaults with `ThemeProvider`'s `themeDefaults` and add a foc
 ```tsx demo
 <ThemeProvider
   themeDefaults={{ input: { lg: true, filled: true } }}
-  extraClasses={{ input: { primary: 'focus:ring-2 focus:ring-brand-500/40' } }}
+  extraClasses={{ input: { primary: 'focus:ring-2 focus:ring-blue-500/40' } }}
 >
   <Input placeholder="Email" />
 </ThemeProvider>
@@ -2313,10 +2282,6 @@ Different color appearances applied to the Checkbox; always place inside a Label
     <Checkbox id="appearance-primary" defaultChecked/>
     Enable primary style
   </Label>
-  <Label row itemsCenter brand htmlFor="appearance-brand">
-    <Checkbox brand id="appearance-brand" defaultChecked/>
-    Enable brand style
-  </Label>
   <Label row itemsCenter accent htmlFor="appearance-accent">
     <Checkbox accent id="appearance-accent" defaultChecked/>
     Enable accent style
@@ -2344,10 +2309,6 @@ Different color appearances applied to the Checkbox; always place inside a Label
   <Label row itemsCenter info htmlFor="appearance-info">
     <Checkbox info id="appearance-info" defaultChecked/>
     Enable info style
-  </Label>
-  <Label row itemsCenter link htmlFor="appearance-link">
-    <Checkbox link id="appearance-link" defaultChecked/>
-    Enable link style
   </Label>
   <Label row itemsCenter inherit htmlFor="appearance-inherit">
     <Checkbox inherit id="appearance-inherit" defaultChecked/>
@@ -2495,7 +2456,7 @@ Set app-wide Checkbox defaults with `ThemeProvider`'s `themeDefaults` and tune t
 ```tsx demo
 <ThemeProvider
   themeDefaults={{ checkbox: { input: { lg: true } } }}
-  extraClasses={{ checkbox: { input: { primary: 'checked:bg-brand-600 checked:border-brand-600' } } }}
+  extraClasses={{ checkbox: { input: { primary: 'checked:bg-blue-600 checked:border-blue-600' } } }}
 >
   <Label row itemsCenter htmlFor="terms">
     <Checkbox id="terms"/>
@@ -2539,7 +2500,6 @@ Labels default to `inherit`: they take their color from the surrounding text. Se
 <Row flexWrap>
   <Label>inherit label (default)</Label>
   <Label primary>primary label</Label>
-  <Label brand>brand label</Label>
   <Label accent>accent label</Label>
   <Label secondary>secondary label</Label>
   <Label tertiary>tertiary label</Label>
@@ -2547,7 +2507,6 @@ Labels default to `inherit`: they take their color from the surrounding text. Se
   <Label danger>danger label</Label>
   <Label warning>warning label</Label>
   <Label info>info label</Label>
-  <Label link>link label</Label>
 </Row>
 ```
 
@@ -2684,12 +2643,11 @@ Text comes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ## Appearances
 
-Text supports explicit color appearances: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`. Use these to override the default `inherit` behavior.
+Text supports explicit color appearances: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`. Use these to override the default `inherit` behavior.
 
 ```tsx demo
 <Col>
   <Text primary>Primary text for important content</Text>
-  <Text brand>Brand text for brand-colored content</Text>
   <Text accent>Accent text for highlights</Text>
   <Text secondary>Secondary text for supporting content</Text>
   <Text tertiary>Tertiary text for muted content</Text>
@@ -2697,7 +2655,6 @@ Text supports explicit color appearances: `primary`, `brand`, `accent`, `seconda
   <Text danger>Danger text for errors or warnings</Text>
   <Text warning>Warning text for cautionary messages</Text>
   <Text info>Info text for informational content</Text>
-  <Text link>Link-colored text for clickable content</Text>
 </Col>
 ```
 
@@ -3339,7 +3296,7 @@ URL: https://vaneui.com/docs/typography-components/link
 
 ## Basic usage
 
-Link renders a styled anchor element for navigation. Unlike other typography components which default to `inherit`, Link defaults to the `link` appearance (blue color) with `underline`, and ships with `focusVisible` on for a keyboard focus outline.
+Link renders a styled anchor element for navigation. Unlike other typography components which default to `inherit`, Link renders its blue link color by default (no explicit appearance) with `underline`, and ships with `focusVisible` on for a keyboard focus outline.
 
 ```tsx demo
 <Link href="#">Click here to learn more</Link>
@@ -3347,12 +3304,11 @@ Link renders a styled anchor element for navigation. Unlike other typography com
 
 ## Appearances
 
-Links default to the `link` appearance (blue). Override with: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`.
+Links render their blue link color by default. Set an explicit appearance to override: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`.
 
 ```tsx demo
 <Row flexWrap>
   <Link primary href="#">Primary</Link>
-  <Link brand href="#">Brand</Link>
   <Link accent href="#">Accent</Link>
   <Link secondary href="#">Secondary</Link>
   <Link success href="#">Success</Link>
@@ -3500,7 +3456,7 @@ Set app-wide Link defaults with `ThemeProvider`'s `themeDefaults`:
 
 ```tsx demo
 <ThemeProvider themeDefaults={{
-  link: { brand: true, noUnderline: true },
+  link: { info: true, noUnderline: true },
 }}>
   <Link href="/docs">Read more</Link>
 </ThemeProvider>
@@ -3821,7 +3777,6 @@ Apply appearance props to color the blockquote. The default is `inherit`, which 
 ```tsx demo
 <Col>
   <Blockquote primary>Primary appearance blockquote.</Blockquote>
-  <Blockquote brand>Brand appearance blockquote.</Blockquote>
   <Blockquote accent>Accent appearance blockquote.</Blockquote>
   <Blockquote secondary>Secondary appearance blockquote.</Blockquote>
   <Blockquote success>Success appearance blockquote.</Blockquote>
@@ -3892,7 +3847,7 @@ Use blockquotes with attribution for testimonials and customer quotes.
 
 ```tsx demo
 <Col>
-  <Card brand>
+  <Card info>
     <Blockquote>
       <Text italic>VaneUI cut our migration time in half. The boolean props API is concise and the theming covers our cases.</Text>
       <Text sm fontBold> - Sarah Chen, Lead Engineer</Text>
@@ -5175,17 +5130,13 @@ Cards come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size also
 
 ## Appearances
 
-Cards support color appearances: `primary` (default), `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`.
+Cards support color appearances: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`.
 
 ```tsx demo
 <Row flexWrap>
   <Card>
     <Title>Primary</Title>
     <Text>Default</Text>
-  </Card>
-  <Card brand>
-    <Title>Brand</Title>
-    <Text>Brand color</Text>
   </Card>
   <Card accent>
     <Title>Accent</Title>
@@ -5621,11 +5572,6 @@ Dividers use `inherit` by default. Pass an explicit appearance for a colored lin
     <Text>Content after primary divider</Text>
   </div>
   <div>
-    <Text fontSemibold>Divider brand</Text>
-    <Divider brand />
-    <Text>Content after brand divider</Text>
-  </div>
-  <div>
     <Text fontSemibold>Divider accent</Text>
     <Divider accent />
     <Text>Content after accent divider</Text>
@@ -5665,7 +5611,6 @@ Dividers use `inherit` by default. Pass an explicit appearance for a colored lin
 ```tsx demo
 <Col lg>
   <Divider primary filled />
-  <Divider brand filled />
   <Divider accent filled />
   <Divider success filled />
   <Divider danger filled />
@@ -7548,8 +7493,8 @@ VaneUI uses CSS variables for colors. Override them globally or for specific sec
 
 /* Scoped color override */
 .marketing-section {
-  --color-text-brand: #6366f1;
-  --color-bg-brand: #eef2ff;
+  --color-text-info: #6366f1;
+  --color-bg-info: #eef2ff;
 }
 ```
 
@@ -7560,7 +7505,7 @@ function App() {
       <Button primary>Uses CSS variable colors</Button>
       
       <div className="marketing-section">
-        <Button brand>Uses scoped brand colors</Button>
+        <Button info>Uses scoped info colors</Button>
       </div>
     </ThemeProvider>
   );
@@ -7569,17 +7514,17 @@ function App() {
 
 ## Recurring ThemeProvider patterns
 
-### Brand theme
+### Consistent appearance theme
 
-Create a consistent brand experience:
+Apply one appearance across components for a consistent look:
 
 ```tsx
-function BrandedApp() {
+function ConsistentThemeApp() {
   return (
     <ThemeProvider themeDefaults={{
-      button: { main: { brand: true, filled: true } },
-      card: { main: { brand: true } },
-      badge: { brand: true },
+      button: { main: { info: true, filled: true } },
+      card: { main: { info: true } },
+      badge: { info: true },
     }}>
       <nav>
         <Button>Home</Button>
@@ -7797,19 +7742,19 @@ function App() {
 }
 ```
 
-### Brand-specific defaults
+### Consistent appearance defaults
 
-Create consistent branding across your application:
+Apply one appearance consistently across components:
 
 ```tsx
 import { ThemeProvider, Button, Card, Badge } from '@vaneui/ui';
 
-function BrandedApp() {
+function ConsistentThemeApp() {
   return (
     <ThemeProvider themeDefaults={{
-      button: { main: { brand: true, filled: true } },
-      card: { main: { brand: true } },
-      badge: { brand: true }
+      button: { main: { info: true, filled: true } },
+      card: { main: { info: true } },
+      badge: { info: true }
     }}>
       <nav>
         <Button>Home</Button>
@@ -7827,8 +7772,8 @@ function BrandedApp() {
 - `xs`, `sm`, `md`, `lg`, `xl`
 
 ### Appearance props
-- `primary`, `brand`, `accent`, `secondary`, `tertiary`
-- `success`, `danger`, `warning`, `info`, `link`, `inherit`
+- `primary`, `accent`, `secondary`, `tertiary`
+- `success`, `danger`, `warning`, `info`, `inherit`
 
 ### Variant props
 - `filled`, `outline`, `ghost`
@@ -8055,7 +8000,7 @@ VaneUI components come with sensible built-in defaults. Only set defaults that d
 - **Label**: `sm`, `flex`, `column`, `itemsStart`, `gap`, `inherit` (not `primary`), `fontMedium` (stacked label above field; use `<Label row itemsCenter>` for inline controls like `Checkbox`)
 - **Badge**: `md`, `secondary` (not `primary`), `outline`, `pill`, `fontSemibold`, `uppercase`
 - **Chip**: `md`, `secondary` (not `primary`), `outline`, `rounded`, `fontSans`
-- **Link**: `md`, `link` (not `primary`), `underline`, `fontSans`, `cursorPointer`, `inheritSize`, `wFit`, `focusVisible` (no variant default, no `outline`)
+- **Link**: `md`, `underline`, `fontSans`, `cursorPointer`, `inheritSize`, `wFit`, `focusVisible` (link color by default; no appearance or variant default)
 - **NavLink**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`
 - **MenuItem**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`
 - **Typography** (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`): `md`, `inherit` (not `primary`), `outline`
@@ -8088,7 +8033,7 @@ import { ThemeProvider, type ThemeDefaults } from '@vaneui/ui';
 const designSystemDefaults: ThemeDefaults = {
   // Interactive elements
   button: { main: { md: true, filled: true } }, // change sm→md, outline→filled
-  link: { brand: true },
+  link: { info: true },
 
   // Informational elements
   badge: { secondary: true, sm: true },
@@ -8112,7 +8057,7 @@ import { ThemeProvider, type ThemeDefaults } from '@vaneui/ui';
 
 const interactiveDefaults: ThemeDefaults = {
   button: { main: { filled: true } },
-  link: { brand: true }
+  link: { info: true }
 };
 
 const informationalDefaults: ThemeDefaults = {
@@ -8409,7 +8354,6 @@ Components that render icons (`Button`, `IconButton`, `Icon`, `Badge`, `Chip`, `
 
 Replace `{appearance}` in variable names with one of:
 - `primary` - neutral/default styling (gray tones)
-- `brand` - brand color (blue)
 - `secondary` - subtle styling (light gray)
 - `tertiary` - muted styling (darker gray)
 - `accent` - highlight color (rose)
@@ -8417,7 +8361,6 @@ Replace `{appearance}` in variable names with one of:
 - `danger` - error/destructive (red)
 - `warning` - caution (amber)
 - `info` - informational (cyan)
-- `link` - link color (blue)
 - `inherit` - inherits from parent element
 
 > The `inherit` appearance works differently from all other appearances. Instead of setting `data-appearance` and `data-variant` attributes, it omits them entirely. This allows the semantic color CSS variables (`--text-color`, `--bg-color`, `--border-color`) to cascade from parent elements rather than being set explicitly on the component. Typography components (Text, Title, SectionTitle, PageTitle, Blockquote), Label, List, and Divider default to `inherit`.
@@ -8493,10 +8436,10 @@ To customize sizing globally, override the computed variables in your CSS:
 ```css
 /* styles/globals.css */
 :root {
-  /* Customize brand colors */
-  --color-text-brand: #8b5cf6;
-  --color-bg-brand: #f3e8ff;
-  --color-border-brand: #c4b5fd;
+  /* Customize info colors */
+  --color-text-info: #8b5cf6;
+  --color-bg-info: #f3e8ff;
+  --color-border-info: #c4b5fd;
 }
 ```
 
@@ -8513,7 +8456,7 @@ To customize sizing globally, override the computed variables in your CSS:
 ## Notes and tips
 - Use the semantic names above; avoid inventing new variable names.
 - Values cascade. The closest definition (inline, container, :root) wins.
-- Prefer semantic overrides (primary, brand, success, danger) for consistent theming.
+- Prefer semantic overrides (primary, success, danger) for consistent theming.
 - ThemeProvider does not expose a `colors` field; use these CSS variables to change colors.
 - Components inherit the closest CSS variable values automatically via CSS cascade.
 
@@ -8876,7 +8819,7 @@ Size inheritance is separate. Only Link and Mark have `inheritSize: true` in the
 
 ### Link, Mark: exact size inheritance via `inheritSize`
 
-Link and Mark have their own appearance (Link = `link`, Mark = `warning`) so the `inherit` expansion does NOT fire. Instead, they have `inheritSize: true` set explicitly in their defaults. They render at the *exact* font-size of the nearest typography ancestor.
+Link and Mark are not `inherit`-default components (Link sets no appearance and renders its own link-blue, Mark defaults to `warning`), so the `inherit` expansion does NOT fire. Instead, they have `inheritSize: true` set explicitly in their defaults. They render at the *exact* font-size of the nearest typography ancestor.
 
 ```tsx demo
 <Title lg>
@@ -8884,7 +8827,7 @@ Link and Mark have their own appearance (Link = `link`, Mark = `warning`) so the
 </Title>
 ```
 
-- **Link** renders at the Title's `lg` font-size (inherited 1:1) but stays **link-blue** (own appearance)
+- **Link** renders at the Title's `lg` font-size (inherited 1:1) but stays **link-blue** (its own link color)
 - **Mark** renders at parent size with its own warning highlight color
 
 ### Code, Kbd: em-relative geometry
@@ -8931,7 +8874,7 @@ URL: https://vaneui.com/docs/reference/common-props
 
 Layout and utility props shared across most VaneUI components. Documented here once instead of on every component page. Per-component pages link here from the "Layout & utility props" disclosure under their props table.
 
-Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`brand`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`link`/`inherit`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except `Button`, `NavLink`, `Label`, and `MenuItem` which default to `sm`.
+Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inherit`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except `Button`, `NavLink`, `Label`, and `MenuItem` which default to `sm`.
 
 ## Hide
 

@@ -37,7 +37,6 @@ Apply appearance props to color the blockquote. The default is `inherit`, which 
 ```tsx demo
 <Col>
   <Blockquote primary>Primary appearance blockquote.</Blockquote>
-  <Blockquote brand>Brand appearance blockquote.</Blockquote>
   <Blockquote accent>Accent appearance blockquote.</Blockquote>
   <Blockquote secondary>Secondary appearance blockquote.</Blockquote>
   <Blockquote success>Success appearance blockquote.</Blockquote>
@@ -108,7 +107,7 @@ Use blockquotes with attribution for testimonials and customer quotes.
 
 ```tsx demo
 <Col>
-  <Card brand>
+  <Card info>
     <Blockquote>
       <Text italic>VaneUI cut our migration time in half. The boolean props API is concise and the theming covers our cases.</Text>
       <Text sm fontBold> - Sarah Chen, Lead Engineer</Text>

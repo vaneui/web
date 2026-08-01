@@ -55,19 +55,19 @@ function App() {
 }
 ```
 
-### Brand-specific defaults
+### Consistent appearance defaults
 
-Create consistent branding across your application:
+Apply one appearance consistently across components:
 
 ```tsx
 import { ThemeProvider, Button, Card, Badge } from '@vaneui/ui';
 
-function BrandedApp() {
+function ConsistentThemeApp() {
   return (
     <ThemeProvider themeDefaults={{
-      button: { main: { brand: true, filled: true } },
-      card: { main: { brand: true } },
-      badge: { brand: true }
+      button: { main: { info: true, filled: true } },
+      card: { main: { info: true } },
+      badge: { info: true }
     }}>
       <nav>
         <Button>Home</Button>
@@ -85,8 +85,8 @@ function BrandedApp() {
 - `xs`, `sm`, `md`, `lg`, `xl`
 
 ### Appearance props
-- `primary`, `brand`, `accent`, `secondary`, `tertiary`
-- `success`, `danger`, `warning`, `info`, `link`, `inherit`
+- `primary`, `accent`, `secondary`, `tertiary`
+- `success`, `danger`, `warning`, `info`, `inherit`
 
 ### Variant props
 - `filled`, `outline`, `ghost`
@@ -313,7 +313,7 @@ VaneUI components come with sensible built-in defaults. Only set defaults that d
 - **Label**: `sm`, `flex`, `column`, `itemsStart`, `gap`, `inherit` (not `primary`), `fontMedium` (stacked label above field; use `<Label row itemsCenter>` for inline controls like `Checkbox`)
 - **Badge**: `md`, `secondary` (not `primary`), `outline`, `pill`, `fontSemibold`, `uppercase`
 - **Chip**: `md`, `secondary` (not `primary`), `outline`, `rounded`, `fontSans`
-- **Link**: `md`, `link` (not `primary`), `underline`, `fontSans`, `cursorPointer`, `inheritSize`, `wFit`, `focusVisible` (no variant default, no `outline`)
+- **Link**: `md`, `underline`, `fontSans`, `cursorPointer`, `inheritSize`, `wFit`, `focusVisible` (link color by default; no appearance or variant default)
 - **NavLink**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`
 - **MenuItem**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`
 - **Typography** (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`): `md`, `inherit` (not `primary`), `outline`
@@ -346,7 +346,7 @@ import { ThemeProvider, type ThemeDefaults } from '@vaneui/ui';
 const designSystemDefaults: ThemeDefaults = {
   // Interactive elements
   button: { main: { md: true, filled: true } }, // change sm→md, outline→filled
-  link: { brand: true },
+  link: { info: true },
 
   // Informational elements
   badge: { secondary: true, sm: true },
@@ -370,7 +370,7 @@ import { ThemeProvider, type ThemeDefaults } from '@vaneui/ui';
 
 const interactiveDefaults: ThemeDefaults = {
   button: { main: { filled: true } },
-  link: { brand: true }
+  link: { info: true }
 };
 
 const informationalDefaults: ThemeDefaults = {

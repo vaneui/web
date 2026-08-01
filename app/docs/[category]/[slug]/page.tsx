@@ -29,7 +29,7 @@ export async function generateMetadata({params}: DocsPageProps): Promise<Metadat
 
   const pageName = docsPage?.name || slug;
   const categoryName = docsCategory?.name || category;
-  // Page name first, brand last — better CTR pattern and survives Google's
+  // Page name first, site name last — better CTR pattern and survives Google's
   // ~60-char truncation. Category in the middle adds context for
   // navigational queries (e.g. "VaneUI Button"). Fallback description avoids
   // leaking the raw slug into search snippets.

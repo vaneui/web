@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-Link renders a styled anchor element for navigation. Unlike other typography components which default to `inherit`, Link defaults to the `link` appearance (blue color) with `underline`, and ships with `focusVisible` on for a keyboard focus outline.
+Link renders a styled anchor element for navigation. Unlike other typography components which default to `inherit`, Link renders its blue link color by default (no explicit appearance) with `underline`, and ships with `focusVisible` on for a keyboard focus outline.
 
 ```tsx demo
 <Link href="#">Click here to learn more</Link>
@@ -15,12 +15,11 @@ Link renders a styled anchor element for navigation. Unlike other typography com
 
 ## Appearances
 
-Links default to the `link` appearance (blue). Override with: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`.
+Links render their blue link color by default. Set an explicit appearance to override: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`.
 
 ```tsx demo
 <Row flexWrap>
   <Link primary href="#">Primary</Link>
-  <Link brand href="#">Brand</Link>
   <Link accent href="#">Accent</Link>
   <Link secondary href="#">Secondary</Link>
   <Link success href="#">Success</Link>
@@ -168,7 +167,7 @@ Set app-wide Link defaults with `ThemeProvider`'s `themeDefaults`:
 
 ```tsx demo
 <ThemeProvider themeDefaults={{
-  link: { brand: true, noUnderline: true },
+  link: { info: true, noUnderline: true },
 }}>
   <Link href="/docs">Read more</Link>
 </ThemeProvider>

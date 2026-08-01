@@ -24,14 +24,12 @@ Different color appearances for highlights.
 ```tsx demo
 <Row flexWrap>
   <Mark primary>Primary</Mark>
-  <Mark brand>Brand</Mark>
   <Mark accent>Accent</Mark>
   <Mark secondary>Secondary</Mark>
   <Mark tertiary>Tertiary</Mark>
   <Mark success>Success</Mark>
   <Mark danger>Danger</Mark>
   <Mark info>Info</Mark>
-  <Mark link>Link</Mark>
 </Row>
 ```
 

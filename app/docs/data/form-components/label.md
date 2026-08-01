@@ -35,7 +35,6 @@ Labels default to `inherit`: they take their color from the surrounding text. Se
 <Row flexWrap>
   <Label>inherit label (default)</Label>
   <Label primary>primary label</Label>
-  <Label brand>brand label</Label>
   <Label accent>accent label</Label>
   <Label secondary>secondary label</Label>
   <Label tertiary>tertiary label</Label>
@@ -43,7 +42,6 @@ Labels default to `inherit`: they take their color from the surrounding text. Se
   <Label danger>danger label</Label>
   <Label warning>warning label</Label>
   <Label info>info label</Label>
-  <Label link>link label</Label>
 </Row>
 ```
 

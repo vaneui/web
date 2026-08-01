@@ -12,7 +12,6 @@ Chip is a compact token for tags or attributes, and each `appearance` prop maps 
 ```tsx demo
 <Row flexWrap>
   <Chip primary>primary</Chip>
-  <Chip brand>brand</Chip>
   <Chip accent>accent</Chip>
   <Chip>secondary</Chip>
   <Chip tertiary>tertiary</Chip>
@@ -20,7 +19,6 @@ Chip is a compact token for tags or attributes, and each `appearance` prop maps 
   <Chip danger>danger</Chip>
   <Chip warning>warning</Chip>
   <Chip info>info</Chip>
-  <Chip link>link</Chip>
   <Chip inherit>inherit</Chip>
 </Row>
 ```
@@ -47,19 +45,16 @@ Chips can be styled as `filled`, `outline` (default), or `ghost`.
 <Col>
   <Row flexWrap>
     <Chip filled primary>primary</Chip>
-    <Chip filled brand>brand</Chip>
     <Chip filled accent>accent</Chip>
     <Chip filled>secondary</Chip>
   </Row>
   <Row flexWrap>
     <Chip primary>primary</Chip>
-    <Chip brand>brand</Chip>
     <Chip accent>accent</Chip>
     <Chip>secondary</Chip>
   </Row>
   <Row flexWrap>
     <Chip ghost primary>primary</Chip>
-    <Chip ghost brand>brand</Chip>
     <Chip ghost accent>accent</Chip>
     <Chip ghost>secondary</Chip>
   </Row>
@@ -96,7 +91,7 @@ Drop an icon directly inside the chip. `gap` is on by default, so spacing is aut
 
 ```tsx demo
 <Row flexWrap>
-  <Chip brand><Heart/> Favorite</Chip>
+  <Chip info><Heart/> Favorite</Chip>
   <Chip success><CheckSquare/> Verified</Chip>
   <Chip danger><X/> Blocked</Chip>
 </Row>
@@ -147,7 +142,7 @@ Pass `href` to render the chip as an `<a>`, useful for clickable tag listings. W
 ```tsx demo
 <Row flexWrap>
   <Chip href="#">typescript</Chip>
-  <Chip href="#" brand>react</Chip>
+  <Chip href="#" info>react</Chip>
   <Chip href="#" accent>tailwind</Chip>
 </Row>
 ```
@@ -158,7 +153,7 @@ Set app-wide Chip defaults with `ThemeProvider`'s `themeDefaults`:
 
 ```tsx demo
 <ThemeProvider themeDefaults={{
-  chip: { brand: true, filled: true, pill: true },
+  chip: { info: true, filled: true, pill: true },
 }}>
   <Chip>v2.0</Chip>
 </ThemeProvider>

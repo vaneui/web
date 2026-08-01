@@ -118,7 +118,7 @@ Set app-wide Input defaults with `ThemeProvider`'s `themeDefaults` and add a foc
 ```tsx demo
 <ThemeProvider
   themeDefaults={{ input: { lg: true, filled: true } }}
-  extraClasses={{ input: { primary: 'focus:ring-2 focus:ring-brand-500/40' } }}
+  extraClasses={{ input: { primary: 'focus:ring-2 focus:ring-blue-500/40' } }}
 >
   <Input placeholder="Email" />
 </ThemeProvider>

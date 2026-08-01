@@ -37,7 +37,6 @@ Different appearance colors for inline code.
 ```tsx demo
 <Row flexWrap>
   <Code primary>primary code</Code>
-  <Code brand>brand code</Code>
   <Code accent>accent code</Code>
   <Code secondary>secondary code</Code>
   <Code tertiary>tertiary code</Code>
@@ -45,7 +44,6 @@ Different appearance colors for inline code.
   <Code danger>danger code</Code>
   <Code warning>warning code</Code>
   <Code info>info code</Code>
-  <Code link>link code</Code>
   <Code inherit>inherit code</Code>
 </Row>
 ```

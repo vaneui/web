@@ -59,10 +59,6 @@ By default, Icon inherits `currentColor` from the parent. Use appearance props t
     <Text xs secondary>primary</Text>
   </Col>
   <Col itemsCenter>
-    <Icon brand><Star /></Icon>
-    <Text xs secondary>brand</Text>
-  </Col>
-  <Col itemsCenter>
     <Icon accent><Star /></Icon>
     <Text xs secondary>accent</Text>
   </Col>
@@ -89,10 +85,6 @@ By default, Icon inherits `currentColor` from the parent. Use appearance props t
   <Col itemsCenter>
     <Icon info><Star /></Icon>
     <Text xs secondary>info</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon link><Star /></Icon>
-    <Text xs secondary>link</Text>
   </Col>
 </Row>
 ```

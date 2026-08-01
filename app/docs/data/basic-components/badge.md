@@ -12,7 +12,6 @@ Badge highlights a short piece of information such as a count or status, and eac
 ```tsx demo
 <Row flexWrap>
   <Badge primary>primary</Badge>
-  <Badge brand>brand</Badge>
   <Badge accent>accent</Badge>
   <Badge secondary>secondary</Badge>
   <Badge tertiary>tertiary</Badge>
@@ -20,7 +19,6 @@ Badge highlights a short piece of information such as a count or status, and eac
   <Badge danger>danger</Badge>
   <Badge warning>warning</Badge>
   <Badge info>info</Badge>
-  <Badge link>link</Badge>
   <Badge inherit>inherit</Badge>
 </Row>
 ```
@@ -47,19 +45,16 @@ Badges can be styled as `filled`, `outline` (default), or `ghost`.
 <Col>
   <Row flexWrap>
     <Badge filled primary>primary</Badge>
-    <Badge filled brand>brand</Badge>
     <Badge filled accent>accent</Badge>
     <Badge filled secondary>secondary</Badge>
   </Row>
   <Row flexWrap>
     <Badge outline primary>primary</Badge>
-    <Badge outline brand>brand</Badge>
     <Badge outline accent>accent</Badge>
     <Badge outline secondary>secondary</Badge>
   </Row>
   <Row flexWrap>
     <Badge ghost primary>primary</Badge>
-    <Badge ghost brand>brand</Badge>
     <Badge ghost accent>accent</Badge>
     <Badge ghost secondary>secondary</Badge>
   </Row>

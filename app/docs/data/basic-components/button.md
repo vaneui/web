@@ -12,7 +12,6 @@ Button triggers an action when the user clicks it; each `appearance` prop maps t
 ```tsx demo
 <Row flexWrap>
   <Button primary>primary</Button>
-  <Button brand>brand</Button>
   <Button accent>accent</Button>
   <Button secondary>secondary</Button>
   <Button tertiary>tertiary</Button>
@@ -20,7 +19,6 @@ Button triggers an action when the user clicks it; each `appearance` prop maps t
   <Button danger>danger</Button>
   <Button warning>warning</Button>
   <Button info>info</Button>
-  <Button link>link</Button>
   <Button inherit>inherit</Button>
 </Row>
 ```
@@ -47,19 +45,16 @@ Buttons can be styled as `filled`, `outline` (default), or `ghost`.
 <Col>
   <Row flexWrap>
     <Button filled primary>primary</Button>
-    <Button filled brand>brand</Button>
     <Button filled accent>accent</Button>
     <Button filled secondary>secondary</Button>
   </Row>
   <Row flexWrap>
     <Button primary>primary</Button>
-    <Button brand>brand</Button>
     <Button accent>accent</Button>
     <Button secondary>secondary</Button>
   </Row>
   <Row flexWrap>
     <Button ghost primary>primary</Button>
-    <Button ghost brand>brand</Button>
     <Button ghost accent>accent</Button>
     <Button ghost secondary>secondary</Button>
   </Row>

@@ -65,10 +65,6 @@ Different color appearances applied to the Checkbox; always place inside a Label
     <Checkbox id="appearance-primary" defaultChecked/>
     Enable primary style
   </Label>
-  <Label row itemsCenter brand htmlFor="appearance-brand">
-    <Checkbox brand id="appearance-brand" defaultChecked/>
-    Enable brand style
-  </Label>
   <Label row itemsCenter accent htmlFor="appearance-accent">
     <Checkbox accent id="appearance-accent" defaultChecked/>
     Enable accent style
@@ -96,10 +92,6 @@ Different color appearances applied to the Checkbox; always place inside a Label
   <Label row itemsCenter info htmlFor="appearance-info">
     <Checkbox info id="appearance-info" defaultChecked/>
     Enable info style
-  </Label>
-  <Label row itemsCenter link htmlFor="appearance-link">
-    <Checkbox link id="appearance-link" defaultChecked/>
-    Enable link style
   </Label>
   <Label row itemsCenter inherit htmlFor="appearance-inherit">
     <Checkbox inherit id="appearance-inherit" defaultChecked/>
@@ -247,7 +239,7 @@ Set app-wide Checkbox defaults with `ThemeProvider`'s `themeDefaults` and tune t
 ```tsx demo
 <ThemeProvider
   themeDefaults={{ checkbox: { input: { lg: true } } }}
-  extraClasses={{ checkbox: { input: { primary: 'checked:bg-brand-600 checked:border-brand-600' } } }}
+  extraClasses={{ checkbox: { input: { primary: 'checked:bg-blue-600 checked:border-blue-600' } } }}
 >
   <Label row itemsCenter htmlFor="terms">
     <Checkbox id="terms"/>

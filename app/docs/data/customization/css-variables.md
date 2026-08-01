@@ -55,7 +55,6 @@ Components that render icons (`Button`, `IconButton`, `Icon`, `Badge`, `Chip`, `
 
 Replace `{appearance}` in variable names with one of:
 - `primary` - neutral/default styling (gray tones)
-- `brand` - brand color (blue)
 - `secondary` - subtle styling (light gray)
 - `tertiary` - muted styling (darker gray)
 - `accent` - highlight color (rose)
@@ -63,7 +62,6 @@ Replace `{appearance}` in variable names with one of:
 - `danger` - error/destructive (red)
 - `warning` - caution (amber)
 - `info` - informational (cyan)
-- `link` - link color (blue)
 - `inherit` - inherits from parent element
 
 > The `inherit` appearance works differently from all other appearances. Instead of setting `data-appearance` and `data-variant` attributes, it omits them entirely. This allows the semantic color CSS variables (`--text-color`, `--bg-color`, `--border-color`) to cascade from parent elements rather than being set explicitly on the component. Typography components (Text, Title, SectionTitle, PageTitle, Blockquote), Label, List, and Divider default to `inherit`.
@@ -139,10 +137,10 @@ To customize sizing globally, override the computed variables in your CSS:
 ```css
 /* styles/globals.css */
 :root {
-  /* Customize brand colors */
-  --color-text-brand: #8b5cf6;
-  --color-bg-brand: #f3e8ff;
-  --color-border-brand: #c4b5fd;
+  /* Customize info colors */
+  --color-text-info: #8b5cf6;
+  --color-bg-info: #f3e8ff;
+  --color-border-info: #c4b5fd;
 }
 ```
 
@@ -159,6 +157,6 @@ To customize sizing globally, override the computed variables in your CSS:
 ## Notes and tips
 - Use the semantic names above; avoid inventing new variable names.
 - Values cascade. The closest definition (inline, container, :root) wins.
-- Prefer semantic overrides (primary, brand, success, danger) for consistent theming.
+- Prefer semantic overrides (primary, success, danger) for consistent theming.
 - ThemeProvider does not expose a `colors` field; use these CSS variables to change colors.
 - Components inherit the closest CSS variable values automatically via CSS cascade.

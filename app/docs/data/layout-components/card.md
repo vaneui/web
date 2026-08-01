@@ -47,17 +47,13 @@ Cards come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size also
 
 ## Appearances
 
-Cards support color appearances: `primary` (default), `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`.
+Cards support color appearances: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`.
 
 ```tsx demo
 <Row flexWrap>
   <Card>
     <Title>Primary</Title>
     <Text>Default</Text>
-  </Card>
-  <Card brand>
-    <Title>Brand</Title>
-    <Text>Brand color</Text>
   </Card>
   <Card accent>
     <Title>Accent</Title>

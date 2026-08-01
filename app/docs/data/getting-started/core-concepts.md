@@ -14,7 +14,7 @@ At its core, VaneUI uses **boolean props** instead of string enums for cleaner J
 
 Props are organized into **categories**:
 - **size**: `xs`, `sm`, `md`, `lg`, `xl`
-- **appearance**: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`, `inherit`
+- **appearance**: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inherit`
 - **variant**: `filled`, `outline`, `ghost`
 - **shape**: `rounded`, `pill`, `sharp`
 - **typography**: `fontSans`, `fontSerif`, `fontMono`, `fontSemibold`, `fontBold`, etc.
