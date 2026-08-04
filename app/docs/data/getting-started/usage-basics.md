@@ -152,7 +152,7 @@ import { Row, Card } from '@vaneui/ui';
 function ResponsiveLayout() {
   return (
     // Row on desktop, column on tablet and below
-    <Row tabletCol>
+    <Row tabletStack>
       <Card>Left</Card>
       <Card>Right</Card>
     </Row>
@@ -161,9 +161,9 @@ function ResponsiveLayout() {
 ```
 
 Available breakpoint props:
-- `mobileCol`: Column on mobile and below (max-width: 48rem)
-- `tabletCol`: Column on tablet and below (max-width: 64rem)
-- `desktopCol`: Column on desktop and below (max-width: 80rem)
+- `mobileStack`: Column on mobile and below (max-width: 48rem)
+- `tabletStack`: Column on tablet and below (max-width: 64rem)
+- `desktopStack`: Column on desktop and below (max-width: 80rem)
 
 ## Typography
 

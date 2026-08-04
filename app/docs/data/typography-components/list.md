@@ -44,7 +44,7 @@ Lists come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Font size
 
 ## Appearances
 
-Lists use `inherit` appearance by default: they inherit color from their parent and stay `transparent` with no background of their own. Use explicit appearances like `primary`, `success`, `danger` to override the text color. Because a List has no background of its own, place it inside a filled container like `Card` when you want a surface behind it.
+Lists use `inheritAppearance` appearance by default: they inherit color from their parent and stay `transparent` with no background of their own. Use explicit appearances like `primary`, `success`, `danger` to override the text color. Because a List has no background of its own, place it inside a filled container like `Card` when you want a surface behind it.
 
 ```tsx demo
 <Col>

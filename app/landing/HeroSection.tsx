@@ -32,7 +32,7 @@ export function HeroSection() {
   </svg>;
 
   const card =
-    <Card sm row mobileCol noPadding noGap overflowHidden>
+    <Card sm row mobileStack noPadding noGap overflowHidden>
       <Img sm sharp src={dog.image} alt={dog.name} className="max-mobile:w-full w-[188px] h-full" />
       <Stack sm>
         <Row justifyBetween>
@@ -41,7 +41,7 @@ export function HeroSection() {
         </Row>
         <Divider />
         <Text sm>{dog.description}</Text>
-        <Row sm mobileCol justifyEnd>
+        <Row sm mobileStack justifyEnd>
           <Button sm success filled className="max-mobile:w-full">Adopt</Button>
           <Button sm secondary className="max-mobile:w-full">Learn more</Button>
         </Row>
@@ -62,7 +62,7 @@ export function HeroSection() {
             {PRODUCT.slogan}
           </PageTitle>
           <Text lg textCenter>{PRODUCT.description}</Text>
-          <Row mobileCol justifyCenter wFull>
+          <Row mobileStack justifyCenter wFull>
             <Button lg filled className="max-mobile:w-full" tag={Link} href="/docs/getting-started/installation">
               Get Started <Play />
             </Button>

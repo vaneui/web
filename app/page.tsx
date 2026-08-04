@@ -75,7 +75,7 @@ export default function Home() {
             </Col>
             <Grid2 lg wFull>
               {features.map((item, key) => (
-                <Card xl row mobileCol key={key}>
+                <Card xl row mobileStack key={key}>
                   <FeatureTitle icon={item.icon} title={item.title} description={item.description} />
                 </Card>
               ))}

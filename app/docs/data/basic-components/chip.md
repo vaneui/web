@@ -19,7 +19,7 @@ Chip is a compact token for tags or attributes, and each `appearance` prop maps 
   <Chip danger>danger</Chip>
   <Chip warning>warning</Chip>
   <Chip info>info</Chip>
-  <Chip inherit>inherit</Chip>
+  <Chip inheritAppearance>inheritAppearance</Chip>
 </Row>
 ```
 

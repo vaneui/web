@@ -64,7 +64,7 @@ This setup:
 - Imports VaneUI CSS variables and component rules
 - Tells Tailwind to scan VaneUI components for class generation
 
-> The `@vaneui/ui/tokens` import is required for responsive props like `mobileCol`, `tabletHide`, and responsive typography to work. It registers VaneUI's custom breakpoints (`mobile`, `tablet`, `desktop`) with your project's Tailwind CSS instance.
+> The `@vaneui/ui/tokens` import is required for responsive props like `mobileStack`, `tabletHide`, and responsive typography to work. It registers VaneUI's custom breakpoints (`mobile`, `tablet`, `desktop`) with your project's Tailwind CSS instance.
 
 ### Option 2: without Tailwind CSS
 
@@ -131,14 +131,14 @@ At its core, VaneUI uses **boolean props** instead of string enums for cleaner J
 
 Props are organized into **categories**:
 - **size**: `xs`, `sm`, `md`, `lg`, `xl`
-- **appearance**: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inherit`
+- **appearance**: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
 - **variant**: `filled`, `outline`, `ghost`
 - **shape**: `rounded`, `pill`, `sharp`
 - **typography**: `fontSans`, `fontSerif`, `fontMono`, `fontSemibold`, `fontBold`, etc.
 - **layout**: `flex`, `column`, `itemsCenter`, `justifyBetween`, etc.
 - **inheritance**: `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder` (and `noInherit*` toggles)
 
-Typography components (Text, Title, SectionTitle, PageTitle, Blockquote), Label, List, and Divider default to `inherit`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Link and Mark default to `inheritSize`, so they inherit font-size from their parent while keeping their own appearance color; Code and Kbd achieve the same effect through em-relative geometry.
+Typography components (Text, Title, SectionTitle, PageTitle, Blockquote), Label, List, and Divider default to `inheritAppearance`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Link and Mark default to `inheritSize`, so they inherit font-size from their parent while keeping their own appearance color; Code and Kbd achieve the same effect through em-relative geometry.
 
 ## Three-layer component architecture
 
@@ -439,7 +439,7 @@ import { Row, Card } from '@vaneui/ui';
 function ResponsiveLayout() {
   return (
     // Row on desktop, column on tablet and below
-    <Row tabletCol>
+    <Row tabletStack>
       <Card>Left</Card>
       <Card>Right</Card>
     </Row>
@@ -448,9 +448,9 @@ function ResponsiveLayout() {
 ```
 
 Available breakpoint props:
-- `mobileCol`: Column on mobile and below (max-width: 48rem)
-- `tabletCol`: Column on tablet and below (max-width: 64rem)
-- `desktopCol`: Column on desktop and below (max-width: 80rem)
+- `mobileStack`: Column on mobile and below (max-width: 48rem)
+- `tabletStack`: Column on tablet and below (max-width: 64rem)
+- `desktopStack`: Column on desktop and below (max-width: 80rem)
 
 ## Typography
 
@@ -790,7 +790,7 @@ Button triggers an action when the user clicks it; each `appearance` prop maps t
   <Button danger>danger</Button>
   <Button warning>warning</Button>
   <Button info>info</Button>
-  <Button inherit>inherit</Button>
+  <Button inheritAppearance>inheritAppearance</Button>
 </Row>
 ```
 
@@ -1263,7 +1263,7 @@ Badge highlights a short piece of information such as a count or status, and eac
   <Badge danger>danger</Badge>
   <Badge warning>warning</Badge>
   <Badge info>info</Badge>
-  <Badge inherit>inherit</Badge>
+  <Badge inheritAppearance>inheritAppearance</Badge>
 </Row>
 ```
 
@@ -1375,7 +1375,7 @@ Chip is a compact token for tags or attributes, and each `appearance` prop maps 
   <Chip danger>danger</Chip>
   <Chip warning>warning</Chip>
   <Chip info>info</Chip>
-  <Chip inherit>inherit</Chip>
+  <Chip inheritAppearance>inheritAppearance</Chip>
 </Row>
 ```
 
@@ -1572,7 +1572,7 @@ Different appearance colors for inline code.
   <Code danger>danger code</Code>
   <Code warning>warning code</Code>
   <Code info>info code</Code>
-  <Code inherit>inherit code</Code>
+  <Code inheritAppearance>inheritAppearance code</Code>
 </Row>
 ```
 
@@ -2184,14 +2184,14 @@ Pair inputs with labels for accessibility and better UX. When the `Input` is nes
 
 ## States
 
-Different input states: disabled, readonly, and validation feedback. Use appearance props (`success`, `danger`) for visual feedback, or the `error` status prop for form validation state.
+Different input states: disabled, readonly, and validation feedback. Use appearance props (`success`, `danger`) for visual feedback, or the `invalid` validity prop for form validation state.
 
 ```tsx
 <Input placeholder="Normal input" />
 <Input disabled placeholder="Disabled input" />
 <Input success placeholder="Success state" />
 <Input danger placeholder="Error state" />
-<Input error placeholder="Validation error" />
+<Input invalid placeholder="Validation error" />
 ```
 
 ```tsx demo
@@ -2200,7 +2200,7 @@ Different input states: disabled, readonly, and validation feedback. Use appeara
   <Input disabled placeholder="Disabled input" />
   <Input success placeholder="Success state" />
   <Input danger placeholder="Error state" />
-  <Input error placeholder="Validation error (status)" />
+  <Input invalid placeholder="Validation error (validity)" />
 </Col>
 ```
 
@@ -2310,9 +2310,9 @@ Different color appearances applied to the Checkbox; always place inside a Label
     <Checkbox info id="appearance-info" defaultChecked/>
     Enable info style
   </Label>
-  <Label row itemsCenter inherit htmlFor="appearance-inherit">
-    <Checkbox inherit id="appearance-inherit" defaultChecked/>
-    Enable inherit style
+  <Label row itemsCenter inheritAppearance htmlFor="appearance-inherit">
+    <Checkbox inheritAppearance id="appearance-inherit" defaultChecked/>
+    Enable inheritAppearance style
   </Label>
 </Row>
 ```
@@ -2472,7 +2472,7 @@ URL: https://vaneui.com/docs/form-components/label
 
 ## Basic usage
 
-A `Label` defaults to `sm` size and `inherit` appearance, so it picks up text color from its surroundings.
+A `Label` defaults to `sm` size and `inheritAppearance` appearance, so it picks up text color from its surroundings.
 
 ```tsx demo
 <Label>Email address</Label>
@@ -2494,11 +2494,11 @@ Labels come in five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Nested `Input
 
 ## Appearances
 
-Labels default to `inherit`: they take their color from the surrounding text. Set an explicit appearance to override.
+Labels default to `inheritAppearance`: they take their color from the surrounding text. Set an explicit appearance to override.
 
 ```tsx demo
 <Row flexWrap>
-  <Label>inherit label (default)</Label>
+  <Label>inheritAppearance label (default)</Label>
   <Label primary>primary label</Label>
   <Label accent>accent label</Label>
   <Label secondary>secondary label</Label>
@@ -2643,7 +2643,7 @@ Text comes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ## Appearances
 
-Text supports explicit color appearances: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`. Use these to override the default `inherit` behavior.
+Text supports explicit color appearances: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`. Use these to override the default `inheritAppearance` behavior.
 
 ```tsx demo
 <Col>
@@ -2660,7 +2660,7 @@ Text supports explicit color appearances: `primary`, `accent`, `secondary`, `ter
 
 ## Inherit appearance (default)
 
-Text defaults to the `inherit` appearance: it picks up its color from the parent via CSS cascade instead of applying its own. Set an explicit appearance to override.
+Text defaults to the `inheritAppearance` appearance: it picks up its color from the parent via CSS cascade instead of applying its own. Set an explicit appearance to override.
 
 ```tsx demo
 <Row flexWrap>
@@ -2787,7 +2787,7 @@ Control letter spacing with `trackingTighter`, `trackingTight`, `trackingNormal`
 
 ## Margins
 
-Block typography (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`) accepts size-driven margin props: `margin` (all sides), `marginX`, `marginY`, `marginT`, and `marginB`. `Text` defaults to `noMargin`, so opt in where you need vertical rhythm outside a gap-based layout. The margin scales with the size prop.
+Block typography (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`) accepts size-driven margin props: `margin` (all sides), `marginX`, `marginY`, `marginT`, and `marginB`. `Text` defaults to `noMargin`, so opt in where you need vertical rhythm outside a gap-based layout. The margin scales with the size prop. Side props compose: `marginT marginB` applies both. `noMargin` resets and wins.
 
 ```tsx demo
 <Col noGap>
@@ -2819,7 +2819,7 @@ URL: https://vaneui.com/docs/typography-components/page-title
 
 ## Basic usage
 
-PageTitle renders a large `<h1>` heading for page titles. It defaults to `fontSemibold` weight, `fontHeading` font family, `trackingTight` letter spacing, and `inherit` appearance.
+PageTitle renders a large `<h1>` heading for page titles. It defaults to `fontSemibold` weight, `fontHeading` font family, `trackingTight` letter spacing, and `inheritAppearance` appearance.
 
 ```tsx demo
 <PageTitle>Welcome to VaneUI</PageTitle>
@@ -2841,7 +2841,7 @@ Page titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ## Appearances
 
-By default, PageTitle uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
+By default, PageTitle uses the `inheritAppearance` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
 
 ```tsx demo
 <Col>
@@ -2973,7 +2973,7 @@ URL: https://vaneui.com/docs/typography-components/section-title
 
 ## Basic usage
 
-SectionTitle renders an `<h2>` heading for major section headings. It defaults to `fontSemibold` weight, `fontHeading` font family, `inherit` appearance, and left-aligned text.
+SectionTitle renders an `<h2>` heading for major section headings. It defaults to `fontSemibold` weight, `fontHeading` font family, `inheritAppearance` appearance, and left-aligned text.
 
 ```tsx demo
 <SectionTitle>Getting Started</SectionTitle>
@@ -2995,7 +2995,7 @@ Section titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ## Appearances
 
-By default, SectionTitle uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
+By default, SectionTitle uses the `inheritAppearance` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
 
 ```tsx demo
 <Col>
@@ -3164,7 +3164,7 @@ Titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ## Appearances
 
-By default, Title uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `danger`, `warning`, `info` to override.
+By default, Title uses the `inheritAppearance` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `danger`, `warning`, `info` to override.
 
 ```tsx demo
 <Col>
@@ -3296,7 +3296,7 @@ URL: https://vaneui.com/docs/typography-components/link
 
 ## Basic usage
 
-Link renders a styled anchor element for navigation. Unlike other typography components which default to `inherit`, Link renders its blue link color by default (no explicit appearance) with `underline`, and ships with `focusVisible` on for a keyboard focus outline.
+Link renders a styled anchor element for navigation. Unlike other typography components which default to `inheritAppearance`, Link renders its blue link color by default (no explicit appearance) with `underline`, and ships with `focusVisible` on for a keyboard focus outline.
 
 ```tsx demo
 <Link href="#">Click here to learn more</Link>
@@ -3506,7 +3506,7 @@ Lists come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Font size
 
 ## Appearances
 
-Lists use `inherit` appearance by default: they inherit color from their parent and stay `transparent` with no background of their own. Use explicit appearances like `primary`, `success`, `danger` to override the text color. Because a List has no background of its own, place it inside a filled container like `Card` when you want a surface behind it.
+Lists use `inheritAppearance` appearance by default: they inherit color from their parent and stay `transparent` with no background of their own. Use explicit appearances like `primary`, `success`, `danger` to override the text color. Because a List has no background of its own, place it inside a filled container like `Card` when you want a surface behind it.
 
 ```tsx demo
 <Col>
@@ -3772,7 +3772,7 @@ Blockquote supports five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ## Appearances
 
-Apply appearance props to color the blockquote. The default is `inherit`, which picks up the parent color.
+Apply appearance props to color the blockquote. The default is `inheritAppearance`, which picks up the parent color.
 
 ```tsx demo
 <Col>
@@ -3981,10 +3981,10 @@ Containers support different border radius styles. `sharp` is the default (no ra
 
 ## Responsive breakpoints
 
-Container is a flex column by default. Use `row` to flow horizontally on desktop and `mobileCol` / `tabletCol` to stack on smaller screens.
+Container is a flex column by default. Use `row` to flow horizontally on desktop and `mobileStack` / `tabletStack` to stack on smaller screens.
 
 ```tsx demo
-<Container row tabletCol border padding>
+<Container row tabletStack border padding>
   <Col>
     <Title>Left Content</Title>
     <Text>Switches to stacked layout on tablets and below.</Text>
@@ -4018,7 +4018,7 @@ Sections own the outer padding and background; nest a `Container` inside to cap 
 
 ## Basic usage
 
-`md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `outline`, `sharp`, and `responsive` are defaults. Padding and gap automatically scale at tablet and mobile breakpoints because `responsive` is on.
+`md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `outline`, `sharp`, and `responsiveSizing` are defaults. Padding and gap automatically scale at tablet and mobile breakpoints because `responsiveSizing` is on.
 
 ```tsx demo
 <Section border>
@@ -4115,10 +4115,10 @@ Use `row` for horizontal layout. `gap` is already on by default; pair with `noPa
 
 ## Responsive breakpoints
 
-Use `mobileCol` or `tabletCol` to switch from row to column layout on smaller screens.
+Use `mobileStack` or `tabletStack` to switch from row to column layout on smaller screens.
 
 ```tsx demo
-<Section row tabletCol border>
+<Section row tabletStack border>
   <Col>
     <Title>Left Content</Title>
     <Text>Switches to stacked layout on tablets and below.</Text>
@@ -4132,16 +4132,16 @@ Use `mobileCol` or `tabletCol` to switch from row to column layout on smaller sc
 
 ## Responsive sizing
 
-`responsive` (default) scales padding and gap at tablet and mobile breakpoints using `--py-tablet`, `--gap-mobile`, etc. Pass `responsive={false}` to lock a single size across all viewports.
+`responsiveSizing` (default) scales padding and gap at tablet and mobile breakpoints using `--py-tablet`, `--gap-mobile`, etc. Pass `responsiveSizing={false}` to lock a single size across all viewports.
 
 ```tsx demo
 <Col>
   <Section lg border>
-    <Text fontSemibold>responsive (default)</Text>
+    <Text fontSemibold>responsiveSizing (default)</Text>
     <Text>Padding shrinks at tablet and mobile.</Text>
   </Section>
-  <Section lg responsive={false} border>
-    <Text fontSemibold>responsive=&#123;false&#125;</Text>
+  <Section lg responsiveSizing={false} border>
+    <Text fontSemibold>responsiveSizing=&#123;false&#125;</Text>
     <Text>Padding stays fixed at the lg size on every viewport.</Text>
   </Section>
 </Col>
@@ -4351,12 +4351,12 @@ Use `rowReverse` to reverse the visual order of children.
 
 ## Responsive layout
 
-Use `mobileCol` to stack on mobile, or `tabletCol` to stack on tablet and below.
+Use `mobileStack` to stack on mobile, or `tabletStack` to stack on tablet and below.
 
 ```tsx demo
 <Col>
-  <Text fontSemibold>tabletCol (stacks at ≤1024px)</Text>
-  <Row tabletCol>
+  <Text fontSemibold>tabletStack (stacks at ≤1024px)</Text>
+  <Row tabletStack>
     <Col flex1 className="p-4 bg-primary-100 rounded">
       <Text fontSemibold>Column 1</Text>
       <Text>Horizontal on desktop, stacked on tablet and below.</Text>
@@ -4366,8 +4366,8 @@ Use `mobileCol` to stack on mobile, or `tabletCol` to stack on tablet and below.
       <Text>Resize to see the responsive behavior.</Text>
     </Col>
   </Row>
-  <Text fontSemibold>mobileCol (stacks at ≤768px)</Text>
-  <Row mobileCol>
+  <Text fontSemibold>mobileStack (stacks at ≤768px)</Text>
+  <Row mobileStack>
     <Col flex1 className="p-4 bg-primary-100 rounded">
       <Text fontSemibold>Column 1</Text>
       <Text>Horizontal until mobile.</Text>
@@ -5017,10 +5017,10 @@ Use `textLeft`, `textCenter`, `textRight`, or `textJustify` to control text alig
 
 ## Responsive layout
 
-Use `mobileCol` or `tabletCol` on a horizontal Stack to switch back to a column on narrower viewports.
+Use `mobileStack` or `tabletStack` on a horizontal Stack to switch back to a column on narrower viewports.
 
 ```tsx demo
-<Stack row tabletCol>
+<Stack row tabletStack>
   <Col flex1 className="p-4 bg-primary-100 rounded">
     <Text fontSemibold>Column 1</Text>
     <Text>Horizontal on desktop, stacked on tablet and below.</Text>
@@ -5233,10 +5233,10 @@ Use `CardHeader`, `CardBody`, and `CardFooter` to give a card explicit structura
 
 ## Responsive layout
 
-Use `row` for horizontal layout and `mobileCol` or `tabletCol` to switch to column on smaller screens.
+Use `row` for horizontal layout and `mobileStack` or `tabletStack` to switch to column on smaller screens.
 
 ```tsx demo
-<Card row tabletCol>
+<Card row tabletStack>
   <Col>
     <Title>Product Image</Title>
     <Text secondary>Visual content area</Text>
@@ -5562,7 +5562,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) drive the per-size vertical padding via `--
 
 ## Appearances
 
-Dividers use `inherit` by default. Pass an explicit appearance for a colored line.
+Dividers use `inheritAppearance` by default. Pass an explicit appearance for a colored line.
 
 ```tsx demo
 <Col lg>
@@ -6592,7 +6592,7 @@ Title: Popup
 URL: https://vaneui.com/docs/overlay-components/popup
 ---
 
-Popup ships its own surface defaults: `md`, `flex column`, `padding`, `gap`, `rounded`, `border`, `shadow`, `primary`, `outline`, `wFit`, `maxHeight`, `overflowAuto`, `bottom`. Render children directly. Wrapping content in another `Card` is usually redundant.
+Popup ships its own surface defaults: `md`, `flex column`, `padding`, `gap`, `rounded`, `border`, `shadow`, `primary`, `outline`, `wFit`, `clampHeight`, `overflowAuto`, `placeBottom`. Render children directly. Wrapping content in another `Card` is usually redundant.
 
 > **Browser support:** Popup uses the CSS Anchor Positioning API (Chrome/Edge 129+, for the `span-*` alignment it relies on). Other browsers fall back to a JS positioning path that recomputes on scroll/resize.
 
@@ -6670,7 +6670,7 @@ Set `triggerOnFocus` to show on focus and hide on blur. Useful for search autoco
 
 ## All 12 placements
 
-Placement is set via boolean props: `top`, `topStart`, `topEnd`, `bottom`, `bottomStart`, `bottomEnd`, `left`, `leftStart`, `leftEnd`, `right`, `rightStart`, `rightEnd`. Exactly one wins (first-truthy per category). Default is `bottom`.
+Placement is set via boolean props: `placeTop`, `placeTopStart`, `placeTopEnd`, `placeBottom`, `placeBottomStart`, `placeBottomEnd`, `placeLeft`, `placeLeftStart`, `placeLeftEnd`, `placeRight`, `placeRightStart`, `placeRightEnd`. Exactly one wins (first-truthy per category). Default is `placeBottom`.
 
 ```tsx demo
 const ref = useRef<HTMLButtonElement>(null);
@@ -6681,17 +6681,17 @@ return (
     <Button ref={ref} onClick={() => setOpen(!open)}>Anchor</Button>
 
     {/* Above the anchor, aligned to the anchor's left edge */}
-    <Popup topStart open={open} onClose={() => setOpen(false)} anchorRef={ref}>
+    <Popup placeTopStart open={open} onClose={() => setOpen(false)} anchorRef={ref}>
       <Text>Top Start</Text>
     </Popup>
 
     {/* Centered to the right of the anchor */}
-    <Popup right open={open} onClose={() => setOpen(false)} anchorRef={ref}>
+    <Popup placeRight open={open} onClose={() => setOpen(false)} anchorRef={ref}>
       <Text>Right</Text>
     </Popup>
 
     {/* Below the anchor, aligned to the anchor's right edge */}
-    <Popup bottomEnd open={open} onClose={() => setOpen(false)} anchorRef={ref}>
+    <Popup placeBottomEnd open={open} onClose={() => setOpen(false)} anchorRef={ref}>
       <Text>Bottom End</Text>
     </Popup>
   </>
@@ -6747,7 +6747,7 @@ Pair `triggerOnHover` with `arrow` for a classic tooltip. The arrow auto-rotates
 <PopupTrigger
   triggerOnHover
   openDelay={300}
-  popupProps={{ top: true, arrow: true, role: "tooltip", sm: true }}
+  popupProps={{ placeTop: true, arrow: true, role: "tooltip", sm: true }}
   popup={<Text sm>Save your changes to the server</Text>}
 >
   <Button>Save</Button>
@@ -7277,7 +7277,7 @@ CSS rules in `rules.css` set unit variables per `data-size` and per-component cl
 
 ## Color inheritance
 
-Components with a concrete appearance emit `data-appearance` and `data-variant` and paint their own colors, so a default `<Button>` inside a filled `<Card>` keeps its own primary-outline palette. Inheritance is opt-in: only inherit-mode components (the typography components, which default to `appearance="inherit"`) and appearance-less `Icon` emit nothing and read their colors from the nearest ancestor. The `:root` palette is the fallback those inherit-mode components use when no ancestor sets colors. See [Variant Inheritance](./variant-inheritance) for details.
+Components with a concrete appearance emit `data-appearance` and `data-variant` and paint their own colors, so a default `<Button>` inside a filled `<Card>` keeps its own primary-outline palette. Inheritance is opt-in: only inherit-mode components (the typography components, which default to `appearance="inheritAppearance"`) and appearance-less `Icon` emit nothing and read their colors from the nearest ancestor. The `:root` palette is the fallback those inherit-mode components use when no ancestor sets colors. See [Variant Inheritance](./variant-inheritance) for details.
 
 ## Style resolution flow
 
@@ -7286,7 +7286,7 @@ Components with a concrete appearance emit `data-appearance` and `data-variant` 
 3. `ThemedComponent` calls `theme.getComponentConfig(props)`
 4. Props merged with defaults, then extracted by category: `{ size: 'lg', appearance: 'danger', variant: 'filled' }`
 5. Theme tree is walked, each `BaseTheme.getClasses()` returns CSS classes
-6. Classes are merged with `twMerge()`, data attributes are added (because `danger` is a concrete, non-`inherit` appearance)
+6. Classes are merged with `twMerge()`, data attributes are added (because `danger` is a concrete, non-`inheritAppearance` appearance)
 7. Final render: `<button class="..." data-vane-type="ui" data-size="lg" data-appearance="danger" data-variant="filled">`
 8. CSS rules in `rules.css` set unit variables and the appearance/variant palette
 9. Browser computes final styles from CSS variables
@@ -7773,7 +7773,7 @@ function ConsistentThemeApp() {
 
 ### Appearance props
 - `primary`, `accent`, `secondary`, `tertiary`
-- `success`, `danger`, `warning`, `info`, `inherit`
+- `success`, `danger`, `warning`, `info`, `inheritAppearance`
 
 ### Variant props
 - `filled`, `outline`, `ghost`
@@ -7813,13 +7813,13 @@ function ConsistentThemeApp() {
 - `relative`, `absolute`, `fixed`, `sticky`, `static`
 
 ### Responsive props (layout)
-- `mobileCol`, `tabletCol`, `desktopCol`
+- `mobileStack`, `tabletStack`, `desktopStack`
 - `mobileHide`, `tabletHide`, `desktopHide`
 
 ### Misc
 - `transition`, `noTransition`, `focusVisible`, `noFocusVisible`
 - `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder`
-- `responsive`, `horizontal`, `vertical`, `listDisc`, `listDecimal`
+- `responsiveSizing`, `horizontal`, `vertical`, `listDisc`, `listDecimal`
 
 ## Override priority
 
@@ -7994,16 +7994,16 @@ VaneUI components come with sensible built-in defaults. Only set defaults that d
 - **Row**: `md`, `row`, `flex`, `itemsCenter`, `gap`, `noPadding`, `noBorder`, `noInsetRing`, `outline`, `sharp`
 - **Col**: `md`, `column`, `flex`, `gap`, `noPadding`, `noBorder`, `noInsetRing`, `outline`, `sharp`
 - **Stack**: `md`, `flex`, `column`, `flexWrap`, `gap`, `padding`, `noBorder`, `noInsetRing`, `outline`, `sharp`
-- **Section**: `md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `noBorder`, `noInsetRing`, `noShadow`, `outline`, `sharp`, `responsive`
+- **Section**: `md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `noBorder`, `noInsetRing`, `noShadow`, `outline`, `sharp`, `responsiveSizing`
 - **Container**: `md`, `wFull`, `flex`, `column`, `itemsCenter`, `gap`, `noPadding`, `outline`, `sharp`
 - **Input**: `md`, `wFull`, `primary`, `outline`, `rounded`, `padding`, `insetRing`, `focusVisible`
-- **Label**: `sm`, `flex`, `column`, `itemsStart`, `gap`, `inherit` (not `primary`), `fontMedium` (stacked label above field; use `<Label row itemsCenter>` for inline controls like `Checkbox`)
+- **Label**: `sm`, `flex`, `column`, `itemsStart`, `gap`, `inheritAppearance` (not `primary`), `fontMedium` (stacked label above field; use `<Label row itemsCenter>` for inline controls like `Checkbox`)
 - **Badge**: `md`, `secondary` (not `primary`), `outline`, `pill`, `fontSemibold`, `uppercase`
 - **Chip**: `md`, `secondary` (not `primary`), `outline`, `rounded`, `fontSans`
 - **Link**: `md`, `underline`, `fontSans`, `cursorPointer`, `inheritSize`, `wFit`, `focusVisible` (link color by default; no appearance or variant default)
 - **NavLink**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`
 - **MenuItem**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`
-- **Typography** (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`): `md`, `inherit` (not `primary`), `outline`
+- **Typography** (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`): `md`, `inheritAppearance` (not `primary`), `outline`
 - **Icon**: `md`, `inlineFlex`, `itemsCenter`, `justifyCenter`, `outline`, `rounded`, `noPadding`, `noBorder`, `noInsetRing`, `noShadow`, `noShrink`, `noTransition`, `wFit`
 - **Modal** content: `md`, `wFull`, `flex`, `column`, `rounded`, `shadow`, `primary`, `outline`
 - **Popup**: `md`, `flex`, `column`, `padding`, `gap`, `rounded`, `shadow`, `border`, `primary`, `outline`
@@ -8361,9 +8361,9 @@ Replace `{appearance}` in variable names with one of:
 - `danger` - error/destructive (red)
 - `warning` - caution (amber)
 - `info` - informational (cyan)
-- `inherit` - inherits from parent element
+- `inheritAppearance` - inherits from parent element
 
-> The `inherit` appearance works differently from all other appearances. Instead of setting `data-appearance` and `data-variant` attributes, it omits them entirely. This allows the semantic color CSS variables (`--text-color`, `--bg-color`, `--border-color`) to cascade from parent elements rather than being set explicitly on the component. Typography components (Text, Title, SectionTitle, PageTitle, Blockquote), Label, List, and Divider default to `inherit`.
+> The `inheritAppearance` appearance works differently from all other appearances. Instead of setting `data-appearance` and `data-variant` attributes, it omits them entirely. This allows the semantic color CSS variables (`--text-color`, `--bg-color`, `--border-color`) to cascade from parent elements rather than being set explicitly on the component. Typography components (Text, Title, SectionTitle, PageTitle, Blockquote), Label, List, and Divider default to `inheritAppearance`.
 
 ## Color variable groups
 
@@ -8711,7 +8711,7 @@ A default `<Button>` inside a `<Card filled primary>` renders in its own primary
 
 Two kinds of components emit no `data-appearance`, so they read colors from the nearest ancestor that set them:
 
-- **Inherit mode**: `Text`, `Title`, `SectionTitle`, `PageTitle`, `Label`, `List`, `ListItem`, `Blockquote`, and `Divider` default to `appearance="inherit"`. This is how a `<Text>` inside a `<Card filled primary>` gets white text with no props.
+- **Inherit mode**: `Text`, `Title`, `SectionTitle`, `PageTitle`, `Label`, `List`, `ListItem`, `Blockquote`, and `Divider` default to `appearance="inheritAppearance"`. This is how a `<Text>` inside a `<Card filled primary>` gets white text with no props.
 - **Icon**: has no appearance default at all, so it inherits `currentColor` from its surroundings.
 
 ## Explicit props always win
@@ -8772,18 +8772,18 @@ When multiple layout components are nested, each child inherits from its **neare
 
 The data-attribute gate uses one rule:
 
-> **Emit `data-appearance` and `data-variant` for any concrete (non-`inherit`) appearance.** They are suppressed only in inherit mode (`appearance="inherit"`, which activates `inheritColor`) or when a component has no appearance at all (Icon).
+> **Emit `data-appearance` and `data-variant` for any concrete (non-`inheritAppearance`) appearance.** They are suppressed only in inherit mode (`appearance="inheritAppearance"`, which activates `inheritColor`) or when a component has no appearance at all (Icon).
 
 This means:
 - `<Button>` → primary → attrs emitted → own primary-outline colors
 - `<Button filled>` → primary + filled → attrs emitted → own rule
 - `<Badge>` → secondary → attrs emitted → own colors
-- `<Text>` → inherit → no attrs → inherits from the nearest ancestor
+- `<Text>` → inheritAppearance → no attrs → inherits from the nearest ancestor
 - `<Icon>` → no appearance → no attrs → inherits `currentColor`
 
 ## Granular inheritance props
 
-By default, the `inherit` appearance keyword inherits **everything** (color, size, background, and border) from the nearest ancestor. But sometimes you need selective inheritance: a `Link` inside a `Title` should inherit font-size (so the link matches the heading size) but keep its own link-blue color.
+By default, the `inheritAppearance` appearance keyword inherits **everything** (color, size, background, and border) from the nearest ancestor. But sometimes you need selective inheritance: a `Link` inside a `Title` should inherit font-size (so the link matches the heading size) but keep its own link-blue color.
 
 VaneUI provides four independent boolean toggle props for this:
 
@@ -8794,12 +8794,12 @@ VaneUI provides four independent boolean toggle props for this:
 | `inheritBg` | Background color via CSS variable cascade | `noInheritBg` |
 | `inheritBorder` | Border color via CSS variable cascade | `noInheritBorder` |
 
-### How `inherit` expands
+### How `inheritAppearance` expands
 
-When a component has `inherit` appearance (the default for Text, Title, Label, List, Divider, Blockquote), VaneUI expands it into color, background, and border inheritance, but **not size**:
+When a component has `inheritAppearance` appearance (the default for Text, Title, Label, List, Divider, Blockquote), VaneUI expands it into color, background, and border inheritance, but **not size**:
 
 ```
-<Text inherit>
+<Text inheritAppearance>
   ↓ expands to:
   inheritColor + inheritBg + inheritBorder
   (NOT inheritSize: size uses own --fs variable so <Text sm> works as expected)
@@ -8810,16 +8810,16 @@ Size inheritance is separate. Only Link and Mark have `inheritSize: true` in the
 ```tsx demo
 <Card filled primary>
   {/* Inherits color (white) but uses own md size */}
-  <Text inherit>Inherited color, own size</Text>
+  <Text inheritAppearance>Inherited color, own size</Text>
 
   {/* Explicit inheritSize: also inherits font-size from parent */}
-  <Text inherit inheritSize>Inherited color AND size</Text>
+  <Text inheritAppearance inheritSize>Inherited color AND size</Text>
 </Card>
 ```
 
 ### Link, Mark: exact size inheritance via `inheritSize`
 
-Link and Mark are not `inherit`-default components (Link sets no appearance and renders its own link-blue, Mark defaults to `warning`), so the `inherit` expansion does NOT fire. Instead, they have `inheritSize: true` set explicitly in their defaults. They render at the *exact* font-size of the nearest typography ancestor.
+Link and Mark are not `inheritAppearance`-default components (Link sets no appearance and renders its own link-blue, Mark defaults to `warning`), so the `inheritAppearance` expansion does NOT fire. Instead, they have `inheritSize: true` set explicitly in their defaults. They render at the *exact* font-size of the nearest typography ancestor.
 
 ```tsx demo
 <Title lg>
@@ -8859,7 +8859,7 @@ The Link renders at its default `md` size while the Title is `lg`. For Code/Kbd,
 
 ### Responsive overrides `inheritSize`
 
-Title, PageTitle, and SectionTitle have `responsive: true` in their defaults. Responsive sizing takes priority over `inheritSize`: a responsive heading always uses its viewport-scaled size, even if `inheritSize` is set via the `inherit` expansion.
+Title, PageTitle, and SectionTitle have `responsiveSizing: true` in their defaults. Responsive sizing takes priority over `inheritSize`: a responsive heading always uses its viewport-scaled size, even if `inheritSize` is set via the `inheritAppearance` expansion.
 
 ## Reference
 
@@ -8874,7 +8874,7 @@ URL: https://vaneui.com/docs/reference/common-props
 
 Layout and utility props shared across most VaneUI components. Documented here once instead of on every component page. Per-component pages link here from the "Layout & utility props" disclosure under their props table.
 
-Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inherit`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except `Button`, `NavLink`, `Label`, and `MenuItem` which default to `sm`.
+Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inheritAppearance`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except `Button`, `NavLink`, `Label`, and `MenuItem` which default to `sm`.
 
 ## Hide
 
@@ -8919,12 +8919,12 @@ Cross-axis alignment for a single flex or grid item (align-self), overriding the
 
 | Prop | Description |
 |------|-------------|
-| `selfAuto` | Use the parent's align-items value (`align-self: auto`) |
-| `selfStart` | Align this item to the start of the cross axis |
-| `selfEnd` | Align this item to the end of the cross axis |
-| `selfCenter` | Center this item on the cross axis |
-| `selfStretch` | Stretch this item to fill the cross axis |
-| `selfBaseline` | Align this item to its baseline |
+| `alignSelfAuto` | Use the parent's align-items value (`align-self: auto`) |
+| `alignSelfStart` | Align this item to the start of the cross axis |
+| `alignSelfEnd` | Align this item to the end of the cross axis |
+| `alignSelfCenter` | Center this item on the cross axis |
+| `alignSelfStretch` | Stretch this item to fill the cross axis |
+| `alignSelfBaseline` | Align this item to its baseline |
 
 ## Justify self
 
@@ -9040,7 +9040,7 @@ Flex-shrink override. Independent toggle so it can be combined with `flex1`/`fle
 
 ## Border
 
-Border visibility on component sides.
+Border visibility on component sides. Side props compose: `borderT borderL` applies both. `noBorder` resets and wins.
 
 | Prop | Description |
 |------|-------------|
@@ -9154,7 +9154,7 @@ Enable breakpoint-specific sizing for adaptive layouts.
 
 | Prop | Description |
 |------|-------------|
-| `responsive` | Enable responsive sizing - uses breakpoint-specific classes for font size, padding, and gap |
+| `responsiveSizing` | Enable responsive sizing - uses breakpoint-specific classes for font size, padding, and gap |
 
 ## Object fit
 
@@ -9192,7 +9192,7 @@ Minimum width constraint for popup and floating components.
 
 | Prop | Description |
 |------|-------------|
-| `minWidth` | Apply size-dependent minimum width (uses --popup-min-w CSS variable) |
+| `constrainWidth` | Apply size-dependent minimum width (uses --popup-min-w CSS variable) |
 
 ## Max height
 
@@ -9200,7 +9200,7 @@ Maximum height constraint for components.
 
 | Prop | Description |
 |------|-------------|
-| `maxHeight` | Apply size-dependent maximum height (uses --max-height CSS variable) |
+| `clampHeight` | Apply size-dependent maximum height (uses --max-height CSS variable) |
 
 ## Orientation
 

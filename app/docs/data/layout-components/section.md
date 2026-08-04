@@ -9,7 +9,7 @@ Sections own the outer padding and background; nest a `Container` inside to cap 
 
 ## Basic usage
 
-`md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `outline`, `sharp`, and `responsive` are defaults. Padding and gap automatically scale at tablet and mobile breakpoints because `responsive` is on.
+`md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `outline`, `sharp`, and `responsiveSizing` are defaults. Padding and gap automatically scale at tablet and mobile breakpoints because `responsiveSizing` is on.
 
 ```tsx demo
 <Section border>
@@ -106,10 +106,10 @@ Use `row` for horizontal layout. `gap` is already on by default; pair with `noPa
 
 ## Responsive breakpoints
 
-Use `mobileCol` or `tabletCol` to switch from row to column layout on smaller screens.
+Use `mobileStack` or `tabletStack` to switch from row to column layout on smaller screens.
 
 ```tsx demo
-<Section row tabletCol border>
+<Section row tabletStack border>
   <Col>
     <Title>Left Content</Title>
     <Text>Switches to stacked layout on tablets and below.</Text>
@@ -123,16 +123,16 @@ Use `mobileCol` or `tabletCol` to switch from row to column layout on smaller sc
 
 ## Responsive sizing
 
-`responsive` (default) scales padding and gap at tablet and mobile breakpoints using `--py-tablet`, `--gap-mobile`, etc. Pass `responsive={false}` to lock a single size across all viewports.
+`responsiveSizing` (default) scales padding and gap at tablet and mobile breakpoints using `--py-tablet`, `--gap-mobile`, etc. Pass `responsiveSizing={false}` to lock a single size across all viewports.
 
 ```tsx demo
 <Col>
   <Section lg border>
-    <Text fontSemibold>responsive (default)</Text>
+    <Text fontSemibold>responsiveSizing (default)</Text>
     <Text>Padding shrinks at tablet and mobile.</Text>
   </Section>
-  <Section lg responsive={false} border>
-    <Text fontSemibold>responsive=&#123;false&#125;</Text>
+  <Section lg responsiveSizing={false} border>
+    <Text fontSemibold>responsiveSizing=&#123;false&#125;</Text>
     <Text>Padding stays fixed at the lg size on every viewport.</Text>
   </Section>
 </Col>

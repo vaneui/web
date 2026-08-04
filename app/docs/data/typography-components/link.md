@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-Link renders a styled anchor element for navigation. Unlike other typography components which default to `inherit`, Link renders its blue link color by default (no explicit appearance) with `underline`, and ships with `focusVisible` on for a keyboard focus outline.
+Link renders a styled anchor element for navigation. Unlike other typography components which default to `inheritAppearance`, Link renders its blue link color by default (no explicit appearance) with `underline`, and ships with `focusVisible` on for a keyboard focus outline.
 
 ```tsx demo
 <Link href="#">Click here to learn more</Link>

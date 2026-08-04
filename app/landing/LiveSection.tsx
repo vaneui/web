@@ -23,7 +23,7 @@ import { AnimationStep } from './utils/typingTypes';
 import { getTypingInfo, getCurrentWordInfo, getDisplayCode, getCurrentCodeLines } from './utils/typingLogic';
 
 const BASE_CODE_LINES = [
-  '<Card row mobileCol overflowHidden>',
+  '<Card row mobileStack overflowHidden>',
   '  <Img src="/puppy.png" alt="puppy" width={185} height={185}',
   '       className="shrink-0 max-mobile:w-full"/>',
   '  <Stack sm>',
@@ -33,7 +33,7 @@ const BASE_CODE_LINES = [
   '    </Row>',
   '    <Divider/>',
   '    <Text sm>{dog.description}</Text>',
-  '    <Row mobileCol>',
+  '    <Row mobileStack>',
   '      <Button className="max-mobile:w-full">Adopt</Button>',
   '      <Button className="max-mobile:w-full">Learn more</Button>',
   '    </Row>',
@@ -43,8 +43,8 @@ const BASE_CODE_LINES = [
 
 const ANIMATION_STEPS: AnimationStep[] = [
   { lineIndex: 1, text: '  <Img src="/puppy.png" alt="puppy" sharp width={185} height={185}' },
-  { lineIndex: 0, text: '<Card row mobileCol noPadding overflowHidden>' },
-  { lineIndex: 0, text: '<Card row mobileCol noPadding noGap overflowHidden>' },
+  { lineIndex: 0, text: '<Card row mobileStack noPadding overflowHidden>' },
+  { lineIndex: 0, text: '<Card row mobileStack noPadding noGap overflowHidden>' },
   { lineIndex: 6, text: '      <Chip sm bold>{dog.gender}</Chip>' },
   { lineIndex: 6, text: '      <Chip sm bold primary>{dog.gender}</Chip>' },
   { lineIndex: 6, text: '      <Chip sm bold primary pill>{dog.gender}</Chip>' },
@@ -52,8 +52,8 @@ const ANIMATION_STEPS: AnimationStep[] = [
   { lineIndex: 12, text: '      <Button sm className="max-mobile:w-full">Learn more</Button>' },
   { lineIndex: 11, text: '      <Button sm success className="max-mobile:w-full">Adopt</Button>' },
   { lineIndex: 11, text: '      <Button sm success filled className="max-mobile:w-full">Adopt</Button>' },
-  { lineIndex: 10, text: '    <Row mobileCol sm>' },
-  { lineIndex: 10, text: '    <Row mobileCol sm justifyEnd>' },
+  { lineIndex: 10, text: '    <Row mobileStack sm>' },
+  { lineIndex: 10, text: '    <Row mobileStack sm justifyEnd>' },
   { lineIndex: 11, text: '      <Button sm success filled pill className="max-mobile:w-full">Adopt</Button>' },
   { lineIndex: 12, text: '      <Button sm pill className="max-mobile:w-full">Learn more</Button>' },
 ];
@@ -193,7 +193,7 @@ export function LiveSection() {
             title="See it in action"
             description="Watch how changing props instantly transforms components."
           />
-          <Row xl tabletCol relative wFull>
+          <Row xl tabletStack relative wFull>
             <CodeBlock
               fileName="CardExample.tsx"
               language="tsx"
@@ -204,7 +204,7 @@ export function LiveSection() {
             />
             <Col
                  className="[--b:8px] max-w-xl max-mobile:max-w-80 z-20 border-(length:--b) [--br-unit:5] rounded-[calc(var(--b)+var(--br))] shadow-2xl absolute max-lg:relative right-0 border-gray-400/10 backdrop-blur-sm">
-              <Card row mobileCol overflowHidden {...componentProps.card} className="transition-all duration-500">
+              <Card row mobileStack overflowHidden {...componentProps.card} className="transition-all duration-500">
                 <Img tag={Image} src="/puppy.png" alt="puppy" width={200} height={200}
                      {...componentProps.img} className="shrink-0 max-mobile:w-full"/>
                 <Stack sm>
@@ -214,7 +214,7 @@ export function LiveSection() {
                   </Row>
                   <Divider/>
                   <Text sm>{dog.description}</Text>
-                  <Row mobileCol {...componentProps.row}>
+                  <Row mobileStack {...componentProps.row}>
                     <Button {...componentProps.adoptButton} className="max-mobile:w-full">Adopt</Button>
                     <Button secondary {...componentProps.learnButton} className="max-mobile:w-full">Learn more</Button>
                   </Row>

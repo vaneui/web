@@ -41,7 +41,7 @@ This setup:
 - Imports VaneUI CSS variables and component rules
 - Tells Tailwind to scan VaneUI components for class generation
 
-> The `@vaneui/ui/tokens` import is required for responsive props like `mobileCol`, `tabletHide`, and responsive typography to work. It registers VaneUI's custom breakpoints (`mobile`, `tablet`, `desktop`) with your project's Tailwind CSS instance.
+> The `@vaneui/ui/tokens` import is required for responsive props like `mobileStack`, `tabletHide`, and responsive typography to work. It registers VaneUI's custom breakpoints (`mobile`, `tablet`, `desktop`) with your project's Tailwind CSS instance.
 
 ### Option 2: without Tailwind CSS
 

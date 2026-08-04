@@ -91,14 +91,14 @@ Pair inputs with labels for accessibility and better UX. When the `Input` is nes
 
 ## States
 
-Different input states: disabled, readonly, and validation feedback. Use appearance props (`success`, `danger`) for visual feedback, or the `error` status prop for form validation state.
+Different input states: disabled, readonly, and validation feedback. Use appearance props (`success`, `danger`) for visual feedback, or the `invalid` validity prop for form validation state.
 
 ```tsx
 <Input placeholder="Normal input" />
 <Input disabled placeholder="Disabled input" />
 <Input success placeholder="Success state" />
 <Input danger placeholder="Error state" />
-<Input error placeholder="Validation error" />
+<Input invalid placeholder="Validation error" />
 ```
 
 ```tsx demo
@@ -107,7 +107,7 @@ Different input states: disabled, readonly, and validation feedback. Use appeara
   <Input disabled placeholder="Disabled input" />
   <Input success placeholder="Success state" />
   <Input danger placeholder="Error state" />
-  <Input error placeholder="Validation error (status)" />
+  <Input invalid placeholder="Validation error (validity)" />
 </Col>
 ```
 

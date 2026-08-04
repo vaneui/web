@@ -30,7 +30,7 @@ A default `<Button>` inside a `<Card filled primary>` renders in its own primary
 
 Two kinds of components emit no `data-appearance`, so they read colors from the nearest ancestor that set them:
 
-- **Inherit mode**: `Text`, `Title`, `SectionTitle`, `PageTitle`, `Label`, `List`, `ListItem`, `Blockquote`, and `Divider` default to `appearance="inherit"`. This is how a `<Text>` inside a `<Card filled primary>` gets white text with no props.
+- **Inherit mode**: `Text`, `Title`, `SectionTitle`, `PageTitle`, `Label`, `List`, `ListItem`, `Blockquote`, and `Divider` default to `appearance="inheritAppearance"`. This is how a `<Text>` inside a `<Card filled primary>` gets white text with no props.
 - **Icon**: has no appearance default at all, so it inherits `currentColor` from its surroundings.
 
 ## Explicit props always win
@@ -91,18 +91,18 @@ When multiple layout components are nested, each child inherits from its **neare
 
 The data-attribute gate uses one rule:
 
-> **Emit `data-appearance` and `data-variant` for any concrete (non-`inherit`) appearance.** They are suppressed only in inherit mode (`appearance="inherit"`, which activates `inheritColor`) or when a component has no appearance at all (Icon).
+> **Emit `data-appearance` and `data-variant` for any concrete (non-`inheritAppearance`) appearance.** They are suppressed only in inherit mode (`appearance="inheritAppearance"`, which activates `inheritColor`) or when a component has no appearance at all (Icon).
 
 This means:
 - `<Button>` → primary → attrs emitted → own primary-outline colors
 - `<Button filled>` → primary + filled → attrs emitted → own rule
 - `<Badge>` → secondary → attrs emitted → own colors
-- `<Text>` → inherit → no attrs → inherits from the nearest ancestor
+- `<Text>` → inheritAppearance → no attrs → inherits from the nearest ancestor
 - `<Icon>` → no appearance → no attrs → inherits `currentColor`
 
 ## Granular inheritance props
 
-By default, the `inherit` appearance keyword inherits **everything** (color, size, background, and border) from the nearest ancestor. But sometimes you need selective inheritance: a `Link` inside a `Title` should inherit font-size (so the link matches the heading size) but keep its own link-blue color.
+By default, the `inheritAppearance` appearance keyword inherits **everything** (color, size, background, and border) from the nearest ancestor. But sometimes you need selective inheritance: a `Link` inside a `Title` should inherit font-size (so the link matches the heading size) but keep its own link-blue color.
 
 VaneUI provides four independent boolean toggle props for this:
 
@@ -113,12 +113,12 @@ VaneUI provides four independent boolean toggle props for this:
 | `inheritBg` | Background color via CSS variable cascade | `noInheritBg` |
 | `inheritBorder` | Border color via CSS variable cascade | `noInheritBorder` |
 
-### How `inherit` expands
+### How `inheritAppearance` expands
 
-When a component has `inherit` appearance (the default for Text, Title, Label, List, Divider, Blockquote), VaneUI expands it into color, background, and border inheritance, but **not size**:
+When a component has `inheritAppearance` appearance (the default for Text, Title, Label, List, Divider, Blockquote), VaneUI expands it into color, background, and border inheritance, but **not size**:
 
 ```
-<Text inherit>
+<Text inheritAppearance>
   ↓ expands to:
   inheritColor + inheritBg + inheritBorder
   (NOT inheritSize: size uses own --fs variable so <Text sm> works as expected)
@@ -129,16 +129,16 @@ Size inheritance is separate. Only Link and Mark have `inheritSize: true` in the
 ```tsx demo
 <Card filled primary>
   {/* Inherits color (white) but uses own md size */}
-  <Text inherit>Inherited color, own size</Text>
+  <Text inheritAppearance>Inherited color, own size</Text>
 
   {/* Explicit inheritSize: also inherits font-size from parent */}
-  <Text inherit inheritSize>Inherited color AND size</Text>
+  <Text inheritAppearance inheritSize>Inherited color AND size</Text>
 </Card>
 ```
 
 ### Link, Mark: exact size inheritance via `inheritSize`
 
-Link and Mark are not `inherit`-default components (Link sets no appearance and renders its own link-blue, Mark defaults to `warning`), so the `inherit` expansion does NOT fire. Instead, they have `inheritSize: true` set explicitly in their defaults. They render at the *exact* font-size of the nearest typography ancestor.
+Link and Mark are not `inheritAppearance`-default components (Link sets no appearance and renders its own link-blue, Mark defaults to `warning`), so the `inheritAppearance` expansion does NOT fire. Instead, they have `inheritSize: true` set explicitly in their defaults. They render at the *exact* font-size of the nearest typography ancestor.
 
 ```tsx demo
 <Title lg>
@@ -178,4 +178,4 @@ The Link renders at its default `md` size while the Title is `lg`. For Code/Kbd,
 
 ### Responsive overrides `inheritSize`
 
-Title, PageTitle, and SectionTitle have `responsive: true` in their defaults. Responsive sizing takes priority over `inheritSize`: a responsive heading always uses its viewport-scaled size, even if `inheritSize` is set via the `inherit` expansion.
+Title, PageTitle, and SectionTitle have `responsiveSizing: true` in their defaults. Responsive sizing takes priority over `inheritSize`: a responsive heading always uses its viewport-scaled size, even if `inheritSize` is set via the `inheritAppearance` expansion.

@@ -93,9 +93,9 @@ Different color appearances applied to the Checkbox; always place inside a Label
     <Checkbox info id="appearance-info" defaultChecked/>
     Enable info style
   </Label>
-  <Label row itemsCenter inherit htmlFor="appearance-inherit">
-    <Checkbox inherit id="appearance-inherit" defaultChecked/>
-    Enable inherit style
+  <Label row itemsCenter inheritAppearance htmlFor="appearance-inherit">
+    <Checkbox inheritAppearance id="appearance-inherit" defaultChecked/>
+    Enable inheritAppearance style
   </Label>
 </Row>
 ```

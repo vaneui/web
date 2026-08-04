@@ -2,7 +2,7 @@
 
 Layout and utility props shared across most VaneUI components. Documented here once instead of on every component page. Per-component pages link here from the "Layout & utility props" disclosure under their props table.
 
-Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inherit`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except `Button`, `NavLink`, `Label`, and `MenuItem` which default to `sm`.
+Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inheritAppearance`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except `Button`, `NavLink`, `Label`, and `MenuItem` which default to `sm`.
 
 ## Hide
 
@@ -47,12 +47,12 @@ Cross-axis alignment for a single flex or grid item (align-self), overriding the
 
 | Prop | Description |
 |------|-------------|
-| `selfAuto` | Use the parent's align-items value (`align-self: auto`) |
-| `selfStart` | Align this item to the start of the cross axis |
-| `selfEnd` | Align this item to the end of the cross axis |
-| `selfCenter` | Center this item on the cross axis |
-| `selfStretch` | Stretch this item to fill the cross axis |
-| `selfBaseline` | Align this item to its baseline |
+| `alignSelfAuto` | Use the parent's align-items value (`align-self: auto`) |
+| `alignSelfStart` | Align this item to the start of the cross axis |
+| `alignSelfEnd` | Align this item to the end of the cross axis |
+| `alignSelfCenter` | Center this item on the cross axis |
+| `alignSelfStretch` | Stretch this item to fill the cross axis |
+| `alignSelfBaseline` | Align this item to its baseline |
 
 ## Justify self
 
@@ -168,7 +168,7 @@ Flex-shrink override. Independent toggle so it can be combined with `flex1`/`fle
 
 ## Border
 
-Border visibility on component sides.
+Border visibility on component sides. Side props compose: `borderT borderL` applies both. `noBorder` resets and wins.
 
 | Prop | Description |
 |------|-------------|
@@ -282,7 +282,7 @@ Enable breakpoint-specific sizing for adaptive layouts.
 
 | Prop | Description |
 |------|-------------|
-| `responsive` | Enable responsive sizing - uses breakpoint-specific classes for font size, padding, and gap |
+| `responsiveSizing` | Enable responsive sizing - uses breakpoint-specific classes for font size, padding, and gap |
 
 ## Object fit
 
@@ -320,7 +320,7 @@ Minimum width constraint for popup and floating components.
 
 | Prop | Description |
 |------|-------------|
-| `minWidth` | Apply size-dependent minimum width (uses --popup-min-w CSS variable) |
+| `constrainWidth` | Apply size-dependent minimum width (uses --popup-min-w CSS variable) |
 
 ## Max height
 
@@ -328,7 +328,7 @@ Maximum height constraint for components.
 
 | Prop | Description |
 |------|-------------|
-| `maxHeight` | Apply size-dependent maximum height (uses --max-height CSS variable) |
+| `clampHeight` | Apply size-dependent maximum height (uses --max-height CSS variable) |
 
 ## Orientation
 

@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-PageTitle renders a large `<h1>` heading for page titles. It defaults to `fontSemibold` weight, `fontHeading` font family, `trackingTight` letter spacing, and `inherit` appearance.
+PageTitle renders a large `<h1>` heading for page titles. It defaults to `fontSemibold` weight, `fontHeading` font family, `trackingTight` letter spacing, and `inheritAppearance` appearance.
 
 ```tsx demo
 <PageTitle>Welcome to VaneUI</PageTitle>
@@ -29,7 +29,7 @@ Page titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ## Appearances
 
-By default, PageTitle uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
+By default, PageTitle uses the `inheritAppearance` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `warning`, `danger`, `info` to override.
 
 ```tsx demo
 <Col>

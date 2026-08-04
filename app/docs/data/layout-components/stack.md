@@ -262,10 +262,10 @@ Use `textLeft`, `textCenter`, `textRight`, or `textJustify` to control text alig
 
 ## Responsive layout
 
-Use `mobileCol` or `tabletCol` on a horizontal Stack to switch back to a column on narrower viewports.
+Use `mobileStack` or `tabletStack` on a horizontal Stack to switch back to a column on narrower viewports.
 
 ```tsx demo
-<Stack row tabletCol>
+<Stack row tabletStack>
   <Col flex1 className="p-4 bg-primary-100 rounded">
     <Text fontSemibold>Column 1</Text>
     <Text>Horizontal on desktop, stacked on tablet and below.</Text>

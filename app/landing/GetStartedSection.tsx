@@ -23,7 +23,7 @@ export function GetStartedSection() {
             Install VaneUI and build your first component in minutes.
           </Text>
           <CodeBlock theme="light" code="npm install @vaneui/ui" language="bash" />
-          <Row mobileCol>
+          <Row mobileStack>
             <Button lg filled tag={Link} href="/docs/getting-started/installation">
               Read the Docs
             </Button>

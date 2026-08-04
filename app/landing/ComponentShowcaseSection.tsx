@@ -76,10 +76,10 @@ const layoutContent = (
         <Button sm>Configure</Button>
       </Card>
     </Grid2>
-    <Card row mobileCol itemsCenter>
+    <Card row mobileStack itemsCenter>
       <Col flex1>
         <Title sm>Responsive Layout</Title>
-        <Text sm secondary>Cards stack on mobile via mobileCol.</Text>
+        <Text sm secondary>Cards stack on mobile via mobileStack.</Text>
       </Col>
       <Button filled>Learn More</Button>
     </Card>
@@ -165,7 +165,7 @@ export function ComponentShowcaseSection() {
               inset-0 pointer-events-none
               bg-[repeating-linear-gradient(-45deg,theme(colors.slate.50)_0_1px,transparent_1px_calc(var(--spacing)*4))]
             "/>
-            <Row xl tabletCol>
+            <Row xl tabletStack>
               <Col className="flex-[2] z-10 min-h-[320px] min-w-[280px]">
                 {content}
               </Col>

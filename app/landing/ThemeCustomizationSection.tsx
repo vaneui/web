@@ -97,7 +97,7 @@ export function ThemeCustomizationSection() {
     bg-[repeating-linear-gradient(-45deg,theme(colors.slate.100)_0_1px,transparent_1px_calc(var(--spacing)*4))]
   "/>
               <ThemeProvider theme={currentTheme.config} themeDefaults={currentTheme.defaults}>
-                <Card primary row mobileCol overflowHidden
+                <Card primary row mobileStack overflowHidden
                       className={`max-w-2xl max-mobile:max-w-80 z-10 ${currentTheme.cssVars || ''}`}>
                   <Img
                     tag={Image}
@@ -114,7 +114,7 @@ export function ThemeCustomizationSection() {
                     </Row>
                     <Divider/>
                     <Text sm>Oliver is a shy, sweet pup learning to trust. He needs a calm, patient home. Older kids and a gentle dog will help him feel secure.</Text>
-                    <Row mobileCol justifyEnd>
+                    <Row mobileStack justifyEnd>
                       <Button success filled className="max-mobile:w-full">
                         Adopt
                       </Button>

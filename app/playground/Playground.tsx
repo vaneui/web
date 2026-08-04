@@ -50,7 +50,7 @@ export function Playground() {
         <Title sm>Playground</Title>
         <Button sm secondary onClick={reset}>Reset</Button>
       </Stack>
-      <Row noGap flex1 overflowHidden wFull mobileCol style={{ alignItems: 'normal' }}>
+      <Row noGap flex1 overflowHidden wFull mobileStack style={{ alignItems: 'normal' }}>
         <Col noGap flex1 overflowHidden
              className="min-w-0 max-md:h-1/2 border-(--color-border-primary) md:border-r max-md:border-b">
           <CodeEditor value={code} onChange={setCode} />

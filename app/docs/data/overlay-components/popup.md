@@ -5,7 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/popup/Po
 since: 0.9.0
 ---
 
-Popup ships its own surface defaults: `md`, `flex column`, `padding`, `gap`, `rounded`, `border`, `shadow`, `primary`, `outline`, `wFit`, `maxHeight`, `overflowAuto`, `bottom`. Render children directly. Wrapping content in another `Card` is usually redundant.
+Popup ships its own surface defaults: `md`, `flex column`, `padding`, `gap`, `rounded`, `border`, `shadow`, `primary`, `outline`, `wFit`, `clampHeight`, `overflowAuto`, `placeBottom`. Render children directly. Wrapping content in another `Card` is usually redundant.
 
 > **Browser support:** Popup uses the CSS Anchor Positioning API (Chrome/Edge 129+, for the `span-*` alignment it relies on). Other browsers fall back to a JS positioning path that recomputes on scroll/resize.
 
@@ -83,7 +83,7 @@ Set `triggerOnFocus` to show on focus and hide on blur. Useful for search autoco
 
 ## All 12 placements
 
-Placement is set via boolean props: `top`, `topStart`, `topEnd`, `bottom`, `bottomStart`, `bottomEnd`, `left`, `leftStart`, `leftEnd`, `right`, `rightStart`, `rightEnd`. Exactly one wins (first-truthy per category). Default is `bottom`.
+Placement is set via boolean props: `placeTop`, `placeTopStart`, `placeTopEnd`, `placeBottom`, `placeBottomStart`, `placeBottomEnd`, `placeLeft`, `placeLeftStart`, `placeLeftEnd`, `placeRight`, `placeRightStart`, `placeRightEnd`. Exactly one wins (first-truthy per category). Default is `placeBottom`.
 
 ```tsx demo
 const ref = useRef<HTMLButtonElement>(null);
@@ -94,17 +94,17 @@ return (
     <Button ref={ref} onClick={() => setOpen(!open)}>Anchor</Button>
 
     {/* Above the anchor, aligned to the anchor's left edge */}
-    <Popup topStart open={open} onClose={() => setOpen(false)} anchorRef={ref}>
+    <Popup placeTopStart open={open} onClose={() => setOpen(false)} anchorRef={ref}>
       <Text>Top Start</Text>
     </Popup>
 
     {/* Centered to the right of the anchor */}
-    <Popup right open={open} onClose={() => setOpen(false)} anchorRef={ref}>
+    <Popup placeRight open={open} onClose={() => setOpen(false)} anchorRef={ref}>
       <Text>Right</Text>
     </Popup>
 
     {/* Below the anchor, aligned to the anchor's right edge */}
-    <Popup bottomEnd open={open} onClose={() => setOpen(false)} anchorRef={ref}>
+    <Popup placeBottomEnd open={open} onClose={() => setOpen(false)} anchorRef={ref}>
       <Text>Bottom End</Text>
     </Popup>
   </>
@@ -160,7 +160,7 @@ Pair `triggerOnHover` with `arrow` for a classic tooltip. The arrow auto-rotates
 <PopupTrigger
   triggerOnHover
   openDelay={300}
-  popupProps={{ top: true, arrow: true, role: "tooltip", sm: true }}
+  popupProps={{ placeTop: true, arrow: true, role: "tooltip", sm: true }}
   popup={<Text sm>Save your changes to the server</Text>}
 >
   <Button>Save</Button>

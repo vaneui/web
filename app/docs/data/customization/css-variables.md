@@ -62,9 +62,9 @@ Replace `{appearance}` in variable names with one of:
 - `danger` - error/destructive (red)
 - `warning` - caution (amber)
 - `info` - informational (cyan)
-- `inherit` - inherits from parent element
+- `inheritAppearance` - inherits from parent element
 
-> The `inherit` appearance works differently from all other appearances. Instead of setting `data-appearance` and `data-variant` attributes, it omits them entirely. This allows the semantic color CSS variables (`--text-color`, `--bg-color`, `--border-color`) to cascade from parent elements rather than being set explicitly on the component. Typography components (Text, Title, SectionTitle, PageTitle, Blockquote), Label, List, and Divider default to `inherit`.
+> The `inheritAppearance` appearance works differently from all other appearances. Instead of setting `data-appearance` and `data-variant` attributes, it omits them entirely. This allows the semantic color CSS variables (`--text-color`, `--bg-color`, `--border-color`) to cascade from parent elements rather than being set explicitly on the component. Typography components (Text, Title, SectionTitle, PageTitle, Blockquote), Label, List, and Divider default to `inheritAppearance`.
 
 ## Color variable groups
 

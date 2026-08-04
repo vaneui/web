@@ -174,12 +174,12 @@ Use `rowReverse` to reverse the visual order of children.
 
 ## Responsive layout
 
-Use `mobileCol` to stack on mobile, or `tabletCol` to stack on tablet and below.
+Use `mobileStack` to stack on mobile, or `tabletStack` to stack on tablet and below.
 
 ```tsx demo
 <Col>
-  <Text fontSemibold>tabletCol (stacks at ≤1024px)</Text>
-  <Row tabletCol>
+  <Text fontSemibold>tabletStack (stacks at ≤1024px)</Text>
+  <Row tabletStack>
     <Col flex1 className="p-4 bg-primary-100 rounded">
       <Text fontSemibold>Column 1</Text>
       <Text>Horizontal on desktop, stacked on tablet and below.</Text>
@@ -189,8 +189,8 @@ Use `mobileCol` to stack on mobile, or `tabletCol` to stack on tablet and below.
       <Text>Resize to see the responsive behavior.</Text>
     </Col>
   </Row>
-  <Text fontSemibold>mobileCol (stacks at ≤768px)</Text>
-  <Row mobileCol>
+  <Text fontSemibold>mobileStack (stacks at ≤768px)</Text>
+  <Row mobileStack>
     <Col flex1 className="p-4 bg-primary-100 rounded">
       <Text fontSemibold>Column 1</Text>
       <Text>Horizontal until mobile.</Text>

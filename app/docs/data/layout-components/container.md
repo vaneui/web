@@ -115,10 +115,10 @@ Containers support different border radius styles. `sharp` is the default (no ra
 
 ## Responsive breakpoints
 
-Container is a flex column by default. Use `row` to flow horizontally on desktop and `mobileCol` / `tabletCol` to stack on smaller screens.
+Container is a flex column by default. Use `row` to flow horizontally on desktop and `mobileStack` / `tabletStack` to stack on smaller screens.
 
 ```tsx demo
-<Container row tabletCol border padding>
+<Container row tabletStack border padding>
   <Col>
     <Title>Left Content</Title>
     <Text>Switches to stacked layout on tablets and below.</Text>

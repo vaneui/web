@@ -44,7 +44,7 @@ Different appearance colors for inline code.
   <Code danger>danger code</Code>
   <Code warning>warning code</Code>
   <Code info>info code</Code>
-  <Code inherit>inherit code</Code>
+  <Code inheritAppearance>inheritAppearance code</Code>
 </Row>
 ```
 

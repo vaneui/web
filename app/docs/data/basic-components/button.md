@@ -19,7 +19,7 @@ Button triggers an action when the user clicks it; each `appearance` prop maps t
   <Button danger>danger</Button>
   <Button warning>warning</Button>
   <Button info>info</Button>
-  <Button inherit>inherit</Button>
+  <Button inheritAppearance>inheritAppearance</Button>
 </Row>
 ```
 

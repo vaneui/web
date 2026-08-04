@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-A `Label` defaults to `sm` size and `inherit` appearance, so it picks up text color from its surroundings.
+A `Label` defaults to `sm` size and `inheritAppearance` appearance, so it picks up text color from its surroundings.
 
 ```tsx demo
 <Label>Email address</Label>
@@ -29,11 +29,11 @@ Labels come in five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Nested `Input
 
 ## Appearances
 
-Labels default to `inherit`: they take their color from the surrounding text. Set an explicit appearance to override.
+Labels default to `inheritAppearance`: they take their color from the surrounding text. Set an explicit appearance to override.
 
 ```tsx demo
 <Row flexWrap>
-  <Label>inherit label (default)</Label>
+  <Label>inheritAppearance label (default)</Label>
   <Label primary>primary label</Label>
   <Label accent>accent label</Label>
   <Label secondary>secondary label</Label>

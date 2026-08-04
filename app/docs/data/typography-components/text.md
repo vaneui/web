@@ -29,7 +29,7 @@ Text comes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ## Appearances
 
-Text supports explicit color appearances: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`. Use these to override the default `inherit` behavior.
+Text supports explicit color appearances: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`. Use these to override the default `inheritAppearance` behavior.
 
 ```tsx demo
 <Col>
@@ -46,7 +46,7 @@ Text supports explicit color appearances: `primary`, `accent`, `secondary`, `ter
 
 ## Inherit appearance (default)
 
-Text defaults to the `inherit` appearance: it picks up its color from the parent via CSS cascade instead of applying its own. Set an explicit appearance to override.
+Text defaults to the `inheritAppearance` appearance: it picks up its color from the parent via CSS cascade instead of applying its own. Set an explicit appearance to override.
 
 ```tsx demo
 <Row flexWrap>
@@ -173,7 +173,7 @@ Control letter spacing with `trackingTighter`, `trackingTight`, `trackingNormal`
 
 ## Margins
 
-Block typography (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`) accepts size-driven margin props: `margin` (all sides), `marginX`, `marginY`, `marginT`, and `marginB`. `Text` defaults to `noMargin`, so opt in where you need vertical rhythm outside a gap-based layout. The margin scales with the size prop.
+Block typography (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`) accepts size-driven margin props: `margin` (all sides), `marginX`, `marginY`, `marginT`, and `marginB`. `Text` defaults to `noMargin`, so opt in where you need vertical rhythm outside a gap-based layout. The margin scales with the size prop. Side props compose: `marginT marginB` applies both. `noMargin` resets and wins.
 
 ```tsx demo
 <Col noGap>

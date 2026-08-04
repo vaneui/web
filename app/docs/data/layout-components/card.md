@@ -150,10 +150,10 @@ Use `CardHeader`, `CardBody`, and `CardFooter` to give a card explicit structura
 
 ## Responsive layout
 
-Use `row` for horizontal layout and `mobileCol` or `tabletCol` to switch to column on smaller screens.
+Use `row` for horizontal layout and `mobileStack` or `tabletStack` to switch to column on smaller screens.
 
 ```tsx demo
-<Card row tabletCol>
+<Card row tabletStack>
   <Col>
     <Title>Product Image</Title>
     <Text secondary>Visual content area</Text>

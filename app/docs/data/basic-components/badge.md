@@ -19,7 +19,7 @@ Badge highlights a short piece of information such as a count or status, and eac
   <Badge danger>danger</Badge>
   <Badge warning>warning</Badge>
   <Badge info>info</Badge>
-  <Badge inherit>inherit</Badge>
+  <Badge inheritAppearance>inheritAppearance</Badge>
 </Row>
 ```
 

@@ -32,7 +32,7 @@ Blockquote supports five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ## Appearances
 
-Apply appearance props to color the blockquote. The default is `inherit`, which picks up the parent color.
+Apply appearance props to color the blockquote. The default is `inheritAppearance`, which picks up the parent color.
 
 ```tsx demo
 <Col>

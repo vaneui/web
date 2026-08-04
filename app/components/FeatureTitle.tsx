@@ -15,7 +15,7 @@ export function FeatureTitle({icon, title, description, className = ''}: Feature
   const Icon = Icons[icon];
 
   return (
-    <Row lg mobileCol itemsStart className={`w-full ${className}`}>
+    <Row lg mobileStack itemsStart className={`w-full ${className}`}>
       <Card sm shadow justifyCenter itemsCenter>
         <Icon className="size-8"/>
       </Card>

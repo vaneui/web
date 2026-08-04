@@ -86,7 +86,7 @@ function ConsistentThemeApp() {
 
 ### Appearance props
 - `primary`, `accent`, `secondary`, `tertiary`
-- `success`, `danger`, `warning`, `info`, `inherit`
+- `success`, `danger`, `warning`, `info`, `inheritAppearance`
 
 ### Variant props
 - `filled`, `outline`, `ghost`
@@ -126,13 +126,13 @@ function ConsistentThemeApp() {
 - `relative`, `absolute`, `fixed`, `sticky`, `static`
 
 ### Responsive props (layout)
-- `mobileCol`, `tabletCol`, `desktopCol`
+- `mobileStack`, `tabletStack`, `desktopStack`
 - `mobileHide`, `tabletHide`, `desktopHide`
 
 ### Misc
 - `transition`, `noTransition`, `focusVisible`, `noFocusVisible`
 - `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder`
-- `responsive`, `horizontal`, `vertical`, `listDisc`, `listDecimal`
+- `responsiveSizing`, `horizontal`, `vertical`, `listDisc`, `listDecimal`
 
 ## Override priority
 
@@ -307,16 +307,16 @@ VaneUI components come with sensible built-in defaults. Only set defaults that d
 - **Row**: `md`, `row`, `flex`, `itemsCenter`, `gap`, `noPadding`, `noBorder`, `noInsetRing`, `outline`, `sharp`
 - **Col**: `md`, `column`, `flex`, `gap`, `noPadding`, `noBorder`, `noInsetRing`, `outline`, `sharp`
 - **Stack**: `md`, `flex`, `column`, `flexWrap`, `gap`, `padding`, `noBorder`, `noInsetRing`, `outline`, `sharp`
-- **Section**: `md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `noBorder`, `noInsetRing`, `noShadow`, `outline`, `sharp`, `responsive`
+- **Section**: `md`, `wFull`, `flex`, `column`, `itemsStart`, `gap`, `padding`, `noBorder`, `noInsetRing`, `noShadow`, `outline`, `sharp`, `responsiveSizing`
 - **Container**: `md`, `wFull`, `flex`, `column`, `itemsCenter`, `gap`, `noPadding`, `outline`, `sharp`
 - **Input**: `md`, `wFull`, `primary`, `outline`, `rounded`, `padding`, `insetRing`, `focusVisible`
-- **Label**: `sm`, `flex`, `column`, `itemsStart`, `gap`, `inherit` (not `primary`), `fontMedium` (stacked label above field; use `<Label row itemsCenter>` for inline controls like `Checkbox`)
+- **Label**: `sm`, `flex`, `column`, `itemsStart`, `gap`, `inheritAppearance` (not `primary`), `fontMedium` (stacked label above field; use `<Label row itemsCenter>` for inline controls like `Checkbox`)
 - **Badge**: `md`, `secondary` (not `primary`), `outline`, `pill`, `fontSemibold`, `uppercase`
 - **Chip**: `md`, `secondary` (not `primary`), `outline`, `rounded`, `fontSans`
 - **Link**: `md`, `underline`, `fontSans`, `cursorPointer`, `inheritSize`, `wFit`, `focusVisible` (link color by default; no appearance or variant default)
 - **NavLink**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`
 - **MenuItem**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`
-- **Typography** (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`): `md`, `inherit` (not `primary`), `outline`
+- **Typography** (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`): `md`, `inheritAppearance` (not `primary`), `outline`
 - **Icon**: `md`, `inlineFlex`, `itemsCenter`, `justifyCenter`, `outline`, `rounded`, `noPadding`, `noBorder`, `noInsetRing`, `noShadow`, `noShrink`, `noTransition`, `wFit`
 - **Modal** content: `md`, `wFull`, `flex`, `column`, `rounded`, `shadow`, `primary`, `outline`
 - **Popup**: `md`, `flex`, `column`, `padding`, `gap`, `rounded`, `shadow`, `border`, `primary`, `outline`

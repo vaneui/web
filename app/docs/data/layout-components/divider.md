@@ -53,7 +53,7 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) drive the per-size vertical padding via `--
 
 ## Appearances
 
-Dividers use `inherit` by default. Pass an explicit appearance for a colored line.
+Dividers use `inheritAppearance` by default. Pass an explicit appearance for a colored line.
 
 ```tsx demo
 <Col lg>

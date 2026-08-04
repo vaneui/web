@@ -29,7 +29,7 @@ Titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ## Appearances
 
-By default, Title uses the `inherit` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `danger`, `warning`, `info` to override.
+By default, Title uses the `inheritAppearance` appearance: it inherits color from its parent. Use explicit appearances like `primary`, `secondary`, `success`, `danger`, `warning`, `info` to override.
 
 ```tsx demo
 <Col>
