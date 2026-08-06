@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-Input renders a styled text field for entering text, numbers, and other data.
+Input renders a styled text field for entering text, numbers, and other data. It defaults to `md`, `primary`, `outline`, and `rounded`, with `insetRing` and `focusVisible`. Input is `wFull` by default, so it spans its container. Constrain the width with a sized parent or `className="w-64"`.
 
 ```tsx demo
 <Input placeholder="Enter text..." />
@@ -91,7 +91,7 @@ Pair inputs with labels for accessibility and better UX. When the `Input` is nes
 
 ## States
 
-Different input states: disabled, readonly, and validation feedback. Use appearance props (`success`, `danger`) for visual feedback, or the `invalid` validity prop for form validation state.
+Different input states: disabled, readonly, and validation feedback. Use appearance props (`success`, `danger`) for visual feedback, or the `invalid` validity prop for form validation state. `invalid` layers a danger border and ring over the current appearance.
 
 ```tsx
 <Input placeholder="Normal input" />

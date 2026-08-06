@@ -11,12 +11,24 @@ Drop an icon directly inside the `IconButton`. Each `appearance` prop maps to a 
 
 ```tsx demo
 <Row flexWrap>
-  <IconButton><Star /></IconButton>
-  <IconButton secondary><Heart /></IconButton>
-  <IconButton success><Check /></IconButton>
-  <IconButton danger><Trash2 /></IconButton>
-  <IconButton warning><Bell /></IconButton>
-  <IconButton info><Info /></IconButton>
+  <IconButton aria-label="Favorite"><Star /></IconButton>
+  <IconButton secondary aria-label="Like"><Heart /></IconButton>
+  <IconButton success aria-label="Confirm"><Check /></IconButton>
+  <IconButton danger aria-label="Delete"><Trash2 /></IconButton>
+  <IconButton warning aria-label="Notifications"><Bell /></IconButton>
+  <IconButton info aria-label="Show info"><Info /></IconButton>
+</Row>
+```
+
+## Accessibility
+
+An icon-only button has no visible text, so assistive technology has nothing to announce. Give every `IconButton` an accessible name with `aria-label`.
+
+```tsx demo
+<Row flexWrap>
+  <IconButton aria-label="Add to favorites"><Star /></IconButton>
+  <IconButton secondary aria-label="Like"><Heart /></IconButton>
+  <IconButton danger aria-label="Delete"><Trash2 /></IconButton>
 </Row>
 ```
 

@@ -6,7 +6,7 @@ The `extraClasses` property in VaneUI's ThemeProvider allows you to add addition
 
 The `extraClasses` property accepts an object where keys are component names and values map boolean prop names to CSS class strings. When a prop is active, its associated classes are added.
 
-Most components are keyed directly. **Components with sub-themes** (`button`, `card`, `checkbox`, `modal`, `menu`, `navLink`) are nested by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.). The shape mirrors `themeDefaults`.
+Most components are keyed directly. **Components with sub-themes** (`button`, `card`, `checkbox`, `modal`, `menu`, `navLink`) are nested by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.). The shape mirrors `themeDefaults`. For example, `Checkbox` keys its box classes under `input`: `extraClasses={{ checkbox: { input: { success: 'ring-2 ring-green-200' } } }}`.
 
 ## Basic usage
 

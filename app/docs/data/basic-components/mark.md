@@ -19,7 +19,7 @@ Highlight text with the `Mark` component. Defaults to `warning` (yellow) appeara
 
 ## Appearances
 
-Different color appearances for highlights.
+Different color appearances for highlights. `warning` is the default.
 
 ```tsx demo
 <Row flexWrap>
@@ -29,6 +29,7 @@ Different color appearances for highlights.
   <Mark tertiary>Tertiary</Mark>
   <Mark success>Success</Mark>
   <Mark danger>Danger</Mark>
+  <Mark warning>Warning</Mark>
   <Mark info>Info</Mark>
 </Row>
 ```

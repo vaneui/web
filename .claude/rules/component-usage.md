@@ -90,5 +90,5 @@ Don't specify props that are already true by default:
 <Card padding rounded gap>   // padding + rounded + gap are defaults
 <Stack column gap padding>   // column + gap + padding are defaults
 <Link underline>             // underline is default
-<Badge pill uppercase>       // pill + uppercase are defaults
+<Badge secondary pill>       // secondary + pill are defaults
 ```

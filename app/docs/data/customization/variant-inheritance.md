@@ -30,7 +30,7 @@ A default `<Button>` inside a `<Card filled primary>` renders in its own primary
 
 Two kinds of components emit no `data-appearance`, so they read colors from the nearest ancestor that set them:
 
-- **Inherit mode**: `Text`, `Title`, `SectionTitle`, `PageTitle`, `Label`, `List`, `ListItem`, `Blockquote`, and `Divider` default to `appearance="inheritAppearance"`. This is how a `<Text>` inside a `<Card filled primary>` gets white text with no props.
+- **Inherit mode**: `Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`, `Label`, `List`, `ListItem`, and `Divider` default to `appearance="inheritAppearance"`. This is how a `<Text>` inside a `<Card filled primary>` gets white text with no props.
 - **Icon**: has no appearance default at all, so it inherits `currentColor` from its surroundings.
 
 ## Explicit props always win
@@ -115,7 +115,7 @@ VaneUI provides four independent boolean toggle props for this:
 
 ### How `inheritAppearance` expands
 
-When a component has `inheritAppearance` appearance (the default for Text, Title, Label, List, Divider, Blockquote), VaneUI expands it into color, background, and border inheritance, but **not size**:
+When a component has `inheritAppearance` appearance (the default for Text, Title, SectionTitle, PageTitle, Blockquote, Label, List, ListItem, and Divider), VaneUI expands it into color, background, and border inheritance, but **not size**:
 
 ```
 <Text inheritAppearance>

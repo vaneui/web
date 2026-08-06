@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-The Grid family renders equal-width column layouts: `Grid2` through `Grid6` for two to six columns. Children flow left to right and wrap to the next row. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults, so none of them need to be specified.
+The Grid family renders equal-width column layouts: `Grid2` through `Grid6` for two to six columns. Children flow left to right and wrap to the next row. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults, so none of them need to be specified. Use Row for content-width flex items; use `Grid2` to `Grid6` for equal-width columns.
 
 ```tsx demo
 <Grid3>

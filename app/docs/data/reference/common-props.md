@@ -2,7 +2,7 @@
 
 Layout and utility props shared across most VaneUI components. Documented here once instead of on every component page. Per-component pages link here from the "Layout & utility props" disclosure under their props table.
 
-Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inheritAppearance`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except `Button`, `NavLink`, `Label`, and `MenuItem` which default to `sm`.
+Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inheritAppearance`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except `Button`, `NavLink`, `Label`, and `MenuItem` which default to `sm`. The `ghost` variant renders a transparent background with no border and appearance-colored text, plus a tinted hover background.
 
 ## Hide
 
@@ -179,7 +179,22 @@ Border visibility on component sides. Side props compose: `borderT borderL` appl
 | `borderR` | Enable border on right |
 | `borderX` | Enable border on left and right |
 | `borderY` | Enable border on top and bottom |
+| `borderStart` | Enable border on the inline-start side (flips under `dir="rtl"`) |
+| `borderEnd` | Enable border on the inline-end side (flips under `dir="rtl"`) |
 | `noBorder` | Disable all borders |
+
+## Margin
+
+External spacing that scales with the component's size prop, available on layout components and block typography. Side props compose: `marginT marginB` applies both. `noMargin` resets and wins. Block typography defaults to `noMargin`.
+
+| Prop | Description |
+|------|-------------|
+| `margin` | Enable margin on all sides |
+| `marginX` | Enable margin on left and right |
+| `marginY` | Enable margin on top and bottom |
+| `marginT` | Enable margin on top |
+| `marginB` | Enable margin on bottom |
+| `noMargin` | Disable all margins |
 
 ## Shadow
 
@@ -314,7 +329,7 @@ Element interactivity with the pointer.
 | `pointerEventsNone` | Disable pointer events - clicks pass through the element |
 | `pointerEventsAuto` | Enable pointer events (default browser behavior) |
 
-## Min width
+## Constrain width
 
 Minimum width constraint for popup and floating components.
 
@@ -322,7 +337,7 @@ Minimum width constraint for popup and floating components.
 |------|-------------|
 | `constrainWidth` | Apply size-dependent minimum width (uses --popup-min-w CSS variable) |
 
-## Max height
+## Clamp height
 
 Maximum height constraint for components.
 

@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-Display keyboard keys with the `Kbd` component.
+Display keyboard keys with the `Kbd` component. Kbd defaults to a monospace font, a border, and `md` size. Use Kbd for keycaps that show a keyboard shortcut; use Code for inline source or literal values.
 
 ```tsx demo
 <Row flexWrap>

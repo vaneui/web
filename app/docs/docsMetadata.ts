@@ -322,6 +322,12 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         mdPath: 'css-variables.md',
       },
       {
+        slug: 'dark-mode',
+        name: 'Dark Mode',
+        description: 'Enable dark mode with the data-theme="dark" attribute and re-declare color tokens for custom themes.',
+        mdPath: 'dark-mode.md',
+      },
+      {
         slug: 'customizing-styles',
         name: 'Customizing Styles',
         description: 'Override VaneUI component styles using Tailwind CSS classes, CSS variables, and the className prop.',

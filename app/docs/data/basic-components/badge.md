@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-Badge highlights a short piece of information such as a count or status, and each `appearance` prop maps to a semantic color from the active theme.
+Badge highlights a short piece of information such as a count or status, and each `appearance` prop maps to a semantic color from the active theme. Badge defaults to `md`, `secondary`, `outline`, `pill`, and `fontSemibold` in normal case. Add `uppercase` for a status-chip look. Use Badge for a status or count indicator; use Chip for a tag or filter token.
 
 ```tsx demo
 <Row flexWrap>
@@ -25,7 +25,7 @@ Badge highlights a short piece of information such as a count or status, and eac
 
 ## Sizes
 
-Badges come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.
+Badges come in different sizes such as `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ```tsx demo
 <Row flexWrap>
@@ -110,4 +110,16 @@ Badges work well as status indicators inside cards and other layout components.
   </Row>
   <Text>Build #1284 promoted to production 2 minutes ago.</Text>
 </Card>
+```
+
+## Customizing
+
+Set app-wide Badge defaults with `ThemeProvider`'s `themeDefaults`:
+
+```tsx demo
+<ThemeProvider themeDefaults={{
+  badge: { success: true, uppercase: true },
+}}>
+  <Badge>Live</Badge>
+</ThemeProvider>
 ```

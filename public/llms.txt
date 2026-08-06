@@ -94,6 +94,7 @@ For complete documentation of every page in a single document, see
 - [ThemeDefaults](https://vaneui.com/docs/customization/theme-defaults): Set default theme values across your application using themeDefaults.
 - [ExtraClasses](https://vaneui.com/docs/customization/extra-classes): Apply additional CSS classes to components using extraClasses.
 - [CSS Variables](https://vaneui.com/docs/customization/css-variables): Customize VaneUI components using CSS custom properties and variables.
+- [Dark Mode](https://vaneui.com/docs/customization/dark-mode): Enable dark mode with the data-theme="dark" attribute and re-declare color tokens for custom themes.
 - [Customizing Styles](https://vaneui.com/docs/customization/customizing-styles): Override VaneUI component styles using Tailwind CSS classes, CSS variables, and the className prop.
 - [Variant Inheritance](https://vaneui.com/docs/customization/variant-inheritance): How components inherit colors from ancestor layouts via CSS custom-property cascade.
 

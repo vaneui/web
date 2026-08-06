@@ -80,6 +80,24 @@ This setup:
 - Imports the complete pre-built VaneUI stylesheet (component styles and CSS variables in one file)
 - Works without any Tailwind configuration
 
+## ThemeProvider setup
+
+Wrap your application in `ThemeProvider`. It is required: components read their theme from this context, so theming does not resolve without it. Place it once at the root, above every VaneUI component.
+
+```tsx
+import { ThemeProvider } from '@vaneui/ui';
+
+function Root() {
+  return (
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
+  );
+}
+```
+
+`ThemeProvider` needs no props to apply the built-in defaults. To set application-wide defaults, extra classes, or theme overrides, see [Using ThemeProvider](/docs/customization/using-theme-provider).
+
 ## Usage
 
 Start using VaneUI components in your React application:
@@ -132,13 +150,13 @@ At its core, VaneUI uses **boolean props** instead of string enums for cleaner J
 Props are organized into **categories**:
 - **size**: `xs`, `sm`, `md`, `lg`, `xl`
 - **appearance**: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
-- **variant**: `filled`, `outline`, `ghost`
+- **variant**: `filled`, `outline`, `ghost` (`ghost`: transparent background, no border, appearance-colored text, tinted hover background)
 - **shape**: `rounded`, `pill`, `sharp`
 - **typography**: `fontSans`, `fontSerif`, `fontMono`, `fontSemibold`, `fontBold`, etc.
 - **layout**: `flex`, `column`, `itemsCenter`, `justifyBetween`, etc.
 - **inheritance**: `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder` (and `noInherit*` toggles)
 
-Typography components (Text, Title, SectionTitle, PageTitle, Blockquote), Label, List, and Divider default to `inheritAppearance`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Link and Mark default to `inheritSize`, so they inherit font-size from their parent while keeping their own appearance color; Code and Kbd achieve the same effect through em-relative geometry.
+Text, Title, SectionTitle, PageTitle, Blockquote, Label, List, ListItem, and Divider default to `inheritAppearance`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Link and Mark default to `inheritSize`, so they inherit font-size from their parent while keeping their own appearance color; Code and Kbd achieve the same effect through em-relative geometry.
 
 ## Three-layer component architecture
 
@@ -338,7 +356,7 @@ function AppearanceExample() {
 
 ### Filled and outline variants
 
-All components support `filled`, `outline`, and `ghost` variants. `outline` is the default for most components:
+All components support `filled`, `outline`, and `ghost` variants. `outline` is the default for most components. `ghost` renders a transparent background with no border and appearance-colored text, plus a tinted hover background:
 
 ```tsx
 import { Button, Card, Stack, Container, Row } from '@vaneui/ui';
@@ -350,6 +368,7 @@ function FilledOutlineExample() {
       <Row>
         <Button filled>Filled Button</Button>
         <Button>Outline Button (default)</Button>
+        <Button ghost>Ghost Button</Button>
       </Row>
 
       {/* Cards */}
@@ -627,7 +646,13 @@ function PopupExample() {
 }
 ```
 
-`PopupTrigger` supports three trigger modes: `"click"` (default), `"hover"`, and `"focus"`.
+`PopupTrigger` selects its trigger mode with three boolean props: `triggerOnClick` (the default when none is set), `triggerOnHover`, and `triggerOnFocus`.
+
+`Popup` positions itself relative to its anchor through a placement prop: `placeTop`, `placeTopStart`, `placeTopEnd`, `placeBottom`, `placeBottomStart`, `placeBottomEnd`, `placeLeft`, `placeLeftStart`, `placeLeftEnd`, `placeRight`, `placeRightStart`, and `placeRightEnd`.
+
+```tsx
+<Popup placeBottomStart>Anchored below, aligned to the start edge</Popup>
+```
 
 See the [Overlay Components](/docs/overlay-components/overlay) section for `Overlay`, `Modal`, and `Popup` documentation.
 
@@ -778,7 +803,7 @@ URL: https://vaneui.com/docs/basic-components/button
 
 ## Basic usage
 
-Button triggers an action when the user clicks it; each `appearance` prop maps to a semantic color from the active theme.
+Button triggers an action when the user clicks it; each `appearance` prop maps to a semantic color from the active theme. Use Button for actions, Link for an in-prose hyperlink, and NavLink for a sidebar or navigation item.
 
 ```tsx demo
 <Row flexWrap>
@@ -951,12 +976,24 @@ Drop an icon directly inside the `IconButton`. Each `appearance` prop maps to a 
 
 ```tsx demo
 <Row flexWrap>
-  <IconButton><Star /></IconButton>
-  <IconButton secondary><Heart /></IconButton>
-  <IconButton success><Check /></IconButton>
-  <IconButton danger><Trash2 /></IconButton>
-  <IconButton warning><Bell /></IconButton>
-  <IconButton info><Info /></IconButton>
+  <IconButton aria-label="Favorite"><Star /></IconButton>
+  <IconButton secondary aria-label="Like"><Heart /></IconButton>
+  <IconButton success aria-label="Confirm"><Check /></IconButton>
+  <IconButton danger aria-label="Delete"><Trash2 /></IconButton>
+  <IconButton warning aria-label="Notifications"><Bell /></IconButton>
+  <IconButton info aria-label="Show info"><Info /></IconButton>
+</Row>
+```
+
+## Accessibility
+
+An icon-only button has no visible text, so assistive technology has nothing to announce. Give every `IconButton` an accessible name with `aria-label`.
+
+```tsx demo
+<Row flexWrap>
+  <IconButton aria-label="Add to favorites"><Star /></IconButton>
+  <IconButton secondary aria-label="Like"><Heart /></IconButton>
+  <IconButton danger aria-label="Delete"><Trash2 /></IconButton>
 </Row>
 ```
 
@@ -1251,7 +1288,7 @@ URL: https://vaneui.com/docs/basic-components/badge
 
 ## Basic usage
 
-Badge highlights a short piece of information such as a count or status, and each `appearance` prop maps to a semantic color from the active theme.
+Badge highlights a short piece of information such as a count or status, and each `appearance` prop maps to a semantic color from the active theme. Badge defaults to `md`, `secondary`, `outline`, `pill`, and `fontSemibold` in normal case. Add `uppercase` for a status-chip look. Use Badge for a status or count indicator; use Chip for a tag or filter token.
 
 ```tsx demo
 <Row flexWrap>
@@ -1269,7 +1306,7 @@ Badge highlights a short piece of information such as a count or status, and eac
 
 ## Sizes
 
-Badges come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.
+Badges come in different sizes such as `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ```tsx demo
 <Row flexWrap>
@@ -1354,6 +1391,18 @@ Badges work well as status indicators inside cards and other layout components.
   </Row>
   <Text>Build #1284 promoted to production 2 minutes ago.</Text>
 </Card>
+```
+
+## Customizing
+
+Set app-wide Badge defaults with `ThemeProvider`'s `themeDefaults`:
+
+```tsx demo
+<ThemeProvider themeDefaults={{
+  badge: { success: true, uppercase: true },
+}}>
+  <Badge>Live</Badge>
+</ThemeProvider>
 ```
 
 ---
@@ -1666,7 +1715,7 @@ URL: https://vaneui.com/docs/basic-components/kbd
 
 ## Basic usage
 
-Display keyboard keys with the `Kbd` component.
+Display keyboard keys with the `Kbd` component. Kbd defaults to a monospace font, a border, and `md` size. Use Kbd for keycaps that show a keyboard shortcut; use Code for inline source or literal values.
 
 ```tsx demo
 <Row flexWrap>
@@ -1795,7 +1844,7 @@ Highlight text with the `Mark` component. Defaults to `warning` (yellow) appeara
 
 ## Appearances
 
-Different color appearances for highlights.
+Different color appearances for highlights. `warning` is the default.
 
 ```tsx demo
 <Row flexWrap>
@@ -1805,6 +1854,7 @@ Different color appearances for highlights.
   <Mark tertiary>Tertiary</Mark>
   <Mark success>Success</Mark>
   <Mark danger>Danger</Mark>
+  <Mark warning>Warning</Mark>
   <Mark info>Info</Mark>
 </Row>
 ```
@@ -2100,7 +2150,7 @@ URL: https://vaneui.com/docs/form-components/input
 
 ## Basic usage
 
-Input renders a styled text field for entering text, numbers, and other data.
+Input renders a styled text field for entering text, numbers, and other data. It defaults to `md`, `primary`, `outline`, and `rounded`, with `insetRing` and `focusVisible`. Input is `wFull` by default, so it spans its container. Constrain the width with a sized parent or `className="w-64"`.
 
 ```tsx demo
 <Input placeholder="Enter text..." />
@@ -2184,7 +2234,7 @@ Pair inputs with labels for accessibility and better UX. When the `Input` is nes
 
 ## States
 
-Different input states: disabled, readonly, and validation feedback. Use appearance props (`success`, `danger`) for visual feedback, or the `invalid` validity prop for form validation state.
+Different input states: disabled, readonly, and validation feedback. Use appearance props (`success`, `danger`) for visual feedback, or the `invalid` validity prop for form validation state. `invalid` layers a danger border and ring over the current appearance.
 
 ```tsx
 <Input placeholder="Normal input" />
@@ -3405,6 +3455,8 @@ Links integrate naturally with surrounding prose. Drop them inline inside `Text`
   You can also visit the <Link href="#">GitHub repository</Link> for source code.
 </Text>
 ```
+
+Link is inline, so `marginT`, `marginB`, and `marginY` have no visual effect. Use `marginX` for inline-side spacing, or `className` for an exact value.
 
 ## Inherits parent Text size
 
@@ -5321,7 +5373,7 @@ URL: https://vaneui.com/docs/layout-components/grid
 
 ## Basic usage
 
-The Grid family renders equal-width column layouts: `Grid2` through `Grid6` for two to six columns. Children flow left to right and wrap to the next row. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults, so none of them need to be specified.
+The Grid family renders equal-width column layouts: `Grid2` through `Grid6` for two to six columns. Children flow left to right and wrap to the next row. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults, so none of them need to be specified. Use Row for content-width flex items; use `Grid2` to `Grid6` for equal-width columns.
 
 ```tsx demo
 <Grid3>
@@ -7277,7 +7329,7 @@ CSS rules in `rules.css` set unit variables per `data-size` and per-component cl
 
 ## Color inheritance
 
-Components with a concrete appearance emit `data-appearance` and `data-variant` and paint their own colors, so a default `<Button>` inside a filled `<Card>` keeps its own primary-outline palette. Inheritance is opt-in: only inherit-mode components (the typography components, which default to `appearance="inheritAppearance"`) and appearance-less `Icon` emit nothing and read their colors from the nearest ancestor. The `:root` palette is the fallback those inherit-mode components use when no ancestor sets colors. See [Variant Inheritance](./variant-inheritance) for details.
+Components with a concrete appearance emit `data-appearance` and `data-variant` and paint their own colors, so a default `<Button>` inside a filled `<Card>` keeps its own primary-outline palette. Inheritance is opt-in: only inherit-mode components (Text, Title, SectionTitle, PageTitle, Blockquote, Label, List, ListItem, and Divider, which default to `appearance="inheritAppearance"`) and appearance-less `Icon` emit nothing and read their colors from the nearest ancestor. The `:root` palette is the fallback those inherit-mode components use when no ancestor sets colors. See [Variant Inheritance](./variant-inheritance) for details.
 
 ## Style resolution flow
 
@@ -7349,7 +7401,7 @@ function App() {
 }
 ```
 
-Most components take props directly. **Components with sub-themes** (`button`, `card`, `checkbox`, `modal`, `menu`, `navLink`) are nested by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.).
+Most components take props directly. **Components with sub-themes** (`button`, `card`, `checkbox`, `modal`, `menu`, `navLink`) are nested by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.). For example, `Checkbox` keeps its box props under `input`: `themeDefaults={{ checkbox: { input: { lg: true, success: true } } }}` makes every checkbox large and green.
 
 ## ThemeProvider props
 
@@ -7700,6 +7752,7 @@ Most components take props directly. **Components with sub-themes** (`button`, `
   button: { main: { md: true, filled: true } }, // nested under `main`
   badge: { success: true, sm: true },
   card: { main: { secondary: true } },          // nested under `main`
+  checkbox: { input: { lg: true, success: true } }, // Checkbox box nests under `input`
   text: { primary: true },
 }}>
   <App />
@@ -7777,6 +7830,7 @@ function ConsistentThemeApp() {
 
 ### Variant props
 - `filled`, `outline`, `ghost`
+- `ghost`: transparent background, no border, appearance-colored text, tinted hover background
 
 ### Shape props
 - `rounded`, `pill`, `sharp`
@@ -7998,7 +8052,7 @@ VaneUI components come with sensible built-in defaults. Only set defaults that d
 - **Container**: `md`, `wFull`, `flex`, `column`, `itemsCenter`, `gap`, `noPadding`, `outline`, `sharp`
 - **Input**: `md`, `wFull`, `primary`, `outline`, `rounded`, `padding`, `insetRing`, `focusVisible`
 - **Label**: `sm`, `flex`, `column`, `itemsStart`, `gap`, `inheritAppearance` (not `primary`), `fontMedium` (stacked label above field; use `<Label row itemsCenter>` for inline controls like `Checkbox`)
-- **Badge**: `md`, `secondary` (not `primary`), `outline`, `pill`, `fontSemibold`, `uppercase`
+- **Badge**: `md`, `secondary` (not `primary`), `outline`, `pill`, `fontSemibold`
 - **Chip**: `md`, `secondary` (not `primary`), `outline`, `rounded`, `fontSans`
 - **Link**: `md`, `underline`, `fontSans`, `cursorPointer`, `inheritSize`, `wFit`, `focusVisible` (link color by default; no appearance or variant default)
 - **NavLink**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`
@@ -8093,7 +8147,7 @@ The `extraClasses` property in VaneUI's ThemeProvider allows you to add addition
 
 The `extraClasses` property accepts an object where keys are component names and values map boolean prop names to CSS class strings. When a prop is active, its associated classes are added.
 
-Most components are keyed directly. **Components with sub-themes** (`button`, `card`, `checkbox`, `modal`, `menu`, `navLink`) are nested by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.). The shape mirrors `themeDefaults`.
+Most components are keyed directly. **Components with sub-themes** (`button`, `card`, `checkbox`, `modal`, `menu`, `navLink`) are nested by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.). The shape mirrors `themeDefaults`. For example, `Checkbox` keys its box classes under `input`: `extraClasses={{ checkbox: { input: { success: 'ring-2 ring-green-200' } } }}`.
 
 ## Basic usage
 
@@ -8363,7 +8417,7 @@ Replace `{appearance}` in variable names with one of:
 - `info` - informational (cyan)
 - `inheritAppearance` - inherits from parent element
 
-> The `inheritAppearance` appearance works differently from all other appearances. Instead of setting `data-appearance` and `data-variant` attributes, it omits them entirely. This allows the semantic color CSS variables (`--text-color`, `--bg-color`, `--border-color`) to cascade from parent elements rather than being set explicitly on the component. Typography components (Text, Title, SectionTitle, PageTitle, Blockquote), Label, List, and Divider default to `inheritAppearance`.
+> The `inheritAppearance` appearance works differently from all other appearances. Instead of setting `data-appearance` and `data-variant` attributes, it omits them entirely. This allows the semantic color CSS variables (`--text-color`, `--bg-color`, `--border-color`) to cascade from parent elements rather than being set explicitly on the component. Text, Title, SectionTitle, PageTitle, Blockquote, Label, List, ListItem, and Divider default to `inheritAppearance`.
 
 ## Color variable groups
 
@@ -8459,6 +8513,68 @@ To customize sizing globally, override the computed variables in your CSS:
 - Prefer semantic overrides (primary, success, danger) for consistent theming.
 - ThemeProvider does not expose a `colors` field; use these CSS variables to change colors.
 - Components inherit the closest CSS variable values automatically via CSS cascade.
+
+---
+Title: Dark Mode
+URL: https://vaneui.com/docs/customization/dark-mode
+---
+
+`data-theme="dark"` is the official dark-mode extension point. The shipped CSS re-declares every color token under it, so switching to dark mode needs no component code changes.
+
+## The dark-mode token block
+
+VaneUI ships a `[data-theme="dark"]` block that re-declares every `--color-*` token with its dark value. Because the tokens are CSS custom properties, any element under a `data-theme="dark"` ancestor reads the dark values through the cascade. You opt in by setting the attribute; you never restyle components.
+
+## Whole-page dark mode
+
+Set `data-theme="dark"` on the `<html>` element to theme the entire page, including portaled content (Modal, Popup, Overlay) and native controls. The block also sets `color-scheme: dark`, so scrollbars and form controls render in their dark forms.
+
+```html
+<html data-theme="dark">
+```
+
+Under server-side rendering, the attribute must already be present in the server-rendered markup, otherwise the first paint shows light mode and then flips. When the theme is stored client-side, set the attribute from an inline `<head>` script that runs before first paint:
+
+```html
+<script>
+  if (localStorage.theme === 'dark') {
+    document.documentElement.dataset.theme = 'dark';
+  }
+</script>
+```
+
+## Theming one subtree
+
+To darken a region of an otherwise light page, set `data-theme="dark"` on a wrapping element. The dark token values inherit through that subtree:
+
+```tsx
+<div data-theme="dark">
+  <Card>Dark card on an otherwise light page</Card>
+</div>
+```
+
+The wrapper `<div>` paints nothing on its own. Give the subtree a surface with a primary `Card` or `Section`, which reads the dark background token and fills the area.
+
+## Overlays follow the page theme
+
+`Modal`, `Popup`, and `Overlay` render through a portal at the end of `<body>`, so they resolve the theme set on `<html>` or `<body>`, not the theme of an inner wrapper. Subtree theming covers in-flow content. For overlays, `<html data-theme="dark">` is the primary supported mode.
+
+## Forcing a light region
+
+`data-theme="light"` marks an explicit light region and restores `color-scheme: light` for native controls. The light token values are the `:root` defaults, so inside a dark subtree the inherited dark tokens still apply. To render a fully light island within `data-theme="dark"`, re-declare the tokens you need under your own `[data-theme="light"]` selector.
+
+## Custom named themes
+
+The dark block is one instance of a general pattern: re-declare any `--color-*` token under a selector of your choice. A named theme works the same way as the built-in dark block:
+
+```css
+[data-theme="ocean"] {
+  --color-bg-info: oklch(95% 0.02 220);
+  --color-text-info: oklch(45% 0.12 220);
+}
+```
+
+Apply it with `data-theme="ocean"` on any element, and the subtree reads the overridden tokens.
 
 ---
 Title: Customizing Styles
@@ -8711,7 +8827,7 @@ A default `<Button>` inside a `<Card filled primary>` renders in its own primary
 
 Two kinds of components emit no `data-appearance`, so they read colors from the nearest ancestor that set them:
 
-- **Inherit mode**: `Text`, `Title`, `SectionTitle`, `PageTitle`, `Label`, `List`, `ListItem`, `Blockquote`, and `Divider` default to `appearance="inheritAppearance"`. This is how a `<Text>` inside a `<Card filled primary>` gets white text with no props.
+- **Inherit mode**: `Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`, `Label`, `List`, `ListItem`, and `Divider` default to `appearance="inheritAppearance"`. This is how a `<Text>` inside a `<Card filled primary>` gets white text with no props.
 - **Icon**: has no appearance default at all, so it inherits `currentColor` from its surroundings.
 
 ## Explicit props always win
@@ -8796,7 +8912,7 @@ VaneUI provides four independent boolean toggle props for this:
 
 ### How `inheritAppearance` expands
 
-When a component has `inheritAppearance` appearance (the default for Text, Title, Label, List, Divider, Blockquote), VaneUI expands it into color, background, and border inheritance, but **not size**:
+When a component has `inheritAppearance` appearance (the default for Text, Title, SectionTitle, PageTitle, Blockquote, Label, List, ListItem, and Divider), VaneUI expands it into color, background, and border inheritance, but **not size**:
 
 ```
 <Text inheritAppearance>
@@ -8874,7 +8990,7 @@ URL: https://vaneui.com/docs/reference/common-props
 
 Layout and utility props shared across most VaneUI components. Documented here once instead of on every component page. Per-component pages link here from the "Layout & utility props" disclosure under their props table.
 
-Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inheritAppearance`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except `Button`, `NavLink`, `Label`, and `MenuItem` which default to `sm`.
+Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inheritAppearance`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except `Button`, `NavLink`, `Label`, and `MenuItem` which default to `sm`. The `ghost` variant renders a transparent background with no border and appearance-colored text, plus a tinted hover background.
 
 ## Hide
 
@@ -9051,7 +9167,22 @@ Border visibility on component sides. Side props compose: `borderT borderL` appl
 | `borderR` | Enable border on right |
 | `borderX` | Enable border on left and right |
 | `borderY` | Enable border on top and bottom |
+| `borderStart` | Enable border on the inline-start side (flips under `dir="rtl"`) |
+| `borderEnd` | Enable border on the inline-end side (flips under `dir="rtl"`) |
 | `noBorder` | Disable all borders |
+
+## Margin
+
+External spacing that scales with the component's size prop, available on layout components and block typography. Side props compose: `marginT marginB` applies both. `noMargin` resets and wins. Block typography defaults to `noMargin`.
+
+| Prop | Description |
+|------|-------------|
+| `margin` | Enable margin on all sides |
+| `marginX` | Enable margin on left and right |
+| `marginY` | Enable margin on top and bottom |
+| `marginT` | Enable margin on top |
+| `marginB` | Enable margin on bottom |
+| `noMargin` | Disable all margins |
 
 ## Shadow
 
@@ -9186,7 +9317,7 @@ Element interactivity with the pointer.
 | `pointerEventsNone` | Disable pointer events - clicks pass through the element |
 | `pointerEventsAuto` | Enable pointer events (default browser behavior) |
 
-## Min width
+## Constrain width
 
 Minimum width constraint for popup and floating components.
 
@@ -9194,7 +9325,7 @@ Minimum width constraint for popup and floating components.
 |------|-------------|
 | `constrainWidth` | Apply size-dependent minimum width (uses --popup-min-w CSS variable) |
 
-## Max height
+## Clamp height
 
 Maximum height constraint for components.
 

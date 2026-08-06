@@ -111,7 +111,7 @@ This site uses VaneUI components for its own UI. Follow these conventions:
 - Use `mergeStrategy="replace"` when examples need a clean theme (see hero card demo)
 - Layout: `Section` > `Container` > `Stack`/`Row`/`Col` > content components
 - Typography hierarchy: `PageTitle` (h1) > `SectionTitle` (h2) > `Title` (h3) > `Text` (p)
-- Responsive: use `mobileCol`/`tabletCol` on Row/Stack, `mobileHide`/`tabletHide` for visibility
+- Responsive: use `mobileStack`/`tabletStack`/`desktopStack` on Row to collapse it to a column at those breakpoints (Stack is already a column), `mobileHide`/`tabletHide` for visibility
 - Prefer VaneUI props over Tailwind classes (see prop-to-class mapping in vaneui CLAUDE.md)
 
 ### VaneUI Component Reference

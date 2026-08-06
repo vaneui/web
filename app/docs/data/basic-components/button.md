@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-Button triggers an action when the user clicks it; each `appearance` prop maps to a semantic color from the active theme.
+Button triggers an action when the user clicks it; each `appearance` prop maps to a semantic color from the active theme. Use Button for actions, Link for an in-prose hyperlink, and NavLink for a sidebar or navigation item.
 
 ```tsx demo
 <Row flexWrap>

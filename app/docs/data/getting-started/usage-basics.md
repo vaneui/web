@@ -51,7 +51,7 @@ function AppearanceExample() {
 
 ### Filled and outline variants
 
-All components support `filled`, `outline`, and `ghost` variants. `outline` is the default for most components:
+All components support `filled`, `outline`, and `ghost` variants. `outline` is the default for most components. `ghost` renders a transparent background with no border and appearance-colored text, plus a tinted hover background:
 
 ```tsx
 import { Button, Card, Stack, Container, Row } from '@vaneui/ui';
@@ -63,6 +63,7 @@ function FilledOutlineExample() {
       <Row>
         <Button filled>Filled Button</Button>
         <Button>Outline Button (default)</Button>
+        <Button ghost>Ghost Button</Button>
       </Row>
 
       {/* Cards */}
@@ -340,7 +341,13 @@ function PopupExample() {
 }
 ```
 
-`PopupTrigger` supports three trigger modes: `"click"` (default), `"hover"`, and `"focus"`.
+`PopupTrigger` selects its trigger mode with three boolean props: `triggerOnClick` (the default when none is set), `triggerOnHover`, and `triggerOnFocus`.
+
+`Popup` positions itself relative to its anchor through a placement prop: `placeTop`, `placeTopStart`, `placeTopEnd`, `placeBottom`, `placeBottomStart`, `placeBottomEnd`, `placeLeft`, `placeLeftStart`, `placeLeftEnd`, `placeRight`, `placeRightStart`, and `placeRightEnd`.
+
+```tsx
+<Popup placeBottomStart>Anchored below, aligned to the start edge</Popup>
+```
 
 See the [Overlay Components](/docs/overlay-components/overlay) section for `Overlay`, `Modal`, and `Popup` documentation.
 

@@ -15,13 +15,13 @@ At its core, VaneUI uses **boolean props** instead of string enums for cleaner J
 Props are organized into **categories**:
 - **size**: `xs`, `sm`, `md`, `lg`, `xl`
 - **appearance**: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
-- **variant**: `filled`, `outline`, `ghost`
+- **variant**: `filled`, `outline`, `ghost` (`ghost`: transparent background, no border, appearance-colored text, tinted hover background)
 - **shape**: `rounded`, `pill`, `sharp`
 - **typography**: `fontSans`, `fontSerif`, `fontMono`, `fontSemibold`, `fontBold`, etc.
 - **layout**: `flex`, `column`, `itemsCenter`, `justifyBetween`, etc.
 - **inheritance**: `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder` (and `noInherit*` toggles)
 
-Typography components (Text, Title, SectionTitle, PageTitle, Blockquote), Label, List, and Divider default to `inheritAppearance`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Link and Mark default to `inheritSize`, so they inherit font-size from their parent while keeping their own appearance color; Code and Kbd achieve the same effect through em-relative geometry.
+Text, Title, SectionTitle, PageTitle, Blockquote, Label, List, ListItem, and Divider default to `inheritAppearance`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Link and Mark default to `inheritSize`, so they inherit font-size from their parent while keeping their own appearance color; Code and Kbd achieve the same effect through em-relative geometry.
 
 ## Three-layer component architecture
 

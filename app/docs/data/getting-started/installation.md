@@ -57,6 +57,24 @@ This setup:
 - Imports the complete pre-built VaneUI stylesheet (component styles and CSS variables in one file)
 - Works without any Tailwind configuration
 
+## ThemeProvider setup
+
+Wrap your application in `ThemeProvider`. It is required: components read their theme from this context, so theming does not resolve without it. Place it once at the root, above every VaneUI component.
+
+```tsx
+import { ThemeProvider } from '@vaneui/ui';
+
+function Root() {
+  return (
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
+  );
+}
+```
+
+`ThemeProvider` needs no props to apply the built-in defaults. To set application-wide defaults, extra classes, or theme overrides, see [Using ThemeProvider](/docs/customization/using-theme-provider).
+
 ## Usage
 
 Start using VaneUI components in your React application:

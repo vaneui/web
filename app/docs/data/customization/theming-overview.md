@@ -230,7 +230,7 @@ CSS rules in `rules.css` set unit variables per `data-size` and per-component cl
 
 ## Color inheritance
 
-Components with a concrete appearance emit `data-appearance` and `data-variant` and paint their own colors, so a default `<Button>` inside a filled `<Card>` keeps its own primary-outline palette. Inheritance is opt-in: only inherit-mode components (the typography components, which default to `appearance="inheritAppearance"`) and appearance-less `Icon` emit nothing and read their colors from the nearest ancestor. The `:root` palette is the fallback those inherit-mode components use when no ancestor sets colors. See [Variant Inheritance](./variant-inheritance) for details.
+Components with a concrete appearance emit `data-appearance` and `data-variant` and paint their own colors, so a default `<Button>` inside a filled `<Card>` keeps its own primary-outline palette. Inheritance is opt-in: only inherit-mode components (Text, Title, SectionTitle, PageTitle, Blockquote, Label, List, ListItem, and Divider, which default to `appearance="inheritAppearance"`) and appearance-less `Icon` emit nothing and read their colors from the nearest ancestor. The `:root` palette is the fallback those inherit-mode components use when no ancestor sets colors. See [Variant Inheritance](./variant-inheritance) for details.
 
 ## Style resolution flow
 

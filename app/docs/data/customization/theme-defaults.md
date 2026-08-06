@@ -13,6 +13,7 @@ Most components take props directly. **Components with sub-themes** (`button`, `
   button: { main: { md: true, filled: true } }, // nested under `main`
   badge: { success: true, sm: true },
   card: { main: { secondary: true } },          // nested under `main`
+  checkbox: { input: { lg: true, success: true } }, // Checkbox box nests under `input`
   text: { primary: true },
 }}>
   <App />
@@ -90,6 +91,7 @@ function ConsistentThemeApp() {
 
 ### Variant props
 - `filled`, `outline`, `ghost`
+- `ghost`: transparent background, no border, appearance-colored text, tinted hover background
 
 ### Shape props
 - `rounded`, `pill`, `sharp`
@@ -311,7 +313,7 @@ VaneUI components come with sensible built-in defaults. Only set defaults that d
 - **Container**: `md`, `wFull`, `flex`, `column`, `itemsCenter`, `gap`, `noPadding`, `outline`, `sharp`
 - **Input**: `md`, `wFull`, `primary`, `outline`, `rounded`, `padding`, `insetRing`, `focusVisible`
 - **Label**: `sm`, `flex`, `column`, `itemsStart`, `gap`, `inheritAppearance` (not `primary`), `fontMedium` (stacked label above field; use `<Label row itemsCenter>` for inline controls like `Checkbox`)
-- **Badge**: `md`, `secondary` (not `primary`), `outline`, `pill`, `fontSemibold`, `uppercase`
+- **Badge**: `md`, `secondary` (not `primary`), `outline`, `pill`, `fontSemibold`
 - **Chip**: `md`, `secondary` (not `primary`), `outline`, `rounded`, `fontSans`
 - **Link**: `md`, `underline`, `fontSans`, `cursorPointer`, `inheritSize`, `wFit`, `focusVisible` (link color by default; no appearance or variant default)
 - **NavLink**: `sm`, `primary`, `outline`, `rounded`, `wFull`, `textLeft`, `focusVisible`

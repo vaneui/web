@@ -117,6 +117,8 @@ Links integrate naturally with surrounding prose. Drop them inline inside `Text`
 </Text>
 ```
 
+Link is inline, so `marginT`, `marginB`, and `marginY` have no visual effect. Use `marginX` for inline-side spacing, or `className` for an exact value.
+
 ## Inherits parent Text size
 
 Links inside body text inherit the surrounding `Text` size. Set the size on the parent and the Link follows along.
