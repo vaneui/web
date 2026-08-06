@@ -50,7 +50,7 @@ per category is active at a time.
 Every component supports the same boolean prop categories where they apply.
 Components default to sensible values (Button is \`sm\` + \`primary\` + \`outline\`;
 Card is \`md\` + \`primary\` + \`outline\` + \`rounded\`; Typography defaults to
-\`inherit\` appearance and \`md\` size; Row/Col/Stack default to \`md\` + \`outline\`)
+\`inheritAppearance\` and \`md\` size; Row/Col/Stack default to \`md\` + \`outline\`)
 so most JSX is brief.
 
 Components that render an \`<a>\` when given \`href\` include: Button, IconButton,

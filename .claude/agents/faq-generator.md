@@ -37,7 +37,7 @@ Use Stack for vertical layouts that need padding by default (sections of content
 
 ### Why does `primary` apply by default?
 
-VaneUI defaults to a single appearance per category so components render without props. `primary` is the most common case for interactive components like Button and Badge; layout components default to `inherit` so they take the color of their context.
+VaneUI defaults to a single appearance per category so components render without props. `primary` is the most common case for interactive components like Button and Badge; typography components default to `inheritAppearance` so they take the color of their context.
 ```
 
 Rules:
