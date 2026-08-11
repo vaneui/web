@@ -178,7 +178,7 @@ Use `mobileStack` to stack on mobile, or `tabletStack` to stack on tablet and be
 
 ```tsx demo
 <Col>
-  <Text fontSemibold>tabletStack (stacks at ≤1024px)</Text>
+  <Text fontSemibold>tabletStack (stacks below 1024px)</Text>
   <Row tabletStack>
     <Col flex1 className="p-4 bg-primary-100 rounded">
       <Text fontSemibold>Column 1</Text>
@@ -189,7 +189,7 @@ Use `mobileStack` to stack on mobile, or `tabletStack` to stack on tablet and be
       <Text>Resize to see the responsive behavior.</Text>
     </Col>
   </Row>
-  <Text fontSemibold>mobileStack (stacks at ≤768px)</Text>
+  <Text fontSemibold>mobileStack (stacks below 768px)</Text>
   <Row mobileStack>
     <Col flex1 className="p-4 bg-primary-100 rounded">
       <Text fontSemibold>Column 1</Text>
@@ -202,6 +202,10 @@ Use `mobileStack` to stack on mobile, or `tabletStack` to stack on tablet and be
   </Row>
 </Col>
 ```
+
+Breakpoints are desktop-first and exclusive: `mobileStack` collapses to a column below 768px, `tabletStack` below 1024px, `desktopStack` below 1280px. The boundary pixel itself stays in the row layout. Combining several stack props resolves to the widest, so `mobileStack tabletStack` stacks below 1024px. `*Stack` only affects row-direction components: it emits `flex-col`, so it is a no-op on `Col`, `Stack`, `Container`, and `Section`, which are already columns.
+
+A stacked `Row` keeps its default `itemsCenter`, so stacked children shrink to content width. Add `itemsStretch` for full-width stacked cards.
 
 ## Variants
 

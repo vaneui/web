@@ -10,9 +10,11 @@ Hide elements at specific breakpoint sizes for responsive layouts.
 
 | Prop | Description |
 |------|-------------|
-| `mobileHide` | Hide element on mobile devices and below (max-mobile: 48rem) |
-| `tabletHide` | Hide element on tablet devices and below (max-tablet: 64rem) |
-| `desktopHide` | Hide element on desktop devices and below (max-desktop: 80rem) |
+| `mobileHide` | Hide below 768px (48rem); the 768px boundary itself stays visible |
+| `tabletHide` | Hide below 1024px (64rem); the 1024px boundary itself stays visible |
+| `desktopHide` | Hide below 1280px (80rem); the 1280px boundary itself stays visible |
+
+Breakpoints are exclusive (width `<` the boundary). Combining several `*Hide` props resolves to the widest, so `mobileHide tabletHide` hides below 1024px.
 
 ## Items
 
