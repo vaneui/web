@@ -18,6 +18,8 @@ export interface DocsPage {
   name: string;
   description: string;
   mdPath?: string;
+  /** Markdown sourced from node_modules instead of app/docs/data. See DocPageMeta. */
+  packageMdPath?: string;
   componentKey?: ComponentKey;
   /** Subcomponent documented on the same page; renders a second props table. */
   secondaryComponentKey?: ComponentKey;

@@ -30,7 +30,7 @@ export function Footer() {
                   {text: 'Documentation', href: '/docs'},
                   {text: 'Core Concepts', href: '/docs/getting-started/core-concepts'},
                   {text: 'Installation', href: '/docs/getting-started/installation'},
-                  {text: 'Changelog', href: '/changelog'},
+                  {text: 'Changelog', href: '/docs/reference/changelog'},
                 ]
               },
               {

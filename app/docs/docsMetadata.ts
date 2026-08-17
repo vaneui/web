@@ -5,6 +5,13 @@ export interface DocPageMeta {
   name: string;
   description: string;
   mdPath?: string;
+  /**
+   * Markdown sourced from an installed package instead of app/docs/data, given as
+   * `<package>/<file>` under node_modules. Used for files the library repo owns
+   * (CHANGELOG.md), so the docs site renders them without keeping a second copy.
+   * A leading H1 is stripped: DocsPageContent renders the page title itself.
+   */
+  packageMdPath?: string;
   componentKey?: ComponentKey;
   /** Subcomponent documented on the same page; renders a second props table. */
   secondaryComponentKey?: ComponentKey;
@@ -344,12 +351,18 @@ export const docsSectionsMeta: DocSectionMeta[] = [
   {
     name: 'Reference',
     slug: 'reference',
-    description: 'Shared prop reference and cross-component documentation.',
+    description: 'Shared prop reference, cross-component documentation, and release notes.',
     pages: [
       {
         slug: 'common-props',
         name: 'Common Props',
         description: 'Layout and typography props shared across all components.',
+      },
+      {
+        slug: 'changelog',
+        name: 'Changelog',
+        description: 'Every user-visible change to @vaneui/ui, by version.',
+        packageMdPath: '@vaneui/ui/CHANGELOG.md',
       },
     ]
   },

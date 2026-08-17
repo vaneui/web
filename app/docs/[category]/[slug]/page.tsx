@@ -84,6 +84,22 @@ async function readIfExists(filePath: string): Promise<string | null> {
   }
 }
 
+/**
+ * Read a docs page whose markdown is owned by an installed package (CHANGELOG.md).
+ * Resolved from cwd, not `createRequire(import.meta.url)`: the bundler rewrites
+ * import.meta.url into .next, so require.resolve fails at build time.
+ */
+async function readPackageMd(packageMdPath: string): Promise<string | null> {
+  const file = path.join(process.cwd(), 'node_modules', packageMdPath);
+  const raw = await readIfExists(file);
+  if (raw === null) {
+    console.error(`Could not read package markdown from ${file}`);
+    return null;
+  }
+  // DocsPageContent renders the page title, so drop the file's own leading H1.
+  return raw.replace(/^\s*#\s+.*\r?\n/, '');
+}
+
 export default async function Page({params}: DocsPageProps) {
   const {category, slug} = await params
 
@@ -115,6 +131,9 @@ export default async function Page({params}: DocsPageProps) {
     const parsed = parseFrontmatter(componentMd);
     md = parsed.body;
     frontmatter = parsed.frontmatter as DocPageFrontmatter;
+  } else if (docsPage.packageMdPath) {
+    // Path 3: markdown owned by an installed package (e.g. @vaneui/ui/CHANGELOG.md).
+    md = (await readPackageMd(docsPage.packageMdPath)) ?? "";
   } else if (docsPage.mdPath) {
     // Path 2: legacy markdown guide referenced by mdPath.
     try {

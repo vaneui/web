@@ -100,3 +100,4 @@ For complete documentation of every page in a single document, see
 
 ### Reference
 - [Common Props](https://vaneui.com/docs/reference/common-props): Layout and typography props shared across all components.
+- [Changelog](https://vaneui.com/docs/reference/changelog): Every user-visible change to @vaneui/ui, by version.
