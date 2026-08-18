@@ -7,7 +7,7 @@ since: 1.1.0
 
 ## Basic usage
 
-Select renders a native `<select>` with the platform dropdown, so it is keyboard and screen-reader correct for free and behaves like the user expects on mobile.
+Select renders a real `<select>`, so keyboard support, screen-reader semantics, form submission and constraint validation all come from the platform rather than from re-implemented JavaScript.
 
 ```tsx demo
 <Select>
@@ -19,7 +19,13 @@ Select renders a native `<select>` with the platform dropdown, so it is keyboard
 
 The native arrow is replaced with a themed chevron that scales with the size prop. The field reserves room for it, so a long option never runs underneath.
 
-The dropdown list is drawn by the browser, not by VaneUI, so `option` and `optgroup` carry the theme's surface and text tokens directly. That keeps the open list on your palette in both light and dark mode instead of falling back to the browser's own colours.
+## The dropdown list
+
+Historically a native `<select>` hands its option list to the operating system, which draws a flat, square, unpadded menu that no page CSS can reach. Only the option's text and background colour land, because the options get no layout box at all.
+
+On engines that support `appearance: base-select` the list becomes real DOM instead, and VaneUI styles it to match a `Menu`: themed surface, border, radius, shadow, padded rows, a hover state, and a checkmark on the selected option. Everywhere else the OS picker still appears, with `option` and `optgroup` pinned to the theme's surface and text tokens so the list at least stays on your palette in both light and dark mode.
+
+Nothing is required to opt in, and nothing breaks on engines without it: the enhancement sits behind an `@supports` rule and the control is the same `<select>` either way.
 
 ## Sizes
 

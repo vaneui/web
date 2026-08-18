@@ -31,12 +31,32 @@ The ring is one em square, so it scales with the size prop and lines up with tex
 
 ## Appearances
 
+The ring is drawn in the current text colour, so an appearance prop colours it directly.
+
 ```tsx demo
 <Row itemsCenter flexWrap>
   <Spinner primary aria-label="Loading"/>
+  <Spinner accent aria-label="Loading"/>
   <Spinner secondary aria-label="Loading"/>
+  <Spinner tertiary aria-label="Loading"/>
   <Spinner success aria-label="Loading"/>
   <Spinner danger aria-label="Loading"/>
+  <Spinner warning aria-label="Loading"/>
+  <Spinner info aria-label="Loading"/>
+</Row>
+```
+
+Spinner has no `filled` / `outline` / `ghost` variant, and no shape prop. Those choose between a background fill and a border treatment, and a spinner is a border with nothing to fill. To sit it on a tinted surface, colour the surface instead.
+
+```tsx demo
+<Row itemsCenter flexWrap>
+  <Badge info filled><Spinner xs aria-label="Loading"/> Syncing</Badge>
+  <Card sm filled secondary wFit>
+    <Row itemsCenter>
+      <Spinner sm secondary aria-label="Loading"/>
+      <Text sm secondary>Rebuilding index</Text>
+    </Row>
+  </Card>
 </Row>
 ```
 
