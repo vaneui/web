@@ -2202,6 +2202,7 @@ Alert is a flex row, so compose whatever the message needs.
   <Alert sm>Small</Alert>
   <Alert>Medium, the default</Alert>
   <Alert lg>Large</Alert>
+  <Alert xl>Extra large</Alert>
 </Col>
 ```
 
@@ -2814,7 +2815,7 @@ Passing `error` renders the message and marks the control invalid, so the danger
 ```tsx demo
 <Col>
   <Field label="Display name" error="This name is already taken.">
-    <Input defaultValue="evgenii"/>
+    <Input defaultValue="alex.rivera"/>
   </Field>
 
   <Field
@@ -2828,6 +2829,8 @@ Passing `error` renders the message and marks the control invalid, so the danger
 ```
 
 When both `description` and `error` are present, the control is described by both, in that order.
+
+An invalid control gets a danger border and ring plus `aria-invalid="true"`, and on `Input` a trailing alert icon, so the state is never signalled by colour alone.
 
 ## Any control
 
@@ -2868,6 +2871,9 @@ Field's size becomes the control's default, so you set it once. An explicit size
 
 ```tsx demo
 <Col>
+  <Field xs label="Extra small">
+    <Input placeholder="xs"/>
+  </Field>
   <Field sm label="Small">
     <Input placeholder="sm"/>
   </Field>
@@ -2876,6 +2882,9 @@ Field's size becomes the control's default, so you set it once. An explicit size
   </Field>
   <Field lg label="Large">
     <Input placeholder="lg"/>
+  </Field>
+  <Field xl label="Extra large">
+    <Input placeholder="xl"/>
   </Field>
 </Col>
 ```
@@ -2917,14 +2926,37 @@ It resizes vertically by default and has a minimum height of three lines, so an 
 </Col>
 ```
 
+## Variants
+
+Textarea is `outline` by default. Use `filled` for a solid background, and the appearance props for status colour.
+
+```tsx demo
+<Col>
+  <Row flexWrap itemsStretch>
+    <Textarea className="w-56" placeholder="Outline (default)"/>
+    <Textarea className="w-56" success placeholder="Outline success"/>
+    <Textarea className="w-56" danger placeholder="Outline danger"/>
+  </Row>
+  <Row flexWrap itemsStretch>
+    <Textarea className="w-56" filled placeholder="Filled"/>
+    <Textarea className="w-56" filled success placeholder="Filled success"/>
+    <Textarea className="w-56" filled danger placeholder="Filled danger"/>
+  </Row>
+</Col>
+```
+
 ## States
 
-`invalid` adds a danger border and emits `aria-invalid`, so the error state is never colour-only. Pair it with `Field` to attach a message.
+`invalid` paints a danger border and ring and emits `aria-invalid="true"`. Unlike `Input`, a Textarea shows no overlaid alert icon: a single-line field has one obvious place to put one, a box that grows does not. The border is therefore the only *visual* cue on its own, so pair `invalid` with a `Field` and let the `error` message carry the reason. It renders in danger text below the box and is linked with `aria-describedby`.
+
+Note that the value itself never turns red. Colouring what the user typed hurts readability and says nothing about what is wrong.
 
 ```tsx demo
 <Col>
   <Textarea placeholder="Default"/>
-  <Textarea invalid defaultValue="Too short"/>
+  <Field error="Tell us at least a sentence about what changed.">
+    <Textarea defaultValue="Too short"/>
+  </Field>
   <Textarea disabled defaultValue="Disabled"/>
   <Textarea readOnly defaultValue="Read only"/>
 </Col>
@@ -2957,25 +2989,102 @@ Select renders a native `<select>` with the platform dropdown, so it is keyboard
 
 The native arrow is replaced with a themed chevron that scales with the size prop. The field reserves room for it, so a long option never runs underneath.
 
+The dropdown list is drawn by the browser, not by VaneUI, so `option` and `optgroup` carry the theme's surface and text tokens directly. That keeps the open list on your palette in both light and dark mode instead of falling back to the browser's own colours.
+
 ## Sizes
+
+Selects come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. The chevron and the room reserved for it scale with the field.
 
 ```tsx demo
 <Col>
-  <Select xs><option>xs</option></Select>
-  <Select sm><option>sm</option></Select>
-  <Select><option>md (default)</option></Select>
-  <Select lg><option>lg</option></Select>
-  <Select xl><option>xl</option></Select>
+  <Select xs defaultValue="sm">
+    <option value="xs">Extra small</option>
+    <option value="sm">Small</option>
+    <option value="md">Medium</option>
+    <option value="lg">Large</option>
+  </Select>
+  <Select sm defaultValue="sm">
+    <option value="xs">Extra small</option>
+    <option value="sm">Small</option>
+    <option value="md">Medium</option>
+    <option value="lg">Large</option>
+  </Select>
+  <Select defaultValue="sm">
+    <option value="xs">Extra small</option>
+    <option value="sm">Small</option>
+    <option value="md">Medium</option>
+    <option value="lg">Large</option>
+  </Select>
+  <Select lg defaultValue="sm">
+    <option value="xs">Extra small</option>
+    <option value="sm">Small</option>
+    <option value="md">Medium</option>
+    <option value="lg">Large</option>
+  </Select>
+  <Select xl defaultValue="sm">
+    <option value="xs">Extra small</option>
+    <option value="sm">Small</option>
+    <option value="md">Medium</option>
+    <option value="lg">Large</option>
+  </Select>
 </Col>
 ```
 
 ## States
 
+`invalid` adds a danger border and ring, turns the chevron danger, and emits `aria-invalid`. Pair it with `Field` to attach the message.
+
 ```tsx demo
 <Col>
-  <Select><option>Default</option></Select>
-  <Select invalid><option>Invalid</option></Select>
-  <Select disabled><option>Disabled</option></Select>
+  <Select defaultValue="eur">
+    <option value="eur">Euro</option>
+    <option value="usd">US dollar</option>
+    <option value="gbp">Pound sterling</option>
+  </Select>
+  <Select invalid defaultValue="">
+    <option value="" disabled>Select a currency</option>
+    <option value="eur">Euro</option>
+    <option value="usd">US dollar</option>
+    <option value="gbp">Pound sterling</option>
+  </Select>
+  <Select disabled defaultValue="eur">
+    <option value="eur">Euro</option>
+    <option value="usd">US dollar</option>
+    <option value="gbp">Pound sterling</option>
+  </Select>
+</Col>
+```
+
+## Variants and shapes
+
+Selects are `outline` and `rounded` by default, and take the same appearance, variant and shape props as `Input`.
+
+```tsx demo
+<Col>
+  <Row flexWrap>
+    <Select className="w-48" defaultValue="eur">
+      <option value="eur">Outline (default)</option>
+      <option value="usd">US dollar</option>
+    </Select>
+    <Select filled className="w-48" defaultValue="eur">
+      <option value="eur">Filled</option>
+      <option value="usd">US dollar</option>
+    </Select>
+    <Select success className="w-48" defaultValue="eur">
+      <option value="eur">Success</option>
+      <option value="usd">US dollar</option>
+    </Select>
+  </Row>
+  <Row flexWrap>
+    <Select pill className="w-48" defaultValue="eur">
+      <option value="eur">Pill</option>
+      <option value="usd">US dollar</option>
+    </Select>
+    <Select sharp className="w-48" defaultValue="eur">
+      <option value="eur">Sharp</option>
+      <option value="usd">US dollar</option>
+    </Select>
+  </Row>
 </Col>
 ```
 
@@ -3040,6 +3149,23 @@ Inside a `Field`, the group is labelled by reference with `aria-labelledby`, bec
 </Col>
 ```
 
+## Appearances
+
+Radio takes the same appearance props as Checkbox: the appearance colours the box border, the selected fill and the focus ring. Set it on the `Label` too when you want the text to match.
+
+```tsx demo
+<Row flexWrap>
+  <Label row itemsCenter><Radio name="a-primary" defaultChecked/> primary (default)</Label>
+  <Label row itemsCenter accent><Radio accent name="a-accent" defaultChecked/> accent</Label>
+  <Label row itemsCenter secondary><Radio secondary name="a-secondary" defaultChecked/> secondary</Label>
+  <Label row itemsCenter tertiary><Radio tertiary name="a-tertiary" defaultChecked/> tertiary</Label>
+  <Label row itemsCenter success><Radio success name="a-success" defaultChecked/> success</Label>
+  <Label row itemsCenter danger><Radio danger name="a-danger" defaultChecked/> danger</Label>
+  <Label row itemsCenter warning><Radio warning name="a-warning" defaultChecked/> warning</Label>
+  <Label row itemsCenter info><Radio info name="a-info" defaultChecked/> info</Label>
+</Row>
+```
+
 ## States
 
 ```tsx demo
@@ -3084,12 +3210,18 @@ A Switch inside a Label inherits the Label's size, so set it once.
 
 ## Appearances
 
+The appearance colours the track when the switch is on, and the focus ring.
+
 ```tsx demo
 <Row flexWrap>
-  <Switch defaultChecked/>
-  <Switch success defaultChecked/>
-  <Switch danger defaultChecked/>
-  <Switch warning defaultChecked/>
+  <Label row itemsCenter><Switch defaultChecked/> primary (default)</Label>
+  <Label row itemsCenter accent><Switch accent defaultChecked/> accent</Label>
+  <Label row itemsCenter secondary><Switch secondary defaultChecked/> secondary</Label>
+  <Label row itemsCenter tertiary><Switch tertiary defaultChecked/> tertiary</Label>
+  <Label row itemsCenter success><Switch success defaultChecked/> success</Label>
+  <Label row itemsCenter danger><Switch danger defaultChecked/> danger</Label>
+  <Label row itemsCenter warning><Switch warning defaultChecked/> warning</Label>
+  <Label row itemsCenter info><Switch info defaultChecked/> info</Label>
 </Row>
 ```
 
@@ -4529,6 +4661,10 @@ Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control padding and gap.
 
 ```tsx demo
 <Col>
+  <Section xs border>
+    <Text fontSemibold>Extra Small Section</Text>
+    <Text>Tightest padding</Text>
+  </Section>
   <Section sm border>
     <Text fontSemibold>Small Section</Text>
     <Text>Compact padding</Text>
@@ -4540,6 +4676,10 @@ Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control padding and gap.
   <Section lg border>
     <Text fontSemibold>Large Section</Text>
     <Text>Generous padding</Text>
+  </Section>
+  <Section xl border>
+    <Text fontSemibold>Extra Large Section</Text>
+    <Text>Widest padding</Text>
   </Section>
 </Col>
 ```
@@ -5369,8 +5509,16 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to scale gap and padding together,
     <Text fontSemibold>xs padding</Text>
     <div className="p-2 bg-white/80 rounded">Item</div>
   </Stack>
+  <Stack sm filled secondary flex1>
+    <Text fontSemibold>sm padding</Text>
+    <div className="p-2 bg-white/80 rounded">Item</div>
+  </Stack>
   <Stack filled secondary flex1>
     <Text fontSemibold>md padding (default)</Text>
+    <div className="p-2 bg-white/80 rounded">Item</div>
+  </Stack>
+  <Stack lg filled secondary flex1>
+    <Text fontSemibold>lg padding</Text>
     <div className="p-2 bg-white/80 rounded">Item</div>
   </Stack>
   <Stack xl filled secondary flex1>
@@ -5900,11 +6048,23 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
     <Card xs><Text xs>Item 2</Text></Card>
     <Card xs><Text xs>Item 3</Text></Card>
   </Grid3>
+  <Text fontSemibold>sm</Text>
+  <Grid3 sm>
+    <Card sm><Text sm>Item 1</Text></Card>
+    <Card sm><Text sm>Item 2</Text></Card>
+    <Card sm><Text sm>Item 3</Text></Card>
+  </Grid3>
   <Text fontSemibold>md (default)</Text>
   <Grid3>
     <Card><Text>Item 1</Text></Card>
     <Card><Text>Item 2</Text></Card>
     <Card><Text>Item 3</Text></Card>
+  </Grid3>
+  <Text fontSemibold>lg</Text>
+  <Grid3 lg>
+    <Card lg><Text lg>Item 1</Text></Card>
+    <Card lg><Text lg>Item 2</Text></Card>
+    <Card lg><Text lg>Item 3</Text></Card>
   </Grid3>
   <Text fontSemibold>xl</Text>
   <Grid3 xl>
@@ -6374,6 +6534,10 @@ The size prop scales both text and cell padding, and it cascades from the table 
 
 ```tsx demo
 <Stack>
+  <Table xs>
+    <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
+    <Tbody><Tr><Td>xs table</Td><Td textRight>tightest</Td></Tr></Tbody>
+  </Table>
   <Table sm>
     <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
     <Tbody><Tr><Td>sm table</Td><Td textRight>compact</Td></Tr></Tbody>
@@ -6385,6 +6549,10 @@ The size prop scales both text and cell padding, and it cascades from the table 
   <Table lg>
     <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
     <Tbody><Tr><Td>lg table</Td><Td textRight>spacious</Td></Tr></Tbody>
+  </Table>
+  <Table xl>
+    <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
+    <Tbody><Tr><Td>xl table</Td><Td textRight>widest</Td></Tr></Tbody>
   </Table>
 </Stack>
 ```
@@ -6945,17 +7113,43 @@ return (
 Size props control modal content width via the `--fs-unit` / `--py-unit` / `--br-unit` chain. Font-size, padding, gap, and border-radius all scale together.
 
 ```tsx demo
-const [openSm, setOpenSm] = useState(false);
-const [openLg, setOpenLg] = useState(false);
+const [size, setSize] = useState('');
+const close = () => setSize('');
+const body = (
+  <ModalBody>
+    <Text>Font-size, padding, gap and border-radius all scale together.</Text>
+  </ModalBody>
+);
 
 return (
   <>
-    <Row>
-      <Button onClick={() => setOpenSm(true)}>Small modal</Button>
-      <Button onClick={() => setOpenLg(true)}>Large modal</Button>
+    <Row flexWrap>
+      <Button xs onClick={() => setSize('xs')}>xs</Button>
+      <Button sm onClick={() => setSize('sm')}>sm</Button>
+      <Button onClick={() => setSize('md')}>md</Button>
+      <Button lg onClick={() => setSize('lg')}>lg</Button>
+      <Button xl onClick={() => setSize('xl')}>xl</Button>
     </Row>
-    <Modal open={openSm} onClose={() => setOpenSm(false)} sm>Small modal</Modal>
-    <Modal open={openLg} onClose={() => setOpenLg(false)} lg>Large modal</Modal>
+    <Modal xs open={size === 'xs'} onClose={close}>
+      <ModalHeader><Title>Extra small</Title><ModalCloseButton/></ModalHeader>
+      {body}
+    </Modal>
+    <Modal sm open={size === 'sm'} onClose={close}>
+      <ModalHeader><Title>Small</Title><ModalCloseButton/></ModalHeader>
+      {body}
+    </Modal>
+    <Modal open={size === 'md'} onClose={close}>
+      <ModalHeader><Title>Medium, the default</Title><ModalCloseButton/></ModalHeader>
+      {body}
+    </Modal>
+    <Modal lg open={size === 'lg'} onClose={close}>
+      <ModalHeader><Title>Large</Title><ModalCloseButton/></ModalHeader>
+      {body}
+    </Modal>
+    <Modal xl open={size === 'xl'} onClose={close}>
+      <ModalHeader><Title>Extra large</Title><ModalCloseButton/></ModalHeader>
+      {body}
+    </Modal>
   </>
 );
 ```
@@ -7483,12 +7677,38 @@ Pass `href` to render a `MenuItem` as an anchor tag. For client-side navigation 
 Set a size on `Menu` (e.g. `<Menu lg>`) and the dropdown popup, every `MenuItem`, `MenuLabel`, and nested `Divider` scale together automatically. No need to repeat the size on every child. Items render with larger font-size and padding, the popup frame lifts its inner padding, and dividers match. Individual children can still override with their own size prop.
 
 ```tsx demo
-<Menu lg trigger={<Button lg>Actions</Button>}>
-  <MenuLabel>Actions</MenuLabel>
-  <MenuItem>Edit</MenuItem>
-  <Divider />
-  <MenuItem danger>Delete</MenuItem>
-</Menu>
+<Row flexWrap>
+  <Menu xs trigger={<Button xs>xs</Button>}>
+    <MenuLabel>Actions</MenuLabel>
+    <MenuItem>Edit</MenuItem>
+    <Divider />
+    <MenuItem danger>Delete</MenuItem>
+  </Menu>
+  <Menu sm trigger={<Button sm>sm</Button>}>
+    <MenuLabel>Actions</MenuLabel>
+    <MenuItem>Edit</MenuItem>
+    <Divider />
+    <MenuItem danger>Delete</MenuItem>
+  </Menu>
+  <Menu md trigger={<Button md>md</Button>}>
+    <MenuLabel>Actions</MenuLabel>
+    <MenuItem>Edit</MenuItem>
+    <Divider />
+    <MenuItem danger>Delete</MenuItem>
+  </Menu>
+  <Menu lg trigger={<Button lg>lg</Button>}>
+    <MenuLabel>Actions</MenuLabel>
+    <MenuItem>Edit</MenuItem>
+    <Divider />
+    <MenuItem danger>Delete</MenuItem>
+  </Menu>
+  <Menu xl trigger={<Button xl>xl</Button>}>
+    <MenuLabel>Actions</MenuLabel>
+    <MenuItem>Edit</MenuItem>
+    <Divider />
+    <MenuItem danger>Delete</MenuItem>
+  </Menu>
+</Row>
 ```
 
 ## Controlled state
