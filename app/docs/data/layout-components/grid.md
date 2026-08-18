@@ -86,11 +86,23 @@ Sizes (`xs`, `sm`, `md`, `lg`, `xl`) scale the grid's `gap` and `border-radius`.
     <Card xs><Text xs>Item 2</Text></Card>
     <Card xs><Text xs>Item 3</Text></Card>
   </Grid3>
+  <Text fontSemibold>sm</Text>
+  <Grid3 sm>
+    <Card sm><Text sm>Item 1</Text></Card>
+    <Card sm><Text sm>Item 2</Text></Card>
+    <Card sm><Text sm>Item 3</Text></Card>
+  </Grid3>
   <Text fontSemibold>md (default)</Text>
   <Grid3>
     <Card><Text>Item 1</Text></Card>
     <Card><Text>Item 2</Text></Card>
     <Card><Text>Item 3</Text></Card>
+  </Grid3>
+  <Text fontSemibold>lg</Text>
+  <Grid3 lg>
+    <Card lg><Text lg>Item 1</Text></Card>
+    <Card lg><Text lg>Item 2</Text></Card>
+    <Card lg><Text lg>Item 3</Text></Card>
   </Grid3>
   <Text fontSemibold>xl</Text>
   <Grid3 xl>

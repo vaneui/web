@@ -24,6 +24,10 @@ Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control padding and gap.
 
 ```tsx demo
 <Col>
+  <Section xs border>
+    <Text fontSemibold>Extra Small Section</Text>
+    <Text>Tightest padding</Text>
+  </Section>
   <Section sm border>
     <Text fontSemibold>Small Section</Text>
     <Text>Compact padding</Text>
@@ -35,6 +39,10 @@ Sizes (`xs`, `sm`, `md` default, `lg`, `xl`) control padding and gap.
   <Section lg border>
     <Text fontSemibold>Large Section</Text>
     <Text>Generous padding</Text>
+  </Section>
+  <Section xl border>
+    <Text fontSemibold>Extra Large Section</Text>
+    <Text>Widest padding</Text>
   </Section>
 </Col>
 ```

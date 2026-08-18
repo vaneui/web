@@ -114,8 +114,16 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to scale gap and padding together,
     <Text fontSemibold>xs padding</Text>
     <div className="p-2 bg-white/80 rounded">Item</div>
   </Stack>
+  <Stack sm filled secondary flex1>
+    <Text fontSemibold>sm padding</Text>
+    <div className="p-2 bg-white/80 rounded">Item</div>
+  </Stack>
   <Stack filled secondary flex1>
     <Text fontSemibold>md padding (default)</Text>
+    <div className="p-2 bg-white/80 rounded">Item</div>
+  </Stack>
+  <Stack lg filled secondary flex1>
+    <Text fontSemibold>lg padding</Text>
     <div className="p-2 bg-white/80 rounded">Item</div>
   </Stack>
   <Stack xl filled secondary flex1>

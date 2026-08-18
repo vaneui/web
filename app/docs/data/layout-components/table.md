@@ -39,6 +39,10 @@ The size prop scales both text and cell padding, and it cascades from the table 
 
 ```tsx demo
 <Stack>
+  <Table xs>
+    <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
+    <Tbody><Tr><Td>xs table</Td><Td textRight>tightest</Td></Tr></Tbody>
+  </Table>
   <Table sm>
     <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
     <Tbody><Tr><Td>sm table</Td><Td textRight>compact</Td></Tr></Tbody>
@@ -50,6 +54,10 @@ The size prop scales both text and cell padding, and it cascades from the table 
   <Table lg>
     <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
     <Tbody><Tr><Td>lg table</Td><Td textRight>spacious</Td></Tr></Tbody>
+  </Table>
+  <Table xl>
+    <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
+    <Tbody><Tr><Td>xl table</Td><Td textRight>widest</Td></Tr></Tbody>
   </Table>
 </Stack>
 ```
