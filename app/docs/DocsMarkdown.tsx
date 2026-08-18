@@ -100,9 +100,13 @@ interface FenceLookup {
  * ends with `\n` (markdown-it's `getLines`), while our extractor regex stops
  * before the trailing newline. Strip trailing whitespace on both sides so the
  * pairing key is stable regardless of source formatting.
+ *
+ * CRLF is folded first: Markdoc normalizes line endings but the extractor reads
+ * the raw file, so on a Windows checkout every key would differ by its `\r` and
+ * silently lose the live preview on every page.
  */
 function normalizeBody(body: string): string {
-  return body.replace(/\s+$/, '');
+  return body.replace(/\r\n/g, '\n').replace(/\s+$/, '');
 }
 
 function buildFenceLookup(fences: ExtractedFence[], slug: string | undefined): FenceLookup {

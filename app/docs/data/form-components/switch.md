@@ -49,6 +49,18 @@ The appearance colours the track when the switch is on, and the focus ring.
 </Row>
 ```
 
+## Shapes
+
+Switch is `pill` by default. The shape applies to the track and the knob together: the knob's corner radius insets from the track's by the track padding, so the two stay concentric instead of a round knob sitting in a square track.
+
+```tsx demo
+<Col>
+  <Label row itemsCenter><Switch defaultChecked/> pill, the default</Label>
+  <Label row itemsCenter><Switch rounded defaultChecked/> rounded</Label>
+  <Label row itemsCenter><Switch sharp defaultChecked/> sharp</Label>
+</Col>
+```
+
 ## States
 
 ```tsx demo
