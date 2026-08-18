@@ -163,17 +163,43 @@ return (
 Size props control modal content width via the `--fs-unit` / `--py-unit` / `--br-unit` chain. Font-size, padding, gap, and border-radius all scale together.
 
 ```tsx demo
-const [openSm, setOpenSm] = useState(false);
-const [openLg, setOpenLg] = useState(false);
+const [size, setSize] = useState('');
+const close = () => setSize('');
+const body = (
+  <ModalBody>
+    <Text>Font-size, padding, gap and border-radius all scale together.</Text>
+  </ModalBody>
+);
 
 return (
   <>
-    <Row>
-      <Button onClick={() => setOpenSm(true)}>Small modal</Button>
-      <Button onClick={() => setOpenLg(true)}>Large modal</Button>
+    <Row flexWrap>
+      <Button xs onClick={() => setSize('xs')}>xs</Button>
+      <Button sm onClick={() => setSize('sm')}>sm</Button>
+      <Button onClick={() => setSize('md')}>md</Button>
+      <Button lg onClick={() => setSize('lg')}>lg</Button>
+      <Button xl onClick={() => setSize('xl')}>xl</Button>
     </Row>
-    <Modal open={openSm} onClose={() => setOpenSm(false)} sm>Small modal</Modal>
-    <Modal open={openLg} onClose={() => setOpenLg(false)} lg>Large modal</Modal>
+    <Modal xs open={size === 'xs'} onClose={close}>
+      <ModalHeader><Title>Extra small</Title><ModalCloseButton/></ModalHeader>
+      {body}
+    </Modal>
+    <Modal sm open={size === 'sm'} onClose={close}>
+      <ModalHeader><Title>Small</Title><ModalCloseButton/></ModalHeader>
+      {body}
+    </Modal>
+    <Modal open={size === 'md'} onClose={close}>
+      <ModalHeader><Title>Medium, the default</Title><ModalCloseButton/></ModalHeader>
+      {body}
+    </Modal>
+    <Modal lg open={size === 'lg'} onClose={close}>
+      <ModalHeader><Title>Large</Title><ModalCloseButton/></ModalHeader>
+      {body}
+    </Modal>
+    <Modal xl open={size === 'xl'} onClose={close}>
+      <ModalHeader><Title>Extra large</Title><ModalCloseButton/></ModalHeader>
+      {body}
+    </Modal>
   </>
 );
 ```

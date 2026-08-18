@@ -24,7 +24,7 @@ Passing `error` renders the message and marks the control invalid, so the danger
 ```tsx demo
 <Col>
   <Field label="Display name" error="This name is already taken.">
-    <Input defaultValue="evgenii"/>
+    <Input defaultValue="alex.rivera"/>
   </Field>
 
   <Field
@@ -38,6 +38,8 @@ Passing `error` renders the message and marks the control invalid, so the danger
 ```
 
 When both `description` and `error` are present, the control is described by both, in that order.
+
+An invalid control gets a danger border and ring plus `aria-invalid="true"`, and on `Input` a trailing alert icon, so the state is never signalled by colour alone.
 
 ## Any control
 
@@ -78,6 +80,9 @@ Field's size becomes the control's default, so you set it once. An explicit size
 
 ```tsx demo
 <Col>
+  <Field xs label="Extra small">
+    <Input placeholder="xs"/>
+  </Field>
   <Field sm label="Small">
     <Input placeholder="sm"/>
   </Field>
@@ -86,6 +91,9 @@ Field's size becomes the control's default, so you set it once. An explicit size
   </Field>
   <Field lg label="Large">
     <Input placeholder="lg"/>
+  </Field>
+  <Field xl label="Extra large">
+    <Input placeholder="xl"/>
   </Field>
 </Col>
 ```

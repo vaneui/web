@@ -34,12 +34,18 @@ A Switch inside a Label inherits the Label's size, so set it once.
 
 ## Appearances
 
+The appearance colours the track when the switch is on, and the focus ring.
+
 ```tsx demo
 <Row flexWrap>
-  <Switch defaultChecked/>
-  <Switch success defaultChecked/>
-  <Switch danger defaultChecked/>
-  <Switch warning defaultChecked/>
+  <Label row itemsCenter><Switch defaultChecked/> primary (default)</Label>
+  <Label row itemsCenter accent><Switch accent defaultChecked/> accent</Label>
+  <Label row itemsCenter secondary><Switch secondary defaultChecked/> secondary</Label>
+  <Label row itemsCenter tertiary><Switch tertiary defaultChecked/> tertiary</Label>
+  <Label row itemsCenter success><Switch success defaultChecked/> success</Label>
+  <Label row itemsCenter danger><Switch danger defaultChecked/> danger</Label>
+  <Label row itemsCenter warning><Switch warning defaultChecked/> warning</Label>
+  <Label row itemsCenter info><Switch info defaultChecked/> info</Label>
 </Row>
 ```
 

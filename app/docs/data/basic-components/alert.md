@@ -63,5 +63,6 @@ Alert is a flex row, so compose whatever the message needs.
   <Alert sm>Small</Alert>
   <Alert>Medium, the default</Alert>
   <Alert lg>Large</Alert>
+  <Alert xl>Extra large</Alert>
 </Col>
 ```

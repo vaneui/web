@@ -106,12 +106,38 @@ Pass `href` to render a `MenuItem` as an anchor tag. For client-side navigation 
 Set a size on `Menu` (e.g. `<Menu lg>`) and the dropdown popup, every `MenuItem`, `MenuLabel`, and nested `Divider` scale together automatically. No need to repeat the size on every child. Items render with larger font-size and padding, the popup frame lifts its inner padding, and dividers match. Individual children can still override with their own size prop.
 
 ```tsx demo
-<Menu lg trigger={<Button lg>Actions</Button>}>
-  <MenuLabel>Actions</MenuLabel>
-  <MenuItem>Edit</MenuItem>
-  <Divider />
-  <MenuItem danger>Delete</MenuItem>
-</Menu>
+<Row flexWrap>
+  <Menu xs trigger={<Button xs>xs</Button>}>
+    <MenuLabel>Actions</MenuLabel>
+    <MenuItem>Edit</MenuItem>
+    <Divider />
+    <MenuItem danger>Delete</MenuItem>
+  </Menu>
+  <Menu sm trigger={<Button sm>sm</Button>}>
+    <MenuLabel>Actions</MenuLabel>
+    <MenuItem>Edit</MenuItem>
+    <Divider />
+    <MenuItem danger>Delete</MenuItem>
+  </Menu>
+  <Menu md trigger={<Button md>md</Button>}>
+    <MenuLabel>Actions</MenuLabel>
+    <MenuItem>Edit</MenuItem>
+    <Divider />
+    <MenuItem danger>Delete</MenuItem>
+  </Menu>
+  <Menu lg trigger={<Button lg>lg</Button>}>
+    <MenuLabel>Actions</MenuLabel>
+    <MenuItem>Edit</MenuItem>
+    <Divider />
+    <MenuItem danger>Delete</MenuItem>
+  </Menu>
+  <Menu xl trigger={<Button xl>xl</Button>}>
+    <MenuLabel>Actions</MenuLabel>
+    <MenuItem>Edit</MenuItem>
+    <Divider />
+    <MenuItem danger>Delete</MenuItem>
+  </Menu>
+</Row>
 ```
 
 ## Controlled state

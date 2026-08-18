@@ -44,6 +44,23 @@ Inside a `Field`, the group is labelled by reference with `aria-labelledby`, bec
 </Col>
 ```
 
+## Appearances
+
+Radio takes the same appearance props as Checkbox: the appearance colours the box border, the selected fill and the focus ring. Set it on the `Label` too when you want the text to match.
+
+```tsx demo
+<Row flexWrap>
+  <Label row itemsCenter><Radio name="a-primary" defaultChecked/> primary (default)</Label>
+  <Label row itemsCenter accent><Radio accent name="a-accent" defaultChecked/> accent</Label>
+  <Label row itemsCenter secondary><Radio secondary name="a-secondary" defaultChecked/> secondary</Label>
+  <Label row itemsCenter tertiary><Radio tertiary name="a-tertiary" defaultChecked/> tertiary</Label>
+  <Label row itemsCenter success><Radio success name="a-success" defaultChecked/> success</Label>
+  <Label row itemsCenter danger><Radio danger name="a-danger" defaultChecked/> danger</Label>
+  <Label row itemsCenter warning><Radio warning name="a-warning" defaultChecked/> warning</Label>
+  <Label row itemsCenter info><Radio info name="a-info" defaultChecked/> info</Label>
+</Row>
+```
+
 ## States
 
 ```tsx demo
