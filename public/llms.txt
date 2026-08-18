@@ -54,11 +54,18 @@ For complete documentation of every page in a single document, see
 - [Kbd](https://vaneui.com/docs/basic-components/kbd): Displays keyboard keys and shortcuts with monospace font, border, and a raised 3D effect. Ideal for documenting keyboard shortcuts.
 - [Mark](https://vaneui.com/docs/basic-components/mark): Highlights text with a background color for emphasis. Defaults to warning (yellow) appearance for a natural highlighter effect.
 - [Icon](https://vaneui.com/docs/basic-components/icon): A lightweight SVG wrapper that provides consistent sizing, color inheritance, and themed appearances for icons.
+- [Alert](https://vaneui.com/docs/basic-components/alert): Alert is a live region for messages that follow a user action. It announces itself when it appears, assertively by default or politely on request.
+- [Spinner](https://vaneui.com/docs/basic-components/spinner): Spinner indicates that something is in progress. The ring is sized in em, so it scales with the size prop and lines up with text.
 
 ### Form Components
 - [Input](https://vaneui.com/docs/form-components/input): Input lets users enter text, numbers, and other data. A form element with support for various types, validation states, and styling options.
 - [Checkbox](https://vaneui.com/docs/form-components/checkbox): Allows users to select one or more options from a set. Checkboxes are ideal for binary choices and multiple selections within forms.
 - [Label](https://vaneui.com/docs/form-components/label): Label associates text with a form control. Wrap an Input or Checkbox to make the label clickable, or use htmlFor when the control sits outside.
+- [Field](https://vaneui.com/docs/form-components/field): Field wires a control to its label, help text and error message. It owns the id, points the label at the control, and links both messages with aria-describedby.
+- [Textarea](https://vaneui.com/docs/form-components/textarea): Textarea captures multi-line input. It shares the Input size ramp and appearance props, resizes vertically, and never collapses below three lines.
+- [Select](https://vaneui.com/docs/form-components/select): Select presents a list of options using the native dropdown, so it stays keyboard and screen-reader correct and behaves as expected on mobile.
+- [Radio](https://vaneui.com/docs/form-components/radio): Radio selects exactly one option from a set. RadioGroup shares a name across its options and exposes them as a single labelled group.
+- [Switch](https://vaneui.com/docs/form-components/switch): Switch toggles a setting that takes effect immediately. Use Checkbox instead when the value is submitted with a form.
 
 ### Typography Components
 - [Text](https://vaneui.com/docs/typography-components/text): The primary component for rendering all text content. It provides props to control typographic properties like size, weight, color, and alignment.
@@ -86,6 +93,7 @@ For complete documentation of every page in a single document, see
 - [Modal](https://vaneui.com/docs/overlay-components/modal): Modal is an accessible dialog with focus trapping, scroll lock, and keyboard navigation. Renders its portal backdrop with role="dialog" and aria-modal="true".
 - [Popup](https://vaneui.com/docs/overlay-components/popup): A floating element anchored to a trigger element using CSS Anchor Positioning. Supports 12 placement options, width matching, and click-outside dismissal.
 - [Menu](https://vaneui.com/docs/overlay-components/menu): A dropdown menu triggered by a button with full keyboard navigation. Contains MenuItem, Divider, and MenuLabel subcomponents.
+- [Tooltip](https://vaneui.com/docs/overlay-components/tooltip): Tooltip labels its trigger with a short hint on hover and on keyboard focus, describing the trigger rather than advertising a disclosure.
 
 ### Customization
 - [Theming Overview](https://vaneui.com/docs/customization/theming-overview): Understand VaneUI's theming system and design token architecture.

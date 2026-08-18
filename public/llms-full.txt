@@ -2139,6 +2139,136 @@ Icons work naturally alongside text and inside buttons.
 </Col>
 ```
 
+---
+Title: Alert
+URL: https://vaneui.com/docs/basic-components/alert
+---
+
+## Basic usage
+
+Alert is a live region: assistive technology announces its content when it appears, without the user having to find it. Use it for messages that result from something the user just did.
+
+```tsx demo
+<Alert>Scheduled maintenance starts at 02:00 UTC.</Alert>
+```
+
+By default it renders `role="alert"`, which interrupts. For a message that can wait for a natural pause, use `polite`, which renders `role="status"`.
+
+```tsx demo
+<Alert polite success>Your changes were saved.</Alert>
+```
+
+Render an Alert only when the message appears. An Alert present on first paint is not announced, because a live region announces changes, not initial content.
+
+## Appearances
+
+```tsx demo
+<Col>
+  <Alert info>A new version is available.</Alert>
+  <Alert success polite>Your changes were saved.</Alert>
+  <Alert warning>Your trial ends in three days.</Alert>
+  <Alert danger>Payment failed. Update your card to continue.</Alert>
+</Col>
+```
+
+## Variants
+
+```tsx demo
+<Col>
+  <Alert danger>Outline, the default.</Alert>
+  <Alert danger filled>Filled, for the loudest messages.</Alert>
+</Col>
+```
+
+## With a title and actions
+
+Alert is a flex row, so compose whatever the message needs.
+
+```tsx demo
+<Alert warning>
+  <Col noGap>
+    <Text fontSemibold>Your trial ends in three days</Text>
+    <Text sm>Add a payment method to keep your projects running.</Text>
+  </Col>
+  <Button sm warning filled>Add card</Button>
+</Alert>
+```
+
+## Sizes
+
+```tsx demo
+<Col>
+  <Alert xs>Extra small</Alert>
+  <Alert sm>Small</Alert>
+  <Alert>Medium, the default</Alert>
+  <Alert lg>Large</Alert>
+</Col>
+```
+
+---
+Title: Spinner
+URL: https://vaneui.com/docs/basic-components/spinner
+---
+
+## Basic usage
+
+Spinner indicates that something is in progress. Give it an `aria-label` so the busy state has a name, since the ring itself carries no text.
+
+```tsx demo
+<Spinner aria-label="Loading"/>
+```
+
+It renders `role="status"`, so assistive technology announces the label when the spinner appears.
+
+## Sizes
+
+The ring is one em square, so it scales with the size prop and lines up with text of the same size.
+
+```tsx demo
+<Row itemsCenter flexWrap>
+  <Spinner xs aria-label="Loading"/>
+  <Spinner sm aria-label="Loading"/>
+  <Spinner aria-label="Loading"/>
+  <Spinner lg aria-label="Loading"/>
+  <Spinner xl aria-label="Loading"/>
+</Row>
+```
+
+## Appearances
+
+```tsx demo
+<Row itemsCenter flexWrap>
+  <Spinner primary aria-label="Loading"/>
+  <Spinner secondary aria-label="Loading"/>
+  <Spinner success aria-label="Loading"/>
+  <Spinner danger aria-label="Loading"/>
+</Row>
+```
+
+## Inline with text
+
+Because the ring is sized in em, it matches the surrounding text without any manual tuning.
+
+```tsx demo
+<Row itemsCenter>
+  <Spinner sm aria-label="Loading"/>
+  <Text sm secondary>Checking availability…</Text>
+</Row>
+```
+
+## Inside a Button
+
+Button has its own `loading` prop, which swaps the label for a spinner and keeps the button's width, so the layout does not jump.
+
+```tsx demo
+<Row flexWrap>
+  <Button loading>Saving</Button>
+  <Button filled loading>Saving</Button>
+</Row>
+```
+
+Spinner honours `prefers-reduced-motion`: the animation stops for users who ask for less motion.
+
 ## Form Components
 
 Controls for capturing user input, and the label that ties them to their text.
@@ -2657,6 +2787,320 @@ Use appearances to indicate field status: `danger` for errors, `success` for val
     <Input placeholder="verified@example.com" />
   </Col>
   <Label secondary>All fields marked with * are required.</Label>
+</Col>
+```
+
+---
+Title: Field
+URL: https://vaneui.com/docs/form-components/field
+---
+
+## Basic usage
+
+Field wires a control to its label, help text and error message. It generates one id, points the label at the control with `htmlFor`, and links the description and error with `aria-describedby`. Pass any control as the child.
+
+```tsx demo
+<Field label="Email" description="We will never share it.">
+  <Input type="email" placeholder="you@company.com"/>
+</Field>
+```
+
+`Label` on its own associates text with a control, but nothing links help text or an error message to it. That is what Field adds: without it, a screen reader announces that a control is invalid and never says why.
+
+## Error state
+
+Passing `error` renders the message and marks the control invalid, so the danger cue and the message can never disagree. You do not set `invalid` yourself.
+
+```tsx demo
+<Col>
+  <Field label="Display name" error="This name is already taken.">
+    <Input defaultValue="evgenii"/>
+  </Field>
+
+  <Field
+    label="Password"
+    description="At least 12 characters."
+    error="Too short."
+  >
+    <Input type="password" defaultValue="short"/>
+  </Field>
+</Col>
+```
+
+When both `description` and `error` are present, the control is described by both, in that order.
+
+## Any control
+
+Every form control reads the Field it sits in: `Input`, `Textarea`, `Select`, `Checkbox`, `Radio` and `Switch`.
+
+```tsx demo
+<Col>
+  <Field label="Region" description="Sets your default currency.">
+    <Select>
+      <option>Cyprus</option>
+      <option>Estonia</option>
+      <option>Portugal</option>
+    </Select>
+  </Field>
+
+  <Field label="Release notes" description="Markdown is supported.">
+    <Textarea placeholder="What changed?"/>
+  </Field>
+</Col>
+```
+
+## Radio groups
+
+A `radiogroup` is not a labelable element, so Field labels it by reference with `aria-labelledby` instead of `htmlFor`, and leaves the individual radios alone.
+
+```tsx demo
+<Field label="Billing period" description="Change it any time.">
+  <RadioGroup name="billing" defaultValue="yearly">
+    <Label row itemsCenter><Radio value="monthly"/> Monthly</Label>
+    <Label row itemsCenter><Radio value="yearly"/> Yearly</Label>
+  </RadioGroup>
+</Field>
+```
+
+## Sizes
+
+Field's size becomes the control's default, so you set it once. An explicit size on the control still wins.
+
+```tsx demo
+<Col>
+  <Field sm label="Small">
+    <Input placeholder="sm"/>
+  </Field>
+  <Field label="Medium (default)">
+    <Input placeholder="md"/>
+  </Field>
+  <Field lg label="Large">
+    <Input placeholder="lg"/>
+  </Field>
+</Col>
+```
+
+## Bringing your own id
+
+If the control already carries an `id`, Field adopts it rather than generating one, so the label still points at the right element. Useful with form libraries that own the id.
+
+```tsx demo
+<Field label="Coupon code" description="Case sensitive.">
+  <Input id="coupon" defaultValue="LAUNCH25"/>
+</Field>
+```
+
+---
+Title: Textarea
+URL: https://vaneui.com/docs/form-components/textarea
+---
+
+## Basic usage
+
+Textarea is an Input that wraps lines. It shares the Input size ramp and appearance props, and renders a real `<textarea>`, so every native attribute works.
+
+```tsx demo
+<Textarea placeholder="What changed in this release?" rows={4}/>
+```
+
+It resizes vertically by default and has a minimum height of three lines, so an empty textarea never collapses to a single row.
+
+## Sizes
+
+```tsx demo
+<Col>
+  <Textarea xs placeholder="xs"/>
+  <Textarea sm placeholder="sm"/>
+  <Textarea placeholder="md (default)"/>
+  <Textarea lg placeholder="lg"/>
+  <Textarea xl placeholder="xl"/>
+</Col>
+```
+
+## States
+
+`invalid` adds a danger border and emits `aria-invalid`, so the error state is never colour-only. Pair it with `Field` to attach a message.
+
+```tsx demo
+<Col>
+  <Textarea placeholder="Default"/>
+  <Textarea invalid defaultValue="Too short"/>
+  <Textarea disabled defaultValue="Disabled"/>
+  <Textarea readOnly defaultValue="Read only"/>
+</Col>
+```
+
+## With a label and help text
+
+```tsx demo
+<Field label="Release notes" description="Markdown is supported.">
+  <Textarea rows={3} placeholder="What changed?"/>
+</Field>
+```
+
+---
+Title: Select
+URL: https://vaneui.com/docs/form-components/select
+---
+
+## Basic usage
+
+Select renders a native `<select>` with the platform dropdown, so it is keyboard and screen-reader correct for free and behaves like the user expects on mobile.
+
+```tsx demo
+<Select>
+  <option>Cyprus</option>
+  <option>Estonia</option>
+  <option>Portugal</option>
+</Select>
+```
+
+The native arrow is replaced with a themed chevron that scales with the size prop. The field reserves room for it, so a long option never runs underneath.
+
+## Sizes
+
+```tsx demo
+<Col>
+  <Select xs><option>xs</option></Select>
+  <Select sm><option>sm</option></Select>
+  <Select><option>md (default)</option></Select>
+  <Select lg><option>lg</option></Select>
+  <Select xl><option>xl</option></Select>
+</Col>
+```
+
+## States
+
+```tsx demo
+<Col>
+  <Select><option>Default</option></Select>
+  <Select invalid><option>Invalid</option></Select>
+  <Select disabled><option>Disabled</option></Select>
+</Col>
+```
+
+## Groups and placeholders
+
+```tsx demo
+<Field label="Region" description="Sets your default currency.">
+  <Select defaultValue="">
+    <option value="" disabled>Choose a region</option>
+    <optgroup label="Europe">
+      <option>Cyprus</option>
+      <option>Estonia</option>
+    </optgroup>
+    <optgroup label="Americas">
+      <option>Canada</option>
+    </optgroup>
+  </Select>
+</Field>
+```
+
+---
+Title: Radio
+URL: https://vaneui.com/docs/form-components/radio
+---
+
+## Basic usage
+
+Radio selects exactly one option from a set. Wrap the options in a `RadioGroup` so they share a name and behave as one control.
+
+```tsx demo
+<RadioGroup name="plan" defaultValue="pro">
+  <Label row itemsCenter><Radio value="free"/> Free</Label>
+  <Label row itemsCenter><Radio value="pro"/> Pro</Label>
+  <Label row itemsCenter><Radio value="team"/> Team</Label>
+</RadioGroup>
+```
+
+`RadioGroup` renders `role="radiogroup"` and generates a shared `name` when you do not pass one, so radios are mutually exclusive without extra wiring.
+
+## With a group label
+
+Inside a `Field`, the group is labelled by reference with `aria-labelledby`, because a radiogroup cannot be the target of `htmlFor`.
+
+```tsx demo
+<Field label="Billing period" description="Change it any time.">
+  <RadioGroup name="billing" defaultValue="yearly">
+    <Label row itemsCenter><Radio value="monthly"/> Monthly</Label>
+    <Label row itemsCenter><Radio value="yearly"/> Yearly, two months free</Label>
+  </RadioGroup>
+</Field>
+```
+
+## Sizes
+
+```tsx demo
+<Col>
+  <Label row itemsCenter xs><Radio name="s-xs" defaultChecked/> Extra small</Label>
+  <Label row itemsCenter sm><Radio name="s-sm" defaultChecked/> Small</Label>
+  <Label row itemsCenter md><Radio name="s-md" defaultChecked/> Medium</Label>
+  <Label row itemsCenter lg><Radio name="s-lg" defaultChecked/> Large</Label>
+  <Label row itemsCenter xl><Radio name="s-xl" defaultChecked/> Extra large</Label>
+</Col>
+```
+
+## States
+
+```tsx demo
+<RadioGroup name="states" defaultValue="on">
+  <Label row itemsCenter><Radio value="off"/> Unselected</Label>
+  <Label row itemsCenter><Radio value="on"/> Selected</Label>
+  <Label row itemsCenter><Radio value="no" disabled/> Disabled</Label>
+</RadioGroup>
+```
+
+---
+Title: Switch
+URL: https://vaneui.com/docs/form-components/switch
+---
+
+## Basic usage
+
+Switch toggles a setting that takes effect immediately. It renders a real checkbox input with `role="switch"`, so it is operable with the keyboard and announced correctly.
+
+```tsx demo
+<Label row itemsCenter>
+  <Switch defaultChecked/>
+  Email notifications
+</Label>
+```
+
+Reach for Switch when the change applies at once, and for Checkbox when the value is submitted with a form.
+
+## Sizes
+
+A Switch inside a Label inherits the Label's size, so set it once.
+
+```tsx demo
+<Col>
+  <Label row itemsCenter xs><Switch defaultChecked/> Extra small</Label>
+  <Label row itemsCenter sm><Switch defaultChecked/> Small</Label>
+  <Label row itemsCenter md><Switch defaultChecked/> Medium</Label>
+  <Label row itemsCenter lg><Switch defaultChecked/> Large</Label>
+  <Label row itemsCenter xl><Switch defaultChecked/> Extra large</Label>
+</Col>
+```
+
+## Appearances
+
+```tsx demo
+<Row flexWrap>
+  <Switch defaultChecked/>
+  <Switch success defaultChecked/>
+  <Switch danger defaultChecked/>
+  <Switch warning defaultChecked/>
+</Row>
+```
+
+## States
+
+```tsx demo
+<Col>
+  <Label row itemsCenter><Switch/> Off</Label>
+  <Label row itemsCenter><Switch defaultChecked/> On</Label>
+  <Label row itemsCenter><Switch disabled/> Disabled</Label>
+  <Label row itemsCenter><Switch disabled defaultChecked/> Disabled and on</Label>
 </Col>
 ```
 
@@ -7091,6 +7535,90 @@ Menu supports additional configuration for fine-tuning behavior:
 | `disabled` | `false` | Prevent interaction |
 | `focusVisible` | `true` | Render a keyboard focus-visible outline |
 | `noFocusVisible` |   | Disable the keyboard focus-visible outline |
+
+---
+Title: Tooltip
+URL: https://vaneui.com/docs/overlay-components/tooltip
+---
+
+## Basic usage
+
+Tooltip labels its trigger with a short hint on hover and on keyboard focus. Pass the trigger as the child and the hint as `content`.
+
+```tsx demo
+<Tooltip content="Saves without leaving the page">
+  <Button>Save</Button>
+</Tooltip>
+```
+
+The trigger must accept a ref, which every VaneUI component does.
+
+## Keyboard and pointer
+
+A tooltip that only opens on hover is invisible to keyboard users, so Tooltip opens on focus too. Tab to the second button to see it.
+
+```tsx demo
+<Row flexWrap>
+  <Tooltip content="Opens on hover">
+    <Button secondary>Hover me</Button>
+  </Tooltip>
+  <Tooltip content="Opens on focus as well">
+    <Button secondary>Tab to me</Button>
+  </Tooltip>
+</Row>
+```
+
+## Placement
+
+Placement comes from the underlying Popup, so all twelve `place*` props are available through `popupProps`.
+
+```tsx demo
+<Row flexWrap>
+  <Tooltip content="Above" popupProps={{ placeTop: true }}>
+    <Button sm>Top</Button>
+  </Tooltip>
+  <Tooltip content="Below" popupProps={{ placeBottom: true }}>
+    <Button sm>Bottom</Button>
+  </Tooltip>
+  <Tooltip content="To the right" popupProps={{ placeRight: true }}>
+    <Button sm>Right</Button>
+  </Tooltip>
+</Row>
+```
+
+## Delays
+
+`openDelay` keeps tooltips from flashing as the pointer crosses the screen; `closeDelay` gives the user time to move onto the tooltip itself.
+
+```tsx demo
+<Row flexWrap>
+  <Tooltip content="Appears at once" openDelay={0}>
+    <Button sm>No delay</Button>
+  </Tooltip>
+  <Tooltip content="Waits half a second" openDelay={500}>
+    <Button sm>Slow</Button>
+  </Tooltip>
+</Row>
+```
+
+## Accessibility
+
+A tooltip describes its trigger, so while it is open the trigger carries `aria-describedby` pointing at it. It never gets `aria-haspopup` or `aria-expanded`, because those describe a disclosure, not a description, and there is no `haspopup` value for tooltips.
+
+Keep the content short and non-essential. Anything the user must read to complete a task belongs in the page, not behind a hover.
+
+## Icon-only triggers
+
+The most common use: explaining a control that has no visible label.
+
+```tsx demo
+<Row itemsCenter>
+  <Text sm>API key</Text>
+  <Tooltip content="Rotating the key invalidates the old one immediately">
+    <IconButton sm secondary aria-label="About API keys">?</IconButton>
+  </Tooltip>
+</Row>
+```
 
 ## Customization
 

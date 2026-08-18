@@ -111,6 +111,18 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         description: 'A lightweight SVG wrapper that provides consistent sizing, color inheritance, and themed appearances for icons.',
         componentKey: "icon",
       },
+      {
+        slug: 'alert',
+        name: 'Alert',
+        description: 'Alert is a live region for messages that follow a user action. It announces itself when it appears, assertively by default or politely on request.',
+        componentKey: "alert",
+      },
+      {
+        slug: 'spinner',
+        name: 'Spinner',
+        description: 'Spinner indicates that something is in progress. The ring is sized in em, so it scales with the size prop and lines up with text.',
+        componentKey: "spinner",
+      },
     ]
   },
   {
@@ -135,6 +147,36 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         name: 'Label',
         description: 'Label associates text with a form control. Wrap an Input or Checkbox to make the label clickable, or use htmlFor when the control sits outside.',
         componentKey: "label",
+      },
+      {
+        slug: 'field',
+        name: 'Field',
+        description: 'Field wires a control to its label, help text and error message. It owns the id, points the label at the control, and links both messages with aria-describedby.',
+        componentKey: "field",
+      },
+      {
+        slug: 'textarea',
+        name: 'Textarea',
+        description: 'Textarea captures multi-line input. It shares the Input size ramp and appearance props, resizes vertically, and never collapses below three lines.',
+        componentKey: "textarea",
+      },
+      {
+        slug: 'select',
+        name: 'Select',
+        description: 'Select presents a list of options using the native dropdown, so it stays keyboard and screen-reader correct and behaves as expected on mobile.',
+        componentKey: "select",
+      },
+      {
+        slug: 'radio',
+        name: 'Radio',
+        description: 'Radio selects exactly one option from a set. RadioGroup shares a name across its options and exposes them as a single labelled group.',
+        componentKey: "radio",
+      },
+      {
+        slug: 'switch',
+        name: 'Switch',
+        description: 'Switch toggles a setting that takes effect immediately. Use Checkbox instead when the value is submitted with a form.',
+        componentKey: "switch",
       },
     ]
   },
@@ -284,6 +326,12 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         name: 'Menu',
         description: 'A dropdown menu triggered by a button with full keyboard navigation. Contains MenuItem, Divider, and MenuLabel subcomponents.',
         componentKey: "menu",
+      },
+      {
+        slug: 'tooltip',
+        name: 'Tooltip',
+        description: 'Tooltip labels its trigger with a short hint on hover and on keyboard focus, describing the trigger rather than advertising a disclosure.',
+        componentKey: "tooltip",
       },
     ]
   },
