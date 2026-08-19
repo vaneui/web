@@ -2252,19 +2252,46 @@ The ring is drawn in the current text colour, so an appearance prop colours it d
 </Row>
 ```
 
-Spinner has no `filled` / `outline` / `ghost` variant, and no shape prop. Those choose between a background fill and a border treatment, and a spinner is a border with nothing to fill. To sit it on a tinted surface, colour the surface instead.
+## Variants
+
+An appearance only becomes a colour through a variant, so Spinner carries the same `outline` / `filled` / `ghost` axis as everything else. It has no background of its own, so the variant does one thing here: it picks which colour of the appearance the ring paints in.
+
+`outline`, the default, uses the appearance's own colour, for a spinner on a plain surface. `filled` uses the "on this fill" colour, for a spinner sitting on a filled surface of the same appearance.
+
+```tsx demo
+<Col>
+  <Row itemsCenter flexWrap>
+    <Spinner danger aria-label="Loading"/>
+    <Spinner success aria-label="Loading"/>
+    <Spinner info aria-label="Loading"/>
+  </Row>
+  <Row flexWrap>
+    <Card danger filled wFit><Spinner danger filled aria-label="Loading"/></Card>
+    <Card success filled wFit><Spinner success filled aria-label="Loading"/></Card>
+    <Card info filled wFit><Spinner info filled aria-label="Loading"/></Card>
+  </Row>
+</Col>
+```
+
+Most of the time you do not need either. With no appearance prop the Spinner inherits the colour of whatever it sits in, which is what makes it readable inside a filled Badge, Card or Button without being told anything.
 
 ```tsx demo
 <Row itemsCenter flexWrap>
   <Badge info filled><Spinner xs aria-label="Loading"/> Syncing</Badge>
   <Card sm filled secondary wFit>
     <Row itemsCenter>
-      <Spinner sm secondary aria-label="Loading"/>
-      <Text sm secondary>Rebuilding index</Text>
+      <Spinner sm aria-label="Loading"/>
+      <Text sm>Rebuilding index</Text>
     </Row>
   </Card>
 </Row>
 ```
+
+Setting an appearance that matches the surface you are on is the one thing to avoid: `<Spinner secondary>` inside a `secondary filled` Card resolves to the outline colour, which is the surface's own colour, so the ring disappears.
+
+## Button loading state
+
+`Button`'s `loading` prop draws the same ring, at the button's size and in its current text colour, so a filled button gets a light ring and an outline button a dark one. It is not a `Spinner` element: the button already carries `aria-busy`, so the ring is decorative and the label stays in the accessibility tree.
 
 ## Inline with text
 
