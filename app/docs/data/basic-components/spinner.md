@@ -85,7 +85,22 @@ Setting an appearance that matches the surface you are on is the one thing to av
 
 ## Button loading state
 
-`Button`'s `loading` prop draws the same ring, at the button's size and in its current text colour, so a filled button gets a light ring and an outline button a dark one. It is not a `Spinner` element: the button already carries `aria-busy`, so the ring is decorative and the label stays in the accessibility tree.
+`Button` and `IconButton` render this same component for their `loading` prop, so there is one spinner in the library and restyling `theme.spinner` restyles both. The button forwards its own size, and the ring inherits the button's text colour, so a filled button gets a light ring and an outline button a dark one.
+
+It is decorative there rather than a live region: the button already carries `aria-busy`, so the Spinner's `role="status"` is suppressed and the label stays in the accessibility tree behind it.
+
+`loading` also swaps the label for the ring and keeps the button's width, so the layout does not jump.
+
+```tsx demo
+<Row flexWrap itemsCenter>
+  <Button loading>Saving</Button>
+  <Button loading filled danger>Deleting</Button>
+  <Button loading lg>Large</Button>
+  <IconButton loading aria-label="Refreshing"><RefreshCw/></IconButton>
+</Row>
+```
+
+Spinner honours `prefers-reduced-motion`: the animation stops for users who ask for less motion.
 
 ## Inline with text
 
@@ -97,16 +112,3 @@ Because the ring is sized in em, it matches the surrounding text without any man
   <Text sm secondary>Checking availability…</Text>
 </Row>
 ```
-
-## Inside a Button
-
-Button has its own `loading` prop, which swaps the label for a spinner and keeps the button's width, so the layout does not jump.
-
-```tsx demo
-<Row flexWrap>
-  <Button loading>Saving</Button>
-  <Button filled loading>Saving</Button>
-</Row>
-```
-
-Spinner honours `prefers-reduced-motion`: the animation stops for users who ask for less motion.
