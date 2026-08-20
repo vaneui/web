@@ -927,6 +927,32 @@ Pass `href` to render the button as an `<a>` for navigation. Use `disabled` to p
 </Row>
 ```
 
+## Loading state
+
+Set `loading` to swap the label for a spinner and auto-disable the button. The width is kept, so the layout does not jump when the state flips.
+
+```tsx demo
+<Row flexWrap itemsCenter>
+  <Button loading>Saving</Button>
+  <Button loading filled danger>Deleting</Button>
+  <Button loading lg>Large</Button>
+</Row>
+```
+
+The ring is the `Spinner` component, so there is one spinner in the library and restyling `theme.spinner` restyles both. The button forwards its own size, and the ring inherits the button's text colour: a filled button gets a light ring, an outline button a dark one.
+
+It is decorative here rather than a live region. The button already carries `aria-busy`, so the Spinner's `role="status"` is suppressed and the accessible name stays the button's own.
+
+```tsx demo
+const [loading, setLoading] = useState(false);
+
+return (
+  <Button loading={loading} onClick={() => setLoading(true)}>
+    Submit
+  </Button>
+);
+```
+
 ## Next.js Link integration
 
 Use the `tag` prop to render the button as a Next.js `Link` for client-side navigation.
@@ -1099,13 +1125,23 @@ import { Settings } from 'react-feather';
 
 ## Loading state
 
-Set `loading` to show a spinner and auto-disable the button.
+Set `loading` to replace the icon with a spinner and auto-disable the button.
+
+```tsx demo
+<Row flexWrap itemsCenter>
+  <IconButton loading aria-label="Refreshing"><RefreshCw /></IconButton>
+  <IconButton loading filled danger aria-label="Deleting"><Trash2 /></IconButton>
+  <IconButton loading lg aria-label="Saving"><Star /></IconButton>
+</Row>
+```
+
+The ring is the `Spinner` component, sized from the button and coloured by the button's own text colour, so it reads correctly on every variant. Keep the `aria-label` describing the action: the button carries `aria-busy` while it spins, and the Spinner itself is decorative here.
 
 ```tsx demo
 const [loading, setLoading] = useState(false);
 
 return (
-  <IconButton loading={loading} onClick={() => setLoading(true)}>
+  <IconButton loading={loading} onClick={() => setLoading(true)} aria-label="Favorite">
     <Star />
   </IconButton>
 );
@@ -2140,24 +2176,26 @@ Add `padding` to give the icon a sized box, then combine `filled`, `border`, `in
 
 ## Transparent
 
-Use `transparent` to keep the container background see-through while still applying the appearance color to the glyph, border, or ring.
+`transparent` drops the container's background and changes nothing else. It only has an effect on `filled`, since every other variant is already background-less.
+
+That leaves the glyph in the "on this fill" colour with no fill of its own, so it belongs on a filled surface of the same appearance, where that colour is the readable one. On a plain surface, use the default `outline` variant instead.
 
 ```tsx demo
-<Row flexWrap>
+<Row flexWrap itemsCenter>
   <Col itemsCenter>
-    <Icon padding pill primary filled transparent border><Star /></Icon>
-    <Text xs secondary>filled + transparent</Text>
+    <Icon padding pill danger filled><AlertCircle /></Icon>
+    <Text xs secondary>filled: paints its own surface</Text>
   </Col>
-  <Col itemsCenter>
-    <Icon padding pill success filled transparent insetRing><Check /></Icon>
-    <Text xs secondary>success</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon padding pill danger filled transparent border><AlertCircle /></Icon>
-    <Text xs secondary>danger</Text>
-  </Col>
+  <Card danger filled wFit>
+    <Col itemsCenter>
+      <Icon padding pill danger filled transparent><AlertCircle /></Icon>
+      <Text xs>transparent: blends into a matching fill</Text>
+    </Col>
+  </Card>
 </Row>
 ```
+
+Note that `border` and `insetRing` have nothing to show on a `filled` icon: the filled variant resolves both to transparent so the edge disappears into the fill. Pair them with `outline` instead.
 
 ## In context
 
@@ -2343,22 +2381,7 @@ Most of the time you do not need either. With no appearance prop the Spinner inh
 
 Setting an appearance that matches the surface you are on is the one thing to avoid: `<Spinner secondary>` inside a `secondary filled` Card resolves to the outline colour, which is the surface's own colour, so the ring disappears.
 
-## Button loading state
-
-`Button` and `IconButton` render this same component for their `loading` prop, so there is one spinner in the library and restyling `theme.spinner` restyles both. The button forwards its own size, and the ring inherits the button's text colour, so a filled button gets a light ring and an outline button a dark one.
-
-It is decorative there rather than a live region: the button already carries `aria-busy`, so the Spinner's `role="status"` is suppressed and the label stays in the accessibility tree behind it.
-
-`loading` also swaps the label for the ring and keeps the button's width, so the layout does not jump.
-
-```tsx demo
-<Row flexWrap itemsCenter>
-  <Button loading>Saving</Button>
-  <Button loading filled danger>Deleting</Button>
-  <Button loading lg>Large</Button>
-  <IconButton loading aria-label="Refreshing"><RefreshCw/></IconButton>
-</Row>
-```
+`Button` and `IconButton` render this same component for their `loading` prop, so there is one spinner in the library and restyling `theme.spinner` restyles both. That state is documented where it is used, on [Button](/docs/basic-components/button) and [IconButton](/docs/basic-components/icon-button).
 
 Spinner honours `prefers-reduced-motion`: the animation stops for users who ask for less motion.
 
@@ -2820,15 +2843,39 @@ Labels default to `inheritAppearance`: they take their color from the surroundin
 
 ## Variants
 
-Label is `outline` by default and paints no surface. `filled` gives it the appearance's background, which is useful for a status chip beside a field.
+Label never paints a surface, so the variant only picks which colour of the appearance the text is painted in. `outline`, the default, uses the appearance's own colour. `filled` uses the "on this fill" colour, for a label sitting on a filled surface of the same appearance. For a filled pill beside a field, reach for `Badge` or `Chip` instead.
 
 ```tsx demo
-<Row flexWrap>
-  <Label>outline, the default</Label>
-  <Label filled success>filled success</Label>
-  <Label filled danger>filled danger</Label>
-</Row>
+<Col>
+  <Row flexWrap>
+    <Label success>outline success</Label>
+    <Label danger>outline danger</Label>
+  </Row>
+  <Card success filled wFit>
+    <Label success filled>filled success, on a matching filled Card</Label>
+  </Card>
+</Col>
 ```
+
+## Disabled
+
+`disabled` dims the label, and a Label containing a disabled control dims with it, so you only have to disable the field itself.
+
+```tsx demo
+<Col>
+  <Label disabled>Explicitly disabled label</Label>
+  <Label>
+    Email
+    <Input disabled placeholder="you@example.com" />
+  </Label>
+  <Label row itemsCenter>
+    <Checkbox disabled />
+    Subscribe to product updates
+  </Label>
+</Col>
+```
+
+The dimming applies once: a disabled control inside a dimmed Label is not faded a second time.
 
 ## With Input
 
@@ -3162,6 +3209,10 @@ Historically a native `<select>` hands its option list to the operating system, 
 
 On engines that support `appearance: base-select` the list becomes real DOM instead, and VaneUI styles it to match a `Menu`: themed surface, border, radius, shadow, padded rows, a hover state, and a checkmark on the selected option. Everywhere else the OS picker still appears, with `option` and `optgroup` pinned to the theme's surface and text tokens so the list at least stays on your palette in both light and dark mode.
 
+The list opens below the field and flips above it only when it genuinely does not fit. Browsers default to whichever side has more room, which sends the list upward for any field past the middle of the window even when there is space below it.
+
+Options are children of the field, so they inherit its colours: the list follows the appearance and variant you set rather than staying pinned to the light surface. A disabled option, typically a placeholder, fades toward the list's own background instead of a fixed grey, so it stays readable on a filled list too.
+
 Nothing is required to opt in, and nothing breaks on engines without it: the enhancement sits behind an `@supports` rule and the control is the same `<select>` either way.
 
 ## Sizes
@@ -3228,37 +3279,71 @@ Selects come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. The chevron 
 </Col>
 ```
 
-## Variants and shapes
+## Appearances
 
-Selects are `outline` and `rounded` by default, and take the same appearance, variant and shape props as `Input`.
+Selects are `primary` by default and take the same appearance props as `Input`.
 
 ```tsx demo
-<Col>
-  <Row flexWrap>
-    <Select className="w-48" defaultValue="eur">
-      <option value="eur">Outline (default)</option>
-      <option value="usd">US dollar</option>
-    </Select>
-    <Select filled className="w-48" defaultValue="eur">
-      <option value="eur">Filled</option>
-      <option value="usd">US dollar</option>
-    </Select>
-    <Select success className="w-48" defaultValue="eur">
-      <option value="eur">Success</option>
-      <option value="usd">US dollar</option>
-    </Select>
-  </Row>
-  <Row flexWrap>
-    <Select pill className="w-48" defaultValue="eur">
-      <option value="eur">Pill</option>
-      <option value="usd">US dollar</option>
-    </Select>
-    <Select sharp className="w-48" defaultValue="eur">
-      <option value="eur">Sharp</option>
-      <option value="usd">US dollar</option>
-    </Select>
-  </Row>
-</Col>
+<Row flexWrap>
+  <Select className="w-40" defaultValue="eur">
+    <option value="eur">Primary</option>
+    <option value="usd">US dollar</option>
+  </Select>
+  <Select success className="w-40" defaultValue="eur">
+    <option value="eur">Success</option>
+    <option value="usd">US dollar</option>
+  </Select>
+  <Select warning className="w-40" defaultValue="eur">
+    <option value="eur">Warning</option>
+    <option value="usd">US dollar</option>
+  </Select>
+  <Select danger className="w-40" defaultValue="eur">
+    <option value="eur">Danger</option>
+    <option value="usd">US dollar</option>
+  </Select>
+</Row>
+```
+
+## Variants
+
+`outline` is the default. The dropdown list takes its colours from the field, so a `filled` Select opens a filled list rather than a light one on a dark control. `ghost` drops the field's own surface but keeps the list opaque, since a see-through popup would render the options unreadable.
+
+```tsx demo
+<Row flexWrap>
+  <Select className="w-40" defaultValue="eur">
+    <option value="eur">Outline (default)</option>
+    <option value="usd">US dollar</option>
+  </Select>
+  <Select filled className="w-40" defaultValue="eur">
+    <option value="eur">Filled</option>
+    <option value="usd">US dollar</option>
+  </Select>
+  <Select ghost className="w-40" defaultValue="eur">
+    <option value="eur">Ghost</option>
+    <option value="usd">US dollar</option>
+  </Select>
+</Row>
+```
+
+## Shapes
+
+`rounded` is the default. `pill` and `sharp` reshape the field only. The dropdown list keeps the standard radius either way, so a pill Select does not open a pill-shaped list.
+
+```tsx demo
+<Row flexWrap>
+  <Select rounded className="w-40" defaultValue="eur">
+    <option value="eur">Rounded (default)</option>
+    <option value="usd">US dollar</option>
+  </Select>
+  <Select pill className="w-40" defaultValue="eur">
+    <option value="eur">Pill</option>
+    <option value="usd">US dollar</option>
+  </Select>
+  <Select sharp className="w-40" defaultValue="eur">
+    <option value="eur">Sharp</option>
+    <option value="usd">US dollar</option>
+  </Select>
+</Row>
 ```
 
 ## Groups and placeholders
@@ -3531,22 +3616,29 @@ Text supports explicit color appearances: `primary`, `accent`, `secondary`, `ter
 
 ## Variants
 
-Text is `outline` by default, which paints no background. `filled` gives it the appearance's surface colour and the matching on-surface text colour, for a callout line inside prose.
+Text never paints a background, so the variant does one thing here: it picks which colour of the appearance the text is painted in. `outline`, the default, uses the appearance's own colour, for text on a plain surface. `filled` uses the "on this fill" colour, for text sitting on a filled surface of the same appearance.
 
 ```tsx demo
 <Col>
-  <Text>outline, the default: no surface</Text>
-  <Text filled info>filled info</Text>
-  <Text filled danger>filled danger</Text>
+  <Text info>outline info, on the page surface</Text>
+  <Text danger>outline danger, on the page surface</Text>
+  <Card info filled>
+    <Text info filled>filled info, on a matching filled Card</Text>
+  </Card>
+  <Card danger filled>
+    <Text danger filled>filled danger, on a matching filled Card</Text>
+  </Card>
 </Col>
 ```
+
+Use `filled` on a plain page and the text takes the colour meant to sit on the fill, which is close to the page itself. Wrap it in a matching surface, or leave the default `inheritAppearance` on and let it take the colour from whatever it sits in.
 
 ## Inherit appearance (default)
 
 Text defaults to the `inheritAppearance` appearance: it picks up its color from the parent via CSS cascade instead of applying its own. Set an explicit appearance to override.
 
 ```tsx demo
-<Row flexWrap>
+<Row flexWrap itemsStretch>
   <Card primary filled>
     <Text fontBold>Inherited Primary</Text>
     <Text>This text inherits primary from the Card.</Text>
@@ -3554,10 +3646,16 @@ Text defaults to the `inheritAppearance` appearance: it picks up its color from 
   <Card success filled>
     <Text fontBold>Inherited Success</Text>
     <Text>Inherits success color automatically.</Text>
+  </Card>
+  <Card border secondary>
+    <Text fontBold>On a plain surface</Text>
+    <Text>Inherits the Card's own colour.</Text>
     <Text danger>Explicit danger overrides inherit.</Text>
   </Card>
 </Row>
 ```
+
+An explicit appearance stops inheriting, so it has to read on the surface it lands on. Inside a filled Card, `<Text danger>` resolves to the outline danger colour, which is close in weight to the filled surface behind it.
 
 ## Font weights
 
@@ -3739,13 +3837,18 @@ By default, PageTitle uses the `inheritAppearance` appearance: it inherits color
 
 ## Variants
 
-Titles are `outline` by default, which paints no background. `filled` gives the heading the appearance's surface colour, for a page header that reads as a band.
+Headings never paint a background, so the variant only picks which colour of the appearance the heading is painted in. `outline`, the default, uses the appearance's own colour. `filled` uses the "on this fill" colour, for a heading sitting on a filled surface of the same appearance.
 
 ```tsx demo
 <Col>
-  <PageTitle>outline, the default: no surface</PageTitle>
-  <PageTitle filled info>filled info</PageTitle>
-  <PageTitle filled danger>filled danger</PageTitle>
+  <PageTitle info>outline info, on the page surface</PageTitle>
+  <PageTitle danger>outline danger, on the page surface</PageTitle>
+  <Card info filled>
+    <PageTitle info filled>filled info, on a matching filled Card</PageTitle>
+  </Card>
+  <Card danger filled>
+    <PageTitle danger filled>filled danger, on a matching filled Card</PageTitle>
+  </Card>
 </Col>
 ```
 
@@ -3905,13 +4008,18 @@ By default, SectionTitle uses the `inheritAppearance` appearance: it inherits co
 
 ## Variants
 
-Titles are `outline` by default, which paints no background. `filled` gives the heading the appearance's surface colour, for a section header that reads as a band.
+Headings never paint a background, so the variant only picks which colour of the appearance the heading is painted in. `outline`, the default, uses the appearance's own colour. `filled` uses the "on this fill" colour, for a heading sitting on a filled surface of the same appearance.
 
 ```tsx demo
 <Col>
-  <SectionTitle>outline, the default: no surface</SectionTitle>
-  <SectionTitle filled info>filled info</SectionTitle>
-  <SectionTitle filled danger>filled danger</SectionTitle>
+  <SectionTitle info>outline info, on the page surface</SectionTitle>
+  <SectionTitle danger>outline danger, on the page surface</SectionTitle>
+  <Card info filled>
+    <SectionTitle info filled>filled info, on a matching filled Card</SectionTitle>
+  </Card>
+  <Card danger filled>
+    <SectionTitle danger filled>filled danger, on a matching filled Card</SectionTitle>
+  </Card>
 </Col>
 ```
 
@@ -4086,13 +4194,18 @@ By default, Title uses the `inheritAppearance` appearance: it inherits color fro
 
 ## Variants
 
-Titles are `outline` by default, which paints no background. `filled` gives the heading the appearance's surface colour, for a section header that reads as a band.
+Headings never paint a background, so the variant only picks which colour of the appearance the heading is painted in. `outline`, the default, uses the appearance's own colour. `filled` uses the "on this fill" colour, for a heading sitting on a filled surface of the same appearance.
 
 ```tsx demo
 <Col>
-  <Title>outline, the default: no surface</Title>
-  <Title filled info>filled info</Title>
-  <Title filled danger>filled danger</Title>
+  <Title info>outline info, on the page surface</Title>
+  <Title danger>outline danger, on the page surface</Title>
+  <Card info filled>
+    <Title info filled>filled info, on a matching filled Card</Title>
+  </Card>
+  <Card danger filled>
+    <Title danger filled>filled danger, on a matching filled Card</Title>
+  </Card>
 </Col>
 ```
 
@@ -4466,13 +4579,21 @@ Lists use `inheritAppearance` appearance by default: they inherit color from the
 
 ## Variants
 
-List is `outline` by default, which paints no background. `filled` gives the whole list the appearance's surface, for a boxed set of notes.
+List is `outline` and transparent by default, so an appearance colours the text and the list paints nothing behind it. List is the one typography component that still wires a background mapper, so clearing `transparent` lets `filled` paint the appearance's surface behind the whole list. Left alone, `filled` only switches the text to the "on this fill" colour, for a list sitting on a filled surface of the same appearance.
 
 ```tsx demo
 <Col>
-  <List>outline, the default: no surface</List>
-  <List filled info>filled info</List>
-  <List filled danger>filled danger</List>
+  <List info>
+    <ListItem>outline info, on the page surface</ListItem>
+  </List>
+  <List danger filled transparent={false}>
+    <ListItem>filled danger, with the surface switched on</ListItem>
+  </List>
+  <Card info filled>
+    <List info filled>
+      <ListItem>filled info, on a matching filled Card</ListItem>
+    </List>
+  </Card>
 </Col>
 ```
 
@@ -4733,15 +4854,19 @@ Apply appearance props to color the blockquote. The default is `inheritAppearanc
 
 ## Variants
 
-Blockquote is `outline` by default: an accent border and no background. `filled` adds the appearance's surface behind the quote.
+Blockquote is `outline` by default: an accent border in the appearance's colour, and no background of its own. `filled` paints no surface either. It switches the quote to the "on this fill" colour and drops the accent border, for a quote sitting on a filled surface of the same appearance.
 
 ```tsx demo
 <Col>
-  <Blockquote>outline, the default: no surface</Blockquote>
-  <Blockquote filled info>filled info</Blockquote>
-  <Blockquote filled danger>filled danger</Blockquote>
+  <Blockquote info>outline info, on the page surface</Blockquote>
+  <Blockquote danger>outline danger, on the page surface</Blockquote>
+  <Card info filled>
+    <Blockquote info filled>filled info, on a matching filled Card</Blockquote>
+  </Card>
 </Col>
 ```
+
+To put a surface behind a quote, nest it in a filled `Card` rather than reaching for `filled` on the Blockquote itself.
 
 ## Italic
 
@@ -10068,13 +10193,13 @@ When you explicitly set an appearance or variant on a component, VaneUI emits da
   {/* Inherits from Card: white text on dark background */}
   <Text>I'm white</Text>
 
-  {/* Explicit props: own CSS rule fires, dark text */}
-  <Text primary outline>I'm dark, even inside a filled Card</Text>
-
-  {/* Explicit different appearance: own CSS rule fires */}
+  {/* Explicit appearance: own CSS rule fires, ignoring the Card */}
+  <Text warning>I'm amber</Text>
   <Text success>I'm green</Text>
 </Card>
 ```
+
+An explicit appearance opts out of inheritance completely, so pick one that reads on the surface you are on. `<Text primary outline>` inside a `filled primary` Card resolves to the surface's own dark colour and disappears into it.
 
 ## Nested layouts
 
@@ -10214,8 +10339,6 @@ Shared prop reference, cross-component documentation, and release notes.
 Title: Common Props
 URL: https://vaneui.com/docs/reference/common-props
 ---
-
-# Common Props
 
 Layout and utility props shared across most VaneUI components. Documented here once instead of on every component page. Per-component pages link here from the "Layout & utility props" disclosure under their props table.
 
