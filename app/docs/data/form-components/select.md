@@ -127,7 +127,7 @@ Selects are `primary` by default and take the same appearance props as `Input`.
 ```tsx demo
 <Row flexWrap>
   <Select className="w-40" defaultValue="eur">
-    <option value="eur">Outline (default)</option>
+    <option value="eur">Outline</option>
     <option value="usd">US dollar</option>
   </Select>
   <Select filled className="w-40" defaultValue="eur">
@@ -148,7 +148,7 @@ Selects are `primary` by default and take the same appearance props as `Input`.
 ```tsx demo
 <Row flexWrap>
   <Select rounded className="w-40" defaultValue="eur">
-    <option value="eur">Rounded (default)</option>
+    <option value="eur">Rounded</option>
     <option value="usd">US dollar</option>
   </Select>
   <Select pill className="w-40" defaultValue="eur">
