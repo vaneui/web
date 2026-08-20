@@ -3327,7 +3327,9 @@ Selects are `primary` by default and take the same appearance props as `Input`.
 
 ## Shapes
 
-`rounded` is the default. `pill` and `sharp` reshape the field only. The dropdown list keeps the standard radius either way, so a pill Select does not open a pill-shaped list.
+`rounded` is the default, and the shape carries through to the dropdown: a `sharp` Select opens a sharp list rather than a rounded one on a square field.
+
+`pill` is the exception. It reshapes the field only, because a pill radius is effectively infinite and a tall list box given that radius swallows its own first and last rows.
 
 ```tsx demo
 <Row flexWrap>
