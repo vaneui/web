@@ -72,6 +72,18 @@ Add `border` and `shadow` props for visual emphasis.
 </Row>
 ```
 
+## Appearances and variants
+
+Img paints no surface of its own, so an appearance only shows through the border it draws. `filled` gives it a background, which is visible behind a transparent PNG or while the image is still loading.
+
+```tsx demo
+<Row flexWrap itemsCenter>
+  <Img border success src="https://placehold.co/80x60/png" alt="Success border" />
+  <Img border danger src="https://placehold.co/80x60/png" alt="Danger border" />
+  <Img filled secondary className="w-20 h-15" alt="" />
+</Row>
+```
+
 ## Sizes
 
 Images support five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size controls border-radius scaling.

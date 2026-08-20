@@ -1203,6 +1203,18 @@ NavLinks default to `primary outline`. Use `filled` for solid backgrounds. Activ
 </Row>
 ```
 
+## Shapes
+
+NavLink is `rounded` by default. `sharp` fits a full-bleed sidebar where the item runs to the panel edge; `pill` suits a horizontal nav.
+
+```tsx demo
+<Col className="w-72">
+  <NavLink href="#">Rounded, the default</NavLink>
+  <NavLink sharp href="#">Sharp</NavLink>
+  <NavLink pill href="#">Pill</NavLink>
+</Col>
+```
+
 ## Disabled state
 
 Use `disabled` to prevent interaction. When `disabled` is combined with `href`, the `href` is dropped and it renders as a non-navigable anchor (`role="link"`, `aria-disabled="true"`) that stays focusable but cannot be followed.
@@ -1773,6 +1785,28 @@ Different color appearances for keyboard keys.
 </Row>
 ```
 
+## Shapes
+
+```tsx demo
+<Row itemsCenter flexWrap>
+  <Kbd>rounded, the default</Kbd>
+  <Kbd sharp>sharp</Kbd>
+  <Kbd pill>pill</Kbd>
+</Row>
+```
+
+## Variants
+
+Kbd is `outline` by default, which is what gives it the raised key edge. `filled` trades that for a solid block.
+
+```tsx demo
+<Row itemsCenter flexWrap>
+  <Kbd>outline, the default</Kbd>
+  <Kbd filled>filled</Kbd>
+  <Kbd ghost>ghost</Kbd>
+</Row>
+```
+
 ## Key combinations
 
 Combine multiple `Kbd` elements to show keyboard shortcuts.
@@ -1878,6 +1912,14 @@ Mark supports `outline` (default) and `filled` variants.
     <Mark danger filled>danger filled</Mark>
   </Row>
 </Col>
+```
+
+## Shapes
+
+```tsx demo
+<Text>
+  A <Mark>rounded</Mark> default, a <Mark sharp>sharp</Mark> highlight, and a <Mark pill>pill</Mark> one.
+</Text>
 ```
 
 ## Highlight matches context
@@ -2194,6 +2236,18 @@ Alert is a flex row, so compose whatever the message needs.
 </Alert>
 ```
 
+## Shapes
+
+Alert is `rounded` by default. `sharp` suits an alert pinned to the edge of a panel, where a radius would leave a gap against the edge.
+
+```tsx demo
+<Col>
+  <Alert>Rounded, the default</Alert>
+  <Alert sharp>Sharp</Alert>
+  <Alert pill>Pill</Alert>
+</Col>
+```
+
 ## Sizes
 
 ```tsx demo
@@ -2502,6 +2556,18 @@ Checkboxes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. A `Checkb
 </Row>
 ```
 
+## Explicit size on the control
+
+Setting the size on the Label is the usual route, but the Checkbox takes its own size prop, which wins over the inherited one.
+
+```tsx demo
+<Row flexWrap>
+  <Label row itemsCenter lg><Checkbox xs defaultChecked/> xs box, lg label</Label>
+  <Label row itemsCenter lg><Checkbox defaultChecked/> inherited lg box</Label>
+  <Label row itemsCenter lg><Checkbox xl defaultChecked/> xl box, lg label</Label>
+</Row>
+```
+
 ## Appearances
 
 Different color appearances applied to the Checkbox; always place inside a Label.
@@ -2565,6 +2631,18 @@ Checkboxes support border radius styles: `rounded` (default), `pill`, and `sharp
     <Checkbox sharp id="shape-sharp" defaultChecked/>
     Sharp
   </Label>
+</Row>
+```
+
+## Variants
+
+Checkbox is `filled` by default: the box fills with the appearance colour when checked. `outline` keeps the box transparent and marks the check itself.
+
+```tsx demo
+<Row flexWrap>
+  <Label row itemsCenter><Checkbox defaultChecked/> filled, the default</Label>
+  <Label row itemsCenter><Checkbox outline defaultChecked/> outline</Label>
+  <Label row itemsCenter><Checkbox ghost defaultChecked/> ghost</Label>
 </Row>
 ```
 
@@ -2737,6 +2815,18 @@ Labels default to `inheritAppearance`: they take their color from the surroundin
   <Label danger>danger label</Label>
   <Label warning>warning label</Label>
   <Label info>info label</Label>
+</Row>
+```
+
+## Variants
+
+Label is `outline` by default and paints no surface. `filled` gives it the appearance's background, which is useful for a status chip beside a field.
+
+```tsx demo
+<Row flexWrap>
+  <Label>outline, the default</Label>
+  <Label filled success>filled success</Label>
+  <Label filled danger>filled danger</Label>
 </Row>
 ```
 
@@ -2938,6 +3028,24 @@ Field's size becomes the control's default, so you set it once. An explicit size
 </Col>
 ```
 
+## Shape, variant and appearance
+
+Field is a layout wrapper, so it takes the same surface props as `Col`: it paints nothing by default (`sharp`, `outline`, no padding), and an appearance only shows once you give it a surface with `filled` or `border`. Useful for marking a field block that needs attention without touching the control inside it.
+
+```tsx demo
+<Col>
+  <Field label="Default" description="No surface of its own.">
+    <Input placeholder="you@company.com"/>
+  </Field>
+  <Field rounded border danger padding label="Bordered danger" description="A border plus an appearance.">
+    <Input placeholder="you@company.com"/>
+  </Field>
+  <Field rounded filled secondary padding label="Filled secondary" description="A surface plus an appearance.">
+    <Input placeholder="you@company.com"/>
+  </Field>
+</Col>
+```
+
 ## Bringing your own id
 
 If the control already carries an `id`, Field adopts it rather than generating one, so the label still points at the right element. Useful with form libraries that own the id.
@@ -2991,6 +3099,16 @@ Textarea is `outline` by default. Use `filled` for a solid background, and the a
     <Textarea className="w-56" filled success placeholder="Filled success"/>
     <Textarea className="w-56" filled danger placeholder="Filled danger"/>
   </Row>
+</Col>
+```
+
+## Shapes
+
+```tsx demo
+<Col>
+  <Textarea rows={2} placeholder="Rounded, the default"/>
+  <Textarea sharp rows={2} placeholder="Sharp"/>
+  <Textarea pill rows={2} placeholder="Pill"/>
 </Col>
 ```
 
@@ -3221,6 +3339,42 @@ Radio takes the same appearance props as Checkbox: the appearance colours the bo
 </Row>
 ```
 
+## Shapes
+
+Radio is `pill` by default, which is what distinguishes it from a Checkbox at a glance. `rounded` and `sharp` are available, but a square radio reads as a checkbox, so reach for them only when the surrounding design demands it.
+
+```tsx demo
+<Row flexWrap>
+  <Label row itemsCenter><Radio name="sh-pill" defaultChecked/> pill, the default</Label>
+  <Label row itemsCenter><Radio rounded name="sh-rounded" defaultChecked/> rounded</Label>
+  <Label row itemsCenter><Radio sharp name="sh-sharp" defaultChecked/> sharp</Label>
+</Row>
+```
+
+## Variants
+
+Radio is `filled` by default: the box fills with the appearance colour when selected. `outline` keeps the box transparent and colours the dot instead.
+
+```tsx demo
+<Row flexWrap>
+  <Label row itemsCenter><Radio name="v-filled" defaultChecked/> filled, the default</Label>
+  <Label row itemsCenter><Radio outline name="v-outline" defaultChecked/> outline</Label>
+  <Label row itemsCenter><Radio ghost name="v-ghost" defaultChecked/> ghost</Label>
+</Row>
+```
+
+## Explicit size on the control
+
+The Radio takes its own size prop, which wins over the size inherited from the Label.
+
+```tsx demo
+<Row flexWrap>
+  <Label row itemsCenter lg><Radio xs name="sz-a" defaultChecked/> xs dot, lg label</Label>
+  <Label row itemsCenter lg><Radio name="sz-b" defaultChecked/> inherited lg</Label>
+  <Label row itemsCenter lg><Radio xl name="sz-c" defaultChecked/> xl dot, lg label</Label>
+</Row>
+```
+
 ## States
 
 ```tsx demo
@@ -3292,6 +3446,30 @@ Switch is `pill` by default. The shape applies to the track and the knob togethe
 </Col>
 ```
 
+## Variants
+
+Switch is `filled` by default: the track fills with the appearance colour when on. `outline` keeps the track transparent and colours its border instead.
+
+```tsx demo
+<Col>
+  <Label row itemsCenter><Switch defaultChecked/> filled, the default</Label>
+  <Label row itemsCenter><Switch outline defaultChecked/> outline</Label>
+  <Label row itemsCenter><Switch ghost defaultChecked/> ghost</Label>
+</Col>
+```
+
+## Explicit size on the control
+
+The Switch takes its own size prop, which wins over the size inherited from the Label.
+
+```tsx demo
+<Col>
+  <Label row itemsCenter lg><Switch xs defaultChecked/> xs track, lg label</Label>
+  <Label row itemsCenter lg><Switch defaultChecked/> inherited lg</Label>
+  <Label row itemsCenter lg><Switch xl defaultChecked/> xl track, lg label</Label>
+</Col>
+```
+
 ## States
 
 ```tsx demo
@@ -3348,6 +3526,18 @@ Text supports explicit color appearances: `primary`, `accent`, `secondary`, `ter
   <Text danger>Danger text for errors or warnings</Text>
   <Text warning>Warning text for cautionary messages</Text>
   <Text info>Info text for informational content</Text>
+</Col>
+```
+
+## Variants
+
+Text is `outline` by default, which paints no background. `filled` gives it the appearance's surface colour and the matching on-surface text colour, for a callout line inside prose.
+
+```tsx demo
+<Col>
+  <Text>outline, the default: no surface</Text>
+  <Text filled info>filled info</Text>
+  <Text filled danger>filled danger</Text>
 </Col>
 ```
 
@@ -3547,6 +3737,18 @@ By default, PageTitle uses the `inheritAppearance` appearance: it inherits color
 </Col>
 ```
 
+## Variants
+
+Titles are `outline` by default, which paints no background. `filled` gives the heading the appearance's surface colour, for a page header that reads as a band.
+
+```tsx demo
+<Col>
+  <PageTitle>outline, the default: no surface</PageTitle>
+  <PageTitle filled info>filled info</PageTitle>
+  <PageTitle filled danger>filled danger</PageTitle>
+</Col>
+```
+
 ## PageTitle vs SectionTitle vs Title
 
 Three heading components for a clean semantic hierarchy. Use them together so the document outline matches the visual hierarchy.
@@ -3698,6 +3900,18 @@ By default, SectionTitle uses the `inheritAppearance` appearance: it inherits co
   <SectionTitle warning>Warning Section Title</SectionTitle>
   <SectionTitle danger>Danger Section Title</SectionTitle>
   <SectionTitle info>Info Section Title</SectionTitle>
+</Col>
+```
+
+## Variants
+
+Titles are `outline` by default, which paints no background. `filled` gives the heading the appearance's surface colour, for a section header that reads as a band.
+
+```tsx demo
+<Col>
+  <SectionTitle>outline, the default: no surface</SectionTitle>
+  <SectionTitle filled info>filled info</SectionTitle>
+  <SectionTitle filled danger>filled danger</SectionTitle>
 </Col>
 ```
 
@@ -3870,6 +4084,18 @@ By default, Title uses the `inheritAppearance` appearance: it inherits color fro
 </Col>
 ```
 
+## Variants
+
+Titles are `outline` by default, which paints no background. `filled` gives the heading the appearance's surface colour, for a section header that reads as a band.
+
+```tsx demo
+<Col>
+  <Title>outline, the default: no surface</Title>
+  <Title filled info>filled info</Title>
+  <Title filled danger>filled danger</Title>
+</Col>
+```
+
 ## Title vs PageTitle vs SectionTitle
 
 Three heading components for a clean semantic hierarchy. Use them together so the document outline matches the visual hierarchy.
@@ -4008,6 +4234,18 @@ Links render their blue link color by default. Set an explicit appearance to ove
   <Link danger href="#">Danger</Link>
   <Link warning href="#">Warning</Link>
   <Link info href="#">Info</Link>
+</Row>
+```
+
+## Variants
+
+Link renders its own link colour rather than an appearance by default. `filled` puts the appearance's surface behind it, which is how you build a link that reads as a chip.
+
+```tsx demo
+<Row flexWrap itemsCenter>
+  <Link href="#">outline, the default</Link>
+  <Link filled info href="#">filled info</Link>
+  <Link filled success href="#">filled success</Link>
 </Row>
 ```
 
@@ -4223,6 +4461,18 @@ Lists use `inheritAppearance` appearance by default: they inherit color from the
       <ListItem>The Card provides the background</ListItem>
     </List>
   </Card>
+</Col>
+```
+
+## Variants
+
+List is `outline` by default, which paints no background. `filled` gives the whole list the appearance's surface, for a boxed set of notes.
+
+```tsx demo
+<Col>
+  <List>outline, the default: no surface</List>
+  <List filled info>filled info</List>
+  <List filled danger>filled danger</List>
 </Col>
 ```
 
@@ -4478,6 +4728,18 @@ Apply appearance props to color the blockquote. The default is `inheritAppearanc
   <Blockquote danger>Danger appearance blockquote.</Blockquote>
   <Blockquote warning>Warning appearance blockquote.</Blockquote>
   <Blockquote info>Info appearance blockquote.</Blockquote>
+</Col>
+```
+
+## Variants
+
+Blockquote is `outline` by default: an accent border and no background. `filled` adds the appearance's surface behind the quote.
+
+```tsx demo
+<Col>
+  <Blockquote>outline, the default: no surface</Blockquote>
+  <Blockquote filled info>filled info</Blockquote>
+  <Blockquote filled danger>filled danger</Blockquote>
 </Col>
 ```
 
@@ -4794,6 +5056,18 @@ Use `filled` for solid backgrounds (`outline` is the default), and `shadow` for 
     <Title>Shadow Section</Title>
     <Text>Elevated with drop shadow</Text>
   </Section>
+</Col>
+```
+
+## Shapes
+
+Section is `sharp` by default, since a full-bleed band should meet the viewport edge without a radius. `rounded` suits a section used as an inset panel.
+
+```tsx demo
+<Col>
+  <Section border>Sharp, the default</Section>
+  <Section rounded border>Rounded</Section>
+  <Section pill border>Pill</Section>
 </Col>
 ```
 
@@ -6476,6 +6750,18 @@ Add `border` and `shadow` props for visual emphasis.
 </Row>
 ```
 
+## Appearances and variants
+
+Img paints no surface of its own, so an appearance only shows through the border it draws. `filled` gives it a background, which is visible behind a transparent PNG or while the image is still loading.
+
+```tsx demo
+<Row flexWrap itemsCenter>
+  <Img border success src="https://placehold.co/80x60/png" alt="Success border" />
+  <Img border danger src="https://placehold.co/80x60/png" alt="Danger border" />
+  <Img filled secondary className="w-20 h-15" alt="" />
+</Row>
+```
+
 ## Sizes
 
 Images support five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size controls border-radius scaling.
@@ -6622,6 +6908,23 @@ The size prop scales both text and cell padding, and it cascades from the table 
     <Tbody><Tr><Td>xl table</Td><Td textRight>widest</Td></Tr></Tbody>
   </Table>
 </Stack>
+```
+
+## Appearances and variants
+
+An appearance on `Table` cascades to its rows and cells. `outline` (the default) colours the borders; `filled` fills the surface instead.
+
+```tsx demo
+<Col>
+  <Table success>
+    <Thead><Tr><Th scope="col">Check</Th><Th scope="col" textRight>Result</Th></Tr></Thead>
+    <Tbody><Tr><Td>outline success</Td><Td textRight>borders take the colour</Td></Tr></Tbody>
+  </Table>
+  <Table filled secondary>
+    <Thead><Tr><Th scope="col">Check</Th><Th scope="col" textRight>Result</Th></Tr></Thead>
+    <Tbody><Tr><Td>filled secondary</Td><Td textRight>surface takes the colour</Td></Tr></Tbody>
+  </Table>
+</Col>
 ```
 
 ## Per-cell and per-row size
@@ -7175,6 +7478,38 @@ return (
 );
 ```
 
+## Shape, variant and appearance
+
+These apply to the modal panel, not the backdrop. Modal is `rounded`, `outline` and `primary` by default.
+
+```tsx demo
+const [shape, setShape] = useState('');
+const close = () => setShape('');
+
+return (
+  <>
+    <Row flexWrap>
+      <Button onClick={() => setShape('sharp')}>sharp</Button>
+      <Button onClick={() => setShape('pill')}>pill</Button>
+      <Button onClick={() => setShape('filled')}>filled secondary</Button>
+      <Button onClick={() => setShape('danger')}>danger border</Button>
+    </Row>
+    <Modal sharp open={shape === 'sharp'} onClose={close}>
+      <ModalBody><Text>Sharp corners</Text></ModalBody>
+    </Modal>
+    <Modal pill open={shape === 'pill'} onClose={close}>
+      <ModalBody><Text>Pill corners</Text></ModalBody>
+    </Modal>
+    <Modal filled secondary open={shape === 'filled'} onClose={close}>
+      <ModalBody><Text>Filled secondary panel</Text></ModalBody>
+    </Modal>
+    <Modal danger border open={shape === 'danger'} onClose={close}>
+      <ModalBody><Text>Danger border</Text></ModalBody>
+    </Modal>
+  </>
+);
+```
+
 ## Sizes
 
 Size props control modal content width via the `--fs-unit` / `--py-unit` / `--br-unit` chain. Font-size, padding, gap, and border-radius all scale together.
@@ -7461,6 +7796,33 @@ return (
 
 When the requested placement would overflow the viewport, Popup falls back through `flip-block → flip-inline → shift → clamp` and exposes the resolved placement via the `data-placement` attribute.
 
+## Size, shape, variant and appearance
+
+Popup is `md`, `rounded`, `outline` and `primary` by default. Size drives the frame's padding, gap and radius together.
+
+```tsx demo
+const xsRef = useRef<HTMLButtonElement>(null);
+const xlRef = useRef<HTMLButtonElement>(null);
+const sharpRef = useRef<HTMLButtonElement>(null);
+const filledRef = useRef<HTMLButtonElement>(null);
+
+return (
+  <Row flexWrap>
+    <Button ref={xsRef}>xs</Button>
+    <Popup xs defaultOpen anchorRef={xsRef}><Text xs>Extra small frame</Text></Popup>
+
+    <Button ref={xlRef}>xl</Button>
+    <Popup xl defaultOpen anchorRef={xlRef}><Text>Extra large frame</Text></Popup>
+
+    <Button ref={sharpRef}>sharp</Button>
+    <Popup sharp defaultOpen anchorRef={sharpRef}><Text>Sharp corners</Text></Popup>
+
+    <Button ref={filledRef}>filled info</Button>
+    <Popup filled info defaultOpen anchorRef={filledRef}><Text>Filled info surface</Text></Popup>
+  </Row>
+);
+```
+
 ## Match anchor width
 
 `matchWidth` makes the popup track the anchor's width, useful for select-like dropdowns. It sets the popup width to the anchor's width, overriding the default `wFit`.
@@ -7739,6 +8101,31 @@ Pass `href` to render a `MenuItem` as an anchor tag. For client-side navigation 
 </Menu>
 ```
 
+## Shape, variant and appearance
+
+The props you set on `Menu` reach the dropdown frame, so the popup takes the shape, variant and appearance rather than the trigger.
+
+```tsx demo
+<Row flexWrap>
+  <Menu trigger={<Button>rounded, the default</Button>}>
+    <MenuItem>Edit</MenuItem>
+    <MenuItem>Duplicate</MenuItem>
+  </Menu>
+  <Menu sharp trigger={<Button>sharp</Button>}>
+    <MenuItem>Edit</MenuItem>
+    <MenuItem>Duplicate</MenuItem>
+  </Menu>
+  <Menu filled secondary trigger={<Button>filled secondary</Button>}>
+    <MenuItem>Edit</MenuItem>
+    <MenuItem>Duplicate</MenuItem>
+  </Menu>
+  <Menu border info trigger={<Button>info border</Button>}>
+    <MenuItem>Edit</MenuItem>
+    <MenuItem>Duplicate</MenuItem>
+  </Menu>
+</Row>
+```
+
 ## Sizes
 
 Set a size on `Menu` (e.g. `<Menu lg>`) and the dropdown popup, every `MenuItem`, `MenuLabel`, and nested `Divider` scale together automatically. No need to repeat the size on every child. Items render with larger font-size and padding, the popup frame lifts its inner padding, and dividers match. Individual children can still override with their own size prop.
@@ -7840,6 +8227,8 @@ Tooltip labels its trigger with a short hint on hover and on keyboard focus. Pas
 
 The trigger must accept a ref, which every VaneUI component does.
 
+Tooltip's own props are the ones listed under Advanced props below. The size, shape, variant and appearance props in the table further down belong to the frame it renders, so they are set through `popupProps` rather than on `Tooltip` itself.
+
 ## Keyboard and pointer
 
 A tooltip that only opens on hover is invisible to keyboard users, so Tooltip opens on focus too. Tab to the second button to see it.
@@ -7869,6 +8258,27 @@ Placement comes from the underlying Popup, so all twelve `place*` props are avai
   </Tooltip>
   <Tooltip content="To the right" popupProps={{ placeRight: true }}>
     <Button sm>Right</Button>
+  </Tooltip>
+</Row>
+```
+
+## Styling the tooltip frame
+
+Size, shape, variant and appearance belong to the frame, which is a `Popup`, so they go through `popupProps` rather than onto `Tooltip` itself. Tooltip defaults the frame to `sm`, `rounded`, `filled` and `secondary`.
+
+```tsx demo
+<Row flexWrap>
+  <Tooltip content="sm filled secondary, the default">
+    <Button>default</Button>
+  </Tooltip>
+  <Tooltip content="Large frame" popupProps={{ lg: true }}>
+    <Button>lg</Button>
+  </Tooltip>
+  <Tooltip content="Sharp corners" popupProps={{ sharp: true }}>
+    <Button>sharp</Button>
+  </Tooltip>
+  <Tooltip content="Outline danger" popupProps={{ outline: true, danger: true, border: true }}>
+    <Button>outline danger</Button>
   </Tooltip>
 </Row>
 ```

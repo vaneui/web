@@ -46,6 +46,18 @@ Apply appearance props to color the blockquote. The default is `inheritAppearanc
 </Col>
 ```
 
+## Variants
+
+Blockquote is `outline` by default: an accent border and no background. `filled` adds the appearance's surface behind the quote.
+
+```tsx demo
+<Col>
+  <Blockquote>outline, the default: no surface</Blockquote>
+  <Blockquote filled info>filled info</Blockquote>
+  <Blockquote filled danger>filled danger</Blockquote>
+</Col>
+```
+
 ## Italic
 
 Italic is not a default. Opt in with the `italic` prop for traditional quotation styling.

@@ -29,6 +29,18 @@ Links render their blue link color by default. Set an explicit appearance to ove
 </Row>
 ```
 
+## Variants
+
+Link renders its own link colour rather than an appearance by default. `filled` puts the appearance's surface behind it, which is how you build a link that reads as a chip.
+
+```tsx demo
+<Row flexWrap itemsCenter>
+  <Link href="#">outline, the default</Link>
+  <Link filled info href="#">filled info</Link>
+  <Link filled success href="#">filled success</Link>
+</Row>
+```
+
 ## Size inherits from context
 
 Link defaults to `inheritSize: true` so a link inside a heading renders at the heading's font-size automatically. No `size` prop needed. The link keeps its own blue colour.

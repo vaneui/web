@@ -98,6 +98,24 @@ Field's size becomes the control's default, so you set it once. An explicit size
 </Col>
 ```
 
+## Shape, variant and appearance
+
+Field is a layout wrapper, so it takes the same surface props as `Col`: it paints nothing by default (`sharp`, `outline`, no padding), and an appearance only shows once you give it a surface with `filled` or `border`. Useful for marking a field block that needs attention without touching the control inside it.
+
+```tsx demo
+<Col>
+  <Field label="Default" description="No surface of its own.">
+    <Input placeholder="you@company.com"/>
+  </Field>
+  <Field rounded border danger padding label="Bordered danger" description="A border plus an appearance.">
+    <Input placeholder="you@company.com"/>
+  </Field>
+  <Field rounded filled secondary padding label="Filled secondary" description="A surface plus an appearance.">
+    <Input placeholder="you@company.com"/>
+  </Field>
+</Col>
+```
+
 ## Bringing your own id
 
 If the control already carries an `id`, Field adopts it rather than generating one, so the label still points at the right element. Useful with form libraries that own the id.

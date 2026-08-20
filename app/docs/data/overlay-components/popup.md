@@ -113,6 +113,33 @@ return (
 
 When the requested placement would overflow the viewport, Popup falls back through `flip-block → flip-inline → shift → clamp` and exposes the resolved placement via the `data-placement` attribute.
 
+## Size, shape, variant and appearance
+
+Popup is `md`, `rounded`, `outline` and `primary` by default. Size drives the frame's padding, gap and radius together.
+
+```tsx demo
+const xsRef = useRef<HTMLButtonElement>(null);
+const xlRef = useRef<HTMLButtonElement>(null);
+const sharpRef = useRef<HTMLButtonElement>(null);
+const filledRef = useRef<HTMLButtonElement>(null);
+
+return (
+  <Row flexWrap>
+    <Button ref={xsRef}>xs</Button>
+    <Popup xs defaultOpen anchorRef={xsRef}><Text xs>Extra small frame</Text></Popup>
+
+    <Button ref={xlRef}>xl</Button>
+    <Popup xl defaultOpen anchorRef={xlRef}><Text>Extra large frame</Text></Popup>
+
+    <Button ref={sharpRef}>sharp</Button>
+    <Popup sharp defaultOpen anchorRef={sharpRef}><Text>Sharp corners</Text></Popup>
+
+    <Button ref={filledRef}>filled info</Button>
+    <Popup filled info defaultOpen anchorRef={filledRef}><Text>Filled info surface</Text></Popup>
+  </Row>
+);
+```
+
 ## Match anchor width
 
 `matchWidth` makes the popup track the anchor's width, useful for select-like dropdowns. It sets the popup width to the anchor's width, overriding the default `wFit`.

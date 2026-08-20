@@ -17,6 +17,8 @@ Tooltip labels its trigger with a short hint on hover and on keyboard focus. Pas
 
 The trigger must accept a ref, which every VaneUI component does.
 
+Tooltip's own props are the ones listed under Advanced props below. The size, shape, variant and appearance props in the table further down belong to the frame it renders, so they are set through `popupProps` rather than on `Tooltip` itself.
+
 ## Keyboard and pointer
 
 A tooltip that only opens on hover is invisible to keyboard users, so Tooltip opens on focus too. Tab to the second button to see it.
@@ -46,6 +48,27 @@ Placement comes from the underlying Popup, so all twelve `place*` props are avai
   </Tooltip>
   <Tooltip content="To the right" popupProps={{ placeRight: true }}>
     <Button sm>Right</Button>
+  </Tooltip>
+</Row>
+```
+
+## Styling the tooltip frame
+
+Size, shape, variant and appearance belong to the frame, which is a `Popup`, so they go through `popupProps` rather than onto `Tooltip` itself. Tooltip defaults the frame to `sm`, `rounded`, `filled` and `secondary`.
+
+```tsx demo
+<Row flexWrap>
+  <Tooltip content="sm filled secondary, the default">
+    <Button>default</Button>
+  </Tooltip>
+  <Tooltip content="Large frame" popupProps={{ lg: true }}>
+    <Button>lg</Button>
+  </Tooltip>
+  <Tooltip content="Sharp corners" popupProps={{ sharp: true }}>
+    <Button>sharp</Button>
+  </Tooltip>
+  <Tooltip content="Outline danger" popupProps={{ outline: true, danger: true, border: true }}>
+    <Button>outline danger</Button>
   </Tooltip>
 </Row>
 ```

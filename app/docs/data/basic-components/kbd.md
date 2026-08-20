@@ -65,6 +65,28 @@ Different color appearances for keyboard keys.
 </Row>
 ```
 
+## Shapes
+
+```tsx demo
+<Row itemsCenter flexWrap>
+  <Kbd>rounded, the default</Kbd>
+  <Kbd sharp>sharp</Kbd>
+  <Kbd pill>pill</Kbd>
+</Row>
+```
+
+## Variants
+
+Kbd is `outline` by default, which is what gives it the raised key edge. `filled` trades that for a solid block.
+
+```tsx demo
+<Row itemsCenter flexWrap>
+  <Kbd>outline, the default</Kbd>
+  <Kbd filled>filled</Kbd>
+  <Kbd ghost>ghost</Kbd>
+</Row>
+```
+
 ## Key combinations
 
 Combine multiple `Kbd` elements to show keyboard shortcuts.

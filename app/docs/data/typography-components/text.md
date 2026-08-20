@@ -44,6 +44,18 @@ Text supports explicit color appearances: `primary`, `accent`, `secondary`, `ter
 </Col>
 ```
 
+## Variants
+
+Text is `outline` by default, which paints no background. `filled` gives it the appearance's surface colour and the matching on-surface text colour, for a callout line inside prose.
+
+```tsx demo
+<Col>
+  <Text>outline, the default: no surface</Text>
+  <Text filled info>filled info</Text>
+  <Text filled danger>filled danger</Text>
+</Col>
+```
+
 ## Inherit appearance (default)
 
 Text defaults to the `inheritAppearance` appearance: it picks up its color from the parent via CSS cascade instead of applying its own. Set an explicit appearance to override.

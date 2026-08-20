@@ -55,6 +55,14 @@ Mark supports `outline` (default) and `filled` variants.
 </Col>
 ```
 
+## Shapes
+
+```tsx demo
+<Text>
+  A <Mark>rounded</Mark> default, a <Mark sharp>sharp</Mark> highlight, and a <Mark pill>pill</Mark> one.
+</Text>
+```
+
 ## Highlight matches context
 
 Mark defaults to `inheritSize: true` so a highlight always renders at the same size as the surrounding text (body copy, subheading, section heading, or page title) without passing any size prop.

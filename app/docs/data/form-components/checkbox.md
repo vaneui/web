@@ -55,6 +55,18 @@ Checkboxes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. A `Checkb
 </Row>
 ```
 
+## Explicit size on the control
+
+Setting the size on the Label is the usual route, but the Checkbox takes its own size prop, which wins over the inherited one.
+
+```tsx demo
+<Row flexWrap>
+  <Label row itemsCenter lg><Checkbox xs defaultChecked/> xs box, lg label</Label>
+  <Label row itemsCenter lg><Checkbox defaultChecked/> inherited lg box</Label>
+  <Label row itemsCenter lg><Checkbox xl defaultChecked/> xl box, lg label</Label>
+</Row>
+```
+
 ## Appearances
 
 Different color appearances applied to the Checkbox; always place inside a Label.
@@ -118,6 +130,18 @@ Checkboxes support border radius styles: `rounded` (default), `pill`, and `sharp
     <Checkbox sharp id="shape-sharp" defaultChecked/>
     Sharp
   </Label>
+</Row>
+```
+
+## Variants
+
+Checkbox is `filled` by default: the box fills with the appearance colour when checked. `outline` keeps the box transparent and marks the check itself.
+
+```tsx demo
+<Row flexWrap>
+  <Label row itemsCenter><Checkbox defaultChecked/> filled, the default</Label>
+  <Label row itemsCenter><Checkbox outline defaultChecked/> outline</Label>
+  <Label row itemsCenter><Checkbox ghost defaultChecked/> ghost</Label>
 </Row>
 ```
 

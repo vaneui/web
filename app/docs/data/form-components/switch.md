@@ -61,6 +61,30 @@ Switch is `pill` by default. The shape applies to the track and the knob togethe
 </Col>
 ```
 
+## Variants
+
+Switch is `filled` by default: the track fills with the appearance colour when on. `outline` keeps the track transparent and colours its border instead.
+
+```tsx demo
+<Col>
+  <Label row itemsCenter><Switch defaultChecked/> filled, the default</Label>
+  <Label row itemsCenter><Switch outline defaultChecked/> outline</Label>
+  <Label row itemsCenter><Switch ghost defaultChecked/> ghost</Label>
+</Col>
+```
+
+## Explicit size on the control
+
+The Switch takes its own size prop, which wins over the size inherited from the Label.
+
+```tsx demo
+<Col>
+  <Label row itemsCenter lg><Switch xs defaultChecked/> xs track, lg label</Label>
+  <Label row itemsCenter lg><Switch defaultChecked/> inherited lg</Label>
+  <Label row itemsCenter lg><Switch xl defaultChecked/> xl track, lg label</Label>
+</Col>
+```
+
 ## States
 
 ```tsx demo

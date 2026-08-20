@@ -61,6 +61,42 @@ Radio takes the same appearance props as Checkbox: the appearance colours the bo
 </Row>
 ```
 
+## Shapes
+
+Radio is `pill` by default, which is what distinguishes it from a Checkbox at a glance. `rounded` and `sharp` are available, but a square radio reads as a checkbox, so reach for them only when the surrounding design demands it.
+
+```tsx demo
+<Row flexWrap>
+  <Label row itemsCenter><Radio name="sh-pill" defaultChecked/> pill, the default</Label>
+  <Label row itemsCenter><Radio rounded name="sh-rounded" defaultChecked/> rounded</Label>
+  <Label row itemsCenter><Radio sharp name="sh-sharp" defaultChecked/> sharp</Label>
+</Row>
+```
+
+## Variants
+
+Radio is `filled` by default: the box fills with the appearance colour when selected. `outline` keeps the box transparent and colours the dot instead.
+
+```tsx demo
+<Row flexWrap>
+  <Label row itemsCenter><Radio name="v-filled" defaultChecked/> filled, the default</Label>
+  <Label row itemsCenter><Radio outline name="v-outline" defaultChecked/> outline</Label>
+  <Label row itemsCenter><Radio ghost name="v-ghost" defaultChecked/> ghost</Label>
+</Row>
+```
+
+## Explicit size on the control
+
+The Radio takes its own size prop, which wins over the size inherited from the Label.
+
+```tsx demo
+<Row flexWrap>
+  <Label row itemsCenter lg><Radio xs name="sz-a" defaultChecked/> xs dot, lg label</Label>
+  <Label row itemsCenter lg><Radio name="sz-b" defaultChecked/> inherited lg</Label>
+  <Label row itemsCenter lg><Radio xl name="sz-c" defaultChecked/> xl dot, lg label</Label>
+</Row>
+```
+
 ## States
 
 ```tsx demo

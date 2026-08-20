@@ -55,6 +55,18 @@ Alert is a flex row, so compose whatever the message needs.
 </Alert>
 ```
 
+## Shapes
+
+Alert is `rounded` by default. `sharp` suits an alert pinned to the edge of a panel, where a radius would leave a gap against the edge.
+
+```tsx demo
+<Col>
+  <Alert>Rounded, the default</Alert>
+  <Alert sharp>Sharp</Alert>
+  <Alert pill>Pill</Alert>
+</Col>
+```
+
 ## Sizes
 
 ```tsx demo

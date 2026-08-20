@@ -46,6 +46,16 @@ Textarea is `outline` by default. Use `filled` for a solid background, and the a
 </Col>
 ```
 
+## Shapes
+
+```tsx demo
+<Col>
+  <Textarea rows={2} placeholder="Rounded, the default"/>
+  <Textarea sharp rows={2} placeholder="Sharp"/>
+  <Textarea pill rows={2} placeholder="Pill"/>
+</Col>
+```
+
 ## States
 
 `invalid` paints a danger border and ring and emits `aria-invalid="true"`. Unlike `Input`, a Textarea shows no overlaid alert icon: a single-line field has one obvious place to put one, a box that grows does not. The border is therefore the only *visual* cue on its own, so pair `invalid` with a `Field` and let the `error` message carry the reason. It renders in danger text below the box and is linked with `aria-describedby`.

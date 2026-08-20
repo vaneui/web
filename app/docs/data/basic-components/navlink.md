@@ -80,6 +80,18 @@ NavLinks default to `primary outline`. Use `filled` for solid backgrounds. Activ
 </Row>
 ```
 
+## Shapes
+
+NavLink is `rounded` by default. `sharp` fits a full-bleed sidebar where the item runs to the panel edge; `pill` suits a horizontal nav.
+
+```tsx demo
+<Col className="w-72">
+  <NavLink href="#">Rounded, the default</NavLink>
+  <NavLink sharp href="#">Sharp</NavLink>
+  <NavLink pill href="#">Pill</NavLink>
+</Col>
+```
+
 ## Disabled state
 
 Use `disabled` to prevent interaction. When `disabled` is combined with `href`, the `href` is dropped and it renders as a non-navigable anchor (`role="link"`, `aria-disabled="true"`) that stays focusable but cannot be followed.

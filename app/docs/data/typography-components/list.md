@@ -69,6 +69,18 @@ Lists use `inheritAppearance` appearance by default: they inherit color from the
 </Col>
 ```
 
+## Variants
+
+List is `outline` by default, which paints no background. `filled` gives the whole list the appearance's surface, for a boxed set of notes.
+
+```tsx demo
+<Col>
+  <List>outline, the default: no surface</List>
+  <List filled info>filled info</List>
+  <List filled danger>filled danger</List>
+</Col>
+```
+
 ## List style types
 
 List supports six marker types: `listDisc` (default for unordered), `listDecimal` (default for ordered), `listCircle`, `listSquare`, `listLowerAlpha`, and `listLowerRoman`. Setting `listDecimal`, `listLowerAlpha`, or `listLowerRoman` switches the element from `<ul>` to `<ol>`.

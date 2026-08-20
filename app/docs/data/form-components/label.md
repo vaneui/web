@@ -45,6 +45,18 @@ Labels default to `inheritAppearance`: they take their color from the surroundin
 </Row>
 ```
 
+## Variants
+
+Label is `outline` by default and paints no surface. `filled` gives it the appearance's background, which is useful for a status chip beside a field.
+
+```tsx demo
+<Row flexWrap>
+  <Label>outline, the default</Label>
+  <Label filled success>filled success</Label>
+  <Label filled danger>filled danger</Label>
+</Row>
+```
+
 ## With Input
 
 Wrap an `Input` inside a `Label` to make the label clickable and associate them implicitly. No `htmlFor`/`id` wiring required.

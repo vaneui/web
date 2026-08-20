@@ -93,6 +93,18 @@ Use `filled` for solid backgrounds (`outline` is the default), and `shadow` for 
 </Col>
 ```
 
+## Shapes
+
+Section is `sharp` by default, since a full-bleed band should meet the viewport edge without a radius. `rounded` suits a section used as an inset panel.
+
+```tsx demo
+<Col>
+  <Section border>Sharp, the default</Section>
+  <Section rounded border>Rounded</Section>
+  <Section pill border>Pill</Section>
+</Col>
+```
+
 ## Layout
 
 Use `row` for horizontal layout. `gap` is already on by default; pair with `noPadding` only when a wrapper owns spacing.
