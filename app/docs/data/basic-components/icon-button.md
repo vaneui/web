@@ -134,13 +134,23 @@ import { Settings } from 'react-feather';
 
 ## Loading state
 
-Set `loading` to show a spinner and auto-disable the button.
+Set `loading` to replace the icon with a spinner and auto-disable the button.
+
+```tsx demo
+<Row flexWrap itemsCenter>
+  <IconButton loading aria-label="Refreshing"><RefreshCw /></IconButton>
+  <IconButton loading filled danger aria-label="Deleting"><Trash2 /></IconButton>
+  <IconButton loading lg aria-label="Saving"><Star /></IconButton>
+</Row>
+```
+
+The ring is the `Spinner` component, sized from the button and coloured by the button's own text colour, so it reads correctly on every variant. Keep the `aria-label` describing the action: the button carries `aria-busy` while it spins, and the Spinner itself is decorative here.
 
 ```tsx demo
 const [loading, setLoading] = useState(false);
 
 return (
-  <IconButton loading={loading} onClick={() => setLoading(true)}>
+  <IconButton loading={loading} onClick={() => setLoading(true)} aria-label="Favorite">
     <Star />
   </IconButton>
 );

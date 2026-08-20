@@ -44,13 +44,18 @@ By default, SectionTitle uses the `inheritAppearance` appearance: it inherits co
 
 ## Variants
 
-Titles are `outline` by default, which paints no background. `filled` gives the heading the appearance's surface colour, for a section header that reads as a band.
+Headings never paint a background, so the variant only picks which colour of the appearance the heading is painted in. `outline`, the default, uses the appearance's own colour. `filled` uses the "on this fill" colour, for a heading sitting on a filled surface of the same appearance.
 
 ```tsx demo
 <Col>
-  <SectionTitle>outline, the default: no surface</SectionTitle>
-  <SectionTitle filled info>filled info</SectionTitle>
-  <SectionTitle filled danger>filled danger</SectionTitle>
+  <SectionTitle info>outline info, on the page surface</SectionTitle>
+  <SectionTitle danger>outline danger, on the page surface</SectionTitle>
+  <Card info filled>
+    <SectionTitle info filled>filled info, on a matching filled Card</SectionTitle>
+  </Card>
+  <Card danger filled>
+    <SectionTitle danger filled>filled danger, on a matching filled Card</SectionTitle>
+  </Card>
 </Col>
 ```
 

@@ -44,13 +44,18 @@ By default, PageTitle uses the `inheritAppearance` appearance: it inherits color
 
 ## Variants
 
-Titles are `outline` by default, which paints no background. `filled` gives the heading the appearance's surface colour, for a page header that reads as a band.
+Headings never paint a background, so the variant only picks which colour of the appearance the heading is painted in. `outline`, the default, uses the appearance's own colour. `filled` uses the "on this fill" colour, for a heading sitting on a filled surface of the same appearance.
 
 ```tsx demo
 <Col>
-  <PageTitle>outline, the default: no surface</PageTitle>
-  <PageTitle filled info>filled info</PageTitle>
-  <PageTitle filled danger>filled danger</PageTitle>
+  <PageTitle info>outline info, on the page surface</PageTitle>
+  <PageTitle danger>outline danger, on the page surface</PageTitle>
+  <Card info filled>
+    <PageTitle info filled>filled info, on a matching filled Card</PageTitle>
+  </Card>
+  <Card danger filled>
+    <PageTitle danger filled>filled danger, on a matching filled Card</PageTitle>
+  </Card>
 </Col>
 ```
 

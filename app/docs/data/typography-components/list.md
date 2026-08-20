@@ -71,13 +71,21 @@ Lists use `inheritAppearance` appearance by default: they inherit color from the
 
 ## Variants
 
-List is `outline` by default, which paints no background. `filled` gives the whole list the appearance's surface, for a boxed set of notes.
+List is `outline` and transparent by default, so an appearance colours the text and the list paints nothing behind it. List is the one typography component that still wires a background mapper, so clearing `transparent` lets `filled` paint the appearance's surface behind the whole list. Left alone, `filled` only switches the text to the "on this fill" colour, for a list sitting on a filled surface of the same appearance.
 
 ```tsx demo
 <Col>
-  <List>outline, the default: no surface</List>
-  <List filled info>filled info</List>
-  <List filled danger>filled danger</List>
+  <List info>
+    <ListItem>outline info, on the page surface</ListItem>
+  </List>
+  <List danger filled transparent={false}>
+    <ListItem>filled danger, with the surface switched on</ListItem>
+  </List>
+  <Card info filled>
+    <List info filled>
+      <ListItem>filled info, on a matching filled Card</ListItem>
+    </List>
+  </Card>
 </Col>
 ```
 

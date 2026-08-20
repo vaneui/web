@@ -170,24 +170,26 @@ Add `padding` to give the icon a sized box, then combine `filled`, `border`, `in
 
 ## Transparent
 
-Use `transparent` to keep the container background see-through while still applying the appearance color to the glyph, border, or ring.
+`transparent` drops the container's background and changes nothing else. It only has an effect on `filled`, since every other variant is already background-less.
+
+That leaves the glyph in the "on this fill" colour with no fill of its own, so it belongs on a filled surface of the same appearance, where that colour is the readable one. On a plain surface, use the default `outline` variant instead.
 
 ```tsx demo
-<Row flexWrap>
+<Row flexWrap itemsCenter>
   <Col itemsCenter>
-    <Icon padding pill primary filled transparent border><Star /></Icon>
-    <Text xs secondary>filled + transparent</Text>
+    <Icon padding pill danger filled><AlertCircle /></Icon>
+    <Text xs secondary>filled: paints its own surface</Text>
   </Col>
-  <Col itemsCenter>
-    <Icon padding pill success filled transparent insetRing><Check /></Icon>
-    <Text xs secondary>success</Text>
-  </Col>
-  <Col itemsCenter>
-    <Icon padding pill danger filled transparent border><AlertCircle /></Icon>
-    <Text xs secondary>danger</Text>
-  </Col>
+  <Card danger filled wFit>
+    <Col itemsCenter>
+      <Icon padding pill danger filled transparent><AlertCircle /></Icon>
+      <Text xs>transparent: blends into a matching fill</Text>
+    </Col>
+  </Card>
 </Row>
 ```
+
+Note that `border` and `insetRing` have nothing to show on a `filled` icon: the filled variant resolves both to transparent so the edge disappears into the fill. Pair them with `outline` instead.
 
 ## In context
 

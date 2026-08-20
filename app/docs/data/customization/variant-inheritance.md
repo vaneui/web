@@ -42,13 +42,13 @@ When you explicitly set an appearance or variant on a component, VaneUI emits da
   {/* Inherits from Card: white text on dark background */}
   <Text>I'm white</Text>
 
-  {/* Explicit props: own CSS rule fires, dark text */}
-  <Text primary outline>I'm dark, even inside a filled Card</Text>
-
-  {/* Explicit different appearance: own CSS rule fires */}
+  {/* Explicit appearance: own CSS rule fires, ignoring the Card */}
+  <Text warning>I'm amber</Text>
   <Text success>I'm green</Text>
 </Card>
 ```
+
+An explicit appearance opts out of inheritance completely, so pick one that reads on the surface you are on. `<Text primary outline>` inside a `filled primary` Card resolves to the surface's own dark colour and disappears into it.
 
 ## Nested layouts
 

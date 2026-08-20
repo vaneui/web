@@ -131,6 +131,32 @@ Pass `href` to render the button as an `<a>` for navigation. Use `disabled` to p
 </Row>
 ```
 
+## Loading state
+
+Set `loading` to swap the label for a spinner and auto-disable the button. The width is kept, so the layout does not jump when the state flips.
+
+```tsx demo
+<Row flexWrap itemsCenter>
+  <Button loading>Saving</Button>
+  <Button loading filled danger>Deleting</Button>
+  <Button loading lg>Large</Button>
+</Row>
+```
+
+The ring is the `Spinner` component, so there is one spinner in the library and restyling `theme.spinner` restyles both. The button forwards its own size, and the ring inherits the button's text colour: a filled button gets a light ring, an outline button a dark one.
+
+It is decorative here rather than a live region. The button already carries `aria-busy`, so the Spinner's `role="status"` is suppressed and the accessible name stays the button's own.
+
+```tsx demo
+const [loading, setLoading] = useState(false);
+
+return (
+  <Button loading={loading} onClick={() => setLoading(true)}>
+    Submit
+  </Button>
+);
+```
+
 ## Next.js Link integration
 
 Use the `tag` prop to render the button as a Next.js `Link` for client-side navigation.

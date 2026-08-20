@@ -25,6 +25,10 @@ Historically a native `<select>` hands its option list to the operating system, 
 
 On engines that support `appearance: base-select` the list becomes real DOM instead, and VaneUI styles it to match a `Menu`: themed surface, border, radius, shadow, padded rows, a hover state, and a checkmark on the selected option. Everywhere else the OS picker still appears, with `option` and `optgroup` pinned to the theme's surface and text tokens so the list at least stays on your palette in both light and dark mode.
 
+The list opens below the field and flips above it only when it genuinely does not fit. Browsers default to whichever side has more room, which sends the list upward for any field past the middle of the window even when there is space below it.
+
+Options are children of the field, so they inherit its colours: the list follows the appearance and variant you set rather than staying pinned to the light surface. A disabled option, typically a placeholder, fades toward the list's own background instead of a fixed grey, so it stays readable on a filled list too.
+
 Nothing is required to opt in, and nothing breaks on engines without it: the enhancement sits behind an `@supports` rule and the control is the same `<select>` either way.
 
 ## Sizes
@@ -91,37 +95,71 @@ Selects come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. The chevron 
 </Col>
 ```
 
-## Variants and shapes
+## Appearances
 
-Selects are `outline` and `rounded` by default, and take the same appearance, variant and shape props as `Input`.
+Selects are `primary` by default and take the same appearance props as `Input`.
 
 ```tsx demo
-<Col>
-  <Row flexWrap>
-    <Select className="w-48" defaultValue="eur">
-      <option value="eur">Outline (default)</option>
-      <option value="usd">US dollar</option>
-    </Select>
-    <Select filled className="w-48" defaultValue="eur">
-      <option value="eur">Filled</option>
-      <option value="usd">US dollar</option>
-    </Select>
-    <Select success className="w-48" defaultValue="eur">
-      <option value="eur">Success</option>
-      <option value="usd">US dollar</option>
-    </Select>
-  </Row>
-  <Row flexWrap>
-    <Select pill className="w-48" defaultValue="eur">
-      <option value="eur">Pill</option>
-      <option value="usd">US dollar</option>
-    </Select>
-    <Select sharp className="w-48" defaultValue="eur">
-      <option value="eur">Sharp</option>
-      <option value="usd">US dollar</option>
-    </Select>
-  </Row>
-</Col>
+<Row flexWrap>
+  <Select className="w-40" defaultValue="eur">
+    <option value="eur">Primary</option>
+    <option value="usd">US dollar</option>
+  </Select>
+  <Select success className="w-40" defaultValue="eur">
+    <option value="eur">Success</option>
+    <option value="usd">US dollar</option>
+  </Select>
+  <Select warning className="w-40" defaultValue="eur">
+    <option value="eur">Warning</option>
+    <option value="usd">US dollar</option>
+  </Select>
+  <Select danger className="w-40" defaultValue="eur">
+    <option value="eur">Danger</option>
+    <option value="usd">US dollar</option>
+  </Select>
+</Row>
+```
+
+## Variants
+
+`outline` is the default. The dropdown list takes its colours from the field, so a `filled` Select opens a filled list rather than a light one on a dark control. `ghost` drops the field's own surface but keeps the list opaque, since a see-through popup would render the options unreadable.
+
+```tsx demo
+<Row flexWrap>
+  <Select className="w-40" defaultValue="eur">
+    <option value="eur">Outline (default)</option>
+    <option value="usd">US dollar</option>
+  </Select>
+  <Select filled className="w-40" defaultValue="eur">
+    <option value="eur">Filled</option>
+    <option value="usd">US dollar</option>
+  </Select>
+  <Select ghost className="w-40" defaultValue="eur">
+    <option value="eur">Ghost</option>
+    <option value="usd">US dollar</option>
+  </Select>
+</Row>
+```
+
+## Shapes
+
+`rounded` is the default. `pill` and `sharp` reshape the field; the list keeps the field's radius.
+
+```tsx demo
+<Row flexWrap>
+  <Select rounded className="w-40" defaultValue="eur">
+    <option value="eur">Rounded (default)</option>
+    <option value="usd">US dollar</option>
+  </Select>
+  <Select pill className="w-40" defaultValue="eur">
+    <option value="eur">Pill</option>
+    <option value="usd">US dollar</option>
+  </Select>
+  <Select sharp className="w-40" defaultValue="eur">
+    <option value="eur">Sharp</option>
+    <option value="usd">US dollar</option>
+  </Select>
+</Row>
 ```
 
 ## Groups and placeholders

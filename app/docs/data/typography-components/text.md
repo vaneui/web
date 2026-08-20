@@ -46,22 +46,29 @@ Text supports explicit color appearances: `primary`, `accent`, `secondary`, `ter
 
 ## Variants
 
-Text is `outline` by default, which paints no background. `filled` gives it the appearance's surface colour and the matching on-surface text colour, for a callout line inside prose.
+Text never paints a background, so the variant does one thing here: it picks which colour of the appearance the text is painted in. `outline`, the default, uses the appearance's own colour, for text on a plain surface. `filled` uses the "on this fill" colour, for text sitting on a filled surface of the same appearance.
 
 ```tsx demo
 <Col>
-  <Text>outline, the default: no surface</Text>
-  <Text filled info>filled info</Text>
-  <Text filled danger>filled danger</Text>
+  <Text info>outline info, on the page surface</Text>
+  <Text danger>outline danger, on the page surface</Text>
+  <Card info filled>
+    <Text info filled>filled info, on a matching filled Card</Text>
+  </Card>
+  <Card danger filled>
+    <Text danger filled>filled danger, on a matching filled Card</Text>
+  </Card>
 </Col>
 ```
+
+Use `filled` on a plain page and the text takes the colour meant to sit on the fill, which is close to the page itself. Wrap it in a matching surface, or leave the default `inheritAppearance` on and let it take the colour from whatever it sits in.
 
 ## Inherit appearance (default)
 
 Text defaults to the `inheritAppearance` appearance: it picks up its color from the parent via CSS cascade instead of applying its own. Set an explicit appearance to override.
 
 ```tsx demo
-<Row flexWrap>
+<Row flexWrap itemsStretch>
   <Card primary filled>
     <Text fontBold>Inherited Primary</Text>
     <Text>This text inherits primary from the Card.</Text>
@@ -69,10 +76,16 @@ Text defaults to the `inheritAppearance` appearance: it picks up its color from 
   <Card success filled>
     <Text fontBold>Inherited Success</Text>
     <Text>Inherits success color automatically.</Text>
+  </Card>
+  <Card border secondary>
+    <Text fontBold>On a plain surface</Text>
+    <Text>Inherits the Card's own colour.</Text>
     <Text danger>Explicit danger overrides inherit.</Text>
   </Card>
 </Row>
 ```
+
+An explicit appearance stops inheriting, so it has to read on the surface it lands on. Inside a filled Card, `<Text danger>` resolves to the outline danger colour, which is close in weight to the filled surface behind it.
 
 ## Font weights
 

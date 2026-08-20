@@ -83,22 +83,7 @@ Most of the time you do not need either. With no appearance prop the Spinner inh
 
 Setting an appearance that matches the surface you are on is the one thing to avoid: `<Spinner secondary>` inside a `secondary filled` Card resolves to the outline colour, which is the surface's own colour, so the ring disappears.
 
-## Button loading state
-
-`Button` and `IconButton` render this same component for their `loading` prop, so there is one spinner in the library and restyling `theme.spinner` restyles both. The button forwards its own size, and the ring inherits the button's text colour, so a filled button gets a light ring and an outline button a dark one.
-
-It is decorative there rather than a live region: the button already carries `aria-busy`, so the Spinner's `role="status"` is suppressed and the label stays in the accessibility tree behind it.
-
-`loading` also swaps the label for the ring and keeps the button's width, so the layout does not jump.
-
-```tsx demo
-<Row flexWrap itemsCenter>
-  <Button loading>Saving</Button>
-  <Button loading filled danger>Deleting</Button>
-  <Button loading lg>Large</Button>
-  <IconButton loading aria-label="Refreshing"><RefreshCw/></IconButton>
-</Row>
-```
+`Button` and `IconButton` render this same component for their `loading` prop, so there is one spinner in the library and restyling `theme.spinner` restyles both. That state is documented where it is used, on [Button](/docs/basic-components/button) and [IconButton](/docs/basic-components/icon-button).
 
 Spinner honours `prefers-reduced-motion`: the animation stops for users who ask for less motion.
 
