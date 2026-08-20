@@ -3,7 +3,7 @@
 import React from 'react';
 import { CodeBlock } from '../components/CodeBlock';
 import { Card, Title, SectionTitle } from '@vaneui/ui';
-import { Md, headingAnchors } from "@vaneui/md";
+import { Md, headingAnchors, type MdTransform } from "@vaneui/md";
 import { createHeadingSlugger } from '../utils/stringUtils';
 import { extractFences, type ExtractedFence } from '../../lib/docs/extractFences';
 import { LivePreview } from './LivePreview';
@@ -181,6 +181,17 @@ function FenceWithLivePreview({ content = '', language = 'text' }: MdFenceProps)
   );
 }
 
+/**
+ * The slugger carries the duplicate-heading counter, so it must not outlive one
+ * pass over the tree. `Md` parses and transforms in its own render body, which
+ * Strict Mode invokes twice against the same `transform` prop — a slugger built
+ * once per render therefore counted every heading twice on the second pass
+ * (`basic-usage` server-side, `basic-usage-2` on the client) and desynced
+ * hydration. Building it per invocation makes the transform idempotent.
+ */
+const anchorHeadings: MdTransform = (tree) =>
+  headingAnchors({ slug: createHeadingSlugger() })(tree);
+
 export function DocsMarkdown({md, slug}: DocsMarkdownProps) {
   // Rebuild the lookup on every render. The lookup's per-body queues are
   // consumed (shifted) as `<Md>` walks the document, which means a single
@@ -193,9 +204,7 @@ export function DocsMarkdown({md, slug}: DocsMarkdownProps) {
     <FenceLookupContext.Provider value={lookup}>
       <Md
         content={md}
-        // Fresh slugger per render, like the fence lookup above: it carries the
-        // repeat counter, so reusing one across renders would keep incrementing.
-        transform={headingAnchors({ slug: createHeadingSlugger() })}
+        transform={anchorHeadings}
         config={{
           components: {
             MdFence: FenceWithLivePreview,
