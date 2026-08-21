@@ -42,7 +42,7 @@ In this self-rendering mode, surface props (`appearance`, `variant`, `shape`, `b
 
 ## Checkbox and switch
 
-`checkbox` and `switch` lay out inline: the control first, the label beside it, with the description and error below the row. An explicit `row` or `column` prop drops the inline row and falls back to the plain stacked layout used by every other control.
+`checkbox` and `switch` lay out inline: the control first, the label beside it, with the description and error below the row. Any explicit direction prop (`row`, `column`, `rowReverse` or `columnReverse`) drops the inline row and falls back to the plain stacked layout used by every other control.
 
 ```tsx demo
 <Col>
