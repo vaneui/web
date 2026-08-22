@@ -37,7 +37,7 @@ Children still reach the rendered control, so an `<option>` works with `select` 
 In this self-rendering mode, surface props (`appearance`, `variant`, `shape`, `border`, `ring`, `shadow`, `transparent`) route to the control rather than the wrapper, and native attributes such as `placeholder` or `defaultValue` go to the control too. Layout props and `className` stay on the wrapper, and `ref` points at the control. Field's own size still becomes the control's default, the same as in children mode.
 
 ```tsx demo
-<Field type="text" filled danger label="Name" description="Filled and danger route to the input, not the wrapper."/>
+<Field type="text" filled secondary label="Name" description="Filled and secondary route to the input, not the wrapper."/>
 ```
 
 Three details are worth knowing before you reach for them.
