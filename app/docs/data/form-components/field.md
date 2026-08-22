@@ -40,6 +40,19 @@ In this self-rendering mode, surface props (`appearance`, `variant`, `shape`, `b
 <Field type="text" filled danger label="Name" description="Filled and danger route to the input, not the wrapper."/>
 ```
 
+Three details are worth knowing before you reach for them.
+
+`onChange` is typed for whichever control Field might render, so its event target is the union of an input, a select and a textarea. Reading a property that only one of them has needs a cast:
+
+```tsx
+<Field checkbox label="Subscribe"
+  onChange={(e) => setSubscribed((e.target as HTMLInputElement).checked)}/>
+```
+
+`ref` points at the rendered control for every kind except `checkbox`, where it lands on the element wrapping the box. A form library that reads `.checked` straight off the ref will not find it there; pass the control as a child and put the ref on it instead.
+
+`className` stays on the wrapper, but `style` goes to the control, since only `className` and `tag` are treated as wrapper props. Use `className` to size or place the whole field block.
+
 ## Checkbox and switch
 
 `checkbox` and `switch` lay out inline: the control first, the label beside it, with the description and error below the row. Any explicit direction prop (`row`, `column`, `rowReverse` or `columnReverse`) drops the inline row and falls back to the plain stacked layout used by every other control.
