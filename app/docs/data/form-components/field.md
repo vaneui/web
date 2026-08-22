@@ -123,7 +123,7 @@ A `radiogroup` is not a labelable element, so Field labels it by reference with 
 
 ## Sizes
 
-Field's size becomes the control's default, so you set it once. An explicit size on the control still wins.
+Field's size sets the whole block: the label and the control both take it, and the help and error text sit one step below so they stay subordinate. You set it once, and an explicit size on the control still wins.
 
 ```tsx demo
 <Col>
@@ -162,6 +162,21 @@ Field is a layout wrapper, so it takes the same surface props as `Col`: it paint
   </Field>
 </Col>
 ```
+
+### On a dark surface
+
+A field's label, help text and error read off the surface they sit on, so putting the block on a filled `Card` or `Row` carries all three with it instead of leaving them in the colours they pin for a light page. `filled` on a self-rendering Field routes to the control, as every surface prop does.
+
+```tsx demo
+<Card filled>
+  <Field label="Display name" description="Visible to your team.">
+    <Input defaultValue="alex.rivera"/>
+  </Field>
+  <Field textInput filled secondary label="Recovery email" error="Enter a valid address." defaultValue="alex@"/>
+</Card>
+```
+
+Only the message text follows the surface. The control keeps its danger border, ring and alert icon, so the error is still marked where it happened — the pinned danger red is tuned for a light page and loses contrast on a dark one.
 
 ## Bringing your own id
 
