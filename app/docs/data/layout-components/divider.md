@@ -97,15 +97,21 @@ Dividers use `inheritAppearance` by default. Pass an explicit appearance for a c
 
 ## Variants
 
-`filled` swaps the outline appearance for a solid bar in the same color.
+`filled` paints the line with a translucent light scrim (`--color-divider-filled`), the same for every appearance, so it reads on a filled surface.
 
 ```tsx demo
-<Col lg>
-  <Divider primary filled />
-  <Divider accent filled />
-  <Divider success filled />
-  <Divider danger filled />
-</Col>
+<Row flexWrap>
+  <Card primary filled>
+    <Text>Above</Text>
+    <Divider filled />
+    <Text>Below</Text>
+  </Card>
+  <Card success filled>
+    <Text>Above</Text>
+    <Divider filled />
+    <Text>Below</Text>
+  </Card>
+</Row>
 ```
 
 ## Vertical divider

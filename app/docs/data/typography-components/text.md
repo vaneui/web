@@ -165,12 +165,12 @@ Use `truncate` for single-line ellipsis, or `lineClamp2`/`lineClamp3`/`lineClamp
 
 ## Word break
 
-Control how long unbreakable strings behave when they would overflow the container. `breakWords` wraps a long word onto the next line (`overflow-wrap: break-word`), `breakAll` breaks between any two characters, `breakKeep` prevents breaks in CJK text, and `breakNormal` resets to the default. This is the opposite of `truncate`: instead of hiding the overflow, the text wraps to fit.
+Control how long unbreakable strings behave when they would overflow the container. `breakWords` wraps a long word onto the next line (`overflow-wrap: break-word`), `breakAll` breaks between any two characters, `breakKeep` prevents breaks in CJK text, and `breakNormal` sets `overflow-wrap: normal` so the string overflows. By default Text already wraps long strings (`overflow-wrap: anywhere`). This is the opposite of `truncate`: instead of hiding the overflow, the text wraps to fit.
 
 ```tsx demo
 <Col>
-  <Text className="w-48 border border-gray-300 p-2">
-    Default: https://vaneui.com/docs/typography-components/text overflows.
+  <Text breakNormal className="w-48 border border-gray-300 p-2">
+    breakNormal: https://vaneui.com/docs/typography-components/text overflows.
   </Text>
   <Text breakWords className="w-48 border border-gray-300 p-2">
     breakWords: https://vaneui.com/docs/typography-components/text wraps.
@@ -189,7 +189,7 @@ Control letter spacing with `trackingTighter`, `trackingTight`, `trackingNormal`
 <Col>
   <Text trackingTighter>Tighter letter spacing</Text>
   <Text trackingTight>Tight letter spacing</Text>
-  <Text trackingNormal>Normal letter spacing (default)</Text>
+  <Text trackingNormal>Normal letter spacing</Text>
   <Text trackingWide>Wide letter spacing</Text>
   <Text trackingWider>Wider letter spacing</Text>
   <Text trackingWidest>Widest letter spacing</Text>

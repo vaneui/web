@@ -30,8 +30,8 @@ A default `<Button>` inside a `<Card filled primary>` renders in its own primary
 
 Two kinds of components emit no `data-appearance`, so they read colors from the nearest ancestor that set them:
 
-- **Inherit mode**: `Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`, `Label`, `List`, `ListItem`, and `Divider` default to `appearance="inheritAppearance"`. This is how a `<Text>` inside a `<Card filled primary>` gets white text with no props.
-- **Icon**: has no appearance default at all, so it inherits `currentColor` from its surroundings.
+- **Inherit mode**: `Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`, `Label`, `List`, `Divider`, and `Spinner` default to `inheritAppearance`. This is how a `<Text>` inside a `<Card filled primary>` gets white text with no props.
+- **Icon**: has no appearance default at all, so it inherits `currentColor` from its surroundings. `ListItem` also has no appearance default and inherits its parent List's colors.
 
 ## Explicit props always win
 
@@ -91,7 +91,7 @@ When multiple layout components are nested, each child inherits from its **neare
 
 The data-attribute gate uses one rule:
 
-> **Emit `data-appearance` and `data-variant` for any concrete (non-`inheritAppearance`) appearance.** They are suppressed only in inherit mode (`appearance="inheritAppearance"`, which activates `inheritColor`) or when a component has no appearance at all (Icon).
+> **Emit `data-appearance` and `data-variant` for any concrete (non-`inheritAppearance`) appearance.** They are suppressed only in inherit mode (`inheritAppearance`, which activates `inheritColor`) or when a component has no appearance at all (Icon, ListItem).
 
 This means:
 - `<Button>` → primary → attrs emitted → own primary-outline colors
@@ -102,7 +102,7 @@ This means:
 
 ## Granular inheritance props
 
-By default, the `inheritAppearance` appearance keyword inherits **everything** (color, size, background, and border) from the nearest ancestor. But sometimes you need selective inheritance: a `Link` inside a `Title` should inherit font-size (so the link matches the heading size) but keep its own link-blue color.
+By default, the `inheritAppearance` appearance keyword inherits color, background, and border (but not size) from the nearest ancestor. But sometimes you need selective inheritance: a `Link` inside a `Title` should inherit font-size (so the link matches the heading size) but keep its own link-blue color.
 
 VaneUI provides four independent boolean toggle props for this:
 
@@ -115,7 +115,7 @@ VaneUI provides four independent boolean toggle props for this:
 
 ### How `inheritAppearance` expands
 
-When a component has `inheritAppearance` appearance (the default for Text, Title, SectionTitle, PageTitle, Blockquote, Label, List, ListItem, and Divider), VaneUI expands it into color, background, and border inheritance, but **not size**:
+When a component has `inheritAppearance` appearance (the default for Text, Title, SectionTitle, PageTitle, Blockquote, Label, List, Divider, and Spinner), VaneUI expands it into color, background, and border inheritance, but **not size**:
 
 ```
 <Text inheritAppearance>
@@ -178,4 +178,4 @@ The Link renders at its default `md` size while the Title is `lg`. For Code/Kbd,
 
 ### Responsive overrides `inheritSize`
 
-Title, PageTitle, and SectionTitle have `responsiveSizing: true` in their defaults. Responsive sizing takes priority over `inheritSize`: a responsive heading always uses its viewport-scaled size, even if `inheritSize` is set via the `inheritAppearance` expansion.
+Title, PageTitle, and SectionTitle have `responsiveSizing: true` in their defaults. Responsive sizing takes priority over `inheritSize`: a responsive heading always uses its viewport-scaled size, even if `inheritSize` is set.

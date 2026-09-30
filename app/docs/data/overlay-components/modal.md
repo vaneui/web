@@ -33,7 +33,7 @@ return (
 
 ## Compound Modal
 
-Use `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton` for full control over layout. When any of these are direct children, Modal renders them as-is without auto-wrapping. Each sub-component carries its own layout defaults:
+Use `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton` for full control over layout. When a `ModalHeader`, `ModalBody`, or `ModalFooter` is a direct child, Modal renders the children as-is without auto-wrapping. Each sub-component carries its own layout defaults:
 
 - `ModalHeader`: `flex row`, `itemsCenter`, `justifyBetween`, `gap`, `padding`
 - `ModalBody`: `flex column`, `gap`, `padding`, `overflowAuto`
@@ -151,7 +151,7 @@ return (
         <Input ref={nameRef} placeholder="Enter your name" />
         <Label>Email</Label>
         <Input type="email" placeholder="you@example.com" />
-        <Checkbox>Send me email updates</Checkbox>
+        <Label row><Checkbox />Send me email updates</Label>
       </Stack>
     </Modal>
   </>
@@ -192,14 +192,14 @@ return (
 
 ## Sizes
 
-Size props control modal content width via the `--fs-unit` / `--py-unit` / `--br-unit` chain. Font-size, padding, gap, and border-radius all scale together.
+Size props control modal content width via `--modal-width`. Padding, gap, and border-radius scale with it.
 
 ```tsx demo
 const [size, setSize] = useState('');
 const close = () => setSize('');
 const body = (
   <ModalBody>
-    <Text>Font-size, padding, gap and border-radius all scale together.</Text>
+    <Text>Width, padding, gap and border-radius all scale together.</Text>
   </ModalBody>
 );
 

@@ -7,7 +7,7 @@ VaneUI uses a theme system based on `ComponentTheme` classes that define styling
 Each component has a `ComponentTheme` instance that defines:
 - **tag**: Default HTML element (e.g., "button", "div")
 - **base**: Base CSS classes always applied
-- **themes**: Tree of `BaseTheme` subclasses that generate CSS classes
+- **themes**: Tree of `BaseClassMapper` subclasses that generate CSS classes
 - **defaults**: Default prop values
 - **categories**: Which prop categories the component uses
 
@@ -26,20 +26,20 @@ const buttonTheme = new ComponentTheme(
 );
 ```
 
-### BaseTheme subclasses
+### BaseClassMapper subclasses
 
-Each `BaseTheme` subclass generates specific CSS classes based on extracted props:
+Each `BaseClassMapper` subclass generates specific CSS classes based on extracted props:
 
 ```tsx
-// FontSizeTheme returns consumer class for font size
-class FontSizeTheme extends BaseTheme {
+// FontSizeClassMapper returns consumer class for font size
+class FontSizeClassMapper extends BaseClassMapper {
   getClasses(extractedKeys) {
     return ["text-(length:--fs)"];  // Consumes --fs CSS variable
   }
 }
 
-// SimpleConsumerTheme returns classes that consume color variables
-class SimpleConsumerTheme extends BaseTheme {
+// SimpleConsumerClassMapper returns classes that consume color variables
+class SimpleConsumerClassMapper extends BaseClassMapper {
   getClasses(extractedKeys) {
     if (!extractedKeys.appearance) return [];
     return ["bg-(--bg-color)", "text-(--text-color)"];
@@ -58,10 +58,10 @@ function CustomComponent() {
   const theme = useTheme();
 
   // Compound themes are nested by sub-part
-  const buttonMainTheme = theme.button.main;
-  const cardMainTheme = theme.card.main;
+  const buttonMainTheme = theme?.button.main;
+  const cardMainTheme = theme?.card.main;
   // Single-target themes are accessed directly
-  const badgeTheme = theme.badge;
+  const badgeTheme = theme?.badge;
 
   return <div>Custom component</div>;
 }
@@ -72,21 +72,27 @@ function CustomComponent() {
 VaneUI includes themes for all components.
 
 **Interactive:**
-- `iconButton`, `badge`, `icon`, `chip`, `code`, `kbd`, `mark`, `input`, `label`, `img`
+- `iconButton`, `badge`, `icon`, `chip`, `code`, `kbd`, `mark`, `input`, `label`, `img`, `spinner`
+- `inputErrorIcon`, `inputWrapper`, `textarea`, `select`, `selectChevron`, `selectWrapper`, `radioGroup`
 - `button`: compound with `button.main`, `button.spinner`
 - `checkbox`: compound with `checkbox.input`, `checkbox.check`, `checkbox.indeterminate`, `checkbox.wrapper`
+- `radio`: compound with `radio.input`, `radio.dot`, `radio.wrapper`
+- `switch`: compound with `switch.input`, `switch.thumb`, `switch.wrapper`
+- `field`: compound with `field.main`, `field.label`, `field.controlRow`, `field.description`, `field.error`
 
 **Layout:**
-- `divider`, `container`, `row`, `col`, `stack`, `section`
+- `divider`, `container`, `row`, `col`, `stack`, `section`, `alert`
 - `grid2`, `grid3`, `grid4`, `grid5`, `grid6`
 - `card`: compound with `card.main`, `card.header`, `card.body`, `card.footer`
+- `table`: compound with `table.main`, `table.thead`, `table.tbody`, `table.tfoot`, `table.tr`, `table.th`, `table.td`, `table.caption`
 
 **Typography:**
-- `text`, `title`, `pageTitle`, `sectionTitle`, `blockquote`, `link`, `list`, `listItem`
+- `text`, `title`, `pageTitle`, `sectionTitle`, `blockquote`, `blockquoteCite`, `link`, `list`, `listItem`
 
 **Overlay / Floating:**
 - `overlay`: Overlay backdrop theme
 - `popup`: Popup floating element theme
+- `tooltip`: Tooltip floating element theme
 - `modal`: compound with `modal.content`, `modal.overlay`, `modal.header`, `modal.body`, `modal.footer`, `modal.closeButton`
 - `menu`: compound with `menu.item`, `menu.popup`, `menu.divider`, `menu.label`
 - `navLink`: compound with `navLink.root`, `navLink.label`
@@ -155,6 +161,7 @@ A function with direct access to the full theme, for changes the declarative opt
   // Modify defaults
   theme.button.main.defaults = {
     ...theme.button.main.defaults,
+    fontSemibold: false, // clear the built-in weight, or it wins over fontBold
     fontBold: true,
   };
 
@@ -230,7 +237,7 @@ CSS rules in `rules.css` set unit variables per `data-size` and per-component cl
 
 ## Color inheritance
 
-Components with a concrete appearance emit `data-appearance` and `data-variant` and paint their own colors, so a default `<Button>` inside a filled `<Card>` keeps its own primary-outline palette. Inheritance is opt-in: only inherit-mode components (Text, Title, SectionTitle, PageTitle, Blockquote, Label, List, ListItem, and Divider, which default to `appearance="inheritAppearance"`) and appearance-less `Icon` emit nothing and read their colors from the nearest ancestor. The `:root` palette is the fallback those inherit-mode components use when no ancestor sets colors. See [Variant Inheritance](./variant-inheritance) for details.
+Components with a concrete appearance emit `data-appearance` and `data-variant` and paint their own colors, so a default `<Button>` inside a filled `<Card>` keeps its own primary-outline palette. Inheritance is opt-in: only inherit-mode components (Text, Title, SectionTitle, PageTitle, Blockquote, Label, List, Divider, and Spinner, which default to `inheritAppearance`) and appearance-less `Icon` and `ListItem` emit nothing and read their colors from the nearest ancestor. The `:root` palette is the fallback those inherit-mode components use when no ancestor sets colors. See [Variant Inheritance](./variant-inheritance) for details.
 
 ## Style resolution flow
 
@@ -238,7 +245,7 @@ Components with a concrete appearance emit `data-appearance` and `data-variant` 
 2. Button component calls `useTheme()` to get `theme.button.main`
 3. `ThemedComponent` calls `theme.getComponentConfig(props)`
 4. Props merged with defaults, then extracted by category: `{ size: 'lg', appearance: 'danger', variant: 'filled' }`
-5. Theme tree is walked, each `BaseTheme.getClasses()` returns CSS classes
+5. Theme tree is walked, each `BaseClassMapper.getClasses()` returns CSS classes
 6. Classes are merged with `twMerge()`, data attributes are added (because `danger` is a concrete, non-`inheritAppearance` appearance)
 7. Final render: `<button class="..." data-vane-type="ui" data-size="lg" data-appearance="danger" data-variant="filled">`
 8. CSS rules in `rules.css` set unit variables and the appearance/variant palette

@@ -120,9 +120,9 @@ SectionTitle is left-aligned by default. Use `textCenter`, `textRight`, or `text
 
 ```tsx demo
 <Col>
-  <SectionTitle>Left Aligned (default)</SectionTitle>
-  <SectionTitle textCenter>Center Aligned</SectionTitle>
-  <SectionTitle textRight>Right Aligned</SectionTitle>
+  <SectionTitle wFull>Left Aligned (default)</SectionTitle>
+  <SectionTitle wFull textCenter>Center Aligned</SectionTitle>
+  <SectionTitle wFull textRight>Right Aligned</SectionTitle>
 </Col>
 ```
 

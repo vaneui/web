@@ -53,7 +53,7 @@ State-specific overrides work too. Each state variant is resolved independently:
 <Button className="hover:bg-blue-700">Custom hover</Button>
 
 // Override focus ring
-<Input className="focus-visible:outline-purple-500">Custom focus</Input>
+<Input className="focus-visible:outline-purple-500" placeholder="Custom focus" />
 
 // Override active state
 <Button className="active:bg-blue-900">Custom active</Button>

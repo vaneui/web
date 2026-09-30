@@ -330,7 +330,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'tooltip',
         name: 'Tooltip',
-        description: 'Tooltip labels its trigger with a short hint on hover and on keyboard focus, describing the trigger rather than advertising a disclosure.',
+        description: 'Tooltip describes its trigger with a short hint on hover and on keyboard focus, describing the trigger rather than advertising a disclosure.',
         componentKey: "tooltip",
       },
     ]

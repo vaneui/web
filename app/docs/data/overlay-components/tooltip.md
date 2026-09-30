@@ -7,7 +7,7 @@ since: 1.1.0
 
 ## Basic usage
 
-Tooltip labels its trigger with a short hint on hover and on keyboard focus. Pass the trigger as the child and the hint as `content`.
+Tooltip describes its trigger with a short hint on hover and on keyboard focus. Pass the trigger as the child and the hint as `content`.
 
 ```tsx demo
 <Tooltip content="Saves without leaving the page">
@@ -17,7 +17,7 @@ Tooltip labels its trigger with a short hint on hover and on keyboard focus. Pas
 
 The trigger must accept a ref, which every VaneUI component does.
 
-Tooltip's own props are the ones listed under Advanced props below. The size, shape, variant and appearance props in the table further down belong to the frame it renders, so they are set through `popupProps` rather than on `Tooltip` itself.
+Tooltip's own props are `content`, `open`, `defaultOpen`, `onOpenChange`, `openDelay` (default `300`), `closeDelay` (default `100`), `popupProps`, `popupId` and `disabled`. The size, shape, variant and appearance props in the table further down belong to the frame it renders, so they are set through `popupProps` rather than on `Tooltip` itself.
 
 ## Keyboard and pointer
 

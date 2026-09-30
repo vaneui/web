@@ -176,7 +176,7 @@ A field's label, help text and error read off the surface they sit on, so puttin
 </Card>
 ```
 
-Only the message text follows the surface. The control keeps its danger border, ring and alert icon, so the error is still marked where it happened — the pinned danger red is tuned for a light page and loses contrast on a dark one.
+Only the message text follows the surface. The control keeps its danger border, ring and alert icon, so the error is still marked where it happened. The pinned danger red is tuned for a light page and loses contrast on a dark one.
 
 ## Bringing your own id
 

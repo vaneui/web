@@ -1,6 +1,6 @@
 Layout and utility props shared across most VaneUI components. Documented here once instead of on every component page. Per-component pages link here from the "Layout & utility props" disclosure under their props table.
 
-Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inheritAppearance`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except `Button`, `NavLink`, `Label`, and `MenuItem` which default to `sm`. The `ghost` variant renders a transparent background with no border and appearance-colored text, plus a tinted hover background.
+Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inheritAppearance`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except `Button`, `IconButton`, `NavLink`, `Label`, `MenuItem`, `MenuLabel`, and `Tooltip` which default to `sm`. The `ghost` variant renders a transparent background with no border and appearance-colored text, plus a tinted hover background.
 
 ## Hide
 
@@ -223,7 +223,7 @@ Focus-visible outline visibility for keyboard navigation indicators.
 | `focusVisible` | Enable focus-visible outline |
 | `noFocusVisible` | Disable focus-visible outline |
 
-Default on `Link`, `NavLink`, `MenuItem`. Auto-enabled on components that tag-switch to `<a>` via `href` (`Badge`, `Card`, `Chip`, `Code`, `Row`, `Col`, `Stack`).
+Default on `Button`, `IconButton`, `Link`, `NavLink`, `MenuItem`, and the form controls (`Input`, `Textarea`, `Select`, `Checkbox`, `Radio`, `Switch`). Auto-enabled on components that tag-switch to `<a>` via `href` (`Badge`, `Card`, `Chip`, `Code`, `Row`, `Col`, `Stack`).
 
 ## Cursor
 
@@ -259,7 +259,7 @@ Text wrapping and whitespace behavior.
 | `whitespacePre` | Preserve whitespace and line breaks |
 | `whitespacePreWrap` | Preserve whitespace, wrap text |
 | `whitespacePreLine` | Preserve line breaks, collapse spaces, wrap text |
-| `whitespaceBreakSpaces` | Break words to prevent overflow |
+| `whitespaceBreakSpaces` | Preserve whitespace including trailing spaces, wrap text (`white-space: break-spaces`) |
 
 ## Width
 

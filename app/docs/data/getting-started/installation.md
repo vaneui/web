@@ -59,7 +59,7 @@ This setup:
 
 ## ThemeProvider setup
 
-Wrap your application in `ThemeProvider`. It is required: components read their theme from this context, so theming does not resolve without it. Place it once at the root, above every VaneUI component.
+Wrap your application in `ThemeProvider`. Without it, each component falls back to its own built-in default theme, but `themeDefaults`, `extraClasses`, and `themeOverride` only apply inside a provider. Place it once at the root, above every VaneUI component.
 
 ```tsx
 import { ThemeProvider } from '@vaneui/ui';
@@ -98,7 +98,7 @@ For better tree-shaking, you can import components directly:
 ```tsx
 import { Button } from '@vaneui/ui/button';
 import { Card } from '@vaneui/ui/card';
-import { ThemeProvider } from '@vaneui/ui/theme';
+import { useTheme } from '@vaneui/ui/theme';
 ```
 
 This is optional. Importing from `@vaneui/ui` works the same way. Per-component imports can reduce bundle size when using only a few components with bundlers that don't fully tree-shake barrel exports.

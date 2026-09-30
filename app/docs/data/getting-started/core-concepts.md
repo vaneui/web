@@ -21,7 +21,7 @@ Props are organized into **categories**:
 - **layout**: `flex`, `column`, `itemsCenter`, `justifyBetween`, etc.
 - **inheritance**: `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder` (and `noInherit*` toggles)
 
-Text, Title, SectionTitle, PageTitle, Blockquote, Label, List, ListItem, and Divider default to `inheritAppearance`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Link and Mark default to `inheritSize`, so they inherit font-size from their parent while keeping their own appearance color; Code and Kbd achieve the same effect through em-relative geometry.
+Text, Title, SectionTitle, PageTitle, Blockquote, Label, List, Divider, and Spinner default to `inheritAppearance`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Link and Mark default to `inheritSize`, so they inherit font-size from their parent while keeping their own appearance color; Code and Kbd achieve the same effect through em-relative geometry.
 
 ## Three-layer component architecture
 
@@ -31,7 +31,7 @@ VaneUI components follow a three-layer architecture:
 Each component gets its theme from `ThemeContext` via `useTheme()` and passes props to `ThemedComponent`, which computes the final CSS classes.
 
 ### Layer 2: theme system
-The `ComponentTheme` class orchestrates class generation. It walks a tree of `BaseTheme` subclasses (like `FontSizeTheme`, `RadiusTheme`) that each generate specific CSS classes based on the active props.
+The `ComponentTheme` class orchestrates class generation. It walks a tree of `BaseClassMapper` subclasses (like `FontSizeClassMapper`, `RadiusClassMapper`) that each generate specific CSS classes based on the active props.
 
 ### Layer 3: CSS variables
 Components output **data attributes** (`data-size`, `data-appearance`, `data-variant`) that CSS rules in `rules.css` use to set CSS variables. These variables are then consumed by Tailwind utility classes.

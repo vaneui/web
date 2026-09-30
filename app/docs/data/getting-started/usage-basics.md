@@ -24,7 +24,7 @@ function SizeExample() {
 }
 ```
 
-> Most components default to `md`. Button, NavLink, MenuItem, and Label default to `sm`.
+> Most components default to `md`. Button, IconButton, NavLink, MenuItem, MenuLabel, Label, and Tooltip default to `sm`.
 
 ### Appearance props
 
@@ -162,9 +162,9 @@ function ResponsiveLayout() {
 ```
 
 Available breakpoint props:
-- `mobileStack`: Column on mobile and below (max-width: 48rem)
-- `tabletStack`: Column on tablet and below (max-width: 64rem)
-- `desktopStack`: Column on desktop and below (max-width: 80rem)
+- `mobileStack`: Column on mobile and below (below 48rem)
+- `tabletStack`: Column on tablet and below (below 64rem)
+- `desktopStack`: Column on desktop and below (below 80rem)
 
 ## Typography
 
@@ -362,9 +362,9 @@ function ResponsiveVisibility() {
   return (
     <Stack>
       <Text>Always visible</Text>
-      <Text mobileHide>Hidden on mobile (48rem and below)</Text>
-      <Text tabletHide>Hidden on tablet (64rem and below)</Text>
-      <Text desktopHide>Hidden on desktop (80rem and below)</Text>
+      <Text mobileHide>Hidden on mobile (below 48rem)</Text>
+      <Text tabletHide>Hidden on tablet (below 64rem)</Text>
+      <Text desktopHide>Hidden on desktop (below 80rem)</Text>
     </Stack>
   );
 }

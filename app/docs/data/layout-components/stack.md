@@ -287,7 +287,7 @@ Use `mobileStack` or `tabletStack` on a horizontal Stack to switch back to a col
 
 ## As a form container
 
-Stack's built-in padding makes it a natural container for a form: each `Label` becomes a row with its input, and the Stack provides the vertical rhythm and outer breathing room without any extra wrapper.
+Stack's built-in padding makes it a natural container for a form: each `Label` stacks its text above its input, and the Stack provides the vertical rhythm and outer breathing room without any extra wrapper.
 
 ```tsx demo
 <Stack border rounded className="max-w-sm">

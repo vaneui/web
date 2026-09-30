@@ -51,7 +51,7 @@ function App() {
 }
 ```
 
-Most components take props directly. **Components with sub-themes** (`button`, `card`, `checkbox`, `modal`, `menu`, `navLink`) are nested by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.). For example, `Checkbox` keeps its box props under `input`: `themeDefaults={{ checkbox: { input: { lg: true, success: true } } }}` makes every checkbox large and green.
+Most components take props directly. **Components with sub-themes** (`button`, `card`, `checkbox`, `field`, `radio`, `switch`, `modal`, `menu`, `navLink`, `table`) are nested by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.). For example, `Checkbox` keeps its box props under `input`: `themeDefaults={{ checkbox: { input: { lg: true, success: true } } }}` makes every checkbox large and green.
 
 ## ThemeProvider props
 
@@ -103,6 +103,7 @@ A function with direct access to the full theme, for changes the declarative opt
   // Modify default props
   theme.button.main.defaults = {
     ...theme.button.main.defaults,
+    fontSemibold: false, // clear the built-in weight, or it wins over fontBold
     fontBold: true,
   };
 
@@ -174,8 +175,8 @@ function CustomComponent() {
   const theme = useTheme();
 
   // Compound themes are nested by sub-part
-  const buttonTheme = theme.button.main;
-  const cardTheme = theme.card.main;
+  const buttonTheme = theme?.button.main;
+  const cardTheme = theme?.card.main;
 
   return <div>Custom component</div>;
 }

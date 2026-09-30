@@ -93,7 +93,7 @@ For complete documentation of every page in a single document, see
 - [Modal](https://vaneui.com/docs/overlay-components/modal): Modal is an accessible dialog with focus trapping, scroll lock, and keyboard navigation. Renders its portal backdrop with role="dialog" and aria-modal="true".
 - [Popup](https://vaneui.com/docs/overlay-components/popup): A floating element anchored to a trigger element using CSS Anchor Positioning. Supports 12 placement options, width matching, and click-outside dismissal.
 - [Menu](https://vaneui.com/docs/overlay-components/menu): A dropdown menu triggered by a button with full keyboard navigation. Contains MenuItem, Divider, and MenuLabel subcomponents.
-- [Tooltip](https://vaneui.com/docs/overlay-components/tooltip): Tooltip labels its trigger with a short hint on hover and on keyboard focus, describing the trigger rather than advertising a disclosure.
+- [Tooltip](https://vaneui.com/docs/overlay-components/tooltip): Tooltip describes its trigger with a short hint on hover and on keyboard focus, describing the trigger rather than advertising a disclosure.
 
 ### Customization
 - [Theming Overview](https://vaneui.com/docs/customization/theming-overview): Understand VaneUI's theming system and design token architecture.

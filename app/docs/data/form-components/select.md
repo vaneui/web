@@ -23,7 +23,7 @@ The native arrow is replaced with a themed chevron that scales with the size pro
 
 Historically a native `<select>` hands its option list to the operating system, which draws a flat, square, unpadded menu that no page CSS can reach. Only the option's text and background colour land, because the options get no layout box at all.
 
-On engines that support `appearance: base-select` the list becomes real DOM instead, and VaneUI styles it to match a `Menu`: themed surface, border, radius, shadow, padded rows, a hover state, and a checkmark on the selected option. Everywhere else the OS picker still appears, with `option` and `optgroup` pinned to the theme's surface and text tokens so the list at least stays on your palette in both light and dark mode.
+On engines that support `appearance: base-select` the list becomes real DOM instead, and VaneUI styles it to match a `Menu`: themed surface, border, radius, shadow, padded rows, a hover state, and a checkmark on the selected option. Everywhere else the OS picker still appears, with `option` and `optgroup` carrying the field's surface and text colours so the list at least stays on your palette in both light and dark mode.
 
 The list opens below the field and flips above it only when it genuinely does not fit. Browsers default to whichever side has more room, which sends the list upward for any field past the middle of the window even when there is space below it.
 

@@ -64,7 +64,7 @@ Pick the component for the number of columns you need, from `Grid2` to `Grid6`. 
 
 ## Responsive columns
 
-Each grid reduces its column count on smaller screens so cells never get too narrow. The breakpoints are tablet (≤1024px) and mobile (≤768px). Resize the window to see the reflow.
+Each grid reduces its column count on smaller screens so cells never get too narrow. The breakpoints are tablet (below 1024px) and mobile (below 768px). Resize the window to see the reflow.
 
 | Component | Desktop | Tablet | Mobile |
 |-----------|---------|--------|--------|

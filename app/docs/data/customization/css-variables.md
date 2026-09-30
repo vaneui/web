@@ -64,7 +64,7 @@ Replace `{appearance}` in variable names with one of:
 - `info` - informational (cyan)
 - `inheritAppearance` - inherits from parent element
 
-> The `inheritAppearance` appearance works differently from all other appearances. Instead of setting `data-appearance` and `data-variant` attributes, it omits them entirely. This allows the semantic color CSS variables (`--text-color`, `--bg-color`, `--border-color`) to cascade from parent elements rather than being set explicitly on the component. Text, Title, SectionTitle, PageTitle, Blockquote, Label, List, ListItem, and Divider default to `inheritAppearance`.
+> The `inheritAppearance` appearance works differently from all other appearances. Instead of setting `data-appearance` and `data-variant` attributes, it omits them entirely. This allows the semantic color CSS variables (`--text-color`, `--bg-color`, `--border-color`) to cascade from parent elements rather than being set explicitly on the component. Text, Title, SectionTitle, PageTitle, Blockquote, Label, List, Divider, and Spinner default to `inheritAppearance`.
 
 ## Color variable groups
 
@@ -82,7 +82,7 @@ Replace `{appearance}` in variable names with one of:
 
 ### Border colors
 - `--color-border-{appearance}` - border color for outline variant
-- `--color-border-form` - border color for unchecked `Checkbox` controls. One step darker than the layout border (`gray-300` vs `gray-200`) so controls stay distinct on light surfaces. Kept off the appearance system, so secondary or tertiary `Card`, `Button`, and `Chip` keep their lighter border.
+- `--color-border-form` - border color for unchecked `Checkbox`, `Radio`, and `Switch` controls. One step darker than the layout border (`gray-300` vs `gray-200`) so controls stay distinct on light surfaces. Kept off the appearance system, so secondary or tertiary `Card`, `Button`, and `Chip` keep their lighter border.
 
 ### Focus ring colors
 - `--color-focus-{appearance}` - focus-visible outline color (used by all variants)

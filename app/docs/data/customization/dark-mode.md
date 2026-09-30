@@ -1,8 +1,8 @@
-`data-theme="dark"` is the official dark-mode extension point. The shipped CSS re-declares every color token under it, so switching to dark mode needs no component code changes.
+`data-theme="dark"` is the official dark-mode extension point. The shipped CSS re-declares the color tokens that change under it, so switching to dark mode needs no component code changes.
 
 ## The dark-mode token block
 
-VaneUI ships a `[data-theme="dark"]` block that re-declares every `--color-*` token with its dark value. Because the tokens are CSS custom properties, any element under a `data-theme="dark"` ancestor reads the dark values through the cascade. You opt in by setting the attribute; you never restyle components.
+VaneUI ships a `[data-theme="dark"]` block that re-declares the `--color-*` tokens that need a dark value; the rest (mostly filled-variant tokens) keep their light value. Because the tokens are CSS custom properties, any element under a `data-theme="dark"` ancestor reads the dark values through the cascade. You opt in by setting the attribute; you never restyle components.
 
 ## Whole-page dark mode
 

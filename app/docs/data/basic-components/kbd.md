@@ -54,7 +54,7 @@ Different color appearances for keyboard keys.
 
 ```tsx demo
 <Row flexWrap>
-  <Kbd>Ctrl</Kbd>
+  <Kbd primary>Ctrl</Kbd>
   <Kbd accent>Alt</Kbd>
   <Kbd secondary>Tab</Kbd>
   <Kbd tertiary>Esc</Kbd>

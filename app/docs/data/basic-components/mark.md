@@ -59,7 +59,7 @@ Mark supports `outline` (default) and `filled` variants.
 
 ```tsx demo
 <Text>
-  A <Mark>rounded</Mark> default, a <Mark sharp>sharp</Mark> highlight, and a <Mark pill>pill</Mark> one.
+  A <Mark>sharp</Mark> default, a <Mark rounded>rounded</Mark> highlight, and a <Mark pill>pill</Mark> one.
 </Text>
 ```
 

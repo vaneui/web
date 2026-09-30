@@ -71,7 +71,7 @@ Lists use `inheritAppearance` appearance by default: they inherit color from the
 
 ## Variants
 
-List is `outline` and transparent by default, so an appearance colours the text and the list paints nothing behind it. List is the one typography component that still wires a background mapper, so clearing `transparent` lets `filled` paint the appearance's surface behind the whole list. Left alone, `filled` only switches the text to the "on this fill" colour, for a list sitting on a filled surface of the same appearance.
+List is `outline` and transparent by default, so an appearance colours the text and the list paints nothing behind it. List (like `ListItem`) is a typography component that still wires a background mapper, so clearing `transparent` lets `filled` paint the appearance's surface behind the whole list. Left alone, `filled` only switches the text to the "on this fill" colour, for a list sitting on a filled surface of the same appearance.
 
 ```tsx demo
 <Col>

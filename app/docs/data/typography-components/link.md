@@ -31,7 +31,7 @@ Links render their blue link color by default. Set an explicit appearance to ove
 
 ## Variants
 
-Link renders its own link colour rather than an appearance by default. `filled` puts the appearance's surface behind it, which is how you build a link that reads as a chip.
+Link renders its own link colour rather than an appearance by default. Like all typography, Link is background-less: `filled` paints no surface behind it, and with an explicit appearance the text colour matches `outline`.
 
 ```tsx demo
 <Row flexWrap itemsCenter>
