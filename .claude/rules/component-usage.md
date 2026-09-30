@@ -77,7 +77,7 @@ import Link from 'next/link';
 | On-this-page link | `NavLink` with `active` prop | `OnThisPage.tsx` |
 | Page layout | `Section` > `Container` > content | Landing sections |
 | Doc section header | `SectionTitle` | Doc pages |
-| Code example | `CodeBlock` (custom) | `DocsPageContent.tsx` |
+| Code example | `CodeBlock` (custom) | `DocsMarkdown.tsx` |
 
 ## Quick Defaults Reminder
 

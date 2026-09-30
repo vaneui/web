@@ -41,12 +41,12 @@ These files are the source of truth. Quote them when justifying an edit.
 5. **Technical accuracy hooks**
    - Flag every prop/component/hook name not matching an exported identifier (case-sensitive)
    - Flag every code block that imports something not in `package.json`
-   - Flag every prop default mismatch with `defaults.md`-style sources
+   - Flag every prop default mismatch with `C:\GitHub\vaneui\src\components\ui\<component>\*Defaults.ts`
 
 ## What you do NOT change
 
 - Code examples (`docs-writer` and `build-checker` own those)
-- `DocsPagePart` structure in `.tsx` files (only edit `md` strings, not `component` JSX)
+- `tsx demo` fence bodies in `.md` files (only edit the prose around them, not the JSX)
 - Frontmatter in `.md` files (titles handled separately)
 - Anything in `app/docs/data/getting-started/*.md` opening lines if they contain the only authorial-voice "we" allowed in the docs
 

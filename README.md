@@ -4,14 +4,14 @@ This is the documentation website for VaneUI, built with Next.js.
 
 ## Requirements
 
-- Node.js v22 or higher
-- npm v10 or higher (comes with Node.js v22)
+- Node.js 24.x
+- npm v10 or higher (Node.js 24 comes with npm 11)
 
 ## Getting Started
 
-1. Make sure you have Node.js v22 installed. If you use nvm, run:
+1. Make sure you have Node.js 24 installed. If you use nvm, run:
    ```
-   nvm use
+   nvm use 24
    ```
 
 2. Install dependencies:

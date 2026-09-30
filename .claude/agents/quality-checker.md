@@ -67,7 +67,7 @@ If any check fails, list specific issues so the writer / editor knows what to fi
 ### 5. Symbol names (case-sensitive identifier check)
 - Every backtick-wrapped reference to a VaneUI export must match the export exactly:
   - Component names: `Button`, `ThemeProvider`, `Card` (not `button`, `themeProvider`, `card`)
-  - Hooks: `useTheme`, `useThemeContext`
+  - Hooks: `useTheme`
   - Prop names: `appearance`, `flexWrap`, `noGap`, `itemsCenter` (camelCase, not snake or kebab)
   - CSS variables: `--fs-unit`, `--bg-color`, `--color-text-primary`
 - Use `Grep` against `C:\GitHub\vaneui\src\index.ts` exports to verify component/hook names

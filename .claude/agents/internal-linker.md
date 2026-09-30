@@ -11,7 +11,7 @@ You suggest and apply internal links between VaneUI docs pages so readers can fo
 
 Two types live in `app/docs/data/`:
 1. Markdown guides — `.md` files (getting-started, customization)
-2. Component example pages — `.tsx` files exporting `DocsPagePart[]`; the linkable prose is the `md` field of each part
+2. Component example pages — `.md` files with frontmatter and `tsx demo` fences; the linkable prose is the text outside the fences
 
 The canonical list of pages and slugs is `app/docs/docsMetadata.ts` (sections × pages). URLs are `/docs/{section.slug}/{page.slug}`.
 
@@ -23,7 +23,7 @@ The canonical list of pages and slugs is `app/docs/docsMetadata.ts` (sections ×
 - **Match the reader journey.** Link forward to the natural follow-up doc, sideways to related concepts, backward to prerequisites.
 - **No duplicate links to the same page** within one docs page.
 - **Place the link in prose where a reader would naturally want more detail**, not in a "Related" footer block.
-- **Internal links use site-relative paths** (`/docs/customization/theme-provider`), never absolute URLs.
+- **Internal links use site-relative paths** (`/docs/customization/using-theme-provider`), never absolute URLs.
 
 ## Link types to consider
 
@@ -68,5 +68,5 @@ When the page you're editing is new or central (a heavily referenced concept), a
 
 - Add links to external sites (use `seo-optimizer` for external citations).
 - Reorganize sections to fit links — links accommodate the existing structure, not the reverse.
-- Touch the `component` JSX in DocsPagePart entries; only the `md` field is yours.
+- Touch the JSX inside `tsx demo` fences; only the prose around them is yours.
 - Add a "Related pages" or "See also" section at the bottom — links live inline in prose where context warrants them.

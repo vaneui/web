@@ -13,59 +13,56 @@ This is a Next.js App Router site. Documentation lives in `app/docs/`. The site 
 
 ## Documentation Structure
 
-All docs are configured in `app/docs/docsSections.ts`. There are two types:
+All docs are configured in `app/docs/docsMetadata.ts` (`docsSections.ts` derives from it). There are two types:
 
 ### 1. Component Example Pages
 
-Files in `app/docs/data/{category}/{component}.tsx`.
+Files in `app/docs/data/{category}/{component}.md`.
 
-Each file exports a `DocsPagePart[]` array. Each part has:
-- `title`: Section heading (string)
-- `md`: Brief markdown description (string, supports backtick code)
-- `component`: Live JSX demo (React element)
+Each file has frontmatter, then one `##` section per example. Each section has:
+- `## Heading`: Section heading
+- A brief markdown description (supports backtick code)
+- A `tsx demo` fence: live JSX demo
 
-The JSX in `component` is automatically converted to source code for display using `react-element-to-jsx-string`. Props documentation is auto-generated from `@vaneui/ui` exports.
+`scripts/build-examples.mjs` turns each `tsx demo` fence into a live preview, and `npm run check:examples` type-checks it. Props documentation is auto-generated from `@vaneui/ui` exports.
 
-Example pattern (follow this exactly):
+Example pattern (from `app/docs/data/basic-components/badge.md`):
 
-```tsx
-'use client'
+````md
+---
+componentKey: badge
+importPath: 'import { Badge } from "@vaneui/ui"'
+sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/badge/Badge.tsx
+since: 0.9.0
+---
 
-import { Badge, Row, Col, ComponentKeys } from "@vaneui/ui";
-import React from "react";
-import { DocsPagePart } from "../../types";
+## Basic usage
 
-export const badgeExamples: DocsPagePart[] = [
-  {
-    title: 'Basic Usage',
-    md: 'Badge styles and variants.',
-    component: (
-      <Row flexWrap>
-        {ComponentKeys.appearance.map((key) => (
-          <Badge key={key} {...{[key]: true}}>{key}</Badge>
-        ))}
-      </Row>
-    ),
-  },
-  {
-    title: 'Badge Sizes',
-    md: 'Badges come in different sizes such as `xs`, `sm`, `md`, `lg`, `xl`.',
-    component: (
-      <Row flexWrap>
-        {ComponentKeys.size.map((key) => (
-          <Badge key={key} {...{[key]: true}}>{key}</Badge>
-        ))}
-      </Row>
-    ),
-  },
-];
+Badge highlights a short piece of information such as a count or status.
+
+```tsx demo
+<Row flexWrap>
+  <Badge primary>primary</Badge>
+  <Badge success>success</Badge>
+</Row>
 ```
 
-After creating the file, register it in `docsSections.ts`:
-- Import the examples array
-- Add an entry with `slug`, `name`, `description`, `parts`, and `componentKey`
+## Sizes
 
-Categories in docsSections.ts: `basic-components`, `layout-components`, `typography-components`, `customization`
+Badges come in different sizes such as `xs`, `sm`, `md` (default), `lg`, `xl`.
+
+```tsx demo
+<Row flexWrap>
+  <Badge xs>xs</Badge>
+  <Badge xl>xl</Badge>
+</Row>
+```
+````
+
+After creating the file, register it in `docsMetadata.ts`:
+- Add an entry with `slug`, `name`, `description`, and `componentKey`
+
+Categories in docsMetadata.ts: `getting-started`, `basic-components`, `form-components`, `typography-components`, `layout-components`, `overlay-components`, `customization`, `reference`
 
 ### 2. Markdown Guide Pages
 
@@ -73,7 +70,7 @@ Files in `app/docs/data/{category}/{slug}.md`. Plain markdown rendered by `@vane
 
 Supports: headings, code blocks (with language), blockquotes (rendered as Cards), lists, inline code, links, bold, italic.
 
-Register in `docsSections.ts` with `mdPath` and `parts: []`.
+Register in `docsMetadata.ts` with `mdPath`.
 
 ## VaneUI Component Usage Rules
 
@@ -81,15 +78,15 @@ When writing example JSX that demonstrates VaneUI components:
 
 - Use boolean props: `<Button primary lg filled>` not string props
 - Use `ComponentKeys` arrays for dynamic rendering: `ComponentKeys.appearance`, `ComponentKeys.size`, `ComponentKeys.shape`, `ComponentKeys.variant`, `ComponentKeys.fontWeight`
-- Don't specify default props (e.g., Button already defaults to `primary`, `outline`, `md`, `rounded`)
+- Don't specify default props (e.g., Button already defaults to `primary`, `outline`, `sm`, `rounded`)
 - Layout components for arranging examples: `Row flexWrap` for horizontal, `Col` for vertical
-- Keep examples focused — one concept per DocsPagePart
+- Keep examples focused — one concept per `tsx demo` fence
 - Use descriptive titles that match the prop/feature being demonstrated
-- Keep `md` descriptions brief (1-2 sentences), use backticks for prop names
+- Keep section descriptions brief (1-2 sentences), use backticks for prop names
 
 ## Output format
 - Full markdown content ready for use
-- Frontmatter with metadata (title, platform, tags, word count) where applicable
+- Frontmatter with metadata (componentKey, importPath, sourceUrl, since) on component pages
 - Notes or alternatives at the end, not inline
 
 ## Effort scaling
@@ -99,8 +96,8 @@ When writing example JSX that demonstrates VaneUI components:
 
 ## Checklist Before Finishing
 
-1. File has `'use client'` at the top
-2. Imports include `DocsPagePart` from `"../../types"`
+1. File starts with frontmatter that includes `componentKey`
+2. Examples are in `tsx demo` fences and pass `npm run check:examples`
 3. Examples use VaneUI components correctly (boolean props, proper defaults)
-4. Entry added to `docsSections.ts` with all required fields
+4. Entry added to `docsMetadata.ts` with all required fields
 5. `componentKey` matches the key in `@vaneui/ui`'s component system

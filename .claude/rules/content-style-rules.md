@@ -39,7 +39,7 @@ Examples:
 - Change capitalization only — do not rewrite text, add/remove words, alter meaning or punctuation unless required for consistency.
 - Preserve technical strings exactly as written when they appear: code spans in backticks, prop names, CSS variable names, file names, URLs, package names. Examples: `` `<Button primary>` ``, `` `--fs-unit` ``, `` `@vaneui/ui` ``, `` `themeWrapper.tsx` ``.
 - Hyphenated words: title case capitalizes major parts ("End-to-End Testing"); sentence case follows normal rules ("End-to-end testing with Playwright").
-- Use straight quotes `"..."` not curly `"..."`.
+- Use straight quotes `"..."` not curly `“...”`.
 
 ---
 

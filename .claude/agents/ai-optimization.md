@@ -13,7 +13,7 @@ Use the SOAR framework: **S**tructure, **O**riginality, **A**uthority, **R**ecen
 
 - `/llms.txt` enumerates sections with descriptions
 - `/llms-full.txt` inlines full markdown for every page (9000+ lines, no stub entries)
-- `<link rel="alternate" type="text/plain" href="/llms.txt">` in `<head>`
+- `<link rel="alternate" type="text/plain" href="/llms.txt">` in the homepage `<head>` (`app/page.tsx`)
 - Sitemap auto-derived, canonical URLs per page, OG and Twitter cards
 - `<title>` follows `Page - Category - VaneUI` format
 
@@ -49,7 +49,7 @@ Use the SOAR framework: **S**tructure, **O**riginality, **A**uthority, **R**ecen
 
 - **Reference current API only.** No examples of deprecated props (`responsive`, etc.) unless explicitly marked deprecated.
 - **Version-sensitive notes call out the version.** "Available in `@vaneui/ui >= 0.9.0`" when behavior is new.
-- **`docsMetadata.ts` updates trigger sitemap `lastModified`** (already automatic via `next` sitemap route — verify the deployed sitemap shows recent dates).
+- **Sitemap `lastModified` is each page's last git commit date** (`app/sitemap.ts` via `lastGitDate` — verify the deployed sitemap shows recent dates).
 
 ## Output contract
 

@@ -17,11 +17,11 @@ npm run screenshot   # Take full-page + section screenshots to screenshots/
 npm run screenshot:clean  # Delete screenshots
 ```
 
-Requires Node.js >= 22. Screenshots require Playwright browsers (`npx playwright install chromium`).
+Requires Node.js 24.x. Screenshots require Playwright browsers (`npx playwright install chromium`).
 
 ## Stack
 
-- Next.js 16 (App Router, Turbopack), React 19, TypeScript 5.8
+- Next.js 16 (App Router, Turbopack), React 19, TypeScript 5.9
 - Tailwind CSS v4 with `@vaneui/ui/vars` CSS variables
 - `@vaneui/ui` — component library (source code at `C:\GitHub\vaneui`, see its CLAUDE.md for full API reference)
 - `@vaneui/md` — markdown renderer using Markdoc, renders into VaneUI components
@@ -43,30 +43,33 @@ app/
   components/             # Shared components
     Header.tsx, Footer.tsx, Logo.tsx, FeatureTitle.tsx
     CodeBlock.tsx          # Syntax highlighting with prism-react-renderer
-    VerticalCarousel.tsx
     themes/               # Prism color themes (dark/light)
 
   docs/                   # Documentation section
     layout.tsx            # Docs layout (sidebar nav + content area)
-    page.tsx              # Docs index redirect
-    docsSections.ts       # Central docs structure config (categories + pages)
-    types.ts              # DocsSection, DocsPage, DocsPagePart interfaces
-    DocsPageContent.tsx   # Renders component examples + auto-generated props docs
+    page.tsx              # Docs index (renders DocsIndex.tsx)
+    docsMetadata.ts       # Central docs structure config (categories + pages)
+    docsSections.ts       # Derived from docsMetadata.ts
+    types.ts              # DocsSection, DocsPage, DocsPageProps, DocPageFrontmatter interfaces
+    DocsPageContent.tsx   # Renders page header, markdown body + auto-generated props table
     DocsMarkdown.tsx      # Renders markdown via @vaneui/md with custom components
     DocsNav.tsx           # Sidebar navigation
     OnThisPage.tsx        # Right-side table of contents
     [category]/[slug]/page.tsx  # Dynamic route for each docs page
 
     data/                 # Documentation content
-      basic-components/   # Component example files (button.tsx, badge.tsx, etc.)
-      layout-components/  # Layout example files (card.tsx, row.tsx, etc.)
-      typography-components/  # Typography example files (text.tsx, title.tsx, etc.)
+      basic-components/   # Component pages (button.md, badge.md, etc.)
+      form-components/    # Form component pages (input.md, field.md, etc.)
+      layout-components/  # Layout component pages (card.md, row.md, etc.)
+      overlay-components/ # Overlay component pages (modal.md, popup.md, etc.)
+      typography-components/  # Typography component pages (text.md, title.md, etc.)
       getting-started/    # Markdown guides (installation.md, core-concepts.md, etc.)
       customization/      # Markdown guides (theming-overview.md, css-variables.md, etc.)
+      reference/          # common-props.md
 
   landing/                # Landing page sections
     HeroSection.tsx, AboutSection.tsx, LiveSection.tsx
-    BasicComponentsSection.tsx, TypographyComponentsSection.tsx
+    ComponentShowcaseSection.tsx, StackSection.tsx, GetStartedSection.tsx
     ThemeCustomizationSection.tsx
     data/                 # Theme demo data (balanced.ts, playful.ts, strict.ts)
     utils/                # Typing animation logic
@@ -79,27 +82,27 @@ app/
 
 ### Documentation Pages
 
-Two types of docs pages, configured in `docsSections.ts`:
+Two types of docs pages, configured in `docsMetadata.ts`:
 
-1. **Component example pages** — have `parts: DocsPagePart[]` with interactive demos
-   - Each `DocsPagePart` has `{ title, md, component }` where `component` is live JSX
-   - The component is auto-converted to source code via `react-element-to-jsx-string`
+1. **Component example pages** — have a `componentKey` and a `.md` file with `tsx demo` fences
+   - `scripts/build-examples.mjs` turns each `demo` fence into a wrapper under `app/docs/.generated/examples/`
+   - `DocsMarkdown.tsx` renders each `demo` fence as a `LivePreview` above its `CodeBlock`
    - Props documentation is auto-generated from `ComponentCategories` and `PropDescriptions` exported by `@vaneui/ui`
 
 2. **Markdown guide pages** — have `mdPath` pointing to a `.md` file
    - Rendered by `DocsMarkdown.tsx` using `@vaneui/md`'s `<Md>` component
-   - Custom renderers: `MdFence` -> `CodeBlock`, `MdHeading` -> `Title` with anchor links, `MdBlockquote` -> `Card`
+   - Custom renderers: `MdFence` -> `CodeBlock` (+ `LivePreview` for `demo` fences), `MdHeading` -> `SectionTitle`/`Title` with anchor links
 
 ### Adding a New Component Example Page
 
-1. Create `app/docs/data/{category}/{component}.tsx`
-2. Export a `DocsPagePart[]` array with examples
-3. Register in `docsSections.ts` with `slug`, `name`, `description`, `parts`, and `componentKey`
+1. Create `app/docs/data/{category}/{component}.md`
+2. Add frontmatter (`componentKey`, `importPath`, `sourceUrl`, `since`) and `tsx demo` fences with examples
+3. Register in `docsMetadata.ts` with `slug`, `name`, `description`, and `componentKey`
 
 ### Adding a New Markdown Guide
 
 1. Create `app/docs/data/{category}/{slug}.md`
-2. Register in `docsSections.ts` with `slug`, `name`, `description`, `mdPath`, and `parts: []`
+2. Register in `docsMetadata.ts` with `slug`, `name`, `description`, and `mdPath`
 
 ### VaneUI Usage in This Site
 
@@ -149,7 +152,7 @@ When a task matches an agent's trigger below, you **MUST** delegate to that agen
 
 | Task Pattern | Agent | Why |
 |-------------|-------|-----|
-| Creating/updating documentation pages (examples + markdown guides) | `docs-writer` | Knows docsSections.ts structure, DocsPagePart patterns, MDX conventions |
+| Creating/updating documentation pages (examples + markdown guides) | `docs-writer` | Knows docsMetadata.ts structure, markdown page and `tsx demo` fence conventions |
 | After any code changes — verify typecheck, lint, build | `build-checker` | Runs full verification pipeline, reports pass/fail |
 | Refining docs prose after docs-writer (flow, tone, style-rules conformance) | `editor` | Applies content-style-rules.md, strips marketing voice, fixes generic headings |
 | Cross-linking related docs pages | `internal-linker` | Suggests + applies 2-5 site-relative links per page based on docsMetadata.ts |

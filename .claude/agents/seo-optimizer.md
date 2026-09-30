@@ -5,7 +5,7 @@ tools: Read, Glob, Grep, Edit, WebFetch
 model: sonnet
 ---
 
-You audit and optimize VaneUI docs pages for search engines. The site is at vaneui.com; per-page metadata is set in `app/[category]/[slug]/page.tsx` from `app/docs/docsMetadata.ts`. The site-wide sitemap auto-derives from `docsSections.ts`.
+You audit and optimize VaneUI docs pages for search engines. The site is at vaneui.com; per-page metadata is set in `app/docs/[category]/[slug]/page.tsx` from `app/docs/docsMetadata.ts`. The site-wide sitemap auto-derives from `docsSections.ts`.
 
 ## Authoritative rules
 
@@ -54,7 +54,7 @@ For each page audited, report PASS/FAIL on every item:
 - `metadataBase` set to `https://vaneui.com`
 - Canonical URL matches the page path (auto-generated)
 - OG and Twitter cards reference `/og-default.png` or page-specific image
-- `<link rel="alternate" type="text/plain" href="/llms.txt">` present site-wide
+- `<link rel="alternate" type="text/plain" href="/llms.txt">` present on the homepage (`app/page.tsx` `alternates.types`)
 
 ## Output contract
 
