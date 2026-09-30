@@ -17,7 +17,7 @@ Select renders a real `<select>`, so keyboard support, screen-reader semantics, 
 </Select>
 ```
 
-The native arrow is replaced with a themed chevron that scales with the size prop. The field reserves room for it, so a long option never runs underneath.
+The native arrow is replaced with a themed chevron that scales with the size prop. The field reserves room for it, so a long option never runs underneath. The selected value stays on one line, and at the same size a Select is as tall as an `Input` or a `Button`. In a `Row`, `noShrink` keeps the Select at its natural width.
 
 ## The dropdown list
 

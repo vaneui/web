@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-A dropdown menu triggered by a button. Pass the trigger as a React element via the `trigger` prop; children are the menu contents. Includes full keyboard navigation (Arrow keys, Enter, Escape, Tab) and focus management with a keyboard-visible outline on each item. Focus returns to the trigger when the menu closes.
+A dropdown menu triggered by a button. Pass the trigger as a React element via the `trigger` prop; children are the menu contents. Includes full keyboard navigation (Arrow keys, Enter, Escape, Tab) and focus management with a keyboard-visible outline on each item. Focus returns to the trigger when the menu closes. Escape closes only the topmost layer: a submenu before its parent menu, and a menu inside a `Modal` before the dialog. Moving the pointer to another item closes a submenu that is open.
 
 ```tsx demo
 <Menu trigger={<Button>Actions</Button>}>

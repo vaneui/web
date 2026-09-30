@@ -87,11 +87,14 @@ The Switch takes its own size prop, which wins over the size inherited from the 
 
 ## States
 
+A `readOnly` switch keeps its value when clicked and dims like a read-only text field; `Checkbox` and `Radio` behave the same way.
+
 ```tsx demo
 <Col>
   <Label row itemsCenter><Switch/> Off</Label>
   <Label row itemsCenter><Switch defaultChecked/> On</Label>
   <Label row itemsCenter><Switch disabled/> Disabled</Label>
   <Label row itemsCenter><Switch disabled defaultChecked/> Disabled and on</Label>
+  <Label row itemsCenter><Switch readOnly defaultChecked/> Read-only</Label>
 </Col>
 ```

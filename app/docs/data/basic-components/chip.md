@@ -116,7 +116,7 @@ The canonical chip pattern: a wrapping row of tokens that label or categorize co
 
 ## Removable chips
 
-Chip is presentational, so wire removal yourself: compose an `IconButton` as the close control and drop the tag from your own state. The trailing `IconButton` owns the click target and carries an accessible label.
+Chip is presentational, so wire removal yourself: compose an `IconButton` as the close control and drop the tag from your own state. The trailing `IconButton` owns the click target and carries an accessible label, and adds no height to the chip.
 
 ```tsx demo
 const [tags, setTags] = React.useState(['typescript', 'react', 'tailwind']);
@@ -137,7 +137,7 @@ return (
 
 ## As Link
 
-Pass `href` to render the chip as an `<a>`, useful for clickable tag listings. When `href` is set, the chip gains a keyboard focus-visible outline by default. Opt out with `noFocusVisible`.
+Pass `href` to render the chip as an `<a>`, useful for clickable tag listings. When `href` is set, the chip gains a keyboard focus-visible outline by default, and so does a chip with `onClick` or `tag="button"`. Opt out with `noFocusVisible`. A linked chip tints on hover.
 
 ```tsx demo
 <Row flexWrap>

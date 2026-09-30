@@ -7,7 +7,7 @@ since: 0.9.0
 
 ## Basic usage
 
-Compose a table from `Table`, `Thead`, `Tbody`, `Tr`, `Th`, and `Td`. Header cells (`Th`) render semibold with muted text, and every cell gets a bottom row rule. `Table` defaults to `md`, `wFull`, and `noBorder`. Add `scope="col"` to header cells so assistive technology associates each column with its data.
+Compose a table from `Table`, `Thead`, `Tbody`, `Tr`, `Th`, and `Td`. Header cells (`Th`) render semibold with muted text, and every cell gets a bottom row rule. `Table` defaults to `md`, `wFull`, `noBorder`, and `fontSans`. Add `scope="col"` to header cells so assistive technology associates each column with its data.
 
 ```tsx demo
 <Table>
@@ -114,6 +114,19 @@ Set `textLeft` (default), `textCenter`, or `textRight` per cell. Right-align num
 </Table>
 ```
 
+A `Text` inside a right-aligned cell is its own fit-width box, so give it `wFull textRight` to line up with the column.
+
+```tsx demo
+<Table>
+  <Tbody>
+    <Tr><Td>Trail Runner 2</Td><Td textRight><Text wFull textRight>$89.00</Text></Td></Tr>
+    <Tr><Td>Merino socks (3 pairs)</Td><Td textRight><Text wFull textRight>$48.00</Text></Td></Tr>
+  </Tbody>
+</Table>
+```
+
+Text in a cell wraps between words, never inside one, so a name or a price stays whole in a narrow column.
+
 ## Footer row
 
 Add a `Tfoot` for totals or summary rows. Header cells (`Th`) carry the semibold treatment, so they read well for a total.
@@ -191,6 +204,33 @@ Cells accept any VaneUI component. Drop a `Badge` into a status column.
     </Tr>
   </Tbody>
 </Table>
+```
+
+## Font family
+
+Cells render in the sans font (`fontSans`, the default), whatever font the page around them uses. Pass `fontMono` for machine output such as ids and hashes, or `fontSerif` / `fontHeading`.
+
+```tsx demo
+<Table fontMono sm>
+  <Thead><Tr><Th scope="col">Commit</Th><Th scope="col">Message</Th></Tr></Thead>
+  <Tbody>
+    <Tr><Td>6aba224</Td><Td>fix: make components consistent</Td></Tr>
+    <Tr><Td>899e2fd</Td><Td>chore: release 1.4.3</Td></Tr>
+  </Tbody>
+</Table>
+```
+
+## Wide tables on small screens
+
+A table never shrinks below its content. Wrap a wide one in `<Col overflowXAuto relative>` so it scrolls inside its own box instead of widening the page; `relative` keeps positioned children (a visually hidden header label, for example) inside the scroll box.
+
+```tsx demo
+<Col overflowXAuto relative>
+  <Table>
+    <Thead><Tr><Th scope="col">Service</Th><Th scope="col">Region</Th><Th scope="col">Owner</Th><Th scope="col" textRight>p95 latency</Th></Tr></Thead>
+    <Tbody><Tr><Td>api-gateway</Td><Td>europe-west</Td><Td>platform-team</Td><Td textRight>42ms</Td></Tr></Tbody>
+  </Table>
+</Col>
 ```
 
 ## Customizing

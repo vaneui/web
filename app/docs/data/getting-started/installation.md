@@ -57,6 +57,8 @@ This setup:
 - Imports the complete pre-built VaneUI stylesheet (component styles and CSS variables in one file)
 - Works without any Tailwind configuration
 
+The pre-built stylesheet is compiled for VaneUI's own components; it does not contain Tailwind's full utility set. A Tailwind class passed through `className` or `extraClasses` has no effect unless it happens to be in the bundle, and most (`max-w-md`, `p-6`, `size-8`, `ms-auto`, `z-40`) are not. For arbitrary utilities, use Option 1 or the `style` prop.
+
 ## ThemeProvider setup
 
 Wrap your application in `ThemeProvider`. Without it, each component falls back to its own built-in default theme, but `themeDefaults`, `extraClasses`, and `themeOverride` only apply inside a provider. Place it once at the root, above every VaneUI component.

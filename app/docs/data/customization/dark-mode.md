@@ -6,7 +6,7 @@ VaneUI ships a `[data-theme="dark"]` block that re-declares the `--color-*` toke
 
 ## Whole-page dark mode
 
-Set `data-theme="dark"` on the `<html>` element to theme the entire page, including portaled content (Modal, Popup, Overlay) and native controls. The block also sets `color-scheme: dark`, so scrollbars and form controls render in their dark forms.
+Set `data-theme="dark"` on the `<html>` element to theme the entire page, including portaled content (Modal, Popup, Overlay) and native controls. The block also sets `color-scheme: dark`, so scrollbars and form controls render in their dark forms, and it paints the page itself with the dark surface color. A background you set on `html` or `body` still wins.
 
 ```html
 <html data-theme="dark">
@@ -32,7 +32,7 @@ To darken a region of an otherwise light page, set `data-theme="dark"` on a wrap
 </div>
 ```
 
-The wrapper `<div>` paints nothing on its own. Give the subtree a surface with a primary `Card` or `Section`, which reads the dark background token and fills the area.
+The wrapper `<div>` paints nothing on its own. Give the subtree a surface: a `Card`, or a `Section` with an explicit appearance (`<Section primary>`). Either reads the dark background token and fills the area; a bare `Section` paints nothing.
 
 ## Overlays follow the page theme
 

@@ -24,7 +24,7 @@ Most components take props directly. **Components with sub-themes** (`button`, `
 
 ### Basic defaults
 
-Set default boolean props for specific component types:
+Set default boolean props for specific component types. `IconButton` has its own node (`iconButton`), so `button.main` defaults do not reach it; set both when they should match. `ModalCloseButton` keeps its own variant and size, so a filled `button.main` default leaves the close button readable.
 
 ```tsx
 import { ThemeProvider, Button, Badge, Card } from '@vaneui/ui';

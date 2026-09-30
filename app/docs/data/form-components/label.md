@@ -169,14 +169,13 @@ Use appearances to indicate field status: `danger` for errors, `success` for val
 
 ```tsx demo
 <Col>
-  <Col noGap>
-    <Label fontSemibold>Username <Text tag="span" danger>*</Text></Label>
-    <Input placeholder="Choose a username" />
-  </Col>
-  <Col noGap>
-    <Label success fontSemibold>Email verified</Label>
+  <Field label={<>Username <Text tag="span" danger inheritSize>*</Text></>}>
+    <Input placeholder="Choose a username" required />
+  </Field>
+  <Label success fontSemibold>
+    Email verified
     <Input placeholder="verified@example.com" />
-  </Col>
-  <Label secondary>All fields marked with * are required.</Label>
+  </Label>
+  <Text sm secondary>All fields marked with * are required.</Text>
 </Col>
 ```

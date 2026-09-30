@@ -118,21 +118,33 @@ Without `href`, NavLink renders as a `<button>`, useful for menu items that trig
 
 ## Sidebar navigation
 
-A real-world sidebar pattern with icons, active state, dividers, and trailing badges.
+A real-world sidebar pattern with icons, active state, dividers, and trailing badges. The active item is semibold on a tinted background, the label takes the free space so a trailing `Badge` sits at the row's end, and icons take the NavLink's size.
 
 ```tsx demo
 <Card className="w-64" noGap>
-  <Text sm fontSemibold secondary className="px-3 py-2">Navigation</Text>
+  <Text sm fontSemibold secondary>Navigation</Text>
   <Divider />
-  <NavLink href="#"><Home size={16} /> Home</NavLink>
-  <NavLink href="#" active><FileText size={16} /> Documents</NavLink>
-  <NavLink href="#"><Mail size={16} /> Messages <Badge xs info>3</Badge></NavLink>
-  <NavLink href="#"><Bell size={16} /> Notifications <Badge xs danger>12</Badge></NavLink>
-  <NavLink href="#"><Star size={16} /> Favorites</NavLink>
+  <NavLink href="#"><Home /> Home</NavLink>
+  <NavLink href="#" active><FileText /> Documents</NavLink>
+  <NavLink href="#"><Mail /> Messages <Badge xs info>3</Badge></NavLink>
+  <NavLink href="#"><Bell /> Notifications <Badge xs danger>12</Badge></NavLink>
+  <NavLink href="#"><Star /> Favorites</NavLink>
   <Divider />
-  <NavLink href="#"><Users size={16} /> Team</NavLink>
-  <NavLink href="#"><Settings size={16} /> Settings</NavLink>
+  <NavLink href="#"><Users /> Team</NavLink>
+  <NavLink href="#"><Settings /> Settings</NavLink>
 </Card>
+```
+
+## Horizontal navigation
+
+NavLink is `wFull` so sidebar items fill the column. In a horizontal nav or a tab bar, add `wFit` so each item keeps its own width.
+
+```tsx demo
+<Row>
+  <NavLink href="#" active wFit>Description</NavLink>
+  <NavLink href="#" wFit>Reviews</NavLink>
+  <NavLink href="#" wFit>Shipping</NavLink>
+</Row>
 ```
 
 ## Keyboard focus

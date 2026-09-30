@@ -66,15 +66,15 @@ Pass `noInheritSize` to render the Link at its own size instead of the parent's,
 
 ## Explicit sizes
 
-When `noInheritSize` is set (or the parent has no size context), choose an explicit size with `xs`, `sm`, `md` (default), `lg`, `xl`.
+An explicit size, `xs`, `sm`, `md` (default), `lg` or `xl`, renders the Link at that size instead of the parent's. Pass `inheritSize` alongside it to keep following the parent.
 
 ```tsx demo
 <Col>
-  <Link href="#" noInheritSize xs>Extra small link</Link>
-  <Link href="#" noInheritSize sm>Small link</Link>
-  <Link href="#" noInheritSize>Medium link (default)</Link>
-  <Link href="#" noInheritSize lg>Large link</Link>
-  <Link href="#" noInheritSize xl>Extra large link</Link>
+  <Link href="#" xs>Extra small link</Link>
+  <Link href="#" sm>Small link</Link>
+  <Link href="#" md>Medium link</Link>
+  <Link href="#" lg>Large link</Link>
+  <Link href="#" xl>Extra large link</Link>
 </Col>
 ```
 

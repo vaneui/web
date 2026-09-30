@@ -15,7 +15,14 @@ Input renders a styled text field for entering text, numbers, and other data. It
 
 ## Sizes
 
-Inputs come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
+Inputs come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. At the same size an Input is as tall as a `Button` and has the same corner radius. Button defaults to `sm` and Input to `md`, so give a button beside a field the field's size.
+
+```tsx demo
+<Row>
+  <Input placeholder="you@company.com" />
+  <Button md filled>Subscribe</Button>
+</Row>
+```
 
 ```tsx demo
 <Col>

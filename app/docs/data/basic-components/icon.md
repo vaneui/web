@@ -202,7 +202,7 @@ Icons work naturally alongside text and inside buttons.
     <Button success filled><Check /> Saved</Button>
     <Button danger><AlertCircle /> Delete</Button>
   </Row>
-  <Text><Icon sm info><Info /></Icon> Icons inherit inline sizing when placed in text.</Text>
+  <Text><Icon xs info><Info /></Icon> Icon sizes are fixed per size prop; in body text use `xs` so the line keeps its height.</Text>
   <Row itemsCenter>
     <Icon padding pill primary filled><Star /></Icon>
     <Col gap noPadding>

@@ -7,7 +7,7 @@ since: 1.1.0
 
 ## Basic usage
 
-Field wires a control to its label, help text and error message. It generates one id, points the label at the control with `htmlFor`, and links the description and error with `aria-describedby`. Pass any control as the child.
+Field wires a control to its label, help text and error message. It generates one id, points the label at the control with `htmlFor`, and links the description and error with `aria-describedby`. Pass any control as the child. `disabled`, `required` and `readOnly` set on the Field reach the child control (and every `Radio` of a child `RadioGroup`); a prop set on the child itself wins.
 
 ```tsx demo
 <Field label="Email" description="We will never share it.">

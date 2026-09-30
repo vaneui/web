@@ -70,7 +70,7 @@ return (
 
 ## Convenience props
 
-Use the `title`, `footer`, and `withCloseButton` shorthand props to compose a structured modal without writing sub-components. A close button is shown by default regardless of `title` (toggle with `withCloseButton`): with a title it sits in the header, without one it floats top-right. Children become the body.
+Use the `title`, `footer`, and `withCloseButton` shorthand props to compose a structured modal without writing sub-components. A close button is shown by default regardless of `title` (toggle with `withCloseButton`): with a title it sits in the header, without one it floats top-right. A plain-text `title` renders as a `Title`. Children become the body.
 
 ```tsx demo
 const [open, setOpen] = useState(false);

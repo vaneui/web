@@ -55,6 +55,25 @@ Alert is a flex row, so compose whatever the message needs.
 </Alert>
 ```
 
+## With an icon
+
+A leading icon spans one text line, so it centres on the first line of the message.
+
+```tsx demo
+<Alert info>
+  <Info />
+  A new version is available. Reload to update.
+</Alert>
+```
+
+## Font family
+
+Alert text renders in the sans font (`fontSans`, the default) with body line-height, even when the page uses another font. Pass `fontMono` for a machine-style message.
+
+```tsx demo
+<Alert danger fontMono>Error 503: upstream connect error</Alert>
+```
+
 ## Shapes
 
 Alert is `rounded` by default. `sharp` suits an alert pinned to the edge of a panel, where a radius would leave a gap against the edge.
