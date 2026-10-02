@@ -24,6 +24,7 @@ import {
   GetStartedSection,
 } from './landing';
 import { LiveSection } from "./landing/LiveSection";
+import { AiSection } from "./landing/AiSection";
 import { FeatureTitle, FeatureTitleProps } from "./components/FeatureTitle";
 
 export default function Home() {
@@ -52,8 +53,7 @@ export default function Home() {
       title: "Responsive by default",
       description:
         <span>
-          Every component adapts to screen size automatically. Use responsive props like <Code primary>xs</Code>, <Code
-            primary>sm</Code>, <Code primary>md</Code>, <Code primary>lg</Code>, <Code primary>xl</Code> to fine-tune layouts for any device.
+          Typography and spacing scale with the screen automatically. Use breakpoint props like <Code primary>mobileStack</Code>, <Code primary>tabletStack</Code> and <Code primary>tabletHide</Code> to change layouts per device.
         </span>,
     },
   ]
@@ -67,11 +67,12 @@ export default function Home() {
         <LiveSection />
         <ComponentShowcaseSection />
         <ThemeCustomizationSection />
+        <AiSection />
         <Section xl>
           <Container xl>
             <Col itemsCenter>
               <SectionTitle xl>Why VaneUI</SectionTitle>
-              <Text xl secondary>Built for developers who value simplicity and speed.</Text>
+              <Text xl secondary textCenter>Built for developers who value simplicity and speed.</Text>
             </Col>
             <Grid2 lg wFull>
               {features.map((item, key) => (

@@ -22,10 +22,15 @@ export function GetStartedSection() {
           <Text lg secondary>
             Install VaneUI and build your first component in minutes.
           </Text>
-          <CodeBlock theme="light" code="npm install @vaneui/ui" language="bash" />
+          <CodeBlock code="npm install @vaneui/ui" language="bash" />
+          <Text secondary>Then import the styles. On Tailwind CSS v4, follow the Tailwind setup in the Installation guide instead.</Text>
+          <CodeBlock code={'@import "@vaneui/ui/css";'} language="css" />
           <Row mobileStack>
             <Button lg filled tag={Link} href="/docs/getting-started/installation">
               Read the Docs
+            </Button>
+            <Button lg tag={Link} href="/playground">
+              Try the Playground
             </Button>
             <Button lg tag="a" href={PRODUCT.githubUrl} target="_blank" rel="noopener noreferrer"
                     aria-label="View VaneUI on GitHub (opens in new tab)">

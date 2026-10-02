@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Check, Copy, Terminal } from "react-feather";
 import { Highlight, Language } from 'prism-react-renderer';
 import { darkTheme, lightTheme } from './themes';
+import { useIsDark } from '../utils/useIsDark';
 
 export interface HighlightRange {
   start: number;
@@ -46,6 +47,7 @@ export function CodeBlock({
                             cursorPosition,
                           }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
+  const isDark = useIsDark();
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(code).then(() => {
@@ -55,7 +57,7 @@ export function CodeBlock({
   };
 
   const Icon = getLanguageIcon(language);
-  const currentTheme = theme === 'dark' ? darkTheme : lightTheme;
+  const currentTheme = theme === 'dark' || isDark ? darkTheme : lightTheme;
 
   return (
     <Col xs primary rounded noGap border overflowHidden wFull className={className}>

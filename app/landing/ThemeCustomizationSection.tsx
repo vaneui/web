@@ -60,22 +60,22 @@ export function ThemeCustomizationSection() {
   }, [currentTheme]);
 
   return (
-    <Section lg>
+    <Section xl>
       <Container xl>
         <Stack xl noPadding wFull>
           <FeatureTitle
             icon="Droplet"
-            title="Theme Customization"
+            title="Theme customization"
             description="Switch between different themes to see how components adapt. Each theme demonstrates the flexibility of the VaneUI theming system."
           />
 
           <Card lg noGap noPadding wFull className="transition-all">
             <Stack itemsCenter lg wFull>
-              <Stack row pill tertiary xs justifyCenter border padding rounded className="inset-shadow-xs">
+              <Stack row pill tertiary xs justifyCenter border className="inset-shadow-xs">
                 {Object.entries(themes).map(([key, theme]) => (
                   <Button sm noInsetRing pill
-                    className="min-w-[80px]"
                     key={key}
+                    aria-pressed={selectedTheme === key}
                     onClick={() => setSelectedTheme(key as ThemeKey)}
                     filled={selectedTheme === key}
                     outline={selectedTheme !== key}
@@ -85,17 +85,13 @@ export function ThemeCustomizationSection() {
                 ))}
               </Stack>
               <Text secondary sm textCenter>
-                Theme: {selectedTheme}. {currentTheme.description}
+                {currentTheme.description}
               </Text>
             </Stack>
 
             <Divider/>
 
-            <Stack relative lg itemsCenter justifyCenter wFull className="min-h-[400px]">
-              <Row absolute className="
-    inset-0 pointer-events-none
-    bg-[repeating-linear-gradient(-45deg,theme(colors.slate.100)_0_1px,transparent_1px_calc(var(--spacing)*4))]
-  "/>
+            <Stack secondary lg itemsCenter justifyCenter wFull className="min-h-[400px]">
               <ThemeProvider theme={currentTheme.config} themeDefaults={currentTheme.defaults}>
                 <Card primary row mobileStack overflowHidden
                       className={`max-w-2xl max-mobile:max-w-80 z-10 ${currentTheme.cssVars || ''}`}>
@@ -129,7 +125,7 @@ export function ThemeCustomizationSection() {
 
             <Divider/>
 
-            <Grid2 itemsStretch xs wFull overflowYAuto className="max-h-[480px] p-2">
+            <Grid2 itemsStart xs wFull overflowYAuto className="max-h-[480px] p-2">
               {cssVarsCode && (
                 <CodeBlock
                   code={cssVarsCode}

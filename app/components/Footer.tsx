@@ -1,20 +1,14 @@
-import { Text, Title, Section, Container, Col, Row, Link } from '@vaneui/ui';
+import { Text, Section, Container, Col, Row, Link } from '@vaneui/ui';
 import { PRODUCT } from '../constants';
-import Image from "next/image";
-import vaneui from "../../public/vaneui.svg";
+import { Logo } from './Logo';
 
 export function Footer() {
   return (
-    <Section tag={'footer'} secondary borderT>
+    <Section xl tag={'footer'} secondary borderT>
       <Container xl itemsStart>
         <Row xl justifyBetween mobileStack itemsStart wFull>
           <Col className="max-w-1/3 max-md:max-w-full">
-            <Row xs>
-              <Image src={vaneui} alt={PRODUCT.title} className="h-[27px] w-[36px]"/>
-              <Title sm>
-                {PRODUCT.title}
-              </Title>
-            </Row>
+            <Logo/>
             <Text>
               {PRODUCT.description}
             </Text>
@@ -28,6 +22,7 @@ export function Footer() {
                 text: 'Resources',
                 links: [
                   {text: 'Documentation', href: '/docs'},
+                  {text: 'Playground', href: '/playground'},
                   {text: 'Core Concepts', href: '/docs/getting-started/core-concepts'},
                   {text: 'Installation', href: '/docs/getting-started/installation'},
                   {text: 'Changelog', href: '/docs/reference/changelog'},
@@ -38,6 +33,8 @@ export function Footer() {
                 links: [
                   {text: 'GitHub', href: PRODUCT.githubUrl},
                   {text: 'npm', href: 'https://www.npmjs.com/package/@vaneui/ui'},
+                  {text: 'MCP server', href: 'https://www.npmjs.com/package/@vaneui/mcp'},
+                  {text: 'MIT License', href: 'https://github.com/vaneui/vaneui/blob/main/LICENSE'},
                 ]
               }
             ].map((item, index) => (

@@ -83,8 +83,10 @@ export default function RootLayout({children}: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
     <head>
+      {/* sets data-theme before first paint so dark visitors never see a light flash */}
+      <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){}` }}/>
       <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96"/>
       <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
       <link rel="shortcut icon" href="/favicon.ico"/>

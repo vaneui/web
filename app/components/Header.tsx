@@ -1,6 +1,7 @@
 'use client'
 
-import { Row, Button, Stack, Col } from '@vaneui/ui';
+import { Row, Button, Stack, Col, IconButton } from '@vaneui/ui';
+import { ThemeToggle } from './ThemeToggle';
 import { PRODUCT } from '../constants';
 import Link from 'next/link'
 import { ArrowRight, GitHub, Menu, X } from "react-feather";
@@ -12,18 +13,18 @@ export function Header() {
 
   return (
     <>
-      <Stack sm row justifyBetween itemsCenter tag={'header'} primary borderB noShrink
-             className="bg-white/70 backdrop-blur-md z-40" wFull>
+      <Stack sm row justifyBetween itemsCenter tag={'header'} primary borderB noShrink wFull>
         <Logo/>
 
         {/* Desktop menu items - hidden on mobile */}
         <Row tabletHide>
-          <Button sm fontNormal primary noShadow noInsetRing href="/docs" tag={Link}>
+          <Button sm fontNormal ghost href="/docs" tag={Link}>
             Documentation
           </Button>
-          <Button sm fontNormal primary noShadow noInsetRing href="/playground" tag={Link}>
+          <Button sm fontNormal ghost href="/playground" tag={Link}>
             Playground
           </Button>
+          <ThemeToggle/>
           <Button sm fontNormal href={PRODUCT.githubUrl} tag="a" target="_blank" rel="noopener noreferrer"
                   aria-label="GitHub repository (opens in new tab)">
             <GitHub className="size-4" aria-hidden="true"/>
@@ -33,11 +34,13 @@ export function Header() {
         </Row>
 
         {/* Mobile menu button - shown only on mobile */}
-        <Button sm className="lg:hidden [--aspect-ratio:1]"
-                aria-label="Open menu" aria-expanded={isMobileMenuOpen}
-                onClick={() => setIsMobileMenuOpen(true)}>
-          <Menu className="size-5"/>
-        </Button>
+        <Row xs className="lg:hidden">
+          <ThemeToggle/>
+          <IconButton aria-label="Open menu" aria-expanded={isMobileMenuOpen}
+                      onClick={() => setIsMobileMenuOpen(true)}>
+            <Menu/>
+          </IconButton>
+        </Row>
       </Stack>
 
       {/* Mobile menu overlay */}

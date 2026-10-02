@@ -143,16 +143,16 @@ export function ComponentShowcaseSection() {
           <FeatureTitle
             icon="Grid"
             title="Component library"
-            description="30+ components for layout, typography, forms, and overlays."
+            description="40+ components for layout, typography, forms, and overlays."
           />
 
-          <Stack row pill tertiary xs border padding rounded className="self-center inset-shadow-xs">
+          <Stack row pill tertiary xs border className="self-center inset-shadow-xs">
             {tabs.map(tab => (
               <Button sm noInsetRing pill
-                className="min-w-[80px]"
                 key={tab.id}
                 filled={activeTab === tab.id}
                 outline={activeTab !== tab.id}
+                aria-pressed={activeTab === tab.id}
                 onClick={() => setActiveTab(tab.id)}
               >
                 {tab.label}
@@ -160,17 +160,13 @@ export function ComponentShowcaseSection() {
             ))}
           </Stack>
 
-          <Card lg overflowHidden relative>
-            <Row absolute className="
-              inset-0 pointer-events-none
-              bg-[repeating-linear-gradient(-45deg,theme(colors.slate.50)_0_1px,transparent_1px_calc(var(--spacing)*4))]
-            "/>
+          <Card lg secondary>
             <Row xl tabletStack>
-              <Col className="flex-[2] z-10 min-h-[320px] min-w-[280px]">
+              <Col flexAuto noShrink>
                 {content}
               </Col>
               <CodeBlock
-                className="shadow-lg z-10 flex-[3]"
+                className="shadow-lg flex-auto"
                 fileName="Example.tsx"
                 language="tsx"
                 code={prepareComponentString(content)}

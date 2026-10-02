@@ -28,8 +28,8 @@ const responsiveTypographyExample = `// Typography and layout scales
 </Section>`;
 
 const themeEverywhereExample = `<ThemeProvider themeDefaults={{
-  button: { 
-    filled: true, sm: true     
+  button: {
+    main: { filled: true, sm: true }
   }
 }}>
   <App />
@@ -70,9 +70,8 @@ export function AboutSection() {
         </Col>
         <Grid3 xl wFull>
           {features.map((item, index) => (
-            <Card xl noBorder noPadding key={index} wFull className="group">
-              <CodeBlock code={item.code} language="tsx" showHeader={false} theme="light"
-                         className="text-xs grayscale-100 group-hover:grayscale-0 group-hover:shadow transition-all duration-500"/>
+            <Card xl noBorder noPadding key={index} wFull>
+              <CodeBlock code={item.code} language="tsx" showHeader={false} className="text-xs"/>
               <Col sm>
                 <Title>{item.title}</Title>
                 <Text secondary>{item.description}</Text>

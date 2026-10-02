@@ -184,8 +184,6 @@ export function LiveSection() {
 
   return (
     <Section xl relative>
-      <Row absolute
-           className="inset-0 bg-[linear-gradient(to_right,var(--color-gray-50)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-gray-50)_1px,transparent_1px)] bg-[size:calc(var(--spacing)*4)_calc(var(--spacing)*4)]"/>
       <Container xl>
         <Col xl wFull className="z-10">
           <FeatureTitle
