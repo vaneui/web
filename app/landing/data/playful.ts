@@ -21,6 +21,10 @@ export const playfulCssVars = `
   [--color-bg-filled-active-primary:#ca8a04]
   [--color-text-filled-primary:white]
   [--br-unit:10]
+  [--color-text-primary:#1f2937]
+  [--color-text-secondary:#831843]
+  [--color-bg-secondary:#fdf2f8]
+  [--color-border-secondary:#f9a8d4]
 `;
 
 export const playfulDefaults: ThemeDefaults = {

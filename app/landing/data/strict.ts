@@ -13,6 +13,8 @@ export const strictCssVars = `
   [--color-border-filled-success:black]
   [--color-border-secondary:black]
   [--color-text-secondary:var(--color-gray-900)]
+  [--color-bg-primary:white]
+  [--color-bg-secondary:white]
   [--bw:2px]
   [--rw:2px]
   [&_.vane-button]:[--aspect-ratio:3]
