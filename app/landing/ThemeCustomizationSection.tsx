@@ -6,7 +6,7 @@ import {
   Grid2
 } from '@vaneui/ui';
 import React, { useState, useMemo } from "react";
-import { FeatureTitle } from "../components/FeatureTitle";
+import { SectionHeader } from "./SectionHeader";
 import Image from "next/image";
 import { strictDefaults, strictTheme, strictCssVars } from "./data/strict";
 import { balancedDefaults, balancedTheme, balancedCssVars } from "./data/balanced";
@@ -63,11 +63,10 @@ export function ThemeCustomizationSection() {
     <Section xl>
       <Container xl>
         <Stack xl noPadding wFull>
-          <FeatureTitle
-            icon="Droplet"
-            title="Theme customization"
-            description="Switch between different themes to see how components adapt. Each theme demonstrates the flexibility of the VaneUI theming system."
-          />
+          <SectionHeader title="One component, three themes">
+            The same card under three ThemeProvider presets. Switch them to see the defaults and CSS variables that
+            change, then try the theme toggle in the header for dark mode.
+          </SectionHeader>
 
           <Card lg noGap noPadding wFull className="transition-all">
             <Stack itemsCenter lg wFull>
@@ -131,7 +130,7 @@ export function ThemeCustomizationSection() {
                   code={cssVarsCode}
                   language="css"
                   showHeader={false}
-                  theme="dark"
+                  theme="light"
                   className="flex-1"
                 />
               )}
@@ -139,7 +138,7 @@ export function ThemeCustomizationSection() {
                 code={defaultsCode}
                 language="tsx"
                 showHeader={false}
-                theme="dark"
+                theme="light"
                 className="flex-1"
               />
             </Grid2>

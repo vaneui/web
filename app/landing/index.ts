@@ -1,6 +1,7 @@
 export { HeroSection } from './HeroSection';
-export { AboutSection } from './AboutSection';
+export { WorksWith } from './WorksWith';
+export { GallerySection } from './GallerySection';
+export { FeaturesSection } from './FeaturesSection';
 export { ThemeCustomizationSection } from './ThemeCustomizationSection';
-export { ComponentShowcaseSection } from './ComponentShowcaseSection';
-export { StackSection } from './StackSection';
+export { AiSection } from './AiSection';
 export { GetStartedSection } from './GetStartedSection';

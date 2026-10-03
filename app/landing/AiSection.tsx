@@ -1,6 +1,6 @@
 import { Section, Container, Col, Row, Card, Title, Text, Link } from '@vaneui/ui';
 import { CodeBlock } from '../components/CodeBlock';
-import { FeatureTitle } from '../components/FeatureTitle';
+import { SectionHeader } from './SectionHeader';
 
 const MCP_URL = 'https://www.npmjs.com/package/@vaneui/mcp';
 
@@ -25,20 +25,14 @@ export function AiSection() {
     <Section xl borderY secondary>
       <Container xl>
         <Col xl wFull>
-          <FeatureTitle
-            icon="Cpu"
-            title="Ready for AI coding agents"
-            description={
-              <>
-                The <Link href={MCP_URL} external>@vaneui/mcp</Link> server gives your agent the real component docs and
-                prop tables, so it writes valid VaneUI props instead of guessing.
-              </>
-            }
-          />
+          <SectionHeader title="Ready for AI coding agents">
+            The <Link href={MCP_URL} external>@vaneui/mcp</Link> server gives your agent the real component docs and
+            prop tables, so it writes valid VaneUI props instead of guessing.
+          </SectionHeader>
           <Card lg row tabletStack itemsStretch wFull>
             <Col flex1>
               <Title>Add it with one command</Title>
-              <CodeBlock code="claude mcp add vaneui -- npx -y @vaneui/mcp" language="bash"/>
+              <CodeBlock code="claude mcp add vaneui -- npx -y @vaneui/mcp" language="bash" theme="light"/>
               <Text sm secondary>
                 Setup for Claude Desktop, Cursor and VS Code is in the <Link href={MCP_URL} external>@vaneui/mcp README</Link>.
               </Text>

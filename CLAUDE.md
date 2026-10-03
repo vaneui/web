@@ -41,7 +41,7 @@ app/
   not-found.tsx           # 404 page
 
   components/             # Shared components
-    Header.tsx, Footer.tsx, Logo.tsx, FeatureTitle.tsx
+    Header.tsx, Footer.tsx, Logo.tsx, ThemeToggle.tsx
     CodeBlock.tsx          # Syntax highlighting with prism-react-renderer
     themes/               # Prism color themes (dark/light)
 
@@ -68,11 +68,10 @@ app/
       reference/          # common-props.md
 
   landing/                # Landing page sections
-    HeroSection.tsx, AboutSection.tsx, LiveSection.tsx
-    ComponentShowcaseSection.tsx, StackSection.tsx, GetStartedSection.tsx
-    ThemeCustomizationSection.tsx
+    HeroSection.tsx, WorksWith.tsx, GallerySection.tsx, FeaturesSection.tsx
+    ThemeCustomizationSection.tsx, AiSection.tsx, GetStartedSection.tsx
+    SectionHeader.tsx     # Shared title + description header used by every section
     data/                 # Theme demo data (balanced.ts, playful.ts, strict.ts)
-    utils/                # Typing animation logic
 
   utils/
     stringUtils.ts        # prepareComponentString(), toHtmlId(), extractMarkdownHeadings()
