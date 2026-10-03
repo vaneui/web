@@ -1,26 +1,15 @@
 /**
- * Generates both /public/llms.txt (compact TOC, per llmstxt.org) and
- * /public/llms-full.txt (full content of every doc page).
- *
- * Source of truth: `docsSectionsMeta` for structure + descriptions, and the
- * per-page markdown bodies at `app/docs/data/<section>/<slug>.md`.
- *
- * llms.txt is intentionally human-readable and AI-friendly:
- *   - Single H1 + summary blockquote (the llmstxt.org canonical shape)
- *   - "About" section with package name, install snippet, key API hook
- *   - Per-section H2 blocks with `- [Title](URL): description` lists
- *   - Reference at the bottom to llms-full.txt
- *
- * llms-full.txt mirrors that structure but inlines each page's actual
- * markdown body (stripped of frontmatter). Component pages, which use
- * `componentKey` instead of `mdPath`, are read directly from
- * `app/docs/data/<section>/<slug>.md` matching the route's behavior.
+ * Generates /public/llms.txt (compact index, per llmstxt.org) and /public/llms-full.txt
+ * (every doc page inlined) from docsSectionsMeta, the page markdown and the installed @vaneui/ui.
  */
 
 import { readFileSync, writeFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import type { ComponentKey } from '@vaneui/ui';
 import { docsSectionsMeta, type DocPageMeta, type DocSectionMeta } from '../app/docs/docsMetadata';
+import { getPropTableRows } from '../app/docs/propTableRows';
+import { parseFrontmatter } from '../lib/docs/frontmatter';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -30,90 +19,80 @@ const OUTPUT_INDEX = resolve(ROOT, 'public/llms.txt');
 const OUTPUT_FULL = resolve(ROOT, 'public/llms-full.txt');
 const BASE_URL = 'https://vaneui.com';
 const PACKAGE_NAME = '@vaneui/ui';
+const COMMON_PROPS_URL = `${BASE_URL}/docs/reference/common-props`;
 
-// Hand-curated intro that lands in llms.txt right after the summary.
-// Updated alongside major API changes so AI clients have an at-a-glance
-// orientation without having to crawl every page first.
-const ABOUT_BLOCK = `## About
+// Read from the installed package so version and peer deps follow `npm update`.
+const pkg = JSON.parse(
+  readFileSync(resolve(ROOT, 'node_modules', PACKAGE_NAME, 'package.json'), 'utf-8'),
+) as { version: string; peerDependencies?: Record<string, string> };
+const peerDeps = Object.entries(pkg.peerDependencies ?? {})
+  .map(([name, range]) => `\`${name} ${range}\``)
+  .join(', ');
 
-VaneUI is a React component library that uses a **boolean props API**: instead of
-\`<Button appearance="primary" size="lg" variant="filled">\` you write
-\`<Button primary lg filled>\`. Props are organized into mutually exclusive
-categories (size, appearance, variant, shape, padding, etc.); only one value
-per category is active at a time.
+const CORE_CATEGORIES = new Set(['size', 'appearance', 'variant', 'shape']);
 
-- Package: \`${PACKAGE_NAME}\`
-- Install: \`npm install ${PACKAGE_NAME}\`
-- Peer deps: \`react ^16.8\` and \`tailwindcss ^4\`
-- Status: 0.9.0 alpha (published under \`@alpha\` dist-tag; \`@latest\` is older)
+function coreDefaults(key: ComponentKey): string {
+  return getPropTableRows(key)
+    .filter((r) => r.isDefault && CORE_CATEGORIES.has(r.categoryKey))
+    .map((r) => `\`${r.prop}\``)
+    .join(' + ');
+}
 
-Every component supports the same boolean prop categories where they apply.
-Components default to sensible values (Button is \`sm\` + \`primary\` + \`outline\`;
-Card is \`md\` + \`primary\` + \`outline\` + \`rounded\`; Typography defaults to
-\`inheritAppearance\` and \`md\` size; Row/Col/Stack default to \`md\` + \`outline\`)
-so most JSX is brief.
+// llms.txt allows no headings between the summary and the H2 file lists.
+const COMPACT_INTRO = `# VaneUI
 
-Components that render an \`<a>\` when given \`href\` include: Button, IconButton,
-Badge, Card, Chip, Code, Row, Col, Stack, Link, NavLink. All of these
-auto-render a keyboard focus-visible outline in their interactive form
-(always-on for NavLink, MenuItem, Link; conditional on \`href\` for the others;
-opt out with \`noFocusVisible\`).
+> React component library built on Tailwind CSS v4 with a boolean props API: you write
+> \`<Button primary lg filled>\` instead of \`appearance="primary" size="lg" variant="filled"\`.
+> Current release: \`${PACKAGE_NAME}\` ${pkg.version}.
 
-For complete documentation of every page in a single document, see
-[\`llms-full.txt\`](${BASE_URL}/llms-full.txt).
+Props are grouped into mutually exclusive categories (size, appearance, variant, shape,
+padding and more), and only one value per category is active at a time. \`ThemeProvider\`
+sets application-wide defaults, extra classes and theme overrides.
+
+- Package: \`${PACKAGE_NAME}\` ${pkg.version} (\`npm install ${PACKAGE_NAME}\`)
+- Peer dependencies: ${peerDeps}
+- CSS with Tailwind CSS v4: \`@import "tailwindcss"\`, \`@import "@vaneui/ui/tokens"\`, \`@import "@vaneui/ui/vars"\` and \`@source "../node_modules/@vaneui/ui"\`
+- CSS without Tailwind: \`@import "@vaneui/ui/css"\`
+- Repository: https://github.com/vaneui/vaneui
+- Documentation: ${BASE_URL}
+- All docs in one file: ${BASE_URL}/llms-full.txt
+- MCP server for AI agents (docs and per-component props): \`claude mcp add vaneui -- npx -y @vaneui/mcp\`
+
+Defaults keep JSX short: Button is ${coreDefaults('button')}; Card is ${coreDefaults('card')}; Text is ${coreDefaults('text')}; Row is ${coreDefaults('row')}.
+
+Button, IconButton, Badge, Chip, Code, Card, Row, Col, Stack, NavLink, MenuItem, Text, Title,
+SectionTitle and PageTitle render an \`<a>\` when given \`href\`; Link always does. Button,
+IconButton, NavLink, MenuItem, Link and the form controls show a keyboard focus-visible outline
+by default. Badge, Code, Card, Row, Col and Stack add it when given \`href\`, and Chip also when
+it has \`onClick\` or \`tag="button"\`. \`noFocusVisible\` opts out.
 `;
 
 const FULL_INTRO = `# VaneUI Documentation
 
-> Complete documentation for the VaneUI React component library (\`${PACKAGE_NAME}\`, v0.9.0). This file
-> contains the full text of every doc page concatenated, so a single ingestion
-> step gives an LLM the entire documentation set.
+> Complete documentation for the VaneUI React component library (\`${PACKAGE_NAME}\` ${pkg.version}),
+> every doc page concatenated into one file. Component pages end with their props, grouped by
+> category with defaults marked, generated from the installed package.
 
 - Repository: https://github.com/vaneui/vaneui
-- Documentation: https://vaneui.com
-- Package: \`${PACKAGE_NAME}\`
+- Documentation: ${BASE_URL}
+- Package: \`${PACKAGE_NAME}\` ${pkg.version}
+- Index: ${BASE_URL}/llms.txt
 
-The first sections below cover orientation (Getting Started) and theme
-customization. After those, every component has its own page with examples,
-props, and conventions.
+Sections follow the site navigation: ${docsSectionsMeta.map((s) => s.name).join(', ')}.
 `;
 
-const COMPACT_INTRO = `# VaneUI
-
-> React component library powered by Tailwind CSS v4. Boolean-props API,
-> mutually-exclusive prop categories, ThemeProvider for global defaults and
-> overrides, native focus-visible outline on interactive components.
-
-- Package: \`${PACKAGE_NAME}\`
-- Repository: https://github.com/vaneui/vaneui
-- Documentation: https://vaneui.com
-- llms-full.txt: ${BASE_URL}/llms-full.txt
-`;
-
-/** Strip leading YAML frontmatter (between leading `---` markers) from a doc body. */
-function stripFrontmatter(md: string): string {
-  if (!md.startsWith('---')) return md;
-  const closeIdx = md.indexOf('\n---', 3);
-  if (closeIdx === -1) return md;
-  const after = md.slice(closeIdx + 4);
-  // Trim only a single leading newline so visible body content stays put.
-  return after.startsWith('\n') ? after.slice(1) : after;
-}
-
-/** Read the markdown body for a page, or null if no source file exists. */
+/** Read a page's markdown in the route's order: component file, package file, then mdPath. */
 function readPageMarkdown(section: DocSectionMeta, page: DocPageMeta): string | null {
-  // Two conventions live side by side:
-  //   1) Component pages: file is at app/docs/data/<section>/<slug>.md
-  //   2) Guide pages: file is at app/docs/data/<section>/<mdPath>
-  // Try componentKey-style first (matches the route's preference), then
-  // mdPath, then give up.
   const candidates = [
     resolve(DATA_DIR, section.slug, `${page.slug}.md`),
+    ...(page.packageMdPath ? [resolve(ROOT, 'node_modules', page.packageMdPath)] : []),
     ...(page.mdPath ? [resolve(DATA_DIR, section.slug, page.mdPath)] : []),
   ];
   for (const path of candidates) {
     try {
-      return readFileSync(path, 'utf-8');
+      const md = readFileSync(path, 'utf-8').replace(/\r\n/g, '\n');
+      // The page renders its own title, so a package file's leading H1 is dropped (as in the route).
+      return path.startsWith(DATA_DIR) ? md : md.replace(/^\s*#\s+.*\n/, '');
     } catch {
       // try next candidate
     }
@@ -130,37 +109,48 @@ function tocEntry(section: DocSectionMeta, page: DocPageMeta): string {
   return `- [${page.name}](${pageUrl(section, page)}): ${page.description}`;
 }
 
-/** Full entry: divider header + full markdown body (or fallback description). */
+/** Component-specific props grouped by category, mirroring the page's props table. */
+function propsBlock(title: string, key: ComponentKey): string[] {
+  const groups = new Map<string, string[]>();
+  for (const row of getPropTableRows(key)) {
+    if (row.isCommon) continue;
+    const props = groups.get(row.category) ?? [];
+    props.push(row.isDefault ? `\`${row.prop}\` (default)` : `\`${row.prop}\``);
+    groups.set(row.category, props);
+  }
+  if (groups.size === 0) return [];
+  const lines = ['', `## ${title}`, ''];
+  for (const [category, props] of [...groups].sort(([a], [b]) => a.localeCompare(b))) {
+    lines.push(`- ${category}: ${props.join(', ')}`);
+  }
+  lines.push('', `Layout and utility props are listed on [Common Props](${COMMON_PROPS_URL}).`);
+  return lines;
+}
+
+/** Full entry: divider header + markdown body + generated props (or fallback description). */
 function fullEntry(section: DocSectionMeta, page: DocPageMeta): string[] {
-  const out: string[] = [];
-  out.push('---');
-  out.push(`Title: ${page.name}`);
-  out.push(`URL: ${pageUrl(section, page)}`);
-  out.push('---');
-  out.push('');
   const md = readPageMarkdown(section, page);
+  const { frontmatter, body } = parseFrontmatter(md ?? '');
+  const out: string[] = ['---', `Title: ${page.name}`, `URL: ${pageUrl(section, page)}`];
+  if (frontmatter.importPath) out.push(`Import: ${frontmatter.importPath}`);
+  out.push('---', '');
   if (md) {
-    out.push(stripFrontmatter(md).trim());
+    out.push(body.trim());
   } else {
-    // Should rarely happen now that the read tries both conventions, but
-    // fall back to the curated description so we never emit a blank page.
-    out.push(page.description);
-    out.push('');
-    out.push('For full interactive examples and props documentation, visit the URL above.');
+    out.push(page.description, '', 'For full interactive examples and props documentation, visit the URL above.');
+  }
+  if (page.componentKey) out.push(...propsBlock('Props', page.componentKey));
+  if (page.secondaryComponentKey) {
+    const name = page.secondaryComponentName ?? page.secondaryComponentKey;
+    out.push(...propsBlock(`${name} props`, page.secondaryComponentKey));
   }
   return out;
 }
 
 function generateCompact(): string {
-  const lines: string[] = [];
-  lines.push(COMPACT_INTRO.trimEnd());
-  lines.push('');
-  lines.push(ABOUT_BLOCK.trimEnd());
-  lines.push('');
-  lines.push('## Docs');
-  lines.push('');
+  const lines: string[] = [COMPACT_INTRO.trimEnd(), ''];
   for (const section of docsSectionsMeta) {
-    lines.push(`### ${section.name}`);
+    lines.push(`## ${section.name}`, '');
     for (const page of section.pages) {
       lines.push(tocEntry(section, page));
     }
@@ -170,19 +160,11 @@ function generateCompact(): string {
 }
 
 function generateFull(): string {
-  const lines: string[] = [];
-  lines.push(FULL_INTRO.trimEnd());
-  lines.push('');
+  const lines: string[] = [FULL_INTRO.trimEnd(), ''];
   for (const section of docsSectionsMeta) {
-    lines.push(`## ${section.name}`);
-    lines.push('');
-    lines.push(section.description);
-    lines.push('');
+    lines.push(`## ${section.name}`, '', section.description, '');
     for (const page of section.pages) {
-      for (const line of fullEntry(section, page)) {
-        lines.push(line);
-      }
-      lines.push('');
+      lines.push(...fullEntry(section, page), '');
     }
   }
   return lines.join('\n').replace(/\n{4,}/g, '\n\n\n').trimEnd() + '\n';
@@ -194,7 +176,6 @@ const fullOutput = generateFull();
 writeFileSync(OUTPUT_INDEX, indexOutput, 'utf-8');
 writeFileSync(OUTPUT_FULL, fullOutput, 'utf-8');
 
-// Report what landed.
 const totalPages = docsSectionsMeta.reduce((sum, s) => sum + s.pages.length, 0);
 let pagesWithBody = 0;
 for (const section of docsSectionsMeta) {
@@ -203,7 +184,7 @@ for (const section of docsSectionsMeta) {
   }
 }
 const stubPages = totalPages - pagesWithBody;
-console.log(`Generated llms.txt: ${totalPages} TOC entries (${indexOutput.length.toLocaleString()} bytes)`);
+console.log(`Generated llms.txt for ${PACKAGE_NAME} ${pkg.version}: ${totalPages} TOC entries (${indexOutput.length.toLocaleString()} bytes)`);
 console.log(`Generated llms-full.txt: ${pagesWithBody}/${totalPages} pages with full markdown content (${fullOutput.length.toLocaleString()} bytes)`);
 if (stubPages > 0) {
   console.log(`Note: ${stubPages} pages have no source .md file; they fall back to description only.`);

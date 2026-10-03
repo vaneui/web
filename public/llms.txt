@@ -1,50 +1,38 @@
 # VaneUI
 
-> React component library powered by Tailwind CSS v4. Boolean-props API,
-> mutually-exclusive prop categories, ThemeProvider for global defaults and
-> overrides, native focus-visible outline on interactive components.
+> React component library built on Tailwind CSS v4 with a boolean props API: you write
+> `<Button primary lg filled>` instead of `appearance="primary" size="lg" variant="filled"`.
+> Current release: `@vaneui/ui` 1.4.3.
 
-- Package: `@vaneui/ui`
+Props are grouped into mutually exclusive categories (size, appearance, variant, shape,
+padding and more), and only one value per category is active at a time. `ThemeProvider`
+sets application-wide defaults, extra classes and theme overrides.
+
+- Package: `@vaneui/ui` 1.4.3 (`npm install @vaneui/ui`)
+- Peer dependencies: `react ^18.0.0 || ^19.0.0`, `react-dom ^18.0.0 || ^19.0.0`
+- CSS with Tailwind CSS v4: `@import "tailwindcss"`, `@import "@vaneui/ui/tokens"`, `@import "@vaneui/ui/vars"` and `@source "../node_modules/@vaneui/ui"`
+- CSS without Tailwind: `@import "@vaneui/ui/css"`
 - Repository: https://github.com/vaneui/vaneui
 - Documentation: https://vaneui.com
-- llms-full.txt: https://vaneui.com/llms-full.txt
+- All docs in one file: https://vaneui.com/llms-full.txt
+- MCP server for AI agents (docs and per-component props): `claude mcp add vaneui -- npx -y @vaneui/mcp`
 
-## About
+Defaults keep JSX short: Button is `sm` + `primary` + `rounded` + `outline`; Card is `md` + `primary` + `rounded` + `outline`; Text is `md` + `inheritAppearance` + `outline`; Row is `md` + `sharp` + `outline`.
 
-VaneUI is a React component library that uses a **boolean props API**: instead of
-`<Button appearance="primary" size="lg" variant="filled">` you write
-`<Button primary lg filled>`. Props are organized into mutually exclusive
-categories (size, appearance, variant, shape, padding, etc.); only one value
-per category is active at a time.
+Button, IconButton, Badge, Chip, Code, Card, Row, Col, Stack, NavLink, MenuItem, Text, Title,
+SectionTitle and PageTitle render an `<a>` when given `href`; Link always does. Button,
+IconButton, NavLink, MenuItem, Link and the form controls show a keyboard focus-visible outline
+by default. Badge, Code, Card, Row, Col and Stack add it when given `href`, and Chip also when
+it has `onClick` or `tag="button"`. `noFocusVisible` opts out.
 
-- Package: `@vaneui/ui`
-- Install: `npm install @vaneui/ui`
-- Peer deps: `react ^16.8` and `tailwindcss ^4`
-- Status: 0.9.0 alpha (published under `@alpha` dist-tag; `@latest` is older)
+## Getting Started
 
-Every component supports the same boolean prop categories where they apply.
-Components default to sensible values (Button is `sm` + `primary` + `outline`;
-Card is `md` + `primary` + `outline` + `rounded`; Typography defaults to
-`inheritAppearance` and `md` size; Row/Col/Stack default to `md` + `outline`)
-so most JSX is brief.
-
-Components that render an `<a>` when given `href` include: Button, IconButton,
-Badge, Card, Chip, Code, Row, Col, Stack, Link, NavLink. All of these
-auto-render a keyboard focus-visible outline in their interactive form
-(always-on for NavLink, MenuItem, Link; conditional on `href` for the others;
-opt out with `noFocusVisible`).
-
-For complete documentation of every page in a single document, see
-[`llms-full.txt`](https://vaneui.com/llms-full.txt).
-
-## Docs
-
-### Getting Started
 - [Installation](https://vaneui.com/docs/getting-started/installation): Follow these steps to get the library installed and ready to use in your application.
 - [Core Concepts](https://vaneui.com/docs/getting-started/core-concepts): Understand VaneUI's philosophy of boolean props, Tailwind CSS integration, and component customization.
 - [Usage Basics](https://vaneui.com/docs/getting-started/usage-basics): Learn fundamental patterns and concepts for using VaneUI components effectively.
 
-### Basic Components
+## Basic Components
+
 - [Button](https://vaneui.com/docs/basic-components/button): Button triggers an action or event when clicked. It can contain text, an icon, or both, and is a primary way for users to interact with the app.
 - [IconButton](https://vaneui.com/docs/basic-components/icon-button): A square icon-only button with customizable appearance, size, and shape. Supports loading state and renders as anchor when href is provided.
 - [NavLink](https://vaneui.com/docs/basic-components/navlink): A navigation link for sidebars, nav menus, and headers. Supports active state, icons, and renders as anchor or button.
@@ -57,7 +45,8 @@ For complete documentation of every page in a single document, see
 - [Alert](https://vaneui.com/docs/basic-components/alert): Alert is a live region for messages that follow a user action. It announces itself when it appears, assertively by default or politely on request.
 - [Spinner](https://vaneui.com/docs/basic-components/spinner): Spinner indicates that something is in progress. The ring is sized in em, so it scales with the size prop and lines up with text.
 
-### Form Components
+## Form Components
+
 - [Input](https://vaneui.com/docs/form-components/input): Input lets users enter text, numbers, and other data. A form element with support for various types, validation states, and styling options.
 - [Checkbox](https://vaneui.com/docs/form-components/checkbox): Allows users to select one or more options from a set. Checkboxes are ideal for binary choices and multiple selections within forms.
 - [Label](https://vaneui.com/docs/form-components/label): Label associates text with a form control. Wrap an Input or Checkbox to make the label clickable, or use htmlFor when the control sits outside.
@@ -67,7 +56,8 @@ For complete documentation of every page in a single document, see
 - [Radio](https://vaneui.com/docs/form-components/radio): Radio selects exactly one option from a set. RadioGroup shares a name across its options and exposes them as a single labelled group.
 - [Switch](https://vaneui.com/docs/form-components/switch): Switch toggles a setting that takes effect immediately. Use Checkbox instead when the value is submitted with a form.
 
-### Typography Components
+## Typography Components
+
 - [Text](https://vaneui.com/docs/typography-components/text): The primary component for rendering all text content. It provides props to control typographic properties like size, weight, color, and alignment.
 - [PageTitle](https://vaneui.com/docs/typography-components/page-title): A specialized component for the primary heading of a page. It ensures consistent styling for top-level titles across your application.
 - [SectionTitle](https://vaneui.com/docs/typography-components/section-title): A component for rendering headings of major sections within a page. It helps to create a clear and accessible document structure.
@@ -76,7 +66,8 @@ For complete documentation of every page in a single document, see
 - [List](https://vaneui.com/docs/typography-components/list): A container for displaying a series of related items in an ordered or unordered fashion. Documents both List and its ListItem entries.
 - [Blockquote](https://vaneui.com/docs/typography-components/blockquote): Displays quoted content with a left border accent. Inherits appearance from the parent by default, so it blends into themed containers.
 
-### Layout Components
+## Layout Components
+
 - [Container](https://vaneui.com/docs/layout-components/container): Manages the main content area by centering it and applying a max-width. It ensures a consistent and readable layout across different screen sizes.
 - [Section](https://vaneui.com/docs/layout-components/section): Groups related content and owns the outer padding and background of a page band. Renders as a plain wrapper by default; pass tag="section" for a landmark.
 - [Row](https://vaneui.com/docs/layout-components/row): A fundamental layout component that arranges its children in a horizontal line. It is built on the flexbox model and is used to create columns.
@@ -88,14 +79,16 @@ For complete documentation of every page in a single document, see
 - [Img](https://vaneui.com/docs/layout-components/img): Displays images with VaneUI styling support including sizes, shapes, borders, shadows, and object-fit options.
 - [Table](https://vaneui.com/docs/layout-components/table): Renders semantic table markup with Table, Thead, Tbody, Tfoot, Tr, Th, Td, and Caption. The size prop cascades from the table to every cell, and a cell or row can override it.
 
-### Overlay Components
+## Overlay Components
+
 - [Overlay](https://vaneui.com/docs/overlay-components/overlay): A fullscreen backdrop overlay for creating modal backgrounds, loading screens, and lightbox effects. Renders via portal with click-to-close and optional blur.
 - [Modal](https://vaneui.com/docs/overlay-components/modal): Modal is an accessible dialog with focus trapping, scroll lock, and keyboard navigation. Renders its portal backdrop with role="dialog" and aria-modal="true".
 - [Popup](https://vaneui.com/docs/overlay-components/popup): A floating element anchored to a trigger element using CSS Anchor Positioning. Supports 12 placement options, width matching, and click-outside dismissal.
 - [Menu](https://vaneui.com/docs/overlay-components/menu): A dropdown menu triggered by a button with full keyboard navigation. Contains MenuItem, Divider, and MenuLabel subcomponents.
 - [Tooltip](https://vaneui.com/docs/overlay-components/tooltip): Tooltip describes its trigger with a short hint on hover and on keyboard focus, describing the trigger rather than advertising a disclosure.
 
-### Customization
+## Customization
+
 - [Theming Overview](https://vaneui.com/docs/customization/theming-overview): Understand VaneUI's theming system and design token architecture.
 - [Using ThemeProvider](https://vaneui.com/docs/customization/using-theme-provider): Configure and customize themes throughout your application with ThemeProvider.
 - [Theme & ThemeOverride](https://vaneui.com/docs/customization/theme-and-override): Customize themes using ThemeProvider's theme and themeOverride properties (applied to providers, not components).
@@ -106,6 +99,7 @@ For complete documentation of every page in a single document, see
 - [Customizing Styles](https://vaneui.com/docs/customization/customizing-styles): Override VaneUI component styles using Tailwind CSS classes, CSS variables, and the className prop.
 - [Variant Inheritance](https://vaneui.com/docs/customization/variant-inheritance): How components inherit colors from ancestor layouts via CSS custom-property cascade.
 
-### Reference
+## Reference
+
 - [Common Props](https://vaneui.com/docs/reference/common-props): Layout and typography props shared across all components.
 - [Changelog](https://vaneui.com/docs/reference/changelog): Every user-visible change to @vaneui/ui, by version.
