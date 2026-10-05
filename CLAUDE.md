@@ -74,7 +74,7 @@ app/
     data/                 # Theme demo data (balanced.ts, playful.ts, strict.ts)
 
   utils/
-    stringUtils.ts        # prepareComponentString(), toHtmlId(), extractMarkdownHeadings()
+    stringUtils.ts        # toHtmlId(), createHeadingSlugger(), extractMarkdownHeadings()
 ```
 
 ## Key Patterns

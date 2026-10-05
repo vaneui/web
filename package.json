@@ -33,7 +33,6 @@
     "next": "16.1.0-canary.19",
     "postcss": "^8.4.35",
     "prism-react-renderer": "^2.4.1",
-    "react-element-to-jsx-string": "^17.0.1",
     "react-feather": "^2.0.10",
     "react-is": "^19.1.0",
     "sucrase": "^3.35.1",
