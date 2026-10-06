@@ -2,8 +2,9 @@ name: Update VaneUI packages
 
 # Picks up new @vaneui/ui and @vaneui/md releases; the push redeploys the site on Vercel.
 on:
+  # Off the top of the hour: GitHub delays or drops scheduled runs at :00 under load.
   schedule:
-    - cron: '0 6 * * *'
+    - cron: '41 */6 * * *'
   workflow_dispatch:
 
 permissions:
