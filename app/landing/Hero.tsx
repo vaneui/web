@@ -10,9 +10,10 @@ import { CodeBlock } from '../components/CodeBlock';
 import { ANNOUNCEMENT, CARD_CODE, INSTALL, PRODUCT, dog } from './content';
 import { Reveal } from './Reveal';
 import { FrameRow, InstallBox } from './frame';
+import { inkCodeTheme } from './codeTheme';
 
 type Box = { x: number; y: number; w: number; h: number };
-type Geometry = { card: Box; img: Box; chip: Box; adopt: Box; more: Box };
+type Geometry = { card: Box; img: Box; chip: Box; adopt: Box; more: Box; code: Box };
 
 const GUTTER = 36; // distance from the card edge to the label column
 
@@ -24,7 +25,7 @@ function boxOf(el: Element | null, origin: DOMRect): Box | null {
 
 /** Thin accent leader lines that name the props producing each part of the card */
 function Redlines({ g }: { g: Geometry }) {
-  const { card, img, chip, adopt, more } = g;
+  const { card, img, chip, adopt, more, code } = g;
   // once everything has drawn, drop the animations so the final state is plain static markup
   const [drawn, setDrawn] = useState(false);
   useEffect(() => {
@@ -40,14 +41,15 @@ function Redlines({ g }: { g: Geometry }) {
   const cardY = bottom - 30;
   const chipY = chip.y + chip.h / 2;
   const moreY = more.y + more.h / 2;
-  const adoptY = bottom + 34;
+  // runs through the middle of the gap between the card and the code panel
+  const adoptY = (bottom + code.y) / 2;
 
   const leads: { key: string; d: string; dot: [number, number]; label: string; at: [number, number]; side: 'l' | 'r' }[] = [
     { key: 'card', d: `M${card.x} ${cardY}H${left}`, dot: [card.x, cardY], label: 'Card sm row', at: [left, cardY], side: 'l' },
     { key: 'img', d: `M${img.x + 30} ${imgY}H${left}`, dot: [img.x + 30, imgY], label: 'Img sm sharp', at: [left, imgY], side: 'l' },
     { key: 'chip', d: `M${chip.x + chip.w} ${chipY}H${right}`, dot: [chip.x + chip.w, chipY], label: 'Chip sm fontBold', at: [right, chipY], side: 'r' },
     { key: 'more', d: `M${more.x + more.w} ${moreY}H${right}`, dot: [more.x + more.w, moreY], label: 'Button secondary', at: [right, moreY], side: 'r' },
-    { key: 'adopt', d: `M${adopt.x + adopt.w / 2} ${adopt.y + adopt.h}V${adoptY}H${right}`, dot: [adopt.x + adopt.w / 2, adopt.y + adopt.h], label: 'Button success filled', at: [right, adoptY], side: 'r' },
+    { key: 'adopt', d: `M${adopt.x + adopt.w / 2} ${adopt.y + adopt.h}V${adoptY}H${right}`, dot: [adopt.x + adopt.w / 2, adopt.y + adopt.h], label: 'Button filled', at: [right, adoptY], side: 'r' },
   ];
 
   const start = 450;
@@ -107,7 +109,8 @@ export function Hero() {
     const chip = boxOf(q('chip'), o);
     const adopt = boxOf(q('adopt'), o);
     const more = boxOf(q('more'), o);
-    if (card && img && chip && adopt && more) setGeo({ card, img, chip, adopt, more });
+    const code = boxOf(stage.querySelector('.lp-code'), o);
+    if (card && img && chip && adopt && more && code) setGeo({ card, img, chip, adopt, more, code });
   }, []);
 
   useEffect(() => {
@@ -131,7 +134,7 @@ export function Hero() {
         <Divider />
         <Text sm>{dog.description}</Text>
         <Row sm mobileStack justifyEnd>
-          <Button success filled className="max-mobile:w-full" data-anno="adopt">Adopt</Button>
+          <Button filled className="max-mobile:w-full" data-anno="adopt">Adopt</Button>
           <Button secondary className="max-mobile:w-full" data-anno="more">Learn more</Button>
         </Row>
       </Stack>
@@ -150,9 +153,8 @@ export function Hero() {
             </Button>
           </Reveal>
           <Reveal delay={60}>
-            <PageTitle lg textCenter trackingTighter className="max-w-[18ch]">
-              Deliver clean UI{' '}
-              <Text tag="span" block wFull secondary inheritSize textCenter>without complex code</Text>
+            <PageTitle lg textCenter trackingTight>
+              Deliver clean UI <br className="max-mobile:hidden"/>without complex code
             </PageTitle>
           </Reveal>
           <Reveal delay={120}>
@@ -199,8 +201,9 @@ export function Hero() {
                 <span className="lp-handle lp-handle--br"/>
               </div>
             </div>
-            <CodeBlock className="lp-code relative z-0 w-[38rem] max-w-full lg:-mt-11 shadow-xl"
-                       fileName="DogCard.tsx" language="tsx" code={CARD_CODE}/>
+            {/* lg:mt-4 widens the gap below the card to 48px, so the Adopt redline runs clear of both */}
+            <CodeBlock className="lp-code relative z-0 w-[38rem] max-w-full lg:mt-4 shadow-xl"
+                       fileName="DogCard.tsx" language="tsx" code={CARD_CODE} prismTheme={inkCodeTheme}/>
           </Stack>
           {geo && redlines && <Redlines g={geo}/>}
         </div>

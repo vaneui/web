@@ -29,7 +29,7 @@ export const CARD_CODE = `<Card sm row noPadding noGap>
     <Divider/>
     <Text sm>Oliver is a shy, sweet pup learning to trust.</Text>
     <Row sm justifyEnd>
-      <Button success filled>Adopt</Button>
+      <Button filled>Adopt</Button>
       <Button secondary>Learn more</Button>
     </Row>
   </Stack>

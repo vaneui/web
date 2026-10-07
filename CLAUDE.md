@@ -76,6 +76,7 @@ app/
     content.ts            # Landing copy and data (features, frameworks, AI clients, nav)
     demos.tsx             # Live component demos for the component grid
     Reveal.tsx            # Scroll-in reveal wrapper, usePrefersReducedMotion
+    codeTheme.ts          # Gray syntax theme for the hero code panel (blue component names only)
     landing.css           # Accent tokens, frame decoration and motion (lp- prefix)
     data/                 # Theming demo data (themes.ts, balanced.ts, playful.ts, strict.ts)
 

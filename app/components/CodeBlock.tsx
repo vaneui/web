@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Button, Col, Row, Stack, Text } from '@vaneui/ui';
 import Image from "next/image";
 import { Check, Copy, Terminal } from "react-feather";
-import { Highlight, Language } from 'prism-react-renderer';
+import { Highlight, Language, type PrismTheme } from 'prism-react-renderer';
 import { darkTheme, lightTheme } from './themes';
 import { useIsDark } from '../utils/useIsDark';
 
@@ -22,6 +22,8 @@ interface CodeBlockProps {
   highlightRanges?: HighlightRange[];
   cursorPosition?: number;
   showHeader?: boolean;
+  /** Overrides the light/dark syntax theme */
+  prismTheme?: PrismTheme;
 }
 
 function getLanguageIcon(language: string) {
@@ -45,6 +47,7 @@ export function CodeBlock({
                             highlightRanges = [],
                             showHeader = true,
                             cursorPosition,
+                            prismTheme,
                           }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
   const isDark = useIsDark();
@@ -57,7 +60,7 @@ export function CodeBlock({
   };
 
   const Icon = getLanguageIcon(language);
-  const currentTheme = theme === 'dark' || isDark ? darkTheme : lightTheme;
+  const currentTheme = prismTheme ?? (theme === 'dark' || isDark ? darkTheme : lightTheme);
 
   return (
     <Col xs primary rounded noGap border overflowHidden wFull className={className}>
