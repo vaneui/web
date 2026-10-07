@@ -21,7 +21,7 @@ export function GetStarted() {
           <Reveal delay={60}>
             <SectionTitle lg textCenter trackingTighter>
               Build your next interface{' '}
-              <Text tag="span" block wFull tertiary inheritSize textCenter>with VaneUI</Text>
+              <Text tag="span" block wFull secondary inheritSize textCenter>with VaneUI</Text>
             </SectionTitle>
           </Reveal>
           <Reveal delay={120}>

@@ -79,7 +79,7 @@ function Redlines({ g }: { g: Geometry }) {
       </div>
       {leads.map((l, i) => (
         <div key={l.key} className="lp-anno-pos"
-             style={{ left: l.at[0], top: l.at[1], transform: l.side === 'l' ? 'translate(calc(-100% - 6px), -50%)' : 'translate(6px, -50%)' }}>
+             style={{ left: l.at[0], top: l.at[1], transform: l.side === 'l' ? 'translate(-100%, -50%)' : 'translate(0, -50%)' }}>
           <div className="lp-lead-label" style={{ '--d': `${start + step * (i + 1) + 380}ms` } as React.CSSProperties}>
             <Chip xs fontMono accent>{l.label}</Chip>
           </div>
@@ -152,7 +152,7 @@ export function Hero() {
           <Reveal delay={60}>
             <PageTitle lg textCenter trackingTighter className="max-w-[18ch]">
               Deliver clean UI{' '}
-              <Text tag="span" block wFull tertiary inheritSize textCenter>without complex code</Text>
+              <Text tag="span" block wFull secondary inheritSize textCenter>without complex code</Text>
             </PageTitle>
           </Reveal>
           <Reveal delay={120}>
@@ -199,7 +199,7 @@ export function Hero() {
                 <span className="lp-handle lp-handle--br"/>
               </div>
             </div>
-            <CodeBlock className="relative z-0 w-[37rem] max-w-full lg:-mt-11 shadow-xl"
+            <CodeBlock className="lp-code relative z-0 w-[38rem] max-w-full lg:-mt-11 shadow-xl"
                        fileName="DogCard.tsx" language="tsx" code={CARD_CODE}/>
           </Stack>
           {geo && redlines && <Redlines g={geo}/>}

@@ -4,8 +4,8 @@
 import React, { useState } from 'react';
 import {
   Row, Col, Field, Checkbox, Label, Button, Alert, Badge, Switch,
-  Table, Thead, Tbody, Tr, Th, Td, RadioGroup, Radio, Menu, MenuItem, Divider, Tooltip, Modal, ModalHeader,
-  ModalBody, ModalFooter, ModalCloseButton, Title, Text, NavLink,
+  Table, Thead, Tbody, Tr, Th, Td, RadioGroup, Radio, Menu, MenuItem, Divider, Tooltip, Modal,
+  ModalBody, ModalFooter, ModalCloseButton, Title, Text, NavLink, Img, Chip,
 } from '@vaneui/ui';
 import { BarChart2, Home, Settings, Users } from 'react-feather';
 
@@ -23,17 +23,30 @@ function OverlaysDemo() {
         <Button>Hover me</Button>
       </Tooltip>
       <Button filled onClick={() => setOpen(true)}>Open dialog</Button>
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <ModalHeader>
-          <Title>Delete project?</Title>
-          <ModalCloseButton/>
-        </ModalHeader>
+      <Modal open={open} onClose={() => setOpen(false)} noGap overflowHidden aria-labelledby="visit-title">
+        <Img src="/puppy.png" alt="Oliver, a brown puppy, sitting in dry grass" width={480} height={176}
+             sharp wFull objectCover className="h-44"/>
         <ModalBody>
-          <Text>This removes the project and its 12 deployments.</Text>
+          <Row justifyBetween itemsStart>
+            <Col xs>
+              <Row sm>
+                <Title id="visit-title">Meet Oliver</Title>
+                <Chip sm success>Available</Chip>
+              </Row>
+              <Text sm tertiary>Book a 30-minute visit at the shelter. Bring the family.</Text>
+            </Col>
+            <ModalCloseButton aria-label="Close"/>
+          </Row>
+          <Field type="email" label="Your email" placeholder="you@company.com"/>
+          <Field select label="Visit day">
+            <option>Saturday, 10:00</option>
+            <option>Saturday, 14:00</option>
+            <option>Sunday, 11:00</option>
+          </Field>
         </ModalBody>
-        <ModalFooter>
-          <Button secondary onClick={() => setOpen(false)}>Cancel</Button>
-          <Button danger filled onClick={() => setOpen(false)}>Delete</Button>
+        <ModalFooter borderT>
+          <Button secondary onClick={() => setOpen(false)}>Maybe later</Button>
+          <Button success filled onClick={() => setOpen(false)}>Book a visit</Button>
         </ModalFooter>
       </Modal>
     </Row>
@@ -64,10 +77,10 @@ export const GALLERY_TILES: { name: string; parts: string; href: string; demo: R
           <Tr><Th scope="col">Service</Th><Th scope="col">Status</Th><Th scope="col" textRight>Latency</Th></Tr>
         </Thead>
         <Tbody>
-          <Tr><Td>api</Td><Td><Badge success>Up</Badge></Td><Td textRight>42ms</Td></Tr>
-          <Tr><Td>auth</Td><Td><Badge warning>Slow</Badge></Td><Td textRight>380ms</Td></Tr>
-          <Tr><Td>billing</Td><Td><Badge danger>Down</Badge></Td><Td textRight>none</Td></Tr>
-          <Tr><Td>search</Td><Td><Badge success>Up</Badge></Td><Td textRight>65ms</Td></Tr>
+          <Tr><Td>api</Td><Td><Badge sm success>Up</Badge></Td><Td textRight>42ms</Td></Tr>
+          <Tr><Td>auth</Td><Td><Badge sm warning>Slow</Badge></Td><Td textRight>380ms</Td></Tr>
+          <Tr><Td>billing</Td><Td><Badge sm danger>Down</Badge></Td><Td textRight>none</Td></Tr>
+          <Tr><Td>search</Td><Td><Badge sm success>Up</Badge></Td><Td textRight>65ms</Td></Tr>
         </Tbody>
       </Table>
     ),

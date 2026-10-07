@@ -241,7 +241,9 @@
   animation: lp-pop .3s cubic-bezier(.2,.7,.2,1) both;
   animation-delay: var(--d, 0ms);
 }
+/* flex so the label box is exactly the chip: its middle sits on the leader line */
 .lp-lead-label {
+  display: flex;
   animation: lp-fade .4s ease both;
   animation-delay: var(--d, 0ms);
 }
@@ -250,6 +252,10 @@
 
 @keyframes lp-pop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: none; } }
 @keyframes lp-fade { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+
+/* The hero sample fits its panel on desktop; on narrow screens it still scrolls, without a bar */
+.lp-code * { scrollbar-width: none; }
+.lp-code *::-webkit-scrollbar { display: none; }
 
 /* ---------- principles: prop demo, dark split ---------- */
 
@@ -272,7 +278,7 @@
 .lp-swap { animation: lp-fade .35s ease both; }
 
 .lp-split-layer { grid-area: 1 / 1; }
-.lp-split-dark { clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+.lp-split-dark { clip-path: inset(0 0 0 50%); }
 .lp-split-line { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 .lp-split-line line { stroke: var(--lp-mark); stroke-width: 1; }
 

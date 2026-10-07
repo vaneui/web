@@ -1,30 +1,15 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Row, Container, Button, IconButton, Divider, Chip, Kbd, Text, Menu, MenuItem } from '@vaneui/ui';
-import { Menu as MenuIcon, Search } from 'react-feather';
+import { Row, Container, Button, IconButton, Divider, Chip, Text, Menu, MenuItem } from '@vaneui/ui';
+import { Menu as MenuIcon } from 'react-feather';
 import { Logo } from '../components/Logo';
 import { ThemeToggle } from '../components/ThemeToggle';
 import { NAV, PRODUCT, VERSION } from './content';
 import { Crosshairs, FRAME, GitHubMark } from './frame';
 
 export function LandingHeader() {
-  const router = useRouter();
-
-  // The ⌘K hint is real: it opens the docs, where search lives
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        router.push('/docs');
-      }
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [router]);
-
   return (
     <Row tag="header" sticky borderB noGap justifyCenter className="lp-header top-0 z-40">
       <Container lg row noGap borderX itemsStretch relative className={`${FRAME} h-14`}>
@@ -49,17 +34,8 @@ export function LandingHeader() {
           ))}
         </Row>
 
-        {/* Search fills the remaining width; below 1280px it stays as an empty cell */}
-        <Row flex1 justifyEnd className="px-3">
-          <Button sm pill secondary fontNormal justifyBetween desktopHide tag={Link} href="/docs" aria-label="Search docs"
-                  className="w-56">
-            <Row xs>
-              <Search aria-hidden="true" className="size-3.5"/>
-              <Text tag="span" inheritSize>Search docs</Text>
-            </Row>
-            <Kbd xs>⌘K</Kbd>
-          </Button>
-        </Row>
+        {/* Empty cell that fills the remaining width */}
+        <Row flex1/>
         <Divider vertical/>
         <Row justifyCenter className="w-14 max-mobile:w-12">
           <ThemeToggle/>

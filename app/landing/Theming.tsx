@@ -33,7 +33,7 @@ export function Theming() {
         three examples: yours can use any values, and a nested provider gives one section its own look.
       </SectionHead>
 
-      <Grid2 noGap borderT className="lp-grid grid-cols-[5fr_7fr] max-tablet:grid-cols-1">
+      <Grid2 noGap borderT className="lp-grid grid-cols-[minmax(0,5fr)_minmax(0,7fr)] max-tablet:grid-cols-1">
         {/* Controls and code */}
         <Stack xl flexNoWrap className="lp-cell">
           <Reveal>
@@ -63,10 +63,10 @@ export function Theming() {
                   CSS variables
                 </Button>
               </Row>
-              <Col noGap overflowYAuto className="max-h-[22rem]">
-                <CodeBlock key={`${selected}-${tab}`} code={showCss ? cssVarsCode! : defaultsCode}
-                           language={showCss ? 'css' : 'tsx'} showHeader={false} theme="light"/>
-              </Col>
+              {/* Fixed height, so switching the code shown never moves the card */}
+              <CodeBlock key={`${selected}-${tab}`} code={showCss ? cssVarsCode! : defaultsCode}
+                         language={showCss ? 'css' : 'tsx'} showHeader={false} theme="light"
+                         className="h-[22rem]"/>
             </Col>
           </Reveal>
         </Stack>

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import {
-  Grid2, Grid3, Col, Row, Stack, Text, Title, Button, Card, Img, Divider, Label, Switch, Mark, Code, type ButtonProps,
+  Grid2, Grid3, Col, Row, Stack, Text, Title, Button, Card, Chip, Img, Divider, Label, Switch, Mark, Code, type ButtonProps,
 } from '@vaneui/ui';
 import { Pause, Play } from 'react-feather';
 import { CodeBlock } from '../components/CodeBlock';
@@ -22,6 +22,15 @@ const STEPS: { props: PropKey[]; changed?: PropKey }[] = [
   { props: ['accent', 'filled', 'sharp', 'lg'], changed: 'sharp' },
 ];
 const STEP_MS = 2200;
+
+// The two documented ways to load the styles (see getting-started/installation.md)
+const TAILWIND_SETUPS = [
+  {
+    label: 'With your Tailwind CSS v4 build',
+    code: '@import "tailwindcss";\n@import "@vaneui/ui/tokens";\n@import "@vaneui/ui/vars";\n@source "../node_modules/@vaneui/ui";',
+  },
+  { label: 'Without Tailwind CSS', code: '@import "@vaneui/ui/css";' },
+];
 
 function Index({ n }: { n: string }) {
   return <Text xs fontMono tertiary>{n}</Text>;
@@ -82,22 +91,25 @@ function PropDemo() {
   );
 }
 
-/** The same mini card twice: light, and a dark copy clipped to the lower-right triangle */
+/** The same mini card twice: light, and a dark copy clipped to the right half */
 function MiniCard() {
   return (
-    <Card className="w-64">
-      <Row sm>
-        <Img xs pill src={dog.image} alt="" width={40} height={40}/>
-        <Col noGap>
-          <Title xs tag="p">{dog.name}</Title>
-          <Text xs tertiary>Adoption profile</Text>
-        </Col>
+    <Card className="w-72">
+      <Row justifyBetween>
+        <Row sm>
+          <Img xs pill src={dog.image} alt="" width={40} height={40}/>
+          <Col noGap>
+            <Title xs tag="p">{dog.name}</Title>
+            <Text xs tertiary>Adoption profile</Text>
+          </Col>
+        </Row>
+        <Chip xs>{dog.gender}</Chip>
       </Row>
       <Divider/>
-      <Label row itemsCenter><Switch sm defaultChecked/> Notify me</Label>
+      <Label row itemsCenter justifyBetween wFull>Notify me <Switch sm defaultChecked/></Label>
       <Row xs>
-        <Button xs filled>Adopt</Button>
-        <Button xs secondary>Later</Button>
+        <Button xs filled flex1>Adopt</Button>
+        <Button xs secondary flex1>Later</Button>
       </Row>
     </Card>
   );
@@ -106,8 +118,9 @@ function MiniCard() {
 function DarkSplit() {
   return (
     <Col sm itemsCenter wFull aria-hidden="true" inert className="py-6">
-      <Row justifyBetween className="w-64">
+      <Row justifyBetween className="w-72">
         <Text xs fontMono tertiary>light</Text>
+        <Text xs fontMono tertiary>dark</Text>
       </Row>
       <div className="relative grid">
         <div data-theme="light" className="lp-light lp-split-layer">
@@ -117,12 +130,9 @@ function DarkSplit() {
           <MiniCard/>
         </div>
         <svg className="lp-split-line" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <line x1="98" y1="2.5" x2="2" y2="97.5" vectorEffect="non-scaling-stroke"/>
+          <line x1="50" y1="-4" x2="50" y2="104" vectorEffect="non-scaling-stroke"/>
         </svg>
       </div>
-      <Row justifyEnd className="w-64">
-        <Text xs fontMono tertiary>dark</Text>
-      </Row>
     </Col>
   );
 }
@@ -205,15 +215,28 @@ export function Principles() {
         <Tile n="02.3" feature={f.responsive} delay={100}/>
         <Tile n="02.4" feature={f.theme} delay={150}/>
         <Tile n="02.5" feature={f.a11y} delay={200}/>
-        {/* Wide: Tailwind CSS, text and code side by side */}
-        <Grid2 noGap className="lp-grid col-span-2 max-tablet:col-span-1 max-tablet:grid-cols-1">
-          <Tile n="02.6" feature={f.tailwind} delay={250} code={false}/>
-          <Stack xl flexNoWrap justifyEnd className="lp-cell">
-            <Reveal delay={300}>
-              <CodeBlock code={f.tailwind.code} language="css" showHeader={false} theme="light"/>
+        {/* Wide: Tailwind CSS, the two ways to load the styles side by side in one cell */}
+        <Stack xl flexNoWrap className="lp-cell col-span-2 max-tablet:col-span-1">
+          <Row xl itemsStart tabletStack>
+            <Reveal delay={250} className="flex-1 min-w-0">
+              <Col>
+                <Index n="02.6"/>
+                <Title sm trackingTight>{f.tailwind.title}</Title>
+                <Text sm tertiary className="max-w-[40ch]">{f.tailwind.text}</Text>
+              </Col>
             </Reveal>
-          </Stack>
-        </Grid2>
+            <Reveal delay={300} className="flex-[1.3] min-w-0 max-tablet:w-full">
+              <Col lg>
+                {TAILWIND_SETUPS.map(setup => (
+                  <Col xs key={setup.label}>
+                    <Text xs fontMono uppercase trackingWider tertiary>{setup.label}</Text>
+                    <CodeBlock code={setup.code} language="css" showHeader={false} theme="light"/>
+                  </Col>
+                ))}
+              </Col>
+            </Reveal>
+          </Row>
+        </Stack>
       </Grid3>
     </FrameRow>
   );
