@@ -6,7 +6,7 @@ import { Section, Container, Row, Col, Stack, Grid2, Text, SectionTitle, IconBut
 import { Check, Copy } from 'react-feather';
 import { Reveal } from './Reveal';
 
-/** Width of the frame between the rails: 72rem, with a 16px gutter on small screens */
+/** Width of the frame between the rails: 72rem (80rem on docs), with a 16px gutter on small screens */
 export const FRAME = 'w-[calc(100%-2rem)]';
 
 /** The two "+" marks where a section hairline crosses the rails */
@@ -36,18 +36,20 @@ export function Brackets() {
  * One full-bleed row of the blueprint: a hairline across the page (Section borderT),
  * the framed column whose side borders are the rails, and crosshairs where they meet.
  */
-export function FrameRow({ children, id, label, top = true, tag, className, frameClassName = '' }: {
+export function FrameRow({ children, id, label, top = true, wide = false, tag, className, frameClassName = '' }: {
   children: React.ReactNode;
   id?: string;
   label?: string;
   top?: boolean;
+  /** 80rem frame, the docs width, instead of the 72rem landing frame */
+  wide?: boolean;
   tag?: 'section' | 'footer' | 'div';
   className?: string;
   frameClassName?: string;
 }) {
   return (
     <Section noPadding noGap relative borderT={top} tag={tag} id={id} aria-label={label} className={className}>
-      <Container lg noGap borderX relative itemsStretch className={`${FRAME} ${frameClassName}`}>
+      <Container lg={!wide} xl={wide} noGap borderX relative itemsStretch className={`${FRAME} ${frameClassName}`}>
         {top && <Crosshairs/>}
         {children}
       </Container>
@@ -67,12 +69,12 @@ export function Band({ full = false }: { full?: boolean }) {
   );
 }
 
-/** Mono index label: a small accent square, then `[01] Components` */
-export function Eyebrow({ index, children }: { index: string; children: React.ReactNode }) {
+/** Mono index label: a small accent square, then `[01] Components`; `tight` for narrow columns like the docs sidebar */
+export function Eyebrow({ index, tight = false, children }: { index: string; tight?: boolean; children: React.ReactNode }) {
   return (
     <Row xs>
       <span aria-hidden="true" className="lp-sq"/>
-      <Text xs fontMono uppercase trackingWidest tertiary>[{index}] {children}</Text>
+      <Text xs fontMono uppercase trackingWidest={!tight} trackingWider={tight} tertiary>[{index}] {children}</Text>
     </Row>
   );
 }

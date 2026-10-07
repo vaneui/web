@@ -10,7 +10,6 @@ import { CodeBlock } from '../components/CodeBlock';
 import { ANNOUNCEMENT, CARD_CODE, INSTALL, PRODUCT, dog } from './content';
 import { Reveal } from './Reveal';
 import { FrameRow, InstallBox } from './frame';
-import { inkCodeTheme } from './codeTheme';
 
 type Box = { x: number; y: number; w: number; h: number };
 type Geometry = { card: Box; img: Box; chip: Box; adopt: Box; more: Box; code: Box };
@@ -203,7 +202,7 @@ export function Hero() {
             </div>
             {/* lg:mt-4 widens the gap below the card to 48px, so the Adopt redline runs clear of both */}
             <CodeBlock className="lp-code relative z-0 w-[38rem] max-w-full lg:mt-4 shadow-xl"
-                       fileName="DogCard.tsx" language="tsx" code={CARD_CODE} prismTheme={inkCodeTheme}/>
+                       fileName="DogCard.tsx" language="tsx" code={CARD_CODE}/>
           </Stack>
           {geo && redlines && <Redlines g={geo}/>}
         </div>

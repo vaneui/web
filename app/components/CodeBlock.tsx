@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Button, Col, Row, Stack, Text } from '@vaneui/ui';
 import Image from "next/image";
 import { Check, Copy, Terminal } from "react-feather";
-import { Highlight, Language, type PrismTheme } from 'prism-react-renderer';
+import { Highlight, Language } from 'prism-react-renderer';
 import { darkTheme, lightTheme } from './themes';
 import { useIsDark } from '../utils/useIsDark';
 
@@ -22,8 +22,8 @@ interface CodeBlockProps {
   highlightRanges?: HighlightRange[];
   cursorPosition?: number;
   showHeader?: boolean;
-  /** Overrides the light/dark syntax theme */
-  prismTheme?: PrismTheme;
+  /** Joined to the box above it: no own frame or corners, only a top hairline */
+  attached?: boolean;
 }
 
 function getLanguageIcon(language: string) {
@@ -47,7 +47,7 @@ export function CodeBlock({
                             highlightRanges = [],
                             showHeader = true,
                             cursorPosition,
-                            prismTheme,
+                            attached = false,
                           }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
   const isDark = useIsDark();
@@ -60,10 +60,11 @@ export function CodeBlock({
   };
 
   const Icon = getLanguageIcon(language);
-  const currentTheme = prismTheme ?? (theme === 'dark' || isDark ? darkTheme : lightTheme);
+  const currentTheme = theme === 'dark' || isDark ? darkTheme : lightTheme;
 
   return (
-    <Col xs primary rounded noGap border overflowHidden wFull className={className}>
+    <Col xs primary noGap overflowHidden wFull rounded={!attached} border={!attached} borderT={attached}
+         className={className}>
       <Stack primary xs row justifyBetween hidden={!showHeader} borderB>
         <Row xs>
           <span className="w-5 h-5 grayscale">

@@ -72,8 +72,8 @@ import Link from 'next/link';
 | UI Element | Component | Example |
 |-----------|-----------|---------|
 | Sidebar nav item | `NavLink` with `tag={Link}` | `DocsNav.tsx` |
-| Header nav button | `Button` with `tag={Link}` | `Header.tsx` |
-| Footer link | `Link` (VaneUI) with `secondary noUnderline` | `Footer.tsx` |
+| Header nav button | `Button` with `tag={Link}` | `LandingHeader.tsx` |
+| Footer link | `Link` (VaneUI) with `secondary noUnderline` | `LandingFooter.tsx` |
 | On-this-page link | `NavLink` with `active` prop | `OnThisPage.tsx` |
 | Page layout | `Section` > `Container` > content | Landing sections |
 | Doc section header | `SectionTitle` | Doc pages |

@@ -77,12 +77,27 @@
   --shadow-alpha-soft: 0.06;
 }
 
+/* Docs and playground: the same frame drawing, but VaneUI's own tokens stay untouched,
+   so live examples show the real defaults. Only the blueprint mark is pinned to the landing blue. */
+.lp-site {
+  --lp-mark: oklch(54.6% 0.245 262.881);                       /* blue-600 */
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+[data-theme="dark"] .lp-site {
+  --lp-mark: oklch(70.7% 0.165 254.624);                       /* blue-400 */
+}
+
 /* Derived drawing colors; recomputed on every theme root so islands get their own */
 .landing,
 .landing [data-theme] {
+  --lp-mark: var(--color-focus-accent);
+}
+.landing,
+.landing [data-theme],
+.lp-site {
   --lp-ink: var(--color-text-primary);
   --lp-line: var(--color-border-primary);
-  --lp-mark: var(--color-focus-accent);
   --lp-cross: color-mix(in oklab, var(--lp-ink) 40%, transparent);
   --lp-hatch: color-mix(in oklab, var(--lp-ink) 9%, transparent);
   --lp-dot: color-mix(in oklab, var(--lp-ink) 22%, transparent);
@@ -312,6 +327,41 @@
 
 /* the sticky header paints the canvas so content never shows through */
 .lp-header { background-color: var(--color-bg-primary); }
+
+/* The current page's header cell: an accent bar over the header's bottom hairline */
+.lp-tab[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  height: 2px;
+  background-color: var(--lp-mark);
+}
+
+/* ---------- docs ---------- */
+
+/* Anchored headings land below the sticky header (and the mobile docs bar) */
+.lp-site [id] { scroll-margin-top: 5.5rem; }
+@media (max-width: 1023.98px) { .lp-site [id] { scroll-margin-top: 8.5rem; } }
+
+/* Sidebar and on-this-page links hang off a hairline track; the current one marks it in accent */
+.lp-rail { position: relative; }
+.lp-rail::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 1px;
+  background-color: var(--lp-line);
+}
+.lp-rail[data-active]::before {
+  width: 2px;
+  background-color: var(--lp-mark);
+}
+
+/* Touching tiles without a filled last row: each tile draws its own hairline into the 1px gap */
+.lp-tiles { gap: 1px; padding: 1px; }
+.lp-tiles > * { box-shadow: 0 0 0 1px var(--lp-line); }
 
 /* ---------- motion ---------- */
 

@@ -41,12 +41,12 @@ app/
   not-found.tsx           # 404 page
 
   components/             # Shared components
-    Header.tsx, Footer.tsx, Logo.tsx, ThemeToggle.tsx
+    Logo.tsx, ThemeToggle.tsx
     CodeBlock.tsx          # Syntax highlighting with prism-react-renderer
-    themes/               # Prism color themes (dark/light)
+    themes/               # Prism color themes (dark ink / light paper, blue component names only)
 
   docs/                   # Documentation section
-    layout.tsx            # Docs layout (sidebar nav + content area)
+    layout.tsx            # Docs layout (site header, framed sidebar + content, site footer)
     page.tsx              # Docs index (renders DocsIndex.tsx)
     docsMetadata.ts       # Central docs structure config (categories + pages)
     docsSections.ts       # Derived from docsMetadata.ts
@@ -69,15 +69,14 @@ app/
 
   landing/                # Landing page (blueprint frame design, blue accent)
     Landing.tsx           # Client root: assembles the sections, imports landing.css
-    LandingHeader.tsx, LandingFooter.tsx  # Landing-only header and footer
+    LandingHeader.tsx, LandingFooter.tsx  # Site header and footer (landing, docs, playground; `wide` = 80rem docs frame)
     Hero.tsx, WorksWith.tsx, ComponentsBento.tsx, Principles.tsx
     Theming.tsx, Agents.tsx, GetStarted.tsx
     frame.tsx             # Shared frame primitives: FrameRow, Band, SectionHead, Eyebrow, InstallBox
     content.ts            # Landing copy and data (features, frameworks, AI clients, nav)
     demos.tsx             # Live component demos for the component grid
     Reveal.tsx            # Scroll-in reveal wrapper, usePrefersReducedMotion
-    codeTheme.ts          # Gray syntax theme for the hero code panel (blue component names only)
-    landing.css           # Accent tokens, frame decoration and motion (lp- prefix)
+    landing.css           # Accent tokens, frame decoration and motion (lp- prefix); `lp-site` reuses the frame on docs without touching VaneUI tokens
     data/                 # Theming demo data (themes.ts, balanced.ts, playful.ts, strict.ts)
 
   utils/

@@ -10,6 +10,8 @@ import { OnThisPage } from './OnThisPage';
 import { MetaStrip } from './MetaStrip';
 import { DocsPropsTable } from './DocsPropsTable';
 import Link from "next/link";
+import { docsSections } from "./docsSections";
+import { Eyebrow } from "../landing/frame";
 
 // Server component: the structural shell renders on the server (HTML is
 // crawlable + immediate), while ThemeProvider, DocsMarkdown's live demos,
@@ -57,10 +59,16 @@ export function DocsPageContent(
 
   const titleClasses = "after:content-['#'] after:invisible hover:after:visible after:ml-2 after:opacity-25";
 
+  // Same `[02]` index the sidebar shows next to this category
+  const sectionIndex = String(docsSections.findIndex(s => s.slug === section.slug) + 1).padStart(2, '0');
+
   return (
     <ThemeProvider
       themeDefaults={{
         code: { secondary: true },
+        // Tight headline tracking, as on the landing
+        pageTitle: { trackingTight: true },
+        sectionTitle: { trackingTight: true },
       }}
       extraClasses={{
         // Anchor "#" affordance on the page H1. Markdown-body headings get their
@@ -75,11 +83,11 @@ export function DocsPageContent(
           {/* Main Content */}
           <Col flex1 className="min-w-0">
             <Col>
-              <Text sm uppercase secondary fontMono>{section.name}</Text>
+              <Eyebrow index={sectionIndex}>{section.name}</Eyebrow>
               <PageTitle>
                 <Link href={`#${pageTitleId}`} id={pageTitleId}>{pageTitle}</Link>
               </PageTitle>
-              <Text primary>{pageData.description}</Text>
+              <Text secondary>{pageData.description}</Text>
               {pageData.frontmatter && (
                 <MetaStrip
                   frontmatter={pageData.frontmatter}
@@ -124,7 +132,7 @@ export function DocsPageContent(
                 refs can't cross the server/client boundary). */}
             {section.pages.length > 1 && (
               <Col wFull>
-                <Text sm uppercase secondary fontMono>More in {section.name}</Text>
+                <Text xs fontMono uppercase trackingWider tertiary>More in {section.name}</Text>
                 <Row flexWrap>
                   {section.pages
                     .filter(p => p.slug !== pageData.slug)
@@ -139,7 +147,7 @@ export function DocsPageContent(
           </Col>
 
           {/* On This Page Navigation */}
-          <Col sticky tabletHide noShrink className="styled-scrollbar top-10 w-56 max-h-[calc(100vh-128px)]">
+          <Col sticky tabletHide noShrink className="styled-scrollbar top-26 w-52 max-h-[calc(100dvh-8.5rem)]">
             <OnThisPage sections={sections} />
           </Col>
         </Row>

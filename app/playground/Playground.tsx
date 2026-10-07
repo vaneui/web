@@ -2,8 +2,10 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { Col, Row, Stack, Button, Text, Title } from '@vaneui/ui';
-import { Header } from '../components/Header';
+import { Col, Row, Container, Button, Text, Title } from '@vaneui/ui';
+import '../landing/landing.css';
+import { LandingHeader } from '../landing/LandingHeader';
+import { FRAME } from '../landing/frame';
 import { Preview } from './Preview';
 import { STARTER_CODE } from './starter';
 
@@ -43,22 +45,28 @@ export function Playground() {
   };
 
   return (
-    <Col noGap className="h-screen">
-      <Header />
-      <Stack sm row justifyBetween itemsCenter wFull noShrink
-             className="border-b border-(--color-border-primary) px-4 py-2">
-        <Title sm>Playground</Title>
-        <Button sm secondary onClick={reset}>Reset</Button>
-      </Stack>
-      <Row noGap flex1 overflowHidden wFull mobileStack style={{ alignItems: 'normal' }}>
-        <Col noGap flex1 overflowHidden
-             className="min-w-0 max-md:h-1/2 border-(--color-border-primary) md:border-r max-md:border-b">
-          <CodeEditor value={code} onChange={setCode} />
-        </Col>
-        <Col noGap flex1 overflowYAuto
-             className="styled-scrollbar min-w-0 max-md:h-1/2 p-6">
-          <Preview code={preview} />
-        </Col>
+    <Col noGap className="lp-site h-screen">
+      <LandingHeader wide />
+      {/* The editor and preview sit in the same railed 80rem frame as the docs */}
+      <Row noGap justifyCenter itemsStretch flex1 overflowHidden>
+        <Container xl noGap borderX itemsStretch relative className={FRAME}>
+          <Row justifyBetween borderB noShrink className="px-4 py-2">
+            <Title sm>Playground</Title>
+            <Button sm secondary onClick={reset}>Reset</Button>
+          </Row>
+          <Row noGap flex1 overflowHidden wFull mobileStack itemsStretch>
+            <Col noGap flex1 overflowHidden className="min-w-0 max-md:h-1/2 border-(--color-border-primary) md:border-r max-md:border-b">
+              <CodeEditor value={code} onChange={setCode} />
+            </Col>
+            {/* Preview on the landing's dot-grid canvas */}
+            <Col noGap flex1 relative className="min-w-0 max-md:h-1/2">
+              <div aria-hidden="true" className="lp-dots lp-dots--soft"/>
+              <Col noGap flex1 overflowYAuto relative className="styled-scrollbar p-6">
+                <Preview code={preview} />
+              </Col>
+            </Col>
+          </Row>
+        </Container>
       </Row>
     </Col>
   );

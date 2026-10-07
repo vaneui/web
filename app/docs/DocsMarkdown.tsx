@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { CodeBlock } from '../components/CodeBlock';
-import { Card, Title, SectionTitle } from '@vaneui/ui';
+import { Col, Title, SectionTitle } from '@vaneui/ui';
 import { Md, headingAnchors, type MdTransform } from "@vaneui/md";
 import { createHeadingSlugger } from '../utils/stringUtils';
 import { extractFences, type ExtractedFence } from '../../lib/docs/extractFences';
@@ -88,7 +88,7 @@ interface FenceLookup {
    * inside `FenceWithLivePreview`. React 19 Strict Mode double-invokes every
    * component's body in dev — without memoization, the first invocation shifts
    * the queue and the second sees it empty, producing a hydration mismatch
-   * (server: live preview Card; client: bare CodeBlock). The cache keeps the
+   * (server: live preview box; client: bare CodeBlock). The cache keeps the
    * result stable across both passes.
    */
   byInstance: Map<string, ExtractedFence | null>;
@@ -158,16 +158,23 @@ function FenceWithLivePreview({ content = '', language = 'text' }: MdFenceProps)
     fence.id !== null &&
     lookup?.slug !== undefined
   ) {
+    // A specimen box: the live example on the landing's dot-grid canvas, its source joined below
     return (
-      <Card xs sharp>
-        <LivePreview id={fence.id} slug={lookup.slug} />
+      <Col noGap border wFull>
+        <Col noGap relative>
+          <div aria-hidden="true" className="lp-dots lp-dots--soft"/>
+          <Col noGap relative>
+            <LivePreview id={fence.id} slug={lookup.slug} />
+          </Col>
+        </Col>
         <CodeBlock
           code={content}
           theme="light"
           language={language}
           fileName=""
+          attached
         />
-      </Card>
+      </Col>
     );
   }
 
