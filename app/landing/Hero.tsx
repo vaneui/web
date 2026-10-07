@@ -147,7 +147,7 @@ export function Hero() {
         <Stack lg flexNoWrap itemsCenter className="pt-16 pb-14 max-tablet:pt-14 max-mobile:pt-12 max-mobile:pb-12">
           <Reveal>
             <Button pill fontNormal tag={Link} href={ANNOUNCEMENT.href} className="pl-1.5 max-w-full">
-              <Badge xs accent filled>{ANNOUNCEMENT.tag}</Badge>
+              <Badge xs accent>{ANNOUNCEMENT.tag}</Badge>
               <Text tag="span" inheritSize truncate>{ANNOUNCEMENT.text}</Text>
               <ArrowRight aria-hidden="true"/>
             </Button>
