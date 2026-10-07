@@ -41,7 +41,7 @@ export function Theming() {
               <Text xs fontMono uppercase trackingWider tertiary>Example theme</Text>
               <Row xs flexWrap role="group" aria-label="Example theme">
                 {(Object.keys(themes) as ThemeKey[]).map(key => (
-                  <Button key={key} sm pill filled={selected === key} aria-pressed={selected === key}
+                  <Button key={key} pill filled={selected === key} aria-pressed={selected === key}
                           onClick={() => setSelected(key)}>
                     {themes[key].label}
                   </Button>
@@ -76,7 +76,7 @@ export function Theming() {
           <div aria-hidden="true" className="lp-dots"/>
           <Reveal delay={120} className="relative">
             <ThemeProvider theme={theme.config} themeDefaults={theme.defaults}>
-              <Card primary row mobileStack overflowHidden
+              <Card row mobileStack overflowHidden
                     className={`max-w-xl max-mobile:max-w-80 z-10 ${theme.cssVars || ''}`}>
                 <Img tag={Image} src="/puppy.png" alt="" width={200} height={200}
                      className="shrink-0 max-mobile:w-full"/>

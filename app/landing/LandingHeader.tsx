@@ -25,7 +25,7 @@ export function LandingHeader() {
         <Row noGap itemsStretch tabletHide tag="nav" aria-label="Main">
           {NAV.map(item => (
             <React.Fragment key={item.label}>
-              <Button sm ghost sharp secondary fontNormal noInsetRing hFull tag={Link} href={item.href}
+              <Button ghost sharp secondary fontNormal noInsetRing hFull tag={Link} href={item.href}
                       className="px-5">
                 {item.label}
               </Button>
@@ -43,7 +43,7 @@ export function LandingHeader() {
         <Divider vertical/>
         {/* Below 1024px the nav cells are hidden, so the links move into a menu */}
         <Row justifyCenter className="w-14 max-mobile:w-12 lg:hidden">
-          <Menu trigger={<IconButton sm ghost secondary aria-label="Open menu"><MenuIcon aria-hidden="true"/></IconButton>}>
+          <Menu trigger={<IconButton ghost secondary aria-label="Open menu"><MenuIcon aria-hidden="true"/></IconButton>}>
             {NAV.map(item => (
               <MenuItem key={item.label} tag={Link} href={item.href}>{item.label}</MenuItem>
             ))}
@@ -51,7 +51,7 @@ export function LandingHeader() {
         </Row>
         <Divider vertical className="lg:hidden"/>
         <Row className="px-3">
-          <Button sm pill tag="a" href={PRODUCT.githubUrl} target="_blank" rel="noopener noreferrer"
+          <Button pill tag="a" href={PRODUCT.githubUrl} target="_blank" rel="noopener noreferrer"
                   aria-label="VaneUI on GitHub (opens in a new tab)">
             <GitHubMark className="size-3.5"/>
             <Text tag="span" inheritSize mobileHide>GitHub</Text>

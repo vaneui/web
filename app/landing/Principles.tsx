@@ -53,11 +53,11 @@ function PropDemo() {
   const buttonProps = Object.fromEntries(current.props.map(p => [p, true])) as Partial<ButtonProps>;
 
   return (
-    <Col noGap wFull className="h-full">
+    <Col noGap wFull hFull>
       {/* Live button on a dot-grid canvas */}
       <Row justifyCenter relative className="h-44 max-mobile:h-36">
         <div aria-hidden="true" className="lp-dots lp-dots--soft"/>
-        <Button {...buttonProps} className="relative">Save changes</Button>
+        <Button {...buttonProps} relative>Save changes</Button>
       </Row>
       {/* The code that produces it */}
       <Row borderT className="px-8 py-4 max-tablet:px-6 max-mobile:px-4">

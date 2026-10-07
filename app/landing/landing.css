@@ -168,6 +168,15 @@
 .lp-cell:hover > .lp-brk,
 .lp-cell:focus-within > .lp-brk { opacity: 1; transform: none; }
 
+/* The three window dots in the terminal title bar */
+.lp-term-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  border: 1px solid currentColor;
+  opacity: .3;
+}
+
 /* Arrow nudge on linked tiles */
 .lp-nudge { transition: transform .25s cubic-bezier(.2,.7,.2,1); }
 .lp-cell:hover .lp-nudge { transform: translate(2px, -2px); }

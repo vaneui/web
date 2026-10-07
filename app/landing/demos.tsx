@@ -5,9 +5,12 @@ import React, { useState } from 'react';
 import {
   Row, Col, Field, Checkbox, Label, Button, Alert, Badge, Switch,
   Table, Thead, Tbody, Tr, Th, Td, RadioGroup, Radio, Menu, MenuItem, Divider, Tooltip, Modal,
-  ModalBody, ModalFooter, ModalCloseButton, Title, Text, NavLink, Img, Chip,
+  ModalBody, ModalFooter, ModalCloseButton, Title, Text, NavLink, Img, Chip, ThemeProvider, type ThemeDefaults,
 } from '@vaneui/ui';
 import { BarChart2, Home, Settings, Users } from 'react-feather';
+
+// A solid round close button, readable on top of the photo
+const CLOSE_ON_PHOTO: ThemeDefaults = { modal: { closeButton: { pill: true, primary: true, transparent: false, shadow: true } } };
 
 function OverlaysDemo() {
   const [open, setOpen] = useState(false);
@@ -23,11 +26,13 @@ function OverlaysDemo() {
         <Button>Hover me</Button>
       </Tooltip>
       <Button filled onClick={() => setOpen(true)}>Open dialog</Button>
-      <Modal open={open} onClose={() => setOpen(false)} noGap overflowHidden aria-labelledby="visit-title">
-        <Img src="/puppy.png" alt="Oliver, a brown puppy, sitting in dry grass" width={480} height={176}
-             sharp wFull objectCover className="h-44"/>
-        <ModalBody>
-          <Row justifyBetween itemsStart>
+      <ThemeProvider themeDefaults={CLOSE_ON_PHOTO}>
+        <Modal open={open} onClose={() => setOpen(false)} noGap overflowHidden aria-labelledby="visit-title">
+          {/* Close button pinned to the dialog's top corner, over the photo; its look comes from CLOSE_ON_PHOTO */}
+          <ModalCloseButton aria-label="Close" className="absolute top-3 right-3 z-10"/>
+          <Img src="/puppy.png" alt="Oliver, a brown puppy, sitting in dry grass" width={480} height={256}
+               sharp wFull className="h-64"/>
+          <ModalBody>
             <Col xs>
               <Row sm>
                 <Title id="visit-title">Meet Oliver</Title>
@@ -35,20 +40,19 @@ function OverlaysDemo() {
               </Row>
               <Text sm tertiary>Book a 30-minute visit at the shelter. Bring the family.</Text>
             </Col>
-            <ModalCloseButton aria-label="Close"/>
-          </Row>
-          <Field type="email" label="Your email" placeholder="you@company.com"/>
-          <Field select label="Visit day">
-            <option>Saturday, 10:00</option>
-            <option>Saturday, 14:00</option>
-            <option>Sunday, 11:00</option>
-          </Field>
-        </ModalBody>
-        <ModalFooter borderT>
-          <Button secondary onClick={() => setOpen(false)}>Maybe later</Button>
-          <Button success filled onClick={() => setOpen(false)}>Book a visit</Button>
-        </ModalFooter>
-      </Modal>
+            <Field type="email" label="Your email" placeholder="you@company.com"/>
+            <Field select label="Visit day">
+              <option>Saturday, 10:00</option>
+              <option>Saturday, 14:00</option>
+              <option>Sunday, 11:00</option>
+            </Field>
+          </ModalBody>
+          <ModalFooter borderT>
+            <Button secondary onClick={() => setOpen(false)}>Maybe later</Button>
+            <Button success filled onClick={() => setOpen(false)}>Book a visit</Button>
+          </ModalFooter>
+        </Modal>
+      </ThemeProvider>
     </Row>
   );
 }

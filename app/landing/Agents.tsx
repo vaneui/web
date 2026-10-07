@@ -25,9 +25,9 @@ export function Agents() {
                 <Card sm noPadding noGap overflowHidden>
                   <Row justifyBetween borderB className="px-4 py-2.5">
                     <Row xs aria-hidden="true">
-                      <span className="size-2.5 rounded-full border border-current opacity-30"/>
-                      <span className="size-2.5 rounded-full border border-current opacity-30"/>
-                      <span className="size-2.5 rounded-full border border-current opacity-30"/>
+                      <span className="lp-term-dot"/>
+                      <span className="lp-term-dot"/>
+                      <span className="lp-term-dot"/>
                     </Row>
                     <Text xs fontMono tertiary>zsh</Text>
                     <span aria-hidden="true" className="w-10"/>
