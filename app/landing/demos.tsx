@@ -1,14 +1,13 @@
 'use client'
 
+// Live component demos for the landing page component grid
 import React, { useState } from 'react';
-import Link from 'next/link';
 import {
-  Section, Container, Col, Row, Grid3, Card, Text, Field, Checkbox, Label, Button, Alert, Badge, Switch,
+  Row, Col, Field, Checkbox, Label, Button, Alert, Badge, Switch,
   Table, Thead, Tbody, Tr, Th, Td, RadioGroup, Radio, Menu, MenuItem, Divider, Tooltip, Modal, ModalHeader,
-  ModalBody, ModalFooter, ModalCloseButton, Title, NavLink,
+  ModalBody, ModalFooter, ModalCloseButton, Title, Text, NavLink,
 } from '@vaneui/ui';
 import { BarChart2, Home, Settings, Users } from 'react-feather';
-import { SectionHeader } from './SectionHeader';
 
 function OverlaysDemo() {
   const [open, setOpen] = useState(false);
@@ -41,7 +40,7 @@ function OverlaysDemo() {
   );
 }
 
-const tiles: { name: string; parts: string; href: string; demo: React.ReactNode }[] = [
+export const GALLERY_TILES: { name: string; parts: string; href: string; demo: React.ReactNode }[] = [
   {
     name: 'Forms',
     parts: 'Field, Checkbox, Button',
@@ -130,32 +129,3 @@ const tiles: { name: string; parts: string; href: string; demo: React.ReactNode 
   },
 ];
 
-export function GallerySection() {
-  return (
-    <Section xl>
-      <Container xl>
-        <Col xl wFull>
-          <SectionHeader title="40+ components that fit together">
-            Forms, data, feedback and overlays share one size scale and one set of colors. Every tile below is the
-            real component, so try it.
-          </SectionHeader>
-          <Grid3 lg wFull>
-            {tiles.map(tile => (
-              <Card key={tile.name} noGap noPadding overflowHidden>
-                <Col flex1 padding>{tile.demo}</Col>
-                <Row justifyBetween borderT secondary padding>
-                  <Col noGap>
-                    <Text sm fontSemibold>{tile.name}</Text>
-                    <Text xs secondary>{tile.parts}</Text>
-                  </Col>
-                  <Button xs ghost tag={Link} href={tile.href}>Docs</Button>
-                </Row>
-              </Card>
-            ))}
-          </Grid3>
-          <Button lg tag={Link} href="/docs">Browse all components</Button>
-        </Col>
-      </Container>
-    </Section>
-  );
-}

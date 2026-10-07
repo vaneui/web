@@ -1,0 +1,313 @@
+/* Landing page: blueprint frame, hairline cells, mono index labels, one electric blue accent.
+   Everything here is decoration, motion or token re-declaration; layout, type and component styling
+   come from VaneUI props. Palette values are Tailwind palette literals (named per line), like tokens.css,
+   so nothing depends on usage-based theme emission. */
+
+/* ---------- tokens ---------- */
+
+.landing {
+  /* ink */
+  --color-text-primary: oklch(13% 0.028 261.692);              /* gray-950 */
+  --color-bg-filled-primary: oklch(13% 0.028 261.692);         /* gray-950 */
+  --color-bg-filled-hover-primary: oklch(27.8% 0.033 256.848); /* gray-800 */
+  --color-bg-filled-active-primary: oklch(37.3% 0.034 259.733);/* gray-700 */
+
+  /* accent: electric blue */
+  --color-text-accent: oklch(48.8% 0.243 264.376);             /* blue-700 */
+  --color-bg-accent: oklch(97% 0.014 254.604);                 /* blue-50 */
+  --color-bg-hover-accent: oklch(93.2% 0.032 255.585);         /* blue-100 */
+  --color-bg-active-accent: oklch(88.2% 0.059 254.128);        /* blue-200 */
+  --color-border-accent: oklch(80.9% 0.105 251.813);           /* blue-300 */
+  --color-bg-filled-accent: oklch(54.6% 0.245 262.881);        /* blue-600 */
+  --color-bg-filled-hover-accent: oklch(48.8% 0.243 264.376);  /* blue-700 */
+  --color-bg-filled-active-accent: oklch(42.4% 0.199 265.638); /* blue-800 */
+  --color-text-filled-accent: oklch(100% 0 0);                 /* white */
+  --color-focus-accent: oklch(54.6% 0.245 262.881);            /* blue-600 */
+
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+/* Dark: the page in dark mode, and any dark island inside the light page */
+[data-theme="dark"] .landing,
+.landing [data-theme="dark"] {
+  --color-text-primary: oklch(98.5% 0.002 247.839);            /* gray-50 */
+  --color-bg-filled-primary: oklch(96.7% 0.003 264.542);       /* gray-100 */
+  --color-bg-filled-hover-primary: oklch(92.8% 0.006 264.531); /* gray-200 */
+  --color-bg-filled-active-primary: oklch(87.2% 0.01 258.338); /* gray-300 */
+
+  --color-text-accent: oklch(70.7% 0.165 254.624);             /* blue-400 */
+  --color-bg-accent: oklch(28.2% 0.091 267.935);               /* blue-950 */
+  --color-bg-hover-accent: oklch(37.9% 0.146 265.522);         /* blue-900 */
+  --color-bg-active-accent: oklch(28.2% 0.091 267.935);        /* blue-950, press-dim bounce */
+  --color-border-accent: oklch(48.8% 0.243 264.376);           /* blue-700 */
+  --color-bg-filled-accent: oklch(54.6% 0.245 262.881);        /* blue-600 */
+  --color-bg-filled-hover-accent: oklch(48.8% 0.243 264.376);  /* blue-700 */
+  --color-bg-filled-active-accent: oklch(42.4% 0.199 265.638); /* blue-800 */
+  --color-text-filled-accent: oklch(100% 0 0);                 /* white */
+  --color-focus-accent: oklch(70.7% 0.165 254.624);            /* blue-400 */
+}
+
+/* A light island that stays light in dark mode (the light half of the dark-mode tile).
+   VaneUI's documented pattern: re-declare the light tokens under your own selector. */
+.landing .lp-light {
+  color-scheme: light;
+  --color-text-primary: oklch(13% 0.028 261.692);              /* gray-950 */
+  --color-text-secondary: oklch(44.6% 0.03 256.802);           /* gray-600 */
+  --color-text-tertiary: oklch(55.1% 0.027 264.364);           /* gray-500 */
+  --color-text-filled-primary: oklch(100% 0 0);                /* white */
+  --color-text-filled-secondary: oklch(96.7% 0.003 264.542);   /* gray-100 */
+  --color-bg-primary: oklch(100% 0 0);                         /* white */
+  --color-bg-secondary: oklch(98.5% 0.002 247.839);            /* gray-50 */
+  --color-bg-tertiary: oklch(96.7% 0.003 264.542);             /* gray-100 */
+  --color-bg-form: oklch(100% 0 0);                            /* white */
+  --color-bg-hover-primary: oklch(98.5% 0.002 247.839);        /* gray-50 */
+  --color-bg-hover-secondary: oklch(96.7% 0.003 264.542);      /* gray-100 */
+  --color-bg-active-primary: oklch(96.7% 0.003 264.542);       /* gray-100 */
+  --color-bg-active-secondary: oklch(92.8% 0.006 264.531);     /* gray-200 */
+  --color-bg-filled-primary: oklch(13% 0.028 261.692);         /* gray-950 */
+  --color-bg-filled-hover-primary: oklch(27.8% 0.033 256.848); /* gray-800 */
+  --color-bg-filled-active-primary: oklch(37.3% 0.034 259.733);/* gray-700 */
+  --color-border-primary: oklch(92.8% 0.006 264.531);          /* gray-200 */
+  --color-border-secondary: oklch(92.8% 0.006 264.531);        /* gray-200 */
+  --color-border-tertiary: oklch(92.8% 0.006 264.531);         /* gray-200 */
+  --color-border-form: oklch(87.2% 0.01 258.338);              /* gray-300 */
+  --color-focus-primary: oklch(44.6% 0.03 256.802);            /* gray-600 */
+  --shadow-alpha: 0.1;
+  --shadow-alpha-soft: 0.06;
+}
+
+/* Derived drawing colors; recomputed on every theme root so islands get their own */
+.landing,
+.landing [data-theme] {
+  --lp-ink: var(--color-text-primary);
+  --lp-line: var(--color-border-primary);
+  --lp-mark: var(--color-focus-accent);
+  --lp-cross: color-mix(in oklab, var(--lp-ink) 40%, transparent);
+  --lp-hatch: color-mix(in oklab, var(--lp-ink) 9%, transparent);
+  --lp-dot: color-mix(in oklab, var(--lp-ink) 22%, transparent);
+  --lp-stroke: color-mix(in oklab, var(--lp-ink) 26%, transparent);
+}
+
+/* ---------- frame: rails, crosshairs, hatch ---------- */
+
+/* "+" where a section hairline crosses a rail. Positioned against the frame's padding box:
+   the rail is the frame's 1px border, the hairline is the 1px border just above the frame. */
+.lp-x {
+  position: absolute;
+  top: -6px;
+  width: 11px;
+  height: 11px;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--lp-cross), var(--lp-cross)) center / 1px 100% no-repeat,
+    linear-gradient(var(--lp-cross), var(--lp-cross)) center / 100% 1px no-repeat;
+}
+.lp-x--l { left: -6px; }
+.lp-x--r { right: -6px; }
+.lp-x--b { top: auto; bottom: -6px; }
+
+.lp-hatch {
+  background-image: repeating-linear-gradient(-45deg, var(--lp-hatch) 0 1px, transparent 1px 7px);
+}
+
+/* Decorative band between sections: hatched gutters (or a hatched frame), rails, crosshairs */
+.lp-band {
+  position: relative;
+  height: 48px;
+  border-top: 1px solid var(--lp-line);
+}
+.lp-band__frame {
+  position: relative;
+  height: 100%;
+  width: calc(100% - 2rem);
+  max-width: 72rem;
+  margin-inline: auto;
+  border-inline: 1px solid var(--lp-line);
+  background-color: var(--color-bg-primary);
+}
+.lp-band--full .lp-band__frame { background-color: transparent; }
+
+/* Accent square before every eyebrow */
+.lp-sq {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  flex: none;
+  background-color: var(--lp-mark);
+}
+
+/* ---------- hairline grids ---------- */
+
+/* Touching cells: a 1px gap over a hairline-colored grid, cells paint the canvas */
+.lp-grid {
+  gap: 1px;
+  background-color: var(--lp-line);
+}
+.lp-cell {
+  position: relative;
+  background-color: var(--color-bg-primary);
+}
+
+/* Accent corner brackets that appear on hover */
+.lp-brk {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(.5);
+  transition: opacity .2s ease, transform .25s cubic-bezier(.2,.7,.2,1);
+}
+.lp-brk--tl { top: -1px; left: -1px; border-top: 1px solid var(--lp-mark); border-left: 1px solid var(--lp-mark); transform-origin: top left; }
+.lp-brk--tr { top: -1px; right: -1px; border-top: 1px solid var(--lp-mark); border-right: 1px solid var(--lp-mark); transform-origin: top right; }
+.lp-brk--bl { bottom: -1px; left: -1px; border-bottom: 1px solid var(--lp-mark); border-left: 1px solid var(--lp-mark); transform-origin: bottom left; }
+.lp-brk--br { bottom: -1px; right: -1px; border-bottom: 1px solid var(--lp-mark); border-right: 1px solid var(--lp-mark); transform-origin: bottom right; }
+.lp-cell:hover > .lp-brk,
+.lp-cell:focus-within > .lp-brk { opacity: 1; transform: none; }
+
+/* Arrow nudge on linked tiles */
+.lp-nudge { transition: transform .25s cubic-bezier(.2,.7,.2,1); }
+.lp-cell:hover .lp-nudge { transform: translate(2px, -2px); }
+
+/* ---------- canvases ---------- */
+
+/* 1px dots every 16px, fading out radially */
+.lp-dots {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, var(--lp-dot) 1px, transparent 1.2px);
+  background-size: 16px 16px;
+  background-position: 8px 8px;
+  -webkit-mask-image: radial-gradient(ellipse 65% 70% at 50% 45%, #000 35%, transparent 100%);
+  mask-image: radial-gradient(ellipse 65% 70% at 50% 45%, #000 35%, transparent 100%);
+}
+.lp-dots--soft {
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, #000 20%, transparent 90%);
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, #000 20%, transparent 90%);
+}
+
+/* ---------- hero: selection box and redlines ---------- */
+
+.lp-card-shadow {
+  border-radius: 16px;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / .04),
+    0 12px 24px -8px rgb(0 0 0 / .10),
+    0 32px 64px -24px rgb(0 0 0 / .18);
+}
+[data-theme="dark"] .lp-card-shadow { box-shadow: 0 32px 64px -24px rgb(0 0 0 / .7); }
+
+.lp-select {
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--lp-mark);
+  pointer-events: none;
+  z-index: 2;
+}
+.lp-handle {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--lp-mark);
+}
+.lp-handle--tl { top: -4px; left: -4px; }
+.lp-handle--tr { top: -4px; right: -4px; }
+.lp-handle--bl { bottom: -4px; left: -4px; }
+.lp-handle--br { bottom: -4px; right: -4px; }
+
+.lp-anno { position: absolute; inset: 0; pointer-events: none; z-index: 30; }
+.lp-anno svg { position: absolute; inset: 0; overflow: visible; }
+
+.lp-lead {
+  fill: none;
+  stroke: var(--lp-mark);
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  --lp-dash: 1;
+  animation: lp-draw .55s cubic-bezier(.45,0,.2,1) both;
+  animation-delay: var(--d, 0ms);
+}
+.lp-lead-dot {
+  fill: var(--color-bg-primary);
+  stroke: var(--lp-mark);
+  stroke-width: 1;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lp-pop .3s cubic-bezier(.2,.7,.2,1) both;
+  animation-delay: var(--d, 0ms);
+}
+.lp-lead-label {
+  animation: lp-fade .4s ease both;
+  animation-delay: var(--d, 0ms);
+}
+.lp-anno-pos { position: absolute; white-space: nowrap; }
+.lp-anno[data-drawn="true"] :is(.lp-lead, .lp-lead-dot, .lp-lead-label) { animation: none; }
+
+@keyframes lp-pop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: none; } }
+@keyframes lp-fade { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+
+/* ---------- principles: prop demo, dark split ---------- */
+
+.lp-track {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  background: var(--lp-line);
+}
+.lp-progress {
+  position: absolute;
+  inset: 0;
+  background: var(--lp-mark);
+  transform-origin: left center;
+  animation: lp-grow var(--lp-step, 2200ms) linear both;
+}
+.lp-progress[data-paused="true"] { animation-play-state: paused; }
+@keyframes lp-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+.lp-swap { animation: lp-fade .35s ease both; }
+
+.lp-split-layer { grid-area: 1 / 1; }
+.lp-split-dark { clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+.lp-split-line { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.lp-split-line line { stroke: var(--lp-mark); stroke-width: 1; }
+
+/* ---------- final band, footer ---------- */
+
+.lp-wordmark {
+  display: block;
+  font-size: clamp(5.5rem, 24vw, 21.5rem);
+  line-height: .74;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  /* fill with the canvas and paint the 2px stroke underneath it: only the outer 1px shows,
+     and the glyphs' overlapping inner contours stay hidden */
+  color: var(--color-bg-primary);
+  -webkit-text-stroke: 2px var(--lp-stroke);
+  paint-order: stroke fill;
+  padding-inline: .04em;
+  user-select: none;
+  white-space: nowrap;
+  transform: translateY(14%);
+}
+
+/* the sticky header paints the canvas so content never shows through */
+.lp-header { background-color: var(--color-bg-primary); }
+
+/* ---------- motion ---------- */
+
+/* Reveal: fade and lift into place on first scroll into view (set by Reveal.tsx after mount) */
+[data-reveal] { transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); transition-delay: var(--reveal-delay, 0ms); }
+[data-reveal="out"] { opacity: 0; transform: translateY(18px); }
+[data-reveal="in"] { opacity: 1; transform: none; }
+
+@keyframes lp-draw { from { stroke-dashoffset: var(--lp-dash, 400); } to { stroke-dashoffset: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { transition: none !important; opacity: 1 !important; transform: none !important; }
+  .lp-motion, .lp-motion * { animation: none !important; transition: none !important; }
+}

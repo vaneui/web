@@ -67,11 +67,17 @@ app/
       customization/      # Markdown guides (theming-overview.md, css-variables.md, etc.)
       reference/          # common-props.md
 
-  landing/                # Landing page sections
-    HeroSection.tsx, WorksWith.tsx, GallerySection.tsx, FeaturesSection.tsx
-    ThemeCustomizationSection.tsx, AiSection.tsx, GetStartedSection.tsx
-    SectionHeader.tsx     # Shared title + description header used by every section
-    data/                 # Theme demo data (balanced.ts, playful.ts, strict.ts)
+  landing/                # Landing page (blueprint frame design, blue accent)
+    Landing.tsx           # Client root: assembles the sections, imports landing.css
+    LandingHeader.tsx, LandingFooter.tsx  # Landing-only header and footer
+    Hero.tsx, WorksWith.tsx, ComponentsBento.tsx, Principles.tsx
+    Theming.tsx, Agents.tsx, GetStarted.tsx
+    frame.tsx             # Shared frame primitives: FrameRow, Band, SectionHead, Eyebrow, InstallBox
+    content.ts            # Landing copy and data (features, frameworks, AI clients, nav)
+    demos.tsx             # Live component demos for the component grid
+    Reveal.tsx            # Scroll-in reveal wrapper, usePrefersReducedMotion
+    landing.css           # Accent tokens, frame decoration and motion (lp- prefix)
+    data/                 # Theming demo data (themes.ts, balanced.ts, playful.ts, strict.ts)
 
   utils/
     stringUtils.ts        # toHtmlId(), createHeadingSlugger(), extractMarkdownHeadings()
