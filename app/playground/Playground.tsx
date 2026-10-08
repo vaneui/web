@@ -45,14 +45,14 @@ export function Playground() {
   };
 
   return (
-    <Col noGap className="lp-site h-screen">
+    <Col noGap hScreen className="lp-site">
       <LandingHeader wide />
       {/* The editor and preview sit in the same railed 80rem frame as the docs */}
       <Row noGap justifyCenter itemsStretch flex1 overflowHidden>
-        <Container xl noGap borderX itemsStretch relative className={FRAME}>
+        <Container xl noGap borderX itemsStretch relative tag="main" className={FRAME}>
           <Row justifyBetween borderB noShrink className="px-4 py-2">
-            <Title sm>Playground</Title>
-            <Button sm secondary onClick={reset}>Reset</Button>
+            <Title sm tag="h1">Playground</Title>
+            <Button secondary onClick={reset}>Reset</Button>
           </Row>
           <Row noGap flex1 overflowHidden wFull mobileStack itemsStretch>
             <Col noGap flex1 overflowHidden className="min-w-0 max-md:h-1/2 border-(--color-border-primary) md:border-r max-md:border-b">

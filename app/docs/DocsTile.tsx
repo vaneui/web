@@ -6,10 +6,7 @@ import { Row, Stack, Text } from '@vaneui/ui';
 import { ArrowUpRight } from 'react-feather';
 import { Brackets } from "../landing/frame";
 
-/**
- * One docs page as a hairline tile: name, arrow, optional description. Place inside a grid with `lp-tiles`.
- * A client component so server pages can render it too (`tag={Link}` can't cross the server boundary).
- */
+/** Docs page tile for an `lp-tiles` grid; client-side so `tag={Link}` works from server pages */
 export function DocsTile({ href, name, description }: { href: string; name: string; description?: string }) {
   return (
     <Stack sm flexNoWrap tag={Link} href={href} className="lp-cell">

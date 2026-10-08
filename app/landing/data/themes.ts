@@ -8,7 +8,7 @@ export interface ExampleTheme {
   label: string;
   description: string;
   defaults: ThemeDefaults;
-  cssVars?: string;
+  cssVars: string;
 }
 
 export type ThemeKey = 'playful' | 'balanced' | 'strict';

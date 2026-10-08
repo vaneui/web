@@ -14,10 +14,7 @@ import { docsSections } from "./docsSections";
 import { Eyebrow } from "../landing/frame";
 import { DocsTile } from "./DocsTile";
 
-// Server component: the structural shell renders on the server (HTML is
-// crawlable + immediate), while ThemeProvider, DocsMarkdown's live demos,
-// and OnThisPage's scroll tracking continue to hydrate as client islands.
-// No hooks here — sections array is computed once per render server-side.
+// Server component: the shell renders on the server; demos and OnThisPage hydrate as client islands
 export function DocsPageContent(
   {
     pageData,
@@ -33,14 +30,12 @@ export function DocsPageContent(
   const propsTitle = pageTitle + " Props";
   const propsTitleId = toHtmlId(propsTitle);
 
-  // Subcomponents documented on the parent page (e.g. ListItem on List) get
-  // their own props table so merging the pages doesn't lose the prop reference.
+  // Subcomponents documented on the parent page (e.g. ListItem on List) get their own props table
   const secondaryKey = pageData.secondaryComponentKey;
   const secondaryTitle = (pageData.secondaryComponentName ?? secondaryKey ?? "") + " Props";
   const secondaryTitleId = toHtmlId(secondaryTitle);
 
-  // Build sections for OnThisPage navigation. Computed inline — server
-  // components don't need useMemo (no re-renders).
+  // Sections for OnThisPage; computed inline because server components don't re-render
   const sections: Array<{ title: string; id: string; level: number }> = [
     { title: pageTitle, id: pageTitleId, level: 0 },
     ...(md && md.trim()
@@ -67,14 +62,11 @@ export function DocsPageContent(
     <ThemeProvider
       themeDefaults={{
         code: { secondary: true },
-        // Tight headline tracking, as on the landing
-        pageTitle: { trackingTight: true },
+        // Tight headline tracking, as on the landing (PageTitle already has it)
         sectionTitle: { trackingTight: true },
       }}
       extraClasses={{
-        // Anchor "#" affordance on the page H1. Markdown-body headings get their
-        // own "#" from CustomMdHeading, and their vertical rhythm from the
-        // @vaneui/md/styles (.vaneui-md) layer — no per-size pt-* ramp here.
+        // Anchor "#" on the page H1; markdown headings get theirs from CustomMdHeading
         pageTitle: {
           md: titleClasses,
         },
@@ -104,9 +96,7 @@ export function DocsPageContent(
               <DocsMarkdown md={md} slug={pageData.slug} />
             }
 
-            {/* Props Documentation — single auto-generated table replaces
-                the previous 30+ per-category prop dump. Common
-                layout/utility categories collapse into a <details>. */}
+            {/* One auto-generated props table; common layout categories collapse into a <details> */}
             {componentKey && (
               <Col wFull id={propsTitleId}>
                 <Title xl className={titleClasses}>
@@ -125,15 +115,12 @@ export function DocsPageContent(
               </Col>
             )}
 
-            {/* Related pages in the same category — gives crawlers (and AI
-                crawlers) a strong internal-link signal between siblings, and
-                helps readers discover adjacent components. Same hairline
-                tiles as the docs index. */}
+            {/* Sibling pages: internal links for crawlers and readers, same tiles as the docs index */}
             {section.pages.length > 1 && (
               <Col lg wFull tag="nav" aria-label={`More in ${section.name}`}>
                 <Divider/>
                 <Eyebrow index={sectionIndex}>More in {section.name}</Eyebrow>
-                <Grid3 className="lp-tiles max-mobile:grid-cols-2">
+                <Grid3 noGap className="lp-tiles max-mobile:grid-cols-2">
                   {section.pages
                     .filter(p => p.slug !== pageData.slug)
                     .map(p => (

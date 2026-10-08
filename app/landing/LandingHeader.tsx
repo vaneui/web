@@ -10,7 +10,7 @@ import { ThemeToggle } from '../components/ThemeToggle';
 import { NAV, PRODUCT, VERSION } from './content';
 import { Crosshairs, FRAME, GitHubMark } from './frame';
 
-/** The current nav item: the longest href that matches the path, so the changelog page doesn't also light up Documentation */
+/** The current nav item: the longest matching href, so the changelog doesn't also light up Documentation */
 function useCurrentHref() {
   const pathname = usePathname() ?? '';
   return NAV
@@ -23,11 +23,10 @@ function useCurrentHref() {
 export function LandingHeader({ wide = false }: { wide?: boolean }) {
   const current = useCurrentHref();
   return (
-    <Row tag="header" sticky borderB noGap justifyCenter className="lp-header top-0 z-40">
+    <Row tag="header" sticky primary borderB noGap justifyCenter className="top-0 z-40">
       <Container lg={!wide} xl={wide} row noGap borderX itemsStretch relative className={`${FRAME} h-14`}>
         <Crosshairs bottom/>
-        {/* Brand cell */}
-        {/* On docs the brand cell is as wide as the sidebar, so its divider continues the sidebar's rail */}
+        {/* Brand cell; on docs it matches the sidebar width so its divider continues the sidebar's rail */}
         <Row sm noShrink className={`px-5 max-mobile:px-4 ${wide ? 'lg:w-[calc(16rem-1px)]' : ''}`}>
           <Logo/>
           <Chip xs fontMono primary>v{VERSION}</Chip>
@@ -56,7 +55,7 @@ export function LandingHeader({ wide = false }: { wide?: boolean }) {
         </Row>
         <Divider vertical/>
         {/* Below 1024px the nav cells are hidden, so the links move into a menu */}
-        <Row justifyCenter className="w-14 max-mobile:w-12 lg:hidden">
+        <Row tag="nav" aria-label="Main" justifyCenter className="w-14 max-mobile:w-12 lg:hidden">
           <Menu trigger={<IconButton ghost secondary aria-label="Open menu"><MenuIcon aria-hidden="true"/></IconButton>}>
             {NAV.map(item => (
               <MenuItem key={item.label} tag={Link} href={item.href}>{item.label}</MenuItem>

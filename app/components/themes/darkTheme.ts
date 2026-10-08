@@ -12,7 +12,7 @@ const VALUE = '#9aa1ad';  // strings and numbers
 export const darkTheme: PrismTheme = {
   plain: { color: TEXT, backgroundColor: BG },
   styles: [
-    { types: TOKEN_TYPES.COMMENT, style: { color: PUNCT, fontStyle: 'italic' } },
+    { types: TOKEN_TYPES.COMMENT, style: { color: VALUE, fontStyle: 'italic' } },
     { types: TOKEN_TYPES.STRING, style: { color: VALUE } },
     { types: TOKEN_TYPES.PUNCTUATION, style: { color: PUNCT } },
     { types: TOKEN_TYPES.CONSTANT, style: { color: VALUE } },

@@ -10,7 +10,7 @@ export const VERSION = pkg.version;
 // Follows the installed @vaneui/ui version, so the bot's dependency bumps keep it current
 export const ANNOUNCEMENT = {
   tag: 'New',
-  text: `Read the v${pkg.version} changelog`,
+  text: `Read the v${VERSION} changelog`,
   href: '/docs/reference/changelog',
 };
 

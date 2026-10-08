@@ -1,7 +1,7 @@
 'use client';
 
 // Blueprint primitives shared by every landing section: the framed row, bands, eyebrows, install box.
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Section, Container, Row, Col, Stack, Grid2, Text, SectionTitle, IconButton } from '@vaneui/ui';
 import { Check, Copy } from 'react-feather';
 import { Reveal } from './Reveal';
@@ -32,24 +32,20 @@ export function Brackets() {
   );
 }
 
-/**
- * One full-bleed row of the blueprint: a hairline across the page (Section borderT),
- * the framed column whose side borders are the rails, and crosshairs where they meet.
- */
-export function FrameRow({ children, id, label, top = true, wide = false, tag, className, frameClassName = '' }: {
+/** One full-bleed blueprint row: a hairline across the page, the railed frame, crosshairs where they meet */
+export function FrameRow({ children, id, label, top = true, wide = false, tag, className }: {
   children: React.ReactNode;
   id?: string;
   label?: string;
   top?: boolean;
   /** 80rem frame, the docs width, instead of the 72rem landing frame */
   wide?: boolean;
-  tag?: 'section' | 'footer' | 'div';
+  tag?: 'section' | 'footer';
   className?: string;
-  frameClassName?: string;
 }) {
   return (
     <Section noPadding noGap relative borderT={top} tag={tag} id={id} aria-label={label} className={className}>
-      <Container lg={!wide} xl={wide} noGap borderX relative itemsStretch className={`${FRAME} ${frameClassName}`}>
+      <Container lg={!wide} xl={wide} noGap borderX relative itemsStretch className={FRAME}>
         {top && <Crosshairs/>}
         {children}
       </Container>
@@ -69,20 +65,22 @@ export function Band({ full = false }: { full?: boolean }) {
   );
 }
 
-/** Mono index label: a small accent square, then `[01] Components`; `tight` for narrow columns like the docs sidebar */
-export function Eyebrow({ index, tight = false, children }: { index: string; tight?: boolean; children: React.ReactNode }) {
+/** Mono index label `[01] Components` after an accent square; `tight` for narrow columns */
+export function Eyebrow({ index, tight = false, tag, children }: {
+  index: string;
+  tight?: boolean;
+  tag?: 'h2' | 'h3';
+  children: React.ReactNode;
+}) {
   return (
     <Row xs>
       <span aria-hidden="true" className="lp-sq"/>
-      <Text xs fontMono uppercase trackingWidest={!tight} trackingWider={tight} tertiary>[{index}] {children}</Text>
+      <Text tag={tag} xs fontMono uppercase trackingWidest={!tight} trackingWider={tight} tertiary>[{index}] {children}</Text>
     </Row>
   );
 }
 
-/**
- * Section header on the frame's two-column grid: eyebrow and title on the left half,
- * the description on the right half, both starting at the same inset as the cells below.
- */
+/** Section header on the frame's two-column grid: eyebrow and title left, description right */
 export function SectionHead({ index, eyebrow, title, children }: {
   index: string;
   eyebrow: string;
@@ -111,17 +109,24 @@ export function SectionHead({ index, eyebrow, title, children }: {
 /** Copy-to-clipboard icon button with a short confirmation */
 export function CopyButton({ value, label }: { value: string; label: string }) {
   const [copied, setCopied] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(timer.current), []);
   const copy = () => {
     navigator.clipboard?.writeText(value).then(() => {
       setCopied(true);
-      setTimeout(() => setCopied(false), 1400);
+      clearTimeout(timer.current);
+      timer.current = setTimeout(() => setCopied(false), 1400);
     }).catch(() => {});
   };
   return (
-    <IconButton xs ghost pill secondary={!copied} success={copied} onClick={copy}
-                aria-label={copied ? 'Copied' : label}>
-      {copied ? <Check aria-hidden="true"/> : <Copy aria-hidden="true"/>}
-    </IconButton>
+    <>
+      <IconButton xs ghost pill secondary={!copied} success={copied} onClick={copy}
+                  aria-label={copied ? 'Copied' : label}>
+        {copied ? <Check aria-hidden="true"/> : <Copy aria-hidden="true"/>}
+      </IconButton>
+      {/* screen readers don't announce a focused button's name change, so say it here */}
+      <span role="status" className="sr-only">{copied ? 'Copied' : ''}</span>
+    </>
   );
 }
 

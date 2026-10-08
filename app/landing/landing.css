@@ -1,7 +1,4 @@
-/* Landing page: blueprint frame, hairline cells, mono index labels, one electric blue accent.
-   Everything here is decoration, motion or token re-declaration; layout, type and component styling
-   come from VaneUI props. Palette values are Tailwind palette literals (named per line), like tokens.css,
-   so nothing depends on usage-based theme emission. */
+/* Landing blueprint decoration, motion and token re-declarations; layout and type come from VaneUI props */
 
 /* ---------- tokens ---------- */
 
@@ -23,9 +20,6 @@
   --color-bg-filled-active-accent: oklch(42.4% 0.199 265.638); /* blue-800 */
   --color-text-filled-accent: oklch(100% 0 0);                 /* white */
   --color-focus-accent: oklch(54.6% 0.245 262.881);            /* blue-600 */
-
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-primary);
 }
 
 /* Dark: the page in dark mode, and any dark island inside the light page */
@@ -48,8 +42,7 @@
   --color-focus-accent: oklch(70.7% 0.165 254.624);            /* blue-400 */
 }
 
-/* A light island that stays light in dark mode (the light half of the dark-mode tile).
-   VaneUI's documented pattern: re-declare the light tokens under your own selector. */
+/* Light island that stays light in dark mode: VaneUI's pattern of re-declaring light tokens */
 .landing .lp-light {
   color-scheme: light;
   --color-text-primary: oklch(13% 0.028 261.692);              /* gray-950 */
@@ -77,8 +70,7 @@
   --shadow-alpha-soft: 0.06;
 }
 
-/* Docs and playground: the same frame drawing, but VaneUI's own tokens stay untouched,
-   so live examples show the real defaults. Only the blueprint mark is pinned to the landing blue. */
+/* Docs and playground: same frame drawing, VaneUI tokens untouched so examples show real defaults */
 .lp-site {
   --lp-mark: oklch(54.6% 0.245 262.881);                       /* blue-600 */
   background-color: var(--color-bg-primary);
@@ -106,8 +98,7 @@
 
 /* ---------- frame: rails, crosshairs, hatch ---------- */
 
-/* "+" where a section hairline crosses a rail. Positioned against the frame's padding box:
-   the rail is the frame's 1px border, the hairline is the 1px border just above the frame. */
+/* "+" where a section hairline (the border above the frame) crosses a rail (the frame's border) */
 .lp-x {
   position: absolute;
   top: -6px;
@@ -314,8 +305,7 @@
   line-height: .74;
   font-weight: 600;
   letter-spacing: -0.02em;
-  /* fill with the canvas and paint the 2px stroke underneath it: only the outer 1px shows,
-     and the glyphs' overlapping inner contours stay hidden */
+  /* canvas fill over a 2px stroke: only the outer 1px shows, hiding overlapping inner contours */
   color: var(--color-bg-primary);
   -webkit-text-stroke: 2px var(--lp-stroke);
   paint-order: stroke fill;
@@ -324,9 +314,6 @@
   white-space: nowrap;
   transform: translateY(14%);
 }
-
-/* the sticky header paints the canvas so content never shows through */
-.lp-header { background-color: var(--color-bg-primary); }
 
 /* The current page's header cell: an accent bar over the header's bottom hairline */
 .lp-tab[aria-current="page"]::after {
@@ -374,5 +361,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   [data-reveal] { transition: none !important; opacity: 1 !important; transform: none !important; }
-  .lp-motion, .lp-motion * { animation: none !important; transition: none !important; }
+  .lp-motion, .lp-motion *, .lp-brk, .lp-nudge { animation: none !important; transition: none !important; }
 }

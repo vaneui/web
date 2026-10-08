@@ -61,7 +61,7 @@ function PropDemo() {
       </Row>
       {/* The code that produces it */}
       <Row borderT className="px-8 py-4 max-tablet:px-6 max-mobile:px-4">
-        <Text sm fontMono aria-live="polite" whitespaceNowrap>
+        <Text sm fontMono aria-live={paused ? 'polite' : 'off'} whitespaceNowrap>
           <Text tag="span" fontMono tertiary inheritSize>&lt;</Text>Button
           {current.props.map(p => (
             <React.Fragment key={p}>
@@ -81,7 +81,7 @@ function PropDemo() {
                style={{ '--lp-step': `${STEP_MS}ms` } as React.CSSProperties}/>
         </div>
         <Text xs fontMono tertiary>{step + 1}/{STEPS.length}</Text>
-        <Button xs ghost secondary pill onClick={() => setUserPaused(!paused)} aria-pressed={paused}
+        <Button xs ghost secondary pill onClick={() => setUserPaused(!paused)}
                 aria-label={paused ? 'Play prop demo' : 'Pause prop demo'}>
           {paused ? <Play aria-hidden="true"/> : <Pause aria-hidden="true"/>}
           {paused ? 'Play' : 'Pause'}
@@ -137,16 +137,9 @@ function DarkSplit() {
   );
 }
 
-function Tile({ n, feature, className = '', children, delay = 0, code = true }: {
-  n: string;
-  feature: typeof FEATURES[number];
-  className?: string;
-  children?: React.ReactNode;
-  delay?: number;
-  code?: boolean;
-}) {
+function Tile({ n, feature, delay = 0 }: { n: string; feature: typeof FEATURES[number]; delay?: number }) {
   return (
-    <Stack xl flexNoWrap justifyBetween className={`lp-cell ${className}`}>
+    <Stack xl flexNoWrap justifyBetween className="lp-cell">
       <Reveal delay={delay}>
         <Col>
           <Index n={n}/>
@@ -154,13 +147,9 @@ function Tile({ n, feature, className = '', children, delay = 0, code = true }: 
           <Text sm tertiary className="max-w-[44ch]">{feature.text}</Text>
         </Col>
       </Reveal>
-      {children}
-      {code && (
-        <Reveal delay={delay + 60}>
-          <CodeBlock code={feature.code} language={feature.code.startsWith('@') ? 'css' : 'tsx'}
-                     showHeader={false} theme="light"/>
-        </Reveal>
-      )}
+      <Reveal delay={delay + 60}>
+        <CodeBlock code={feature.code} language="tsx" showHeader={false} theme="light"/>
+      </Reveal>
     </Stack>
   );
 }
@@ -216,7 +205,7 @@ export function Principles() {
         <Tile n="02.4" feature={f.theme} delay={150}/>
         <Tile n="02.5" feature={f.a11y} delay={200}/>
         {/* Wide: Tailwind CSS, the two ways to load the styles side by side in one cell */}
-        <Stack xl flexNoWrap className="lp-cell col-span-2 max-tablet:col-span-1">
+        <Stack xl flexNoWrap className="lp-cell col-span-2 max-mobile:col-span-1">
           <Row xl itemsStart tabletStack>
             <Reveal delay={250} className="flex-1 min-w-0">
               <Col>

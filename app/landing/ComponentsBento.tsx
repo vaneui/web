@@ -17,10 +17,8 @@ const LAYOUT: Record<string, { cell: string; demo: string; label: string; canvas
   'Navigation': { cell: '', demo: 'max-w-[16rem]', label: 'Navigation' },
   'Choices': { cell: '', demo: '', label: 'Choices' },
 };
-const ORDER = ['Forms', 'Data', 'Feedback and overlays', 'Settings', 'Navigation', 'Choices'];
-
 export function ComponentsBento() {
-  const tiles = ORDER.map(name => GALLERY_TILES.find(t => t.name === name)!);
+  const tiles = Object.keys(LAYOUT).map(name => GALLERY_TILES.find(t => t.name === name)!);
 
   return (
     <FrameRow id="components" label="Components">

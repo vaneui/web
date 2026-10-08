@@ -137,10 +137,10 @@ export const GALLERY_TILES: { name: string; parts: string; href: string; demo: R
     href: '/docs/basic-components/navlink',
     demo: (
       <Col noGap>
-        <NavLink active><Home/> Overview</NavLink>
-        <NavLink><BarChart2/> Analytics <Badge sm info>New</Badge></NavLink>
-        <NavLink><Users/> Team</NavLink>
-        <NavLink><Settings/> Settings</NavLink>
+        <NavLink active><Home aria-hidden="true"/> Overview</NavLink>
+        <NavLink><BarChart2 aria-hidden="true"/> Analytics <Badge sm info>New</Badge></NavLink>
+        <NavLink><Users aria-hidden="true"/> Team</NavLink>
+        <NavLink><Settings aria-hidden="true"/> Settings</NavLink>
       </Col>
     ),
   },

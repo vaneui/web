@@ -16,7 +16,7 @@ interface DocsLayoutProps {
   children: React.ReactNode;
 }
 
-/** Docs pages sit in the landing's blueprint frame: the site header, a railed sidebar column, the page, the site footer */
+/** Docs in the landing's blueprint frame: site header, railed sidebar, the page, site footer */
 export default function DocsLayout({children}: DocsLayoutProps) {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -38,8 +38,8 @@ export default function DocsLayout({children}: DocsLayoutProps) {
 
           <Col noGap flex1 tag="main" className="min-w-0">
             {/* Below 1024px the sidebar is hidden, so a bar under the header opens it */}
-            <Row sm sticky borderB justifyBetween className="lp-header top-14 z-30 px-2 py-1.5 lg:hidden">
-              <Button sm ghost secondary onClick={() => setIsMobileMenuOpen(true)}
+            <Row sm sticky primary borderB justifyBetween className="top-14 z-30 px-2 py-1.5 lg:hidden">
+              <Button ghost secondary onClick={() => setIsMobileMenuOpen(true)}
                       aria-expanded={isMobileMenuOpen} aria-controls="docs-mobile-nav">
                 <MenuIcon aria-hidden="true"/> Menu
               </Button>
@@ -65,7 +65,7 @@ export default function DocsLayout({children}: DocsLayoutProps) {
               </IconButton>
             </Row>
           </Row>
-          <Stack xl overflowYAuto flex1 className="styled-scrollbar">
+          <Stack xl overflowYAuto flex1 tag="nav" aria-label="Documentation" className="styled-scrollbar">
             <DocsNav currentPath={pathname} onMenuItemClickAction={() => setIsMobileMenuOpen(false)}/>
           </Stack>
         </Col>

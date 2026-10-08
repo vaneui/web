@@ -12,16 +12,8 @@ interface OnThisPageProps {
 }
 
 export function OnThisPage({sections}: OnThisPageProps) {
-  const [activeSection, setActiveSection] = useState<string>(() => {
-    // Set initial active section from URL hash on mount
-    if (typeof window !== 'undefined') {
-      const hash = window.location.hash.substring(1);
-      if (hash && sections.some(section => section.id === hash)) {
-        return hash;
-      }
-    }
-    return '';
-  });
+  // Empty on the server and first client render; the observer's first callback marks the visible section
+  const [activeSection, setActiveSection] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
   const isClickNavigating = useRef(false);
 

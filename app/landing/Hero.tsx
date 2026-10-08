@@ -152,7 +152,7 @@ export function Hero() {
             </Button>
           </Reveal>
           <Reveal delay={60}>
-            <PageTitle lg textCenter trackingTight>
+            <PageTitle lg textCenter>
               Deliver clean UI <br className="max-mobile:hidden"/>without complex code
             </PageTitle>
           </Reveal>

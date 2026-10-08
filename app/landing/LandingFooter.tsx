@@ -1,9 +1,10 @@
 'use client';
 
 import React from 'react';
+import NextLink from 'next/link';
 import { Grid4, Col, Stack, Text, Link, Row } from '@vaneui/ui';
 import { Logo } from '../components/Logo';
-import { BUILT_WITH, PRODUCT, VERSION } from './content';
+import { BUILT_WITH, MCP_URL, PRODUCT, VERSION } from './content';
 import { FrameRow } from './frame';
 
 const COLUMNS: { title: string; links: { text: string; href: string }[] }[] = [
@@ -22,7 +23,7 @@ const COLUMNS: { title: string; links: { text: string; href: string }[] }[] = [
     links: [
       { text: 'GitHub', href: PRODUCT.githubUrl },
       { text: 'npm', href: 'https://www.npmjs.com/package/@vaneui/ui' },
-      { text: 'MCP server', href: 'https://www.npmjs.com/package/@vaneui/mcp' },
+      { text: 'MCP server', href: MCP_URL },
       { text: 'MIT License', href: 'https://github.com/vaneui/vaneui/blob/main/LICENSE' },
     ],
   },
@@ -53,7 +54,8 @@ export function LandingFooter({ wide = false }: { wide?: boolean }) {
             <Col sm tag="ul">
               {col.links.map(link => (
                 <li key={link.text}>
-                  <Link sm secondary noUnderline href={link.href} external={link.href.startsWith('http')}>
+                  <Link sm secondary noUnderline href={link.href} external={link.href.startsWith('http')}
+                        tag={link.href.startsWith('http') ? 'a' : NextLink}>
                     {link.text}
                   </Link>
                 </li>
@@ -63,8 +65,9 @@ export function LandingFooter({ wide = false }: { wide?: boolean }) {
         ))}
       </Grid4>
       <Row justifyBetween borderT className="px-8 py-4 max-mobile:px-4">
-        <Text xs tertiary>{PRODUCT.copyright}</Text>
-        <Text xs fontMono tertiary mobileHide>Deliver clean UI without complex code</Text>
+        {/* the year comes from the build or the visitor's clock, which can differ */}
+        <Text xs tertiary suppressHydrationWarning>{PRODUCT.copyright}</Text>
+        <Text xs fontMono tertiary mobileHide>{PRODUCT.slogan}</Text>
       </Row>
       <Col borderT overflowHidden itemsCenter aria-hidden="true">
         <span className="lp-wordmark">VaneUI</span>

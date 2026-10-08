@@ -8,6 +8,7 @@ import {
 import { themes, type ThemeKey } from './data/themes';
 import { serializeCssVars, serializeDefaults } from './data/themeUtils';
 import { CodeBlock } from '../components/CodeBlock';
+import { dog } from './content';
 import { Reveal } from './Reveal';
 import { FrameRow, SectionHead } from './frame';
 
@@ -21,10 +22,10 @@ export function Theming() {
 
   const { defaultsCode, cssVarsCode } = useMemo(() => ({
     defaultsCode: serializeDefaults(theme.defaults),
-    cssVarsCode: theme.cssVars ? serializeCssVars(theme.cssVars) : null,
+    cssVarsCode: serializeCssVars(theme.cssVars),
   }), [theme]);
 
-  const showCss = tab === 'css' && cssVarsCode;
+  const showCss = tab === 'css';
 
   return (
     <FrameRow id="theming" label="Theming">
@@ -64,7 +65,7 @@ export function Theming() {
                 </Button>
               </Row>
               {/* Fixed height, so switching the code shown never moves the card */}
-              <CodeBlock key={`${selected}-${tab}`} code={showCss ? cssVarsCode! : defaultsCode}
+              <CodeBlock key={`${selected}-${tab}`} code={showCss ? cssVarsCode : defaultsCode}
                          language={showCss ? 'css' : 'tsx'} showHeader={false} theme="light"
                          className="h-[22rem]"/>
             </Col>
@@ -77,16 +78,16 @@ export function Theming() {
           <Reveal delay={120} className="relative">
             <ThemeProvider theme={theme.config} themeDefaults={theme.defaults}>
               <Card row mobileStack overflowHidden
-                    className={`max-w-xl max-mobile:max-w-80 z-10 ${theme.cssVars || ''}`}>
-                <Img tag={Image} src="/puppy.png" alt="" width={200} height={200}
+                    className={`max-w-xl max-mobile:max-w-80 ${theme.cssVars}`}>
+                <Img tag={Image} src={dog.image} alt="" width={200} height={200}
                      className="shrink-0 max-mobile:w-full"/>
                 <Stack sm>
                   <Row justifyBetween>
-                    <Title tag="p">Oliver</Title>
-                    <Chip sm>male</Chip>
+                    <Title tag="p">{dog.name}</Title>
+                    <Chip sm>{dog.gender}</Chip>
                   </Row>
                   <Divider/>
-                  <Text sm>Oliver is a shy, sweet pup learning to trust. He needs a calm, patient home. Older kids and a gentle dog will help him feel secure.</Text>
+                  <Text sm>{dog.description}</Text>
                   <Row mobileStack justifyEnd>
                     <Button success filled className="max-mobile:w-full">Adopt</Button>
                     <Button secondary className="max-mobile:w-full">Learn more</Button>
