@@ -325,10 +325,14 @@
   width: 1px;
   background-color: var(--lp-line);
 }
-.lp-rail[data-active]::before {
+.lp-rail[data-active]::before,
+.lp-rail[aria-selected="true"]::before {
   width: 2px;
   background-color: var(--lp-mark);
 }
+
+/* Search results: the keyboard selection takes the link's hover fill */
+.lp-option[aria-selected="true"] { background-color: var(--bg-hover-color); }
 
 /* Touching tiles without a filled last row: each tile draws its own hairline into the 1px gap */
 .lp-tiles { gap: 1px; padding: 1px; }

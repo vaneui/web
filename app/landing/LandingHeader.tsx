@@ -7,6 +7,7 @@ import { Row, Container, Button, IconButton, Divider, Chip, Text, Menu, MenuItem
 import { Menu as MenuIcon } from 'react-feather';
 import { Logo } from '../components/Logo';
 import { ThemeToggle } from '../components/ThemeToggle';
+import { DocsSearch } from '../components/search/DocsSearch';
 import { NAV, PRODUCT, VERSION } from './content';
 import { Crosshairs, FRAME, GitHubMark } from './frame';
 
@@ -47,8 +48,10 @@ export function LandingHeader({ wide = false }: { wide?: boolean }) {
           ))}
         </Row>
 
-        {/* Empty cell that fills the remaining width */}
-        <Row flex1/>
+        {/* Search fills the remaining width: a field on wide screens, an icon on phones */}
+        <Row flex1 justifyEnd className="px-3 max-mobile:px-2">
+          <DocsSearch className="w-56 max-desktop:w-44 max-tablet:w-64 max-mobile:w-auto"/>
+        </Row>
         <Divider vertical/>
         <Row justifyCenter className="w-14 max-mobile:w-12">
           <ThemeToggle/>

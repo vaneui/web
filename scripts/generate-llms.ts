@@ -10,11 +10,11 @@ import type { ComponentKey } from '@vaneui/ui';
 import { docsSectionsMeta, type DocPageMeta, type DocSectionMeta } from '../app/docs/docsMetadata';
 import { getPropTableRows } from '../app/docs/propTableRows';
 import { parseFrontmatter } from '../lib/docs/frontmatter';
+import { readPageMarkdown as readPageMarkdownFrom } from '../lib/docs/pageMarkdown';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const ROOT = resolve(__dirname, '..');
-const DATA_DIR = resolve(ROOT, 'app/docs/data');
 const OUTPUT_INDEX = resolve(ROOT, 'public/llms.txt');
 const OUTPUT_FULL = resolve(ROOT, 'public/llms-full.txt');
 const BASE_URL = 'https://vaneui.com';
@@ -81,24 +81,7 @@ const FULL_INTRO = `# VaneUI Documentation
 Sections follow the site navigation: ${docsSectionsMeta.map((s) => s.name).join(', ')}.
 `;
 
-/** Read a page's markdown in the route's order: component file, package file, then mdPath. */
-function readPageMarkdown(section: DocSectionMeta, page: DocPageMeta): string | null {
-  const candidates = [
-    resolve(DATA_DIR, section.slug, `${page.slug}.md`),
-    ...(page.packageMdPath ? [resolve(ROOT, 'node_modules', page.packageMdPath)] : []),
-    ...(page.mdPath ? [resolve(DATA_DIR, section.slug, page.mdPath)] : []),
-  ];
-  for (const path of candidates) {
-    try {
-      const md = readFileSync(path, 'utf-8').replace(/\r\n/g, '\n');
-      // The page renders its own title, so a package file's leading H1 is dropped (as in the route).
-      return path.startsWith(DATA_DIR) ? md : md.replace(/^\s*#\s+.*\n/, '');
-    } catch {
-      // try next candidate
-    }
-  }
-  return null;
-}
+const readPageMarkdown = (section: DocSectionMeta, page: DocPageMeta) => readPageMarkdownFrom(ROOT, section, page);
 
 function pageUrl(section: DocSectionMeta, page: DocPageMeta): string {
   return `${BASE_URL}/docs/${section.slug}/${page.slug}`;
