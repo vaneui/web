@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Col, Text, Title, PageTitle, Container, Divider,
-  ThemeProvider, Row, Chip, type ComponentKey,
+  ThemeProvider, Row, Grid3, type ComponentKey,
 } from '@vaneui/ui';
 import { DocsPageProps } from './types';
 import { toHtmlId, extractMarkdownHeadings } from "../utils/stringUtils";
@@ -12,6 +12,7 @@ import { DocsPropsTable } from './DocsPropsTable';
 import Link from "next/link";
 import { docsSections } from "./docsSections";
 import { Eyebrow } from "../landing/frame";
+import { DocsTile } from "./DocsTile";
 
 // Server component: the structural shell renders on the server (HTML is
 // crawlable + immediate), while ThemeProvider, DocsMarkdown's live demos,
@@ -126,22 +127,19 @@ export function DocsPageContent(
 
             {/* Related pages in the same category — gives crawlers (and AI
                 crawlers) a strong internal-link signal between siblings, and
-                helps readers discover adjacent components.
-                Wrap pattern: <Link><Chip/></Link> instead of `tag={Link}`
-                so this stays renderable from a server component (function
-                refs can't cross the server/client boundary). */}
+                helps readers discover adjacent components. Same hairline
+                tiles as the docs index. */}
             {section.pages.length > 1 && (
-              <Col wFull>
-                <Text xs fontMono uppercase trackingWider tertiary>More in {section.name}</Text>
-                <Row flexWrap>
+              <Col lg wFull tag="nav" aria-label={`More in ${section.name}`}>
+                <Divider/>
+                <Eyebrow index={sectionIndex}>More in {section.name}</Eyebrow>
+                <Grid3 className="lp-tiles max-mobile:grid-cols-2">
                   {section.pages
                     .filter(p => p.slug !== pageData.slug)
                     .map(p => (
-                      <Link key={p.slug} href={`/docs/${section.slug}/${p.slug}`}>
-                        <Chip>{p.name}</Chip>
-                      </Link>
+                      <DocsTile key={p.slug} href={`/docs/${section.slug}/${p.slug}`} name={p.name}/>
                     ))}
-                </Row>
+                </Grid3>
               </Col>
             )}
           </Col>

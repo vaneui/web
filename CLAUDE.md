@@ -55,6 +55,7 @@ app/
     DocsMarkdown.tsx      # Renders markdown via @vaneui/md with custom components
     DocsNav.tsx           # Sidebar navigation
     OnThisPage.tsx        # Right-side table of contents
+    DocsTile.tsx          # Hairline page tile (docs index and the "More in" links under each page)
     [category]/[slug]/page.tsx  # Dynamic route for each docs page
 
     data/                 # Documentation content

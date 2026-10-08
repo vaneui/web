@@ -1,11 +1,10 @@
 'use client'
 
 import React from 'react';
-import { Col, Grid3, PageTitle, Row, Stack, Text } from '@vaneui/ui';
-import { ArrowUpRight } from 'react-feather';
+import { Col, Grid3, PageTitle, Text } from '@vaneui/ui';
 import { docsSections } from "./docsSections";
-import Link from "next/link";
-import { Brackets, Eyebrow } from "../landing/frame";
+import { Eyebrow } from "../landing/frame";
+import { DocsTile } from "./DocsTile";
 
 /** Docs hub: each category as an eyebrow and a grid of touching hairline tiles, like the landing's component grid */
 export default function DocsIndex() {
@@ -26,15 +25,8 @@ export default function DocsIndex() {
           </Col>
           <Grid3 className="lp-tiles max-tablet:grid-cols-2 max-mobile:grid-cols-1">
             {section.pages.map(page => (
-              <Stack key={page.slug} sm flexNoWrap tag={Link} href={`/docs/${section.slug}/${page.slug}`}
-                     className="lp-cell">
-                <Brackets/>
-                <Row justifyBetween itemsStart>
-                  <Text fontMedium>{page.name}</Text>
-                  <ArrowUpRight aria-hidden="true" className="lp-nudge size-4 shrink-0 opacity-50"/>
-                </Row>
-                <Text sm tertiary>{page.description}</Text>
-              </Stack>
+              <DocsTile key={page.slug} href={`/docs/${section.slug}/${page.slug}`}
+                        name={page.name} description={page.description}/>
             ))}
           </Grid3>
         </Col>
