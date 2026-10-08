@@ -93,7 +93,6 @@
   --lp-cross: color-mix(in oklab, var(--lp-ink) 40%, transparent);
   --lp-hatch: color-mix(in oklab, var(--lp-ink) 9%, transparent);
   --lp-dot: color-mix(in oklab, var(--lp-ink) 22%, transparent);
-  --lp-stroke: color-mix(in oklab, var(--lp-ink) 26%, transparent);
 }
 
 /* ---------- frame: rails, crosshairs, hatch ---------- */
@@ -296,24 +295,6 @@
 .lp-split-dark { clip-path: inset(0 0 0 50%); }
 .lp-split-line { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 .lp-split-line line { stroke: var(--lp-mark); stroke-width: 1; }
-
-/* ---------- final band, footer ---------- */
-
-.lp-wordmark {
-  display: block;
-  font-size: clamp(5.5rem, 24vw, 21.5rem);
-  line-height: .74;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  /* canvas fill over a 2px stroke: only the outer 1px shows, hiding overlapping inner contours */
-  color: var(--color-bg-primary);
-  -webkit-text-stroke: 2px var(--lp-stroke);
-  paint-order: stroke fill;
-  padding-inline: .04em;
-  user-select: none;
-  white-space: nowrap;
-  transform: translateY(14%);
-}
 
 /* The current page's header cell: an accent bar over the header's bottom hairline */
 .lp-tab[aria-current="page"]::after {

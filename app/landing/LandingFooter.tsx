@@ -69,9 +69,6 @@ export function LandingFooter({ wide = false }: { wide?: boolean }) {
         <Text xs tertiary suppressHydrationWarning>{PRODUCT.copyright}</Text>
         <Text xs fontMono tertiary mobileHide>{PRODUCT.slogan}</Text>
       </Row>
-      <Col borderT overflowHidden itemsCenter aria-hidden="true">
-        <span className="lp-wordmark">VaneUI</span>
-      </Col>
     </FrameRow>
   );
 }
