@@ -1,61 +1,36 @@
 "use client";
 
 import React from 'react';
-import { Col, NavLink, Divider, Chip } from '@vaneui/ui';
+import { Col, NavLink } from '@vaneui/ui';
 import { docsSections } from "./docsSections";
-import { BookOpen, Box, CheckSquare, Compass, FileText, GitHub, Layers, Maximize2, Settings } from "react-feather";
 import Link from "next/link";
-import { PRODUCT } from "../constants";
+import { Eyebrow } from "../landing/frame";
 
+/** Sidebar: one `[01] Section` eyebrow per category, its pages hanging off a hairline track */
 export function DocsNav({currentPath, onMenuItemClickAction}: { currentPath?: string, onMenuItemClickAction?: () => void }) {
-  const icons: Record<string, React.ComponentType<{ className?: string }>> = {
-    'getting-started': BookOpen,
-    'basic-components': Box,
-    'form-components': CheckSquare,
-    'layout-components': Layers,
-    'overlay-components': Maximize2,
-    'typography-components': FileText,
-    'customization': Settings,
-    'reference': Compass,
-  };
   return (
-    <Col>
-      <Col noGap>
-        <NavLink md href="/docs" tag={Link}>
-          <BookOpen />
-          Documentation
-        </NavLink>
-        <NavLink md href={PRODUCT.githubUrl} tag="a" target="_blank" rel="noopener noreferrer">
-          <GitHub />
-          GitHub
-        </NavLink>
-      </Col>
-      <Divider/>
-      {docsSections.map((section, i) => {
-        const Icon = icons[section.slug];
-        return (
-          <Col xs key={i}>
-            <Chip ghost noPadding uppercase secondary noInsetRing fontMono>{Icon && <Icon />}{section.name}</Chip>
-            <Col noGap className="pl-[calc(var(--spacing)*2-1px)]">
-              {section.pages.map((page, j) => {
-                const path = `/docs/${section.slug}/${page.slug}`;
-                const isActive = currentPath === path;
-                return (
-                  <NavLink
-                    sharp tag={Link} key={j} href={path}
-                    active={isActive}
-                    fontSemibold={isActive}
-                    className={`border-l-2 border-(--color-border-primary) ${!isActive ? "hover:border-(--color-text-tertiary)" : "border-(--color-text-primary)"} pl-4`}
-                    onClick={onMenuItemClickAction}
-                  >
-                    {page.name}
-                  </NavLink>
-                );
-              })}
-            </Col>
+    <Col lg>
+      {docsSections.map((section, i) => (
+        <Col sm key={section.slug}>
+          <Eyebrow tight index={String(i + 1).padStart(2, '0')}>{section.name}</Eyebrow>
+          <Col noGap>
+            {section.pages.map(page => {
+              const path = `/docs/${section.slug}/${page.slug}`;
+              const isActive = currentPath === path;
+              return (
+                <NavLink
+                  key={page.slug} href={path} tag={Link}
+                  ghost sharp secondary={!isActive} active={isActive}
+                  className="lp-rail pl-4"
+                  onClick={onMenuItemClickAction}
+                >
+                  {page.name}
+                </NavLink>
+              );
+            })}
           </Col>
-        );
-      })}
+        </Col>
+      ))}
     </Col>
   );
 }

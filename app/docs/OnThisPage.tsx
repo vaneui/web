@@ -12,16 +12,8 @@ interface OnThisPageProps {
 }
 
 export function OnThisPage({sections}: OnThisPageProps) {
-  const [activeSection, setActiveSection] = useState<string>(() => {
-    // Set initial active section from URL hash on mount
-    if (typeof window !== 'undefined') {
-      const hash = window.location.hash.substring(1);
-      if (hash && sections.some(section => section.id === hash)) {
-        return hash;
-      }
-    }
-    return '';
-  });
+  // Empty on the server and first client render; the observer's first callback marks the visible section
+  const [activeSection, setActiveSection] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
   const isClickNavigating = useRef(false);
 
@@ -112,7 +104,7 @@ export function OnThisPage({sections}: OnThisPageProps) {
 
   return (
     <Col ref={containerRef} overflowYAuto sm hFit>
-      <Text sm uppercase secondary fontMono>On this page</Text>
+      <Text xs fontMono uppercase trackingWider tertiary>On this page</Text>
       <Col noGap>
         {sections.map((section, index) => {
           const isActive = activeSection === section.id;
@@ -121,9 +113,8 @@ export function OnThisPage({sections}: OnThisPageProps) {
               key={index}
               href={`#${section.id}`}
               active={isActive}
-              xs sharp noPadding
-              fontSemibold={isActive}
-              className={`border-l-2 ${isActive ? "border-(--color-text-primary)" : "border-(--color-border-primary) hover:border-(--color-text-tertiary)"} py-1.5 ${
+              xs ghost sharp noPadding secondary={!isActive}
+              className={`lp-rail py-1.5 ${
                 section.level === 0 ? 'pl-3' :
                 section.level === 1 ? 'pl-6' :
                 section.level === 2 ? 'pl-9' :

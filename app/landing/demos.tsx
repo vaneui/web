@@ -1,14 +1,16 @@
 'use client'
 
+// Live component demos for the landing page component grid
 import React, { useState } from 'react';
-import Link from 'next/link';
 import {
-  Section, Container, Col, Row, Grid3, Card, Text, Field, Checkbox, Label, Button, Alert, Badge, Switch,
-  Table, Thead, Tbody, Tr, Th, Td, RadioGroup, Radio, Menu, MenuItem, Divider, Tooltip, Modal, ModalHeader,
-  ModalBody, ModalFooter, ModalCloseButton, Title, NavLink,
+  Row, Col, Field, Checkbox, Label, Button, Alert, Badge, Switch,
+  Table, Thead, Tbody, Tr, Th, Td, RadioGroup, Radio, Menu, MenuItem, Divider, Tooltip, Modal,
+  ModalBody, ModalFooter, ModalCloseButton, Title, Text, NavLink, Img, Chip, ThemeProvider, type ThemeDefaults,
 } from '@vaneui/ui';
 import { BarChart2, Home, Settings, Users } from 'react-feather';
-import { SectionHeader } from './SectionHeader';
+
+// A solid round close button, readable on top of the photo
+const CLOSE_ON_PHOTO: ThemeDefaults = { modal: { closeButton: { pill: true, primary: true, transparent: false, shadow: true } } };
 
 function OverlaysDemo() {
   const [open, setOpen] = useState(false);
@@ -24,24 +26,38 @@ function OverlaysDemo() {
         <Button>Hover me</Button>
       </Tooltip>
       <Button filled onClick={() => setOpen(true)}>Open dialog</Button>
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <ModalHeader>
-          <Title>Delete project?</Title>
-          <ModalCloseButton/>
-        </ModalHeader>
-        <ModalBody>
-          <Text>This removes the project and its 12 deployments.</Text>
-        </ModalBody>
-        <ModalFooter>
-          <Button secondary onClick={() => setOpen(false)}>Cancel</Button>
-          <Button danger filled onClick={() => setOpen(false)}>Delete</Button>
-        </ModalFooter>
-      </Modal>
+      <ThemeProvider themeDefaults={CLOSE_ON_PHOTO}>
+        <Modal open={open} onClose={() => setOpen(false)} noGap overflowHidden aria-labelledby="visit-title">
+          {/* Close button pinned to the dialog's top corner, over the photo; its look comes from CLOSE_ON_PHOTO */}
+          <ModalCloseButton aria-label="Close" className="absolute top-3 right-3 z-10"/>
+          <Img src="/puppy.png" alt="Oliver, a brown puppy, sitting in dry grass" width={480} height={256}
+               sharp wFull className="h-64"/>
+          <ModalBody>
+            <Col xs>
+              <Row sm>
+                <Title id="visit-title">Meet Oliver</Title>
+                <Chip sm success>Available</Chip>
+              </Row>
+              <Text sm tertiary>Book a 30-minute visit at the shelter. Bring the family.</Text>
+            </Col>
+            <Field type="email" label="Your email" placeholder="you@company.com"/>
+            <Field select label="Visit day">
+              <option>Saturday, 10:00</option>
+              <option>Saturday, 14:00</option>
+              <option>Sunday, 11:00</option>
+            </Field>
+          </ModalBody>
+          <ModalFooter borderT>
+            <Button secondary onClick={() => setOpen(false)}>Maybe later</Button>
+            <Button success filled onClick={() => setOpen(false)}>Book a visit</Button>
+          </ModalFooter>
+        </Modal>
+      </ThemeProvider>
     </Row>
   );
 }
 
-const tiles: { name: string; parts: string; href: string; demo: React.ReactNode }[] = [
+export const GALLERY_TILES: { name: string; parts: string; href: string; demo: React.ReactNode }[] = [
   {
     name: 'Forms',
     parts: 'Field, Checkbox, Button',
@@ -65,10 +81,10 @@ const tiles: { name: string; parts: string; href: string; demo: React.ReactNode 
           <Tr><Th scope="col">Service</Th><Th scope="col">Status</Th><Th scope="col" textRight>Latency</Th></Tr>
         </Thead>
         <Tbody>
-          <Tr><Td>api</Td><Td><Badge success>Up</Badge></Td><Td textRight>42ms</Td></Tr>
-          <Tr><Td>auth</Td><Td><Badge warning>Slow</Badge></Td><Td textRight>380ms</Td></Tr>
-          <Tr><Td>billing</Td><Td><Badge danger>Down</Badge></Td><Td textRight>none</Td></Tr>
-          <Tr><Td>search</Td><Td><Badge success>Up</Badge></Td><Td textRight>65ms</Td></Tr>
+          <Tr><Td>api</Td><Td><Badge sm success>Up</Badge></Td><Td textRight>42ms</Td></Tr>
+          <Tr><Td>auth</Td><Td><Badge sm warning>Slow</Badge></Td><Td textRight>380ms</Td></Tr>
+          <Tr><Td>billing</Td><Td><Badge sm danger>Down</Badge></Td><Td textRight>none</Td></Tr>
+          <Tr><Td>search</Td><Td><Badge sm success>Up</Badge></Td><Td textRight>65ms</Td></Tr>
         </Tbody>
       </Table>
     ),
@@ -121,41 +137,12 @@ const tiles: { name: string; parts: string; href: string; demo: React.ReactNode 
     href: '/docs/basic-components/navlink',
     demo: (
       <Col noGap>
-        <NavLink active><Home/> Overview</NavLink>
-        <NavLink><BarChart2/> Analytics <Badge sm info>New</Badge></NavLink>
-        <NavLink><Users/> Team</NavLink>
-        <NavLink><Settings/> Settings</NavLink>
+        <NavLink active><Home aria-hidden="true"/> Overview</NavLink>
+        <NavLink><BarChart2 aria-hidden="true"/> Analytics <Badge sm info>New</Badge></NavLink>
+        <NavLink><Users aria-hidden="true"/> Team</NavLink>
+        <NavLink><Settings aria-hidden="true"/> Settings</NavLink>
       </Col>
     ),
   },
 ];
 
-export function GallerySection() {
-  return (
-    <Section xl>
-      <Container xl>
-        <Col xl wFull>
-          <SectionHeader title="40+ components that fit together">
-            Forms, data, feedback and overlays share one size scale and one set of colors. Every tile below is the
-            real component, so try it.
-          </SectionHeader>
-          <Grid3 lg wFull>
-            {tiles.map(tile => (
-              <Card key={tile.name} noGap noPadding overflowHidden>
-                <Col flex1 padding>{tile.demo}</Col>
-                <Row justifyBetween borderT secondary padding>
-                  <Col noGap>
-                    <Text sm fontSemibold>{tile.name}</Text>
-                    <Text xs secondary>{tile.parts}</Text>
-                  </Col>
-                  <Button xs ghost tag={Link} href={tile.href}>Docs</Button>
-                </Row>
-              </Card>
-            ))}
-          </Grid3>
-          <Button lg tag={Link} href="/docs">Browse all components</Button>
-        </Col>
-      </Container>
-    </Section>
-  );
-}

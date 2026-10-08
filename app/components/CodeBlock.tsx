@@ -22,6 +22,8 @@ interface CodeBlockProps {
   highlightRanges?: HighlightRange[];
   cursorPosition?: number;
   showHeader?: boolean;
+  /** Joined to the box above it: no own frame or corners, only a top hairline */
+  attached?: boolean;
 }
 
 function getLanguageIcon(language: string) {
@@ -45,6 +47,7 @@ export function CodeBlock({
                             highlightRanges = [],
                             showHeader = true,
                             cursorPosition,
+                            attached = false,
                           }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
   const isDark = useIsDark();
@@ -60,7 +63,8 @@ export function CodeBlock({
   const currentTheme = theme === 'dark' || isDark ? darkTheme : lightTheme;
 
   return (
-    <Col xs primary rounded noGap border overflowHidden wFull className={className}>
+    <Col xs primary noGap overflowHidden wFull rounded={!attached} border={!attached} borderT={attached}
+         className={className}>
       <Stack primary xs row justifyBetween hidden={!showHeader} borderB>
         <Row xs>
           <span className="w-5 h-5 grayscale">

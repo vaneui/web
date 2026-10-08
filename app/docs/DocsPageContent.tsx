@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Col, Text, Title, PageTitle, Container, Divider,
-  ThemeProvider, Row, Chip, type ComponentKey,
+  ThemeProvider, Row, Grid3, type ComponentKey,
 } from '@vaneui/ui';
 import { DocsPageProps } from './types';
 import { toHtmlId, extractMarkdownHeadings } from "../utils/stringUtils";
@@ -10,11 +10,11 @@ import { OnThisPage } from './OnThisPage';
 import { MetaStrip } from './MetaStrip';
 import { DocsPropsTable } from './DocsPropsTable';
 import Link from "next/link";
+import { docsSections } from "./docsSections";
+import { Eyebrow } from "../landing/frame";
+import { DocsTile } from "./DocsTile";
 
-// Server component: the structural shell renders on the server (HTML is
-// crawlable + immediate), while ThemeProvider, DocsMarkdown's live demos,
-// and OnThisPage's scroll tracking continue to hydrate as client islands.
-// No hooks here — sections array is computed once per render server-side.
+// Server component: the shell renders on the server; demos and OnThisPage hydrate as client islands
 export function DocsPageContent(
   {
     pageData,
@@ -30,14 +30,12 @@ export function DocsPageContent(
   const propsTitle = pageTitle + " Props";
   const propsTitleId = toHtmlId(propsTitle);
 
-  // Subcomponents documented on the parent page (e.g. ListItem on List) get
-  // their own props table so merging the pages doesn't lose the prop reference.
+  // Subcomponents documented on the parent page (e.g. ListItem on List) get their own props table
   const secondaryKey = pageData.secondaryComponentKey;
   const secondaryTitle = (pageData.secondaryComponentName ?? secondaryKey ?? "") + " Props";
   const secondaryTitleId = toHtmlId(secondaryTitle);
 
-  // Build sections for OnThisPage navigation. Computed inline — server
-  // components don't need useMemo (no re-renders).
+  // Sections for OnThisPage; computed inline because server components don't re-render
   const sections: Array<{ title: string; id: string; level: number }> = [
     { title: pageTitle, id: pageTitleId, level: 0 },
     ...(md && md.trim()
@@ -57,15 +55,18 @@ export function DocsPageContent(
 
   const titleClasses = "after:content-['#'] after:invisible hover:after:visible after:ml-2 after:opacity-25";
 
+  // Same `[02]` index the sidebar shows next to this category
+  const sectionIndex = String(docsSections.findIndex(s => s.slug === section.slug) + 1).padStart(2, '0');
+
   return (
     <ThemeProvider
       themeDefaults={{
         code: { secondary: true },
+        // Tight headline tracking, as on the landing (PageTitle already has it)
+        sectionTitle: { trackingTight: true },
       }}
       extraClasses={{
-        // Anchor "#" affordance on the page H1. Markdown-body headings get their
-        // own "#" from CustomMdHeading, and their vertical rhythm from the
-        // @vaneui/md/styles (.vaneui-md) layer — no per-size pt-* ramp here.
+        // Anchor "#" on the page H1; markdown headings get theirs from CustomMdHeading
         pageTitle: {
           md: titleClasses,
         },
@@ -75,11 +76,11 @@ export function DocsPageContent(
           {/* Main Content */}
           <Col flex1 className="min-w-0">
             <Col>
-              <Text sm uppercase secondary fontMono>{section.name}</Text>
+              <Eyebrow index={sectionIndex}>{section.name}</Eyebrow>
               <PageTitle>
                 <Link href={`#${pageTitleId}`} id={pageTitleId}>{pageTitle}</Link>
               </PageTitle>
-              <Text primary>{pageData.description}</Text>
+              <Text secondary>{pageData.description}</Text>
               {pageData.frontmatter && (
                 <MetaStrip
                   frontmatter={pageData.frontmatter}
@@ -95,9 +96,7 @@ export function DocsPageContent(
               <DocsMarkdown md={md} slug={pageData.slug} />
             }
 
-            {/* Props Documentation — single auto-generated table replaces
-                the previous 30+ per-category prop dump. Common
-                layout/utility categories collapse into a <details>. */}
+            {/* One auto-generated props table; common layout categories collapse into a <details> */}
             {componentKey && (
               <Col wFull id={propsTitleId}>
                 <Title xl className={titleClasses}>
@@ -116,30 +115,24 @@ export function DocsPageContent(
               </Col>
             )}
 
-            {/* Related pages in the same category — gives crawlers (and AI
-                crawlers) a strong internal-link signal between siblings, and
-                helps readers discover adjacent components.
-                Wrap pattern: <Link><Chip/></Link> instead of `tag={Link}`
-                so this stays renderable from a server component (function
-                refs can't cross the server/client boundary). */}
+            {/* Sibling pages: internal links for crawlers and readers, same tiles as the docs index */}
             {section.pages.length > 1 && (
-              <Col wFull>
-                <Text sm uppercase secondary fontMono>More in {section.name}</Text>
-                <Row flexWrap>
+              <Col lg wFull tag="nav" aria-label={`More in ${section.name}`}>
+                <Divider/>
+                <Eyebrow index={sectionIndex}>More in {section.name}</Eyebrow>
+                <Grid3 noGap className="lp-tiles max-mobile:grid-cols-2">
                   {section.pages
                     .filter(p => p.slug !== pageData.slug)
                     .map(p => (
-                      <Link key={p.slug} href={`/docs/${section.slug}/${p.slug}`}>
-                        <Chip>{p.name}</Chip>
-                      </Link>
+                      <DocsTile key={p.slug} href={`/docs/${section.slug}/${p.slug}`} name={p.name}/>
                     ))}
-                </Row>
+                </Grid3>
               </Col>
             )}
           </Col>
 
           {/* On This Page Navigation */}
-          <Col sticky tabletHide noShrink className="styled-scrollbar top-10 w-56 max-h-[calc(100vh-128px)]">
+          <Col sticky tabletHide noShrink className="styled-scrollbar top-26 w-52 max-h-[calc(100dvh-8.5rem)]">
             <OnThisPage sections={sections} />
           </Col>
         </Row>

@@ -41,12 +41,12 @@ app/
   not-found.tsx           # 404 page
 
   components/             # Shared components
-    Header.tsx, Footer.tsx, Logo.tsx, ThemeToggle.tsx
+    Logo.tsx, ThemeToggle.tsx
     CodeBlock.tsx          # Syntax highlighting with prism-react-renderer
-    themes/               # Prism color themes (dark/light)
+    themes/               # Prism color themes (dark ink / light paper, blue component names only)
 
   docs/                   # Documentation section
-    layout.tsx            # Docs layout (sidebar nav + content area)
+    layout.tsx            # Docs layout (site header, framed sidebar + content, site footer)
     page.tsx              # Docs index (renders DocsIndex.tsx)
     docsMetadata.ts       # Central docs structure config (categories + pages)
     docsSections.ts       # Derived from docsMetadata.ts
@@ -55,6 +55,7 @@ app/
     DocsMarkdown.tsx      # Renders markdown via @vaneui/md with custom components
     DocsNav.tsx           # Sidebar navigation
     OnThisPage.tsx        # Right-side table of contents
+    DocsTile.tsx          # Hairline page tile (docs index and the "More in" links under each page)
     [category]/[slug]/page.tsx  # Dynamic route for each docs page
 
     data/                 # Documentation content
@@ -67,11 +68,17 @@ app/
       customization/      # Markdown guides (theming-overview.md, css-variables.md, etc.)
       reference/          # common-props.md
 
-  landing/                # Landing page sections
-    HeroSection.tsx, WorksWith.tsx, GallerySection.tsx, FeaturesSection.tsx
-    ThemeCustomizationSection.tsx, AiSection.tsx, GetStartedSection.tsx
-    SectionHeader.tsx     # Shared title + description header used by every section
-    data/                 # Theme demo data (balanced.ts, playful.ts, strict.ts)
+  landing/                # Landing page (blueprint frame design, blue accent)
+    Landing.tsx           # Client root: assembles the sections, imports landing.css
+    LandingHeader.tsx, LandingFooter.tsx  # Site header and footer (landing, docs, playground; `wide` = 80rem docs frame)
+    Hero.tsx, WorksWith.tsx, ComponentsBento.tsx, Principles.tsx
+    Theming.tsx, Agents.tsx, GetStarted.tsx
+    frame.tsx             # Shared frame primitives: FrameRow, Band, SectionHead, Eyebrow, InstallBox
+    content.ts            # Landing copy and data (features, frameworks, AI clients, nav)
+    demos.tsx             # Live component demos for the component grid
+    Reveal.tsx            # Scroll-in reveal wrapper, usePrefersReducedMotion
+    landing.css           # Accent tokens, frame decoration and motion (lp- prefix); `lp-site` reuses the frame on docs without touching VaneUI tokens
+    data/                 # Theming demo data (themes.ts, balanced.ts, playful.ts, strict.ts)
 
   utils/
     stringUtils.ts        # toHtmlId(), createHeadingSlugger(), extractMarkdownHeadings()
