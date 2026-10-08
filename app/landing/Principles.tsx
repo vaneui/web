@@ -91,10 +91,11 @@ function PropDemo() {
   );
 }
 
-/** The same mini card twice: light, and a dark copy clipped to the right half */
-function MiniCard() {
+/** The mini card; the dark copy mirrors the light one's state and stays out of the tab order */
+function MiniCard({ notify, onNotify, mirror = false }: { notify: boolean; onNotify: (on: boolean) => void; mirror?: boolean }) {
+  const tabIndex = mirror ? -1 : undefined;
   return (
-    <Card className="w-72">
+    <Card aria-hidden={mirror || undefined} className="w-72">
       <Row justifyBetween>
         <Row sm>
           <Img xs pill src={dog.image} alt="" width={40} height={40}/>
@@ -106,30 +107,34 @@ function MiniCard() {
         <Chip xs>{dog.gender}</Chip>
       </Row>
       <Divider/>
-      <Label row itemsCenter justifyBetween wFull>Notify me <Switch sm defaultChecked/></Label>
+      <Label row itemsCenter justifyBetween wFull>
+        Notify me <Switch sm checked={notify} onChange={e => onNotify(e.target.checked)} tabIndex={tabIndex}/>
+      </Label>
       <Row xs>
-        <Button xs filled flex1>Adopt</Button>
-        <Button xs secondary flex1>Later</Button>
+        <Button xs filled flex1 tabIndex={tabIndex}>Adopt</Button>
+        <Button xs secondary flex1 tabIndex={tabIndex}>Later</Button>
       </Row>
     </Card>
   );
 }
 
+/** The same card twice, light and a dark copy clipped to the right half; each half is live and both share state */
 function DarkSplit() {
+  const [notify, setNotify] = useState(true);
   return (
-    <Col sm itemsCenter wFull aria-hidden="true" inert className="py-6">
-      <Row justifyBetween className="w-72">
+    <Col sm itemsCenter wFull className="py-6">
+      <Row justifyBetween aria-hidden="true" className="w-72">
         <Text xs fontMono tertiary>light</Text>
         <Text xs fontMono tertiary>dark</Text>
       </Row>
-      <div className="relative grid">
-        <div data-theme="light" className="lp-light lp-split-layer">
-          <MiniCard/>
+      <div className="lp-split relative grid">
+        <div data-theme="light" className="lp-light lp-split-layer lp-split-light">
+          <MiniCard notify={notify} onNotify={setNotify}/>
         </div>
         <div data-theme="dark" className="lp-split-layer lp-split-dark">
-          <MiniCard/>
+          <MiniCard notify={notify} onNotify={setNotify} mirror/>
         </div>
-        <svg className="lp-split-line" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <svg aria-hidden="true" className="lp-split-line" viewBox="0 0 100 100" preserveAspectRatio="none">
           <line x1="50" y1="-4" x2="50" y2="104" vectorEffect="non-scaling-stroke"/>
         </svg>
       </div>

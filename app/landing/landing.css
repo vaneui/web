@@ -292,8 +292,11 @@
 .lp-swap { animation: lp-fade .35s ease both; }
 
 .lp-split-layer { grid-area: 1 / 1; }
-.lp-split-dark { clip-path: inset(0 0 0 50%); }
-.lp-split-line { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.lp-split-dark { clip-path: inset(0 0 0 50%); transition: clip-path .3s ease; }
+.lp-split-line { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; transition: transform .3s ease; }
+/* Keyboard focus lives in the light copy, so the dark half slides away to show its focus ring */
+.lp-split:has(.lp-split-light :focus-visible) .lp-split-dark { clip-path: inset(0 0 0 100%); }
+.lp-split:has(.lp-split-light :focus-visible) .lp-split-line { transform: translateX(50%); }
 .lp-split-line line { stroke: var(--lp-mark); stroke-width: 1; }
 
 /* The current page's header cell: an accent bar over the header's bottom hairline */
@@ -342,5 +345,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   [data-reveal] { transition: none !important; opacity: 1 !important; transform: none !important; }
-  .lp-motion, .lp-motion *, .lp-brk, .lp-nudge { animation: none !important; transition: none !important; }
+  .lp-motion, .lp-motion *, .lp-brk, .lp-nudge, .lp-split-dark, .lp-split-line { animation: none !important; transition: none !important; }
 }
