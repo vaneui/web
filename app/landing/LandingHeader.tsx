@@ -20,15 +20,15 @@ function useCurrentHref() {
     .sort((a, b) => b.length - a.length)[0];
 }
 
-/** Site header; `wide` matches the 80rem docs frame instead of the 72rem landing frame */
-export function LandingHeader({ wide = false }: { wide?: boolean }) {
+/** Site header, identical on every page so nothing shifts when moving between landing, docs and playground */
+export function LandingHeader() {
   const current = useCurrentHref();
   return (
     <Row tag="header" sticky primary borderB noGap justifyCenter className="top-0 z-40">
-      <Container lg={!wide} xl={wide} row noGap borderX itemsStretch relative className={`${FRAME} h-14`}>
+      <Container xl row noGap borderX itemsStretch relative className={`${FRAME} h-14`}>
         <Crosshairs bottom/>
-        {/* Brand cell; on docs it matches the sidebar width so its divider continues the sidebar's rail */}
-        <Row sm noShrink className={`px-5 max-mobile:px-4 ${wide ? 'lg:w-[calc(16rem-1px)]' : ''}`}>
+        {/* Brand cell: as wide as the docs sidebar, so on docs its divider continues the sidebar's rail */}
+        <Row sm noShrink className="px-5 max-mobile:px-4 lg:w-[calc(16rem-1px)]">
           <Logo/>
           <Chip xs fontMono primary>v{VERSION}</Chip>
         </Row>

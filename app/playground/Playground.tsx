@@ -46,8 +46,8 @@ export function Playground() {
 
   return (
     <Col noGap hScreen className="lp-site">
-      <LandingHeader wide />
-      {/* The editor and preview sit in the same railed 80rem frame as the docs */}
+      <LandingHeader/>
+      {/* The editor and preview sit in the same railed 80rem frame as every other page */}
       <Row noGap justifyCenter itemsStretch flex1 overflowHidden>
         <Container xl noGap borderX itemsStretch relative tag="main" className={FRAME}>
           <Row justifyBetween borderB noShrink className="px-4 py-2">

@@ -127,7 +127,7 @@
   position: relative;
   height: 100%;
   width: calc(100% - 2rem);
-  max-width: 72rem;
+  max-width: 80rem;
   margin-inline: auto;
   border-inline: 1px solid var(--lp-line);
   background-color: var(--color-bg-primary);

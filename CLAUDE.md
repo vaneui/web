@@ -70,7 +70,7 @@ app/
 
   landing/                # Landing page (blueprint frame design, blue accent)
     Landing.tsx           # Client root: assembles the sections, imports landing.css
-    LandingHeader.tsx, LandingFooter.tsx  # Site header and footer (landing, docs, playground; `wide` = 80rem docs frame)
+    LandingHeader.tsx, LandingFooter.tsx  # Site header and footer, shared by landing, docs and playground (one 80rem frame)
     Hero.tsx, WorksWith.tsx, ComponentsBento.tsx, Principles.tsx
     Theming.tsx, Agents.tsx, GetStarted.tsx
     frame.tsx             # Shared frame primitives: FrameRow, Band, SectionHead, Eyebrow, InstallBox

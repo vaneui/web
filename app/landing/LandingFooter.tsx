@@ -33,10 +33,10 @@ const COLUMNS: { title: string; links: { text: string; href: string }[] }[] = [
   },
 ];
 
-/** Site footer; `wide` matches the 80rem docs frame */
-export function LandingFooter({ wide = false }: { wide?: boolean }) {
+/** Site footer, shared by every page */
+export function LandingFooter() {
   return (
-    <FrameRow tag="footer" label="Footer" wide={wide}>
+    <FrameRow tag="footer" label="Footer">
       <Grid4 noGap className="lp-grid max-tablet:grid-cols-2">
         <Stack xl flexNoWrap justifyBetween className="lp-cell min-h-64 max-tablet:col-span-2 max-tablet:min-h-0">
           <Col>

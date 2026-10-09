@@ -24,7 +24,7 @@ export default function DocsLayout({children}: DocsLayoutProps) {
 
   return (
     <Col noGap primary className="lp-site min-h-screen">
-      <LandingHeader wide/>
+      <LandingHeader/>
 
       <Row noGap justifyCenter itemsStretch flex1>
         <Container xl row noGap borderX itemsStretch relative className={FRAME}>
@@ -52,7 +52,7 @@ export default function DocsLayout({children}: DocsLayoutProps) {
         </Container>
       </Row>
 
-      <LandingFooter wide/>
+      <LandingFooter/>
 
       {/* Mobile sidebar overlay */}
       {isMobileMenuOpen && (

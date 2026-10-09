@@ -6,7 +6,7 @@ import { Section, Container, Row, Col, Stack, Grid2, Text, SectionTitle, IconBut
 import { Check, Copy } from 'react-feather';
 import { Reveal } from './Reveal';
 
-/** Width of the frame between the rails: 72rem (80rem on docs), with a 16px gutter on small screens */
+/** Width of the frame between the rails: 80rem on every page (Container xl), with a 16px gutter on small screens */
 export const FRAME = 'w-[calc(100%-2rem)]';
 
 /** The two "+" marks where a section hairline crosses the rails */
@@ -33,19 +33,17 @@ export function Brackets() {
 }
 
 /** One full-bleed blueprint row: a hairline across the page, the railed frame, crosshairs where they meet */
-export function FrameRow({ children, id, label, top = true, wide = false, tag, className }: {
+export function FrameRow({ children, id, label, top = true, tag, className }: {
   children: React.ReactNode;
   id?: string;
   label?: string;
   top?: boolean;
-  /** 80rem frame, the docs width, instead of the 72rem landing frame */
-  wide?: boolean;
   tag?: 'section' | 'footer';
   className?: string;
 }) {
   return (
     <Section noPadding noGap relative borderT={top} tag={tag} id={id} aria-label={label} className={className}>
-      <Container lg={!wide} xl={wide} noGap borderX relative itemsStretch className={FRAME}>
+      <Container xl noGap borderX relative itemsStretch className={FRAME}>
         {top && <Crosshairs/>}
         {children}
       </Container>
