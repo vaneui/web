@@ -1,12 +1,12 @@
 # VaneUI Documentation
 
-> Complete documentation for the VaneUI React component library (`@vaneui/ui` 1.4.3),
+> Complete documentation for the VaneUI React component library (`@vaneui/ui` 1.4.4),
 > every doc page concatenated into one file. Component pages end with their props, grouped by
 > category with defaults marked, generated from the installed package.
 
 - Repository: https://github.com/vaneui/vaneui
 - Documentation: https://vaneui.com
-- Package: `@vaneui/ui` 1.4.3
+- Package: `@vaneui/ui` 1.4.4
 - Index: https://vaneui.com/llms.txt
 
 Sections follow the site navigation: Getting Started, Basic Components, Form Components, Typography Components, Layout Components, Overlay Components, Customization, Reference.
@@ -9235,7 +9235,7 @@ Import: import { Tooltip } from "@vaneui/ui"
 
 ## Basic usage
 
-Tooltip describes its trigger with a short hint on hover and on keyboard focus. Pass the trigger as the child and the hint as `content`.
+Tooltip describes its trigger with a short hint on hover and on keyboard focus. Pass the trigger as the child and the hint as `content`. The hint renders as an ink label: near-black in light mode, near-white in dark mode.
 
 ```tsx demo
 <Tooltip content="Saves without leaving the page">
@@ -9243,9 +9243,9 @@ Tooltip describes its trigger with a short hint on hover and on keyboard focus. 
 </Tooltip>
 ```
 
-The trigger must accept a ref, which every VaneUI component does.
+The trigger must accept a ref. `Button`, `IconButton`, `Badge`, `Link` and the other element components do.
 
-Tooltip's own props are `content`, `open`, `defaultOpen`, `onOpenChange`, `openDelay` (default `300`), `closeDelay` (default `100`), `popupProps`, `popupId` and `disabled`. The size, shape, variant and appearance props in the table further down belong to the frame it renders, so they are set through `popupProps` rather than on `Tooltip` itself.
+Tooltip takes [Popup](/docs/overlay-components/popup) props directly (size, appearance, variant, shape, placement, `arrow`, `offset`, `className` and the rest), and they style the label. Its own props are `content`, `open`, `defaultOpen`, `onOpenChange`, `openDelay` (default `300`), `closeDelay` (default `100`), `popupProps`, `popupId` and `disabled`.
 
 ## Keyboard and pointer
 
@@ -9262,82 +9262,132 @@ A tooltip that only opens on hover is invisible to keyboard users, so Tooltip op
 </Row>
 ```
 
-## Placement
+## Sizes
 
-Placement comes from the underlying Popup, so all twelve `place*` props are available through `popupProps`.
+Tooltip defaults to `sm`. Its text, padding and corner radius follow its own size, `xs` to `xl`, and the text sits one font step under a Button of the same size. The tooltip does not shrink on phones.
 
 ```tsx demo
 <Row flexWrap>
-  <Tooltip content="Above" popupProps={{ placeTop: true }}>
-    <Button sm>Top</Button>
+  <Tooltip xs content="An xs tooltip">
+    <Button xs>xs</Button>
   </Tooltip>
-  <Tooltip content="Below" popupProps={{ placeBottom: true }}>
-    <Button sm>Bottom</Button>
+  <Tooltip content="An sm tooltip, the default">
+    <Button>sm</Button>
   </Tooltip>
-  <Tooltip content="To the right" popupProps={{ placeRight: true }}>
-    <Button sm>Right</Button>
+  <Tooltip md content="An md tooltip">
+    <Button md>md</Button>
+  </Tooltip>
+  <Tooltip lg content="An lg tooltip">
+    <Button lg>lg</Button>
+  </Tooltip>
+  <Tooltip xl content="An xl tooltip">
+    <Button xl>xl</Button>
   </Tooltip>
 </Row>
 ```
 
-## Styling the tooltip frame
+## Placement
 
-Size, shape, variant and appearance belong to the frame, which is a `Popup`, so they go through `popupProps` rather than onto `Tooltip` itself. Tooltip defaults the frame to `sm`, `rounded`, `filled` and `secondary`.
+Tooltip opens above its trigger and flips to the other side when there is no room. All twelve `place*` props from Popup work on `Tooltip` directly, and `arrow` adds a pointer. Top and bottom tooltips stay on screen when the trigger sits at the edge of the viewport.
 
 ```tsx demo
 <Row flexWrap>
-  <Tooltip content="sm filled secondary, the default">
+  <Tooltip content="Above">
+    <Button>Top</Button>
+  </Tooltip>
+  <Tooltip placeBottom content="Below">
+    <Button>Bottom</Button>
+  </Tooltip>
+  <Tooltip placeRight content="To the right">
+    <Button>Right</Button>
+  </Tooltip>
+  <Tooltip placeRight arrow content="Points at its trigger">
+    <Button>Arrow</Button>
+  </Tooltip>
+</Row>
+```
+
+## Long hints
+
+A long hint wraps inside a width cap that grows with size, from 16 to 32rem across `xs` to `xl` and 20rem at the default `sm`, instead of running across the page.
+
+```tsx demo
+<Tooltip content="Archiving moves the conversation out of your inbox. Replies bring it back, and nothing is deleted.">
+  <Button secondary>Archive</Button>
+</Tooltip>
+```
+
+## Color and shape
+
+Appearance, variant and shape props restyle the label. `secondary` restores the gray look of earlier versions.
+
+```tsx demo
+<Row flexWrap>
+  <Tooltip content="Ink, the default">
     <Button>default</Button>
   </Tooltip>
-  <Tooltip content="Large frame" popupProps={{ lg: true }}>
-    <Button>lg</Button>
+  <Tooltip secondary content="Gray">
+    <Button>secondary</Button>
   </Tooltip>
-  <Tooltip content="Sharp corners" popupProps={{ sharp: true }}>
+  <Tooltip danger content="Deletes the project for everyone">
+    <Button danger>danger</Button>
+  </Tooltip>
+  <Tooltip sharp content="Sharp corners">
     <Button>sharp</Button>
   </Tooltip>
-  <Tooltip content="Outline danger" popupProps={{ outline: true, danger: true, border: true }}>
+  <Tooltip outline danger border content="Outline danger">
     <Button>outline danger</Button>
   </Tooltip>
 </Row>
 ```
 
+To change every tooltip in an app, set the default once on [`ThemeProvider`](/docs/customization/using-theme-provider):
+
+```tsx
+<ThemeProvider themeDefaults={{ tooltip: { secondary: true } }}>
+  <App />
+</ThemeProvider>
+```
+
+`popupProps` is still supported and is combined with the direct props, which helps when several tooltips share one props object. Pass one value per category (one size, one appearance, and so on) across the two.
+
 ## Delays
 
-`openDelay` keeps tooltips from flashing as the pointer crosses the screen; `closeDelay` gives the user time to move onto the tooltip itself.
+`openDelay` keeps tooltips from flashing as the pointer crosses the screen. `closeDelay` gives the pointer time to move onto the tooltip itself.
 
 ```tsx demo
 <Row flexWrap>
   <Tooltip content="Appears at once" openDelay={0}>
-    <Button sm>No delay</Button>
+    <Button>No delay</Button>
   </Tooltip>
   <Tooltip content="Waits half a second" openDelay={500}>
-    <Button sm>Slow</Button>
+    <Button>Slow</Button>
   </Tooltip>
 </Row>
 ```
 
 ## Accessibility
 
-A tooltip describes its trigger, so while it is open the trigger carries `aria-describedby` pointing at it. It never gets `aria-haspopup` or `aria-expanded`, because those describe a disclosure, not a description, and there is no `haspopup` value for tooltips.
+A tooltip describes its trigger, so while it is open the trigger carries `aria-describedby` pointing at it. It never gets `aria-haspopup` or `aria-expanded`, because those describe a disclosure, not a description, and there is no `aria-haspopup` value for tooltips.
 
 Keep the content short and non-essential. Anything the user must read to complete a task belongs in the page, not behind a hover.
 
 ## Icon-only triggers
 
-The most common use: explaining a control that has no visible label.
+A common use is explaining a control that has no visible label.
 
 ```tsx demo
-<Row itemsCenter>
+<Row>
   <Text sm>API key</Text>
   <Tooltip content="Rotating the key invalidates the old one immediately">
-    <IconButton sm secondary aria-label="About API keys">?</IconButton>
+    <IconButton secondary aria-label="About API keys">?</IconButton>
   </Tooltip>
 </Row>
 ```
 
 ## Props
 
-- Appearance: `primary`, `accent`, `secondary` (default), `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
+- Appearance: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
 - Flex: `flex1`, `flexAuto`, `flexNone`
 - Font Family: `fontSans` (default), `fontSerif`, `fontMono`, `fontHeading`
 - Font Style: `italic`, `notItalic`
@@ -11629,6 +11679,37 @@ package follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html): patc
 fixes, minor for additive props and components, major for anything that changes an
 existing prop name, default, or rendered element. Releases ship when work is ready
 rather than on a fixed calendar.
+
+## 1.4.4
+
+`2026-10-10`
+
+A consistency pass on `Tooltip`: it is now sized and coloured as a label, not a panel.
+
+### Added
+
+- **`Tooltip` takes `Popup` props directly**, like `Menu`: `<Tooltip lg placeBottom arrow>`.
+  Size, appearance, variant, shape, placement, `arrow`, `offset` and `className` style the
+  tooltip. `popupProps` still works and is combined with them.
+
+### Changed
+
+- **`Tooltip` is filled in ink**: near-black, and near-white in dark mode, like a filled
+  primary `Button`. It was gray. `<Tooltip secondary>` or
+  `themeDefaults={{ tooltip: { secondary: true } }}` brings the gray back.
+- **`Tooltip` text follows its size**: 10, 12, 14, 16 and 18px from `xs` to `xl`, one step
+  under a `Button` of the same size. It inherited the page's text (16px at every size).
+- **`Tooltip` padding and radius follow the `Button` ramp**, so a tooltip is about as tall as a
+  `Button` of the same size (29px instead of 44px at the default `sm`). Padding no longer
+  shrinks on tablets and phones.
+- **Long tooltips wrap** inside a cap that grows with size (16–32rem, 20rem at `sm`) instead
+  of running on one line across the page.
+
+### Fixed
+
+- **Popups placed above or below stay on screen next to an anchor at the viewport edge** in
+  browsers with CSS anchor positioning. They were centred on the anchor and cut off; they
+  now line up with the anchor's edge, and the arrow follows.
 
 ## 1.4.3
 
