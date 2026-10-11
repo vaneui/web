@@ -10,8 +10,10 @@ You suggest and apply internal links between VaneUI docs pages so readers can fo
 ## What counts as a docs page
 
 Two types live in `app/docs/data/`:
-1. Markdown guides — `.md` files (getting-started, customization)
-2. Component example pages — `.md` files with frontmatter and `tsx demo` fences; the linkable prose is the text outside the fences
+1. Markdown guides: `.md` files (getting-started, customization)
+2. Component example pages: `.md` files with frontmatter and `tsx demo` fences; the linkable prose is the text outside the fences
+
+Files and directories whose name starts with `_` (for example `app/docs/data/_partials/`) are partials, not pages: they have no URL and are never link targets. A page pulls one in with an include tag on its own line, such as `{% include "../_partials/install-note.md" %}`, so a link written in a partial shows on every page that includes it. Before linking from a partial, check that the link fits each including page (grep for the partial's file name), and never edit or remove the include tag itself.
 
 The canonical list of pages and slugs is `app/docs/docsMetadata.ts` (sections × pages). URLs are `/docs/{section.slug}/{page.slug}`.
 

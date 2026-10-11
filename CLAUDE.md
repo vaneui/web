@@ -13,6 +13,7 @@ npm run dev          # Dev server (localhost:3000), runs typecheck + lint first
 npm run build        # Production build (runs typecheck + lint first)
 npm run typecheck    # TypeScript type checking
 npm run lint         # ESLint
+npm test             # Unit tests (lib/**/__tests__ via tsx, scripts/__tests__ via node)
 npm run screenshot   # Take full-page + section screenshots to screenshots/
 npm run screenshot:clean  # Delete screenshots
 ```
@@ -106,9 +107,10 @@ Two types of docs pages, configured in `docsMetadata.ts`:
 ```
 
 - The path is relative to the file holding the tag, and a leading `/` resolves from `app/docs/data`. Includes must stay inside `app/docs/data`, and an included file can include others. It loses its frontmatter.
-- Files and directories whose name starts with `_` (for example `app/docs/data/_partials/`) are partials, never pages: `build-examples.mjs` skips them and the raw `.md` route does not serve them. A partial's `tsx demo` fences become live demos on each page that includes it.
-- Every reader of a page's raw Markdown (page route and its table of contents, raw `.md` route, search, `llms.txt`) expands includes through `lib/docs/includes.ts`, and `scripts/lib/doc-pages.mjs` mirrors it for the examples build. A new reader must go through the helper too, or it sees the bare tag.
-- A missing, cyclic or out-of-root include throws an `IncludeError` naming the file and line, which fails `check:examples`, `npm run llms` and the build.
+- Files and directories whose name starts with `_` (for example `app/docs/data/_partials/`) are partials, never pages: `build-examples.mjs` skips them and the raw `.md` route does not serve them. A partial's `tsx demo` fences become live demos on each page that includes it, and its wrappers point (`@vane-source`) at the partial's own lines. `build-examples.mjs` warns about a partial that no page includes, since its demos are never type-checked.
+- A `tsx setup` fence belongs in the page, never in an included file: the setup applies to the whole expanded page, so `build-examples.mjs` rejects one in an included file, naming the file and line. Two demo fences with the same wrapper key (`<page>-<id>`, for example a partial with an explicit `id` included twice, or sharing an `id` with its page) also fail, naming both locations.
+- `lib/docs/includes.mjs` is the one include helper (plain ESM with JSDoc types, so the Next.js code, `tsx` scripts and the plain-node examples build all import it). Every reader of a page's raw Markdown (page route and its table of contents, raw `.md` route, search, `llms.txt`, `build-examples.mjs` through `scripts/lib/doc-pages.mjs`) expands includes through it. A new reader must go through the helper too, or it sees the bare tag. `lib/docs/__tests__/fenceParity.test.ts` checks that the page route and the examples build extract the same fences.
+- A missing, cyclic or out-of-root include throws an `IncludeError` whose message starts with the file and line from the repo root (`app/docs/data/basic-components/badge.md:28: Include "x.md" not found`), which fails `check:examples`, `npm run llms` and the build.
 - A page's modified date (sitemap, article metadata) is the latest git date among the page and the files it includes (`lastModifiedDate` in `lib/docs/gitDate.ts`).
 
 ### Adding a New Component Example Page
