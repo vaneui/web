@@ -19,6 +19,7 @@ import {
   includeTagLines,
   isPartialName,
 } from '../../lib/docs/includes.mjs';
+import { fenceKey } from '../../lib/docs/fenceBody.mjs';
 import { extractFences } from './extract-fences.mjs';
 
 export { isPartialName };
@@ -143,17 +144,34 @@ export function rejectPartialSetup(files) {
  */
 
 /**
- * Remove the indentation common to the non-blank lines of a fence body, so a
- * fence under an indented include (inside a list item, say) matches the
- * partial it came from. Whitespace-only lines become empty.
+ * The include tags written in a file (not in the files it includes): each
+ * tag's line, the file it includes and the number of lines it expands to.
+ * Expanding the tag line on its own gives both.
  *
- * @param {string} body
+ * @param {string[]} lines  the file's lines, LF line endings
+ * @param {string} filePath  absolute path of the file
+ * @param {string} dataDir  include root (app/docs/data)
+ * @returns {Array<{ tagLine: number, file: string, length: number }>}
  */
-function dedent(body) {
-  const lines = body.split('\n').map((line) => (line.trim() === '' ? '' : line));
-  const indents = lines.filter(Boolean).map((line) => /^[ \t]*/.exec(line)?.[0].length ?? 0);
-  const cut = indents.length > 0 ? Math.min(...indents) : 0;
-  return lines.map((line) => line.slice(cut)).join('\n');
+function includeTags(lines, filePath, dataDir) {
+  return includeTagLines(lines.join('\n'), filePath, { dataDir }).map((tagLine) => {
+    /** @type {string[]} */
+    const files = [];
+    const text = expandDocIncludes(lines[tagLine - 1], filePath, { dataDir, onInclude: (file) => files.push(file) });
+    return { tagLine, file: files[0], length: text === '' ? 0 : text.split('\n').length };
+  });
+}
+
+/**
+ * What fences are matched by: kind and body, the body normalized as
+ * DocsMarkdown pairs fences (`fenceKey`: line endings, leading tabs, common
+ * indentation and trailing whitespace), so a fence under an indented include
+ * (inside a list item, say) matches the partial it came from.
+ *
+ * @param {{ kind: string, body: string }} fence
+ */
+function matchKey(fence) {
+  return `${fence.kind}\n${fenceKey(fence.body)}`;
 }
 
 /**
@@ -162,11 +180,12 @@ function dedent(body) {
  * or partial that holds it rather than at a line of the expanded text.
  *
  * A fence outside every include maps back to its own page line. A fence inside
- * the text an include tag produced matches the fences of the files that tag
- * pulled in, by kind and body (common indentation removed), in order: the Nth
- * identical fence gets the Nth match, so duplicates and a partial included
- * twice each find their own fence. When nothing matches, the fence points at
- * the include tag in the page.
+ * the text an include tag produced matches the fences that tag brings in (the
+ * included file's own and, through its include tags, those of the files it
+ * includes), in document order, by kind and body: the Nth identical fence gets
+ * the Nth match, so duplicates and a partial included twice each find their
+ * own fence. When nothing matches, the fence points at the include tag in the
+ * page.
  *
  * @param {{ path: string, source: string }} page  the page file and its raw text
  * @param {Array<{ kind: string, body: string, line: number }>} fences  fences of
@@ -177,27 +196,37 @@ function dedent(body) {
 export function locateFences(page, fences, dataDir) {
   const lines = page.source.replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n').split('\n');
 
-  // Each include tag in the page becomes a block of expanded lines. Expanding
-  // the tag line on its own gives the block, and the files it pulled in.
+  // Each include tag in the page becomes a block of expanded lines
   const blocks = [];
   let shift = 0; // expanded line minus page line, past the blocks so far
-  for (const tagLine of includeTagLines(lines.join('\n'), page.path, { dataDir })) {
-    /** @type {string[]} */
-    const files = [];
-    const text = expandDocIncludes(lines[tagLine - 1], page.path, { dataDir, onInclude: (file) => files.push(file) });
-    const length = text === '' ? 0 : text.split('\n').length;
-    blocks.push({ tagLine, start: tagLine + shift, end: tagLine + shift + length, files, used: new Map() });
+  for (const { tagLine, file, length } of includeTags(lines, page.path, dataDir)) {
+    blocks.push({ tagLine, start: tagLine + shift, end: tagLine + shift + length, file, used: new Map() });
     shift += length - 1;
   }
 
-  /** @type {Map<string, Array<{ kind: string, body: string, line: number }>>} */
-  const ownFences = new Map();
-  const fencesOf = (/** @type {string} */ file) => {
-    let list = ownFences.get(file);
-    if (!list) {
-      list = extractFences(readSource(file)).fences.map((f) => ({ kind: f.kind, body: dedent(f.body), line: f.line }));
-      ownFences.set(file, list);
+  /** @type {Map<string, Array<{ path: string, line: number, key: string }>>} */
+  const brought = new Map();
+  /**
+   * The fences `file` brings into a page, in document order: its own, and in
+   * place of each of its include tags the fences of the file that tag includes.
+   *
+   * @param {string} file
+   * @param {string[]} stack  files being expanded, so a cycle stops
+   * @returns {Array<{ path: string, line: number, key: string }>}
+   */
+  const fencesBrought = (file, stack) => {
+    let list = brought.get(file);
+    if (list) return list;
+    const source = readSource(file);
+    const items = extractFences(source).fences.map((f) => ({
+      line: f.line,
+      fences: [{ path: file, line: f.line, key: matchKey(f) }],
+    }));
+    for (const tag of includeTags(source.split('\n'), file, dataDir)) {
+      if (!stack.includes(tag.file)) items.push({ line: tag.tagLine, fences: fencesBrought(tag.file, [...stack, tag.file]) });
     }
+    list = items.sort((a, b) => a.line - b.line).flatMap((item) => item.fences);
+    brought.set(file, list);
     return list;
   };
 
@@ -208,16 +237,11 @@ export function locateFences(page, fences, dataDir) {
       const offset = before.reduce((sum, b) => sum + (b.end - b.start) - 1, 0);
       return { path: page.path, line: fence.line - offset };
     }
-    const body = dedent(fence.body);
-    const key = `${fence.kind}\n${body}`;
+    const key = matchKey(fence);
     const nth = block.used.get(key) ?? 0;
     block.used.set(key, nth + 1);
-    const matches = block.files.flatMap((file) =>
-      fencesOf(file)
-        .filter((f) => f.kind === fence.kind && f.body === body)
-        .map((f) => ({ path: file, line: f.line })));
-    const match = matches[nth];
-    return match ? { ...match, includedAt: block.tagLine } : { path: page.path, line: block.tagLine };
+    const match = fencesBrought(block.file, [page.path, block.file]).filter((f) => f.key === key)[nth];
+    return match ? { path: match.path, line: match.line, includedAt: block.tagLine } : { path: page.path, line: block.tagLine };
   });
 }
 

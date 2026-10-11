@@ -218,6 +218,34 @@ test('locateFences finds a fence under an indented include, nested includes too'
   ]);
 });
 
+test('locateFences orders the fences of nested includes as the page shows them', () => {
+  const b = write('_partials/order/b.md', ['```tsx demo', '<Button>Same</Button>', '```']);
+  const a = write('_partials/order/a.md', [
+    '{% include "./b.md" %}',
+    '',
+    'Text.',
+    '',
+    '```tsx demo',
+    '<Button>Same</Button>',
+    '```',
+    '',
+    '{% include "./b.md" %}',
+  ]);
+  const page = write('dups/nested-order.md', ['## Nested', '', '{% include "../_partials/order/a.md" %}']);
+  assert.deepEqual(locate(page).origins, [
+    { path: b, line: 1, includedAt: 3 },
+    { path: a, line: 5, includedAt: 3 },
+    { path: b, line: 1, includedAt: 3 },
+  ]);
+});
+
+test('locateFences matches a tab-indented fence in a partial included under an indented tag', () => {
+  // The include expands the partial's leading tabs to spaces when it indents its lines
+  const tabbed = write('_partials/tabbed.md', ['```tsx demo', '<Row>', '\t<Button>Tabbed</Button>', '</Row>', '```']);
+  const page = write('dups/tabbed.md', ['- A list item', '', '  {% include "../_partials/tabbed.md" %}']);
+  assert.deepEqual(locate(page).origins, [{ path: tabbed, line: 1, includedAt: 3 }]);
+});
+
 test('locateFences falls back to the include tag in the page when no file holds the fence', () => {
   // The partial opens a fence the page closes, so neither file holds it whole
   write('_partials/open.md', ['```tsx demo', '<Button>Open</Button>']);
