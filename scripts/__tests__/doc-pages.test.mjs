@@ -210,7 +210,7 @@ test('locateFences finds a fence under an indented include, nested includes too'
     '```',
   ]);
   const { fences, origins } = locate(page);
-  assert.equal(fences[0].body, '  <Row>\n    <Button>Indented</Button>\n  </Row>');
+  assert.equal(fences[0].body, '<Row>\n  <Button>Indented</Button>\n</Row>');
   assert.deepEqual(origins, [
     { path: nested, line: 5, includedAt: 3 },
     { path: deep, line: 1, includedAt: 3 },

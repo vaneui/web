@@ -164,3 +164,40 @@ test('only the first setup fence is hoisted; subsequent setups are dropped', () 
   assert.equal(out.fences.length, 1);
   assert.equal(out.fences[0].body, '<X/>');
 });
+
+test('bodies lose the indentation common to their lines, as Markdoc renders them in a list item', () => {
+  const md = [
+    '1. Step',
+    '',
+    '   ```tsx setup',
+    '   const items = [1];',
+    '   ```',
+    '',
+    '   ```tsx demo',
+    '   <Row>',
+    '     <Button>One</Button>',
+    '',
+    '   </Row>',
+    '   ```',
+    '',
+    '- Tabs',
+    '',
+    '  ```tsx hide',
+    '  <Row>',
+    '  \t<Button>Two</Button>',
+    '  </Row>',
+    '  ```',
+    '',
+  ].join('\n');
+
+  const out = extractFences(md);
+  assert.equal(out.setup, 'const items = [1];');
+  assert.deepEqual(
+    out.fences.map((f) => ({ id: f.id, kind: f.kind, body: f.body, line: f.line })),
+    [
+      { id: '0', kind: 'demo', body: '<Row>\n  <Button>One</Button>\n\n</Row>', line: 7 },
+      // A leading tab reaches the next multiple of 4 columns before the common indentation goes
+      { id: '1', kind: 'hide', body: '<Row>\n  <Button>Two</Button>\n</Row>', line: 16 },
+    ],
+  );
+});

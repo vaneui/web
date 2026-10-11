@@ -6,6 +6,7 @@ import { Col, Title, SectionTitle } from '@vaneui/ui';
 import { Md, headingAnchors, type MdTransform } from "@vaneui/md";
 import { createHeadingSlugger } from '../utils/stringUtils';
 import { extractFences, type ExtractedFence } from '../../lib/docs/extractFences';
+import { fenceKey } from '../../lib/docs/fenceBody.mjs';
 import { LivePreview } from './LivePreview';
 import Link from "next/link";
 
@@ -73,15 +74,16 @@ function CustomMdHeading({level, children, id}: MdHeadingProps) {
 
 /**
  * Pairing is done by content match: the Nth `tsx`/`jsx` fence Markdoc emits
- * with body B is the entry in `fences[]` whose `body === B` AND whose ordinal
- * position among same-body fences also matches. A simple Map keyed on body
- * text suffices because identical fence bodies are rare in practice; on
- * collision we shift to the next entry with the same body so duplicates still
- * pair correctly without relying on render-order side effects (which React 19
- * forbids in components).
+ * with content C is the entry in `fences[]` whose body has the same
+ * `fenceKey` (lib/docs/fenceBody.mjs: line endings, trailing whitespace and
+ * common indentation normalized) AND whose ordinal position among same-key
+ * fences also matches. A simple Map keyed on body text suffices because
+ * identical fence bodies are rare in practice; on collision we shift to the
+ * next entry with the same key so duplicates still pair correctly without
+ * relying on render-order side effects (which React 19 forbids in components).
  */
 interface FenceLookup {
-  /** Body-text -> queue of fences with that body, in document order. */
+  /** fenceKey(body) -> queue of fences with that key, in document order. */
   byBody: Map<string, ExtractedFence[]>;
   /**
    * Per-component-instance memo of the resolved fence. Keyed by `useId()`
@@ -95,24 +97,10 @@ interface FenceLookup {
   slug: string | undefined;
 }
 
-/**
- * Normalize fence body for matching — Markdoc's runtime fence content always
- * ends with `\n` (markdown-it's `getLines`), while our extractor regex stops
- * before the trailing newline. Strip trailing whitespace on both sides so the
- * pairing key is stable regardless of source formatting.
- *
- * CRLF is folded first: Markdoc normalizes line endings but the extractor reads
- * the raw file, so on a Windows checkout every key would differ by its `\r` and
- * silently lose the live preview on every page.
- */
-function normalizeBody(body: string): string {
-  return body.replace(/\r\n/g, '\n').replace(/\s+$/, '');
-}
-
 function buildFenceLookup(fences: ExtractedFence[], slug: string | undefined): FenceLookup {
   const byBody = new Map<string, ExtractedFence[]>();
   for (const fence of fences) {
-    const key = normalizeBody(fence.body);
+    const key = fenceKey(fence.body);
     const queue = byBody.get(key);
     if (queue) queue.push(fence);
     else byBody.set(key, [fence]);
@@ -144,7 +132,7 @@ function FenceWithLivePreview({ content = '', language = 'text' }: MdFenceProps)
       // resolved fence. `null` means we already looked and didn't find one.
       fence = cached ?? undefined;
     } else {
-      const queue = lookup.byBody.get(normalizeBody(content));
+      const queue = lookup.byBody.get(fenceKey(content));
       if (queue && queue.length > 0) {
         fence = queue.shift();
       }

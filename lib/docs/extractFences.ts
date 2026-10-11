@@ -6,6 +6,9 @@
 // wrapper key (so `<MdFence>` knows whether to render `<LivePreview>`).
 //
 // See `scripts/lib/extract-fences.mjs` for the rules — keep behavior aligned.
+// Both dedent each body with the same helper (lib/docs/fenceBody.mjs).
+
+import { dedent } from './fenceBody.mjs';
 
 export type FenceKind = 'demo' | 'hide' | 'inline';
 
@@ -13,6 +16,7 @@ export interface ExtractedFence {
   /** Explicit id="..." attribute, or default index for demo/hide; null for inline. */
   id: string | null;
   kind: FenceKind;
+  /** The fence's code, with the indentation common to its lines removed. */
   body: string;
   /** 1-based line number of the opening ``` in the source. */
   line: number;
@@ -61,10 +65,12 @@ export function extractFences(mdSource: string): ExtractedFences {
   let match: RegExpExecArray | null;
   let extractedIdx = 0;
   while ((match = FENCE_RE.exec(mdSource)) !== null) {
-    const [, , info, body] = match;
+    const [, , info, rawBody] = match;
     const { language, flag, id } = parseInfoString(info);
 
     if (language !== 'tsx' && language !== 'jsx') continue;
+
+    const body = dedent(rawBody);
 
     if (flag === 'setup') {
       if (result.setup === undefined) result.setup = body;

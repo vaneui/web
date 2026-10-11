@@ -23,6 +23,12 @@
 //     fences without an explicit id, defaults to the 0-based index in `fences[]`,
 //     stringified. For `inline` fences the id is always `null`.
 //   - `line` is the 1-based line number of the opening ``` token.
+//   - `body` (and `setup`) has the indentation common to its lines removed,
+//     leading tabs expanded first (`dedent` in lib/docs/fenceBody.mjs), as
+//     Markdoc strips a container's indentation (a list item, or an include tag
+//     indented under one) from the fence content it renders.
+
+import { dedent } from '../../lib/docs/fenceBody.mjs';
 
 const FENCE_RE = /^([ \t]*)```([^\n]*)\n([\s\S]*?)\n[ \t]*```/gm;
 
@@ -69,12 +75,13 @@ export function extractFences(mdSource) {
   // stable (matches the file naming used by build-examples.mjs).
   let extractedIdx = 0;
   while ((match = FENCE_RE.exec(mdSource)) !== null) {
-    const [, , info, body] = match;
+    const [, , info, rawBody] = match;
     const { language, flag, id } = parseInfoString(info);
 
     if (language !== 'tsx' && language !== 'jsx') continue;
 
     const line = (mdSource.slice(0, match.index).match(/\n/g) || []).length + 1;
+    const body = dedent(rawBody);
 
     if (flag === 'setup') {
       if (result.setup === undefined) {
