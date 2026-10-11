@@ -4,6 +4,7 @@
 // Result shape:
 //   {
 //     setup?: string,                                                          // body of first `setup` fence, if any
+//     setupLine?: number,                                                      // its line (build-only, for diagnostics)
 //     fences: Array<{ id: string | null, kind: 'demo'|'hide'|'inline', body: string, line: number }>
 //   }
 //
@@ -56,10 +57,10 @@ function parseInfoString(info) {
 
 /**
  * @param {string} mdSource
- * @returns {{ setup: string | undefined, fences: Array<{ id: string | null, kind: 'demo'|'hide'|'inline', body: string, line: number }> }}
+ * @returns {{ setup: string | undefined, setupLine: number | undefined, fences: Array<{ id: string | null, kind: 'demo'|'hide'|'inline', body: string, line: number }> }}
  */
 export function extractFences(mdSource) {
-  const result = { setup: undefined, fences: [] };
+  const result = { setup: undefined, setupLine: undefined, fences: [] };
   if (!mdSource) return result;
 
   FENCE_RE.lastIndex = 0;
@@ -73,12 +74,15 @@ export function extractFences(mdSource) {
 
     if (language !== 'tsx' && language !== 'jsx') continue;
 
+    const line = (mdSource.slice(0, match.index).match(/\n/g) || []).length + 1;
+
     if (flag === 'setup') {
-      if (result.setup === undefined) result.setup = body;
+      if (result.setup === undefined) {
+        result.setup = body;
+        result.setupLine = line;
+      }
       continue;
     }
-
-    const line = (mdSource.slice(0, match.index).match(/\n/g) || []).length + 1;
 
     if (flag === 'demo' || flag === 'hide') {
       result.fences.push({

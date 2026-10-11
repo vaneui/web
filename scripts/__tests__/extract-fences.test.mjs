@@ -33,6 +33,7 @@ test('extracts setup + demos + hide with correct order, body, line', () => {
   const out = extractFences(md);
 
   assert.equal(out.setup, 'const X = 1;');
+  assert.equal(out.setupLine, 3);
   assert.equal(out.fences.length, 3);
   assert.deepEqual(
     out.fences.map((f) => ({ id: f.id, kind: f.kind, body: f.body })),
@@ -159,6 +160,7 @@ test('only the first setup fence is hoisted; subsequent setups are dropped', () 
 
   const out = extractFences(md);
   assert.equal(out.setup, 'const a = 1;');
+  assert.equal(out.setupLine, 1);
   assert.equal(out.fences.length, 1);
   assert.equal(out.fences[0].body, '<X/>');
 });

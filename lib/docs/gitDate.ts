@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
-import { docIncludes } from './includes';
+import { docIncludes } from './includes.mjs';
 
 // Shared git-history helpers for docs pages. Used by the sitemap (lastModified)
 // and the [slug] route (TechArticle datePublished/dateModified + OG article

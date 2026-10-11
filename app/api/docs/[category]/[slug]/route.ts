@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { expandDocIncludes } from '../../../../../lib/docs/includes';
+import { expandDocIncludes } from '../../../../../lib/docs/includes.mjs';
 
 export async function GET(
   _req: NextRequest,
@@ -10,7 +10,7 @@ export async function GET(
   const { category, slug } = await params;
 
   // sanity guard: prevent path traversal. It also keeps partials (`_`-prefixed
-  // files and directories, see lib/docs/includes.ts) from being served as pages.
+  // files and directories, see lib/docs/includes.mjs) from being served as pages.
   if (!/^[a-z0-9-]+$/i.test(category) || !/^[a-z0-9-]+$/i.test(slug)) {
     return new Response('Not found', { status: 404 });
   }

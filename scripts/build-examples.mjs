@@ -6,10 +6,13 @@
 // per-fence wrapper TSX into app/docs/.generated/examples/, and writes a
 // registry barrel that lazy-loads each wrapper via next/dynamic.
 //
-// Pages have their `{% include %}` tags expanded first (scripts/lib/doc-pages.mjs,
-// mirroring lib/docs/includes.ts), so fences from an included file get wrappers
-// keyed by the including page, matching what DocsMarkdown pairs at runtime.
-// Partials (`_`-prefixed files and directories) are not pages and are skipped.
+// Pages have their `{% include %}` tags expanded first (lib/docs/includes.mjs,
+// through scripts/lib/doc-pages.mjs), so fences from an included file get
+// wrappers keyed by the including page, matching what DocsMarkdown pairs at
+// runtime. Partials (`_`-prefixed files and directories) are not pages and are
+// skipped; one that no page includes gets a warning, since its demos are never
+// type-checked. A `tsx setup` fence in an included file and two fences with the
+// same wrapper key fail the build, naming the files and lines.
 //
 // The .generated/ directory is gitignored — every run wipes and rebuilds it.
 
@@ -21,7 +24,17 @@ import { extractFences } from './lib/extract-fences.mjs';
 import { extractFreeIdentifiers } from './lib/extract-identifiers.mjs';
 import { loadSymbolTables } from './lib/load-symbol-tables.mjs';
 import { emitWrapper } from './lib/emit-wrapper.mjs';
-import { expandPage, fenceLocator, findPageFiles } from './lib/doc-pages.mjs';
+import {
+  describeOrigin,
+  expandPage,
+  findPageFiles,
+  findPartialFiles,
+  locateFences,
+  rejectPartialSetup,
+  unreferencedPartials,
+  wrapperKeyChecker,
+} from './lib/doc-pages.mjs';
+import { displayPath } from '../lib/docs/includes.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 // scripts/build-examples.mjs -> repo root is one level up.
@@ -53,28 +66,31 @@ async function main() {
 
   /** @type {string[]} */
   const registryKeys = [];
+  const claimKey = wrapperKeyChecker();
+  /** @type {Set<string>} */
+  const included = new Set();
   let wrapperCount = 0;
   let mdWithFences = 0;
 
   for (const mdAbs of mdFiles) {
     const rawSource = await fs.readFile(mdAbs, 'utf8');
     const { source: mdSource, includes } = expandPage(rawSource, mdAbs, DATA_DIR);
+    for (const file of includes) included.add(file);
+    // The setup comes from the expanded page, so only the page may hold one.
+    rejectPartialSetup(includes);
     const { setup, fences } = extractFences(mdSource);
     if (fences.length === 0) continue;
     mdWithFences += 1;
 
     const slug = safeSlug(path.basename(mdAbs, '.md'));
-    // Fence lines in the expanded text are off once a page includes a file, so
-    // locate each fence in the page or partial that holds it.
-    const locate = includes.length === 0 ? null : fenceLocator([
-      { path: mdAbs, source: rawSource },
-      ...(await Promise.all(includes.map(async (file) => ({ path: file, source: await fs.readFile(file, 'utf8') })))),
-    ]);
 
     // Inline fences (illustrative-only) are tracked by extractFences for
     // runtime fence-index pairing, but skipped here — only `demo`/`hide` get
     // wrappers and registry entries.
     const extractable = fences.filter((f) => f.kind !== 'inline');
+    // Fence lines in the expanded text are off once a page includes a file, so
+    // locate each fence in the page or partial that holds it.
+    const origins = locateFences({ path: mdAbs, source: rawSource }, extractable, DATA_DIR);
 
     for (let i = 0; i < extractable.length; i += 1) {
       const fence = extractable[i];
@@ -84,7 +100,11 @@ async function main() {
       const combined = setup ? `${setup}\n${fence.body}` : fence.body;
       const identifiers = extractFreeIdentifiers(combined);
 
-      const origin = locate?.(fence) ?? { path: mdAbs, line: fence.line };
+      const origin = origins[i];
+      const fenceId = safeSlug(fence.id);
+      const fileSlug = `${slug}-${fenceId}`;
+      claimKey(fileSlug, describeOrigin(origin, mdAbs));
+
       const wrapper = emitWrapper({
         slug,
         idx: i,
@@ -97,8 +117,6 @@ async function main() {
         setupBody: setup,
       });
 
-      const fenceId = safeSlug(fence.id);
-      const fileSlug = `${slug}-${fenceId}`;
       const outPath = path.join(OUT_DIR, `${fileSlug}.tsx`);
       await fs.writeFile(outPath, wrapper, 'utf8');
       registryKeys.push(fileSlug);
@@ -112,6 +130,10 @@ async function main() {
   await fs.writeFile(path.join(OUT_DIR, 'registry.ts'), registry, 'utf8');
 
   console.log(`Built ${wrapperCount} wrappers from ${mdWithFences} markdown files`);
+
+  for (const file of unreferencedPartials(await findPartialFiles(DATA_DIR), included)) {
+    console.warn(`Warning: ${displayPath(file)} is not included by any page, so its demos are never type-checked.`);
+  }
 }
 
 /**

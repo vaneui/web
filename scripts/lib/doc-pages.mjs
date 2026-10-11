@@ -1,39 +1,38 @@
-// Docs page discovery and include expansion for the examples build.
+// Docs page discovery and include handling for the examples build.
 //
 // Pages are the .md files under app/docs/data. Files and directories whose
 // name starts with `_` (e.g. `_partials/`) are partials: shared snippets pages
 // pull in with `{% include "../_partials/x.md" %}`, never pages themselves.
 // A partial's fences are extracted as part of every page that includes it.
 //
-// The TS readers (page route, raw .md route, search, llms.txt) expand includes
-// through lib/docs/includes.ts with the same root (the data directory), so the
-// wrappers built here pair with the fences DocsMarkdown sees. Keep the two in
-// sync.
+// Includes are expanded by lib/docs/includes.mjs, the same helper the page
+// route, the raw .md route, search and llms.txt use, so the wrappers built here
+// pair with the fences DocsMarkdown sees.
 
 import fs from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
-import { resolveIncludes } from '@vaneui/md/include';
 
+import {
+  displayPath,
+  expandDocIncludes,
+  includeTagLines,
+  isPartialName,
+} from '../../lib/docs/includes.mjs';
 import { extractFences } from './extract-fences.mjs';
 
-/**
- * True for a partial's file or directory name.
- *
- * @param {string} name
- */
-export function isPartialName(name) {
-  return name.startsWith('_');
-}
+export { isPartialName };
 
 /**
- * Recursively collect the page .md files under `dir` (absolute paths),
- * skipping partials.
+ * Recursively collect the .md files under `dir` (absolute paths), each marked
+ * as a partial when its name or a parent directory's name starts with `_`.
  *
  * @param {string} dir
- * @returns {Promise<string[]>}
+ * @param {boolean} [inPartial]
+ * @returns {Promise<Array<{ file: string, partial: boolean }>>}
  */
-export async function findPageFiles(dir) {
-  /** @type {string[]} */
+async function findMarkdownFiles(dir, inPartial = false) {
+  /** @type {Array<{ file: string, partial: boolean }>} */
   const out = [];
   let entries;
   try {
@@ -43,15 +42,48 @@ export async function findPageFiles(dir) {
     throw err;
   }
   for (const entry of entries) {
-    if (isPartialName(entry.name)) continue;
     const full = path.join(dir, entry.name);
+    const partial = inPartial || isPartialName(entry.name);
     if (entry.isDirectory()) {
-      out.push(...(await findPageFiles(full)));
+      out.push(...(await findMarkdownFiles(full, partial)));
     } else if (entry.isFile() && entry.name.endsWith('.md')) {
-      out.push(full);
+      out.push({ file: full, partial });
     }
   }
   return out;
+}
+
+/**
+ * The page .md files under `dir` (absolute paths), skipping partials.
+ *
+ * @param {string} dir
+ * @returns {Promise<string[]>}
+ */
+export async function findPageFiles(dir) {
+  return (await findMarkdownFiles(dir)).filter((f) => !f.partial).map((f) => f.file);
+}
+
+/**
+ * The partial .md files under `dir` (absolute paths).
+ *
+ * @param {string} dir
+ * @returns {Promise<string[]>}
+ */
+export async function findPartialFiles(dir) {
+  return (await findMarkdownFiles(dir)).filter((f) => f.partial).map((f) => f.file);
+}
+
+/**
+ * The partials no page includes, directly or through another partial. Their
+ * demos never reach a wrapper, so they are never type-checked.
+ *
+ * @param {string[]} partials  absolute paths, from findPartialFiles
+ * @param {Iterable<string>} included  absolute paths of every file the pages include
+ * @returns {string[]}
+ */
+export function unreferencedPartials(partials, included) {
+  const seen = new Set(included);
+  return partials.filter((file) => !seen.has(file));
 }
 
 /**
@@ -67,35 +99,159 @@ export async function findPageFiles(dir) {
 export function expandPage(source, filePath, dataDir) {
   /** @type {Set<string>} */
   const includes = new Set();
-  const expanded = resolveIncludes(source, {
-    filePath,
-    root: dataDir,
+  const expanded = expandDocIncludes(source, filePath, {
+    dataDir,
     onInclude: (file) => includes.add(file),
   });
   return { source: expanded, includes: [...includes] };
 }
 
 /**
- * Build a lookup from a fence of an expanded page to where it was written, so
- * a wrapper's `@vane-source` header (and check-examples diagnostics) point at
- * the page or the partial that holds it rather than at a line of the expanded
- * text. Matches kind and body against each file's own fences, page first; the
- * lookup returns null when no file holds the fence verbatim (for example an
- * include indented inside a list item).
+ * A file's text as the include expansion sees it: no byte order mark, LF line endings.
  *
- * @param {Array<{ path: string, source: string }>} files  the page, then its includes
- * @returns {(fence: { kind: string, body: string }) => { path: string, line: number } | null}
+ * @param {string} file
  */
-export function fenceLocator(files) {
-  const owned = files.map((file) => ({
-    path: file.path,
-    fences: extractFences(file.source.replace(/\r\n?/g, '\n')).fences,
-  }));
-  return (fence) => {
-    for (const file of owned) {
-      const match = file.fences.find((f) => f.kind === fence.kind && f.body === fence.body);
-      if (match) return { path: file.path, line: match.line };
+function readSource(file) {
+  return readFileSync(file, 'utf8').replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n');
+}
+
+/**
+ * Throw when an included file has a `tsx setup` fence. The setup of a page
+ * comes from its expanded text, so a partial's setup would become the setup of
+ * every page that includes it, or be dropped when the page has its own.
+ *
+ * @param {string[]} files  absolute paths of the included files
+ */
+export function rejectPartialSetup(files) {
+  for (const file of files) {
+    const { setupLine } = extractFences(readSource(file));
+    if (setupLine !== undefined) {
+      throw new Error(
+        `${displayPath(file)}:${setupLine}: an included file cannot have a \`tsx setup\` fence. ` +
+          'Put the setup in each page that includes it.',
+      );
     }
-    return null;
+  }
+}
+
+/**
+ * @typedef {object} FenceOrigin
+ * @property {string} path  absolute path of the file that holds the fence
+ * @property {number} line  1-based line of the fence's opening in that file
+ * @property {number} [includedAt]  for a fence from an included file, the line
+ *   of the page's include tag it came through
+ */
+
+/**
+ * Remove the indentation common to the non-blank lines of a fence body, so a
+ * fence under an indented include (inside a list item, say) matches the
+ * partial it came from. Whitespace-only lines become empty.
+ *
+ * @param {string} body
+ */
+function dedent(body) {
+  const lines = body.split('\n').map((line) => (line.trim() === '' ? '' : line));
+  const indents = lines.filter(Boolean).map((line) => /^[ \t]*/.exec(line)?.[0].length ?? 0);
+  const cut = indents.length > 0 ? Math.min(...indents) : 0;
+  return lines.map((line) => line.slice(cut)).join('\n');
+}
+
+/**
+ * Where each fence of an expanded page was written, so a wrapper's
+ * `@vane-source` header (and so check-examples diagnostics) point at the page
+ * or partial that holds it rather than at a line of the expanded text.
+ *
+ * A fence outside every include maps back to its own page line. A fence inside
+ * the text an include tag produced matches the fences of the files that tag
+ * pulled in, by kind and body (common indentation removed), in order: the Nth
+ * identical fence gets the Nth match, so duplicates and a partial included
+ * twice each find their own fence. When nothing matches, the fence points at
+ * the include tag in the page.
+ *
+ * @param {{ path: string, source: string }} page  the page file and its raw text
+ * @param {Array<{ kind: string, body: string, line: number }>} fences  fences of
+ *   the expanded page (from extractFences), in document order
+ * @param {string} dataDir  include root (app/docs/data)
+ * @returns {FenceOrigin[]}
+ */
+export function locateFences(page, fences, dataDir) {
+  const lines = page.source.replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n').split('\n');
+
+  // Each include tag in the page becomes a block of expanded lines. Expanding
+  // the tag line on its own gives the block, and the files it pulled in.
+  const blocks = [];
+  let shift = 0; // expanded line minus page line, past the blocks so far
+  for (const tagLine of includeTagLines(lines.join('\n'), page.path, { dataDir })) {
+    /** @type {string[]} */
+    const files = [];
+    const text = expandDocIncludes(lines[tagLine - 1], page.path, { dataDir, onInclude: (file) => files.push(file) });
+    const length = text === '' ? 0 : text.split('\n').length;
+    blocks.push({ tagLine, start: tagLine + shift, end: tagLine + shift + length, files, used: new Map() });
+    shift += length - 1;
+  }
+
+  /** @type {Map<string, Array<{ kind: string, body: string, line: number }>>} */
+  const ownFences = new Map();
+  const fencesOf = (/** @type {string} */ file) => {
+    let list = ownFences.get(file);
+    if (!list) {
+      list = extractFences(readSource(file)).fences.map((f) => ({ kind: f.kind, body: dedent(f.body), line: f.line }));
+      ownFences.set(file, list);
+    }
+    return list;
+  };
+
+  return fences.map((fence) => {
+    const block = blocks.find((b) => fence.line >= b.start && fence.line < b.end);
+    if (!block) {
+      const before = blocks.filter((b) => b.end <= fence.line);
+      const offset = before.reduce((sum, b) => sum + (b.end - b.start) - 1, 0);
+      return { path: page.path, line: fence.line - offset };
+    }
+    const body = dedent(fence.body);
+    const key = `${fence.kind}\n${body}`;
+    const nth = block.used.get(key) ?? 0;
+    block.used.set(key, nth + 1);
+    const matches = block.files.flatMap((file) =>
+      fencesOf(file)
+        .filter((f) => f.kind === fence.kind && f.body === body)
+        .map((f) => ({ path: file, line: f.line })));
+    const match = matches[nth];
+    return match ? { ...match, includedAt: block.tagLine } : { path: page.path, line: block.tagLine };
+  });
+}
+
+/**
+ * A fence origin for messages: `app/docs/data/_partials/x.md:7 (included at
+ * app/docs/data/basic/button.md:12)`.
+ *
+ * @param {FenceOrigin} origin
+ * @param {string} pagePath
+ */
+export function describeOrigin(origin, pagePath) {
+  const at = `${displayPath(origin.path)}:${origin.line}`;
+  return origin.includedAt === undefined ? at : `${at} (included at ${displayPath(pagePath)}:${origin.includedAt})`;
+}
+
+/**
+ * Track wrapper keys (`${slug}-${id}`) across every page. Two fences with the
+ * same key would write the same wrapper twice (a partial with an explicit
+ * `id="..."` included twice, or sharing an id with its page), so the returned
+ * function throws naming the key and both fences.
+ *
+ * @returns {(key: string, location: string) => void}
+ */
+export function wrapperKeyChecker() {
+  /** @type {Map<string, string>} */
+  const seen = new Map();
+  return (key, location) => {
+    const first = seen.get(key);
+    if (first !== undefined) {
+      throw new Error(
+        `Two demo fences share the wrapper key "${key}": ${first} and ${location}. ` +
+          'Give them different id="..." values (an included fence takes its id from the partial).',
+      );
+    }
+    seen.set(key, location);
   };
 }

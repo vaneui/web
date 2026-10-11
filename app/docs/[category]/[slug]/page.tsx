@@ -7,7 +7,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { parseFrontmatter } from "../../../../lib/docs/frontmatter";
 import { docFilePath, firstGitDate, lastModifiedDate } from "../../../../lib/docs/gitDate";
-import { expandDocIncludes } from "../../../../lib/docs/includes";
+import { expandDocIncludes, isMissingFileError } from "../../../../lib/docs/includes.mjs";
 import type { DocPageFrontmatter, DocsPage } from "../../types";
 import { JsonLd, buildBreadcrumbSchema, buildTechArticleSchema } from "../../../components/JsonLd";
 
@@ -44,11 +44,16 @@ export async function generateMetadata({params}: DocsPageProps): Promise<Metadat
   // Real content dates from git history so the article card exposes accurate
   // freshness (article:published_time / article:modified_time). The modified
   // time also covers the files the page includes. Falls back to build time when
-  // git history is unavailable.
-  const buildTime = new Date();
-  const filePath = docFilePath(category, slug, docsPage?.mdPath);
-  const publishedTime = firstGitDate(filePath, buildTime).toISOString();
-  const modifiedTime = lastModifiedDate(filePath, buildTime).toISOString();
+  // git history is unavailable. Only for a known page: any other URL renders
+  // the 404, so its slug never reaches the file system or git.
+  let publishedTime: string | undefined;
+  let modifiedTime: string | undefined;
+  if (docsCategory && docsPage) {
+    const buildTime = new Date();
+    const filePath = docFilePath(docsCategory.slug, docsPage.slug, docsPage.mdPath);
+    publishedTime = firstGitDate(filePath, buildTime).toISOString();
+    modifiedTime = lastModifiedDate(filePath, buildTime).toISOString();
+  }
 
   // Per-page Open Graph + Twitter. Without these, Next.js leaves every docs
   // page inheriting the root layout's homepage card (wrong title + url when a
@@ -81,7 +86,7 @@ async function readIfExists(filePath: string): Promise<string | null> {
   try {
     return await fs.readFile(filePath, 'utf8');
   } catch (error: unknown) {
-    if ((error as NodeJS.ErrnoException)?.code === 'ENOENT') return null;
+    if (isMissingFileError(error)) return null;
     throw error;
   }
 }

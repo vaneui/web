@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import type { DocPageMeta, DocSectionMeta } from '../../app/docs/docsMetadata';
-import { expandDocIncludes } from './includes';
+import { expandDocIncludes } from './includes.mjs';
 
 /**
  * Read a docs page's markdown in the route's order: component file, package file, then mdPath.
