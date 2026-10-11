@@ -6,6 +6,15 @@
 // per-fence wrapper TSX into app/docs/.generated/examples/, and writes a
 // registry barrel that lazy-loads each wrapper via next/dynamic.
 //
+// Pages have their `{% include %}` tags expanded first (lib/docs/includes.mjs,
+// through scripts/lib/doc-pages.mjs), so fences from an included file get
+// wrappers keyed by the including page, matching what DocsMarkdown pairs at
+// runtime. Partials (`_`-prefixed files and directories) are not pages and are
+// skipped; one that no page includes gets a warning, since its demos are never
+// type-checked. A `tsx setup` fence in an included file, a tsx/jsx demo, hide
+// or setup fence inside a blockquote (fence extraction skips blockquotes) and
+// two fences with the same wrapper key fail the build, naming the files and lines.
+//
 // The .generated/ directory is gitignored — every run wipes and rebuilds it.
 
 import fs from 'node:fs/promises';
@@ -16,36 +25,24 @@ import { extractFences } from './lib/extract-fences.mjs';
 import { extractFreeIdentifiers } from './lib/extract-identifiers.mjs';
 import { loadSymbolTables } from './lib/load-symbol-tables.mjs';
 import { emitWrapper } from './lib/emit-wrapper.mjs';
+import {
+  describeOrigin,
+  expandPage,
+  findPageFiles,
+  findPartialFiles,
+  locateFences,
+  rejectPartialSetup,
+  rejectQuotedFences,
+  unreferencedPartials,
+  wrapperKeyChecker,
+} from './lib/doc-pages.mjs';
+import { displayPath } from '../lib/docs/includes.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 // scripts/build-examples.mjs -> repo root is one level up.
 const REPO_ROOT = path.resolve(__filename, '..', '..');
 const DATA_DIR = path.join(REPO_ROOT, 'app', 'docs', 'data');
 const OUT_DIR = path.join(REPO_ROOT, 'app', 'docs', '.generated', 'examples');
-
-/**
- * Recursively collect all .md files under `dir`. Returns absolute paths.
- */
-async function findMarkdownFiles(dir) {
-  /** @type {string[]} */
-  const out = [];
-  let entries;
-  try {
-    entries = await fs.readdir(dir, { withFileTypes: true });
-  } catch (err) {
-    if (err.code === 'ENOENT') return out;
-    throw err;
-  }
-  for (const entry of entries) {
-    const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      out.push(...(await findMarkdownFiles(full)));
-    } else if (entry.isFile() && entry.name.endsWith('.md')) {
-      out.push(full);
-    }
-  }
-  return out;
-}
 
 /**
  * Convert an arbitrary string into a filesystem-safe slug fragment. Keeps
@@ -67,27 +64,37 @@ async function main() {
   await resetOutDir();
 
   const symbolTables = loadSymbolTables();
-  const mdFiles = await findMarkdownFiles(DATA_DIR);
+  const mdFiles = await findPageFiles(DATA_DIR);
 
   /** @type {string[]} */
   const registryKeys = [];
+  const claimKey = wrapperKeyChecker();
+  /** @type {Set<string>} */
+  const included = new Set();
   let wrapperCount = 0;
   let mdWithFences = 0;
 
   for (const mdAbs of mdFiles) {
-    const mdSource = await fs.readFile(mdAbs, 'utf8');
+    const rawSource = await fs.readFile(mdAbs, 'utf8');
+    const { source: mdSource, includes } = expandPage(rawSource, mdAbs, DATA_DIR);
+    for (const file of includes) included.add(file);
+    // The setup comes from the expanded page, so only the page may hold one.
+    rejectPartialSetup(includes);
+    // A demo fence in a blockquote (say, from `> {% include %}`) is never extracted.
+    rejectQuotedFences({ path: mdAbs, source: rawSource }, mdSource, DATA_DIR);
     const { setup, fences } = extractFences(mdSource);
     if (fences.length === 0) continue;
     mdWithFences += 1;
 
     const slug = safeSlug(path.basename(mdAbs, '.md'));
-    // Use forward slashes in the @vane-source header regardless of platform.
-    const mdRelPosix = path.relative(REPO_ROOT, mdAbs).split(path.sep).join('/');
 
     // Inline fences (illustrative-only) are tracked by extractFences for
     // runtime fence-index pairing, but skipped here — only `demo`/`hide` get
     // wrappers and registry entries.
     const extractable = fences.filter((f) => f.kind !== 'inline');
+    // Fence lines in the expanded text are off once a page includes a file, so
+    // locate each fence in the page or partial that holds it.
+    const origins = locateFences({ path: mdAbs, source: rawSource }, extractable, DATA_DIR);
 
     for (let i = 0; i < extractable.length; i += 1) {
       const fence = extractable[i];
@@ -97,19 +104,23 @@ async function main() {
       const combined = setup ? `${setup}\n${fence.body}` : fence.body;
       const identifiers = extractFreeIdentifiers(combined);
 
+      const origin = origins[i];
+      const fenceId = safeSlug(fence.id);
+      const fileSlug = `${slug}-${fenceId}`;
+      claimKey(fileSlug, describeOrigin(origin, mdAbs));
+
       const wrapper = emitWrapper({
         slug,
         idx: i,
         body: fence.body,
         identifiers,
         symbolTables,
-        mdSourcePath: mdRelPosix,
-        mdLine: fence.line,
+        // Forward slashes in the @vane-source header regardless of platform.
+        mdSourcePath: path.relative(REPO_ROOT, origin.path).split(path.sep).join('/'),
+        mdLine: origin.line,
         setupBody: setup,
       });
 
-      const fenceId = safeSlug(fence.id);
-      const fileSlug = `${slug}-${fenceId}`;
       const outPath = path.join(OUT_DIR, `${fileSlug}.tsx`);
       await fs.writeFile(outPath, wrapper, 'utf8');
       registryKeys.push(fileSlug);
@@ -123,6 +134,10 @@ async function main() {
   await fs.writeFile(path.join(OUT_DIR, 'registry.ts'), registry, 'utf8');
 
   console.log(`Built ${wrapperCount} wrappers from ${mdWithFences} markdown files`);
+
+  for (const file of unreferencedPartials(await findPartialFiles(DATA_DIR), included)) {
+    console.warn(`Warning: ${displayPath(file)} is not included by any page, so its demos are never type-checked.`);
+  }
 }
 
 /**

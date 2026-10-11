@@ -72,6 +72,20 @@ Supports: headings, code blocks (with language), blockquotes (rendered as Cards)
 
 Register in `docsMetadata.ts` with `mdPath`.
 
+### 3. Shared Markdown (partials)
+
+Not every `.md` file under `app/docs/data` is a page. Files and directories whose name starts with `_` (for example `app/docs/data/_partials/install-note.md`) are partials: shared text that pages pull in with an include tag on its own line.
+
+```md
+{% include "../_partials/install-note.md" %}
+```
+
+- The path is relative to the file holding the tag; a leading `/` resolves from `app/docs/data`. A partial can include other partials, and its frontmatter is dropped.
+- Partials have no URL and no `docsMetadata.ts` entry. Edit a partial when the shared text changes, and remember that the edit shows on every page that includes it.
+- A partial's `tsx demo` fences become live demos on each including page and are type-checked there, as long as they do not land inside a blockquote: include a partial with demos outside any blockquote (never `> {% include ... %}`), and keep its demo fences out of blockquotes. `npm run check:examples` rejects a `tsx`/`jsx` `demo`, `hide` or `setup` fence inside a blockquote, on a page or through an include, since it would get no live preview or type check. Including a partial in a list item (the tag indented under the item) is fine.
+- Keep `tsx setup` fences in the page: `npm run check:examples` rejects one in a partial. Leave out explicit `id="..."` attributes in a partial included more than once on a page, since two fences with the same id fail the build.
+- A partial that no page includes gets a warning from `npm run check:examples`: its demos are never type-checked.
+
 ## VaneUI Component Usage Rules
 
 When writing example JSX that demonstrates VaneUI components:

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { extractFences } from '../lib/extract-fences.mjs';
+import { extractFences, quotedFences } from '../lib/extract-fences.mjs';
 
 test('extracts setup + demos + hide with correct order, body, line', () => {
   const md = [
@@ -33,6 +33,7 @@ test('extracts setup + demos + hide with correct order, body, line', () => {
   const out = extractFences(md);
 
   assert.equal(out.setup, 'const X = 1;');
+  assert.equal(out.setupLine, 3);
   assert.equal(out.fences.length, 3);
   assert.deepEqual(
     out.fences.map((f) => ({ id: f.id, kind: f.kind, body: f.body })),
@@ -159,6 +160,107 @@ test('only the first setup fence is hoisted; subsequent setups are dropped', () 
 
   const out = extractFences(md);
   assert.equal(out.setup, 'const a = 1;');
+  assert.equal(out.setupLine, 1);
   assert.equal(out.fences.length, 1);
   assert.equal(out.fences[0].body, '<X/>');
+});
+
+test('bodies lose the indentation common to their lines, as Markdoc renders them in a list item', () => {
+  const md = [
+    '1. Step',
+    '',
+    '   ```tsx setup',
+    '   const items = [1];',
+    '   ```',
+    '',
+    '   ```tsx demo',
+    '   <Row>',
+    '     <Button>One</Button>',
+    '',
+    '   </Row>',
+    '   ```',
+    '',
+    '- Tabs',
+    '',
+    '  ```tsx hide',
+    '  <Row>',
+    '  \t<Button>Two</Button>',
+    '  </Row>',
+    '  ```',
+    '',
+  ].join('\n');
+
+  const out = extractFences(md);
+  assert.equal(out.setup, 'const items = [1];');
+  assert.deepEqual(
+    out.fences.map((f) => ({ id: f.id, kind: f.kind, body: f.body, line: f.line })),
+    [
+      { id: '0', kind: 'demo', body: '<Row>\n  <Button>One</Button>\n\n</Row>', line: 7 },
+      // The tab after the list item's indentation stays a full tab stop, as
+      // Markdoc keeps it (its content is "<Row>\n\t<Button>Two</Button>\n</Row>\n")
+      { id: '1', kind: 'hide', body: '<Row>\n    <Button>Two</Button>\n</Row>', line: 16 },
+    ],
+  );
+});
+
+test('quotedFences finds tsx/jsx demo, hide and setup fences inside a blockquote, which extractFences skips', () => {
+  const md = [
+    '> ```tsx demo',              // 1: found
+    '> <Quoted/>',
+    '> ```',
+    '',
+    '> Note',
+    '>',
+    '> > ```jsx hide id="h"',     // 7: nested blockquote
+    '> > <Hidden/>',
+    '> > ```',
+    '',
+    '- > ```tsx setup',           // 11: blockquote in a list item
+    '  > const a = 1;',
+    '  > ```',
+    '',
+    '> - ```tsx demo',            // 15: list item in a blockquote
+    '>   <Item/>',
+    '>   ```',
+    '',
+    '> ```tsx',                   // illustrative, not extracted anyway
+    '> <Inline/>',
+    '> ```',
+    '',
+    '> ```ts demo',               // not tsx/jsx
+    '> const b = 2;',
+    '> ```',
+    '',
+    '````md',                     // a quoted fence shown inside a code block is just code
+    '> ```tsx demo',
+    '> <Shown/>',
+    '> ```',
+    '````',
+    '',
+    '```tsx demo',                // a plain demo fence
+    '<Plain/>',
+    '```',
+    '',
+  ].join('\n');
+
+  assert.deepEqual(quotedFences(md), [
+    { line: 1, language: 'tsx', flag: 'demo' },
+    { line: 7, language: 'jsx', flag: 'hide' },
+    { line: 11, language: 'tsx', flag: 'setup' },
+    { line: 15, language: 'tsx', flag: 'demo' },
+  ]);
+  assert.deepEqual(extractFences(md).fences.filter((f) => f.kind !== 'inline').map((f) => f.body), ['<Plain/>']);
+});
+
+test('quotedFences ends a quoted fence where its blockquote ends', () => {
+  const md = [
+    '> ```md',
+    '> text',
+    '',
+    '> ```tsx demo',              // the first fence ended with its blockquote
+    '> <A/>',
+    '> ```',
+  ].join('\n');
+  assert.deepEqual(quotedFences(md), [{ line: 4, language: 'tsx', flag: 'demo' }]);
+  assert.deepEqual(quotedFences('```tsx demo\n<A/>\n```\n'), []);
 });

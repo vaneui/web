@@ -6,7 +6,8 @@ import { notFound } from "next/navigation";
 import { promises as fs } from 'fs';
 import path from 'path';
 import { parseFrontmatter } from "../../../../lib/docs/frontmatter";
-import { docFilePath, firstGitDate, lastGitDate } from "../../../../lib/docs/gitDate";
+import { docFilePath, firstGitDate, lastModifiedDate } from "../../../../lib/docs/gitDate";
+import { expandDocIncludes, isMissingFileError } from "../../../../lib/docs/includes.mjs";
 import type { DocPageFrontmatter, DocsPage } from "../../types";
 import { JsonLd, buildBreadcrumbSchema, buildTechArticleSchema } from "../../../components/JsonLd";
 
@@ -41,12 +42,18 @@ export async function generateMetadata({params}: DocsPageProps): Promise<Metadat
   const url = `/docs/${category}/${slug}`;
 
   // Real content dates from git history so the article card exposes accurate
-  // freshness (article:published_time / article:modified_time). Falls back to
-  // build time when git history is unavailable.
-  const buildTime = new Date();
-  const filePath = docFilePath(category, slug, docsPage?.mdPath);
-  const publishedTime = firstGitDate(filePath, buildTime).toISOString();
-  const modifiedTime = lastGitDate(filePath, buildTime).toISOString();
+  // freshness (article:published_time / article:modified_time). The modified
+  // time also covers the files the page includes. Falls back to build time when
+  // git history is unavailable. Only for a known page: any other URL renders
+  // the 404, so its slug never reaches the file system or git.
+  let publishedTime: string | undefined;
+  let modifiedTime: string | undefined;
+  if (docsCategory && docsPage) {
+    const buildTime = new Date();
+    const filePath = docFilePath(docsCategory.slug, docsPage.slug, docsPage.mdPath);
+    publishedTime = firstGitDate(filePath, buildTime).toISOString();
+    modifiedTime = lastModifiedDate(filePath, buildTime).toISOString();
+  }
 
   // Per-page Open Graph + Twitter. Without these, Next.js leaves every docs
   // page inheriting the root layout's homepage card (wrong title + url when a
@@ -79,7 +86,7 @@ async function readIfExists(filePath: string): Promise<string | null> {
   try {
     return await fs.readFile(filePath, 'utf8');
   } catch (error: unknown) {
-    if ((error as NodeJS.ErrnoException)?.code === 'ENOENT') return null;
+    if (isMissingFileError(error)) return null;
     throw error;
   }
 }
@@ -118,7 +125,9 @@ export default async function Page({params}: DocsPageProps) {
   let frontmatter: DocPageFrontmatter | undefined;
 
   // Path 1: per-component MD file at app/docs/data/<category>/<slug>.md.
-  // Prefer this over a TSX-array page when both exist.
+  // Prefer this over a TSX-array page when both exist. Markdown from
+  // app/docs/data has its includes expanded before anything reads it, so the
+  // table of contents and the live demos cover included files too.
   const componentMdPath = path.join(
     process.cwd(),
     'app/docs/data',
@@ -128,7 +137,7 @@ export default async function Page({params}: DocsPageProps) {
   const componentMd = await readIfExists(componentMdPath);
 
   if (componentMd !== null) {
-    const parsed = parseFrontmatter(componentMd);
+    const parsed = parseFrontmatter(expandDocIncludes(componentMd, componentMdPath));
     md = parsed.body;
     frontmatter = parsed.frontmatter as DocPageFrontmatter;
   } else if (docsPage.packageMdPath) {
@@ -136,15 +145,18 @@ export default async function Page({params}: DocsPageProps) {
     md = (await readPackageMd(docsPage.packageMdPath)) ?? "";
   } else if (docsPage.mdPath) {
     // Path 2: legacy markdown guide referenced by mdPath.
+    const filePath = path.join(process.cwd(), './app/docs/data/', docsSection.slug, docsPage.mdPath);
+    let raw: string | null = null;
     try {
-      const filePath = path.join(process.cwd(), './app/docs/data/', docsSection.slug, docsPage.mdPath);
-      const raw = await fs.readFile(filePath, 'utf8');
-      const parsed = parseFrontmatter(raw);
-      md = parsed.body;
-      frontmatter = parsed.frontmatter as DocPageFrontmatter;
+      raw = await fs.readFile(filePath, 'utf8');
     } catch (error) {
       console.error(`Error reading markdown file: ${docsPage.mdPath}`, error);
-      md = "";
+    }
+    // Outside the try: a broken include must fail the build, not render an empty page
+    if (raw !== null) {
+      const parsed = parseFrontmatter(expandDocIncludes(raw, filePath));
+      md = parsed.body;
+      frontmatter = parsed.frontmatter as DocPageFrontmatter;
     }
   }
 
@@ -161,7 +173,7 @@ export default async function Page({params}: DocsPageProps) {
   const buildTime = new Date();
   const filePath = docFilePath(docsSection.slug, docsPage.slug, docsPage.mdPath);
   const datePublished = firstGitDate(filePath, buildTime).toISOString();
-  const dateModified = lastGitDate(filePath, buildTime).toISOString();
+  const dateModified = lastModifiedDate(filePath, buildTime).toISOString();
   const breadcrumb = buildBreadcrumbSchema({
     category: docsSection.slug,
     categoryName: docsSection.name,

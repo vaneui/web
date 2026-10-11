@@ -40,6 +40,8 @@ If any check fails, list specific issues so the writer / editor knows what to fi
 - `C:\GitHub\vaneui\.claude\rules\component-usage.md` — canonical VaneUI API
 - `package.json` — what packages can appear in imports
 
+A page may pull content from `_`-prefixed partials (for example `app/docs/data/_partials/`) through `{% include "..." %}` tags. Never edit a partial or break an include tag, and run every check on the page as it reads with its includes: headings, dashes and FAQs in included content count as the page's own.
+
 ## Per-check logic
 
 ### 1. Capitalization

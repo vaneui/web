@@ -47,6 +47,11 @@ jobs:
             echo "md=${after#* }" >> "$GITHUB_OUTPUT"
           fi
 
+      # Catches a library change the build alone would not, such as a new include error format.
+      - name: Test
+        if: steps.diff.outputs.changed == 'true'
+        run: npm test
+
       # Gates on check:examples, typecheck and lint, and regenerates public/llms*.txt.
       - name: Build
         if: steps.diff.outputs.changed == 'true'
