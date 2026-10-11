@@ -23,10 +23,11 @@
 //     fences without an explicit id, defaults to the 0-based index in `fences[]`,
 //     stringified. For `inline` fences the id is always `null`.
 //   - `line` is the 1-based line number of the opening ``` token.
-//   - `body` (and `setup`) has the indentation common to its lines removed,
-//     leading tabs expanded first (`dedent` in lib/docs/fenceBody.mjs), as
-//     Markdoc strips a container's indentation (a list item, or an include tag
-//     indented under one) from the fence content it renders.
+//   - `body` (and `setup`) has the indentation common to its lines removed and
+//     the leading tabs left after it expanded (`dedent` in
+//     lib/docs/fenceBody.mjs), as Markdoc strips a container's indentation (a
+//     list item, or an include tag indented under one) from the fence content
+//     it renders and keeps the tabs after it.
 //   - Fences inside a blockquote (opener prefixed by `>`) are not matched, so
 //     they get no wrapper and no live preview. `quotedFences` (build-only, like
 //     `setupLine`) lists the tsx/jsx demo, hide and setup ones, which

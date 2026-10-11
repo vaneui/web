@@ -196,8 +196,9 @@ test('bodies lose the indentation common to their lines, as Markdoc renders them
     out.fences.map((f) => ({ id: f.id, kind: f.kind, body: f.body, line: f.line })),
     [
       { id: '0', kind: 'demo', body: '<Row>\n  <Button>One</Button>\n\n</Row>', line: 7 },
-      // A leading tab reaches the next multiple of 4 columns before the common indentation goes
-      { id: '1', kind: 'hide', body: '<Row>\n  <Button>Two</Button>\n</Row>', line: 16 },
+      // The tab after the list item's indentation stays a full tab stop, as
+      // Markdoc keeps it (its content is "<Row>\n\t<Button>Two</Button>\n</Row>\n")
+      { id: '1', kind: 'hide', body: '<Row>\n    <Button>Two</Button>\n</Row>', line: 16 },
     ],
   );
 });

@@ -18,7 +18,12 @@ test('expandLeadingTabs expands leading tabs to the next multiple of 4 columns',
 
 test('dedent removes the indentation common to the non-blank lines', () => {
   assert.equal(dedent('   <Row>\n     <A/>\n\n   </Row>'), '<Row>\n  <A/>\n\n</Row>');
-  assert.equal(dedent('  <Row>\n  \t<A/>\n  </Row>'), '<Row>\n  <A/>\n</Row>');
+  // A tab after the common indentation stays a full tab stop, as in Markdoc,
+  // which keeps it when it strips a list item's indentation
+  assert.equal(dedent('  <Row>\n  \t<A/>\n  </Row>'), '<Row>\n    <A/>\n</Row>');
+  assert.equal(dedent('   <Row>\n   \t<A/>\n   </Row>'), '<Row>\n    <A/>\n</Row>');
+  // A tab that straddles the cut leaves the rest of its width as spaces
+  assert.equal(dedent('   <Row>\n  \t<A/>'), '<Row>\n <A/>');
   // Whitespace-only lines become empty and do not count
   assert.equal(dedent('    <A/>\n  \n    <B/>'), '<A/>\n\n<B/>');
   assert.equal(dedent('<A/>\n  <B/>'), '<A/>\n  <B/>');
