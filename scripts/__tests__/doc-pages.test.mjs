@@ -248,7 +248,9 @@ test('locateFences matches a tab-indented fence in a partial included under an i
 });
 
 test('locateFences falls back to the include tag in the page when no file holds the fence', () => {
-  // The partial opens a fence the page closes, so neither file holds it whole
+  // The partial leaves its fence open. The include closes it, so the page's own
+  // backticks then open a stray empty block, and the partial's text has no
+  // closed fence to match.
   write('_partials/open.md', ['```tsx demo', '<Button>Open</Button>']);
   const page = write('dups/fallback.md', [
     '{% include "../_partials/install-note.md" %}',
@@ -360,7 +362,9 @@ test('wrapperKeyChecker throws naming the key and both fences', () => {
   assert.throws(() => claim(`card-${fences[1].id}`, describeOrigin(origins[1], page)), (error) =>
     error.message.startsWith(
       `Two demo fences share the wrapper key "card-shared": ${partial}:1 (included at ${page}:1) and ${partial}:1 (included at ${page}:3).`,
-    ));
+    )
+      // A partial included twice cannot have two ids
+      && error.message.includes('Give them different id="..." values, or drop the explicit id'));
 
   // A partial sharing an id with its page collides the same way
   const other = wrapperKeyChecker();

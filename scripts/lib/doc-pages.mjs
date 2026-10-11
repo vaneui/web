@@ -334,7 +334,8 @@ export function wrapperKeyChecker() {
     if (first !== undefined) {
       throw new Error(
         `Two demo fences share the wrapper key "${key}": ${first} and ${location}. ` +
-          'Give them different id="..." values (an included fence takes its id from the partial).',
+          'Give them different id="..." values, or drop the explicit id: an included fence takes its id from ' +
+          'the partial, so a partial included twice cannot give its copies different ones.',
       );
     }
     seen.set(key, location);

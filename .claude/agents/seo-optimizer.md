@@ -12,6 +12,8 @@ You audit and optimize VaneUI docs pages for search engines. The site is at vane
 - `.claude/rules/content-style-rules.md` — capitalization, banned headings, dash rules
 - Existing live setup (verified): title format is `Page - Category - VaneUI`, canonical is per-page, OG block lives in `app/layout.tsx`, sitemap is `app/sitemap.ts`
 
+A page may pull content from `_`-prefixed partials (for example `app/docs/data/_partials/`) through `{% include "..." %}` tags. Never edit a partial or break an include tag, and audit the page as it reads with its includes: headings, keywords, dashes and FAQs in included content count as the page's own.
+
 ## Audit checklist
 
 For each page audited, report PASS/FAIL on every item:

@@ -48,6 +48,7 @@ These files are the source of truth. Quote them when justifying an edit.
 - Code examples (`docs-writer` and `build-checker` own those)
 - `tsx demo` fence bodies in `.md` files (only edit the prose around them, not the JSX)
 - Frontmatter in `.md` files (titles handled separately)
+- `{% include "..." %}` tags and the `_`-prefixed partials a page pulls content from through them (for example `app/docs/data/_partials/`): never edit a partial or break an include tag, but treat the included content as part of the page, so its headings, dashes and FAQs count when you review the page (flag a fix needed in a partial instead of making it)
 - Anything in `app/docs/data/getting-started/*.md` opening lines if they contain the only authorial-voice "we" allowed in the docs
 
 ## Output contract

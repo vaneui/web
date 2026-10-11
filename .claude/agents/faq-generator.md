@@ -57,7 +57,7 @@ Rules:
 
 ## Workflow
 
-1. Read the target page in full.
+1. Read the target page in full, including the `_`-prefixed partials it pulls in with `{% include "..." %}` tags (for example `app/docs/data/_partials/`). Never edit a partial or break an include tag, and treat included content as part of the page: its headings, dashes and FAQs count, so do not repeat a question it already answers.
 2. Read the related pages it links to or could link to.
 3. Read `C:\GitHub\vaneui\.claude\rules\component-usage.md` if a component is involved.
 4. Identify 3-8 candidate questions (write them all out before filtering).
