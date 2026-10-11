@@ -11,6 +11,7 @@
     "llms": "tsx scripts/generate-llms.ts",
     "start": "npm run check:all && next start",
     "lint": "eslint .",
+    "test": "tsx --test \"lib/**/__tests__/*.test.ts\" && node --test \"scripts/__tests__/*.test.mjs\"",
     "typecheck": "tsc --noEmit",
     "check:all": "npm run check:examples && npm run typecheck && npm run lint",
     "prebuild": "npm run check:all",
