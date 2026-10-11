@@ -27,6 +27,10 @@
 //     leading tabs expanded first (`dedent` in lib/docs/fenceBody.mjs), as
 //     Markdoc strips a container's indentation (a list item, or an include tag
 //     indented under one) from the fence content it renders.
+//   - Fences inside a blockquote (opener prefixed by `>`) are not matched, so
+//     they get no wrapper and no live preview. `quotedFences` (build-only, like
+//     `setupLine`) lists the tsx/jsx demo, hide and setup ones, which
+//     build-examples.mjs rejects.
 
 import { dedent } from '../../lib/docs/fenceBody.mjs';
 
@@ -115,4 +119,66 @@ export function extractFences(mdSource) {
   }
 
   return result;
+}
+
+/**
+ * Container markup before a fence opener: indentation, blockquote markers and
+ * list markers (`-`, `*`, `+`, `1.`, `1)`), as `@vaneui/md/include` reads it.
+ */
+const CONTAINER_PREFIX = /^(?:[ \t]*(?:>|[-*+][ \t]|\d{1,9}[.)][ \t]))*[ \t]*/;
+
+/**
+ * `line` without its first `depth` blockquote markers; null when it has fewer.
+ *
+ * @param {string} line
+ * @param {number} depth
+ */
+function stripQuoteMarkers(line, depth) {
+  let index = 0;
+  for (let n = 0; n < depth; n += 1) {
+    while (line[index] === ' ' || line[index] === '\t') index += 1;
+    if (line[index] !== '>') return null;
+    index += 1;
+  }
+  return line.slice(index);
+}
+
+/**
+ * The tsx/jsx `demo`, `hide` and `setup` fences inside a blockquote: their
+ * opener line has `>` markers before the backticks (after any indentation or
+ * list markers). extractFences does not match them, so they would silently get
+ * no wrapper, type check or live preview. Lines inside other fenced code
+ * blocks are code, not fences, and are skipped.
+ *
+ * @param {string} mdSource
+ * @returns {Array<{ line: number, language: string, flag: 'setup'|'demo'|'hide' }>}
+ */
+export function quotedFences(mdSource) {
+  /** @type {Array<{ line: number, language: string, flag: 'setup'|'demo'|'hide' }>} */
+  const found = [];
+  /** @type {{ char: string, length: number, quotes: number } | null} */
+  let open = null;
+  const lines = mdSource.split('\n');
+  for (let i = 0; i < lines.length; i += 1) {
+    const line = lines[i];
+    if (open) {
+      const inner = stripQuoteMarkers(line, open.quotes);
+      if (inner !== null) {
+        const closing = inner.trim();
+        if (closing.length >= open.length && [...closing].every((c) => c === open?.char)) open = null;
+        continue;
+      }
+      // The blockquote the fence opened in has ended, and the fence with it
+      open = null;
+    }
+    const prefix = CONTAINER_PREFIX.exec(line)?.[0] ?? '';
+    const opener = /^(`{3,}|~{3,})(.*)$/.exec(line.slice(prefix.length));
+    if (!opener || (opener[1][0] === '`' && opener[2].includes('`'))) continue;
+    const quotes = (prefix.match(/>/g) || []).length;
+    open = { char: opener[1][0], length: opener[1].length, quotes };
+    if (quotes === 0) continue;
+    const { language, flag } = parseInfoString(opener[2]);
+    if ((language === 'tsx' || language === 'jsx') && flag) found.push({ line: i + 1, language, flag });
+  }
+  return found;
 }

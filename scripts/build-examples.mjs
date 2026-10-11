@@ -11,8 +11,9 @@
 // wrappers keyed by the including page, matching what DocsMarkdown pairs at
 // runtime. Partials (`_`-prefixed files and directories) are not pages and are
 // skipped; one that no page includes gets a warning, since its demos are never
-// type-checked. A `tsx setup` fence in an included file and two fences with the
-// same wrapper key fail the build, naming the files and lines.
+// type-checked. A `tsx setup` fence in an included file, a tsx/jsx demo, hide
+// or setup fence inside a blockquote (fence extraction skips blockquotes) and
+// two fences with the same wrapper key fail the build, naming the files and lines.
 //
 // The .generated/ directory is gitignored — every run wipes and rebuilds it.
 
@@ -31,6 +32,7 @@ import {
   findPartialFiles,
   locateFences,
   rejectPartialSetup,
+  rejectQuotedFences,
   unreferencedPartials,
   wrapperKeyChecker,
 } from './lib/doc-pages.mjs';
@@ -78,6 +80,8 @@ async function main() {
     for (const file of includes) included.add(file);
     // The setup comes from the expanded page, so only the page may hold one.
     rejectPartialSetup(includes);
+    // A demo fence in a blockquote (say, from `> {% include %}`) is never extracted.
+    rejectQuotedFences({ path: mdAbs, source: rawSource }, mdSource, DATA_DIR);
     const { setup, fences } = extractFences(mdSource);
     if (fences.length === 0) continue;
     mdWithFences += 1;

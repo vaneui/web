@@ -20,7 +20,7 @@ import {
   isPartialName,
 } from '../../lib/docs/includes.mjs';
 import { fenceKey } from '../../lib/docs/fenceBody.mjs';
-import { extractFences } from './extract-fences.mjs';
+import { extractFences, quotedFences } from './extract-fences.mjs';
 
 export { isPartialName };
 
@@ -108,12 +108,21 @@ export function expandPage(source, filePath, dataDir) {
 }
 
 /**
- * A file's text as the include expansion sees it: no byte order mark, LF line endings.
+ * Text as the include expansion sees it: no byte order mark, LF line endings.
+ *
+ * @param {string} text
+ */
+function normalizeSource(text) {
+  return text.replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n');
+}
+
+/**
+ * A file's text as the include expansion sees it.
  *
  * @param {string} file
  */
 function readSource(file) {
-  return readFileSync(file, 'utf8').replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n');
+  return normalizeSource(readFileSync(file, 'utf8'));
 }
 
 /**
@@ -163,6 +172,36 @@ function includeTags(lines, filePath, dataDir) {
 }
 
 /**
+ * The blocks of expanded lines the include tags in a page produce, in order:
+ * the tag's page line, the file it includes and the expanded lines it fills
+ * (`start` to `end`, end exclusive).
+ *
+ * @param {string[]} lines  the page's lines, LF line endings
+ * @param {string} pagePath
+ * @param {string} dataDir
+ */
+function includeBlocks(lines, pagePath, dataDir) {
+  const blocks = [];
+  let shift = 0; // expanded line minus page line, past the blocks so far
+  for (const { tagLine, file, length } of includeTags(lines, pagePath, dataDir)) {
+    blocks.push({ tagLine, file, start: tagLine + shift, end: tagLine + shift + length });
+    shift += length - 1;
+  }
+  return blocks;
+}
+
+/**
+ * The page line of an expanded line outside every include block.
+ *
+ * @param {Array<{ start: number, end: number }>} blocks  from includeBlocks
+ * @param {number} line
+ */
+function pageLineOf(blocks, line) {
+  const before = blocks.filter((b) => b.end <= line);
+  return line - before.reduce((sum, b) => sum + (b.end - b.start) - 1, 0);
+}
+
+/**
  * What fences are matched by: kind and body, the body normalized as
  * DocsMarkdown pairs fences (`fenceKey`: line endings, leading tabs, common
  * indentation and trailing whitespace), so a fence under an indented include
@@ -194,15 +233,8 @@ function matchKey(fence) {
  * @returns {FenceOrigin[]}
  */
 export function locateFences(page, fences, dataDir) {
-  const lines = page.source.replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n').split('\n');
-
-  // Each include tag in the page becomes a block of expanded lines
-  const blocks = [];
-  let shift = 0; // expanded line minus page line, past the blocks so far
-  for (const { tagLine, file, length } of includeTags(lines, page.path, dataDir)) {
-    blocks.push({ tagLine, start: tagLine + shift, end: tagLine + shift + length, file, used: new Map() });
-    shift += length - 1;
-  }
+  const lines = normalizeSource(page.source).split('\n');
+  const blocks = includeBlocks(lines, page.path, dataDir).map((block) => ({ ...block, used: new Map() }));
 
   /** @type {Map<string, Array<{ path: string, line: number, key: string }>>} */
   const brought = new Map();
@@ -232,17 +264,46 @@ export function locateFences(page, fences, dataDir) {
 
   return fences.map((fence) => {
     const block = blocks.find((b) => fence.line >= b.start && fence.line < b.end);
-    if (!block) {
-      const before = blocks.filter((b) => b.end <= fence.line);
-      const offset = before.reduce((sum, b) => sum + (b.end - b.start) - 1, 0);
-      return { path: page.path, line: fence.line - offset };
-    }
+    if (!block) return { path: page.path, line: pageLineOf(blocks, fence.line) };
     const key = matchKey(fence);
     const nth = block.used.get(key) ?? 0;
     block.used.set(key, nth + 1);
     const match = fencesBrought(block.file, [page.path, block.file]).filter((f) => f.key === key)[nth];
     return match ? { path: match.path, line: match.line, includedAt: block.tagLine } : { path: page.path, line: block.tagLine };
   });
+}
+
+/**
+ * Throw when the expanded page has a tsx/jsx demo, hide or setup fence inside a
+ * blockquote. Fence extraction skips blockquotes, so such a fence would get no
+ * wrapper, type check or live preview, and nothing would say so. The message
+ * names the page line: the fence's own, or the include tag that brings it in.
+ *
+ * @param {{ path: string, source: string }} page  the page file and its raw text
+ * @param {string} expanded  the page's text with includes expanded (expandPage)
+ * @param {string} dataDir  include root (app/docs/data)
+ */
+export function rejectQuotedFences(page, expanded, dataDir) {
+  const [fence] = quotedFences(expanded);
+  if (!fence) return;
+  const lines = normalizeSource(page.source).split('\n');
+  const blocks = includeBlocks(lines, page.path, dataDir);
+  const block = blocks.find((b) => fence.line >= b.start && fence.line < b.end);
+  const what = `\`${fence.language} ${fence.flag}\` fence`;
+  const why = 'A fence inside a blockquote gets no wrapper, type check or live preview.';
+  if (!block) {
+    throw new Error(
+      `${displayPath(page.path)}:${pageLineOf(blocks, fence.line)}: a ${what} is inside a blockquote. ${why} ` +
+        'Move it out of the blockquote.',
+    );
+  }
+  const tagInQuote = /^[ \t]*>/.test(lines[block.tagLine - 1]);
+  throw new Error(
+    `${displayPath(page.path)}:${block.tagLine}: this include puts a ${what} inside a blockquote. ${why} ` +
+      (tagInQuote
+        ? 'Include the partial outside the blockquote.'
+        : 'Move it, or the include tag that brings it in, out of the blockquote in the included file.'),
+  );
 }
 
 /**

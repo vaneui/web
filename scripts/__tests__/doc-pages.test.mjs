@@ -13,6 +13,7 @@ import {
   isPartialName,
   locateFences,
   rejectPartialSetup,
+  rejectQuotedFences,
   unreferencedPartials,
   wrapperKeyChecker,
 } from '../lib/doc-pages.mjs';
@@ -294,6 +295,54 @@ test('rejectPartialSetup names the included file and line of a setup fence', () 
   const page = write('setup/page.md', ['{% include "../_partials/with-setup.md" %}']);
   const { includes } = expandPage(fs.readFileSync(page, 'utf8'), page, dataDir);
   assert.throws(() => rejectPartialSetup(includes), /with-setup\.md:3: /);
+});
+
+test('rejectQuotedFences names the page line of a demo fence inside a blockquote', () => {
+  const quoted = (file) => {
+    const raw = fs.readFileSync(file, 'utf8');
+    return () => rejectQuotedFences({ path: file, source: raw }, expandPage(raw, file, dataDir).source, dataDir);
+  };
+
+  // A partial with demos included in a blockquote: the include tag is the line to move
+  write('_partials/quoted-demo.md', ['Shared.', '', '```tsx demo', '<Button>Quoted</Button>', '```']);
+  const page = write('quotes/include.md', [
+    '{% include "../_partials/install-note.md" %}',
+    '',
+    '> Tip:',
+    '>',
+    '> {% include "../_partials/quoted-demo.md" %}',
+  ]);
+  assert.throws(quoted(page), (error) =>
+    error.message.startsWith(`${page}:5: this include puts a \`tsx demo\` fence inside a blockquote.`)
+      && error.message.includes('Include the partial outside the blockquote.'));
+
+  // The quote can come from the included file itself
+  write('_partials/quotes-inside.md', ['> ```tsx hide', '> <Button>Hidden</Button>', '> ```']);
+  const inside = write('quotes/inside.md', ['## Inside', '', '{% include "../_partials/quotes-inside.md" %}']);
+  assert.throws(quoted(inside), (error) =>
+    error.message.startsWith(`${inside}:3: this include puts a \`tsx hide\` fence inside a blockquote.`));
+
+  // A fence written in the page, below an include that adds lines
+  const own = write('quotes/own.md', [
+    '{% include "../_partials/install-note.md" %}',
+    '',
+    '> ```jsx setup',
+    '> const a = 1;',
+    '> ```',
+  ]);
+  assert.throws(quoted(own), (error) =>
+    error.message.startsWith(`${own}:3: a \`jsx setup\` fence is inside a blockquote.`)
+      && error.message.includes('Move it out of the blockquote.'));
+
+  // Plain code in a blockquote and demos outside one are fine
+  const fine = write('quotes/fine.md', [
+    '> ```tsx',
+    '> <Button>Illustrative</Button>',
+    '> ```',
+    '',
+    '{% include "../_partials/quoted-demo.md" %}',
+  ]);
+  assert.doesNotThrow(quoted(fine));
 });
 
 test('wrapperKeyChecker throws naming the key and both fences', () => {
