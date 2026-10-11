@@ -99,6 +99,18 @@ Two types of docs pages, configured in `docsMetadata.ts`:
    - Rendered by `DocsMarkdown.tsx` using `@vaneui/md`'s `<Md>` component
    - Custom renderers: `MdFence` -> `CodeBlock` (+ `LivePreview` for `demo` fences), `MdHeading` -> `SectionTitle`/`Title` with anchor links
 
+**Shared Markdown (includes).** A page can pull in another Markdown file with an include tag on its own line:
+
+```md
+{% include "../_partials/install-note.md" %}
+```
+
+- The path is relative to the file holding the tag, and a leading `/` resolves from `app/docs/data`. Includes must stay inside `app/docs/data`, and an included file can include others. It loses its frontmatter.
+- Files and directories whose name starts with `_` (for example `app/docs/data/_partials/`) are partials, never pages: `build-examples.mjs` skips them and the raw `.md` route does not serve them. A partial's `tsx demo` fences become live demos on each page that includes it.
+- Every reader of a page's raw Markdown (page route and its table of contents, raw `.md` route, search, `llms.txt`) expands includes through `lib/docs/includes.ts`, and `scripts/lib/doc-pages.mjs` mirrors it for the examples build. A new reader must go through the helper too, or it sees the bare tag.
+- A missing, cyclic or out-of-root include throws an `IncludeError` naming the file and line, which fails `check:examples`, `npm run llms` and the build.
+- A page's modified date (sitemap, article metadata) is the latest git date among the page and the files it includes (`lastModifiedDate` in `lib/docs/gitDate.ts`).
+
 ### Adding a New Component Example Page
 
 1. Create `app/docs/data/{category}/{component}.md`

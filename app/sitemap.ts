@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { docsSections } from './docs/docsSections';
-import { docFilePath, lastGitDate } from '../lib/docs/gitDate';
+import { docFilePath, lastModifiedDate } from '../lib/docs/gitDate';
 
 const BASE_URL = 'https://vaneui.com';
 
@@ -33,7 +33,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const docPages: MetadataRoute.Sitemap = docsSections.flatMap(section =>
     section.pages.map(page => ({
       url: `${BASE_URL}/docs/${section.slug}/${page.slug}`,
-      lastModified: lastGitDate(docFilePath(section.slug, page.slug, page.mdPath), now),
+      // Latest git date among the page file and the files it includes
+      lastModified: lastModifiedDate(docFilePath(section.slug, page.slug, page.mdPath), now),
       changeFrequency: 'weekly' as const,
       priority: 0.8,
     }))
