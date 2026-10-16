@@ -26,7 +26,7 @@ const jetBrainsMono = JetBrains_Mono({
 })
 
 const SITE_TITLE = 'VaneUI - Deliver clean UI without complex code';
-const SITE_DESCRIPTION = 'VaneUI is a React component library powered by Tailwind CSS. Designed for building beautiful and responsive user interfaces.';
+const SITE_DESCRIPTION = 'React component library with a boolean props API, built on Tailwind CSS v4. Write <Button primary lg filled> instead of variant strings.';
 
 // Vercel preview deployments should not be indexed; production is fine.
 // Falls back to allowing indexation everywhere else (self-host, local
@@ -52,20 +52,13 @@ export const metadata: Metadata = {
     siteName: 'VaneUI',
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: [
-      {
-        url: '/og-default.png',
-        width: 1200,
-        height: 630,
-        alt: 'VaneUI - React component library powered by Tailwind CSS',
-      },
-    ],
+    // og:image comes from app/opengraph-image.tsx
   },
   twitter: {
     card: 'summary_large_image',
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: ['/og-default.png'],
+    // twitter:image falls back to the og:image from app/opengraph-image.tsx
   },
   // NOTE: no `alternates.canonical` here. A static canonical on the root layout
   // is inherited by every page that does not override `alternates`, which would
