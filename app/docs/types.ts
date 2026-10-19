@@ -17,6 +17,8 @@ export interface DocsPage {
   slug: string;
   name: string;
   description: string;
+  /** The guide page's `<title>`. See DocPageMeta. */
+  seoTitle?: string;
   mdPath?: string;
   /** Markdown sourced from node_modules instead of app/docs/data. See DocPageMeta. */
   packageMdPath?: string;

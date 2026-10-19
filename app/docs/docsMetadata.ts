@@ -4,6 +4,12 @@ export interface DocPageMeta {
   slug: string;
   name: string;
   description: string;
+  /**
+   * The `<title>` and Open Graph title of a guide page. Component pages (with a
+   * componentKey) get "<name> Component for React + Tailwind CSS | VaneUI"; a guide
+   * without one falls back to "<name> | VaneUI".
+   */
+  seoTitle?: string;
   mdPath?: string;
   /**
    * Markdown sourced from an installed package instead of app/docs/data, given as
@@ -35,18 +41,21 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'installation',
         name: 'Installation',
+        seoTitle: 'Install VaneUI in a React + Tailwind CSS v4 Project',
         description: 'Follow these steps to get the library installed and ready to use in your application.',
         mdPath: 'installation.md',
       },
       {
         slug: 'core-concepts',
         name: 'Core Concepts',
+        seoTitle: 'Core Concepts: Boolean Props for React Components | VaneUI',
         description: 'Understand VaneUI\'s philosophy of boolean props, Tailwind CSS integration, and component customization.',
         mdPath: 'core-concepts.md',
       },
       {
         slug: 'usage-basics',
         name: 'Usage Basics',
+        seoTitle: 'Usage Basics: Props and Layout for React Components | VaneUI',
         description: 'Learn fundamental patterns and concepts for using VaneUI components effectively.',
         mdPath: 'usage-basics.md',
       },
@@ -343,54 +352,63 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'theming-overview',
         name: 'Theming Overview',
+        seoTitle: 'Theming Overview for React + Tailwind CSS | VaneUI',
         description: 'Understand VaneUI\'s theming system and design token architecture.',
         mdPath: 'theming-overview.md',
       },
       {
         slug: 'using-theme-provider',
         name: 'Using ThemeProvider',
+        seoTitle: 'Using ThemeProvider to Style a React App | VaneUI',
         description: 'Configure and customize themes throughout your application with ThemeProvider.',
         mdPath: 'using-theme-provider.md',
       },
       {
         slug: 'theme-and-override',
         name: 'Theme & ThemeOverride',
+        seoTitle: 'ThemeProvider theme and themeOverride Props | VaneUI',
         description: 'Customize themes using ThemeProvider\'s theme and themeOverride properties (applied to providers, not components).',
         mdPath: 'theme-and-override.md',
       },
       {
         slug: 'theme-defaults',
         name: 'ThemeDefaults',
+        seoTitle: 'Set Default Props App-Wide with themeDefaults | VaneUI',
         description: 'Set default theme values across your application using themeDefaults.',
         mdPath: 'theme-defaults.md',
       },
       {
         slug: 'extra-classes',
         name: 'ExtraClasses',
+        seoTitle: 'Add Tailwind CSS Classes per Prop with extraClasses | VaneUI',
         description: 'Apply additional CSS classes to components using extraClasses.',
         mdPath: 'extra-classes.md',
       },
       {
         slug: 'css-variables',
         name: 'CSS Variables',
+        seoTitle: 'Customize Colors and Sizing with CSS Variables | VaneUI',
         description: 'Customize VaneUI components using CSS custom properties and variables.',
         mdPath: 'css-variables.md',
       },
       {
         slug: 'dark-mode',
         name: 'Dark Mode',
+        seoTitle: 'Dark Mode for React + Tailwind CSS Components | VaneUI',
         description: 'Enable dark mode with the data-theme="dark" attribute and re-declare color tokens for custom themes.',
         mdPath: 'dark-mode.md',
       },
       {
         slug: 'customizing-styles',
         name: 'Customizing Styles',
+        seoTitle: 'Override Component Styles with Tailwind CSS Classes | VaneUI',
         description: 'Override VaneUI component styles using Tailwind CSS classes, CSS variables, and the className prop.',
         mdPath: 'customizing-styles.md',
       },
       {
         slug: 'variant-inheritance',
         name: 'Variant Inheritance',
+        seoTitle: 'Variant Inheritance: How Colors Cascade | VaneUI',
         description: 'How components inherit colors from ancestor layouts via CSS custom-property cascade.',
         mdPath: 'variant-inheritance.md',
       },
@@ -404,11 +422,13 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'common-props',
         name: 'Common Props',
+        seoTitle: 'Common Props Shared by VaneUI React Components',
         description: 'Layout and typography props shared across all components.',
       },
       {
         slug: 'changelog',
         name: 'Changelog',
+        seoTitle: '@vaneui/ui Changelog: Release Notes by Version | VaneUI',
         description: 'Every user-visible change to @vaneui/ui, by version.',
         packageMdPath: '@vaneui/ui/CHANGELOG.md',
       },

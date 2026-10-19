@@ -29,12 +29,15 @@ export async function generateMetadata({params}: DocsPageProps): Promise<Metadat
   const docsPage = docsCategory?.pages.find(page => page.slug === slug);
 
   const pageName = docsPage?.name || slug;
-  const categoryName = docsCategory?.name || category;
-  // Page name first, site name last — better CTR pattern and survives Google's
-  // ~60-char truncation. Category in the middle adds context for
-  // navigational queries (e.g. "VaneUI Button"). Fallback description avoids
-  // leaking the raw slug into search snippets.
-  const title = `${pageName} - ${categoryName} - VaneUI`;
+  // Page name first, site name last, within Google's ~60-char cut. Component
+  // titles name React and Tailwind CSS, the terms people search with; guides
+  // carry their own seoTitle. The category stays in the breadcrumb and
+  // articleSection. Fallback description avoids leaking the raw slug into
+  // search snippets.
+  const title = docsPage?.seoTitle
+    ?? (docsPage?.componentKey
+      ? `${pageName} Component for React + Tailwind CSS | VaneUI`
+      : `${pageName} | VaneUI`);
   const description = docsPage?.description
     ?? docsCategory?.description
     ?? `${pageName} documentation for VaneUI, a React component library powered by Tailwind CSS.`;

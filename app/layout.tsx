@@ -25,7 +25,7 @@ const jetBrainsMono = JetBrains_Mono({
   variable: '--font-jetbrains-mono',
 })
 
-const SITE_TITLE = 'VaneUI - Deliver clean UI without complex code';
+const SITE_TITLE = 'VaneUI: React Component Library for Tailwind CSS v4';
 const SITE_DESCRIPTION = 'React component library with a boolean props API, built on Tailwind CSS v4. Write <Button primary lg filled> instead of variant strings.';
 
 // Vercel preview deployments should not be indexed; production is fine.
