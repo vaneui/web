@@ -174,7 +174,6 @@ export default async function Page({params}: DocsPageProps) {
   const dateModified = dates.modified?.toISOString();
   const breadcrumb = buildBreadcrumbSchema({
     category: docsSection.slug,
-    categoryName: docsSection.name,
     slug: docsPage.slug,
     pageName: docsPage.name,
   });
