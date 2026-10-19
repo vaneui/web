@@ -2,8 +2,9 @@
 
 import React, { useState } from 'react';
 import { Row, Button } from '@vaneui/ui';
-import { AlertCircle, Check, Copy, Edit2, GitHub, ExternalLink } from 'react-feather';
+import { AlertCircle, Check, Copy, Edit2, GitHub, ExternalLink, MessageSquare } from 'react-feather';
 import { DocPageFrontmatter } from './types';
+import { docsMarkdownPath, docsMarkdownUrl } from '../../lib/docs/markdownUrls';
 
 interface MetaStripProps {
   frontmatter: DocPageFrontmatter;
@@ -15,6 +16,13 @@ type CopyStatus = 'idle' | 'copying' | 'copied' | 'error';
 
 const VANEUI_REPO = 'https://github.com/vaneui/vaneui/blob/main';
 const WEB_REPO = 'https://github.com/vaneui/web/blob/main';
+
+// Chat apps that open with a prompt prefilled from the `q` query parameter.
+// ChatGPT's `hints=search` turns on web search, so it fetches the page.
+const CHAT_APPS = [
+  { name: 'ChatGPT', url: 'https://chatgpt.com/?hints=search&q=' },
+  { name: 'Claude', url: 'https://claude.ai/new?q=' },
+] as const;
 
 // Components that live under src/components/ui/typography/<key>/ instead of
 // the flat src/components/ui/<key>/ layout. Keep this list in sync with
@@ -46,6 +54,10 @@ export function MetaStrip({ frontmatter, slug, category }: MetaStripProps) {
   const { importPath } = frontmatter;
   const sourceUrl = deriveSourceUrl(frontmatter);
   const editUrl = `${WEB_REPO}/app/docs/data/${category}/${slug}.md`;
+  // The chat apps fetch the public Markdown copy, so the prompt carries its absolute URL
+  const chatPrompt = encodeURIComponent(
+    `Read ${docsMarkdownUrl(category, slug)} and answer my questions about it.`,
+  );
 
   function handleCopyImport() {
     if (!importPath) return;
@@ -65,7 +77,7 @@ export function MetaStrip({ frontmatter, slug, category }: MetaStripProps) {
   async function handleCopyMarkdown() {
     setMdStatus('copying');
     try {
-      const res = await fetch(`/api/docs/${category}/${slug}`);
+      const res = await fetch(docsMarkdownPath(category, slug));
       if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
       const md = await res.text();
       await navigator.clipboard.writeText(md);
@@ -152,6 +164,24 @@ export function MetaStrip({ frontmatter, slug, category }: MetaStripProps) {
           {copyIcon(mdStatus)}
           {copyLabel(mdStatus, 'Copy as Markdown', 'Copied!')}
         </Button>
+
+        {CHAT_APPS.map(app => (
+          <Button
+            key={app.name}
+            xs
+            secondary
+            noShadow
+            href={`${app.url}${chatPrompt}`}
+            tag="a"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Open this page in ${app.name}`}
+          >
+            <MessageSquare className="size-3.5" aria-hidden="true" />
+            Open in {app.name}
+            <ExternalLink className="size-3 opacity-60" aria-hidden="true" />
+          </Button>
+        ))}
       </Row>
     </Row>
   );
