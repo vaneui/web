@@ -10,6 +10,7 @@ const LLMS_LINK = '</llms.txt>; rel="describedby"';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  poweredByHeader: false,
   // Enable Turbopack (Next.js 16 default)
   turbopack: {},
   // Docs taxonomy change: form controls split out of basic-components, NavLink
@@ -55,6 +56,7 @@ const nextConfig = {
       // The Markdown copies point search engines at the HTML page instead of being noindexed
       { source: `${DOCS_PAGE}.md`, headers: [{ key: 'Link', value: canonicalPage }] },
       { source: `/api${DOCS_PAGE}`, headers: [{ key: 'Link', value: canonicalPage }] },
+      { source: '/search-index.json', headers: [{ key: 'X-Robots-Tag', value: 'noindex' }] },
     ];
   },
 };
