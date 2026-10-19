@@ -1,43 +1,27 @@
 import type { MetadataRoute } from 'next';
 import { docsSections } from './docs/docsSections';
-import { docFilePath, lastModifiedDate } from '../lib/docs/gitDate';
+import { docPageDates, lastPathsDate } from '../lib/docs/gitDate';
 
 const BASE_URL = 'https://vaneui.com';
 
-// Auto-derived from docsSections so new pages appear in the sitemap
-// without manual edits.
-export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+/** A sitemap entry with lastModified only when the date is known: no date beats a wrong one */
+function entry(url: string, lastModified: Date | undefined): MetadataRoute.Sitemap[number] {
+  return lastModified ? { url, lastModified } : { url };
+}
 
+// Auto-derived from docsSections so new pages appear in the sitemap without
+// manual edits. Each date is the last commit to the files behind the page, never
+// the build time. Google ignores changefreq and priority, so they are left out.
+export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
-    {
-      url: BASE_URL,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 1.0,
-    },
-    {
-      url: `${BASE_URL}/docs`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/playground`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
+    entry(BASE_URL, lastPathsDate(['app/page.tsx', 'app/landing'])),
+    entry(`${BASE_URL}/docs`, lastPathsDate(['app/docs/page.tsx', 'app/docs/DocsIndex.tsx', 'app/docs/docsMetadata.ts'])),
+    entry(`${BASE_URL}/playground`, lastPathsDate(['app/playground'])),
   ];
 
   const docPages: MetadataRoute.Sitemap = docsSections.flatMap(section =>
-    section.pages.map(page => ({
-      url: `${BASE_URL}/docs/${section.slug}/${page.slug}`,
-      // Latest git date among the page file and the files it includes
-      lastModified: lastModifiedDate(docFilePath(section.slug, page.slug, page.mdPath), now),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    }))
+    section.pages.map(page =>
+      entry(`${BASE_URL}/docs/${section.slug}/${page.slug}`, docPageDates(section.slug, page).modified)),
   );
 
   return [...staticPages, ...docPages];

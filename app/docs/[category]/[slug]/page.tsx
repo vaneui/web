@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import { promises as fs } from 'fs';
 import path from 'path';
 import { parseFrontmatter } from "../../../../lib/docs/frontmatter";
-import { docFilePath, firstGitDate, lastModifiedDate } from "../../../../lib/docs/gitDate";
+import { docPageDates } from "../../../../lib/docs/gitDate";
 import { expandDocIncludes, isMissingFileError } from "../../../../lib/docs/includes.mjs";
 import type { DocPageFrontmatter, DocsPage } from "../../types";
 import { JsonLd, buildBreadcrumbSchema, buildTechArticleSchema } from "../../../components/JsonLd";
@@ -44,19 +44,15 @@ export async function generateMetadata({params}: DocsPageProps): Promise<Metadat
 
   const url = `/docs/${category}/${slug}`;
 
-  // Real content dates from git history so the article card exposes accurate
-  // freshness (article:published_time / article:modified_time). The modified
-  // time also covers the files the page includes. Falls back to build time when
-  // git history is unavailable. Only for a known page: any other URL renders
-  // the 404, so its slug never reaches the file system or git.
-  let publishedTime: string | undefined;
-  let modifiedTime: string | undefined;
-  if (docsCategory && docsPage) {
-    const buildTime = new Date();
-    const filePath = docFilePath(docsCategory.slug, docsPage.slug, docsPage.mdPath);
-    publishedTime = firstGitDate(filePath, buildTime).toISOString();
-    modifiedTime = lastModifiedDate(filePath, buildTime).toISOString();
-  }
+  // Real content dates so the article card exposes accurate freshness
+  // (article:published_time / article:modified_time): git history, or the
+  // release dates for the changelog. The modified time also covers the files
+  // the page includes. A date that is not known (a shallow clone) is left out,
+  // never replaced by the build time. Only for a known page: any other URL
+  // renders the 404, so its slug never reaches the file system or git.
+  const dates = docsCategory && docsPage ? docPageDates(docsCategory.slug, docsPage) : {};
+  const publishedTime = dates.published?.toISOString();
+  const modifiedTime = dates.modified?.toISOString();
 
   // Per-page Open Graph + Twitter. Without these, Next.js leaves every docs
   // page inheriting the root layout's homepage card (wrong title + url when a
@@ -173,10 +169,9 @@ export default async function Page({params}: DocsPageProps) {
   };
 
   const pageUrl = `https://vaneui.com/docs/${docsSection.slug}/${docsPage.slug}`;
-  const buildTime = new Date();
-  const filePath = docFilePath(docsSection.slug, docsPage.slug, docsPage.mdPath);
-  const datePublished = firstGitDate(filePath, buildTime).toISOString();
-  const dateModified = lastModifiedDate(filePath, buildTime).toISOString();
+  const dates = docPageDates(docsSection.slug, docsPage);
+  const datePublished = dates.published?.toISOString();
+  const dateModified = dates.modified?.toISOString();
   const breadcrumb = buildBreadcrumbSchema({
     category: docsSection.slug,
     categoryName: docsSection.name,
