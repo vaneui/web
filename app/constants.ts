@@ -5,4 +5,14 @@ export const PRODUCT = {
   description: 'VaneUI is a React component library built on Tailwind CSS v4 with a boolean props API: write <Button primary lg filled> instead of variant strings.',
   githubUrl: 'https://github.com/vaneui/vaneui',
   copyright: `© ${new Date().getFullYear()} VaneUI. All rights reserved.`
-} as const; 
+} as const;
+
+/**
+ * Open Graph fields every route shares. A route that sets its own `openGraph`
+ * replaces the layout's object rather than merging into it, so each one spreads
+ * this to keep og:site_name and og:locale.
+ */
+export const BASE_OPEN_GRAPH = {
+  siteName: 'VaneUI',
+  locale: 'en_US',
+} as const;

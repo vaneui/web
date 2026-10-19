@@ -10,6 +10,7 @@ import { docPageDates } from "../../../../lib/docs/gitDate";
 import { expandDocIncludes, isMissingFileError } from "../../../../lib/docs/includes.mjs";
 import type { DocPageFrontmatter, DocsPage } from "../../types";
 import { JsonLd, buildBreadcrumbSchema, buildTechArticleSchema } from "../../../components/JsonLd";
+import { BASE_OPEN_GRAPH } from "../../../constants";
 
 interface DocsPageProps {
   params: Promise<{ category: string, slug: string }>
@@ -65,9 +66,9 @@ export async function generateMetadata({params}: DocsPageProps): Promise<Metadat
       canonical: url,
     },
     openGraph: {
+      ...BASE_OPEN_GRAPH,
       type: 'article',
       url,
-      siteName: 'VaneUI',
       title,
       description,
       publishedTime,

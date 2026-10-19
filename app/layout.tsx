@@ -5,6 +5,7 @@ import ThemeWrapper from "./themeWrapper";
 import { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next"
 import { JsonLd, WEBSITE_SCHEMA, SOFTWARE_SCHEMA } from "./components/JsonLd"
+import { BASE_OPEN_GRAPH } from "./constants"
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -46,10 +47,9 @@ export const metadata: Metadata = {
     ? { robots: { index: false, follow: false } }
     : {}),
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     type: 'website',
-    locale: 'en_US',
     url: '/',
-    siteName: 'VaneUI',
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     // og:image comes from app/opengraph-image.tsx
