@@ -1,9 +1,13 @@
 // Copy and data for the landing page sections
 import pkg from '@vaneui/ui/package.json';
 import { PRODUCT } from '../constants';
-import { dog } from './data/dog';
+import { dog as dogData } from './data/dog';
 
-export { PRODUCT, dog };
+export { PRODUCT };
+
+// Every landing section shows the photo at 200px or less, so they share a 376px WebP (2x for
+// high-density screens). public/puppy.png stays as the source the social card renderer reads.
+export const dog = { ...dogData, image: '/puppy.webp' };
 
 export const VERSION = pkg.version;
 
@@ -20,7 +24,7 @@ export const MCP_URL = 'https://www.npmjs.com/package/@vaneui/mcp';
 
 // The hero sample, written the way you would type it (no Tailwind classes)
 export const CARD_CODE = `<Card sm row noPadding noGap>
-  <Img sm sharp src="/puppy.png" width={188} height={188}/>
+  <Img sm sharp src="/puppy.webp" width={188} height={188}/>
   <Stack sm>
     <Row justifyBetween>
       <Title>Oliver</Title>
