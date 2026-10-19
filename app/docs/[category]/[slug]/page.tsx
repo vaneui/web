@@ -64,6 +64,7 @@ export async function generateMetadata({params}: DocsPageProps): Promise<Metadat
     description,
     alternates: {
       canonical: url,
+      types: { 'text/markdown': `${url}.md` },
     },
     openGraph: {
       type: 'article',
