@@ -13,8 +13,8 @@ export default function DocsIndex() {
       <Col>
         <PageTitle>Documentation</PageTitle>
         <Text lg secondary className="max-w-[60ch]">
-          VaneUI provides a collection of reusable components that can be used to build modern and responsive web
-          applications.
+          VaneUI is a React component library for Tailwind CSS v4. Install it, learn the boolean props API, and
+          browse 40+ components with live examples and props tables.
         </Text>
       </Col>
       {docsSections.map((section, i) => (

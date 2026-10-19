@@ -40,7 +40,7 @@ export async function generateMetadata({params}: DocsPageProps): Promise<Metadat
       : `${pageName} | VaneUI`);
   const description = docsPage?.description
     ?? docsCategory?.description
-    ?? `${pageName} documentation for VaneUI, a React component library powered by Tailwind CSS.`;
+    ?? `${pageName} documentation for VaneUI, a React component library built on Tailwind CSS v4.`;
 
   const url = `/docs/${category}/${slug}`;
 

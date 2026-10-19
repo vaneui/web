@@ -1,4 +1,5 @@
 import React from 'react';
+import { PRODUCT } from '../constants';
 
 interface JsonLdProps {
   data: object | object[];
@@ -38,7 +39,7 @@ export const WEBSITE_SCHEMA = {
   name: 'VaneUI',
   alternateName: '@vaneui/ui',
   url: 'https://vaneui.com',
-  description: 'VaneUI is a React component library powered by Tailwind CSS. Designed for building beautiful and responsive user interfaces.',
+  description: PRODUCT.description,
   publisher: ORGANIZATION_SCHEMA,
   inLanguage: 'en',
 } as const;
@@ -48,7 +49,7 @@ export const SOFTWARE_SCHEMA = {
   '@type': 'SoftwareSourceCode',
   name: '@vaneui/ui',
   alternateName: 'VaneUI',
-  description: 'VaneUI is a React component library powered by Tailwind CSS. Boolean props API, comprehensive theming.',
+  description: PRODUCT.description,
   url: 'https://vaneui.com',
   codeRepository: 'https://github.com/vaneui/vaneui',
   programmingLanguage: ['TypeScript', 'JavaScript'],
@@ -57,7 +58,7 @@ export const SOFTWARE_SCHEMA = {
   operatingSystem: 'Web',
   license: 'https://opensource.org/licenses/MIT',
   author: ORGANIZATION_SCHEMA,
-  keywords: 'react, ui, components, tailwind, tailwindcss, typescript, design system, headless',
+  keywords: 'react, ui, components, tailwind, tailwindcss, typescript, design system',
 } as const;
 
 /** BreadcrumbList for docs pages: VaneUI > Documentation > Category > Page */

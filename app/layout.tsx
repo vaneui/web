@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   applicationName: 'VaneUI',
-  keywords: ['react', 'ui', 'components', 'tailwind', 'tailwindcss', 'typescript', 'vaneui', 'design system', 'headless'],
+  keywords: ['react', 'ui', 'components', 'tailwind', 'tailwindcss', 'typescript', 'vaneui', 'design system'],
   authors: [{ name: 'VaneUI' }],
   creator: 'VaneUI',
   publisher: 'VaneUI',
