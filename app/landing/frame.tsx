@@ -69,10 +69,20 @@ export function Eyebrow({ index, tight = false, tag, children }: {
   tag?: 'h2' | 'h3';
   children: React.ReactNode;
 }) {
+  const text = { xs: true, fontMono: true, uppercase: true, trackingWidest: !tight, trackingWider: tight, tertiary: true };
   return (
     <Row xs>
       <span aria-hidden="true" className="lp-sq"/>
-      <Text tag={tag} xs fontMono uppercase trackingWidest={!tight} trackingWider={tight} tertiary>[{index}] {children}</Text>
+      {tag ? (
+        // As a heading, the index sits beside it, so the heading's text is only the name.
+        // The no-break space keeps the gap of the plain label's space.
+        <Row noGap>
+          <Text tag="span" aria-hidden="true" {...text}>[{index}]{'\u00a0'}</Text>
+          <Text tag={tag} {...text}>{children}</Text>
+        </Row>
+      ) : (
+        <Text {...text}>[{index}] {children}</Text>
+      )}
     </Row>
   );
 }
