@@ -2,17 +2,32 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { Col, Row, Container, Button, Text, Title } from '@vaneui/ui';
+import { Col, Row, Container, Button, Title } from '@vaneui/ui';
 import '../landing/landing.css';
 import { LandingHeader } from '../landing/LandingHeader';
 import { FRAME } from '../landing/frame';
 import { Preview } from './Preview';
 import { STARTER_CODE } from './starter';
 
+/**
+ * The starter code with line numbers, laid out like the editor, until CodeMirror loads. It is
+ * also what the server renders, so the page's HTML carries the code instead of a loading notice.
+ */
+function EditorFallback() {
+  return (
+    <Row noGap itemsStretch flex1 overflowHidden className="font-[monospace] text-sm leading-[1.4]">
+      <Col noGap secondary borderR textRight aria-hidden="true" className="py-1 pr-0.75 pl-1.25">
+        {STARTER_CODE.split('\n').map((_, i) => <span key={i}>{i + 1}</span>)}
+      </Col>
+      <pre className="py-1 pr-0.5 pl-1.5 font-[monospace]">{STARTER_CODE}</pre>
+    </Row>
+  );
+}
+
 // CodeMirror touches `document`, so keep it out of the SSR pass.
 const CodeEditor = dynamic(() => import('./CodeEditor').then((m) => m.CodeEditor), {
   ssr: false,
-  loading: () => <Text sm secondary className="p-4">Loading editor…</Text>,
+  loading: EditorFallback,
 });
 
 const STORAGE_KEY = 'vaneui-playground-code';
