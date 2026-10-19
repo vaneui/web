@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import {
-  PageTitle, Text, Row, Stack, Button, Badge, Title, Card, Chip, Divider, ThemeProvider, Img, Label, Switch,
+  PageTitle, Text, Row, Col, Stack, Button, Badge, Title, Card, Chip, Divider, ThemeProvider, Img, Label, Switch,
 } from '@vaneui/ui';
 import { ArrowRight } from 'react-feather';
 import { CodeBlock } from '../components/CodeBlock';
@@ -56,7 +56,7 @@ function Redlines({ g }: { g: Geometry }) {
   const width = Math.round(card.w);
 
   return (
-    <div aria-hidden="true" data-drawn={drawn} className="lp-anno max-tablet:hidden">
+    <Col noGap absolute tabletHide aria-hidden="true" data-drawn={drawn} className="lp-anno inset-0 z-30 pointer-events-none">
       <svg width="100%" height="100%">
         {/* dimension line with end ticks */}
         <path className="lp-lead" pathLength={1} style={{ '--d': `${start}ms` } as React.CSSProperties}
@@ -73,20 +73,21 @@ function Redlines({ g }: { g: Geometry }) {
         ))}
       </svg>
 
-      <div className="lp-anno-pos" style={{ left: card.x + card.w / 2, top: dimY, transform: 'translate(-50%, -50%)' }}>
-        <div className="lp-lead-label" style={{ '--d': `${start + 300}ms` } as React.CSSProperties}>
-          <Chip xs fontMono accent>{width}px</Chip>
-        </div>
-      </div>
+      {/* Each label box is exactly its chip (a flex row), so the chip's middle sits on the leader line */}
+      <Row noGap absolute style={{ left: card.x + card.w / 2, top: dimY, transform: 'translate(-50%, -50%)' }}>
+        <Row noGap className="lp-lead-label" style={{ '--d': `${start + 300}ms` } as React.CSSProperties}>
+          <Chip xs fontMono accent whitespaceNowrap>{width}px</Chip>
+        </Row>
+      </Row>
       {leads.map((l, i) => (
-        <div key={l.key} className="lp-anno-pos"
+        <Row key={l.key} noGap absolute
              style={{ left: l.at[0], top: l.at[1], transform: l.side === 'l' ? 'translate(-100%, -50%)' : 'translate(0, -50%)' }}>
-          <div className="lp-lead-label" style={{ '--d': `${start + step * (i + 1) + 380}ms` } as React.CSSProperties}>
-            <Chip xs fontMono accent>{l.label}</Chip>
-          </div>
-        </div>
+          <Row noGap className="lp-lead-label" style={{ '--d': `${start + step * (i + 1) + 380}ms` } as React.CSSProperties}>
+            <Chip xs fontMono accent whitespaceNowrap>{l.label}</Chip>
+          </Row>
+        </Row>
       ))}
-    </div>
+    </Col>
   );
 }
 

@@ -9,7 +9,7 @@ import { Brackets } from "../landing/frame";
 /** Docs page tile for an `lp-tiles` grid; client-side so `tag={Link}` works from server pages */
 export function DocsTile({ href, name, description }: { href: string; name: string; description?: string }) {
   return (
-    <Stack sm flexNoWrap tag={Link} href={href} className="lp-cell">
+    <Stack sm flexNoWrap primary relative tag={Link} href={href}>
       <Brackets/>
       <Row justifyBetween itemsStart>
         <Text fontMedium>{name}</Text>

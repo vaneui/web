@@ -36,7 +36,7 @@ export function Theming() {
 
       <Grid2 noGap borderT className="lp-grid grid-cols-[minmax(0,5fr)_minmax(0,7fr)] max-tablet:grid-cols-1">
         {/* Controls and code */}
-        <Stack xl flexNoWrap className="lp-cell">
+        <Stack xl flexNoWrap primary relative>
           <Reveal>
             <Col>
               <Text xs fontMono uppercase trackingWider tertiary>Example theme</Text>
@@ -73,7 +73,7 @@ export function Theming() {
         </Stack>
 
         {/* The card under the selected theme */}
-        <Stack xl flexNoWrap row itemsCenter justifyCenter relative className="lp-cell min-h-[32rem] max-mobile:min-h-0 max-mobile:py-10">
+        <Stack xl flexNoWrap row itemsCenter justifyCenter primary relative className="min-h-[32rem] max-mobile:min-h-0 max-mobile:py-10">
           <div aria-hidden="true" className="lp-dots"/>
           <Reveal delay={120} className="relative">
             <ThemeProvider theme={theme.config} themeDefaults={theme.defaults}>

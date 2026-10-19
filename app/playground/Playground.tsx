@@ -45,7 +45,7 @@ export function Playground() {
   };
 
   return (
-    <Col noGap hScreen className="lp-site">
+    <Col noGap primary hScreen className="lp-site">
       <LandingHeader/>
       {/* The editor and preview sit in the same railed 80rem frame as every other page */}
       <Row noGap justifyCenter itemsStretch flex1 overflowHidden>

@@ -31,7 +31,7 @@ export function ComponentsBento() {
         {tiles.map((tile, i) => {
           const l = LAYOUT[tile.name];
           return (
-            <Col key={tile.name} noGap className={`lp-cell ${l.cell}`}>
+            <Col key={tile.name} noGap primary relative className={l.cell || undefined}>
               <Brackets/>
               <Stack xl flexNoWrap flex1 itemsCenter justifyCenter relative className="py-10 max-mobile:py-8">
                 {l.canvas && <div aria-hidden="true" className="lp-dots"/>}
@@ -55,7 +55,7 @@ export function ComponentsBento() {
         })}
 
         {/* The count cell links to the full list */}
-        <Stack xl flexNoWrap justifyBetween tag={Link} href="/docs" className="lp-cell col-span-2 max-mobile:col-span-1 min-h-56">
+        <Stack xl flexNoWrap justifyBetween primary relative tag={Link} href="/docs" className="col-span-2 max-mobile:col-span-1 min-h-56">
           <Brackets/>
           <Row justifyBetween itemsStart>
             <Text xs fontMono uppercase trackingWider tertiary>Catalog</Text>

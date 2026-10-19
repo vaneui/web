@@ -73,8 +73,6 @@
 /* Docs and playground: same frame drawing, VaneUI tokens untouched so examples show real defaults */
 .lp-site {
   --lp-mark: oklch(54.6% 0.245 262.881);                       /* blue-600 */
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-primary);
 }
 [data-theme="dark"] .lp-site {
   --lp-mark: oklch(70.7% 0.165 254.624);                       /* blue-400 */
@@ -117,23 +115,6 @@
   background-image: repeating-linear-gradient(-45deg, var(--lp-hatch) 0 1px, transparent 1px 7px);
 }
 
-/* Decorative band between sections: hatched gutters (or a hatched frame), rails, crosshairs */
-.lp-band {
-  position: relative;
-  height: 48px;
-  border-top: 1px solid var(--lp-line);
-}
-.lp-band__frame {
-  position: relative;
-  height: 100%;
-  width: calc(100% - 2rem);
-  max-width: 80rem;
-  margin-inline: auto;
-  border-inline: 1px solid var(--lp-line);
-  background-color: var(--color-bg-primary);
-}
-.lp-band--full .lp-band__frame { background-color: transparent; }
-
 /* Accent square before every eyebrow */
 .lp-sq {
   display: inline-block;
@@ -145,17 +126,13 @@
 
 /* ---------- hairline grids ---------- */
 
-/* Touching cells: a 1px gap over a hairline-colored grid, cells paint the canvas */
+/* Touching cells: a 1px gap over a hairline-colored grid; each cell paints the canvas with `primary` */
 .lp-grid {
   gap: 1px;
   background-color: var(--lp-line);
 }
-.lp-cell {
-  position: relative;
-  background-color: var(--color-bg-primary);
-}
 
-/* Accent corner brackets that appear on hover */
+/* Accent corner brackets that appear while their cell (the parent) is hovered or focused */
 .lp-brk {
   position: absolute;
   width: 12px;
@@ -170,8 +147,8 @@
 .lp-brk--tr { top: -1px; right: -1px; border-top: 1px solid var(--lp-mark); border-right: 1px solid var(--lp-mark); transform-origin: top right; }
 .lp-brk--bl { bottom: -1px; left: -1px; border-bottom: 1px solid var(--lp-mark); border-left: 1px solid var(--lp-mark); transform-origin: bottom left; }
 .lp-brk--br { bottom: -1px; right: -1px; border-bottom: 1px solid var(--lp-mark); border-right: 1px solid var(--lp-mark); transform-origin: bottom right; }
-.lp-cell:hover > .lp-brk,
-.lp-cell:focus-within > .lp-brk { opacity: 1; transform: none; }
+:hover > .lp-brk,
+:focus-within > .lp-brk { opacity: 1; transform: none; }
 
 /* The three window dots in the terminal title bar */
 .lp-term-dot {
@@ -182,9 +159,9 @@
   opacity: .3;
 }
 
-/* Arrow nudge on linked tiles */
+/* Arrow nudge on linked tiles: the cells that carry brackets */
 .lp-nudge { transition: transform .25s cubic-bezier(.2,.7,.2,1); }
-.lp-cell:hover .lp-nudge { transform: translate(2px, -2px); }
+:has(> .lp-brk):hover .lp-nudge { transform: translate(2px, -2px); }
 
 /* ---------- canvases ---------- */
 
@@ -234,7 +211,6 @@
 .lp-handle--bl { bottom: -4px; left: -4px; }
 .lp-handle--br { bottom: -4px; right: -4px; }
 
-.lp-anno { position: absolute; inset: 0; pointer-events: none; z-index: 30; }
 .lp-anno svg { position: absolute; inset: 0; overflow: visible; }
 
 .lp-lead {
@@ -255,13 +231,10 @@
   animation: lp-pop .3s cubic-bezier(.2,.7,.2,1) both;
   animation-delay: var(--d, 0ms);
 }
-/* flex so the label box is exactly the chip: its middle sits on the leader line */
 .lp-lead-label {
-  display: flex;
   animation: lp-fade .4s ease both;
   animation-delay: var(--d, 0ms);
 }
-.lp-anno-pos { position: absolute; white-space: nowrap; }
 .lp-anno[data-drawn="true"] :is(.lp-lead, .lp-lead-dot, .lp-lead-label) { animation: none; }
 
 @keyframes lp-pop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: none; } }

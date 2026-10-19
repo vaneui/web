@@ -38,7 +38,7 @@ export function LandingFooter() {
   return (
     <FrameRow tag="footer" label="Footer">
       <Grid4 noGap className="lp-grid max-tablet:grid-cols-2">
-        <Stack xl flexNoWrap justifyBetween className="lp-cell min-h-64 max-tablet:col-span-2 max-tablet:min-h-0">
+        <Stack xl flexNoWrap justifyBetween primary relative className="min-h-64 max-tablet:col-span-2 max-tablet:min-h-0">
           <Col>
             <Logo/>
             <Text sm tertiary className="max-w-[36ch]">{PRODUCT.description}</Text>
@@ -49,7 +49,7 @@ export function LandingFooter() {
           </Row>
         </Stack>
         {COLUMNS.map((col, i) => (
-          <Stack xl flexNoWrap key={col.title} className={`lp-cell ${i === COLUMNS.length - 1 ? 'max-tablet:col-span-2' : ''}`}>
+          <Stack xl flexNoWrap primary relative key={col.title} className={i === COLUMNS.length - 1 ? 'max-tablet:col-span-2' : undefined}>
             <Text xs fontMono uppercase trackingWider tertiary>{col.title}</Text>
             <Col sm tag="ul">
               {col.links.map(link => (

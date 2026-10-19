@@ -144,7 +144,7 @@ function DarkSplit() {
 
 function Tile({ n, feature, delay = 0 }: { n: string; feature: typeof FEATURES[number]; delay?: number }) {
   return (
-    <Stack xl flexNoWrap justifyBetween className="lp-cell">
+    <Stack xl flexNoWrap justifyBetween primary relative>
       <Reveal delay={delay}>
         <Col>
           <Index n={n}/>
@@ -172,7 +172,7 @@ export function Principles() {
       <Grid3 noGap borderT className="lp-grid">
         {/* Wide: props, with the running demo. Its inner line lands on the column line below. */}
         <Grid2 noGap className="lp-grid col-span-2 max-tablet:grid-cols-1 max-mobile:col-span-1">
-          <Stack xl flexNoWrap justifyBetween className="lp-cell">
+          <Stack xl flexNoWrap justifyBetween primary relative>
             <Reveal>
               <Col>
                 <Index n="02.1"/>
@@ -186,13 +186,13 @@ export function Principles() {
               </Text>
             </Reveal>
           </Stack>
-          <Col noGap className="lp-cell">
+          <Col noGap primary relative>
             <PropDemo/>
           </Col>
         </Grid2>
 
         {/* Tall: dark mode, split light and dark */}
-        <Stack xl flexNoWrap justifyBetween className="lp-cell row-span-2 max-tablet:row-span-1">
+        <Stack xl flexNoWrap justifyBetween primary relative className="row-span-2 max-tablet:row-span-1">
           <Reveal delay={50}>
             <Col>
               <Index n="02.2"/>
@@ -210,7 +210,7 @@ export function Principles() {
         <Tile n="02.4" feature={f.theme} delay={150}/>
         <Tile n="02.5" feature={f.a11y} delay={200}/>
         {/* Wide: Tailwind CSS, the two ways to load the styles side by side in one cell */}
-        <Stack xl flexNoWrap className="lp-cell col-span-2 max-mobile:col-span-1">
+        <Stack xl flexNoWrap primary relative className="col-span-2 max-mobile:col-span-1">
           <Row xl itemsStart tabletStack>
             <Reveal delay={250} className="flex-1 min-w-0">
               <Col>

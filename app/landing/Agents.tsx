@@ -17,7 +17,7 @@ export function Agents() {
 
       <Grid2 noGap borderT className="lp-grid max-tablet:grid-cols-1">
         {/* Terminal */}
-        <Stack xl flexNoWrap justifyBetween className="lp-cell">
+        <Stack xl flexNoWrap justifyBetween primary relative>
           <Reveal>
             <Col>
               <Text xs fontMono uppercase trackingWider tertiary>Add it with one command</Text>
@@ -56,7 +56,7 @@ export function Agents() {
         </Stack>
 
         {/* Clients */}
-        <Col noGap className="lp-cell">
+        <Col noGap primary relative>
           <Stack xl flexNoWrap className="pb-6">
             <Reveal delay={80}>
               <Text xs fontMono uppercase trackingWider tertiary>Works with</Text>
@@ -64,7 +64,7 @@ export function Agents() {
           </Stack>
           <Grid3 noGap borderT flex1 className="lp-grid max-tablet:grid-cols-3 max-mobile:grid-cols-3">
             {AI_CLIENTS.map((client, i) => (
-              <Stack key={client.name} xl flexNoWrap itemsCenter justifyCenter className="lp-cell min-h-40 max-mobile:min-h-0">
+              <Stack key={client.name} xl flexNoWrap itemsCenter justifyCenter primary relative className="min-h-40 max-mobile:min-h-0">
                 <Reveal delay={120 + i * 50}>
                   <Col sm itemsCenter>
                     <BrandMark path={client.path} size={28}/>

@@ -20,7 +20,7 @@ export function Crosshairs({ bottom = false }: { bottom?: boolean }) {
   );
 }
 
-/** Accent corner brackets shown on hover; place inside a `lp-cell` */
+/** Accent corner brackets shown while their parent cell is hovered or focused */
 export function Brackets() {
   return (
     <>
@@ -54,12 +54,11 @@ export function FrameRow({ children, id, label, top = true, tag, className }: {
 /** A 48px decorative band between sections: hatched gutters, or a hatched frame with `full` */
 export function Band({ full = false }: { full?: boolean }) {
   return (
-    <div aria-hidden="true" className={`lp-band lp-hatch ${full ? 'lp-band--full' : ''}`}>
-      <div className="lp-band__frame">
-        <span className="lp-x lp-x--l"/>
-        <span className="lp-x lp-x--r"/>
-      </div>
-    </div>
+    <Section tag="div" aria-hidden="true" noPadding noGap relative borderT className="lp-hatch h-12">
+      <Container xl noGap borderX relative hFull primary={!full} className={FRAME}>
+        <Crosshairs/>
+      </Container>
+    </Section>
   );
 }
 
