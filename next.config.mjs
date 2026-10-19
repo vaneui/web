@@ -4,6 +4,8 @@ const SITE_URL = 'https://vaneui.com';
 const DOCS_PAGE = '/docs/:category([a-z0-9-]+)/:slug([a-z0-9-]+)';
 // Rendered by app/api/docs/[category]/[slug]/route.ts, once per page at build time
 const DOCS_MARKDOWN = '/api/docs/:category/:slug';
+// Advertises llms.txt on every response (llmstxt.org)
+const LLMS_LINK = '</llms.txt>; rel="describedby"';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -42,9 +44,11 @@ const nextConfig = {
       ],
     };
   },
+  // For one key, the last matching entry wins, so the Markdown entries repeat the llms.txt link.
   async headers() {
-    const canonicalPage = `<${SITE_URL}/docs/:category/:slug>; rel="canonical"`;
+    const canonicalPage = `<${SITE_URL}/docs/:category/:slug>; rel="canonical", ${LLMS_LINK}`;
     return [
+      { source: '/:path((?!_next/).*)', headers: [{ key: 'Link', value: LLMS_LINK }] },
       // The page URL answers with HTML or Markdown depending on Accept, so caches must key on it.
       // (`next start` replaces Vary on rendered pages, so there only the Markdown answer carries it.)
       { source: DOCS_PAGE, headers: [{ key: 'Vary', value: 'Accept' }] },
