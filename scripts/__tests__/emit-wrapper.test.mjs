@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { emitWrapper } from '../lib/emit-wrapper.mjs';
+import { DEMO_HEADINGS, emitWrapper } from '../lib/emit-wrapper.mjs';
 
 // Stand-in symbol tables sufficient for these unit tests. The real loader is
 // covered by load-symbol-tables.test.mjs; here we just need predictable
@@ -261,4 +261,51 @@ test('11. identifiers within each bucket are sorted alphabetically', () => {
 
   // All three are @vaneui/ui — must appear sorted: Button, Foo, Row.
   assert.match(out, /import \{ Button, Foo, Row \} from '@vaneui\/ui';/);
+});
+
+test('12. VaneUI headings come from the demo heading specimens, the body is unchanged', () => {
+  const body = '<Card>\n  <PageTitle>Hello</PageTitle>\n  <Title>Sub</Title>\n  <Button>Go</Button>\n</Card>';
+  const out = emitWrapper({
+    slug: 'headings',
+    idx: 0,
+    body,
+    identifiers: ['Card', 'PageTitle', 'Title', 'Button'],
+    symbolTables: {
+      '@vaneui/ui': new Set(['Button', 'Card', 'PageTitle', 'SectionTitle', 'Title']),
+      'react-feather': new Set(),
+      react: new Set(),
+    },
+    mdSourcePath: 'app/docs/data/misc/headings.md',
+    mdLine: 1,
+  });
+
+  assert.equal(DEMO_HEADINGS.module, '../../demoHeadings');
+  assert.match(out, /\nimport \{ Button, Card \} from '@vaneui\/ui';\n/);
+  assert.match(out, /\nimport \{ PageTitle, Title \} from '\.\.\/\.\.\/demoHeadings';\n/);
+  // The specimen import follows the @vaneui/ui one
+  assert.ok(out.indexOf("from '@vaneui/ui'") < out.indexOf("from '../../demoHeadings'"));
+  assert.ok(out.includes(body.split('\n').map((l) => `    ${l}`).join('\n')), 'fence body must be emitted verbatim');
+});
+
+test('13. no demo heading import when the fence uses none', () => {
+  const out = emitWrapper({
+    slug: 'plain-button',
+    idx: 0,
+    body: '<Button>x</Button>',
+    identifiers: ['Button'],
+    symbolTables,
+    mdSourcePath: 'app/docs/data/misc/plain-button.md',
+    mdLine: 1,
+  });
+  assert.ok(!out.includes('demoHeadings'));
+});
+
+test('14. the demo heading module path resolves from the wrappers directory', async () => {
+  const { existsSync, readFileSync } = await import('node:fs');
+  const { fileURLToPath } = await import('node:url');
+  const examplesDir = fileURLToPath(new URL('../../app/docs/.generated/examples/', import.meta.url));
+  const file = fileURLToPath(new URL(`${DEMO_HEADINGS.module}.tsx`, `file://${examplesDir}`));
+  assert.ok(existsSync(file), `${file} must exist`);
+  const source = readFileSync(file, 'utf8');
+  for (const name of DEMO_HEADINGS.names) assert.match(source, new RegExp(`export const ${name}\\b`));
 });

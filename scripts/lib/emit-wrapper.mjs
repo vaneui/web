@@ -10,6 +10,7 @@
 //   import { ... } from 'react';            // omitted if empty
 //   import { ... } from 'react-feather';    // omitted if empty
 //   import { ... } from '@vaneui/ui';       // omitted if empty
+//   import { ... } from '../../demoHeadings'; // omitted if empty
 //   export default function Demo() {
 //     // setup (verbatim, if provided)
 //     return (
@@ -29,8 +30,22 @@
 // tables. Identifiers not found in any table are silently dropped — tsc on
 // the generated wrapper will catch the resulting "Cannot find name" error
 // and the failure points clearly at the offending fence.
+//
+// The VaneUI headings (PageTitle, SectionTitle, Title) come from the site's
+// heading specimens instead (DEMO_HEADINGS): same classes, but a <div> unless
+// the demo passes its own `tag`, so a live demo adds no headings to the docs
+// page outline. The fence, and so the code shown to readers, is unchanged.
 
 import ts from 'typescript';
+
+/**
+ * @vaneui/ui exports that wrappers import from app/docs/demoHeadings.tsx. The
+ * module path is relative to the wrappers' directory, app/docs/.generated/examples/.
+ */
+export const DEMO_HEADINGS = {
+  module: '../../demoHeadings',
+  names: new Set(['PageTitle', 'SectionTitle', 'Title']),
+};
 
 /**
  * @param {ts.Expression} expr
@@ -78,7 +93,8 @@ function isSingleJsxExpression(body) {
 
 /**
  * Bucket free identifiers into their owning packages using the symbol tables.
- * Resolution priority: react -> @vaneui/ui -> react-feather. VaneUI wins over
+ * Resolution priority: react -> @vaneui/ui -> react-feather. A @vaneui/ui
+ * heading listed in DEMO_HEADINGS goes to the `demoHeadings` bucket. VaneUI wins over
  * react-feather for the four colliding names (Code, Link, List, Menu) because
  * those are first-class VaneUI components used throughout the docs; the icon
  * counterparts are rarely needed and can be aliased via setup if required.
@@ -90,8 +106,8 @@ function isSingleJsxExpression(body) {
  * @param {{ '@vaneui/ui': Set<string>, 'react-feather': Set<string>, 'react': Set<string> }} symbolTables
  */
 function bucketIdentifiers(identifiers, symbolTables) {
-  /** @type {{ react: string[], 'react-feather': string[], '@vaneui/ui': string[] }} */
-  const buckets = { react: [], 'react-feather': [], '@vaneui/ui': [] };
+  /** @type {{ react: string[], 'react-feather': string[], '@vaneui/ui': string[], demoHeadings: string[] }} */
+  const buckets = { react: [], 'react-feather': [], '@vaneui/ui': [], demoHeadings: [] };
 
   for (const id of identifiers) {
     if (symbolTables.react.has(id)) {
@@ -99,7 +115,7 @@ function bucketIdentifiers(identifiers, symbolTables) {
       continue;
     }
     if (symbolTables['@vaneui/ui'].has(id)) {
-      buckets['@vaneui/ui'].push(id);
+      buckets[DEMO_HEADINGS.names.has(id) ? 'demoHeadings' : '@vaneui/ui'].push(id);
       continue;
     }
     if (symbolTables['react-feather'].has(id)) {
@@ -195,11 +211,12 @@ export function emitWrapper(opts) {
   const useClient = `'use client';\n`;
   const reactNs = `import * as React from 'react';\n`;
 
-  // Order: react, react-feather, @vaneui/ui.
+  // Order: react, react-feather, @vaneui/ui, demo headings.
   const imports =
     importLine(buckets.react, 'react') +
     importLine(buckets['react-feather'], 'react-feather') +
-    importLine(buckets['@vaneui/ui'], '@vaneui/ui');
+    importLine(buckets['@vaneui/ui'], '@vaneui/ui') +
+    importLine(buckets.demoHeadings, DEMO_HEADINGS.module);
 
   // Build function body.
   let fnBody = '';
