@@ -1,14 +1,15 @@
 import type { Metadata } from 'next';
 import DocsIndex from './DocsIndex';
+import { BASE_OPEN_GRAPH } from '../constants';
 
 // This page is a server component so it can own its metadata. The interactive
 // grid lives in the DocsIndex client component. Without a dedicated metadata
 // export the docs hub inherited the root layout's homepage title, description,
 // and canonical ('/') — telling crawlers this page was a duplicate of the
 // homepage.
-const title = 'Documentation - VaneUI';
+const title = 'Documentation: React Components for Tailwind CSS v4 | VaneUI';
 const description =
-  'Browse VaneUI documentation: components, layout primitives, typography, and theming guides for the React component library powered by Tailwind CSS.';
+  'VaneUI documentation: installation, 40+ React components, layout, typography and theming guides for Tailwind CSS v4, each with live examples and a props table.';
 
 export const metadata: Metadata = {
   title,
@@ -17,9 +18,9 @@ export const metadata: Metadata = {
     canonical: '/docs',
   },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     type: 'website',
     url: '/docs',
-    siteName: 'VaneUI',
     title,
     description,
   },
