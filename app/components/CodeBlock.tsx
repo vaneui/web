@@ -26,15 +26,16 @@ interface CodeBlockProps {
   attached?: boolean;
 }
 
+// Decorative: empty alt, so screen readers skip it instead of announcing "react-icon, image" before each block
 function getLanguageIcon(language: string) {
   const imgClasses = "w-5 h-5 greyscale";
   switch (language) {
     case 'tsx':
-      return <Image src="/logo/react-icon.svg" width={20} height={20} className={imgClasses} alt="react-icon"/>
+      return <Image src="/logo/react-icon.svg" width={20} height={20} className={imgClasses} alt=""/>
     case 'css':
-      return <Image src="/logo/css.svg" width={20} height={20} className={imgClasses} alt="css-icon"/>
+      return <Image src="/logo/css.svg" width={20} height={20} className={imgClasses} alt=""/>
     default:
-      return <Terminal className={imgClasses}/>
+      return <Terminal className={imgClasses} aria-hidden="true"/>
   }
 }
 
