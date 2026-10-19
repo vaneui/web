@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useState } from 'react';
-import { Row, Button } from '@vaneui/ui';
-import { AlertCircle, Check, Copy, Edit2, GitHub, ExternalLink, MessageSquare } from 'react-feather';
+import { Row, Button, Menu, MenuItem } from '@vaneui/ui';
+import { AlertCircle, Check, ChevronDown, Copy, Edit2, GitHub, ExternalLink, MessageSquare } from 'react-feather';
 import { DocPageFrontmatter } from './types';
 import { docsMarkdownPath, docsMarkdownUrl } from '../../lib/docs/markdownUrls';
 
@@ -165,23 +165,29 @@ export function MetaStrip({ frontmatter, slug, category }: MetaStripProps) {
           {copyLabel(mdStatus, 'Copy as Markdown', 'Copied!')}
         </Button>
 
-        {CHAT_APPS.map(app => (
-          <Button
-            key={app.name}
-            xs
-            secondary
-            noShadow
-            href={`${app.url}${chatPrompt}`}
-            tag="a"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Open this page in ${app.name}`}
-          >
-            <MessageSquare className="size-3.5" aria-hidden="true" />
-            Open in {app.name}
-            <ExternalLink className="size-3 opacity-60" aria-hidden="true" />
-          </Button>
-        ))}
+        {/* One menu for the chat apps keeps the strip to two rows; items are links, so Enter opens them too */}
+        <Menu
+          trigger={
+            <Button xs secondary noShadow aria-label="Open in a chat app">
+              <MessageSquare className="size-3.5" aria-hidden="true" />
+              Open in
+              <ChevronDown className="size-3 opacity-60" aria-hidden="true" />
+            </Button>
+          }
+        >
+          {CHAT_APPS.map(app => (
+            <MenuItem
+              key={app.name}
+              href={`${app.url}${chatPrompt}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open this page in ${app.name}`}
+            >
+              {app.name}
+              <ExternalLink className="size-3 opacity-60" aria-hidden="true" />
+            </MenuItem>
+          ))}
+        </Menu>
       </Row>
     </Row>
   );
