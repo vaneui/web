@@ -266,11 +266,11 @@ Add `href` to render the Row as an `<a>` tag, useful for clickable list rows. A 
 
 ```tsx demo
 <Col>
-  <Row href="#inbox" justifyBetween padding border rounded>
+  <Row href="#as-link" justifyBetween padding border rounded>
     <Text fontSemibold>Inbox</Text>
     <Badge primary filled>12</Badge>
   </Row>
-  <Row href="#drafts" justifyBetween padding border rounded>
+  <Row href="#as-link" justifyBetween padding border rounded>
     <Text fontSemibold>Drafts</Text>
     <Badge secondary>3</Badge>
   </Row>

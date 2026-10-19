@@ -113,8 +113,8 @@ Add `href` to render the `Code` element as an `<a>` tag. A keyboard focus-visibl
 ```tsx demo
 <Col>
   <Text>Install <Code href="https://npmjs.com/package/@vaneui/ui" target="_blank" rel="noopener noreferrer">@vaneui/ui</Code> from npm.</Text>
-  <Text>The <Code href="#useState" info>useState</Code> hook returns a value and a setter.</Text>
-  <Text>See the <Code href="#install" filled success>install guide</Code> for setup steps.</Text>
+  <Text>The <Code href="https://react.dev/reference/react/useState" target="_blank" rel="noopener noreferrer" info>useState</Code> hook returns a value and a setter.</Text>
+  <Text>See the <Code href="/docs/getting-started/installation" filled success>install guide</Code> for setup steps.</Text>
 </Col>
 ```
 

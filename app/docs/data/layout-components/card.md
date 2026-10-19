@@ -192,11 +192,11 @@ The whole card becomes one link, so don't put a `Button`, `Link` or field inside
 
 ```tsx demo
 <Row flexWrap>
-  <Card href="#services" filled>
+  <Card href="#as-link" filled>
     <Title filled>Services</Title>
     <Text filled>Click to navigate</Text>
   </Card>
-  <Card href="#pricing" secondary filled>
+  <Card href="#as-link" secondary filled>
     <Title secondary filled>Pricing</Title>
     <Text secondary filled>View our plans</Text>
   </Card>

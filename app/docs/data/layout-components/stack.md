@@ -313,7 +313,7 @@ Stack's built-in padding makes it a natural container for a form: each `Label` s
 Add `href` to render the Stack as an `<a>` tag, useful for hero cards and large clickable surfaces. A keyboard focus-visible outline auto-renders so the link is reachable via Tab; opt out with `noFocusVisible`.
 
 ```tsx demo
-<Stack href="#get-started" border rounded itemsStart className="max-w-md">
+<Stack href="/docs/getting-started/installation" border rounded itemsStart className="max-w-md">
   <Zap size={28} />
   <PageTitle>Get started in minutes</PageTitle>
   <Text>Install the package, drop in ThemeProvider, and start shipping.</Text>
