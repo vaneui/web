@@ -1,6 +1,8 @@
 /**
  * Generates /public/llms.txt (compact index, per llmstxt.org) and /public/llms-full.txt
  * (every doc page inlined) from docsSectionsMeta, the page markdown and the installed @vaneui/ui.
+ * llms.txt links each page's Markdown version (/docs/<category>/<slug>.md), and llms-full.txt
+ * prints every page with the same renderer that serves those files (lib/docs/renderPageMarkdown).
  */
 
 import { readFileSync, writeFileSync } from 'fs';
@@ -9,17 +11,19 @@ import { fileURLToPath } from 'url';
 import type { ComponentKey } from '@vaneui/ui';
 import { docsSectionsMeta, type DocPageMeta, type DocSectionMeta } from '../app/docs/docsMetadata';
 import { getPropTableRows } from '../app/docs/propTableRows';
-import { parseFrontmatter } from '../lib/docs/frontmatter';
+import { docsMarkdownUrl, SITE_URL } from '../lib/docs/markdownUrls';
 import { readPageMarkdown as readPageMarkdownFrom } from '../lib/docs/pageMarkdown';
+import { PACKAGE_NAME, renderPageMarkdown } from '../lib/docs/renderPageMarkdown';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const ROOT = resolve(__dirname, '..');
 const OUTPUT_INDEX = resolve(ROOT, 'public/llms.txt');
 const OUTPUT_FULL = resolve(ROOT, 'public/llms-full.txt');
-const BASE_URL = 'https://vaneui.com';
-const PACKAGE_NAME = '@vaneui/ui';
-const COMMON_PROPS_URL = `${BASE_URL}/docs/reference/common-props`;
+const BASE_URL = SITE_URL;
+// Pages llms.txt lists under `## Optional`, which agents may skip when context is short
+const OPTIONAL_PAGES = new Set(['reference/changelog']);
+const isOptional = (section: DocSectionMeta, page: DocPageMeta) => OPTIONAL_PAGES.has(`${section.slug}/${page.slug}`);
 
 // Read from the installed package so version and peer deps follow `npm update`.
 const pkg = JSON.parse(
@@ -41,8 +45,7 @@ function coreDefaults(key: ComponentKey): string {
 // llms.txt allows no headings between the summary and the H2 file lists.
 const COMPACT_INTRO = `# VaneUI
 
-> React component library built on Tailwind CSS v4 with a boolean props API: you write
-> \`<Button primary lg filled>\` instead of \`appearance="primary" size="lg" variant="filled"\`.
+> VaneUI is a React component library built on Tailwind CSS v4 with a boolean props API: write \`<Button primary lg filled>\` instead of variant strings.
 > Current release: \`${PACKAGE_NAME}\` ${pkg.version}.
 
 Props are grouped into mutually exclusive categories (size, appearance, variant, shape,
@@ -55,7 +58,7 @@ sets application-wide defaults, extra classes and theme overrides.
 - CSS without Tailwind: \`@import "@vaneui/ui/css"\`
 - Repository: https://github.com/vaneui/vaneui
 - Documentation: ${BASE_URL}
-- All docs in one file: ${BASE_URL}/llms-full.txt
+- Markdown for every docs page: add \`.md\` to its URL (${docsMarkdownUrl('basic-components', 'button')}), or request the page with \`Accept: text/markdown\`
 - MCP server for AI agents (docs and per-component props): \`claude mcp add vaneui -- npx -y @vaneui/mcp\`
 
 Defaults keep JSX short: Button is ${coreDefaults('button')}; Card is ${coreDefaults('card')}; Text is ${coreDefaults('text')}; Row is ${coreDefaults('row')}.
@@ -70,87 +73,53 @@ it has \`onClick\` or \`tag="button"\`. \`noFocusVisible\` opts out.
 const FULL_INTRO = `# VaneUI Documentation
 
 > Complete documentation for the VaneUI React component library (\`${PACKAGE_NAME}\` ${pkg.version}),
-> every doc page concatenated into one file. Component pages end with their props, grouped by
-> category with defaults marked, generated from the installed package.
+> every doc page concatenated into one file. Each page starts with \`# <page name>\`, its URL and
+> one import line for the \`${PACKAGE_NAME}\` exports its examples use. Component pages end with
+> their props, grouped by category with defaults marked, generated from the installed package.
 
 - Repository: https://github.com/vaneui/vaneui
 - Documentation: ${BASE_URL}
 - Package: \`${PACKAGE_NAME}\` ${pkg.version}
 - Index: ${BASE_URL}/llms.txt
 
-Sections follow the site navigation: ${docsSectionsMeta.map((s) => s.name).join(', ')}.
+Pages follow the site navigation: ${docsSectionsMeta.map((s) => s.name).join(', ')}.
+Each page is also available on its own as Markdown at its URL plus \`.md\`.
 `;
 
 const readPageMarkdown = (section: DocSectionMeta, page: DocPageMeta) => readPageMarkdownFrom(ROOT, section, page);
 
-function pageUrl(section: DocSectionMeta, page: DocPageMeta): string {
-  return `${BASE_URL}/docs/${section.slug}/${page.slug}`;
-}
-
-/** Compact TOC entry: `- [Title](url): description` */
+/** Compact TOC entry linking the page's Markdown version: `- [Title](url.md): description` */
 function tocEntry(section: DocSectionMeta, page: DocPageMeta): string {
-  return `- [${page.name}](${pageUrl(section, page)}): ${page.description}`;
-}
-
-/** Component-specific props grouped by category, mirroring the page's props table. */
-function propsBlock(title: string, key: ComponentKey): string[] {
-  const groups = new Map<string, string[]>();
-  for (const row of getPropTableRows(key)) {
-    if (row.isCommon) continue;
-    const props = groups.get(row.category) ?? [];
-    props.push(row.isDefault ? `\`${row.prop}\` (default)` : `\`${row.prop}\``);
-    groups.set(row.category, props);
-  }
-  if (groups.size === 0) return [];
-  const lines = ['', `## ${title}`, ''];
-  for (const [category, props] of [...groups].sort(([a], [b]) => a.localeCompare(b))) {
-    lines.push(`- ${category}: ${props.join(', ')}`);
-  }
-  lines.push('', `Layout and utility props are listed on [Common Props](${COMMON_PROPS_URL}).`);
-  return lines;
-}
-
-/** Full entry: divider header + markdown body + generated props (or fallback description). */
-function fullEntry(section: DocSectionMeta, page: DocPageMeta): string[] {
-  const md = readPageMarkdown(section, page);
-  const { frontmatter, body } = parseFrontmatter(md ?? '');
-  const out: string[] = ['---', `Title: ${page.name}`, `URL: ${pageUrl(section, page)}`];
-  if (frontmatter.importPath) out.push(`Import: ${frontmatter.importPath}`);
-  out.push('---', '');
-  if (md) {
-    out.push(body.trim());
-  } else {
-    out.push(page.description, '', 'For full interactive examples and props documentation, visit the URL above.');
-  }
-  if (page.componentKey) out.push(...propsBlock('Props', page.componentKey));
-  if (page.secondaryComponentKey) {
-    const name = page.secondaryComponentName ?? page.secondaryComponentKey;
-    out.push(...propsBlock(`${name} props`, page.secondaryComponentKey));
-  }
-  return out;
+  return `- [${page.name}](${docsMarkdownUrl(section.slug, page.slug)}): ${page.description}`;
 }
 
 function generateCompact(): string {
   const lines: string[] = [COMPACT_INTRO.trimEnd(), ''];
+  const optional: string[] = [];
   for (const section of docsSectionsMeta) {
+    const pages = section.pages.filter((page) => !isOptional(section, page));
+    optional.push(...section.pages.filter((page) => isOptional(section, page)).map((page) => tocEntry(section, page)));
+    if (pages.length === 0) continue;
     lines.push(`## ${section.name}`, '');
-    for (const page of section.pages) {
+    for (const page of pages) {
       lines.push(tocEntry(section, page));
     }
     lines.push('');
   }
+  lines.push('## Optional', '', ...optional, `- [All docs in one file](${BASE_URL}/llms-full.txt): every page above concatenated, for bulk ingestion`);
   return lines.join('\n').replace(/\n{3,}/g, '\n\n').trimEnd() + '\n';
 }
 
+// Pages print one after another, each under its own `# <page name>`; the props print as one
+// line per category to keep the file small (the .md files carry the full props tables).
 function generateFull(): string {
-  const lines: string[] = [FULL_INTRO.trimEnd(), ''];
+  const parts = [FULL_INTRO.trimEnd()];
   for (const section of docsSectionsMeta) {
-    lines.push(`## ${section.name}`, '', section.description, '');
     for (const page of section.pages) {
-      lines.push(...fullEntry(section, page), '');
+      parts.push(renderPageMarkdown(ROOT, section, page, { props: 'list' }).trimEnd());
     }
   }
-  return lines.join('\n').replace(/\n{4,}/g, '\n\n\n').trimEnd() + '\n';
+  return parts.join('\n\n') + '\n';
 }
 
 const indexOutput = generateCompact();
