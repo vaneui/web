@@ -153,7 +153,7 @@ export function Hero() {
           </Reveal>
           <Reveal delay={60}>
             <PageTitle lg textCenter>
-              Deliver clean UI <br className="max-mobile:hidden"/>without complex code
+              React components for Tailwind CSS v4, <br className="max-mobile:hidden"/>styled with props
             </PageTitle>
           </Reveal>
           <Reveal delay={120}>
