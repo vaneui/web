@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { Playground } from './Playground';
+import { BASE_OPEN_GRAPH } from '../constants';
 
-const title = 'Playground - VaneUI';
+const title = 'Playground: Live React + Tailwind CSS Editor | VaneUI';
 const description =
   'Write React and VaneUI component code and see it render live, side by side, in the browser.';
 
@@ -12,9 +13,9 @@ export const metadata: Metadata = {
     canonical: '/playground',
   },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     type: 'website',
     url: '/playground',
-    siteName: 'VaneUI',
     title,
     description,
   },

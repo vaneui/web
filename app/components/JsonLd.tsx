@@ -1,4 +1,5 @@
 import React from 'react';
+import { PRODUCT } from '../constants';
 
 interface JsonLdProps {
   data: object | object[];
@@ -38,7 +39,7 @@ export const WEBSITE_SCHEMA = {
   name: 'VaneUI',
   alternateName: '@vaneui/ui',
   url: 'https://vaneui.com',
-  description: 'VaneUI is a React component library powered by Tailwind CSS. Designed for building beautiful and responsive user interfaces.',
+  description: PRODUCT.description,
   publisher: ORGANIZATION_SCHEMA,
   inLanguage: 'en',
 } as const;
@@ -48,7 +49,7 @@ export const SOFTWARE_SCHEMA = {
   '@type': 'SoftwareSourceCode',
   name: '@vaneui/ui',
   alternateName: 'VaneUI',
-  description: 'VaneUI is a React component library powered by Tailwind CSS. Boolean props API, comprehensive theming.',
+  description: PRODUCT.description,
   url: 'https://vaneui.com',
   codeRepository: 'https://github.com/vaneui/vaneui',
   programmingLanguage: ['TypeScript', 'JavaScript'],
@@ -57,13 +58,16 @@ export const SOFTWARE_SCHEMA = {
   operatingSystem: 'Web',
   license: 'https://opensource.org/licenses/MIT',
   author: ORGANIZATION_SCHEMA,
-  keywords: 'react, ui, components, tailwind, tailwindcss, typescript, design system, headless',
+  keywords: 'react, ui, components, tailwind, tailwindcss, typescript, design system',
 } as const;
 
-/** BreadcrumbList for docs pages: VaneUI > Documentation > Category > Page */
+/**
+ * BreadcrumbList for docs pages: VaneUI > Documentation > Page. The category
+ * has no page of its own (/docs/<category> is a 404), so it is not a level;
+ * the TechArticle's articleSection names it.
+ */
 export function buildBreadcrumbSchema(args: {
   category: string;
-  categoryName: string;
   slug: string;
   pageName: string;
 }) {
@@ -73,8 +77,7 @@ export function buildBreadcrumbSchema(args: {
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'VaneUI', item: 'https://vaneui.com' },
       { '@type': 'ListItem', position: 2, name: 'Documentation', item: 'https://vaneui.com/docs' },
-      { '@type': 'ListItem', position: 3, name: args.categoryName, item: `https://vaneui.com/docs/${args.category}` },
-      { '@type': 'ListItem', position: 4, name: args.pageName, item: `https://vaneui.com/docs/${args.category}/${args.slug}` },
+      { '@type': 'ListItem', position: 3, name: args.pageName, item: `https://vaneui.com/docs/${args.category}/${args.slug}` },
     ],
   };
 }

@@ -30,7 +30,7 @@ function OverlaysDemo() {
         <Modal open={open} onClose={() => setOpen(false)} noGap overflowHidden aria-labelledby="visit-title">
           {/* Close button pinned to the dialog's top corner, over the photo; its look comes from CLOSE_ON_PHOTO */}
           <ModalCloseButton aria-label="Close" className="absolute top-3 right-3 z-10"/>
-          <Img src="/puppy.png" alt="Oliver, a brown puppy, sitting in dry grass" width={480} height={256}
+          <Img src="/puppy-full.webp" alt="Oliver, a brown puppy, sitting in dry grass" width={480} height={256}
                sharp wFull className="h-64"/>
           <ModalBody>
             <Col xs>

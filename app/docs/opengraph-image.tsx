@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og';
 import { OG_SIZE, ogFonts } from '../components/og';
 import { PageCard } from '../components/ogPage';
 
-export const alt = 'VaneUI documentation';
+export const alt = 'VaneUI documentation: React components and theming guides, with live examples and prop tables';
 export const size = OG_SIZE;
 export const contentType = 'image/png';
 

@@ -5,6 +5,7 @@ import ThemeWrapper from "./themeWrapper";
 import { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next"
 import { JsonLd, WEBSITE_SCHEMA, SOFTWARE_SCHEMA } from "./components/JsonLd"
+import { BASE_OPEN_GRAPH } from "./constants"
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -25,7 +26,7 @@ const jetBrainsMono = JetBrains_Mono({
   variable: '--font-jetbrains-mono',
 })
 
-const SITE_TITLE = 'VaneUI - Deliver clean UI without complex code';
+const SITE_TITLE = 'VaneUI: React Component Library for Tailwind CSS v4';
 const SITE_DESCRIPTION = 'React component library with a boolean props API, built on Tailwind CSS v4. Write <Button primary lg filled> instead of variant strings.';
 
 // Vercel preview deployments should not be indexed; production is fine.
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   applicationName: 'VaneUI',
-  keywords: ['react', 'ui', 'components', 'tailwind', 'tailwindcss', 'typescript', 'vaneui', 'design system', 'headless'],
+  keywords: ['react', 'ui', 'components', 'tailwind', 'tailwindcss', 'typescript', 'vaneui', 'design system'],
   authors: [{ name: 'VaneUI' }],
   creator: 'VaneUI',
   publisher: 'VaneUI',
@@ -46,10 +47,9 @@ export const metadata: Metadata = {
     ? { robots: { index: false, follow: false } }
     : {}),
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     type: 'website',
-    locale: 'en_US',
     url: '/',
-    siteName: 'VaneUI',
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     // og:image comes from app/opengraph-image.tsx
@@ -67,7 +67,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#ffffff',
+  // The page background in each scheme: white, and VaneUI's dark --color-bg-primary (gray-950)
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#030712' },
+  ],
   width: 'device-width',
   initialScale: 1,
 };

@@ -4,6 +4,12 @@ export interface DocPageMeta {
   slug: string;
   name: string;
   description: string;
+  /**
+   * The `<title>` and Open Graph title of a guide page. Component pages (with a
+   * componentKey) get "<name> Component for React + Tailwind CSS | VaneUI"; a guide
+   * without one falls back to "<name> | VaneUI".
+   */
+  seoTitle?: string;
   mdPath?: string;
   /**
    * Markdown sourced from an installed package instead of app/docs/data, given as
@@ -35,19 +41,22 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'installation',
         name: 'Installation',
-        description: 'Follow these steps to get the library installed and ready to use in your application.',
+        seoTitle: 'Install VaneUI in a React + Tailwind CSS v4 Project',
+        description: 'Install @vaneui/ui with npm, yarn or pnpm, add its CSS through Tailwind CSS v4 or the prebuilt bundle, and wrap your React app in ThemeProvider.',
         mdPath: 'installation.md',
       },
       {
         slug: 'core-concepts',
         name: 'Core Concepts',
+        seoTitle: 'Core Concepts: Boolean Props for React Components | VaneUI',
         description: 'Understand VaneUI\'s philosophy of boolean props, Tailwind CSS integration, and component customization.',
         mdPath: 'core-concepts.md',
       },
       {
         slug: 'usage-basics',
         name: 'Usage Basics',
-        description: 'Learn fundamental patterns and concepts for using VaneUI components effectively.',
+        seoTitle: 'Usage Basics: Props and Layout for React Components | VaneUI',
+        description: 'Core VaneUI patterns in React: boolean size and appearance props, layout components, responsive visibility, typography, icons, images and overlays.',
         mdPath: 'usage-basics.md',
       },
     ]
@@ -343,54 +352,63 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'theming-overview',
         name: 'Theming Overview',
-        description: 'Understand VaneUI\'s theming system and design token architecture.',
+        seoTitle: 'Theming Overview for React + Tailwind CSS | VaneUI',
+        description: 'How VaneUI theming works: ComponentTheme classes, class mappers, ThemeProvider props and data attributes that style every React component via Tailwind CSS.',
         mdPath: 'theming-overview.md',
       },
       {
         slug: 'using-theme-provider',
         name: 'Using ThemeProvider',
+        seoTitle: 'Using ThemeProvider to Style a React App | VaneUI',
         description: 'Configure and customize themes throughout your application with ThemeProvider.',
         mdPath: 'using-theme-provider.md',
       },
       {
         slug: 'theme-and-override',
         name: 'Theme & ThemeOverride',
+        seoTitle: 'ThemeProvider theme and themeOverride Props | VaneUI',
         description: 'Customize themes using ThemeProvider\'s theme and themeOverride properties (applied to providers, not components).',
         mdPath: 'theme-and-override.md',
       },
       {
         slug: 'theme-defaults',
         name: 'ThemeDefaults',
-        description: 'Set default theme values across your application using themeDefaults.',
+        seoTitle: 'Set Default Props App-Wide with themeDefaults | VaneUI',
+        description: 'Set app-wide default props with ThemeProvider themeDefaults, such as a filled VaneUI Button everywhere, and see how defaults merge with component props.',
         mdPath: 'theme-defaults.md',
       },
       {
         slug: 'extra-classes',
         name: 'ExtraClasses',
-        description: 'Apply additional CSS classes to components using extraClasses.',
+        seoTitle: 'Add Tailwind CSS Classes per Prop with extraClasses | VaneUI',
+        description: 'Attach your own Tailwind CSS classes to VaneUI components when a boolean prop is active, with ThemeProvider extraClasses: hover effects, animations, sizes.',
         mdPath: 'extra-classes.md',
       },
       {
         slug: 'css-variables',
         name: 'CSS Variables',
-        description: 'Customize VaneUI components using CSS custom properties and variables.',
+        seoTitle: 'Customize Colors and Sizing with CSS Variables | VaneUI',
+        description: 'Change VaneUI colors and sizing with CSS custom properties: the three-tier variable system, color groups, and global or scoped overrides, no component edits.',
         mdPath: 'css-variables.md',
       },
       {
         slug: 'dark-mode',
         name: 'Dark Mode',
+        seoTitle: 'Dark Mode for React + Tailwind CSS Components | VaneUI',
         description: 'Enable dark mode with the data-theme="dark" attribute and re-declare color tokens for custom themes.',
         mdPath: 'dark-mode.md',
       },
       {
         slug: 'customizing-styles',
         name: 'Customizing Styles',
+        seoTitle: 'Override Component Styles with Tailwind CSS Classes | VaneUI',
         description: 'Override VaneUI component styles using Tailwind CSS classes, CSS variables, and the className prop.',
         mdPath: 'customizing-styles.md',
       },
       {
         slug: 'variant-inheritance',
         name: 'Variant Inheritance',
+        seoTitle: 'Variant Inheritance: How Colors Cascade | VaneUI',
         description: 'How components inherit colors from ancestor layouts via CSS custom-property cascade.',
         mdPath: 'variant-inheritance.md',
       },
@@ -404,12 +422,14 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'common-props',
         name: 'Common Props',
-        description: 'Layout and typography props shared across all components.',
+        seoTitle: 'Common Props Shared by VaneUI React Components',
+        description: 'Layout and utility props shared by most VaneUI React components, written as booleans: responsive hide, flex alignment, position, display, overflow and gap.',
       },
       {
         slug: 'changelog',
         name: 'Changelog',
-        description: 'Every user-visible change to @vaneui/ui, by version.',
+        seoTitle: '@vaneui/ui Changelog: Release Notes by Version | VaneUI',
+        description: 'Release notes for every @vaneui/ui version: added props and components, changes and fixes in the VaneUI React and Tailwind CSS library, newest first.',
         packageMdPath: '@vaneui/ui/CHANGELOG.md',
       },
     ]

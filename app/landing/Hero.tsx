@@ -125,7 +125,7 @@ export function Hero() {
 
   const card =
     <Card sm row mobileStack noPadding noGap overflowHidden data-anno="card">
-      <Img sm sharp src={dog.image} alt="" width={188} height={188} className="max-mobile:w-full" data-anno="img"/>
+      <Img sm sharp src={dog.image} alt="" width={188} height={188} fetchPriority="high" className="max-mobile:w-full" data-anno="img"/>
       <Stack sm>
         <Row justifyBetween>
           <Title tag="p">{dog.name}</Title>
@@ -154,7 +154,7 @@ export function Hero() {
           </Reveal>
           <Reveal delay={60}>
             <PageTitle lg textCenter>
-              Deliver clean UI <br className="max-mobile:hidden"/>without complex code
+              React components for Tailwind CSS v4, <br className="max-mobile:hidden"/>styled with props
             </PageTitle>
           </Reveal>
           <Reveal delay={120}>
