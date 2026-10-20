@@ -154,11 +154,11 @@ export function Hero() {
           </Reveal>
           <Reveal delay={60}>
             <PageTitle lg textCenter>
-              React components for Tailwind CSS v4, <br className="max-mobile:hidden"/>styled with props
+              Deliver clean UI <br className="max-mobile:hidden"/>without complex code
             </PageTitle>
           </Reveal>
           <Reveal delay={120}>
-            <Text lg tertiary textCenter className="max-w-[54ch]">{PRODUCT.description}</Text>
+            <Text lg tertiary textCenter className="max-w-[54ch]">{PRODUCT.subtitle}</Text>
           </Reveal>
           <Reveal delay={180} className="max-mobile:w-full">
             <Row mobileStack itemsStretch>
