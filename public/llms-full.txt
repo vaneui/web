@@ -15,7 +15,7 @@ Each page is also available on its own as Markdown at its URL plus `.md`.
 
 # Installation
 
-> Follow these steps to get the library installed and ready to use in your application.
+> Install @vaneui/ui with npm, yarn or pnpm, add its CSS through Tailwind CSS v4 or the prebuilt bundle, and wrap your React app in ThemeProvider.
 
 Source: https://vaneui.com/docs/getting-started/installation
 
@@ -305,7 +305,7 @@ A function that receives the resolved theme and returns it modified. Unlike `the
 
 # Usage Basics
 
-> Learn fundamental patterns and concepts for using VaneUI components effectively.
+> Core VaneUI patterns in React: boolean size and appearance props, layout components, responsive visibility, typography, icons, images and overlays.
 
 Source: https://vaneui.com/docs/getting-started/usage-basics
 
@@ -1877,8 +1877,8 @@ Add `href` to render the `Code` element as an `<a>` tag. A keyboard focus-visibl
 ```tsx demo
 <Col>
   <Text>Install <Code href="https://npmjs.com/package/@vaneui/ui" target="_blank" rel="noopener noreferrer">@vaneui/ui</Code> from npm.</Text>
-  <Text>The <Code href="#useState" info>useState</Code> hook returns a value and a setter.</Text>
-  <Text>See the <Code href="#install" filled success>install guide</Code> for setup steps.</Text>
+  <Text>The <Code href="https://react.dev/reference/react/useState" target="_blank" rel="noopener noreferrer" info>useState</Code> hook returns a value and a setter.</Text>
+  <Text>See the <Code href="/docs/getting-started/installation" filled success>install guide</Code> for setup steps.</Text>
 </Col>
 ```
 
@@ -6259,11 +6259,11 @@ Add `href` to render the Row as an `<a>` tag, useful for clickable list rows. A 
 
 ```tsx demo
 <Col>
-  <Row href="#inbox" justifyBetween padding border rounded>
+  <Row href="#as-link" justifyBetween padding border rounded>
     <Text fontSemibold>Inbox</Text>
     <Badge primary filled>12</Badge>
   </Row>
-  <Row href="#drafts" justifyBetween padding border rounded>
+  <Row href="#as-link" justifyBetween padding border rounded>
     <Text fontSemibold>Drafts</Text>
     <Badge secondary>3</Badge>
   </Row>
@@ -6561,12 +6561,12 @@ Add `href` to render the Col as an `<a>` tag, useful for clickable feature tiles
 
 ```tsx demo
 <Row itemsStart>
-  <Col href="#docs" flex1 padding border rounded>
+  <Col href="/docs" flex1 padding border rounded>
     <BookOpen size={20} />
     <Title>Documentation</Title>
     <Text secondary>Browse guides and API reference.</Text>
   </Col>
-  <Col href="#examples" flex1 padding border rounded>
+  <Col href="#as-link" flex1 padding border rounded>
     <Codepen size={20} />
     <Title>Examples</Title>
     <Text secondary>Copy-ready component patterns.</Text>
@@ -6614,7 +6614,7 @@ Layout and utility props (Border, Display, Flex Direction, Focus Visible, Gap, H
 
 Source: https://vaneui.com/docs/layout-components/stack
 
-Import: `import { Stack, Button, Checkbox, Col, Input, Label, PageTitle, Row, Text, Title } from "@vaneui/ui"`
+Import: `import { Stack, Button, Card, Checkbox, Col, Input, Label, PageTitle, Row, Text, Title } from "@vaneui/ui"`
 
 Think of `Stack` as `Col` plus built-in `padding` and `flexWrap`.
 
@@ -6723,27 +6723,27 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to scale gap and padding together,
 <Row itemsStart>
   <Stack xs filled secondary flex1>
     <Text fontSemibold>xs padding</Text>
-    <div className="p-2 bg-white/80 rounded">Item</div>
+    <Card xs>Item</Card>
   </Stack>
   <Stack sm filled secondary flex1>
     <Text fontSemibold>sm padding</Text>
-    <div className="p-2 bg-white/80 rounded">Item</div>
+    <Card xs>Item</Card>
   </Stack>
   <Stack filled secondary flex1>
     <Text fontSemibold>md padding (default)</Text>
-    <div className="p-2 bg-white/80 rounded">Item</div>
+    <Card xs>Item</Card>
   </Stack>
   <Stack lg filled secondary flex1>
     <Text fontSemibold>lg padding</Text>
-    <div className="p-2 bg-white/80 rounded">Item</div>
+    <Card xs>Item</Card>
   </Stack>
   <Stack xl filled secondary flex1>
     <Text fontSemibold>xl padding</Text>
-    <div className="p-2 bg-white/80 rounded">Item</div>
+    <Card xs>Item</Card>
   </Stack>
   <Stack noPadding filled secondary flex1>
     <Text fontSemibold>noPadding</Text>
-    <div className="p-2 bg-white/80 rounded">Item</div>
+    <Card xs>Item</Card>
   </Stack>
 </Row>
 ```
@@ -6848,12 +6848,12 @@ Use `filled` or `outline` with appearance props for styled containers. Stack def
 ```tsx demo
 <Row itemsStart>
   <Stack filled primary rounded flex1>
-    <div className="p-4 bg-white/80 rounded">Filled Primary</div>
-    <div className="p-4 bg-white/80 rounded">Item 2</div>
+    <Card sm>Filled Primary</Card>
+    <Card sm>Item 2</Card>
   </Stack>
   <Stack border success rounded flex1>
-    <div className="p-4 rounded">Outline Success</div>
-    <div className="p-4 rounded">Item 2</div>
+    <Card sm success>Outline Success</Card>
+    <Card sm success>Item 2</Card>
   </Stack>
 </Row>
 ```
@@ -6911,10 +6911,10 @@ Stack's built-in padding makes it a natural container for a form: each `Label` s
     Password
     <Input type="password" placeholder="********" />
   </Label>
-  <Row>
+  <Label row itemsCenter>
     <Checkbox />
-    <Text sm>Remember me</Text>
-  </Row>
+    Remember me
+  </Label>
   <Button filled>Sign in</Button>
 </Stack>
 ```
@@ -6924,7 +6924,7 @@ Stack's built-in padding makes it a natural container for a form: each `Label` s
 Add `href` to render the Stack as an `<a>` tag, useful for hero cards and large clickable surfaces. A keyboard focus-visible outline auto-renders so the link is reachable via Tab; opt out with `noFocusVisible`.
 
 ```tsx demo
-<Stack href="#get-started" border rounded itemsStart className="max-w-md">
+<Stack href="/docs/getting-started/installation" border rounded itemsStart className="max-w-md">
   <Zap size={28} />
   <PageTitle>Get started in minutes</PageTitle>
   <Text>Install the package, drop in ThemeProvider, and start shipping.</Text>
@@ -7157,11 +7157,11 @@ The whole card becomes one link, so don't put a `Button`, `Link` or field inside
 
 ```tsx demo
 <Row flexWrap>
-  <Card href="#services" filled>
+  <Card href="#as-link" filled>
     <Title filled>Services</Title>
     <Text filled>Click to navigate</Text>
   </Card>
-  <Card href="#pricing" secondary filled>
+  <Card href="#as-link" secondary filled>
     <Title secondary filled>Pricing</Title>
     <Text secondary filled>View our plans</Text>
   </Card>
@@ -9476,7 +9476,7 @@ Layout and utility props (Align Self, Border, Clamp Height, Constrain Width, Dis
 
 # Theming Overview
 
-> Understand VaneUI's theming system and design token architecture.
+> How VaneUI theming works: ComponentTheme classes, class mappers, ThemeProvider props and data attributes that style every React component via Tailwind CSS.
 
 Source: https://vaneui.com/docs/customization/theming-overview
 
@@ -10133,7 +10133,7 @@ Child overrides build on parent modifications:
 
 # ThemeDefaults
 
-> Set default theme values across your application using themeDefaults.
+> Set app-wide default props with ThemeProvider themeDefaults, such as a filled VaneUI Button everywhere, and see how defaults merge with component props.
 
 Source: https://vaneui.com/docs/customization/theme-defaults
 
@@ -10538,7 +10538,7 @@ const layoutDefaults: ThemeDefaults = {
 
 # ExtraClasses
 
-> Apply additional CSS classes to components using extraClasses.
+> Attach your own Tailwind CSS classes to VaneUI components when a boolean prop is active, with ThemeProvider extraClasses: hover effects, animations, sizes.
 
 Source: https://vaneui.com/docs/customization/extra-classes
 
@@ -10753,7 +10753,7 @@ The `extraClasses` system lets you extend VaneUI components with prop-conditiona
 
 # CSS Variables
 
-> Customize VaneUI components using CSS custom properties and variables.
+> Change VaneUI colors and sizing with CSS custom properties: the three-tier variable system, color groups, and global or scoped overrides, no component edits.
 
 Source: https://vaneui.com/docs/customization/css-variables
 
@@ -11394,7 +11394,7 @@ Title, PageTitle, and SectionTitle have `responsiveSizing: true` in their defaul
 
 # Common Props
 
-> Layout and typography props shared across all components.
+> Layout and utility props shared by most VaneUI React components, written as booleans: responsive hide, flex alignment, position, display, overflow and gap.
 
 Source: https://vaneui.com/docs/reference/common-props
 
@@ -11756,7 +11756,7 @@ Horizontal or vertical layout direction for certain components.
 
 # Changelog
 
-> Every user-visible change to @vaneui/ui, by version.
+> Release notes for every @vaneui/ui version: added props and components, changes and fixes in the VaneUI React and Tailwind CSS library, newest first.
 
 Source: https://vaneui.com/docs/reference/changelog
 

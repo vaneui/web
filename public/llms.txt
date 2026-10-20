@@ -26,9 +26,9 @@ it has `onClick` or `tag="button"`. `noFocusVisible` opts out.
 
 ## Getting Started
 
-- [Installation](https://vaneui.com/docs/getting-started/installation.md): Follow these steps to get the library installed and ready to use in your application.
+- [Installation](https://vaneui.com/docs/getting-started/installation.md): Install @vaneui/ui with npm, yarn or pnpm, add its CSS through Tailwind CSS v4 or the prebuilt bundle, and wrap your React app in ThemeProvider.
 - [Core Concepts](https://vaneui.com/docs/getting-started/core-concepts.md): Understand VaneUI's philosophy of boolean props, Tailwind CSS integration, and component customization.
-- [Usage Basics](https://vaneui.com/docs/getting-started/usage-basics.md): Learn fundamental patterns and concepts for using VaneUI components effectively.
+- [Usage Basics](https://vaneui.com/docs/getting-started/usage-basics.md): Core VaneUI patterns in React: boolean size and appearance props, layout components, responsive visibility, typography, icons, images and overlays.
 
 ## Basic Components
 
@@ -88,21 +88,21 @@ it has `onClick` or `tag="button"`. `noFocusVisible` opts out.
 
 ## Customization
 
-- [Theming Overview](https://vaneui.com/docs/customization/theming-overview.md): Understand VaneUI's theming system and design token architecture.
+- [Theming Overview](https://vaneui.com/docs/customization/theming-overview.md): How VaneUI theming works: ComponentTheme classes, class mappers, ThemeProvider props and data attributes that style every React component via Tailwind CSS.
 - [Using ThemeProvider](https://vaneui.com/docs/customization/using-theme-provider.md): Configure and customize themes throughout your application with ThemeProvider.
 - [Theme & ThemeOverride](https://vaneui.com/docs/customization/theme-and-override.md): Customize themes using ThemeProvider's theme and themeOverride properties (applied to providers, not components).
-- [ThemeDefaults](https://vaneui.com/docs/customization/theme-defaults.md): Set default theme values across your application using themeDefaults.
-- [ExtraClasses](https://vaneui.com/docs/customization/extra-classes.md): Apply additional CSS classes to components using extraClasses.
-- [CSS Variables](https://vaneui.com/docs/customization/css-variables.md): Customize VaneUI components using CSS custom properties and variables.
+- [ThemeDefaults](https://vaneui.com/docs/customization/theme-defaults.md): Set app-wide default props with ThemeProvider themeDefaults, such as a filled VaneUI Button everywhere, and see how defaults merge with component props.
+- [ExtraClasses](https://vaneui.com/docs/customization/extra-classes.md): Attach your own Tailwind CSS classes to VaneUI components when a boolean prop is active, with ThemeProvider extraClasses: hover effects, animations, sizes.
+- [CSS Variables](https://vaneui.com/docs/customization/css-variables.md): Change VaneUI colors and sizing with CSS custom properties: the three-tier variable system, color groups, and global or scoped overrides, no component edits.
 - [Dark Mode](https://vaneui.com/docs/customization/dark-mode.md): Enable dark mode with the data-theme="dark" attribute and re-declare color tokens for custom themes.
 - [Customizing Styles](https://vaneui.com/docs/customization/customizing-styles.md): Override VaneUI component styles using Tailwind CSS classes, CSS variables, and the className prop.
 - [Variant Inheritance](https://vaneui.com/docs/customization/variant-inheritance.md): How components inherit colors from ancestor layouts via CSS custom-property cascade.
 
 ## Reference
 
-- [Common Props](https://vaneui.com/docs/reference/common-props.md): Layout and typography props shared across all components.
+- [Common Props](https://vaneui.com/docs/reference/common-props.md): Layout and utility props shared by most VaneUI React components, written as booleans: responsive hide, flex alignment, position, display, overflow and gap.
 
 ## Optional
 
-- [Changelog](https://vaneui.com/docs/reference/changelog.md): Every user-visible change to @vaneui/ui, by version.
+- [Changelog](https://vaneui.com/docs/reference/changelog.md): Release notes for every @vaneui/ui version: added props and components, changes and fixes in the VaneUI React and Tailwind CSS library, newest first.
 - [All docs in one file](https://vaneui.com/llms-full.txt): every page above concatenated, for bulk ingestion
