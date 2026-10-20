@@ -16,6 +16,7 @@ const COLUMNS: { title: string; links: { text: string; href: string }[] }[] = [
       { text: 'Core concepts', href: '/docs/getting-started/core-concepts' },
       { text: 'Installation', href: '/docs/getting-started/installation' },
       { text: 'Changelog', href: '/docs/reference/changelog' },
+      { text: 'llms.txt', href: '/llms.txt' },
     ],
   },
   {
@@ -32,6 +33,9 @@ const COLUMNS: { title: string; links: { text: string; href: string }[] }[] = [
     links: BUILT_WITH.map(b => ({ text: b.name, href: b.href })),
   },
 ];
+
+// Pages go through the Next.js router; external URLs and plain files such as /llms.txt are ordinary links
+const isPage = (href: string) => href.startsWith('/') && !/\.\w+$/.test(href);
 
 /** Site footer, shared by every page */
 export function LandingFooter() {
@@ -55,7 +59,7 @@ export function LandingFooter() {
               {col.links.map(link => (
                 <li key={link.text}>
                   <Link sm secondary noUnderline href={link.href} external={link.href.startsWith('http')}
-                        tag={link.href.startsWith('http') ? 'a' : NextLink}>
+                        tag={isPage(link.href) ? NextLink : 'a'}>
                     {link.text}
                   </Link>
                 </li>

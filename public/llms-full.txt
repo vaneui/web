@@ -1,24 +1,25 @@
 # VaneUI Documentation
 
 > Complete documentation for the VaneUI React component library (`@vaneui/ui` 1.4.4),
-> every doc page concatenated into one file. Component pages end with their props, grouped by
-> category with defaults marked, generated from the installed package.
+> every doc page concatenated into one file. Each page starts with `# <page name>`, its URL and
+> one import line for the `@vaneui/ui` exports its examples use. Component pages end with
+> their props, grouped by category with defaults marked, generated from the installed package.
 
 - Repository: https://github.com/vaneui/vaneui
 - Documentation: https://vaneui.com
 - Package: `@vaneui/ui` 1.4.4
 - Index: https://vaneui.com/llms.txt
 
-Sections follow the site navigation: Getting Started, Basic Components, Form Components, Typography Components, Layout Components, Overlay Components, Customization, Reference.
+Pages follow the site navigation: Getting Started, Basic Components, Form Components, Typography Components, Layout Components, Overlay Components, Customization, Reference.
+Each page is also available on its own as Markdown at its URL plus `.md`.
 
-## Getting Started
+# Installation
 
-An overview of the library and instructions on how to install and configure it in your project.
+> Follow these steps to get the library installed and ready to use in your application.
 
----
-Title: Installation
-URL: https://vaneui.com/docs/getting-started/installation
----
+Source: https://vaneui.com/docs/getting-started/installation
+
+Import: `import { Button, Card, Stack, ThemeProvider, useTheme } from "@vaneui/ui"`
 
 Install VaneUI, a React component library built with TypeScript and Tailwind CSS, using your preferred package manager:
 
@@ -129,10 +130,13 @@ This is optional. Importing from `@vaneui/ui` works the same way. Per-component 
 
 Available subpath imports include: `@vaneui/ui/button`, `@vaneui/ui/iconButton`, `@vaneui/ui/icon`, `@vaneui/ui/badge`, `@vaneui/ui/card`, `@vaneui/ui/checkbox`, `@vaneui/ui/chip`, `@vaneui/ui/code`, `@vaneui/ui/divider`, `@vaneui/ui/img`, `@vaneui/ui/input`, `@vaneui/ui/kbd`, `@vaneui/ui/label`, `@vaneui/ui/mark`, `@vaneui/ui/menu`, `@vaneui/ui/modal`, `@vaneui/ui/navLink`, `@vaneui/ui/overlay`, `@vaneui/ui/popup`, `@vaneui/ui/section`, `@vaneui/ui/container`, `@vaneui/ui/row`, `@vaneui/ui/col`, `@vaneui/ui/stack`, `@vaneui/ui/grid`, `@vaneui/ui/typography`, `@vaneui/ui/layout`, `@vaneui/ui/theme`, `@vaneui/ui/props`.
 
----
-Title: Core Concepts
-URL: https://vaneui.com/docs/getting-started/core-concepts
----
+# Core Concepts
+
+> Understand VaneUI's philosophy of boolean props, Tailwind CSS integration, and component customization.
+
+Source: https://vaneui.com/docs/getting-started/core-concepts
+
+Import: `import { Button, Card, Stack, ThemeProvider } from "@vaneui/ui"`
 
 VaneUI turns common design decisions into boolean props. Instead of memorizing property names and values, you compose intent: `primary`, `lg`, `outline`, `rounded`. This page covers the boolean props API, the three-layer component architecture, prop extraction priority, and the three-tier CSS variable system.
 
@@ -299,10 +303,13 @@ A function that receives the resolved theme and returns it modified. Unlike `the
 </ThemeProvider>
 ```
 
----
-Title: Usage Basics
-URL: https://vaneui.com/docs/getting-started/usage-basics
----
+# Usage Basics
+
+> Learn fundamental patterns and concepts for using VaneUI components effectively.
+
+Source: https://vaneui.com/docs/getting-started/usage-basics
+
+Import: `import { Badge, Button, Card, Col, Container, Icon, Img, List, ListItem, Modal, ModalBody, ModalCloseButton, ModalFooter, ModalHeader, PageTitle, Popup, PopupTrigger, Row, Section, SectionTitle, Stack, Text, Title } from "@vaneui/ui"`
 
 VaneUI components share a boolean props API for size, appearance, variant, and layout. This page covers the core usage patterns: size and appearance props, layout components, responsive breakpoints, typography, icons, images, overlays, and when to prefer props over Tailwind classes.
 
@@ -793,15 +800,13 @@ Typography components have built-in letter spacing, line height, and other typog
 <Title className="leading-tight">Overridden heading</Title>
 ```
 
-## Basic Components
+# Button
 
-A collection of fundamental and interactive components for building user interfaces.
+> Button triggers an action or event when clicked. It can contain text, an icon, or both, and is a primary way for users to interact with the app.
 
----
-Title: Button
-URL: https://vaneui.com/docs/basic-components/button
-Import: import { Button } from "@vaneui/ui"
----
+Source: https://vaneui.com/docs/basic-components/button
+
+Import: `import { Button, Col, Row, ThemeProvider } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -1012,13 +1017,15 @@ Add prop-conditional classes with `extraClasses`, applied whenever the matching 
 - Variant: `filled`, `outline` (default), `ghost`
 - Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transition, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: IconButton
-URL: https://vaneui.com/docs/basic-components/icon-button
-Import: import { IconButton } from "@vaneui/ui"
----
+# IconButton
+
+> A square icon-only button with customizable appearance, size, and shape. Supports loading state and renders as anchor when href is provided.
+
+Source: https://vaneui.com/docs/basic-components/icon-button
+
+Import: `import { IconButton, Col, Row, Text, ThemeProvider } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -1202,13 +1209,15 @@ Set app-wide IconButton defaults with `ThemeProvider`'s `themeDefaults`:
 - Variant: `filled`, `outline` (default), `ghost`
 - Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transition, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: NavLink
-URL: https://vaneui.com/docs/basic-components/navlink
-Import: import { NavLink } from "@vaneui/ui"
----
+# NavLink
+
+> A navigation link for sidebars, nav menus, and headers. Supports active state, icons, and renders as anchor or button.
+
+Source: https://vaneui.com/docs/basic-components/navlink
+
+Import: `import { NavLink, Badge, Card, Col, Divider, Row, Text, ThemeProvider } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -1406,13 +1415,15 @@ Set app-wide NavLink defaults with `ThemeProvider`'s `themeDefaults`. Style the 
 - Variant: `filled`, `outline` (default), `ghost`
 - Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transition, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Badge
-URL: https://vaneui.com/docs/basic-components/badge
-Import: import { Badge } from "@vaneui/ui"
----
+# Badge
+
+> Badge highlights information such as notifications or counts in a non-intrusive way. Often paired with other elements like icons or navigation links.
+
+Source: https://vaneui.com/docs/basic-components/badge
+
+Import: `import { Badge, Card, Col, Row, Text, ThemeProvider, Title } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -1552,13 +1563,15 @@ Set app-wide Badge defaults with `ThemeProvider`'s `themeDefaults`:
 - Variant: `filled`, `outline` (default), `ghost`
 - Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transition, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Chip
-URL: https://vaneui.com/docs/basic-components/chip
-Import: import { Chip } from "@vaneui/ui"
----
+# Chip
+
+> Compact token for tags, attributes, or other discrete entities inline with text. Defaults to secondary appearance, outline variant, and rounded shape.
+
+Source: https://vaneui.com/docs/basic-components/chip
+
+Import: `import { Chip, Card, Col, IconButton, Row, Text, ThemeProvider, Title } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -1746,13 +1759,15 @@ Add prop-conditional classes with `extraClasses`, applied whenever the matching 
 - Variant: `filled`, `outline` (default), `ghost`
 - Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transition, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Code
-URL: https://vaneui.com/docs/basic-components/code
-Import: import { Code } from "@vaneui/ui"
----
+# Code
+
+> Renders inline code snippets in a themed monospace surface. Use for commands, file paths, or technical terms in prose; renders as an anchor when given href.
+
+Source: https://vaneui.com/docs/basic-components/code
+
+Import: `import { Code, Button, Col, PageTitle, Row, SectionTitle, Text, Title } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -1899,13 +1914,15 @@ import { Code, Text } from '@vaneui/ui';
 - Variant: `filled`, `outline` (default), `ghost`
 - Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transition, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Kbd
-URL: https://vaneui.com/docs/basic-components/kbd
-Import: import { Kbd } from "@vaneui/ui"
----
+# Kbd
+
+> Displays keyboard keys and shortcuts with monospace font, border, and a raised 3D effect. Ideal for documenting keyboard shortcuts.
+
+Source: https://vaneui.com/docs/basic-components/kbd
+
+Import: `import { Kbd, Col, PageTitle, Row, SectionTitle, Text, Title } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -2060,13 +2077,15 @@ Display a set of keyboard shortcuts in a structured layout.
 - Variant: `filled`, `outline` (default), `ghost`
 - Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transition, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Mark
-URL: https://vaneui.com/docs/basic-components/mark
-Import: import { Mark } from "@vaneui/ui"
----
+# Mark
+
+> Highlights text with a background color for emphasis. Defaults to warning (yellow) appearance for a natural highlighter effect.
+
+Source: https://vaneui.com/docs/basic-components/mark
+
+Import: `import { Mark, Col, PageTitle, Row, SectionTitle, Text, Title } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -2193,13 +2212,15 @@ Use Mark to highlight search matches within text content.
 - Variant: `filled`, `outline` (default), `ghost`
 - Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transition, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Icon
-URL: https://vaneui.com/docs/basic-components/icon
-Import: import { Icon } from "@vaneui/ui"
----
+# Icon
+
+> A lightweight SVG wrapper that provides consistent sizing, color inheritance, and themed appearances for icons.
+
+Source: https://vaneui.com/docs/basic-components/icon
+
+Import: `import { Icon, Button, Card, Col, Row, Text } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -2418,13 +2439,15 @@ Icons work naturally alongside text and inside buttons.
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Display, Height, Hide, Items, Justify, Position, Ring, Shadow, Transition, Transparent, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Alert
-URL: https://vaneui.com/docs/basic-components/alert
-Import: import { Alert } from "@vaneui/ui"
----
+# Alert
+
+> Alert is a live region for messages that follow a user action. It announces itself when it appears, assertively by default or politely on request.
+
+Source: https://vaneui.com/docs/basic-components/alert
+
+Import: `import { Alert, Button, Col, Text } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -2533,13 +2556,15 @@ Alert is `rounded` by default. `sharp` suits an alert pinned to the edge of a pa
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Display, Flex Direction, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Spinner
-URL: https://vaneui.com/docs/basic-components/spinner
-Import: import { Spinner } from "@vaneui/ui"
----
+# Spinner
+
+> Spinner indicates that something is in progress. The ring is sized in em, so it scales with the size prop and lines up with text.
+
+Source: https://vaneui.com/docs/basic-components/spinner
+
+Import: `import { Spinner, Badge, Card, Col, Row, Text } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -2641,17 +2666,15 @@ Because the ring is sized in em, it matches the surrounding text without any man
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Display, Hide) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
-## Form Components
+# Input
 
-Controls for capturing user input, and the label that ties them to their text.
+> Input lets users enter text, numbers, and other data. A form element with support for various types, validation states, and styling options.
 
----
-Title: Input
-URL: https://vaneui.com/docs/form-components/input
-Import: import { Input } from "@vaneui/ui"
----
+Source: https://vaneui.com/docs/form-components/input
+
+Import: `import { Input, Button, Col, Label, Row, ThemeProvider } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -2799,13 +2822,15 @@ Set app-wide Input defaults with `ThemeProvider`'s `themeDefaults` and add a foc
 - Validity: `invalid`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transition, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Checkbox
-URL: https://vaneui.com/docs/form-components/checkbox
-Import: import { Checkbox } from "@vaneui/ui"
----
+# Checkbox
+
+> Allows users to select one or more options from a set. Checkboxes are ideal for binary choices and multiple selections within forms.
+
+Source: https://vaneui.com/docs/form-components/checkbox
+
+Import: `import { Checkbox, Col, Label, Link, Row, Text, ThemeProvider } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -3084,13 +3109,15 @@ Set app-wide Checkbox defaults with `ThemeProvider`'s `themeDefaults` and tune t
 - Validity: `invalid`
 - Variant: `filled` (default), `outline`, `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Align Self, Border, Cursor, Display, Focus Visible, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transition, Transparent, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Label
-URL: https://vaneui.com/docs/form-components/label
-Import: import { Label } from "@vaneui/ui"
----
+# Label
+
+> Label associates text with a form control. Wrap an Input or Checkbox to make the label clickable, or use htmlFor when the control sits outside.
+
+Source: https://vaneui.com/docs/form-components/label
+
+Import: `import { Label, Card, Checkbox, Code, Col, Field, Input, Row, Text } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -3283,13 +3310,15 @@ Use appearances to indicate field status: `danger` for errors, `success` for val
 - Truncate: `truncate`, `lineClamp2`, `lineClamp3`, `lineClamp4`, `lineClamp5`, `noTruncate`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Cursor, Display, Flex Direction, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Field
-URL: https://vaneui.com/docs/form-components/field
-Import: import { Field } from "@vaneui/ui"
----
+# Field
+
+> Field wires a control to its label, help text and error message. It owns the id, points the label at the control, and links both messages with aria-describedby.
+
+Source: https://vaneui.com/docs/form-components/field
+
+Import: `import { Field, Card, Col, Input, Label, Radio, RadioGroup, Select, Textarea } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -3488,13 +3517,15 @@ If the control already carries an `id`, Field adopts it rather than generating o
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Display, Flex Direction, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Textarea
-URL: https://vaneui.com/docs/form-components/textarea
-Import: import { Textarea } from "@vaneui/ui"
----
+# Textarea
+
+> Textarea captures multi-line input. It shares the Input size ramp and appearance props, resizes vertically, and never collapses below three lines.
+
+Source: https://vaneui.com/docs/form-components/textarea
+
+Import: `import { Textarea, Col, Field, Row } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -3592,13 +3623,15 @@ Note that the value itself never turns red. Colouring what the user typed hurts 
 - Validity: `invalid`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transition, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Select
-URL: https://vaneui.com/docs/form-components/select
-Import: import { Select } from "@vaneui/ui"
----
+# Select
+
+> Select presents a list of options using the native dropdown, so it stays keyboard and screen-reader correct and behaves as expected on mobile.
+
+Source: https://vaneui.com/docs/form-components/select
+
+Import: `import { Select, Col, Field, Row } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -3796,13 +3829,15 @@ Selects are `primary` by default and take the same appearance props as `Input`.
 - Validity: `invalid`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transition, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Radio
-URL: https://vaneui.com/docs/form-components/radio
-Import: import { Radio, RadioGroup } from "@vaneui/ui"
----
+# Radio
+
+> Radio selects exactly one option from a set. RadioGroup shares a name across its options and exposes them as a single labelled group.
+
+Source: https://vaneui.com/docs/form-components/radio
+
+Import: `import { Radio, RadioGroup, Col, Field, Label, Row } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -3916,13 +3951,15 @@ The Radio takes its own size prop, which wins over the size inherited from the L
 - Validity: `invalid`
 - Variant: `filled` (default), `outline`, `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Align Self, Border, Cursor, Display, Focus Visible, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transition, Transparent, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Switch
-URL: https://vaneui.com/docs/form-components/switch
-Import: import { Switch } from "@vaneui/ui"
----
+# Switch
+
+> Switch toggles a setting that takes effect immediately. Use Checkbox instead when the value is submitted with a form.
+
+Source: https://vaneui.com/docs/form-components/switch
+
+Import: `import { Switch, Col, Label, Row } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -4028,17 +4065,15 @@ A `readOnly` switch keeps its value when clicked and dims like a read-only text 
 - Validity: `invalid`
 - Variant: `filled` (default), `outline`, `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Align Self, Border, Cursor, Display, Focus Visible, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transition, Transparent, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
-## Typography Components
+# Text
 
-A suite of components for rendering text and establishing a clear typographic hierarchy.
+> The primary component for rendering all text content. It provides props to control typographic properties like size, weight, color, and alignment.
 
----
-Title: Text
-URL: https://vaneui.com/docs/typography-components/text
-Import: import { Text } from "@vaneui/ui"
----
+Source: https://vaneui.com/docs/typography-components/text
+
+Import: `import { Text, Card, Col, Row } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -4276,13 +4311,15 @@ Combining text properties for real-world use cases.
 - Variant: `filled`, `outline` (default), `ghost`
 - Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Cursor, Display, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Whitespace, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: PageTitle
-URL: https://vaneui.com/docs/typography-components/page-title
-Import: import { PageTitle } from "@vaneui/ui"
----
+# PageTitle
+
+> A specialized component for the primary heading of a page. It ensures consistent styling for top-level titles across your application.
+
+Source: https://vaneui.com/docs/typography-components/page-title
+
+Import: `import { PageTitle, Button, Card, Col, Divider, Row, SectionTitle, Stack, Text, Title } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -4468,13 +4505,15 @@ Combine an `xl` PageTitle with a large subtitle and a call to action for a marke
 - Variant: `filled`, `outline` (default), `ghost`
 - Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Cursor, Display, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Whitespace, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: SectionTitle
-URL: https://vaneui.com/docs/typography-components/section-title
-Import: import { SectionTitle } from "@vaneui/ui"
----
+# SectionTitle
+
+> A component for rendering headings of major sections within a page. It helps to create a clear and accessible document structure.
+
+Source: https://vaneui.com/docs/typography-components/section-title
+
+Import: `import { SectionTitle, Card, Col, Divider, PageTitle, Section, Text, Title } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -4675,13 +4714,15 @@ Combine SectionTitle with Divider and content for a structured section.
 - Variant: `filled`, `outline` (default), `ghost`
 - Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Cursor, Display, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Whitespace, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Title
-URL: https://vaneui.com/docs/typography-components/title
-Import: import { Title } from "@vaneui/ui"
----
+# Title
+
+> Renders a heading to establish a semantic hierarchy on the page. Use this component for the main titles of pages or sections.
+
+Source: https://vaneui.com/docs/typography-components/title
+
+Import: `import { Title, Badge, Card, Col, PageTitle, Row, SectionTitle, Text } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -4867,13 +4908,15 @@ Titles work well with other typography components in cards and sections.
 - Variant: `filled`, `outline` (default), `ghost`
 - Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Cursor, Display, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Whitespace, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Link
-URL: https://vaneui.com/docs/typography-components/link
-Import: import { Link } from "@vaneui/ui"
----
+# Link
+
+> Renders an accessible and themeable anchor link for navigation. Use this to direct users to other pages or external websites.
+
+Source: https://vaneui.com/docs/typography-components/link
+
+Import: `import { Link, Col, PageTitle, Row, SectionTitle, Text, ThemeProvider, Title } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -5076,13 +5119,15 @@ Set app-wide Link defaults with `ThemeProvider`'s `themeDefaults`:
 - Variant: `filled`, `outline`, `ghost`
 - Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Cursor, Display, Focus Visible, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Whitespace, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: List
-URL: https://vaneui.com/docs/typography-components/list
-Import: import { List } from "@vaneui/ui"
----
+# List
+
+> A container for displaying a series of related items in an ordered or unordered fashion. Documents both List and its ListItem entries.
+
+Source: https://vaneui.com/docs/typography-components/list
+
+Import: `import { List, Card, Col, ListItem, Text } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -5397,7 +5442,7 @@ Use `truncate` for a single clipped line, or `lineClamp2` through `lineClamp5` t
 - Variant: `filled`, `outline` (default), `ghost`
 - Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Display, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Transparent, Whitespace, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
 ## ListItem props
 
@@ -5415,13 +5460,15 @@ Layout and utility props are listed on [Common Props](https://vaneui.com/docs/re
 - Variant: `filled`, `outline` (default), `ghost`
 - Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Display, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Whitespace, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Blockquote
-URL: https://vaneui.com/docs/typography-components/blockquote
-Import: import { Blockquote } from "@vaneui/ui"
----
+# Blockquote
+
+> Displays quoted content with a left border accent. Inherits appearance from the parent by default, so it blends into themed containers.
+
+Source: https://vaneui.com/docs/typography-components/blockquote
+
+Import: `import { Blockquote, Card, Col, Row, Text } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -5574,17 +5621,15 @@ Use blockquotes with attribution for testimonials and customer quotes.
 - Variant: `filled`, `outline` (default), `ghost`
 - Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Cursor, Display, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Whitespace, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
-## Layout Components
+# Container
 
-A set of components designed to help structure and organize your page content.
+> Manages the main content area by centering it and applying a max-width. It ensures a consistent and readable layout across different screen sizes.
 
----
-Title: Container
-URL: https://vaneui.com/docs/layout-components/container
-Import: import { Container } from "@vaneui/ui"
----
+Source: https://vaneui.com/docs/layout-components/container
+
+Import: `import { Container, Col, PageTitle, Section, Text, Title } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -5737,13 +5782,15 @@ The canonical page layout: a Section owns vertical padding and full-width backgr
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Display, Flex Direction, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Section
-URL: https://vaneui.com/docs/layout-components/section
-Import: import { Section } from "@vaneui/ui"
----
+# Section
+
+> Groups related content and owns the outer padding and background of a page band. Renders as a plain wrapper by default; pass tag="section" for a landmark.
+
+Source: https://vaneui.com/docs/layout-components/section
+
+Import: `import { Section, Col, Container, PageTitle, Text, Title } from "@vaneui/ui"`
 
 Sections own the outer padding and background; nest a `Container` inside to cap the inner reading width.
 
@@ -5941,13 +5988,15 @@ The canonical full-bleed page band: a Section owns the outer padding and backgro
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Display, Flex Direction, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Row
-URL: https://vaneui.com/docs/layout-components/row
-Import: import { Row } from "@vaneui/ui"
----
+# Row
+
+> A fundamental layout component that arranges its children in a horizontal line. It is built on the flexbox model and is used to create columns.
+
+Source: https://vaneui.com/docs/layout-components/row
+
+Import: `import { Row, Badge, Button, Card, Col, Text, Title } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -6252,13 +6301,15 @@ import { Row, Text, Badge } from '@vaneui/ui';
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Col
-URL: https://vaneui.com/docs/layout-components/col
-Import: import { Col } from "@vaneui/ui"
----
+# Col
+
+> Col organizes content vertically within a Row, creating responsive column-based layouts.
+
+Source: https://vaneui.com/docs/layout-components/col
+
+Import: `import { Col, Badge, Button, Card, NavLink, Row, Text, Title } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -6555,13 +6606,15 @@ import { Col, Title, Text } from '@vaneui/ui';
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Stack
-URL: https://vaneui.com/docs/layout-components/stack
-Import: import { Stack } from "@vaneui/ui"
----
+# Stack
+
+> Stack arranges its children with consistent spacing. Works for both vertical and horizontal layouts.
+
+Source: https://vaneui.com/docs/layout-components/stack
+
+Import: `import { Stack, Button, Checkbox, Col, Input, Label, PageTitle, Row, Text, Title } from "@vaneui/ui"`
 
 Think of `Stack` as `Col` plus built-in `padding` and `flexWrap`.
 
@@ -6907,13 +6960,15 @@ import { Stack, PageTitle, Text, Button } from '@vaneui/ui';
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Card
-URL: https://vaneui.com/docs/layout-components/card
-Import: import { Card } from "@vaneui/ui"
----
+# Card
+
+> Card is a container that groups related content with consistent styling. It can contain text, images, and other components.
+
+Source: https://vaneui.com/docs/layout-components/card
+
+Import: `import { Card, Badge, Button, CardBody, CardFooter, CardHeader, Col, Row, Text, ThemeProvider, Title } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -7156,13 +7211,15 @@ Set app-wide Card defaults with `ThemeProvider`'s `themeDefaults`:
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Grid
-URL: https://vaneui.com/docs/layout-components/grid
-Import: import { Grid2, Grid3, Grid4, Grid5, Grid6 } from "@vaneui/ui"
----
+# Grid
+
+> Responsive equal-width column layouts. Grid2 through Grid6 render two to six columns that reduce on smaller screens; they share one API and differ only in column count.
+
+Source: https://vaneui.com/docs/layout-components/grid
+
+Import: `import { Grid2, Grid3, Grid4, Grid5, Grid6, Card, Col, Text, ThemeProvider, Title } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -7377,13 +7434,15 @@ Set app-wide Grid defaults with `ThemeProvider`'s `themeDefaults`. Each column c
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Display, Flex Direction, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Divider
-URL: https://vaneui.com/docs/layout-components/divider
-Import: import { Divider } from "@vaneui/ui"
----
+# Divider
+
+> Renders a thin line to separate content and create a clear visual hierarchy. Dividers can be used to group related items in lists and layouts.
+
+Source: https://vaneui.com/docs/layout-components/divider
+
+Import: `import { Divider, Card, Col, Row, Stack, Text } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -7561,13 +7620,15 @@ Dividers also work as section breaks between larger blocks of content.
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Display, Height, Hide, Items, Justify, Orientation, Overflow, Position, Responsive Sizing, Transparent, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Img
-URL: https://vaneui.com/docs/layout-components/img
-Import: import { Img } from "@vaneui/ui"
----
+# Img
+
+> Displays images with VaneUI styling support including sizes, shapes, borders, shadows, and object-fit options.
+
+Source: https://vaneui.com/docs/layout-components/img
+
+Import: `import { Img, Card, Col, Row, Stack, Text, Title } from "@vaneui/ui"`
 
 ```tsx setup
 const placeholderSrc = "https://placehold.co/300x200/e2e8f0/64748b?text=Image";
@@ -7741,13 +7802,15 @@ Control how an image fills a sized container with `objectCover` (default), `obje
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Display, Focus Visible, Height, Hide, Items, Justify, Object Fit, Overflow, Position, Responsive Sizing, Ring, Shadow, Transparent, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Table
-URL: https://vaneui.com/docs/layout-components/table
-Import: import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, Caption } from "@vaneui/ui"
----
+# Table
+
+> Renders semantic table markup with Table, Thead, Tbody, Tfoot, Tr, Th, Td, and Caption. The size prop cascades from the table to every cell, and a cell or row can override it.
+
+Source: https://vaneui.com/docs/layout-components/table
+
+Import: `import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, Caption, Badge, Col, Stack, Text, ThemeProvider } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -8001,17 +8064,15 @@ Set table defaults with `ThemeProvider`'s `themeDefaults`. The `table` node has 
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Hide, Responsive Sizing, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
-## Overlay Components
+# Overlay
 
-Components for overlays, dialogs, and floating elements that appear above the page content.
+> A fullscreen backdrop overlay for creating modal backgrounds, loading screens, and lightbox effects. Renders via portal with click-to-close and optional blur.
 
----
-Title: Overlay
-URL: https://vaneui.com/docs/overlay-components/overlay
-Import: import { Overlay } from "@vaneui/ui"
----
+Source: https://vaneui.com/docs/overlay-components/overlay
+
+Import: `import { Overlay, Button, Card, Img, Modal, Row, Text } from "@vaneui/ui"`
 
 Overlay ships its own layout defaults: `fixed`, `flex`, `itemsCenter`, `justifyCenter`. It covers the viewport via `inset-0` and reads its `z-index` from a managed stacking context so nested overlays layer correctly. `Modal` provides its own backdrop layer using the same layout defaults.
 
@@ -8272,13 +8333,15 @@ return (
 
 - Size: `xs`, `sm`, `md`, `lg`, `xl`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Blur, Display, Height, Hide, Items, Justify, Overflow, Pointer Events, Position, Responsive Sizing, Transparent, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Modal
-URL: https://vaneui.com/docs/overlay-components/modal
-Import: import { Modal } from "@vaneui/ui"
----
+# Modal
+
+> Modal is an accessible dialog with focus trapping, scroll lock, and keyboard navigation. Renders its portal backdrop with role="dialog" and aria-modal="true".
+
+Source: https://vaneui.com/docs/overlay-components/modal
+
+Import: `import { Modal, Button, Checkbox, Input, Label, ModalBody, ModalCloseButton, ModalFooter, ModalHeader, Row, Stack, Text, ThemeProvider, Title } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -8655,13 +8718,15 @@ return (
 - Truncate: `truncate`, `lineClamp2`, `lineClamp3`, `lineClamp4`, `lineClamp5`, `noTruncate`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Display, Flex Direction, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Popup
-URL: https://vaneui.com/docs/overlay-components/popup
-Import: import { Popup } from "@vaneui/ui"
----
+# Popup
+
+> A floating element anchored to a trigger element using CSS Anchor Positioning. Supports 12 placement options, width matching, and click-outside dismissal.
+
+Source: https://vaneui.com/docs/overlay-components/popup
+
+Import: `import { Popup, Button, Divider, Input, PopupTrigger, Row, Text } from "@vaneui/ui"`
 
 Popup ships its own surface defaults: `md`, `flex column`, `padding`, `gap`, `rounded`, `border`, `shadow`, `primary`, `outline`, `wFit`, `placeBottom`. Render children directly. Wrapping content in another `Card` is usually redundant.
 
@@ -8993,13 +9058,15 @@ return (
 - Truncate: `truncate`, `lineClamp2`, `lineClamp3`, `lineClamp4`, `lineClamp5`, `noTruncate`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Align Self, Border, Clamp Height, Constrain Width, Display, Flex Direction, Gap, Height, Hide, Items, Justify, Justify Self, Overflow, Pointer Events, Position, Responsive Sizing, Ring, Shadow, Transition, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Menu
-URL: https://vaneui.com/docs/overlay-components/menu
-Import: import { Menu } from "@vaneui/ui"
----
+# Menu
+
+> A dropdown menu triggered by a button with full keyboard navigation. Contains MenuItem, Divider, and MenuLabel subcomponents.
+
+Source: https://vaneui.com/docs/overlay-components/menu
+
+Import: `import { Menu, Button, Divider, MenuItem, MenuLabel, Row } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -9225,13 +9292,15 @@ Menu supports additional configuration for fine-tuning behavior:
 - Variant: `filled`, `outline` (default), `ghost`
 - Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transition, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
----
-Title: Tooltip
-URL: https://vaneui.com/docs/overlay-components/tooltip
-Import: import { Tooltip } from "@vaneui/ui"
----
+# Tooltip
+
+> A short ink label that describes its trigger on hover and keyboard focus. Comes in sizes xs to xl and takes Popup props directly.
+
+Source: https://vaneui.com/docs/overlay-components/tooltip
+
+Import: `import { Tooltip, Button, IconButton, Row, Text, ThemeProvider } from "@vaneui/ui"`
 
 ## Basic usage
 
@@ -9403,16 +9472,15 @@ A common use is explaining a control that has no visible label.
 - Truncate: `truncate`, `lineClamp2`, `lineClamp3`, `lineClamp4`, `lineClamp5`, `noTruncate`
 - Variant: `filled` (default), `outline`, `ghost`
 
-Layout and utility props are listed on [Common Props](https://vaneui.com/docs/reference/common-props).
+Layout and utility props (Align Self, Border, Clamp Height, Constrain Width, Display, Flex Direction, Gap, Height, Hide, Items, Justify, Justify Self, Overflow, Pointer Events, Position, Responsive Sizing, Ring, Shadow, Transition, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
-## Customization
+# Theming Overview
 
-Learn how to customize and theme VaneUI components to match your design requirements.
+> Understand VaneUI's theming system and design token architecture.
 
----
-Title: Theming Overview
-URL: https://vaneui.com/docs/customization/theming-overview
----
+Source: https://vaneui.com/docs/customization/theming-overview
+
+Import: `import { Button, Card, ThemeProvider, useTheme } from "@vaneui/ui"`
 
 VaneUI uses a theme system based on `ComponentTheme` classes that define styling for each component. This page explains the theme architecture and how to customize it.
 
@@ -9667,10 +9735,13 @@ Components with a concrete appearance emit `data-appearance` and `data-variant` 
 8. CSS rules in `rules.css` set unit variables and the appearance/variant palette
 9. Browser computes final styles from CSS variables
 
----
-Title: Using ThemeProvider
-URL: https://vaneui.com/docs/customization/using-theme-provider
----
+# Using ThemeProvider
+
+> Configure and customize themes throughout your application with ThemeProvider.
+
+Source: https://vaneui.com/docs/customization/using-theme-provider
+
+Import: `import { Badge, Button, Card, Section, ThemeProvider, useTheme } from "@vaneui/ui"`
 
 The ThemeProvider is the foundation of VaneUI's theming system. It wraps your application and provides theme context to all child components, enabling consistent styling and customization throughout your app.
 
@@ -9960,10 +10031,13 @@ For more detailed information about specific ThemeProvider properties, see these
 
 ThemeProvider lets you start with a few overrides and add more as needs grow.
 
----
-Title: Theme & ThemeOverride
-URL: https://vaneui.com/docs/customization/theme-and-override
----
+# Theme & ThemeOverride
+
+> Customize themes using ThemeProvider's theme and themeOverride properties (applied to providers, not components).
+
+Source: https://vaneui.com/docs/customization/theme-and-override
+
+Import: `import { Button, Card, ThemeProvider } from "@vaneui/ui"`
 
 The `themeOverride` property is a function that receives the theme and returns it modified. Use it for changes the declarative options can't express, like adding base classes or changing defaults for any subtree of your application.
 
@@ -10057,10 +10131,13 @@ Child overrides build on parent modifications:
 - **Use `themeDefaults`** when you want to change default boolean props (smaller surface)
 - **Use `extraClasses`** when you want to add classes based on active props
 
----
-Title: ThemeDefaults
-URL: https://vaneui.com/docs/customization/theme-defaults
----
+# ThemeDefaults
+
+> Set default theme values across your application using themeDefaults.
+
+Source: https://vaneui.com/docs/customization/theme-defaults
+
+Import: `import { Badge, Button, Card, Container, Section, Stack, Text, ThemeProvider } from "@vaneui/ui"`
 
 The `themeDefaults` property in VaneUI's ThemeProvider allows you to set default boolean props for components throughout your application. It establishes consistent defaults while still allowing individual components to override these values.
 
@@ -10459,10 +10536,13 @@ const layoutDefaults: ThemeDefaults = {
 
 `themeDefaults` establishes consistent default values across the application while allowing per-instance overrides on individual components.
 
----
-Title: ExtraClasses
-URL: https://vaneui.com/docs/customization/extra-classes
----
+# ExtraClasses
+
+> Apply additional CSS classes to components using extraClasses.
+
+Source: https://vaneui.com/docs/customization/extra-classes
+
+Import: `import { Badge, Button, Card, ThemeProvider } from "@vaneui/ui"`
 
 The `extraClasses` property in VaneUI's ThemeProvider allows you to add additional CSS classes to components based on which boolean props are active. This enables custom styling, animations, and effects while maintaining VaneUI's theming architecture.
 
@@ -10671,10 +10751,11 @@ extraClasses: {
 
 The `extraClasses` system lets you extend VaneUI components with prop-conditional classes and integrate with any CSS framework while keeping the theming system intact.
 
----
-Title: CSS Variables
-URL: https://vaneui.com/docs/customization/css-variables
----
+# CSS Variables
+
+> Customize VaneUI components using CSS custom properties and variables.
+
+Source: https://vaneui.com/docs/customization/css-variables
 
 VaneUI components use a three-tier CSS variable system. Override these variables to change colors globally or for any subtree. This page explains the variable architecture and how to customize it.
 
@@ -10839,10 +10920,13 @@ To customize sizing globally, override the computed variables in your CSS:
 - ThemeProvider does not expose a `colors` field; use these CSS variables to change colors.
 - Components inherit the closest CSS variable values automatically via CSS cascade.
 
----
-Title: Dark Mode
-URL: https://vaneui.com/docs/customization/dark-mode
----
+# Dark Mode
+
+> Enable dark mode with the data-theme="dark" attribute and re-declare color tokens for custom themes.
+
+Source: https://vaneui.com/docs/customization/dark-mode
+
+Import: `import { Card } from "@vaneui/ui"`
 
 `data-theme="dark"` is the official dark-mode extension point. The shipped CSS re-declares the color tokens that change under it, so switching to dark mode needs no component code changes.
 
@@ -10901,10 +10985,13 @@ The dark block is one instance of a general pattern: re-declare any `--color-*` 
 
 Apply it with `data-theme="ocean"` on any element, and the subtree reads the overridden tokens.
 
----
-Title: Customizing Styles
-URL: https://vaneui.com/docs/customization/customizing-styles
----
+# Customizing Styles
+
+> Override VaneUI component styles using Tailwind CSS classes, CSS variables, and the className prop.
+
+Source: https://vaneui.com/docs/customization/customizing-styles
+
+Import: `import { Badge, Button, Card, Divider, Img, Input, Row, Text } from "@vaneui/ui"`
 
 VaneUI components are styled through boolean props and CSS variables, but you can override any visual property using standard Tailwind CSS classes via the `className` prop. This page explains how overrides work, when to use each approach, and common pitfalls.
 
@@ -11115,10 +11202,13 @@ Typography components have built-in letter spacing, line height, and font size t
 <Text xl>Content</Text>
 ```
 
----
-Title: Variant Inheritance
-URL: https://vaneui.com/docs/customization/variant-inheritance
----
+# Variant Inheritance
+
+> How components inherit colors from ancestor layouts via CSS custom-property cascade.
+
+Source: https://vaneui.com/docs/customization/variant-inheritance
+
+Import: `import { Badge, Card, Code, Link, Stack, Text, ThemeProvider, Title } from "@vaneui/ui"`
 
 VaneUI has two color behaviors. Components with their own appearance (Button, Card, Badge, and most others) emit `data-appearance`/`data-variant` and paint their own colors regardless of context. Inherit-mode components (the typography components, plus Icon) emit nothing and read their colors from the nearest ancestor through native CSS custom-property cascade. This page explains the split, how the cascade works, and how to control it.
 
@@ -11302,14 +11392,11 @@ The Link renders at its default `md` size while the Title is `lg`. For Code/Kbd,
 
 Title, PageTitle, and SectionTitle have `responsiveSizing: true` in their defaults. Responsive sizing takes priority over `inheritSize`: a responsive heading always uses its viewport-scaled size, even if `inheritSize` is set.
 
-## Reference
+# Common Props
 
-Shared prop reference, cross-component documentation, and release notes.
+> Layout and typography props shared across all components.
 
----
-Title: Common Props
-URL: https://vaneui.com/docs/reference/common-props
----
+Source: https://vaneui.com/docs/reference/common-props
 
 Layout and utility props shared across most VaneUI components. Documented here once instead of on every component page. Per-component pages link here from the "Layout & utility props" disclosure under their props table.
 
@@ -11667,10 +11754,11 @@ Horizontal or vertical layout direction for certain components.
 | `horizontal` | Display as a horizontal line (default) |
 | `vertical` | Display as a vertical line instead of horizontal |
 
----
-Title: Changelog
-URL: https://vaneui.com/docs/reference/changelog
----
+# Changelog
+
+> Every user-visible change to @vaneui/ui, by version.
+
+Source: https://vaneui.com/docs/reference/changelog
 
 All notable changes to `@vaneui/ui` are recorded here.
 
