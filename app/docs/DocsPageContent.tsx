@@ -96,10 +96,11 @@ export function DocsPageContent(
               <DocsMarkdown md={md} slug={pageData.slug} />
             }
 
-            {/* One auto-generated props table; common layout categories collapse into a <details> */}
+            {/* One auto-generated props table; common layout categories collapse into a <details>.
+                Its heading is an h2 like the markdown sections, so it doesn't nest under the last one */}
             {componentKey && (
               <Col wFull id={propsTitleId}>
-                <Title xl className={titleClasses}>
+                <Title xl tag="h2" className={titleClasses}>
                   <Link href={`#${propsTitleId}`}>{propsTitle}</Link>
                 </Title>
                 <DocsPropsTable componentKey={componentKey as ComponentKey} />
@@ -108,7 +109,7 @@ export function DocsPageContent(
 
             {secondaryKey && (
               <Col wFull id={secondaryTitleId}>
-                <Title xl className={titleClasses}>
+                <Title xl tag="h2" className={titleClasses}>
                   <Link href={`#${secondaryTitleId}`}>{secondaryTitle}</Link>
                 </Title>
                 <DocsPropsTable componentKey={secondaryKey as ComponentKey} />

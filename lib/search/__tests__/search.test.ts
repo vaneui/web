@@ -44,11 +44,11 @@ test('splitMarkdown skips code fences and suffixes repeated heading ids', () => 
   assert.equal(sections[2].text, 'Prop Default lg no');
 });
 
-test('splitMarkdown ids leave out inline code, as the rendered headings do', () => {
+test('splitMarkdown ids keep inline code, as the rendered headings do', () => {
   const { sections } = splitMarkdown('## Uncontrolled with `defaultOpen`\n## `Button`\n');
   assert.equal(sections[0].title, 'Uncontrolled with defaultOpen');
-  assert.equal(sections[0].id, 'uncontrolled-with');
-  assert.equal(sections[1].id, '');
+  assert.equal(sections[0].id, 'uncontrolled-with-defaultopen');
+  assert.equal(sections[1].id, 'button');
 });
 
 const fixture: SearchIndex = {

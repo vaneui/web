@@ -112,27 +112,27 @@ Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to scale gap and padding together,
 <Row itemsStart>
   <Stack xs filled secondary flex1>
     <Text fontSemibold>xs padding</Text>
-    <div className="p-2 bg-white/80 rounded">Item</div>
+    <Card xs>Item</Card>
   </Stack>
   <Stack sm filled secondary flex1>
     <Text fontSemibold>sm padding</Text>
-    <div className="p-2 bg-white/80 rounded">Item</div>
+    <Card xs>Item</Card>
   </Stack>
   <Stack filled secondary flex1>
     <Text fontSemibold>md padding (default)</Text>
-    <div className="p-2 bg-white/80 rounded">Item</div>
+    <Card xs>Item</Card>
   </Stack>
   <Stack lg filled secondary flex1>
     <Text fontSemibold>lg padding</Text>
-    <div className="p-2 bg-white/80 rounded">Item</div>
+    <Card xs>Item</Card>
   </Stack>
   <Stack xl filled secondary flex1>
     <Text fontSemibold>xl padding</Text>
-    <div className="p-2 bg-white/80 rounded">Item</div>
+    <Card xs>Item</Card>
   </Stack>
   <Stack noPadding filled secondary flex1>
     <Text fontSemibold>noPadding</Text>
-    <div className="p-2 bg-white/80 rounded">Item</div>
+    <Card xs>Item</Card>
   </Stack>
 </Row>
 ```
@@ -237,12 +237,12 @@ Use `filled` or `outline` with appearance props for styled containers. Stack def
 ```tsx demo
 <Row itemsStart>
   <Stack filled primary rounded flex1>
-    <div className="p-4 bg-white/80 rounded">Filled Primary</div>
-    <div className="p-4 bg-white/80 rounded">Item 2</div>
+    <Card sm>Filled Primary</Card>
+    <Card sm>Item 2</Card>
   </Stack>
   <Stack border success rounded flex1>
-    <div className="p-4 rounded">Outline Success</div>
-    <div className="p-4 rounded">Item 2</div>
+    <Card sm success>Outline Success</Card>
+    <Card sm success>Item 2</Card>
   </Stack>
 </Row>
 ```
@@ -300,10 +300,10 @@ Stack's built-in padding makes it a natural container for a form: each `Label` s
     Password
     <Input type="password" placeholder="********" />
   </Label>
-  <Row>
+  <Label row itemsCenter>
     <Checkbox />
-    <Text sm>Remember me</Text>
-  </Row>
+    Remember me
+  </Label>
   <Button filled>Sign in</Button>
 </Stack>
 ```
@@ -313,7 +313,7 @@ Stack's built-in padding makes it a natural container for a form: each `Label` s
 Add `href` to render the Stack as an `<a>` tag, useful for hero cards and large clickable surfaces. A keyboard focus-visible outline auto-renders so the link is reachable via Tab; opt out with `noFocusVisible`.
 
 ```tsx demo
-<Stack href="#get-started" border rounded itemsStart className="max-w-md">
+<Stack href="/docs/getting-started/installation" border rounded itemsStart className="max-w-md">
   <Zap size={28} />
   <PageTitle>Get started in minutes</PageTitle>
   <Text>Install the package, drop in ThemeProvider, and start shipping.</Text>

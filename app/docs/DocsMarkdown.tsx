@@ -3,8 +3,8 @@
 import React from 'react';
 import { CodeBlock } from '../components/CodeBlock';
 import { Col, Title, SectionTitle } from '@vaneui/ui';
-import { Md, headingAnchors, type MdTransform } from "@vaneui/md";
-import { createHeadingSlugger } from '../utils/stringUtils';
+import { Md, type MdTransform } from "@vaneui/md";
+import { addHeadingIds } from '../utils/stringUtils';
 import { extractFences, type ExtractedFence } from '../../lib/docs/extractFences';
 import { fenceKey } from '../../lib/docs/fenceBody.mjs';
 import { LivePreview } from './LivePreview';
@@ -25,7 +25,7 @@ interface DocsMarkdownProps {
 interface MdHeadingProps {
   level: number;
   children: React.ReactNode;
-  /** Slug id supplied by the headingAnchors({ slug: toHtmlId }) transform. */
+  /** Slug id supplied by the anchorHeadings transform (addHeadingIds). */
   id?: string;
 }
 
@@ -182,10 +182,13 @@ function FenceWithLivePreview({ content = '', language = 'text' }: MdFenceProps)
  * Strict Mode invokes twice against the same `transform` prop — a slugger built
  * once per render therefore counted every heading twice on the second pass
  * (`basic-usage` server-side, `basic-usage-2` on the client) and desynced
- * hydration. Building it per invocation makes the transform idempotent.
+ * hydration. addHeadingIds builds one per invocation, so the transform is idempotent.
+ *
+ * Not @vaneui/md's `headingAnchors`: its heading text leaves out inline code, so
+ * "Uncontrolled with `defaultOpen`" got `#uncontrolled-with` while the table of
+ * contents linked to `#uncontrolled-with-defaultopen`.
  */
-const anchorHeadings: MdTransform = (tree) =>
-  headingAnchors({ slug: createHeadingSlugger() })(tree);
+const anchorHeadings: MdTransform = (tree) => addHeadingIds(tree);
 
 export function DocsMarkdown({md, slug}: DocsMarkdownProps) {
   // Rebuild the lookup on every render. The lookup's per-body queues are

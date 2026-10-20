@@ -14,7 +14,7 @@ import type { SearchEntry, SearchIndex } from './types';
 export interface MarkdownSection {
   level: number;
   title: string;
-  /** Anchor id on the rendered page; empty when the heading has none */
+  /** Anchor id on the rendered page */
   id: string;
   text: string;
 }
@@ -39,7 +39,7 @@ const THEMATIC_BREAK = /^\s{0,3}([-*_])(\s*\1){2,}\s*$/;
 /**
  * Split page markdown (frontmatter already removed) into the intro before the first heading and
  * one section per heading. Code fences are skipped. Heading ids come from the same slugger the
- * rendered page uses (DocsMarkdown's headingAnchors), so `#id` links land on the heading.
+ * rendered page uses (DocsMarkdown's addHeadingIds), so `#id` links land on the heading.
  */
 export function splitMarkdown(md: string): { intro: string; sections: MarkdownSection[] } {
   const slug = createHeadingSlugger();
@@ -62,10 +62,8 @@ export function splitMarkdown(md: string): { intro: string; sections: MarkdownSe
     if (heading) {
       const title = inlineToText(heading[2]).trim();
       if (!title) continue;
-      // The rendered id is built from the heading's text nodes, which leave out inline code
-      // (`## Uncontrolled with \`defaultOpen\`` gets `#uncontrolled-with`); a code-only heading gets none
-      const idText = inlineToText(heading[2].replace(/(`+).+?\1/g, ' ')).trim();
-      headings.push({ level: heading[1].length, title, id: idText ? slug(idText) : '' });
+      // The rendered id is slugged from the same text, inline code included (addHeadingIds)
+      headings.push({ level: heading[1].length, title, id: slug(title) });
       bodies.push([]);
       continue;
     }

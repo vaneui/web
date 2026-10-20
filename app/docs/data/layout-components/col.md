@@ -255,12 +255,12 @@ Add `href` to render the Col as an `<a>` tag, useful for clickable feature tiles
 
 ```tsx demo
 <Row itemsStart>
-  <Col href="#docs" flex1 padding border rounded>
+  <Col href="/docs" flex1 padding border rounded>
     <BookOpen size={20} />
     <Title>Documentation</Title>
     <Text secondary>Browse guides and API reference.</Text>
   </Col>
-  <Col href="#examples" flex1 padding border rounded>
+  <Col href="#as-link" flex1 padding border rounded>
     <Codepen size={20} />
     <Title>Examples</Title>
     <Text secondary>Copy-ready component patterns.</Text>
