@@ -215,7 +215,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'title',
         name: 'Title',
-        description: 'Renders a heading to establish a semantic hierarchy on the page. Use this component for the main titles of pages or sections.',
+        description: 'Renders an h3 heading for cards, dialogs and subsections, one level below SectionTitle in the page hierarchy.',
         componentKey: "title",
       },
       {

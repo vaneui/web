@@ -5,9 +5,11 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/badge/Ba
 since: 0.9.0
 ---
 
+Badge adds a short label, such as an unread count, "Live" or "Pro", next to a title or inside a [NavLink](/docs/basic-components/navlink). It renders a `<span>` whose text stays on one line, and switches to `<a>` when `href` is set. For a tag or filter token, use a [Chip](/docs/basic-components/chip), and when clicking the label should run an action, use a [Button](/docs/basic-components/button).
+
 ## Basic usage
 
-Badge highlights a short piece of information such as a count or status, and each `appearance` prop maps to a semantic color from the active theme. Badge defaults to `md`, `secondary`, `outline`, `pill`, and `fontSemibold` in normal case. Add `uppercase` for a status-chip look. Use Badge for a status or count indicator; use Chip for a tag or filter token.
+Badge highlights a short piece of information such as a count or status, and each `appearance` prop maps to a semantic color from the active theme. Badge defaults to `md`, `secondary`, `outline`, `pill`, and `fontSemibold` in normal case. Add `uppercase` for a status-chip look.
 
 ```tsx demo
 <Row flexWrap>

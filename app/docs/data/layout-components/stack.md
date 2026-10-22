@@ -5,7 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/stack/St
 since: 0.9.0
 ---
 
-Think of `Stack` as `Col` plus built-in `padding` and `flexWrap`.
+Stack holds a group of items and keeps them clear of its own edges: unlike [Col](/docs/layout-components/col), it comes with `padding` and `flexWrap`. It has no border and square corners, so when the group needs a visible border and rounded corners, use [Card](/docs/layout-components/card), which has both by default. For a single line of items that should not wrap, use [Row](/docs/layout-components/row).
 
 ## Basic usage
 

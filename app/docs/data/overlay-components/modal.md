@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/modal/Mo
 since: 0.9.0
 ---
 
+Use Modal when the user has to finish or dismiss a task before returning to the page, such as a confirmation, a short form or a detail view. While it is open, the rest of the page gets `inert` and `aria-hidden`. A panel that leaves the page usable belongs in a [Popup](/docs/overlay-components/popup), and a message that needs no response in an [Alert](/docs/basic-components/alert).
+
 ## Basic usage
 
 A controlled modal opened by a Button. The Modal portals to `document.body`, traps focus inside the dialog while open, locks body scroll, and closes on overlay click or `Escape`.

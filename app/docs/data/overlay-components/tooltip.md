@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/tooltip/
 since: 1.1.0
 ---
 
+Tooltip is for hints of a few words, such as a keyboard shortcut or the full text of an abbreviation. The hint renders as a Popup with `role="tooltip"`, so opening it does not move focus. For content the user clicks into, such as a form or a list of links, open a [Popup](/docs/overlay-components/popup) on click instead; for a list of actions, use a [Menu](/docs/overlay-components/menu).
+
 ## Basic usage
 
 Tooltip describes its trigger with a short hint on hover and on keyboard focus. Pass the trigger as the child and the hint as `content`. The hint renders as an ink label: near-black in light mode, near-white in dark mode.

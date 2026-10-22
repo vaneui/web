@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/containe
 since: 0.9.0
 ---
 
+Container sets the width of a page's content column: it renders a `<div>` that fills its parent's width until it reaches the max-width set by its size. The full-width background behind it and the vertical spacing around it belong to a [Section](/docs/layout-components/section) wrapped around the Container. For a bordered box around a single piece of content, use [Card](/docs/layout-components/card).
+
 ## Basic usage
 
 A centered, full-width wrapper that caps content at a readable max-width. `md`, `wFull`, `flex`, `column`, `itemsCenter`, `gap`, `noPadding`, `outline`, and `sharp` are defaults.

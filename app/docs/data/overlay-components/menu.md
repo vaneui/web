@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/menu/Men
 since: 0.9.0
 ---
 
+Menu holds actions that apply to one object or view, such as edit, duplicate or share. The dropdown is a Popup with `role="menu"`, each MenuItem is a `<button>` with `role="menuitem"` by default, and the trigger gets `aria-haspopup="menu"` and `aria-expanded`. To pick a value that a form submits, use [Select](/docs/form-components/select); for navigation that stays visible in a sidebar or header, use [NavLink](/docs/basic-components/navlink).
+
 ## Basic usage
 
 A dropdown menu triggered by a button. Pass the trigger as a React element via the `trigger` prop; children are the menu contents. Includes full keyboard navigation (Arrow keys, Enter, Escape, Tab) and focus management with a keyboard-visible outline on each item. Focus returns to the trigger when the menu closes. Escape closes only the topmost layer: a submenu before its parent menu, and a menu inside a `Modal` before the dialog. Moving the pointer to another item closes a submenu that is open.

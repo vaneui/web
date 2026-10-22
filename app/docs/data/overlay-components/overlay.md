@@ -5,7 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/overlay/
 since: 0.9.0
 ---
 
-Overlay ships its own layout defaults: `fixed`, `flex`, `itemsCenter`, `justifyCenter`. It covers the viewport via `inset-0` and reads its `z-index` from a managed stacking context so nested overlays layer correctly. `Modal` provides its own backdrop layer using the same layout defaults.
+Use Overlay for a dimmed or transparent backdrop that needs no dialog role. It renders a plain `<div>` with the layout defaults `fixed`, `flex`, `itemsCenter` and `justifyCenter`. For a dialog, use [Modal](/docs/overlay-components/modal), which provides its own backdrop with the same layout defaults; for a panel attached to a trigger, use a [Popup](/docs/overlay-components/popup).
 
 ## Basic usage
 

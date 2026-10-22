@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/chip/Chi
 since: 0.9.0
 ---
 
+Chip is for values a reader scans as a group, such as the tags on an article or the filters applied to a list. It renders a `<span>`, or an `<a>` when `href` is set, and its label does not wrap. For a count or status indicator, use a [Badge](/docs/basic-components/badge). When clicking the token should run an action rather than follow a link, use a [Button](/docs/basic-components/button), which renders a native `<button>`.
+
 ## Basic usage
 
 Chip is a compact token for tags or attributes, and each `appearance` prop maps to a semantic color from the active theme.

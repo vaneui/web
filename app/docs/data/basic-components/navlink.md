@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/navLink/
 since: 0.9.0
 ---
 
+NavLink is one entry in a sidebar or a tab bar and points at one destination. For a link inside a sentence, use [Link](/docs/typography-components/link); for a list of actions that opens from a trigger, use [Menu](/docs/overlay-components/menu). In its `<button>` form (no `href`), NavLink defaults to `type="button"`, so a click inside a `<form>` does not submit the form.
+
 ## Basic usage
 
 NavLink renders as an `<a>` when `href` is provided. Defaults to `sm` size, `primary` appearance, `outline` variant, `wFull` and `textLeft` layout, ideal for stacking inside a sidebar `Col`.

@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typograp
 since: 0.9.0
 ---
 
+Title is the third level of the heading set, used for card headings, dialog titles and subsection headings. A [Modal](/docs/overlay-components/modal) given a plain-text `title` renders it as a Title. Passing `href` swaps the `<h3>` for an `<a>` and drops the heading semantics, so to link a heading, nest a Link inside it instead. The levels above are [SectionTitle](/docs/typography-components/section-title) (`<h2>`) and [PageTitle](/docs/typography-components/page-title) (`<h1>`).
+
 ## Basic usage
 
 Title renders an `<h3>` heading for subsection headings. It defaults to `fontSemibold` weight, `fontHeading` font family, and left-aligned text.

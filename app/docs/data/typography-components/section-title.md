@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typograp
 since: 0.9.0
 ---
 
+SectionTitle opens each major part of a page, such as features, pricing or FAQ. Like the other heading components, its font size steps down at tablet and mobile widths, and passing `href` renders an `<a>` in place of the `<h2>`. Keep [PageTitle](/docs/typography-components/page-title) for the `<h1>` that names the page, and use [Title](/docs/typography-components/title) for headings inside a section, such as card titles.
+
 ## Basic usage
 
 SectionTitle renders an `<h2>` heading for major section headings. It defaults to `fontSemibold` weight, `fontHeading` font family, `inheritAppearance` appearance, and left-aligned text.

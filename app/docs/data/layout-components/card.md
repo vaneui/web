@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/card/Car
 since: 0.9.0
 ---
 
+Use a Card for one self-contained unit of content, such as a product, a profile or a group of settings, that should read as its own panel. A set of cards usually goes in a [Grid](/docs/layout-components/grid), so each card gets the same column width. When the content needs padding and spacing but no border, use [Stack](/docs/layout-components/stack); for a full-width band with its own background, use [Section](/docs/layout-components/section).
+
 ## Basic usage
 
 A card container with default styling. `md`, `primary`, `outline`, `rounded`, `border`, `padding`, `gap`, `flex`, and `column` are all defaults: no need to specify them.

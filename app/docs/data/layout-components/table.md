@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/table/Ta
 since: 0.9.0
 ---
 
+Use Table for data that readers compare across rows and down columns, such as a price list, a schedule or an order summary. To place cards or tiles in columns, use [Grid](/docs/layout-components/grid); for a single run of items, one per line, use [List](/docs/typography-components/list).
+
 ## Basic usage
 
 Compose a table from `Table`, `Thead`, `Tbody`, `Tr`, `Th`, and `Td`. Header cells (`Th`) render semibold with muted text, and every cell gets a bottom row rule. `Table` defaults to `md`, `wFull`, `noBorder`, and `fontSans`. Add `scope="col"` to header cells so assistive technology associates each column with its data.

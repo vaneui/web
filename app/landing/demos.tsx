@@ -57,11 +57,27 @@ function OverlaysDemo() {
   );
 }
 
-export const GALLERY_TILES: { name: string; parts: string; href: string; demo: React.ReactNode }[] = [
+// Docs page of each component a tile names; the tile caption links every one of them
+const DOCS = {
+  alert: '/docs/basic-components/alert',
+  badge: '/docs/basic-components/badge',
+  button: '/docs/basic-components/button',
+  checkbox: '/docs/form-components/checkbox',
+  field: '/docs/form-components/field',
+  menu: '/docs/overlay-components/menu',
+  modal: '/docs/overlay-components/modal',
+  navLink: '/docs/basic-components/navlink',
+  radio: '/docs/form-components/radio',
+  switch: '/docs/form-components/switch',
+  table: '/docs/layout-components/table',
+  tooltip: '/docs/overlay-components/tooltip',
+};
+
+export const GALLERY_TILES: { name: string; parts: { name: string; href: string }[]; href: string; demo: React.ReactNode }[] = [
   {
     name: 'Forms',
-    parts: 'Field, Checkbox, Button',
-    href: '/docs/form-components/field',
+    parts: [{ name: 'Field', href: DOCS.field }, { name: 'Checkbox', href: DOCS.checkbox }, { name: 'Button', href: DOCS.button }],
+    href: DOCS.field,
     demo: (
       <Col>
         <Field type="email" label="Email" placeholder="you@company.com"/>
@@ -73,8 +89,8 @@ export const GALLERY_TILES: { name: string; parts: string; href: string; demo: R
   },
   {
     name: 'Data',
-    parts: 'Table, Badge',
-    href: '/docs/layout-components/table',
+    parts: [{ name: 'Table', href: DOCS.table }, { name: 'Badge', href: DOCS.badge }],
+    href: DOCS.table,
     demo: (
       <Table sm>
         <Thead>
@@ -91,8 +107,11 @@ export const GALLERY_TILES: { name: string; parts: string; href: string; demo: R
   },
   {
     name: 'Feedback and overlays',
-    parts: 'Alert, Menu, Tooltip, Modal',
-    href: '/docs/basic-components/alert',
+    parts: [
+      { name: 'Alert', href: DOCS.alert }, { name: 'Menu', href: DOCS.menu },
+      { name: 'Tooltip', href: DOCS.tooltip }, { name: 'Modal', href: DOCS.modal },
+    ],
+    href: DOCS.alert,
     demo: (
       <Col>
         <Alert polite success>Your changes were saved.</Alert>
@@ -103,8 +122,8 @@ export const GALLERY_TILES: { name: string; parts: string; href: string; demo: R
   },
   {
     name: 'Settings',
-    parts: 'Switch, Field with select',
-    href: '/docs/form-components/switch',
+    parts: [{ name: 'Switch', href: DOCS.switch }, { name: 'Field with select', href: DOCS.field }],
+    href: DOCS.switch,
     demo: (
       <Col>
         <Label row itemsCenter><Switch defaultChecked/> Email notifications</Label>
@@ -119,8 +138,8 @@ export const GALLERY_TILES: { name: string; parts: string; href: string; demo: R
   },
   {
     name: 'Choices',
-    parts: 'RadioGroup, Radio',
-    href: '/docs/form-components/radio',
+    parts: [{ name: 'RadioGroup, Radio', href: DOCS.radio }],
+    href: DOCS.radio,
     demo: (
       <Field label="Plan" description="Change it any time.">
         <RadioGroup name="plan" defaultValue="pro">
@@ -133,8 +152,8 @@ export const GALLERY_TILES: { name: string; parts: string; href: string; demo: R
   },
   {
     name: 'Navigation',
-    parts: 'NavLink, Badge',
-    href: '/docs/basic-components/navlink',
+    parts: [{ name: 'NavLink', href: DOCS.navLink }, { name: 'Badge', href: DOCS.badge }],
+    href: DOCS.navLink,
     demo: (
       <Col noGap>
         <NavLink active><Home aria-hidden="true"/> Overview</NavLink>

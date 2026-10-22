@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/field/Fi
 since: 1.1.0
 ---
 
+Use Field when a control has help text or an error message. A bare [Label](/docs/form-components/label) associates text with a control but links neither message to it, so a screen reader announces that the control is invalid and never says why. For a control that needs a visible name and nothing else, a Label is enough. Field renders a `<div>` that holds a `<label>`, the control, and the help and error text as `<p>` elements.
+
 ## Basic usage
 
 Field wires a control to its label, help text and error message. It generates one id, points the label at the control with `htmlFor`, and links the description and error with `aria-describedby`. Pass any control as the child. `disabled`, `required` and `readOnly` set on the Field reach the child control (and every `Radio` of a child `RadioGroup`); a prop set on the child itself wins.
@@ -14,8 +16,6 @@ Field wires a control to its label, help text and error message. It generates on
   <Input type="email" placeholder="you@company.com"/>
 </Field>
 ```
-
-`Label` on its own associates text with a control, but nothing links help text or an error message to it. That is what Field adds: without it, a screen reader announces that a control is invalid and never says why.
 
 ## Rendering the control
 

@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/divider/
 since: 0.9.0
 ---
 
+Use Divider between items that share one surface, such as groups of controls or the rows of a card. It renders a `<div>` with `role="separator"` and an `aria-orientation` that follows the `vertical` prop, so assistive technology reads the line as a separator. Inside a [Menu](/docs/overlay-components/menu), a Divider takes its size and spacing from the menu; to split a page into bands with different backgrounds, use [Section](/docs/layout-components/section) instead.
+
 ## Basic usage
 
 A horizontal divider.

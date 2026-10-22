@@ -5,7 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/section/
 since: 0.9.0
 ---
 
-Sections own the outer padding and background; nest a `Container` inside to cap the inner reading width.
+Use one Section for each band of a page, such as a hero, a feature list or a footer. A [Container](/docs/layout-components/container) nested inside a Section keeps its content at a readable width. For a bordered panel that sits within the content instead of spanning the page, use [Card](/docs/layout-components/card).
 
 ## Basic usage
 

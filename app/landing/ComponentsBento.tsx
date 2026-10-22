@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Grid4, Col, Row, Stack, Text, PageTitle, IconButton, ThemeProvider } from '@vaneui/ui';
+import { Grid4, Col, Row, Stack, Text, PageTitle, IconButton, Link as VaneLink, ThemeProvider } from '@vaneui/ui';
 import { ArrowUpRight } from 'react-feather';
 import { GALLERY_TILES } from './demos';
 import { Reveal } from './Reveal';
@@ -44,7 +44,15 @@ export function ComponentsBento() {
               <Row justifyBetween borderT className="px-8 py-3 max-tablet:px-6 max-mobile:px-4">
                 <Col noGap>
                   <Text xs fontMono uppercase trackingWider>{l.label}</Text>
-                  <Text xs tertiary>{tile.parts}</Text>
+                  {/* Each component the tile shows links to its own docs page */}
+                  <Text xs tertiary>
+                    {tile.parts.map((part, j) => (
+                      <React.Fragment key={part.name}>
+                        {j > 0 && ', '}
+                        <VaneLink tertiary noUnderline tag={Link} href={part.href}>{part.name}</VaneLink>
+                      </React.Fragment>
+                    ))}
+                  </Text>
                 </Col>
                 <IconButton xs ghost secondary tag={Link} href={tile.href} aria-label={`${tile.name} docs`}>
                   <ArrowUpRight aria-hidden="true" className="lp-nudge"/>

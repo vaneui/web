@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typograp
 since: 0.9.0
 ---
 
+PageTitle is the heading that names the whole screen, such as an article title, a dashboard name or a hero headline. Long titles wrap into lines of similar length (`text-wrap: balance`), and the font size steps down at tablet and mobile widths. Headings below it belong in [SectionTitle](/docs/typography-components/section-title), which renders `<h2>`, and [Title](/docs/typography-components/title), which renders `<h3>`.
+
 ## Basic usage
 
 PageTitle renders a large `<h1>` heading for page titles. It defaults to `fontSemibold` weight, `fontHeading` font family, `trackingTight` letter spacing, and `inheritAppearance` appearance.
