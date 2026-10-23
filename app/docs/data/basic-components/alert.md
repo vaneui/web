@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/alert/Al
 since: 1.1.0
 ---
 
+Alert shows messages such as a save confirmation, a failed payment or an upload error. It renders a full-width `<div>` laid out as a flex row, in the `info` appearance unless another is set. A note that is part of the page from the first render fits a [Card](/docs/layout-components/card), and an error about one input fits the `error` prop of [Field](/docs/form-components/field). A message the user must answer before continuing belongs in a [Modal](/docs/overlay-components/modal).
+
 ## Basic usage
 
 Alert is a live region: assistive technology announces its content when it appears, without the user having to find it. Use it for messages that result from something the user just did.

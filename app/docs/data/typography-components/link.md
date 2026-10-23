@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typograp
 since: 0.9.0
 ---
 
+Use Link for inline links in running text, footers and help copy. When it opens a new tab through `external` or `target="_blank"`, it appends a visually hidden "(opens in new window)" note for screen readers, unless an `aria-label` is set. For navigation in a sidebar or header, use [NavLink](/docs/basic-components/navlink); for a call to action styled as a button, use [Button](/docs/basic-components/button), which also renders `<a>` when given `href`.
+
 ## Basic usage
 
 Link renders a styled anchor element for navigation. Unlike other typography components which default to `inheritAppearance`, Link renders its blue link color by default (no explicit appearance) with `underline`, and ships with `focusVisible` on for a keyboard focus outline.

@@ -808,9 +808,11 @@ Source: https://vaneui.com/docs/basic-components/button
 
 Import: `import { Button, Col, Row, ThemeProvider } from "@vaneui/ui"`
 
+Use Button for actions, [Link](/docs/typography-components/link) for an in-prose hyperlink, and [NavLink](/docs/basic-components/navlink) for a sidebar or navigation item. An action shown only as an icon goes in an [IconButton](/docs/basic-components/icon-button). Button renders a native `<button>`, or an `<a>` when `href` is set. A `disabled` or `loading` Button with an `href` drops the `href` but stays focusable, marked with `aria-disabled`.
+
 ## Basic usage
 
-Button triggers an action when the user clicks it; each `appearance` prop maps to a semantic color from the active theme. Use Button for actions, Link for an in-prose hyperlink, and NavLink for a sidebar or navigation item.
+Button triggers an action when the user clicks it; each `appearance` prop maps to a semantic color from the active theme.
 
 ```tsx demo
 <Row flexWrap>
@@ -1027,6 +1029,8 @@ Source: https://vaneui.com/docs/basic-components/icon-button
 
 Import: `import { IconButton, Col, Row, Text, ThemeProvider } from "@vaneui/ui"`
 
+IconButton is for a toolbar action or a dismiss control that has no room for a text label. It renders a `<button>` with the same `sm` default size as [Button](/docs/basic-components/button), so it lines up with a Button placed beside it. When the action needs visible text, use Button; for a glyph that does nothing on click, use [Icon](/docs/basic-components/icon).
+
 ## Basic usage
 
 Drop an icon directly inside the `IconButton`. Each `appearance` prop maps to a semantic color from the active theme.
@@ -1218,6 +1222,8 @@ Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible
 Source: https://vaneui.com/docs/basic-components/navlink
 
 Import: `import { NavLink, Badge, Card, Col, Divider, Row, Text, ThemeProvider } from "@vaneui/ui"`
+
+NavLink is one entry in a sidebar or a tab bar and points at one destination. For a link inside a sentence, use [Link](/docs/typography-components/link); for a list of actions that opens from a trigger, use [Menu](/docs/overlay-components/menu). In its `<button>` form (no `href`), NavLink defaults to `type="button"`, so a click inside a `<form>` does not submit the form.
 
 ## Basic usage
 
@@ -1425,9 +1431,11 @@ Source: https://vaneui.com/docs/basic-components/badge
 
 Import: `import { Badge, Card, Col, Row, Text, ThemeProvider, Title } from "@vaneui/ui"`
 
+Badge adds a short label, such as an unread count, "Live" or "Pro", next to a title or inside a [NavLink](/docs/basic-components/navlink). It renders a `<span>` whose text stays on one line, and switches to `<a>` when `href` is set. For a tag or filter token, use a [Chip](/docs/basic-components/chip), and when clicking the label should run an action, use a [Button](/docs/basic-components/button).
+
 ## Basic usage
 
-Badge highlights a short piece of information such as a count or status, and each `appearance` prop maps to a semantic color from the active theme. Badge defaults to `md`, `secondary`, `outline`, `pill`, and `fontSemibold` in normal case. Add `uppercase` for a status-chip look. Use Badge for a status or count indicator; use Chip for a tag or filter token.
+Badge highlights a short piece of information such as a count or status, and each `appearance` prop maps to a semantic color from the active theme. Badge defaults to `md`, `secondary`, `outline`, `pill`, and `fontSemibold` in normal case. Add `uppercase` for a status-chip look.
 
 ```tsx demo
 <Row flexWrap>
@@ -1572,6 +1580,8 @@ Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible
 Source: https://vaneui.com/docs/basic-components/chip
 
 Import: `import { Chip, Card, Col, IconButton, Row, Text, ThemeProvider, Title } from "@vaneui/ui"`
+
+Chip is for values a reader scans as a group, such as the tags on an article or the filters applied to a list. It renders a `<span>`, or an `<a>` when `href` is set, and its label does not wrap. For a count or status indicator, use a [Badge](/docs/basic-components/badge). When clicking the token should run an action rather than follow a link, use a [Button](/docs/basic-components/button), which renders a native `<button>`.
 
 ## Basic usage
 
@@ -1769,6 +1779,8 @@ Source: https://vaneui.com/docs/basic-components/code
 
 Import: `import { Code, Button, Col, PageTitle, Row, SectionTitle, Text, Title } from "@vaneui/ui"`
 
+Code sets apart the parts of a sentence that a reader would type or copy, such as a package name, a hook or a prop value. It renders a native `<code>` whose text does not wrap, so it suits short snippets rather than multi-line listings. For keys the reader presses, use [Kbd](/docs/basic-components/kbd), and for a phrase that only needs emphasis, a [Mark](/docs/basic-components/mark) highlight.
+
 ## Basic usage
 
 Inline code snippets with default styling. `Code` aligns to the surrounding text's baseline, so it lines up with the text it's inlined in. Pass `href` to render `Code` as `<a>` instead of `<code>`. A focus-visible outline auto-enables when `href` is set.
@@ -1924,9 +1936,11 @@ Source: https://vaneui.com/docs/basic-components/kbd
 
 Import: `import { Kbd, Col, PageTitle, Row, SectionTitle, Text, Title } from "@vaneui/ui"`
 
+Use Kbd for the keys a reader presses and [Code](/docs/basic-components/code) for inline source or literal values. Kbd renders the native `<kbd>` element, with a font one step smaller than Code at the same size. Its keycap edge comes from a bottom border twice as thick as the other three sides.
+
 ## Basic usage
 
-Display keyboard keys with the `Kbd` component. Kbd defaults to a monospace font, a border, and `md` size. Use Kbd for keycaps that show a keyboard shortcut; use Code for inline source or literal values.
+Display keyboard keys with the `Kbd` component. Kbd defaults to a monospace font, a border, and `md` size.
 
 ```tsx demo
 <Row flexWrap>
@@ -2087,6 +2101,8 @@ Source: https://vaneui.com/docs/basic-components/mark
 
 Import: `import { Mark, Col, PageTitle, Row, SectionTitle, Text, Title } from "@vaneui/ui"`
 
+Mark picks out a search match or a changed value in running text. It renders the native `<mark>` element with no padding and `sharp` corners, so the tint sits flush around the glyphs. In the default `outline` variant, the text keeps the body text color whatever the appearance. For literal values and identifiers, use [Code](/docs/basic-components/code); for a short standalone status label, use a [Badge](/docs/basic-components/badge).
+
 ## Basic usage
 
 Highlight text with the `Mark` component. Defaults to `warning` (yellow) appearance for a natural highlighter effect.
@@ -2221,6 +2237,8 @@ Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible
 Source: https://vaneui.com/docs/basic-components/icon
 
 Import: `import { Icon, Button, Card, Col, Row, Text } from "@vaneui/ui"`
+
+Icon displays an SVG glyph that is not itself clickable; an icon the user clicks belongs in an [IconButton](/docs/basic-components/icon-button), or inside a [Button](/docs/basic-components/button) next to its label. It wraps the SVG in an inline-flex `<span>` that centers the glyph and keeps it from shrinking in a flex row. Without an accessible name the wrapper gets `aria-hidden`, so screen readers skip it; with `aria-label`, `aria-labelledby` or `title` it gets `role="img"` and is announced.
 
 ## Basic usage
 
@@ -2449,6 +2467,8 @@ Source: https://vaneui.com/docs/basic-components/alert
 
 Import: `import { Alert, Button, Col, Text } from "@vaneui/ui"`
 
+Alert shows messages such as a save confirmation, a failed payment or an upload error. It renders a full-width `<div>` laid out as a flex row, in the `info` appearance unless another is set. A note that is part of the page from the first render fits a [Card](/docs/layout-components/card), and an error about one input fits the `error` prop of [Field](/docs/form-components/field). A message the user must answer before continuing belongs in a [Modal](/docs/overlay-components/modal).
+
 ## Basic usage
 
 Alert is a live region: assistive technology announces its content when it appears, without the user having to find it. Use it for messages that result from something the user just did.
@@ -2566,6 +2586,8 @@ Source: https://vaneui.com/docs/basic-components/spinner
 
 Import: `import { Spinner, Badge, Card, Col, Row, Text } from "@vaneui/ui"`
 
+Spinner stands in for content that is not there yet, while data loads or a job runs. It renders an inline-block `<span>` and takes no padding, border or shape props. For a button waiting on its own action, set `loading` on [Button](/docs/basic-components/button) instead of placing a Spinner inside it by hand. For a full-screen loading state, place the Spinner on an [Overlay](/docs/overlay-components/overlay).
+
 ## Basic usage
 
 Spinner indicates that something is in progress. Give it an `aria-label` so the busy state has a name, since the ring itself carries no text.
@@ -2675,6 +2697,8 @@ Layout and utility props (Display, Hide) are listed on [Common Props](https://va
 Source: https://vaneui.com/docs/form-components/input
 
 Import: `import { Input, Button, Col, Label, Row, ThemeProvider } from "@vaneui/ui"`
+
+Input takes a single-line value, such as a name, an email address or a search query, and renders a native `<input>`. With `invalid` set, it adds `aria-invalid="true"` and a trailing alert icon that screen readers skip. Text that runs over several lines needs a [Textarea](/docs/form-components/textarea), and a [Field](/docs/form-components/field) around an Input links its label, help text and error message.
 
 ## Basic usage
 
@@ -2831,6 +2855,8 @@ Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible
 Source: https://vaneui.com/docs/form-components/checkbox
 
 Import: `import { Checkbox, Col, Label, Link, Row, Text, ThemeProvider } from "@vaneui/ui"`
+
+Checkbox is for a value that waits for the form to be submitted. For a setting that applies the moment it flips, use [Switch](/docs/form-components/switch); to pick exactly one option from a set, use [Radio](/docs/form-components/radio). Checkbox renders a native `<input type="checkbox">` under a styled box, so the checked state, keyboard focus and form submission come from the browser. The check mark and the indeterminate dash are overlays hidden from screen readers.
 
 ## Basic usage
 
@@ -3119,6 +3145,8 @@ Source: https://vaneui.com/docs/form-components/label
 
 Import: `import { Label, Card, Checkbox, Code, Col, Field, Input, Row, Text } from "@vaneui/ui"`
 
+Label gives a form control its visible name and renders a native `<label>` element. It links no help text or error message to the control; [Field](/docs/form-components/field) adds both. Text that names no control, such as a hint under a heading, belongs in [Text](/docs/typography-components/text).
+
 ## Basic usage
 
 A `Label` defaults to `sm` size and `inheritAppearance` appearance, so it picks up text color from its surroundings.
@@ -3320,6 +3348,8 @@ Source: https://vaneui.com/docs/form-components/field
 
 Import: `import { Field, Card, Col, Input, Label, Radio, RadioGroup, Select, Textarea } from "@vaneui/ui"`
 
+Use Field when a control has help text or an error message. A bare [Label](/docs/form-components/label) associates text with a control but links neither message to it, so a screen reader announces that the control is invalid and never says why. For a control that needs a visible name and nothing else, a Label is enough. Field renders a `<div>` that holds a `<label>`, the control, and the help and error text as `<p>` elements.
+
 ## Basic usage
 
 Field wires a control to its label, help text and error message. It generates one id, points the label at the control with `htmlFor`, and links the description and error with `aria-describedby`. Pass any control as the child. `disabled`, `required` and `readOnly` set on the Field reach the child control (and every `Radio` of a child `RadioGroup`); a prop set on the child itself wins.
@@ -3329,8 +3359,6 @@ Field wires a control to its label, help text and error message. It generates on
   <Input type="email" placeholder="you@company.com"/>
 </Field>
 ```
-
-`Label` on its own associates text with a control, but nothing links help text or an error message to it. That is what Field adds: without it, a screen reader announces that a control is invalid and never says why.
 
 ## Rendering the control
 
@@ -3527,6 +3555,8 @@ Source: https://vaneui.com/docs/form-components/textarea
 
 Import: `import { Textarea, Col, Field, Row } from "@vaneui/ui"`
 
+Textarea is for comments, descriptions and other free-form text; a name, an email address or a number belongs in a single-line [Input](/docs/form-components/input). A Textarea inside a [Label](/docs/form-components/label) or a [Field](/docs/form-components/field) takes its size from that parent unless it sets its own.
+
 ## Basic usage
 
 Textarea is an Input that wraps lines. It shares the Input size ramp and appearance props, and renders a real `<textarea>`, so every native attribute works.
@@ -3632,6 +3662,8 @@ Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible
 Source: https://vaneui.com/docs/form-components/select
 
 Import: `import { Select, Col, Field, Row } from "@vaneui/ui"`
+
+Use Select to pick a value such as a country or a currency from a long list, with the options passed as `<option>` and `<optgroup>` children. A handful of options that should all stay visible reads better as a [Radio](/docs/form-components/radio) group, and commands belong in a [Menu](/docs/overlay-components/menu). Inside a [Field](/docs/form-components/field) set to `readOnly`, Select stays read-only even though a native select has no such attribute: opening and keyboard changes are blocked, while Tab still moves focus.
 
 ## Basic usage
 
@@ -3839,6 +3871,8 @@ Source: https://vaneui.com/docs/form-components/radio
 
 Import: `import { Radio, RadioGroup, Col, Field, Label, Row } from "@vaneui/ui"`
 
+Radio fits a short set of choices that should all stay visible. Each one is a native `<input type="radio">`, so the browser moves the selection with the arrow keys inside a group. RadioGroup takes `value`, `defaultValue` and `onChange` for the whole set and matches each option by its `value` prop. For a long list, use a [Select](/docs/form-components/select); when more than one option can be on, use [Checkbox](/docs/form-components/checkbox).
+
 ## Basic usage
 
 Radio selects exactly one option from a set. Wrap the options in a `RadioGroup` so they share a name and behave as one control.
@@ -3961,6 +3995,8 @@ Source: https://vaneui.com/docs/form-components/switch
 
 Import: `import { Switch, Col, Label, Row } from "@vaneui/ui"`
 
+Switch takes the same `checked`, `defaultChecked`, `onChange`, `name` and `readOnly` props as [Checkbox](/docs/form-components/checkbox), so choosing between the two comes down to when the change applies. Its knob is decorative markup marked `aria-hidden`. Pass `switch` to a [Field](/docs/form-components/field) to render a Switch with its label beside it.
+
 ## Basic usage
 
 Switch toggles a setting that takes effect immediately. It renders a real checkbox input with `role="switch"`, so it is operable with the keyboard and announced correctly.
@@ -3971,8 +4007,6 @@ Switch toggles a setting that takes effect immediately. It renders a real checkb
   Email notifications
 </Label>
 ```
-
-Reach for Switch when the change applies at once, and for Checkbox when the value is submitted with a form.
 
 ## Sizes
 
@@ -4074,6 +4108,8 @@ Layout and utility props (Align Self, Border, Cursor, Display, Focus Visible, He
 Source: https://vaneui.com/docs/typography-components/text
 
 Import: `import { Text, Card, Col, Row } from "@vaneui/ui"`
+
+Use Text for paragraphs, captions and helper copy. It renders a `<p>` element, or an `<a>` when `href` is set. Headings belong in [Title](/docs/typography-components/title) and its siblings, which render `<h1>` to `<h3>` elements. For a link inside a sentence, nest a [Link](/docs/typography-components/link) in the Text: it keeps the link color and matches the size of the text around it.
 
 ## Basic usage
 
@@ -4321,6 +4357,8 @@ Source: https://vaneui.com/docs/typography-components/page-title
 
 Import: `import { PageTitle, Button, Card, Col, Divider, Row, SectionTitle, Stack, Text, Title } from "@vaneui/ui"`
 
+PageTitle is the heading that names the whole screen, such as an article title, a dashboard name or a hero headline. Long titles wrap into lines of similar length (`text-wrap: balance`), and the font size steps down at tablet and mobile widths. Headings below it belong in [SectionTitle](/docs/typography-components/section-title), which renders `<h2>`, and [Title](/docs/typography-components/title), which renders `<h3>`.
+
 ## Basic usage
 
 PageTitle renders a large `<h1>` heading for page titles. It defaults to `fontSemibold` weight, `fontHeading` font family, `trackingTight` letter spacing, and `inheritAppearance` appearance.
@@ -4514,6 +4552,8 @@ Layout and utility props (Cursor, Display, Height, Hide, Items, Justify, Overflo
 Source: https://vaneui.com/docs/typography-components/section-title
 
 Import: `import { SectionTitle, Card, Col, Divider, PageTitle, Section, Text, Title } from "@vaneui/ui"`
+
+SectionTitle opens each major part of a page, such as features, pricing or FAQ. Like the other heading components, its font size steps down at tablet and mobile widths, and passing `href` renders an `<a>` in place of the `<h2>`. Keep [PageTitle](/docs/typography-components/page-title) for the `<h1>` that names the page, and use [Title](/docs/typography-components/title) for headings inside a section, such as card titles.
 
 ## Basic usage
 
@@ -4718,11 +4758,13 @@ Layout and utility props (Cursor, Display, Height, Hide, Items, Justify, Overflo
 
 # Title
 
-> Renders a heading to establish a semantic hierarchy on the page. Use this component for the main titles of pages or sections.
+> Renders an h3 heading for cards, dialogs and subsections, one level below SectionTitle in the page hierarchy.
 
 Source: https://vaneui.com/docs/typography-components/title
 
 Import: `import { Title, Badge, Card, Col, PageTitle, Row, SectionTitle, Text } from "@vaneui/ui"`
+
+Title is the third level of the heading set, used for card headings, dialog titles and subsection headings. A [Modal](/docs/overlay-components/modal) given a plain-text `title` renders it as a Title. Passing `href` swaps the `<h3>` for an `<a>` and drops the heading semantics, so to link a heading, nest a Link inside it instead. The levels above are [SectionTitle](/docs/typography-components/section-title) (`<h2>`) and [PageTitle](/docs/typography-components/page-title) (`<h1>`).
 
 ## Basic usage
 
@@ -4917,6 +4959,8 @@ Layout and utility props (Cursor, Display, Height, Hide, Items, Justify, Overflo
 Source: https://vaneui.com/docs/typography-components/link
 
 Import: `import { Link, Col, PageTitle, Row, SectionTitle, Text, ThemeProvider, Title } from "@vaneui/ui"`
+
+Use Link for inline links in running text, footers and help copy. When it opens a new tab through `external` or `target="_blank"`, it appends a visually hidden "(opens in new window)" note for screen readers, unless an `aria-label` is set. For navigation in a sidebar or header, use [NavLink](/docs/basic-components/navlink); for a call to action styled as a button, use [Button](/docs/basic-components/button), which also renders `<a>` when given `href`.
 
 ## Basic usage
 
@@ -5128,6 +5172,8 @@ Layout and utility props (Cursor, Display, Focus Visible, Height, Hide, Items, J
 Source: https://vaneui.com/docs/typography-components/list
 
 Import: `import { List, Card, Col, ListItem, Text } from "@vaneui/ui"`
+
+Use List for sibling items that read as one group, such as a feature list, the steps in a procedure or a checklist. Rows that compare several values belong in a [Table](/docs/layout-components/table), and a dropdown of actions in a [Menu](/docs/overlay-components/menu), whose items get `role="menuitem"` and arrow-key navigation.
 
 ## Basic usage
 
@@ -5470,6 +5516,8 @@ Source: https://vaneui.com/docs/typography-components/blockquote
 
 Import: `import { Blockquote, Card, Col, Row, Text } from "@vaneui/ui"`
 
+Blockquote is for pull quotes, testimonials and excerpts from another source. A status message that follows a user action, such as an error or a saved confirmation, belongs in an [Alert](/docs/basic-components/alert) instead, and a highlighted phrase inside a sentence in a [Mark](/docs/basic-components/mark).
+
 ## Basic usage
 
 Blockquote displays quoted content, shown here with an attribution line. The element renders as `<blockquote>` and inherits color from its surroundings.
@@ -5630,6 +5678,8 @@ Layout and utility props (Cursor, Display, Height, Hide, Items, Justify, Overflo
 Source: https://vaneui.com/docs/layout-components/container
 
 Import: `import { Container, Col, PageTitle, Section, Text, Title } from "@vaneui/ui"`
+
+Container sets the width of a page's content column: it renders a `<div>` that fills its parent's width until it reaches the max-width set by its size. The full-width background behind it and the vertical spacing around it belong to a [Section](/docs/layout-components/section) wrapped around the Container. For a bordered box around a single piece of content, use [Card](/docs/layout-components/card).
 
 ## Basic usage
 
@@ -5792,7 +5842,7 @@ Source: https://vaneui.com/docs/layout-components/section
 
 Import: `import { Section, Col, Container, PageTitle, Text, Title } from "@vaneui/ui"`
 
-Sections own the outer padding and background; nest a `Container` inside to cap the inner reading width.
+Use one Section for each band of a page, such as a hero, a feature list or a footer. A [Container](/docs/layout-components/container) nested inside a Section keeps its content at a readable width. For a bordered panel that sits within the content instead of spanning the page, use [Card](/docs/layout-components/card).
 
 ## Basic usage
 
@@ -5997,6 +6047,8 @@ Layout and utility props (Border, Display, Flex Direction, Gap, Height, Hide, It
 Source: https://vaneui.com/docs/layout-components/row
 
 Import: `import { Row, Badge, Button, Card, Col, Text, Title } from "@vaneui/ui"`
+
+Row suits content that sits side by side at its natural width: a toolbar, a set of tags, an icon beside its label. When the children should share equal column widths instead, a [Grid](/docs/layout-components/grid) component such as Grid3 sizes them. For a vertical group, use [Col](/docs/layout-components/col), or [Stack](/docs/layout-components/stack) when the group also needs its own padding.
 
 ## Basic usage
 
@@ -6311,6 +6363,8 @@ Source: https://vaneui.com/docs/layout-components/col
 
 Import: `import { Col, Badge, Button, Card, NavLink, Row, Text, Title } from "@vaneui/ui"`
 
+Col stacks content inside a surface that already supplies spacing, such as a Card or a Section, and forms the columns of a [Row](/docs/layout-components/row). It is a vertical flex column with a gap between its children and no padding or border. When the column needs padding of its own, use [Stack](/docs/layout-components/stack). For cells that should all share one column width, a [Grid](/docs/layout-components/grid) component such as Grid3 lays them out without a Col around each one.
+
 ## Basic usage
 
 `Col` defaults to `column`, `flex`, `gap`, `md`, `noPadding`, `noBorder`, `noInsetRing`, `outline`, and `sharp`: you don't need to pass any of these. Pass `href` to render `Col` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.
@@ -6616,7 +6670,7 @@ Source: https://vaneui.com/docs/layout-components/stack
 
 Import: `import { Stack, Button, Card, Checkbox, Col, Input, Label, PageTitle, Row, Text, Title } from "@vaneui/ui"`
 
-Think of `Stack` as `Col` plus built-in `padding` and `flexWrap`.
+Stack holds a group of items and keeps them clear of its own edges: unlike [Col](/docs/layout-components/col), it comes with `padding` and `flexWrap`. It has no border and square corners, so when the group needs a visible border and rounded corners, use [Card](/docs/layout-components/card), which has both by default. For a single line of items that should not wrap, use [Row](/docs/layout-components/row).
 
 ## Basic usage
 
@@ -6970,6 +7024,8 @@ Source: https://vaneui.com/docs/layout-components/card
 
 Import: `import { Card, Badge, Button, CardBody, CardFooter, CardHeader, Col, Row, Text, ThemeProvider, Title } from "@vaneui/ui"`
 
+Use a Card for one self-contained unit of content, such as a product, a profile or a group of settings, that should read as its own panel. A set of cards usually goes in a [Grid](/docs/layout-components/grid), so each card gets the same column width. When the content needs padding and spacing but no border, use [Stack](/docs/layout-components/stack); for a full-width band with its own background, use [Section](/docs/layout-components/section).
+
 ## Basic usage
 
 A card container with default styling. `md`, `primary`, `outline`, `rounded`, `border`, `padding`, `gap`, `flex`, and `column` are all defaults: no need to specify them.
@@ -7221,9 +7277,11 @@ Source: https://vaneui.com/docs/layout-components/grid
 
 Import: `import { Grid2, Grid3, Grid4, Grid5, Grid6, Card, Col, Text, ThemeProvider, Title } from "@vaneui/ui"`
 
+Use a Grid component when cards or tiles should line up in columns. Each one renders a `<div>` with CSS grid display, so the cells in a row all get the same width whatever their content. For flex items that keep their content width, use [Row](/docs/layout-components/row); for data compared across rows and columns, use [Table](/docs/layout-components/table).
+
 ## Basic usage
 
-The Grid family renders equal-width column layouts: `Grid2` through `Grid6` for two to six columns. Children flow left to right and wrap to the next row. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults, so none of them need to be specified. Use Row for content-width flex items; use `Grid2` to `Grid6` for equal-width columns.
+The Grid family renders equal-width column layouts: `Grid2` through `Grid6` for two to six columns. Children flow left to right and wrap to the next row. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults, so none of them need to be specified.
 
 ```tsx demo
 <Grid3>
@@ -7444,6 +7502,8 @@ Source: https://vaneui.com/docs/layout-components/divider
 
 Import: `import { Divider, Card, Col, Row, Stack, Text } from "@vaneui/ui"`
 
+Use Divider between items that share one surface, such as groups of controls or the rows of a card. It renders a `<div>` with `role="separator"` and an `aria-orientation` that follows the `vertical` prop, so assistive technology reads the line as a separator. Inside a [Menu](/docs/overlay-components/menu), a Divider takes its size and spacing from the menu; to split a page into bands with different backgrounds, use [Section](/docs/layout-components/section) instead.
+
 ## Basic usage
 
 A horizontal divider.
@@ -7630,6 +7690,8 @@ Source: https://vaneui.com/docs/layout-components/img
 
 Import: `import { Img, Card, Col, Row, Stack, Text, Title } from "@vaneui/ui"`
 
+Img is for photos, screenshots, avatars and other content images. It renders a native `<img>` element and takes no children, so an image that needs a title or caption next to it goes in a [Card](/docs/layout-components/card) or a [Col](/docs/layout-components/col) together with its text. For an icon, use [Icon](/docs/basic-components/icon), which wraps an inline SVG in a `<span>` rather than loading an image file.
+
 ```tsx setup
 const placeholderSrc = "https://placehold.co/300x200/e2e8f0/64748b?text=Image";
 const portraitSrc = "https://placehold.co/200x300/cbd5e1/475569?text=Portrait";
@@ -7811,6 +7873,8 @@ Layout and utility props (Border, Display, Focus Visible, Height, Hide, Items, J
 Source: https://vaneui.com/docs/layout-components/table
 
 Import: `import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, Caption, Badge, Col, Stack, Text, ThemeProvider } from "@vaneui/ui"`
+
+Use Table for data that readers compare across rows and down columns, such as a price list, a schedule or an order summary. To place cards or tiles in columns, use [Grid](/docs/layout-components/grid); for a single run of items, one per line, use [List](/docs/typography-components/list).
 
 ## Basic usage
 
@@ -8074,7 +8138,7 @@ Source: https://vaneui.com/docs/overlay-components/overlay
 
 Import: `import { Overlay, Button, Card, Img, Modal, Row, Text } from "@vaneui/ui"`
 
-Overlay ships its own layout defaults: `fixed`, `flex`, `itemsCenter`, `justifyCenter`. It covers the viewport via `inset-0` and reads its `z-index` from a managed stacking context so nested overlays layer correctly. `Modal` provides its own backdrop layer using the same layout defaults.
+Use Overlay for a dimmed or transparent backdrop that needs no dialog role. It renders a plain `<div>` with the layout defaults `fixed`, `flex`, `itemsCenter` and `justifyCenter`. For a dialog, use [Modal](/docs/overlay-components/modal), which provides its own backdrop with the same layout defaults; for a panel attached to a trigger, use a [Popup](/docs/overlay-components/popup).
 
 ## Basic usage
 
@@ -8342,6 +8406,8 @@ Layout and utility props (Blur, Display, Height, Hide, Items, Justify, Overflow,
 Source: https://vaneui.com/docs/overlay-components/modal
 
 Import: `import { Modal, Button, Checkbox, Input, Label, ModalBody, ModalCloseButton, ModalFooter, ModalHeader, Row, Stack, Text, ThemeProvider, Title } from "@vaneui/ui"`
+
+Use Modal when the user has to finish or dismiss a task before returning to the page, such as a confirmation, a short form or a detail view. While it is open, the rest of the page gets `inert` and `aria-hidden`. A panel that leaves the page usable belongs in a [Popup](/docs/overlay-components/popup), and a message that needs no response in an [Alert](/docs/basic-components/alert).
 
 ## Basic usage
 
@@ -8728,7 +8794,7 @@ Source: https://vaneui.com/docs/overlay-components/popup
 
 Import: `import { Popup, Button, Divider, Input, PopupTrigger, Row, Text } from "@vaneui/ui"`
 
-Popup ships its own surface defaults: `md`, `flex column`, `padding`, `gap`, `rounded`, `border`, `shadow`, `primary`, `outline`, `wFit`, `placeBottom`. Render children directly. Wrapping content in another `Card` is usually redundant.
+Popup holds content that floats beside the element that opened it, and Menu and Tooltip are built on it. It renders a `<div>` with `role="dialog"` unless `role` says otherwise. For a short hover hint, use a [Tooltip](/docs/overlay-components/tooltip); for a dialog that blocks the page, use a [Modal](/docs/overlay-components/modal). Its surface defaults are `md`, `flex column`, `padding`, `gap`, `rounded`, `border`, `shadow`, `primary`, `outline`, `wFit` and `placeBottom`.
 
 > **Browser support:** Popup uses the CSS Anchor Positioning API (Chrome/Edge 129+, for the `span-*` alignment it relies on). Other browsers fall back to a JS positioning path that recomputes on scroll/resize.
 
@@ -9068,6 +9134,8 @@ Source: https://vaneui.com/docs/overlay-components/menu
 
 Import: `import { Menu, Button, Divider, MenuItem, MenuLabel, Row } from "@vaneui/ui"`
 
+Menu holds actions that apply to one object or view, such as edit, duplicate or share. The dropdown is a Popup with `role="menu"`, each MenuItem is a `<button>` with `role="menuitem"` by default, and the trigger gets `aria-haspopup="menu"` and `aria-expanded`. To pick a value that a form submits, use [Select](/docs/form-components/select); for navigation that stays visible in a sidebar or header, use [NavLink](/docs/basic-components/navlink).
+
 ## Basic usage
 
 A dropdown menu triggered by a button. Pass the trigger as a React element via the `trigger` prop; children are the menu contents. Includes full keyboard navigation (Arrow keys, Enter, Escape, Tab) and focus management with a keyboard-visible outline on each item. Focus returns to the trigger when the menu closes. Escape closes only the topmost layer: a submenu before its parent menu, and a menu inside a `Modal` before the dialog. Moving the pointer to another item closes a submenu that is open.
@@ -9301,6 +9369,8 @@ Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible
 Source: https://vaneui.com/docs/overlay-components/tooltip
 
 Import: `import { Tooltip, Button, IconButton, Row, Text, ThemeProvider } from "@vaneui/ui"`
+
+Tooltip is for hints of a few words, such as a keyboard shortcut or the full text of an abbreviation. The hint renders as a Popup with `role="tooltip"`, so opening it does not move focus. For content the user clicks into, such as a form or a list of links, open a [Popup](/docs/overlay-components/popup) on click instead; for a list of actions, use a [Menu](/docs/overlay-components/menu).
 
 ## Basic usage
 

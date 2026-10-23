@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/col/Col.
 since: 0.9.0
 ---
 
+Col stacks content inside a surface that already supplies spacing, such as a Card or a Section, and forms the columns of a [Row](/docs/layout-components/row). It is a vertical flex column with a gap between its children and no padding or border. When the column needs padding of its own, use [Stack](/docs/layout-components/stack). For cells that should all share one column width, a [Grid](/docs/layout-components/grid) component such as Grid3 lays them out without a Col around each one.
+
 ## Basic usage
 
 `Col` defaults to `column`, `flex`, `gap`, `md`, `noPadding`, `noBorder`, `noInsetRing`, `outline`, and `sharp`: you don't need to pass any of these. Pass `href` to render `Col` as `<a>` instead of `<div>`. A focus-visible outline auto-enables when `href` is set.

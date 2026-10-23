@@ -60,7 +60,7 @@ it has `onClick` or `tag="button"`. `noFocusVisible` opts out.
 - [Text](https://vaneui.com/docs/typography-components/text.md): The primary component for rendering all text content. It provides props to control typographic properties like size, weight, color, and alignment.
 - [PageTitle](https://vaneui.com/docs/typography-components/page-title.md): A specialized component for the primary heading of a page. It ensures consistent styling for top-level titles across your application.
 - [SectionTitle](https://vaneui.com/docs/typography-components/section-title.md): A component for rendering headings of major sections within a page. It helps to create a clear and accessible document structure.
-- [Title](https://vaneui.com/docs/typography-components/title.md): Renders a heading to establish a semantic hierarchy on the page. Use this component for the main titles of pages or sections.
+- [Title](https://vaneui.com/docs/typography-components/title.md): Renders an h3 heading for cards, dialogs and subsections, one level below SectionTitle in the page hierarchy.
 - [Link](https://vaneui.com/docs/typography-components/link.md): Renders an accessible and themeable anchor link for navigation. Use this to direct users to other pages or external websites.
 - [List](https://vaneui.com/docs/typography-components/list.md): A container for displaying a series of related items in an ordered or unordered fashion. Documents both List and its ListItem entries.
 - [Blockquote](https://vaneui.com/docs/typography-components/blockquote.md): Displays quoted content with a left border accent. Inherits appearance from the parent by default, so it blends into themed containers.

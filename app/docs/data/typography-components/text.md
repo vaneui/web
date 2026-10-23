@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typograp
 since: 0.9.0
 ---
 
+Use Text for paragraphs, captions and helper copy. It renders a `<p>` element, or an `<a>` when `href` is set. Headings belong in [Title](/docs/typography-components/title) and its siblings, which render `<h1>` to `<h3>` elements. For a link inside a sentence, nest a [Link](/docs/typography-components/link) in the Text: it keeps the link color and matches the size of the text around it.
+
 ## Basic usage
 
 Text renders paragraph text with default styling.

@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/checkbox
 since: 0.9.0
 ---
 
+Checkbox is for a value that waits for the form to be submitted. For a setting that applies the moment it flips, use [Switch](/docs/form-components/switch); to pick exactly one option from a set, use [Radio](/docs/form-components/radio). Checkbox renders a native `<input type="checkbox">` under a styled box, so the checked state, keyboard focus and form submission come from the browser. The check mark and the indeterminate dash are overlays hidden from screen readers.
+
 ## Basic usage
 
 Checkbox should be used inside a Label with matching `id`/`htmlFor`. `Label` defaults to a stacked column layout, so add `row itemsCenter` to place the checkbox inline with its text. The checkbox takes its size from the Label, so match the Label's size to its text (here `md`) to keep the box centered on the first line of a multi-line label.

@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typograp
 since: 0.9.0
 ---
 
+Use List for sibling items that read as one group, such as a feature list, the steps in a procedure or a checklist. Rows that compare several values belong in a [Table](/docs/layout-components/table), and a dropdown of actions in a [Menu](/docs/overlay-components/menu), whose items get `role="menuitem"` and arrow-key navigation.
+
 ## Basic usage
 
 List renders an unordered list with bullet points by default. Each entry is a `ListItem`, which renders an `<li>` and carries the core typography props (appearance, size, weight, alignment) minus the margin, letter-spacing, and cursor props that `Text` has. Always render `ListItem` inside a `List`, which supplies the marker style and size.

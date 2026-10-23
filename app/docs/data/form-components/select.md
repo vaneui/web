@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/select/S
 since: 1.1.0
 ---
 
+Use Select to pick a value such as a country or a currency from a long list, with the options passed as `<option>` and `<optgroup>` children. A handful of options that should all stay visible reads better as a [Radio](/docs/form-components/radio) group, and commands belong in a [Menu](/docs/overlay-components/menu). Inside a [Field](/docs/form-components/field) set to `readOnly`, Select stays read-only even though a native select has no such attribute: opening and keyboard changes are blocked, while Tab still moves focus.
+
 ## Basic usage
 
 Select renders a real `<select>`, so keyboard support, screen-reader semantics, form submission and constraint validation all come from the platform rather than from re-implemented JavaScript.

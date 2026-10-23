@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/spinner/
 since: 1.1.0
 ---
 
+Spinner stands in for content that is not there yet, while data loads or a job runs. It renders an inline-block `<span>` and takes no padding, border or shape props. For a button waiting on its own action, set `loading` on [Button](/docs/basic-components/button) instead of placing a Spinner inside it by hand. For a full-screen loading state, place the Spinner on an [Overlay](/docs/overlay-components/overlay).
+
 ## Basic usage
 
 Spinner indicates that something is in progress. Give it an `aria-label` so the busy state has a name, since the ring itself carries no text.

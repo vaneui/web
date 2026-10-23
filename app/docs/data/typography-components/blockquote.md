@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/typograp
 since: 0.9.0
 ---
 
+Blockquote is for pull quotes, testimonials and excerpts from another source. A status message that follows a user action, such as an error or a saved confirmation, belongs in an [Alert](/docs/basic-components/alert) instead, and a highlighted phrase inside a sentence in a [Mark](/docs/basic-components/mark).
+
 ## Basic usage
 
 Blockquote displays quoted content, shown here with an attribution line. The element renders as `<blockquote>` and inherits color from its surroundings.

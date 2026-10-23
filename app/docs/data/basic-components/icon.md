@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/icon/Ico
 since: 0.9.0
 ---
 
+Icon displays an SVG glyph that is not itself clickable; an icon the user clicks belongs in an [IconButton](/docs/basic-components/icon-button), or inside a [Button](/docs/basic-components/button) next to its label. It wraps the SVG in an inline-flex `<span>` that centers the glyph and keeps it from shrinking in a flex row. Without an accessible name the wrapper gets `aria-hidden`, so screen readers skip it; with `aria-label`, `aria-labelledby` or `title` it gets `role="img"` and is announced.
+
 ## Basic usage
 
 Wrap any SVG inside `Icon` to apply consistent sizing and color inheritance.

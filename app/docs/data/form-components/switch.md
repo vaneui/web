@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/switch/S
 since: 1.1.0
 ---
 
+Switch takes the same `checked`, `defaultChecked`, `onChange`, `name` and `readOnly` props as [Checkbox](/docs/form-components/checkbox), so choosing between the two comes down to when the change applies. Its knob is decorative markup marked `aria-hidden`. Pass `switch` to a [Field](/docs/form-components/field) to render a Switch with its label beside it.
+
 ## Basic usage
 
 Switch toggles a setting that takes effect immediately. It renders a real checkbox input with `role="switch"`, so it is operable with the keyboard and announced correctly.
@@ -15,8 +17,6 @@ Switch toggles a setting that takes effect immediately. It renders a real checkb
   Email notifications
 </Label>
 ```
-
-Reach for Switch when the change applies at once, and for Checkbox when the value is submitted with a form.
 
 ## Sizes
 

@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/textarea
 since: 1.1.0
 ---
 
+Textarea is for comments, descriptions and other free-form text; a name, an email address or a number belongs in a single-line [Input](/docs/form-components/input). A Textarea inside a [Label](/docs/form-components/label) or a [Field](/docs/form-components/field) takes its size from that parent unless it sets its own.
+
 ## Basic usage
 
 Textarea is an Input that wraps lines. It shares the Input size ramp and appearance props, and renders a real `<textarea>`, so every native attribute works.

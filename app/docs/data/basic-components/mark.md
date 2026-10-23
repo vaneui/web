@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/mark/Mar
 since: 0.9.0
 ---
 
+Mark picks out a search match or a changed value in running text. It renders the native `<mark>` element with no padding and `sharp` corners, so the tint sits flush around the glyphs. In the default `outline` variant, the text keeps the body text color whatever the appearance. For literal values and identifiers, use [Code](/docs/basic-components/code); for a short standalone status label, use a [Badge](/docs/basic-components/badge).
+
 ## Basic usage
 
 Highlight text with the `Mark` component. Defaults to `warning` (yellow) appearance for a natural highlighter effect.

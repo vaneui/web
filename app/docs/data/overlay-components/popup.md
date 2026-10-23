@@ -5,7 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/popup/Po
 since: 0.9.0
 ---
 
-Popup ships its own surface defaults: `md`, `flex column`, `padding`, `gap`, `rounded`, `border`, `shadow`, `primary`, `outline`, `wFit`, `placeBottom`. Render children directly. Wrapping content in another `Card` is usually redundant.
+Popup holds content that floats beside the element that opened it, and Menu and Tooltip are built on it. It renders a `<div>` with `role="dialog"` unless `role` says otherwise. For a short hover hint, use a [Tooltip](/docs/overlay-components/tooltip); for a dialog that blocks the page, use a [Modal](/docs/overlay-components/modal). Its surface defaults are `md`, `flex column`, `padding`, `gap`, `rounded`, `border`, `shadow`, `primary`, `outline`, `wFit` and `placeBottom`.
 
 > **Browser support:** Popup uses the CSS Anchor Positioning API (Chrome/Edge 129+, for the `span-*` alignment it relies on). Other browsers fall back to a JS positioning path that recomputes on scroll/resize.
 

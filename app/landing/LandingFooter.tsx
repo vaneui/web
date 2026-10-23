@@ -2,7 +2,7 @@
 
 import React from 'react';
 import NextLink from 'next/link';
-import { Grid4, Col, Stack, Text, Link, Row } from '@vaneui/ui';
+import { Grid5, Col, Stack, Text, Link, Row } from '@vaneui/ui';
 import { Logo } from '../components/Logo';
 import { BUILT_WITH, MCP_URL, PRODUCT, VERSION } from './content';
 import { FrameRow } from './frame';
@@ -17,6 +17,20 @@ const COLUMNS: { title: string; links: { text: string; href: string }[] }[] = [
       { text: 'Installation', href: '/docs/getting-started/installation' },
       { text: 'Changelog', href: '/docs/reference/changelog' },
       { text: 'llms.txt', href: '/llms.txt' },
+    ],
+  },
+  {
+    // Links from every page, the home page included, straight to the most used component pages
+    title: 'Components',
+    links: [
+      { text: 'Button', href: '/docs/basic-components/button' },
+      { text: 'Input', href: '/docs/form-components/input' },
+      { text: 'Select', href: '/docs/form-components/select' },
+      { text: 'Card', href: '/docs/layout-components/card' },
+      { text: 'Grid', href: '/docs/layout-components/grid' },
+      { text: 'Modal', href: '/docs/overlay-components/modal' },
+      { text: 'Text', href: '/docs/typography-components/text' },
+      { text: 'All components', href: '/docs' },
     ],
   },
   {
@@ -41,7 +55,7 @@ const isPage = (href: string) => href.startsWith('/') && !/\.\w+$/.test(href);
 export function LandingFooter() {
   return (
     <FrameRow tag="footer" label="Footer">
-      <Grid4 noGap className="lp-grid max-tablet:grid-cols-2">
+      <Grid5 noGap className="lp-grid max-tablet:grid-cols-2">
         <Stack xl flexNoWrap justifyBetween primary relative className="min-h-64 max-tablet:col-span-2 max-tablet:min-h-0">
           <Col>
             <Logo/>
@@ -52,8 +66,8 @@ export function LandingFooter() {
             <Text xs fontMono tertiary>v{VERSION} · MIT</Text>
           </Row>
         </Stack>
-        {COLUMNS.map((col, i) => (
-          <Stack xl flexNoWrap primary relative key={col.title} className={i === COLUMNS.length - 1 ? 'max-tablet:col-span-2' : undefined}>
+        {COLUMNS.map(col => (
+          <Stack xl flexNoWrap primary relative key={col.title}>
             <Text xs fontMono uppercase trackingWider tertiary>{col.title}</Text>
             <Col sm tag="ul">
               {col.links.map(link => (
@@ -67,7 +81,7 @@ export function LandingFooter() {
             </Col>
           </Stack>
         ))}
-      </Grid4>
+      </Grid5>
       <Row justifyBetween borderT className="px-8 py-4 max-mobile:px-4">
         {/* the year comes from the build or the visitor's clock, which can differ */}
         <Text xs tertiary suppressHydrationWarning>{PRODUCT.copyright}</Text>

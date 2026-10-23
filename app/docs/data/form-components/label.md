@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/label/La
 since: 0.9.0
 ---
 
+Label gives a form control its visible name and renders a native `<label>` element. It links no help text or error message to the control; [Field](/docs/form-components/field) adds both. Text that names no control, such as a hint under a heading, belongs in [Text](/docs/typography-components/text).
+
 ## Basic usage
 
 A `Label` defaults to `sm` size and `inheritAppearance` appearance, so it picks up text color from its surroundings.

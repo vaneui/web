@@ -5,9 +5,11 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/button/B
 since: 0.9.0
 ---
 
+Use Button for actions, [Link](/docs/typography-components/link) for an in-prose hyperlink, and [NavLink](/docs/basic-components/navlink) for a sidebar or navigation item. An action shown only as an icon goes in an [IconButton](/docs/basic-components/icon-button). Button renders a native `<button>`, or an `<a>` when `href` is set. A `disabled` or `loading` Button with an `href` drops the `href` but stays focusable, marked with `aria-disabled`.
+
 ## Basic usage
 
-Button triggers an action when the user clicks it; each `appearance` prop maps to a semantic color from the active theme. Use Button for actions, Link for an in-prose hyperlink, and NavLink for a sidebar or navigation item.
+Button triggers an action when the user clicks it; each `appearance` prop maps to a semantic color from the active theme.
 
 ```tsx demo
 <Row flexWrap>

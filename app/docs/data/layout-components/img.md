@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/img/Img.
 since: 0.9.0
 ---
 
+Img is for photos, screenshots, avatars and other content images. It renders a native `<img>` element and takes no children, so an image that needs a title or caption next to it goes in a [Card](/docs/layout-components/card) or a [Col](/docs/layout-components/col) together with its text. For an icon, use [Icon](/docs/basic-components/icon), which wraps an inline SVG in a `<span>` rather than loading an image file.
+
 ```tsx setup
 const placeholderSrc = "https://placehold.co/300x200/e2e8f0/64748b?text=Image";
 const portraitSrc = "https://placehold.co/200x300/cbd5e1/475569?text=Portrait";

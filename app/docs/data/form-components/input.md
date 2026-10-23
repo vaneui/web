@@ -5,6 +5,8 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/input/In
 since: 0.9.0
 ---
 
+Input takes a single-line value, such as a name, an email address or a search query, and renders a native `<input>`. With `invalid` set, it adds `aria-invalid="true"` and a trailing alert icon that screen readers skip. Text that runs over several lines needs a [Textarea](/docs/form-components/textarea), and a [Field](/docs/form-components/field) around an Input links its label, help text and error message.
+
 ## Basic usage
 
 Input renders a styled text field for entering text, numbers, and other data. It defaults to `md`, `primary`, `outline`, and `rounded`, with `insetRing` and `focusVisible`. Input is `wFull` by default, so it spans its container. Constrain the width with a sized parent or `className="w-64"`.

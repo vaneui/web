@@ -5,9 +5,11 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/grid/Gri
 since: 0.9.0
 ---
 
+Use a Grid component when cards or tiles should line up in columns. Each one renders a `<div>` with CSS grid display, so the cells in a row all get the same width whatever their content. For flex items that keep their content width, use [Row](/docs/layout-components/row); for data compared across rows and columns, use [Table](/docs/layout-components/table).
+
 ## Basic usage
 
-The Grid family renders equal-width column layouts: `Grid2` through `Grid6` for two to six columns. Children flow left to right and wrap to the next row. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults, so none of them need to be specified. Use Row for content-width flex items; use `Grid2` to `Grid6` for equal-width columns.
+The Grid family renders equal-width column layouts: `Grid2` through `Grid6` for two to six columns. Children flow left to right and wrap to the next row. `md`, `gap`, `noPadding`, `outline`, and `sharp` are defaults, so none of them need to be specified.
 
 ```tsx demo
 <Grid3>

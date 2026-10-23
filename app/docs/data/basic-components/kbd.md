@@ -5,9 +5,11 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/kbd/Kbd.
 since: 0.9.0
 ---
 
+Use Kbd for the keys a reader presses and [Code](/docs/basic-components/code) for inline source or literal values. Kbd renders the native `<kbd>` element, with a font one step smaller than Code at the same size. Its keycap edge comes from a bottom border twice as thick as the other three sides.
+
 ## Basic usage
 
-Display keyboard keys with the `Kbd` component. Kbd defaults to a monospace font, a border, and `md` size. Use Kbd for keycaps that show a keyboard shortcut; use Code for inline source or literal values.
+Display keyboard keys with the `Kbd` component. Kbd defaults to a monospace font, a border, and `md` size.
 
 ```tsx demo
 <Row flexWrap>
