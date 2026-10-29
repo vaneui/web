@@ -26,6 +26,7 @@ Requires Node.js 24.x. Screenshots require Playwright browsers (`npx playwright 
 - Tailwind CSS v4 with `@vaneui/ui/vars` CSS variables
 - `@vaneui/ui` — component library (source code at `C:\GitHub\vaneui`, see its CLAUDE.md for full API reference)
 - `@vaneui/md` — markdown renderer using Markdoc, renders into VaneUI components
+- The site always runs the latest `@vaneui/ui` and `@vaneui/md`. `.github/workflows/update-vaneui.yml` installs both `@latest` every hour, tests and builds, then pushes the bump to `main`; after a release you can bump them by hand instead of waiting.
 - `prism-react-renderer` — syntax highlighting in CodeBlock
 - `react-feather` — icons
 - Vercel Analytics, Ahrefs Analytics

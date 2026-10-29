@@ -1,10 +1,10 @@
 name: Update VaneUI packages
 
-# Picks up new @vaneui/ui and @vaneui/md releases; the push redeploys the site on Vercel.
+# Keeps the site on the latest @vaneui/ui and @vaneui/md releases; the push redeploys it on Vercel.
 on:
   # Off the top of the hour: GitHub delays or drops scheduled runs at :00 under load.
   schedule:
-    - cron: '41 */6 * * *'
+    - cron: '41 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -36,7 +36,8 @@ jobs:
         run: |
           versions() { node -p "['ui','md'].map(p => require('./node_modules/@vaneui/' + p + '/package.json').version).join(' ')"; }
           before=$(versions)
-          npm update @vaneui/ui @vaneui/md
+          # @latest, not npm update: the caret range would hold back a new major, and package.json follows.
+          npm install @vaneui/ui@latest @vaneui/md@latest
           after=$(versions)
           echo "Installed: $before -> $after"
           if [ "$before" = "$after" ]; then
