@@ -31,6 +31,13 @@ export const ORGANIZATION_SCHEMA = {
     '@type': 'ImageObject',
     url: 'https://vaneui.com/logo.png',
   },
+  email: PRODUCT.email,
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: PRODUCT.email,
+    contactType: 'customer support',
+    availableLanguage: 'en',
+  },
 } as const;
 
 export const WEBSITE_SCHEMA = {

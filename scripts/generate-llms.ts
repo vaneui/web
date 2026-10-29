@@ -9,6 +9,7 @@ import { readFileSync, writeFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import type { ComponentKey } from '@vaneui/ui';
+import { PRODUCT } from '../app/constants';
 import { docsSectionsMeta, type DocPageMeta, type DocSectionMeta } from '../app/docs/docsMetadata';
 import { getPropTableRows } from '../app/docs/propTableRows';
 import { docsMarkdownUrl, SITE_URL } from '../lib/docs/markdownUrls';
@@ -60,6 +61,7 @@ sets application-wide defaults, extra classes and theme overrides.
 - Documentation: ${BASE_URL}
 - Markdown for every docs page: add \`.md\` to its URL (${docsMarkdownUrl('basic-components', 'button')}), or request the page with \`Accept: text/markdown\`
 - MCP server for AI agents (docs and per-component props): \`claude mcp add vaneui -- npx -y @vaneui/mcp\`
+- Contact: ${PRODUCT.email}
 
 Defaults keep JSX short: Button is ${coreDefaults('button')}; Card is ${coreDefaults('card')}; Text is ${coreDefaults('text')}; Row is ${coreDefaults('row')}.
 
@@ -81,6 +83,7 @@ const FULL_INTRO = `# VaneUI Documentation
 - Documentation: ${BASE_URL}
 - Package: \`${PACKAGE_NAME}\` ${pkg.version}
 - Index: ${BASE_URL}/llms.txt
+- Contact: ${PRODUCT.email}
 
 Pages follow the site navigation: ${docsSectionsMeta.map((s) => s.name).join(', ')}.
 Each page is also available on its own as Markdown at its URL plus \`.md\`.

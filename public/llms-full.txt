@@ -9,6 +9,7 @@
 - Documentation: https://vaneui.com
 - Package: `@vaneui/ui` 1.4.6
 - Index: https://vaneui.com/llms.txt
+- Contact: hello@vaneui.com
 
 Pages follow the site navigation: Getting Started, Basic Components, Form Components, Typography Components, Layout Components, Overlay Components, Customization, Reference.
 Each page is also available on its own as Markdown at its URL plus `.md`.

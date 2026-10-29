@@ -5,6 +5,8 @@ export const PRODUCT = {
   // One sentence for what VaneUI is: footer and the JSON-LD descriptions
   description: 'VaneUI is a React component library built on Tailwind CSS v4 with a boolean props API: write <Button primary lg filled> instead of variant strings.',
   githubUrl: 'https://github.com/vaneui/vaneui',
+  // Contact address: footer, the JSON-LD Organization and llms.txt
+  email: 'hello@vaneui.com',
   copyright: `© ${new Date().getFullYear()} VaneUI. All rights reserved.`
 } as const;
 

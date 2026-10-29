@@ -40,6 +40,7 @@ const COLUMNS: { title: string; links: { text: string; href: string }[] }[] = [
       { text: 'npm', href: 'https://www.npmjs.com/package/@vaneui/ui' },
       { text: 'MCP server', href: MCP_URL },
       { text: 'MIT License', href: 'https://github.com/vaneui/vaneui/blob/main/LICENSE' },
+      { text: PRODUCT.email, href: `mailto:${PRODUCT.email}` },
     ],
   },
   {

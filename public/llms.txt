@@ -15,6 +15,7 @@ sets application-wide defaults, extra classes and theme overrides.
 - Documentation: https://vaneui.com
 - Markdown for every docs page: add `.md` to its URL (https://vaneui.com/docs/basic-components/button.md), or request the page with `Accept: text/markdown`
 - MCP server for AI agents (docs and per-component props): `claude mcp add vaneui -- npx -y @vaneui/mcp`
+- Contact: hello@vaneui.com
 
 Defaults keep JSX short: Button is `sm` + `primary` + `rounded` + `outline`; Card is `md` + `primary` + `rounded` + `outline`; Text is `md` + `inheritAppearance` + `outline`; Row is `md` + `sharp` + `outline`.
 
