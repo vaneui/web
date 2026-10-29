@@ -14,6 +14,18 @@ Hide elements at specific breakpoint sizes for responsive layouts.
 
 Breakpoints are exclusive (width `<` the boundary). Combining several `*Hide` props resolves to the widest, so `mobileHide tabletHide` hides below 1024px.
 
+## Show
+
+Show elements only below a breakpoint, the reverse of the hide props.
+
+| Prop | Description |
+|------|-------------|
+| `mobileShow` | Show only below 768px (48rem); hidden from 768px up |
+| `tabletShow` | Show only below 1024px (64rem); hidden from 1024px up |
+| `desktopShow` | Show only below 1280px (80rem); hidden from 1280px up |
+
+Show and hide are separate categories, so they combine: `mobileHide tabletShow` shows an element only from 768 to 1024px. A mobile menu button that disappears once the full navigation fits is `<IconButton tabletShow aria-label="Menu">`.
+
 ## Items
 
 Cross-axis alignment for flex items (align-items). Controls how flex children align perpendicular to the flex direction.
@@ -278,6 +290,18 @@ Component width sizing.
 | `wFit` | Set width to fit-content |
 | `wAuto` | Set width to auto |
 | `wScreen` | Set width to 100vw (viewport width), removes max-width constraint |
+
+## Responsive width
+
+Full width below a breakpoint, on top of the component's base width.
+
+| Prop | Description |
+|------|-------------|
+| `mobileWFull` | Full width below 768px (48rem); base width from 768px up |
+| `tabletWFull` | Full width below 1024px (64rem); base width from 1024px up |
+| `desktopWFull` | Full width below 1280px (80rem); base width from 1280px up |
+
+`<Button mobileWFull>` fills a row that `mobileStack` turns into a column on a phone, and keeps its fit width on wider screens.
 
 ## Height
 

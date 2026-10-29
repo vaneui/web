@@ -6,6 +6,7 @@ import type { ComponentCategoryKey } from "@vaneui/ui";
 // variant, shape, padding, fontWeight, etc.) still surface in the per-page table.
 export const COMMON_DOC_CATEGORIES = new Set<ComponentCategoryKey>([
   'hide',
+  'show',
   'items',
   'justify',
   'alignSelf',
@@ -24,6 +25,7 @@ export const COMMON_DOC_CATEGORIES = new Set<ComponentCategoryKey>([
   'transition',
   'whitespace',
   'width',
+  'responsiveWidth',
   'height',
   'transparent',
   'responsiveSizing',

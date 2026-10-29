@@ -353,7 +353,7 @@ See the [Overlay Components](/docs/overlay-components/overlay) section for `Over
 
 ## Responsive visibility
 
-Hide components on specific breakpoints:
+Hide components below a breakpoint, or show them only below one:
 
 ```tsx
 import { Text, Stack } from '@vaneui/ui';
@@ -365,9 +365,20 @@ function ResponsiveVisibility() {
       <Text mobileHide>Hidden on mobile (below 48rem)</Text>
       <Text tabletHide>Hidden on tablet (below 64rem)</Text>
       <Text desktopHide>Hidden on desktop (below 80rem)</Text>
+      <Text mobileShow>Shown only on mobile (below 48rem)</Text>
+      <Text tabletShow>Shown only below tablet width (64rem)</Text>
     </Stack>
   );
 }
+```
+
+Make a component full width below a breakpoint while it keeps its own width above it:
+
+```tsx
+<Row mobileStack>
+  <Button mobileWFull>Full width on mobile</Button>
+  <Button mobileWFull>Fit width from 48rem</Button>
+</Row>
 ```
 
 ## Custom HTML tags

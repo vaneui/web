@@ -130,6 +130,8 @@ function ConsistentThemeApp() {
 ### Responsive props (layout)
 - `mobileStack`, `tabletStack`, `desktopStack`
 - `mobileHide`, `tabletHide`, `desktopHide`
+- `mobileShow`, `tabletShow`, `desktopShow`
+- `mobileWFull`, `tabletWFull`, `desktopWFull`
 
 ### Misc
 - `transition`, `noTransition`, `focusVisible`, `noFocusVisible`
