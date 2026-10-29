@@ -79,8 +79,7 @@ export function Theming() {
             <ThemeProvider theme={theme.config} themeDefaults={theme.defaults}>
               <Card row mobileStack overflowHidden
                     className={`max-w-xl max-mobile:max-w-80 ${theme.cssVars}`}>
-                <Img tag={Image} src={dog.image} alt="" width={200} height={200} noShrink
-                     className="max-mobile:w-full"/>
+                <Img tag={Image} src={dog.image} alt="" width={200} height={200} noShrink mobileWFull/>
                 <Stack sm>
                   <Row justifyBetween>
                     <Title tag="p">{dog.name}</Title>
@@ -89,8 +88,8 @@ export function Theming() {
                   <Divider/>
                   <Text sm>{dog.description}</Text>
                   <Row mobileStack justifyEnd>
-                    <Button success filled className="max-mobile:w-full">Adopt</Button>
-                    <Button secondary className="max-mobile:w-full">Learn more</Button>
+                    <Button success filled mobileWFull>Adopt</Button>
+                    <Button secondary mobileWFull>Learn more</Button>
                   </Row>
                 </Stack>
               </Card>

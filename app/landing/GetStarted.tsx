@@ -31,12 +31,12 @@ export function GetStarted() {
           <Col itemsCenter>
             <InstallBox command={INSTALL}/>
             <Row sm mobileStack justifyCenter wFull>
-              <Button md filled pill tag={Link} href="/docs/getting-started/installation" className="max-mobile:w-full">
+              <Button md filled pill tag={Link} href="/docs/getting-started/installation" mobileWFull>
                 Read the docs <ArrowRight aria-hidden="true"/>
               </Button>
-              <Button md pill tag={Link} href="/playground" className="max-mobile:w-full">Open the playground</Button>
+              <Button md pill tag={Link} href="/playground" mobileWFull>Open the playground</Button>
               <Button md pill tag="a" href={PRODUCT.githubUrl} target="_blank" rel="noopener noreferrer"
-                      aria-label="View VaneUI on GitHub (opens in a new tab)" className="max-mobile:w-full">
+                      aria-label="View VaneUI on GitHub (opens in a new tab)" mobileWFull>
                 <GitHubMark/> GitHub
               </Button>
             </Row>

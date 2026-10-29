@@ -57,14 +57,14 @@ export function LandingHeader() {
         </Row>
         <Divider vertical/>
         {/* Below 1024px the nav cells are hidden, so the links move into a menu */}
-        <Row tag="nav" aria-label="Main" justifyCenter className="w-14 max-mobile:w-12 lg:hidden">
+        <Row tag="nav" aria-label="Main" justifyCenter tabletShow className="w-14 max-mobile:w-12">
           <Menu trigger={<IconButton ghost secondary aria-label="Open menu"><MenuIcon aria-hidden="true"/></IconButton>}>
             {NAV.map(item => (
               <MenuItem key={item.label} tag={Link} href={item.href}>{item.label}</MenuItem>
             ))}
           </Menu>
         </Row>
-        <Divider vertical className="lg:hidden"/>
+        <Divider vertical tabletShow/>
         <Row className="px-3">
           <Button pill tag="a" href={PRODUCT.githubUrl} target="_blank" rel="noopener noreferrer"
                   aria-label="VaneUI on GitHub (opens in a new tab)">

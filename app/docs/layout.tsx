@@ -38,7 +38,7 @@ export default function DocsLayout({children}: DocsLayoutProps) {
 
           <Col noGap flex1 tag="main" className="min-w-0">
             {/* Below 1024px the sidebar is hidden, so a bar under the header opens it */}
-            <Row sm sticky primary borderB justifyBetween className="top-14 z-30 px-2 py-1.5 lg:hidden">
+            <Row sm sticky primary borderB justifyBetween tabletShow className="top-14 z-30 px-2 py-1.5">
               <Button ghost secondary onClick={() => setIsMobileMenuOpen(true)}
                       aria-expanded={isMobileMenuOpen} aria-controls="docs-mobile-nav">
                 <MenuIcon aria-hidden="true"/> Menu
@@ -56,7 +56,7 @@ export default function DocsLayout({children}: DocsLayoutProps) {
 
       {/* Mobile sidebar overlay */}
       {isMobileMenuOpen && (
-        <Col fixed primary noGap id="docs-mobile-nav" className="inset-0 z-50 lg:hidden">
+        <Col fixed primary noGap tabletShow id="docs-mobile-nav" className="inset-0 z-50">
           <Row noGap borderB justifyBetween noShrink className="h-14 pl-4">
             <Logo/>
             <Row justifyCenter borderL hFull className="w-14">

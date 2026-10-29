@@ -125,7 +125,7 @@ export function Hero() {
 
   const card =
     <Card sm row mobileStack noPadding noGap overflowHidden data-anno="card">
-      <Img sm sharp src={dog.image} alt="" width={188} height={188} fetchPriority="high" className="max-mobile:w-full" data-anno="img"/>
+      <Img sm sharp src={dog.image} alt="" width={188} height={188} fetchPriority="high" mobileWFull data-anno="img"/>
       <Stack sm>
         <Row justifyBetween>
           <Title tag="p">{dog.name}</Title>
@@ -134,8 +134,8 @@ export function Hero() {
         <Divider />
         <Text sm>{dog.description}</Text>
         <Row sm mobileStack justifyEnd>
-          <Button filled className="max-mobile:w-full" data-anno="adopt">Adopt</Button>
-          <Button secondary className="max-mobile:w-full" data-anno="more">Learn more</Button>
+          <Button filled mobileWFull data-anno="adopt">Adopt</Button>
+          <Button secondary mobileWFull data-anno="more">Learn more</Button>
         </Row>
       </Stack>
     </Card>;
@@ -162,7 +162,7 @@ export function Hero() {
           </Reveal>
           <Reveal delay={180} className="max-mobile:w-full">
             <Row mobileStack itemsStretch>
-              <Button md filled pill tag={Link} href="/docs/getting-started/installation" className="max-mobile:w-full">
+              <Button md filled pill tag={Link} href="/docs/getting-started/installation" mobileWFull>
                 Get started <ArrowRight aria-hidden="true"/>
               </Button>
               <InstallBox command={INSTALL}/>
