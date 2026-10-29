@@ -8,7 +8,7 @@ import { BrandMark, FrameRow } from './frame';
 export function WorksWith() {
   return (
     <FrameRow label="Works with">
-      <Grid6 noGap className="lp-grid max-tablet:grid-cols-3">
+      <Grid6 divided className="max-tablet:grid-cols-3">
         <Row primary relative className="h-16 px-8 max-desktop:px-5 max-mobile:px-4">
           <span aria-hidden="true" className="lp-sq"/>
           <Text xs fontMono uppercase trackingWidest tertiary whitespaceNowrap>Works with</Text>

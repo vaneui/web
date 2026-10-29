@@ -56,7 +56,7 @@ function Redlines({ g }: { g: Geometry }) {
   const width = Math.round(card.w);
 
   return (
-    <Col noGap absolute tabletHide aria-hidden="true" data-drawn={drawn} className="lp-anno inset-0 z-30 pointer-events-none">
+    <Col noGap absolute tabletHide pointerEventsNone aria-hidden="true" data-drawn={drawn} className="lp-anno inset-0 z-30">
       <svg width="100%" height="100%">
         {/* dimension line with end ticks */}
         <path className="lp-lead" pathLength={1} style={{ '--d': `${start}ms` } as React.CSSProperties}

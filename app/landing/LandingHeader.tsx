@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Row, Container, Button, IconButton, Divider, Chip, Text, Menu, MenuItem } from '@vaneui/ui';
+import { Row, Container, Button, IconButton, Divider, Chip, Text, Menu, MenuItem, NavLink } from '@vaneui/ui';
 import { Menu as MenuIcon } from 'react-feather';
 import { Logo } from '../components/Logo';
 import { ThemeToggle } from '../components/ThemeToggle';
@@ -24,7 +24,7 @@ function useCurrentHref() {
 export function LandingHeader() {
   const current = useCurrentHref();
   return (
-    <Row tag="header" sticky primary borderB noGap justifyCenter className="top-0 z-40">
+    <Row tag="header" sticky primary borderB noGap justifyCenter className="lp-chrome top-0 z-40">
       <Container xl row noGap borderX itemsStretch relative className={`${FRAME} h-14`}>
         <Crosshairs bottom/>
         {/* Brand cell: as wide as the docs sidebar, so on docs its divider continues the sidebar's rail */}
@@ -38,11 +38,10 @@ export function LandingHeader() {
         <Row noGap itemsStretch tabletHide tag="nav" aria-label="Main">
           {NAV.map(item => (
             <React.Fragment key={item.label}>
-              <Button ghost sharp secondary={item.href !== current} fontNormal noInsetRing hFull relative
-                      tag={Link} href={item.href} aria-current={item.href === current ? 'page' : undefined}
-                      className="lp-tab px-5">
+              <NavLink ghost sharp secondary={item.href !== current} active={item.href === current} indicatorBottom
+                       fontNormal hFull wAuto tag={Link} href={item.href} className="px-5">
                 {item.label}
-              </Button>
+              </NavLink>
               <Divider vertical/>
             </React.Fragment>
           ))}

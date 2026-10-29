@@ -15,7 +15,7 @@ export function Agents() {
         tables, so it writes valid VaneUI props instead of guessing.
       </SectionHead>
 
-      <Grid2 noGap borderT className="lp-grid max-tablet:grid-cols-1">
+      <Grid2 divided borderT className="max-tablet:grid-cols-1">
         {/* Terminal */}
         <Stack xl flexNoWrap justifyBetween primary relative>
           <Reveal>
@@ -62,7 +62,7 @@ export function Agents() {
               <Text xs fontMono uppercase trackingWider tertiary>Works with</Text>
             </Reveal>
           </Stack>
-          <Grid3 noGap borderT flex1 className="lp-grid max-tablet:grid-cols-3 max-mobile:grid-cols-3">
+          <Grid3 divided borderT flex1 className="max-tablet:grid-cols-3 max-mobile:grid-cols-3">
             {AI_CLIENTS.map((client, i) => (
               <Stack key={client.name} xl flexNoWrap itemsCenter justifyCenter primary relative className="min-h-40 max-mobile:min-h-0">
                 <Reveal delay={120 + i * 50}>

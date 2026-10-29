@@ -103,7 +103,7 @@ export function OnThisPage({sections}: OnThisPageProps) {
   };
 
   return (
-    <Col ref={containerRef} overflowYAuto sm hFit>
+    <Col ref={containerRef} overflowYAuto sm hFit className="lp-chrome">
       <Text xs fontMono uppercase trackingWider tertiary>On this page</Text>
       <Col noGap>
         {sections.map((section, index) => {
@@ -113,8 +113,8 @@ export function OnThisPage({sections}: OnThisPageProps) {
               key={index}
               href={`#${section.id}`}
               active={isActive}
-              xs ghost sharp noPadding secondary={!isActive}
-              className={`lp-rail py-1.5 ${
+              xs ghost sharp noPadding secondary={!isActive} indicatorStart
+              className={`py-1.5 ${
                 section.level === 0 ? 'pl-3' :
                 section.level === 1 ? 'pl-6' :
                 section.level === 2 ? 'pl-9' :

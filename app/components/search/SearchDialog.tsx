@@ -111,7 +111,7 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
     <Modal sm open={open} onClose={onClose} onExitComplete={onExitComplete} initialFocus={inputRef}
            aria-label="Search documentation" sharp noGap style={{ '--modal-width-sm': '40rem' } as React.CSSProperties}
            overlayProps={{ itemsStart: true, className: 'px-4 pt-[12vh] max-mobile:px-2 max-mobile:pt-2' }}
-           className="lp-site max-h-[min(40rem,80dvh)] max-mobile:max-h-[calc(100dvh-1rem)]">
+           className="lp-site lp-chrome max-h-[min(40rem,80dvh)] max-mobile:max-h-[calc(100dvh-1rem)]">
       {/* Search field: the input owns focus; arrows move the selection through the list below */}
       <Row noShrink borderB className="pl-4 pr-14 py-1">
         <Search aria-hidden="true" className="size-4 shrink-0 opacity-60"/>
@@ -144,8 +144,8 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
                   const trail = [hit.entry.page, ...hit.entry.path.slice(0, -1)].join(' › ');
                   return (
                     <NavLink key={hit.entry.url} id={optionId(i)} role="option" aria-selected={isSelected}
-                             tabIndex={-1} href={hit.entry.url} tag={Link} sharp itemsStart
-                             className="lp-rail lp-option pl-4"
+                             tabIndex={-1} href={hit.entry.url} tag={Link} sharp itemsStart indicatorStart
+                             className="pl-4"
                              onMouseMove={() => { if (!isSelected) setActive(i); }}
                              onClick={(e: React.MouseEvent) => {
                                if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;

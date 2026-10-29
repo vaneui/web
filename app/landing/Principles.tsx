@@ -128,7 +128,7 @@ function DarkSplit() {
         <Text xs fontMono tertiary>dark</Text>
       </Row>
       <div className="lp-split relative grid">
-        <div data-theme="light" className="lp-light lp-split-layer lp-split-light">
+        <div data-theme="light" className="lp-split-layer lp-split-light">
           <MiniCard notify={notify} onNotify={setNotify}/>
         </div>
         <div data-theme="dark" className="lp-split-layer lp-split-dark">
@@ -169,9 +169,9 @@ export function Principles() {
         the design.
       </SectionHead>
 
-      <Grid3 noGap borderT className="lp-grid">
+      <Grid3 divided borderT>
         {/* Wide: props, with the running demo. Its inner line lands on the column line below. */}
-        <Grid2 noGap className="lp-grid col-span-2 max-tablet:grid-cols-1 max-mobile:col-span-1">
+        <Grid2 divided className="col-span-2 max-tablet:grid-cols-1 max-mobile:col-span-1">
           <Stack xl flexNoWrap justifyBetween primary relative>
             <Reveal>
               <Col>

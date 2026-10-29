@@ -55,7 +55,7 @@ const isPage = (href: string) => href.startsWith('/') && !/\.\w+$/.test(href);
 export function LandingFooter() {
   return (
     <FrameRow tag="footer" label="Footer">
-      <Grid5 noGap className="lp-grid max-tablet:grid-cols-2">
+      <Grid5 divided className="max-tablet:grid-cols-2">
         <Stack xl flexNoWrap justifyBetween primary relative className="min-h-64 max-tablet:col-span-2 max-tablet:min-h-0">
           <Col>
             <Logo/>
