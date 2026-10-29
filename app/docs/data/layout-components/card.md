@@ -109,6 +109,49 @@ Cards support color appearances: `primary` (default), `accent`, `secondary`, `te
 </Row>
 ```
 
+## Strong border for a selected card
+
+`strongBorder` paints the border in the appearance's strong color, the one its focus ring uses, instead of the soft border tint. Use it to mark a selected option or a highlighted plan in a set of cards. A `filled` Card, whose border is otherwise transparent, shows the strong border too.
+
+```tsx demo
+<Grid2>
+  <Card>
+    <Title>Starter</Title>
+    <Text secondary>Default border</Text>
+  </Card>
+  <Card strongBorder>
+    <Title>Team</Title>
+    <Text secondary>strongBorder</Text>
+  </Card>
+  <Card accent strongBorder>
+    <Title>Business</Title>
+    <Text secondary>accent strongBorder</Text>
+  </Card>
+  <Card info filled strongBorder>
+    <Title filled>Enterprise</Title>
+    <Text filled>info filled strongBorder</Text>
+  </Card>
+</Grid2>
+```
+
+`strongBorder` changes the color only, so it shows wherever the component already draws a border. The same prop works on `Row`, `Col`, `Stack`, `Grid2` to `Grid6`, `Container` and `Section`, which draw no border until you add `border` or a side prop such as `borderB`. It needs `@vaneui/ui` 1.4.5 or later.
+
+## Shadow sizes
+
+`shadow` follows the card's size, so an `lg` Card casts a larger shadow than an `sm` one. `shadowXs`, `shadowSm`, `shadowMd`, `shadowLg` and `shadowXl` fix the shadow size whatever the card's size. Card uses the deeper layout shadow ramp; UI components such as Button take the same props on their compact ramp.
+
+```tsx demo
+<Row flexWrap>
+  <Card sm shadowXs><Text sm>shadowXs</Text></Card>
+  <Card sm shadowSm><Text sm>shadowSm</Text></Card>
+  <Card sm shadowMd><Text sm>shadowMd</Text></Card>
+  <Card sm shadowLg><Text sm>shadowLg</Text></Card>
+  <Card sm shadowXl><Text sm>shadowXl</Text></Card>
+</Row>
+```
+
+The shadow props share one category with `shadow` and `noShadow`, so set one of them at a time. The fixed sizes need `@vaneui/ui` 1.4.5 or later.
+
 ## Shapes
 
 `rounded` is the default. Use `pill` for fully rounded corners or `sharp` for none.

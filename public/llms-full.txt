@@ -1217,7 +1217,7 @@ Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible
 
 # NavLink
 
-> A navigation link for sidebars, nav menus, and headers. Supports active state, icons, and renders as anchor or button.
+> A navigation link for sidebars, nav menus and tab bars. Supports active state, icons, start and bottom indicator lines, and renders as anchor or button.
 
 Source: https://vaneui.com/docs/basic-components/navlink
 
@@ -1366,6 +1366,44 @@ NavLink is `wFull` so sidebar items fill the column. In a horizontal nav or a ta
   <NavLink href="#" wFit>Shipping</NavLink>
 </Row>
 ```
+
+## Indicator lines with indicatorStart and indicatorBottom
+
+To mark the current item with a line as well as a tint, add `indicatorStart` or `indicatorBottom`. `indicatorStart` draws a 1px rail on the start edge of every link, and on the `active` link it turns into a 2px mark in the accent color. Stacked links join their rails into one line down the sidebar.
+
+```tsx demo
+<Col noGap className="w-56">
+  <NavLink href="#" indicatorStart ghost sharp secondary>Installation</NavLink>
+  <NavLink href="#" indicatorStart ghost sharp active>Core concepts</NavLink>
+  <NavLink href="#" indicatorStart ghost sharp secondary>Theming</NavLink>
+</Col>
+```
+
+`indicatorBottom` draws an accent bar under the active link only, for a tab bar. Put the tabs in a [Row](/docs/layout-components/row) with `noGap` and `borderB`, so the bar sits on the row's bottom border.
+
+```tsx demo
+<Row noGap borderB>
+  <NavLink href="#" indicatorBottom ghost sharp active wFit>Docs</NavLink>
+  <NavLink href="#" indicatorBottom ghost sharp secondary wFit>Playground</NavLink>
+  <NavLink href="#" indicatorBottom ghost sharp secondary wFit>Changelog</NavLink>
+</Row>
+```
+
+Both indicators are inset shadows, so the text does not move when the active item changes. Inside a `dir="rtl"` container, the start rail moves to the right edge. The examples pair the indicators with `ghost` and `sharp`, so the lines meet square corners, and with `secondary` on the inactive links. The indicator props need `@vaneui/ui` 1.4.5 or later.
+
+## Selected options in a listbox
+
+A NavLink with `aria-selected="true"` takes the hover fill, so the highlighted option in a listbox, such as a search result picked with the arrow keys, stays visible while the pointer is elsewhere. Give the container `role="listbox"` and each NavLink `role="option"`. With `indicatorStart`, the selected option also gets the accent mark.
+
+```tsx demo
+<Col noGap role="listbox" aria-label="Search results" className="w-56">
+  <NavLink role="option" aria-selected="true" indicatorStart ghost sharp>Button</NavLink>
+  <NavLink role="option" aria-selected="false" indicatorStart ghost sharp secondary>Badge</NavLink>
+  <NavLink role="option" aria-selected="false" indicatorStart ghost sharp secondary>Card</NavLink>
+</Col>
+```
+
+In a search box built as a combobox, keyboard focus stays in the input, and `aria-activedescendant` on the input names the selected option's `id`. `MenuItem` takes the same fill for `aria-selected="true"`, but its fixed `role="menuitem"` has no selected state, so use NavLink for options.
 
 ## Keyboard focus
 
@@ -2690,6 +2728,157 @@ Because the ring is sized in em, it matches the surrounding text without any man
 - Variant: `filled`, `outline` (default), `ghost`
 
 Layout and utility props (Display, Hide) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
+
+# Progress
+
+> Progress is a determinate bar for a task with a known size, such as an upload or a setup step. A role="progressbar" track whose fill grows with value.
+
+Source: https://vaneui.com/docs/basic-components/progress
+
+Import: `import { Progress, Button, Card, Col, Row, Text, ThemeProvider } from "@vaneui/ui"`
+
+Progress is a determinate bar: it shows how much of a task with a known size is done, such as a file upload, an import or step 3 of 8 in a setup flow. It renders a `role="progressbar"` track with `aria-valuenow`, `aria-valuemin` and `aria-valuemax`, and a fill that grows with `value`. It takes no children, so a label or a percentage goes beside it. When the end of the wait is unknown, use [Spinner](/docs/basic-components/spinner) instead. Progress needs `@vaneui/ui` 1.4.5 or later.
+
+## Basic usage
+
+`value` is required and fills the bar against `max`, which is 100 by default. Give the bar an `aria-label`, since the track itself carries no text.
+
+```tsx demo
+<Progress value={40} aria-label="Upload"/>
+```
+
+`md`, `primary`, `pill`, `transition` and `wFull` are defaults, so a bare `<Progress value={40}/>` is an 8px pill bar across the full width of its parent.
+
+## Setting the range with max
+
+Set `max` when the value counts something other than percent, such as steps or megabytes. `value` is clamped to the range 0 to `max`: a value above `max` shows a full bar and reports `max` in `aria-valuenow`, and a negative value shows an empty one.
+
+```tsx demo
+<Col>
+  <Progress value={3} max={8} aria-label="Setup, step 3 of 8"/>
+  <Progress value={8} max={8} aria-label="Setup, step 8 of 8"/>
+</Col>
+```
+
+## Sizes
+
+Size sets the bar height: 2, 4, 8, 12 and 16px from `xs` to `xl`, with `md` (8px) as the default. In a [Row](/docs/layout-components/row), `flex1` lets the bar take the space its label leaves.
+
+```tsx demo
+<Col>
+  <Row>
+    <Text sm secondary className="w-8">xs</Text>
+    <Progress xs flex1 value={60} aria-label="Progress xs"/>
+  </Row>
+  <Row>
+    <Text sm secondary className="w-8">sm</Text>
+    <Progress sm flex1 value={60} aria-label="Progress sm"/>
+  </Row>
+  <Row>
+    <Text sm secondary className="w-8">md</Text>
+    <Progress flex1 value={60} aria-label="Progress md"/>
+  </Row>
+  <Row>
+    <Text sm secondary className="w-8">lg</Text>
+    <Progress lg flex1 value={60} aria-label="Progress lg"/>
+  </Row>
+  <Row>
+    <Text sm secondary className="w-8">xl</Text>
+    <Progress xl flex1 value={60} aria-label="Progress xl"/>
+  </Row>
+</Col>
+```
+
+## Appearances
+
+The fill is a filled bar in the appearance color, and the track stays neutral whatever the appearance. With the default `primary`, the fill is near-black in light mode and near-white in dark mode.
+
+```tsx demo
+<Col>
+  <Progress value={70} aria-label="Primary"/>
+  <Progress accent value={70} aria-label="Accent"/>
+  <Progress secondary value={70} aria-label="Secondary"/>
+  <Progress tertiary value={70} aria-label="Tertiary"/>
+  <Progress success value={70} aria-label="Success"/>
+  <Progress danger value={70} aria-label="Danger"/>
+  <Progress warning value={70} aria-label="Warning"/>
+  <Progress info value={70} aria-label="Info"/>
+</Col>
+```
+
+## Shapes
+
+`pill` is the default. `rounded` and `sharp` square the ends off, and the fill follows the shape of the track.
+
+```tsx demo
+<Col>
+  <Progress lg value={45} aria-label="Pill progress"/>
+  <Progress lg rounded value={45} aria-label="Rounded progress"/>
+  <Progress lg sharp value={45} aria-label="Sharp progress"/>
+</Col>
+```
+
+## Animating the progress bar to a new value
+
+With the default `transition`, the fill eases to each new value over `--transition-duration` (200ms); `noTransition` makes it jump. Under `prefers-reduced-motion` the fill moves without the animation. Each click below sends another megabyte, and the bar turns `success` once the upload completes.
+
+```tsx demo
+const total = 6;
+const [sent, setSent] = useState(2);
+const done = sent >= total;
+
+return (
+  <Card sm className="max-w-md">
+    <Row justifyBetween>
+      <Text sm fontSemibold>quarterly-report.pdf</Text>
+      <Text sm secondary>{sent} of {total}MB</Text>
+    </Row>
+    <Progress sm success={done} value={sent} max={total} aria-label="Uploading quarterly-report.pdf"/>
+    <Row justifyBetween>
+      <Text xs secondary>{done ? 'Upload complete' : 'Uploading to the shared drive'}</Text>
+      <Button xs secondary onClick={() => setSent(done ? 0 : sent + 1)}>
+        {done ? 'Restart' : 'Send 1MB'}
+      </Button>
+    </Row>
+  </Card>
+);
+```
+
+## Visible labels and value text
+
+When a visible label names the bar, point `aria-labelledby` at it instead of repeating the text in `aria-label`. Screen readers announce a progressbar's value as a percentage of the range; for a count, `aria-valuetext` gives the wording to read instead.
+
+```tsx demo
+<Col>
+  <Row justifyBetween>
+    <Text sm id="import-label">Importing contacts</Text>
+    <Text sm secondary>3 of 8 files</Text>
+  </Row>
+  <Progress value={3} max={8} aria-labelledby="import-label" aria-valuetext="3 of 8 files"/>
+</Col>
+```
+
+## Customizing
+
+Progress has two theme nodes for [themeDefaults](/docs/customization/theme-defaults): `progress.main` for the track and `progress.fill` for the bar inside it. The fill follows the track's appearance, shape and transition whenever they differ from the library defaults, so most changes go on `main`. A `fill` default, such as `success` below, applies while the track keeps its default appearance.
+
+```tsx demo
+<ThemeProvider themeDefaults={{
+  progress: { main: { sm: true }, fill: { success: true } },
+}}>
+  <Progress value={65} aria-label="Storage used"/>
+</ThemeProvider>
+```
+
+## Props
+
+- Appearance: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
+- Flex: `flex1`, `flexAuto`, `flexNone`
+- Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin` (default)
+- Shape: `pill` (default), `sharp`, `rounded`
+- Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+
+Layout and utility props (Hide, Overflow, Transition, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
 # Input
 
@@ -7028,7 +7217,7 @@ Layout and utility props (Border, Display, Flex Direction, Focus Visible, Gap, H
 
 Source: https://vaneui.com/docs/layout-components/card
 
-Import: `import { Card, Badge, Button, CardBody, CardFooter, CardHeader, Col, Row, Text, ThemeProvider, Title } from "@vaneui/ui"`
+Import: `import { Card, Badge, Button, CardBody, CardFooter, CardHeader, Col, Grid2, Row, Text, ThemeProvider, Title } from "@vaneui/ui"`
 
 Use a Card for one self-contained unit of content, such as a product, a profile or a group of settings, that should read as its own panel. A set of cards usually goes in a [Grid](/docs/layout-components/grid), so each card gets the same column width. When the content needs padding and spacing but no border, use [Stack](/docs/layout-components/stack); for a full-width band with its own background, use [Section](/docs/layout-components/section).
 
@@ -7133,6 +7322,49 @@ Cards support color appearances: `primary` (default), `accent`, `secondary`, `te
   </Card>
 </Row>
 ```
+
+## Strong border for a selected card
+
+`strongBorder` paints the border in the appearance's strong color, the one its focus ring uses, instead of the soft border tint. Use it to mark a selected option or a highlighted plan in a set of cards. A `filled` Card, whose border is otherwise transparent, shows the strong border too.
+
+```tsx demo
+<Grid2>
+  <Card>
+    <Title>Starter</Title>
+    <Text secondary>Default border</Text>
+  </Card>
+  <Card strongBorder>
+    <Title>Team</Title>
+    <Text secondary>strongBorder</Text>
+  </Card>
+  <Card accent strongBorder>
+    <Title>Business</Title>
+    <Text secondary>accent strongBorder</Text>
+  </Card>
+  <Card info filled strongBorder>
+    <Title filled>Enterprise</Title>
+    <Text filled>info filled strongBorder</Text>
+  </Card>
+</Grid2>
+```
+
+`strongBorder` changes the color only, so it shows wherever the component already draws a border. The same prop works on `Row`, `Col`, `Stack`, `Grid2` to `Grid6`, `Container` and `Section`, which draw no border until you add `border` or a side prop such as `borderB`. It needs `@vaneui/ui` 1.4.5 or later.
+
+## Shadow sizes
+
+`shadow` follows the card's size, so an `lg` Card casts a larger shadow than an `sm` one. `shadowXs`, `shadowSm`, `shadowMd`, `shadowLg` and `shadowXl` fix the shadow size whatever the card's size. Card uses the deeper layout shadow ramp; UI components such as Button take the same props on their compact ramp.
+
+```tsx demo
+<Row flexWrap>
+  <Card sm shadowXs><Text sm>shadowXs</Text></Card>
+  <Card sm shadowSm><Text sm>shadowSm</Text></Card>
+  <Card sm shadowMd><Text sm>shadowMd</Text></Card>
+  <Card sm shadowLg><Text sm>shadowLg</Text></Card>
+  <Card sm shadowXl><Text sm>shadowXl</Text></Card>
+</Row>
+```
+
+The shadow props share one category with `shadow` and `noShadow`, so set one of them at a time. The fixed sizes need `@vaneui/ui` 1.4.5 or later.
 
 ## Shapes
 
@@ -7282,7 +7514,7 @@ Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible
 
 Source: https://vaneui.com/docs/layout-components/grid
 
-Import: `import { Grid2, Grid3, Grid4, Grid5, Grid6, Card, Col, Text, ThemeProvider, Title } from "@vaneui/ui"`
+Import: `import { Grid2, Grid3, Grid4, Grid5, Grid6, Card, Col, Stack, Text, ThemeProvider, Title } from "@vaneui/ui"`
 
 Use a Grid component when cards or tiles should line up in columns. Each one renders a `<div>` with CSS grid display, so the cells in a row all get the same width whatever their content. For flex items that keep their content width, use [Row](/docs/layout-components/row); for data compared across rows and columns, use [Table](/docs/layout-components/table).
 
@@ -7471,6 +7703,41 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
   </Grid3>
 </Col>
 ```
+
+## Divided grid with 1px lines
+
+`divided` replaces the gap with 1px lines in the divider color, between the cells and around the outside, for a feature list or a strip of stats that reads as one ruled block. Each cell draws its line as an outline, so give the cells their own padding: a `Stack` per cell works, since it pads by default and its corners are `sharp`. `divided` is on `Grid2` to `Grid6` from `@vaneui/ui` 1.4.5, and the column count still reduces on smaller screens.
+
+```tsx demo
+<Grid3 divided>
+  <Stack sm>
+    <Title sm>Boolean props</Title>
+    <Text sm secondary>Size, appearance and shape as flags.</Text>
+  </Stack>
+  <Stack sm>
+    <Title sm>Theme overrides</Title>
+    <Text sm secondary>App-wide defaults through ThemeProvider.</Text>
+  </Stack>
+  <Stack sm>
+    <Title sm>Dark mode</Title>
+    <Text sm secondary>One data-theme attribute.</Text>
+  </Stack>
+  <Stack sm>
+    <Title sm>Tailwind CSS v4</Title>
+    <Text sm secondary>Utilities and CSS variables.</Text>
+  </Stack>
+  <Stack sm>
+    <Title sm>Accessible</Title>
+    <Text sm secondary>Roles, labels and focus states.</Text>
+  </Stack>
+  <Stack sm>
+    <Title sm>TypeScript</Title>
+    <Text sm secondary>Typed props on every component.</Text>
+  </Stack>
+</Grid3>
+```
+
+A divided grid owns its 1px gap, so `gap`, `noGap` and the size props no longer change the spacing between cells. The lines take the grid's divider color, which follows its appearance.
 
 ## Customizing
 
@@ -7850,6 +8117,17 @@ Control how an image fills a sized container with `objectCover` (default), `obje
       <Text sm secondary>Early morning hike through the pine forest.</Text>
     </Stack>
   </Card>
+</Row>
+```
+
+## Keeping its size in a row with noShrink
+
+In a flex [Row](/docs/layout-components/row), an image is a flex item that can give up width when the row runs out of room. `noShrink` sets `flex-shrink: 0`, so a logo or an avatar keeps its size and the text beside it gives way instead. Here the row also takes `whitespaceNowrap` and `overflowHidden`, so the label stays on one line and clips at the row's edge. `noShrink` on Img needs `@vaneui/ui` 1.4.5 or later.
+
+```tsx demo
+<Row whitespaceNowrap overflowHidden className="max-w-80">
+  <Img noShrink pill src={avatarSrc} alt="" width={32} height={32}/>
+  <Text sm>A long label that stays on one line and clips at the edge of its row</Text>
 </Row>
 ```
 
@@ -9241,6 +9519,12 @@ Pass `href` to render a `MenuItem` as an anchor tag. For client-side navigation 
   <MenuItem href="https://github.com" target="_blank">GitHub</MenuItem>
 </Menu>
 ```
+
+## Selected items
+
+A `MenuItem` with `aria-selected="true"` takes the hover fill, the same rule NavLink follows, so an item stays highlighted while the pointer and focus are elsewhere. The rule needs `@vaneui/ui` 1.4.5 or later.
+
+MenuItem always renders `role="menuitem"`, and ARIA defines no selected state for a menu item, so assistive technology may ignore `aria-selected` there. Treat the fill as a visual highlight only. For a list of options with one selected, such as search results under a search box, use NavLink with `role="option"` inside a `role="listbox"` container, where `aria-selected` is announced.
 
 ## Shape, variant and appearance
 
@@ -11002,21 +11286,31 @@ To customize sizing globally, override the computed variables in your CSS:
 
 # Dark Mode
 
-> Enable dark mode with the data-theme="dark" attribute and re-declare color tokens for custom themes.
+> Enable dark mode with data-theme="dark" on html or a wrapper, keep light regions with data-theme="light", and change colors in both schemes with light-dark().
 
 Source: https://vaneui.com/docs/customization/dark-mode
 
-Import: `import { Card } from "@vaneui/ui"`
+Import: `import { Button, Card, Row, Text } from "@vaneui/ui"`
 
-`data-theme="dark"` is the official dark-mode extension point. The shipped CSS re-declares the color tokens that change under it, so switching to dark mode needs no component code changes.
+`data-theme="dark"` is the official dark-mode extension point. Set it on `<html>` or on a wrapping element, and every VaneUI component inside switches to its dark colors with no component code changes. `data-theme="light"` makes a subtree light again inside a dark page. A page with no `data-theme` attribute keeps the `@theme` values and is unaffected by the dark-mode rules.
 
-## The dark-mode token block
+## How the light-dark() color pairs resolve
 
-VaneUI ships a `[data-theme="dark"]` block that re-declares the `--color-*` tokens that need a dark value; the rest (mostly filled-variant tokens) keep their light value. Because the tokens are CSS custom properties, any element under a `data-theme="dark"` ancestor reads the dark values through the cascade. You opt in by setting the attribute; you never restyle components.
+From `@vaneui/ui` 1.4.5, each scheme color is one [`light-dark()`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark) pair of a light and a dark value, such as `--color-bg-primary: light-dark(#fff, oklch(13% 0.028 261.692))` (white and gray-950). The full list of pairs, covering text, background, hover, active, border, focus ring and overlay colors, is declared on every `data-theme="dark"` element and on every `data-theme="light"` element below `<html>`. The same rules set `color-scheme`, which picks the side of each pair:
+
+| Attribute | `color-scheme` | Each pair resolves to |
+|-----------|----------------|-----------------------|
+| `data-theme="dark"` | `dark` | its dark value |
+| `data-theme="light"` below `<html>` | `light` | its light value |
+| none | not set | no pairs apply; the `@theme` values do |
+
+Tokens not in the list keep their `@theme` value in both schemes. Most of them are filled-variant colors, such as the 100-level text tints on filled `success` or `danger` surfaces. Because the tokens are CSS custom properties, any element under a `data-theme` ancestor reads the resolved values through the cascade.
+
+The dark scheme also deepens shadows: it raises `--shadow-alpha` from 0.1 to 0.4 and `--shadow-alpha-soft` from 0.06 to 0.25, and a light subtree resets both.
 
 ## Whole-page dark mode
 
-Set `data-theme="dark"` on the `<html>` element to theme the entire page, including portaled content (Modal, Popup, Overlay) and native controls. The block also sets `color-scheme: dark`, so scrollbars and form controls render in their dark forms, and it paints the page itself with the dark surface color. A background you set on `html` or `body` still wins.
+Set `data-theme="dark"` on the `<html>` element to theme the entire page, including portaled content (Modal, Popup, Overlay) and native controls. The rule sets `color-scheme: dark`, so scrollbars and form controls render in their dark forms, and VaneUI paints the page itself with the dark surface color. A background you set on `html` or `body` still wins.
 
 ```html
 <html data-theme="dark">
@@ -11042,19 +11336,62 @@ To darken a region of an otherwise light page, set `data-theme="dark"` on a wrap
 </div>
 ```
 
-The wrapper `<div>` paints nothing on its own. Give the subtree a surface: a `Card`, or a `Section` with an explicit appearance (`<Section primary>`). Either reads the dark background token and fills the area; a bare `Section` paints nothing.
+The wrapper `<div>` paints nothing on its own. Give the subtree a surface: a [Card](/docs/layout-components/card), or a [Section](/docs/layout-components/section) with an explicit appearance (`<Section primary>`). Either reads the dark background token and fills the area; a bare `Section` paints nothing.
+
+## Light regions inside a dark page
+
+`data-theme="light"` on an element inside a dark page or a dark wrapper makes that subtree light. It sets `color-scheme: light`, so every pair resolves to its light value, and it resets the shadow alphas. Use it for a light preview panel, an embedded document or a sample that must stay light whatever the page theme. Before 1.4.5, it only reset `color-scheme`, and the dark colors still came through.
+
+```tsx demo
+<div data-theme="dark">
+  <Card>
+    <Text>Dark surface</Text>
+    <div data-theme="light">
+      <Card sm>
+        <Text>Light card inside the dark surface</Text>
+        <Row>
+          <Button>Primary</Button>
+          <Button filled>Filled</Button>
+        </Row>
+      </Card>
+    </div>
+  </Card>
+</div>
+```
+
+The demo renders the same in both site themes: the outer wrapper is always dark and the inner one always light. On `<html>` itself, `data-theme="light"` changes nothing, since the light rule skips the root element. Token customizations for the light page keep working when a theme toggle sets `data-theme="light"` on `<html>`.
 
 ## Overlays follow the page theme
 
-`Modal`, `Popup`, and `Overlay` render through a portal at the end of `<body>`, so they resolve the theme set on `<html>` or `<body>`, not the theme of an inner wrapper. Subtree theming covers in-flow content. For overlays, `<html data-theme="dark">` is the primary supported mode.
+[Modal](/docs/overlay-components/modal), `Popup`, and `Overlay` render through a portal at the end of `<body>`, so they resolve the theme set on `<html>` or `<body>`, not the theme of an inner wrapper. Subtree theming covers in-flow content. For overlays, `<html data-theme="dark">` is the primary supported mode.
 
-## Forcing a light region
+## Changing a color in both schemes
 
-`data-theme="light"` marks an explicit light region and restores `color-scheme: light` for native controls. The light token values are the `:root` defaults, so inside a dark subtree the inherited dark tokens still apply. To render a fully light island within `data-theme="dark"`, re-declare the tokens you need under your own `[data-theme="light"]` selector.
+A token you re-declare on `:root` alone (as in the [CSS variables global override](/docs/customization/css-variables)) reaches pages without `data-theme`, but the scheme rules declare it again on dark elements and light subtrees, so the change does not show on a dark page or in a light region. To change a color in both schemes, declare it as a `light-dark()` pair on the `data-theme` elements, and keep the light value on `:root` for pages without `data-theme`:
+
+```css
+/* after the @vaneui/ui stylesheet */
+:root {
+  --color-bg-info: oklch(95% 0.02 220);
+}
+
+:root[data-theme],
+[data-theme]:not(:root) {
+  --color-bg-info: light-dark(oklch(95% 0.02 220), oklch(30% 0.05 220));
+}
+```
+
+`:root[data-theme]` covers `<html data-theme="...">` and `[data-theme]:not(:root)` covers subtree wrappers. Both selectors carry the same weight as the built-in scheme rules, so the rule wins when it comes after the VaneUI stylesheet, including in a light region inside a dark page.
+
+Keep `light-dark()` pairs off a `:root`-only rule. Bundlers that compile `light-dark()` for older browsers resolve it where the variable is declared, so a pair declared once on `:root` would not switch inside nested `data-theme` subtrees.
+
+## Browser support for light-dark()
+
+Uncompiled, `light-dark()` needs Chrome 123, Firefox 120 or Safari 17.5. Bundlers that compile it for older browsers keep those browsers working, and Next.js does so by default. The pairs apply only on `data-theme` elements, so a page without `data-theme` does not depend on `light-dark()` support.
 
 ## Custom named themes
 
-The dark block is one instance of a general pattern: re-declare any `--color-*` token under a selector of your choice. A named theme works the same way as the built-in dark block:
+The dark scheme is one instance of a general pattern: re-declare any `--color-*` token under a selector of your choice. A named theme works the same way:
 
 ```css
 [data-theme="ocean"] {
@@ -11663,6 +12000,8 @@ Border visibility on component sides. Side props compose: `borderT borderL` appl
 | `borderEnd` | Enable border on the inline-end side (flips under `dir="rtl"`) |
 | `noBorder` | Disable all borders |
 
+The layout components (`Row`, `Col`, `Stack`, `Grid2` to `Grid6`, `Container`, `Card` and `Section`) also take `strongBorder`, which keeps the border sides as set and paints them in the appearance's strong color, the one its focus ring uses. A `filled` Card, whose border is otherwise transparent, shows it too. It is listed in each of those components' own props tables, and the [Card strong border example](/docs/layout-components/card#strong-border-for-a-selected-card) shows it on a row of plans. `strongBorder` needs `@vaneui/ui` 1.4.5 or later.
+
 ## Margin
 
 External spacing that scales with the component's size prop, available on layout components and block typography. Side props compose: `marginT marginB` applies both. `noMargin` resets and wins. Block typography defaults to `noMargin`.
@@ -11678,11 +12017,16 @@ External spacing that scales with the component's size prop, available on layout
 
 ## Shadow
 
-Drop shadow visibility.
+Drop shadow visibility and size. `shadow` follows the component's size prop. `shadowXs` to `shadowXl` fix the size whatever the component's size, on the component's own ramp: compact for UI components such as `Button` and `Input`, deeper for layout components such as `Card`, `Modal` and `Popup`. All seven props share one category, so set one at a time. The fixed sizes need `@vaneui/ui` 1.4.5 or later.
 
 | Prop | Description |
 |------|-------------|
-| `shadow` | Enable drop shadow |
+| `shadow` | Enable drop shadow at the component's size |
+| `shadowXs` | Extra-small drop shadow, whatever the component's size |
+| `shadowSm` | Small drop shadow, whatever the component's size |
+| `shadowMd` | Medium drop shadow, whatever the component's size |
+| `shadowLg` | Large drop shadow, whatever the component's size |
+| `shadowXl` | Extra-large drop shadow, whatever the component's size |
 | `noShadow` | Disable drop shadow |
 
 ## Ring
@@ -11730,7 +12074,7 @@ Animation effects for state changes.
 
 ## Whitespace
 
-Text wrapping and whitespace behavior.
+Text wrapping and whitespace behavior. Typography components and UI elements such as `Button`, `Badge`, `Code` and `Input` take these props, and from `@vaneui/ui` 1.4.5 so do the layout components `Row`, `Col`, `Stack`, `Grid2` to `Grid6`, `Container`, `Card` and `Section`. `white-space` is inherited, so `<Row whitespaceNowrap>` keeps every line of text inside the row from wrapping, as in the [Img noShrink example](/docs/layout-components/img#keeping-its-size-in-a-row-with-noshrink).
 
 | Prop | Description |
 |------|-------------|
@@ -11802,7 +12146,7 @@ Backdrop blur effect for overlays and visual effects.
 
 ## Pointer events
 
-Element interactivity with the pointer.
+Element interactivity with the pointer. `Overlay` and `Popup` take these props, and from `@vaneui/ui` 1.4.5 so do the layout components `Row`, `Col`, `Stack`, `Grid2` to `Grid6`, `Container`, `Card` and `Section`. `pointer-events` is inherited: a layer with `pointerEventsNone` lets clicks through to the page behind it, and a child with `pointerEventsAuto` inside it, such as a floating toolbar, takes clicks again.
 
 | Prop | Description |
 |------|-------------|

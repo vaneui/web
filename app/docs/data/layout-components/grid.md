@@ -193,6 +193,41 @@ Grid supports color appearances. Pair with `filled` or `border` to make the surf
 </Col>
 ```
 
+## Divided grid with 1px lines
+
+`divided` replaces the gap with 1px lines in the divider color, between the cells and around the outside, for a feature list or a strip of stats that reads as one ruled block. Each cell draws its line as an outline, so give the cells their own padding: a `Stack` per cell works, since it pads by default and its corners are `sharp`. `divided` is on `Grid2` to `Grid6` from `@vaneui/ui` 1.4.5, and the column count still reduces on smaller screens.
+
+```tsx demo
+<Grid3 divided>
+  <Stack sm>
+    <Title sm>Boolean props</Title>
+    <Text sm secondary>Size, appearance and shape as flags.</Text>
+  </Stack>
+  <Stack sm>
+    <Title sm>Theme overrides</Title>
+    <Text sm secondary>App-wide defaults through ThemeProvider.</Text>
+  </Stack>
+  <Stack sm>
+    <Title sm>Dark mode</Title>
+    <Text sm secondary>One data-theme attribute.</Text>
+  </Stack>
+  <Stack sm>
+    <Title sm>Tailwind CSS v4</Title>
+    <Text sm secondary>Utilities and CSS variables.</Text>
+  </Stack>
+  <Stack sm>
+    <Title sm>Accessible</Title>
+    <Text sm secondary>Roles, labels and focus states.</Text>
+  </Stack>
+  <Stack sm>
+    <Title sm>TypeScript</Title>
+    <Text sm secondary>Typed props on every component.</Text>
+  </Stack>
+</Grid3>
+```
+
+A divided grid owns its 1px gap, so `gap`, `noGap` and the size props no longer change the spacing between cells. The lines take the grid's divider color, which follows its appearance.
+
 ## Customizing
 
 Set app-wide Grid defaults with `ThemeProvider`'s `themeDefaults`. Each column count has its own key (`grid2` through `grid6`).

@@ -159,6 +159,17 @@ Control how an image fills a sized container with `objectCover` (default), `obje
 </Row>
 ```
 
+## Keeping its size in a row with noShrink
+
+In a flex [Row](/docs/layout-components/row), an image is a flex item that can give up width when the row runs out of room. `noShrink` sets `flex-shrink: 0`, so a logo or an avatar keeps its size and the text beside it gives way instead. Here the row also takes `whitespaceNowrap` and `overflowHidden`, so the label stays on one line and clips at the row's edge. `noShrink` on Img needs `@vaneui/ui` 1.4.5 or later.
+
+```tsx demo
+<Row whitespaceNowrap overflowHidden className="max-w-80">
+  <Img noShrink pill src={avatarSrc} alt="" width={32} height={32}/>
+  <Text sm>A long label that stays on one line and clips at the edge of its row</Text>
+</Row>
+```
+
 ## Native HTML attributes
 
 `Img` forwards all standard `<img>` attributes including `loading`, `decoding`, `srcSet`, `sizes`, `referrerPolicy`, and `crossOrigin`. Use `loading="lazy"` for below-the-fold images.
