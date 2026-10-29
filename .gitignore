@@ -143,7 +143,10 @@ screenshots/
 
 # Scratch/experiment files
 test-tw*
-.claude/worktrees/agent-a4e43fcc/
 
 # Generated documentation examples
 app/docs/.generated/
+
+# Claude Code personal settings and worktrees (per machine, not shared)
+.claude/settings.local.json
+.claude/worktrees/
