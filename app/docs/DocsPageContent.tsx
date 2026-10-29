@@ -121,7 +121,7 @@ export function DocsPageContent(
               <Col lg wFull tag="nav" aria-label={`More in ${section.name}`}>
                 <Divider/>
                 <Eyebrow index={sectionIndex}>More in {section.name}</Eyebrow>
-                <Grid3 noGap className="lp-tiles max-mobile:grid-cols-2">
+                <Grid3 divided className="max-mobile:grid-cols-2">
                   {section.pages
                     .filter(p => p.slug !== pageData.slug)
                     .map(p => (

@@ -6,7 +6,7 @@ import { Row, Stack, Text } from '@vaneui/ui';
 import { ArrowUpRight } from 'react-feather';
 import { Brackets } from "../landing/frame";
 
-/** Docs page tile for an `lp-tiles` grid; client-side so `tag={Link}` works from server pages */
+/** Docs page tile for a `divided` grid; client-side so `tag={Link}` works from server pages */
 export function DocsTile({ href, name, description }: { href: string; name: string; description?: string }) {
   return (
     <Stack sm flexNoWrap primary relative tag={Link} href={href}>

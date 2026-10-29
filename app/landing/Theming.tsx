@@ -34,7 +34,7 @@ export function Theming() {
         three examples: yours can use any values, and a nested provider gives one section its own look.
       </SectionHead>
 
-      <Grid2 noGap borderT className="lp-grid grid-cols-[minmax(0,5fr)_minmax(0,7fr)] max-tablet:grid-cols-1">
+      <Grid2 divided borderT className="grid-cols-[minmax(0,5fr)_minmax(0,7fr)] max-tablet:grid-cols-1">
         {/* Controls and code */}
         <Stack xl flexNoWrap primary relative>
           <Reveal>
@@ -79,8 +79,8 @@ export function Theming() {
             <ThemeProvider theme={theme.config} themeDefaults={theme.defaults}>
               <Card row mobileStack overflowHidden
                     className={`max-w-xl max-mobile:max-w-80 ${theme.cssVars}`}>
-                <Img tag={Image} src={dog.image} alt="" width={200} height={200}
-                     className="shrink-0 max-mobile:w-full"/>
+                <Img tag={Image} src={dog.image} alt="" width={200} height={200} noShrink
+                     className="max-mobile:w-full"/>
                 <Stack sm>
                   <Row justifyBetween>
                     <Title tag="p">{dog.name}</Title>

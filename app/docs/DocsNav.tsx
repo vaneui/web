@@ -9,7 +9,7 @@ import { Eyebrow } from "../landing/frame";
 /** Sidebar: one `[01] Section` eyebrow per category, its pages hanging off a hairline track */
 export function DocsNav({currentPath, onMenuItemClickAction}: { currentPath?: string, onMenuItemClickAction?: () => void }) {
   return (
-    <Col lg>
+    <Col lg className="lp-chrome">
       {docsSections.map((section, i) => (
         <Col sm key={section.slug}>
           <Eyebrow tight index={String(i + 1).padStart(2, '0')}>{section.name}</Eyebrow>
@@ -20,8 +20,8 @@ export function DocsNav({currentPath, onMenuItemClickAction}: { currentPath?: st
               return (
                 <NavLink
                   key={page.slug} href={path} tag={Link}
-                  ghost sharp secondary={!isActive} active={isActive}
-                  className="lp-rail pl-4"
+                  ghost sharp secondary={!isActive} active={isActive} indicatorStart
+                  className="pl-4"
                   onClick={onMenuItemClickAction}
                 >
                   {page.name}

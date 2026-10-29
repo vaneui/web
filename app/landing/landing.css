@@ -2,7 +2,9 @@
 
 /* ---------- tokens ---------- */
 
-.landing {
+/* Light: the page, and any light island inside a dark page */
+.landing,
+.landing [data-theme="light"] {
   /* ink */
   --color-text-primary: oklch(13% 0.028 261.692);              /* gray-950 */
   --color-bg-filled-primary: oklch(13% 0.028 261.692);         /* gray-950 */
@@ -42,40 +44,16 @@
   --color-focus-accent: oklch(70.7% 0.165 254.624);            /* blue-400 */
 }
 
-/* Light island that stays light in dark mode: VaneUI's pattern of re-declaring light tokens */
-.landing .lp-light {
-  color-scheme: light;
-  --color-text-primary: oklch(13% 0.028 261.692);              /* gray-950 */
-  --color-text-secondary: oklch(44.6% 0.03 256.802);           /* gray-600 */
-  --color-text-tertiary: oklch(55.1% 0.027 264.364);           /* gray-500 */
-  --color-text-filled-primary: oklch(100% 0 0);                /* white */
-  --color-text-filled-secondary: oklch(96.7% 0.003 264.542);   /* gray-100 */
-  --color-bg-primary: oklch(100% 0 0);                         /* white */
-  --color-bg-secondary: oklch(98.5% 0.002 247.839);            /* gray-50 */
-  --color-bg-tertiary: oklch(96.7% 0.003 264.542);             /* gray-100 */
-  --color-bg-form: oklch(100% 0 0);                            /* white */
-  --color-bg-hover-primary: oklch(98.5% 0.002 247.839);        /* gray-50 */
-  --color-bg-hover-secondary: oklch(96.7% 0.003 264.542);      /* gray-100 */
-  --color-bg-active-primary: oklch(96.7% 0.003 264.542);       /* gray-100 */
-  --color-bg-active-secondary: oklch(92.8% 0.006 264.531);     /* gray-200 */
-  --color-bg-filled-primary: oklch(13% 0.028 261.692);         /* gray-950 */
-  --color-bg-filled-hover-primary: oklch(27.8% 0.033 256.848); /* gray-800 */
-  --color-bg-filled-active-primary: oklch(37.3% 0.034 259.733);/* gray-700 */
-  --color-border-primary: oklch(92.8% 0.006 264.531);          /* gray-200 */
-  --color-border-secondary: oklch(92.8% 0.006 264.531);        /* gray-200 */
-  --color-border-tertiary: oklch(92.8% 0.006 264.531);         /* gray-200 */
-  --color-border-form: oklch(87.2% 0.01 258.338);              /* gray-300 */
-  --color-focus-primary: oklch(44.6% 0.03 256.802);            /* gray-600 */
-  --shadow-alpha: 0.1;
-  --shadow-alpha-soft: 0.06;
-}
-
 /* Docs and playground: same frame drawing, VaneUI tokens untouched so examples show real defaults */
 .lp-site {
   --lp-mark: oklch(54.6% 0.245 262.881);                       /* blue-600 */
 }
 [data-theme="dark"] .lp-site {
   --lp-mark: oklch(70.7% 0.165 254.624);                       /* blue-400 */
+}
+/* Docs chrome (header, nav, search) marks the current item in the site accent */
+.lp-chrome {
+  --color-focus-accent: var(--lp-mark);
 }
 
 /* Derived drawing colors; recomputed on every theme root so islands get their own */
@@ -124,13 +102,7 @@
   background-color: var(--lp-mark);
 }
 
-/* ---------- hairline grids ---------- */
-
-/* Touching cells: a 1px gap over a hairline-colored grid; each cell paints the canvas with `primary` */
-.lp-grid {
-  gap: 1px;
-  background-color: var(--lp-line);
-}
+/* ---------- grid cells ---------- */
 
 /* Accent corner brackets that appear while their cell (the parent) is hovered or focused */
 .lp-brk {
@@ -272,44 +244,11 @@
 .lp-split:has(.lp-split-light :focus-visible) .lp-split-line { transform: translateX(50%); }
 .lp-split-line line { stroke: var(--lp-mark); stroke-width: 1; }
 
-/* The current page's header cell: an accent bar over the header's bottom hairline */
-.lp-tab[aria-current="page"]::after {
-  content: "";
-  position: absolute;
-  inset-inline: 0;
-  bottom: -1px;
-  height: 2px;
-  background-color: var(--lp-mark);
-}
-
 /* ---------- docs ---------- */
 
 /* Anchored headings land below the sticky header (and the mobile docs bar) */
 .lp-site [id] { scroll-margin-top: 5.5rem; }
 @media (max-width: 1023.98px) { .lp-site [id] { scroll-margin-top: 8.5rem; } }
-
-/* Sidebar and on-this-page links hang off a hairline track; the current one marks it in accent */
-.lp-rail { position: relative; }
-.lp-rail::before {
-  content: "";
-  position: absolute;
-  inset-block: 0;
-  left: 0;
-  width: 1px;
-  background-color: var(--lp-line);
-}
-.lp-rail[data-active]::before,
-.lp-rail[aria-selected="true"]::before {
-  width: 2px;
-  background-color: var(--lp-mark);
-}
-
-/* Search results: the keyboard selection takes the link's hover fill */
-.lp-option[aria-selected="true"] { background-color: var(--bg-hover-color); }
-
-/* Touching tiles without a filled last row: each tile draws its own hairline into the 1px gap */
-.lp-tiles { gap: 1px; padding: 1px; }
-.lp-tiles > * { box-shadow: 0 0 0 1px var(--lp-line); }
 
 /* ---------- motion ---------- */
 

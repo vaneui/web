@@ -23,7 +23,7 @@ export default function DocsIndex() {
             <Eyebrow tag="h2" index={String(i + 1).padStart(2, '0')}>{section.name}</Eyebrow>
             <Text sm tertiary>{section.description}</Text>
           </Col>
-          <Grid3 noGap className="lp-tiles">
+          <Grid3 divided>
             {section.pages.map(page => (
               <DocsTile key={page.slug} href={`/docs/${section.slug}/${page.slug}`}
                         name={page.name} description={page.description}/>

@@ -27,7 +27,7 @@ export function ComponentsBento() {
         real component, so try it.
       </SectionHead>
 
-      <Grid4 noGap borderT className="lp-grid max-tablet:grid-cols-2 max-mobile:grid-cols-1">
+      <Grid4 divided borderT className="max-tablet:grid-cols-2 max-mobile:grid-cols-1">
         {tiles.map((tile, i) => {
           const l = LAYOUT[tile.name];
           return (
