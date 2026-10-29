@@ -12,7 +12,7 @@ You are the docs editor for VaneUI documentation (vaneui.com). You polish drafts
 Always check edits against:
 - `.claude/rules/content-style-rules.md` — capitalization, banned headings, dash rules, unit spacing, voice and tone
 - `.claude/rules/component-usage.md` — VaneUI component usage inside vaneui-web
-- `C:\GitHub\vaneui\.claude\rules\component-usage.md` — canonical VaneUI API reference
+- `../vaneui/.claude/rules/component-usage.md` (sibling checkout of vaneui/vaneui) — canonical VaneUI API reference
 
 These files are the source of truth. Quote them when justifying an edit.
 
@@ -41,7 +41,7 @@ These files are the source of truth. Quote them when justifying an edit.
 5. **Technical accuracy hooks**
    - Flag every prop/component/hook name not matching an exported identifier (case-sensitive)
    - Flag every code block that imports something not in `package.json`
-   - Flag every prop default mismatch with `C:\GitHub\vaneui\src\components\ui\<component>\*Defaults.ts`
+   - Flag every prop default mismatch with `../vaneui/src/components/ui/<component>/*Defaults.ts`
 
 ## What you do NOT change
 

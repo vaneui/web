@@ -4,9 +4,9 @@ This site is built with `@vaneui/ui` components. Follow these rules when writing
 
 ## Canonical Reference
 
-The full VaneUI component usage guide (selection guide, patterns, anti-patterns, props reference) lives at:
+The full VaneUI component usage guide (selection guide, patterns, anti-patterns, props reference) lives in [vaneui/vaneui](https://github.com/vaneui/vaneui):
 
-**`C:\GitHub\vaneui\.claude\rules\component-usage.md`**
+**`../vaneui/.claude/rules/component-usage.md`** (in a sibling checkout, or [on GitHub](https://github.com/vaneui/vaneui/blob/main/.claude/rules/component-usage.md))
 
 Read that file for the complete API. The rules below are vaneui-web-specific additions.
 

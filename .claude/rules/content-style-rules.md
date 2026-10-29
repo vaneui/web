@@ -2,8 +2,6 @@
 
 Canonical source for capitalization, heading, and prose conventions for VaneUI documentation. All content agents (`docs-writer`, `editor`, `quality-checker`, `faq-generator`, `seo-optimizer`, `ai-optimization`) reference this file.
 
-Mirrors `testland-web/.claude/rules/content-style-rules.md`. When the testland rules change, mirror them here.
-
 ---
 
 ## Capitalization
@@ -179,6 +177,5 @@ Every docs page MUST pass before merge:
 
 ## Reference
 
-- Testland parallel: `C:\GitHub\testland-web\.claude\rules\content-style-rules.md`
-- Component usage rules: `C:\GitHub\vaneui-web\.claude\rules\component-usage.md`
-- Full VaneUI API reference: `C:\GitHub\vaneui\.claude\rules\component-usage.md`
+- Component usage rules: `.claude/rules/component-usage.md`
+- Full VaneUI API reference: `../vaneui/.claude/rules/component-usage.md` (sibling checkout of vaneui/vaneui)
