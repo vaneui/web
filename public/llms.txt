@@ -34,7 +34,7 @@ it has `onClick` or `tag="button"`. `noFocusVisible` opts out.
 
 - [Button](https://vaneui.com/docs/basic-components/button.md): Button triggers an action or event when clicked. It can contain text, an icon, or both, and is a primary way for users to interact with the app.
 - [IconButton](https://vaneui.com/docs/basic-components/icon-button.md): A square icon-only button with customizable appearance, size, and shape. Supports loading state and renders as anchor when href is provided.
-- [NavLink](https://vaneui.com/docs/basic-components/navlink.md): A navigation link for sidebars, nav menus, and headers. Supports active state, icons, and renders as anchor or button.
+- [NavLink](https://vaneui.com/docs/basic-components/navlink.md): A navigation link for sidebars, nav menus and tab bars. Supports active state, icons, start and bottom indicator lines, and renders as anchor or button.
 - [Badge](https://vaneui.com/docs/basic-components/badge.md): Badge highlights information such as notifications or counts in a non-intrusive way. Often paired with other elements like icons or navigation links.
 - [Chip](https://vaneui.com/docs/basic-components/chip.md): Compact token for tags, attributes, or other discrete entities inline with text. Defaults to secondary appearance, outline variant, and rounded shape.
 - [Code](https://vaneui.com/docs/basic-components/code.md): Renders inline code snippets in a themed monospace surface. Use for commands, file paths, or technical terms in prose; renders as an anchor when given href.
@@ -43,6 +43,7 @@ it has `onClick` or `tag="button"`. `noFocusVisible` opts out.
 - [Icon](https://vaneui.com/docs/basic-components/icon.md): A lightweight SVG wrapper that provides consistent sizing, color inheritance, and themed appearances for icons.
 - [Alert](https://vaneui.com/docs/basic-components/alert.md): Alert is a live region for messages that follow a user action. It announces itself when it appears, assertively by default or politely on request.
 - [Spinner](https://vaneui.com/docs/basic-components/spinner.md): Spinner indicates that something is in progress. The ring is sized in em, so it scales with the size prop and lines up with text.
+- [Progress](https://vaneui.com/docs/basic-components/progress.md): Progress is a determinate bar for a task with a known size, such as an upload or a setup step. A role="progressbar" track whose fill grows with value.
 
 ## Form Components
 
@@ -94,7 +95,7 @@ it has `onClick` or `tag="button"`. `noFocusVisible` opts out.
 - [ThemeDefaults](https://vaneui.com/docs/customization/theme-defaults.md): Set app-wide default props with ThemeProvider themeDefaults, such as a filled VaneUI Button everywhere, and see how defaults merge with component props.
 - [ExtraClasses](https://vaneui.com/docs/customization/extra-classes.md): Attach your own Tailwind CSS classes to VaneUI components when a boolean prop is active, with ThemeProvider extraClasses: hover effects, animations, sizes.
 - [CSS Variables](https://vaneui.com/docs/customization/css-variables.md): Change VaneUI colors and sizing with CSS custom properties: the three-tier variable system, color groups, and global or scoped overrides, no component edits.
-- [Dark Mode](https://vaneui.com/docs/customization/dark-mode.md): Enable dark mode with the data-theme="dark" attribute and re-declare color tokens for custom themes.
+- [Dark Mode](https://vaneui.com/docs/customization/dark-mode.md): Enable dark mode with data-theme="dark" on html or a wrapper, keep light regions with data-theme="light", and change colors in both schemes with light-dark().
 - [Customizing Styles](https://vaneui.com/docs/customization/customizing-styles.md): Override VaneUI component styles using Tailwind CSS classes, CSS variables, and the className prop.
 - [Variant Inheritance](https://vaneui.com/docs/customization/variant-inheritance.md): How components inherit colors from ancestor layouts via CSS custom-property cascade.
 

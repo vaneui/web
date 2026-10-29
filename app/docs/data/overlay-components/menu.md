@@ -103,6 +103,12 @@ Pass `href` to render a `MenuItem` as an anchor tag. For client-side navigation 
 </Menu>
 ```
 
+## Selected items
+
+A `MenuItem` with `aria-selected="true"` takes the hover fill, the same rule NavLink follows, so an item stays highlighted while the pointer and focus are elsewhere. The rule needs `@vaneui/ui` 1.4.5 or later.
+
+MenuItem always renders `role="menuitem"`, and ARIA defines no selected state for a menu item, so assistive technology may ignore `aria-selected` there. Treat the fill as a visual highlight only. For a list of options with one selected, such as search results under a search box, use NavLink with `role="option"` inside a `role="listbox"` container, where `aria-selected` is announced.
+
 ## Shape, variant and appearance
 
 The props you set on `Menu` reach the dropdown frame, so the popup takes the shape, variant and appearance rather than the trigger.

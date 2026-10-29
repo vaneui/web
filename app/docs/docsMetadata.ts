@@ -81,7 +81,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'navlink',
         name: 'NavLink',
-        description: 'A navigation link for sidebars, nav menus, and headers. Supports active state, icons, and renders as anchor or button.',
+        description: 'A navigation link for sidebars, nav menus and tab bars. Supports active state, icons, start and bottom indicator lines, and renders as anchor or button.',
         componentKey: "navLink",
       },
       {
@@ -131,6 +131,12 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         name: 'Spinner',
         description: 'Spinner indicates that something is in progress. The ring is sized in em, so it scales with the size prop and lines up with text.',
         componentKey: "spinner",
+      },
+      {
+        slug: 'progress',
+        name: 'Progress',
+        description: 'Progress is a determinate bar for a task with a known size, such as an upload or a setup step. A role="progressbar" track whose fill grows with value.',
+        componentKey: "progress",
       },
     ]
   },
@@ -395,7 +401,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         slug: 'dark-mode',
         name: 'Dark Mode',
         seoTitle: 'Dark Mode for React + Tailwind CSS Components | VaneUI',
-        description: 'Enable dark mode with the data-theme="dark" attribute and re-declare color tokens for custom themes.',
+        description: 'Enable dark mode with data-theme="dark" on html or a wrapper, keep light regions with data-theme="light", and change colors in both schemes with light-dark().',
         mdPath: 'dark-mode.md',
       },
       {

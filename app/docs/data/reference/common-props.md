@@ -183,6 +183,8 @@ Border visibility on component sides. Side props compose: `borderT borderL` appl
 | `borderEnd` | Enable border on the inline-end side (flips under `dir="rtl"`) |
 | `noBorder` | Disable all borders |
 
+The layout components (`Row`, `Col`, `Stack`, `Grid2` to `Grid6`, `Container`, `Card` and `Section`) also take `strongBorder`, which keeps the border sides as set and paints them in the appearance's strong color, the one its focus ring uses. A `filled` Card, whose border is otherwise transparent, shows it too. It is listed in each of those components' own props tables, and the [Card strong border example](/docs/layout-components/card#strong-border-for-a-selected-card) shows it on a row of plans. `strongBorder` needs `@vaneui/ui` 1.4.5 or later.
+
 ## Margin
 
 External spacing that scales with the component's size prop, available on layout components and block typography. Side props compose: `marginT marginB` applies both. `noMargin` resets and wins. Block typography defaults to `noMargin`.
@@ -198,11 +200,16 @@ External spacing that scales with the component's size prop, available on layout
 
 ## Shadow
 
-Drop shadow visibility.
+Drop shadow visibility and size. `shadow` follows the component's size prop. `shadowXs` to `shadowXl` fix the size whatever the component's size, on the component's own ramp: compact for UI components such as `Button` and `Input`, deeper for layout components such as `Card`, `Modal` and `Popup`. All seven props share one category, so set one at a time. The fixed sizes need `@vaneui/ui` 1.4.5 or later.
 
 | Prop | Description |
 |------|-------------|
-| `shadow` | Enable drop shadow |
+| `shadow` | Enable drop shadow at the component's size |
+| `shadowXs` | Extra-small drop shadow, whatever the component's size |
+| `shadowSm` | Small drop shadow, whatever the component's size |
+| `shadowMd` | Medium drop shadow, whatever the component's size |
+| `shadowLg` | Large drop shadow, whatever the component's size |
+| `shadowXl` | Extra-large drop shadow, whatever the component's size |
 | `noShadow` | Disable drop shadow |
 
 ## Ring
@@ -250,7 +257,7 @@ Animation effects for state changes.
 
 ## Whitespace
 
-Text wrapping and whitespace behavior.
+Text wrapping and whitespace behavior. Typography components and UI elements such as `Button`, `Badge`, `Code` and `Input` take these props, and from `@vaneui/ui` 1.4.5 so do the layout components `Row`, `Col`, `Stack`, `Grid2` to `Grid6`, `Container`, `Card` and `Section`. `white-space` is inherited, so `<Row whitespaceNowrap>` keeps every line of text inside the row from wrapping, as in the [Img noShrink example](/docs/layout-components/img#keeping-its-size-in-a-row-with-noshrink).
 
 | Prop | Description |
 |------|-------------|
@@ -322,7 +329,7 @@ Backdrop blur effect for overlays and visual effects.
 
 ## Pointer events
 
-Element interactivity with the pointer.
+Element interactivity with the pointer. `Overlay` and `Popup` take these props, and from `@vaneui/ui` 1.4.5 so do the layout components `Row`, `Col`, `Stack`, `Grid2` to `Grid6`, `Container`, `Card` and `Section`. `pointer-events` is inherited: a layer with `pointerEventsNone` lets clicks through to the page behind it, and a child with `pointerEventsAuto` inside it, such as a floating toolbar, takes clicks again.
 
 | Prop | Description |
 |------|-------------|
