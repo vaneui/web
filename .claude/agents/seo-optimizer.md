@@ -50,7 +50,7 @@ For each page audited, report PASS/FAIL on every item:
 ### 6. External authority signals
 - Cross-links to upstream docs (React, Tailwind CSS, Next.js, MDN, Web.dev) when the topic genuinely depends on them
 - All external links open in a new tab and include `rel="noopener noreferrer"` (handled by VaneUI `<Link external>`)
-- No external links to competitor component libraries (per parent CLAUDE.md rule)
+- No external links to competitor component libraries (per the third-party UI frameworks rule in `CLAUDE.md`)
 
 ### 7. Metadata sanity (verify against `app/layout.tsx`)
 - `metadataBase` set to `https://vaneui.com`

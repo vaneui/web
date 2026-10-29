@@ -24,7 +24,7 @@ Requires Node.js 24.x. Screenshots require Playwright browsers (`npx playwright 
 
 - Next.js 16 (App Router, Turbopack), React 19, TypeScript 5.9
 - Tailwind CSS v4 with `@vaneui/ui/vars` CSS variables
-- `@vaneui/ui` — component library (source code at `C:\GitHub\vaneui`, see its CLAUDE.md for full API reference)
+- `@vaneui/ui` — component library (source in [vaneui/vaneui](https://github.com/vaneui/vaneui), see its CLAUDE.md for full API reference)
 - `@vaneui/md` — markdown renderer using Markdoc, renders into VaneUI components
 - `prism-react-renderer` — syntax highlighting in CodeBlock
 - `react-feather` — icons
@@ -139,9 +139,9 @@ This site uses VaneUI components for its own UI. Follow these conventions:
 
 ### VaneUI Component Reference
 
-For the full VaneUI component API (all components, props, theming, best practices, anti-patterns), refer to the CLAUDE.md file in the sibling repository:
+For the full VaneUI component API (all components, props, theming, best practices, anti-patterns), refer to the CLAUDE.md file of [vaneui/vaneui](https://github.com/vaneui/vaneui):
 
-**`C:\GitHub\vaneui\CLAUDE.md`** — contains complete documentation of all VaneUI components, boolean props API, ThemeProvider usage, responsive design patterns, and best practices. Read this file when you need to understand VaneUI component behavior or write code using VaneUI components.
+**`../vaneui/CLAUDE.md`** (in a sibling checkout, or [on GitHub](https://github.com/vaneui/vaneui/blob/main/CLAUDE.md)) — contains complete documentation of all VaneUI components, boolean props API, ThemeProvider usage, responsive design patterns, and best practices. Read this file when you need to understand VaneUI component behavior or write code using VaneUI components.
 
 ## Visual Review with Screenshots
 
@@ -165,6 +165,10 @@ npm run screenshot:clean
 ```
 
 Screenshots are saved to `screenshots/` (gitignored). Clean up manually with `npm run screenshot:clean` when done reviewing.
+
+## Third-party UI frameworks
+
+Do not name third-party UI frameworks or component libraries anywhere in this repository, and do not link to them: not in source, comments, docs, FAQs or agent files. Describe the technical behavior generically instead.
 
 ## Nothing private in GitHub content
 
@@ -202,4 +206,4 @@ When a task matches an agent's trigger below, you **MUST** delegate to that agen
 
 **Standard docs pipeline:** `docs-writer` → `editor` → `internal-linker` → `faq-generator` (optional) → `seo-optimizer` → `ai-optimization` → `quality-checker`. Skip the optimization passes for trivial typo fixes.
 
-**Content style rules:** All content agents above defer to `.claude/rules/content-style-rules.md` for capitalization, banned headings, dash policy, unit spacing, and marketing-voice ban. Mirrors `testland-web/.claude/rules/content-style-rules.md`.
+**Content style rules:** All content agents above defer to `.claude/rules/content-style-rules.md` for capitalization, banned headings, dash policy, unit spacing, and marketing-voice ban.

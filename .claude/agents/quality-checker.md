@@ -37,7 +37,7 @@ If any check fails, list specific issues so the writer / editor knows what to fi
 
 - `.claude/rules/content-style-rules.md` — capitalization, headings, dashes, units, voice
 - `.claude/rules/component-usage.md` — VaneUI usage inside vaneui-web
-- `C:\GitHub\vaneui\.claude\rules\component-usage.md` — canonical VaneUI API
+- `../vaneui/.claude/rules/component-usage.md` (sibling checkout of vaneui/vaneui) — canonical VaneUI API
 - `package.json` — what packages can appear in imports
 
 A page may pull content from `_`-prefixed partials (for example `app/docs/data/_partials/`) through `{% include "..." %}` tags. Never edit a partial or break an include tag, and run every check on the page as it reads with its includes: headings, dashes and FAQs in included content count as the page's own.
@@ -72,8 +72,8 @@ A page may pull content from `_`-prefixed partials (for example `app/docs/data/_
   - Hooks: `useTheme`
   - Prop names: `appearance`, `flexWrap`, `noGap`, `itemsCenter` (camelCase, not snake or kebab)
   - CSS variables: `--fs-unit`, `--bg-color`, `--color-text-primary`
-- Use `Grep` against `C:\GitHub\vaneui\src\index.ts` exports to verify component/hook names
-- Use `Grep` against `C:\GitHub\vaneui\src\components\ui\props\keys.ts` for prop names
+- Use `Grep` against `../vaneui/src/index.ts` exports to verify component/hook names
+- Use `Grep` against `../vaneui/src/components/ui/props/keys.ts` for prop names
 
 ### 6. Marketing voice
 - Zero instances of: "powerful", "robust", "blazing fast", "easy", "simple", "intuitive", "beautiful", "elegant", "seamless", "effortless", "delightful", "awesome", "amazing"
@@ -92,7 +92,7 @@ A page may pull content from `_`-prefixed partials (for example `app/docs/data/_
 
 ### 9. External links
 - All external URLs return 2xx (use `Bash` with `curl -sI -o /dev/null -w "%{http_code}\n"` per URL; cap at 10 to avoid rate-limiting)
-- No links to, or mentions of, competitor component libraries (per the workspace `CLAUDE.md` no-framework-names rule)
+- No links to, or mentions of, competitor component libraries (per the third-party UI frameworks rule in `CLAUDE.md`)
 
 ### 10. FAQ (conditional)
 - Component pages with non-obvious prop tradeoffs SHOULD have an FAQ

@@ -15,7 +15,7 @@ Run these in order, stopping at the first failure:
 2. `npm run lint` — ESLint validation
 3. `npm run build` — Next.js production build
 
-All commands must be run from the project root (`C:\GitHub\vaneui-web`).
+All commands must be run from the repository root.
 
 ## Reporting
 

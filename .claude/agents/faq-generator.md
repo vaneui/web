@@ -59,7 +59,7 @@ Rules:
 
 1. Read the target page in full, including the `_`-prefixed partials it pulls in with `{% include "..." %}` tags (for example `app/docs/data/_partials/`). Never edit a partial or break an include tag, and treat included content as part of the page: its headings, dashes and FAQs count, so do not repeat a question it already answers.
 2. Read the related pages it links to or could link to.
-3. Read `C:\GitHub\vaneui\.claude\rules\component-usage.md` if a component is involved.
+3. Read `../vaneui/.claude/rules/component-usage.md` (sibling checkout of vaneui/vaneui) if a component is involved.
 4. Identify 3-8 candidate questions (write them all out before filtering).
 5. Filter to the questions that (a) aren't redundant with the body, (b) point at a real decision or pitfall, (c) can be answered in 40-80 words.
 6. Place the FAQ section as the second-to-last H2 on the page (before any closing CTA or next-step link).
