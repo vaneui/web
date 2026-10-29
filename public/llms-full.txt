@@ -1,13 +1,13 @@
 # VaneUI Documentation
 
-> Complete documentation for the VaneUI React component library (`@vaneui/ui` 1.4.4),
+> Complete documentation for the VaneUI React component library (`@vaneui/ui` 1.4.5),
 > every doc page concatenated into one file. Each page starts with `# <page name>`, its URL and
 > one import line for the `@vaneui/ui` exports its examples use. Component pages end with
 > their props, grouped by category with defaults marked, generated from the installed package.
 
 - Repository: https://github.com/vaneui/vaneui
 - Documentation: https://vaneui.com
-- Package: `@vaneui/ui` 1.4.4
+- Package: `@vaneui/ui` 1.4.5
 - Index: https://vaneui.com/llms.txt
 
 Pages follow the site navigation: Getting Started, Basic Components, Form Components, Typography Components, Layout Components, Overlay Components, Customization, Reference.
@@ -1410,6 +1410,7 @@ Set app-wide NavLink defaults with `ThemeProvider`'s `themeDefaults`. Style the 
 - Font Family: `fontSans` (default), `fontSerif`, `fontMono`, `fontHeading`
 - Font Style: `italic`, `notItalic`
 - Font Weight: `fontThin`, `fontExtralight`, `fontLight`, `fontNormal`, `fontMedium`, `fontSemibold`, `fontBold`, `fontExtrabold`, `fontBlack`
+- Indicator: `indicatorStart`, `indicatorBottom`
 - Inherit Size: `inheritSize`, `noInheritSize`
 - Padding: `padding` (default), `paddingX`, `paddingY`, `noPadding`
 - Shape: `pill`, `sharp`, `rounded` (default)
@@ -5829,10 +5830,11 @@ The canonical page layout: a Section owns vertical padding and full-width backgr
 - Shape: `pill`, `sharp` (default), `rounded`
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Strong Border: `strongBorder`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props (Border, Display, Flex Direction, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
+Layout and utility props (Border, Display, Flex Direction, Gap, Height, Hide, Items, Justify, Overflow, Pointer Events, Position, Responsive Sizing, Ring, Shadow, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
 # Section
 
@@ -6035,10 +6037,11 @@ The canonical full-bleed page band: a Section owns the outer padding and backgro
 - Shape: `pill`, `sharp` (default), `rounded`
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Strong Border: `strongBorder`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props (Border, Display, Flex Direction, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
+Layout and utility props (Border, Display, Flex Direction, Gap, Height, Hide, Items, Justify, Overflow, Pointer Events, Position, Responsive Sizing, Ring, Shadow, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
 # Row
 
@@ -6350,10 +6353,11 @@ import { Row, Text, Badge } from '@vaneui/ui';
 - Shape: `pill`, `sharp` (default), `rounded`
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Strong Border: `strongBorder`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props (Border, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
+Layout and utility props (Border, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Pointer Events, Position, Responsive Sizing, Ring, Shadow, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
 # Col
 
@@ -6657,10 +6661,11 @@ import { Col, Title, Text } from '@vaneui/ui';
 - Shape: `pill`, `sharp` (default), `rounded`
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Strong Border: `strongBorder`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props (Border, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
+Layout and utility props (Border, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Pointer Events, Position, Responsive Sizing, Ring, Shadow, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
 # Stack
 
@@ -7011,10 +7016,11 @@ import { Stack, PageTitle, Text, Button } from '@vaneui/ui';
 - Shape: `pill`, `sharp` (default), `rounded`
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Strong Border: `strongBorder`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props (Border, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
+Layout and utility props (Border, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Pointer Events, Position, Responsive Sizing, Ring, Shadow, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
 # Card
 
@@ -7264,10 +7270,11 @@ Set app-wide Card defaults with `ThemeProvider`'s `themeDefaults`:
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Strong Border: `strongBorder`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Ring, Shadow, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
+Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Pointer Events, Position, Responsive Sizing, Ring, Shadow, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
 # Grid
 
@@ -7484,15 +7491,17 @@ Set app-wide Grid defaults with `ThemeProvider`'s `themeDefaults`. Each column c
 ## Props
 
 - Appearance: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
+- Divided: `divided`
 - Flex: `flex1`, `flexAuto`, `flexNone`
 - Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin`
 - Padding: `padding`, `paddingX`, `paddingY`, `noPadding` (default)
 - Shape: `pill`, `sharp` (default), `rounded`
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Strong Border: `strongBorder`
 - Variant: `filled`, `outline` (default), `ghost`
 
-Layout and utility props (Border, Display, Flex Direction, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
+Layout and utility props (Border, Display, Flex Direction, Gap, Height, Hide, Items, Justify, Overflow, Pointer Events, Position, Responsive Sizing, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
 # Divider
 
@@ -7861,6 +7870,7 @@ Control how an image fills a sized container with `objectCover` (default), `obje
 
 - Appearance: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
 - Shape: `pill`, `sharp`, `rounded` (default)
+- Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
 - Variant: `filled`, `outline` (default), `ghost`
 
@@ -11837,6 +11847,54 @@ package follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html): patc
 fixes, minor for additive props and components, major for anything that changes an
 existing prop name, default, or rendered element. Releases ship when work is ready
 rather than on a fixed calendar.
+
+## 1.4.5
+
+`2026-10-29`
+
+Additions that let vaneui.com drop most of its custom CSS: a progress bar, divided grids,
+strong borders, NavLink indicators, shadow sizes and real light subtrees.
+
+### Added
+
+- **`Progress`**: a determinate bar, `<Progress value={40} aria-label="Upload" />`. A
+  `role="progressbar"` track with `aria-valuenow`, `aria-valuemin` and `aria-valuemax`;
+  `value` is clamped to 0 to `max` (100 by default). The fill is its own themed element
+  (`progress.fill`), a filled bar in the appearance color over a neutral track, and it follows
+  the track's shape and `transition`/`noTransition`. Heights run 2, 4, 8, 12 and 16px from `xs`
+  to `xl`; `pill` by default. The fill eases to a new value, with no motion under reduced motion.
+- **`divided` on `Grid2` to `Grid6`**: 1px lines in the divider color between and around
+  the cells, in place of the gap.
+- **`strongBorder` on layout components** (`Row`, `Col`, `Stack`, `Grid*`, `Container`, `Card`,
+  `Section`): the border takes the appearance's strong color, the one its focus ring uses. A
+  filled `Card`, whose border is otherwise transparent, shows it too.
+- **`indicatorStart` and `indicatorBottom` on `NavLink`**: a 1px rail on the start edge that
+  turns into a 2px accent mark when `active` or `aria-selected`, or an accent bar under the
+  active tab. They are inset shadows, so the text does not move. The rail flips in
+  right-to-left text.
+- **`shadowXs` to `shadowXl`**: fix the drop shadow size on the component's own ramp
+  (compact for UI components, deeper for layout ones), whatever the component's size.
+  `shadow` still follows the size.
+- **`pointerEventsNone`/`pointerEventsAuto` and the `whitespace*` props on layout
+  components**: `Row`, `Col`, `Stack`, `Grid*`, `Container`, `Card` and `Section`.
+- **`noShrink` on `Img`**, so an image keeps its size in a tight `Row`.
+- **Selected options**: a `NavLink` or `MenuItem` with `aria-selected="true"` (an option in a
+  listbox, like a search result) takes the hover fill.
+
+### Changed
+
+- **Dark mode colors are `light-dark()` pairs.** The dark block's colors are now one list of
+  `light-dark(light, dark)` pairs on every `data-theme` element, and `data-theme` sets
+  `color-scheme`, which picks the side. Pages without `data-theme` keep the `@theme` values and
+  are unaffected. Uncompiled, `light-dark()` needs Chrome 123, Firefox 120 or Safari 17.5;
+  bundlers that compile it for older browsers (Next.js does by default) keep those working. To
+  change a color in both schemes, re-declare it as a pair under `:root[data-theme], [data-theme]`.
+
+### Fixed
+
+- **`data-theme="light"` makes a subtree light inside a dark page or wrapper.** It only reset
+  `color-scheme`, so the dark colors still came through. It now resolves every pair to its light
+  side. On `<html>` it changes nothing, so token customizations made with `@theme` keep working.
 
 ## 1.4.4
 
