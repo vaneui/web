@@ -22,9 +22,10 @@ export const INSTALL = 'npm install @vaneui/ui';
 export const MCP_COMMAND = 'claude mcp add vaneui -- npx -y @vaneui/mcp';
 export const MCP_URL = 'https://www.npmjs.com/package/@vaneui/mcp';
 
-// The hero sample, written the way you would type it (no Tailwind classes)
-export const CARD_CODE = `<Card sm row noPadding noGap>
-  <Img sm sharp src="/puppy.webp" width={188} height={188}/>
+// The hero sample, written the way you would type it (no Tailwind classes). Keep its props in
+// step with the card in Hero.tsx; only alt, fetchPriority and the redline hooks are left out.
+export const CARD_CODE = `<Card sm row mobileStack noPadding noGap overflowHidden>
+  <Img sm sharp src="/puppy.webp" width={188} height={188} mobileWFull/>
   <Stack sm>
     <Row justifyBetween>
       <Title>Oliver</Title>
@@ -32,9 +33,9 @@ export const CARD_CODE = `<Card sm row noPadding noGap>
     </Row>
     <Divider/>
     <Text sm>Oliver is a shy, sweet pup learning to trust.</Text>
-    <Row sm justifyEnd>
-      <Button filled>Adopt</Button>
-      <Button secondary>Learn more</Button>
+    <Row sm mobileStack justifyEnd>
+      <Button filled mobileWFull>Adopt</Button>
+      <Button secondary mobileWFull>Learn more</Button>
     </Row>
   </Stack>
 </Card>`;

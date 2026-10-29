@@ -202,7 +202,7 @@ export function Hero() {
               </div>
             </div>
             {/* lg:mt-4 widens the gap below the card to 48px, so the Adopt redline runs clear of both */}
-            <CodeBlock className="lp-code relative z-0 w-[38rem] max-w-full lg:mt-4 shadow-xl"
+            <CodeBlock className="lp-code relative z-0 w-[42rem] max-w-full lg:mt-4 shadow-xl"
                        fileName="DogCard.tsx" language="tsx" code={CARD_CODE}/>
           </Stack>
           {geo && redlines && <Redlines g={geo}/>}
