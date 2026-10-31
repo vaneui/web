@@ -108,3 +108,36 @@ The Radio takes its own size prop, which wins over the size inherited from the L
   <Label row itemsCenter><Radio value="no" disabled/> Disabled</Label>
 </RadioGroup>
 ```
+
+## Group state props
+
+`RadioGroup` takes `disabled`, `readOnly`, `required` and `invalid`. Each one reaches every `Radio` in the group, and a `Radio`'s own prop wins. The group element also gets the matching `aria-disabled`, `aria-readonly`, `aria-required` and `aria-invalid` attributes. These props need `@vaneui/ui` 1.5.0 or later.
+
+```tsx demo
+<Row flexWrap itemsStart>
+  <Col>
+    <Text sm secondary>disabled</Text>
+    <RadioGroup name="group-disabled" disabled defaultValue="free">
+      <Label row itemsCenter><Radio value="free"/> Free</Label>
+      <Label row itemsCenter><Radio value="pro"/> Pro</Label>
+      <Label row itemsCenter><Radio value="team" disabled={false}/> Team, enabled</Label>
+    </RadioGroup>
+  </Col>
+  <Col>
+    <Text sm secondary>readOnly</Text>
+    <RadioGroup name="group-readonly" readOnly defaultValue="pro">
+      <Label row itemsCenter><Radio value="free"/> Free</Label>
+      <Label row itemsCenter><Radio value="pro"/> Pro</Label>
+    </RadioGroup>
+  </Col>
+  <Col>
+    <Text sm secondary>invalid</Text>
+    <RadioGroup name="group-invalid" invalid>
+      <Label row itemsCenter><Radio value="free"/> Free</Label>
+      <Label row itemsCenter><Radio value="pro"/> Pro</Label>
+    </RadioGroup>
+  </Col>
+</Row>
+```
+
+Inside a [Field](/docs/form-components/field), the Field's own `disabled`, `readOnly`, `required` and `error` reach the group the same way.

@@ -213,7 +213,7 @@ Popup is a low-level primitive. For action menus with keyboard navigation, focus
 
 ## Arrow indicator
 
-Set `arrow` to render a pointer that visually links the popup to its anchor. The arrow is positioned automatically based on the resolved placement.
+Set `arrow` to render a pointer that visually links the popup to its anchor. The arrow is positioned automatically based on the resolved placement. With an arrow, `offset` is measured from the arrow tip, so the tip sits `offset` pixels from the anchor and never overlaps it (`@vaneui/ui` 1.5.0 or later).
 
 ```tsx demo
 const [open, setOpen] = useState(false);
@@ -270,7 +270,8 @@ Set `disabled` on `Popup` (or `PopupTrigger`) to suppress opening regardless of 
 
 | Prop | Default | Description |
 |------|---------|-------------|
-| `offset` | `4` | Distance from anchor in pixels |
+| `offset` | `4` | Distance from anchor in pixels; with `arrow`, measured from the arrow tip |
+| `style` |   | Merged with the positioning styles, which win on a conflict (before 1.5.0 it replaced them) |
 | `closeOnEscape` | `true` | Close on `Escape` key press |
 | `closeOnClickOutside` | `true` | Close when clicking outside the popup or anchor |
 | `portal` | `true` | Render via portal into `document.body` |

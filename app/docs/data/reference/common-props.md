@@ -87,8 +87,10 @@ CSS positioning property values for controlling element position behavior.
 | `relative` | Relative positioning |
 | `absolute` | Absolute positioning |
 | `fixed` | Fixed positioning |
-| `sticky` | Sticky positioning |
+| `sticky` | Sticky positioning; sticks at the top edge with no `top-*` class |
 | `static` | Static positioning |
+
+`sticky` sticks at the top edge (`top: 0`) on its own. Set the `--sticky-top` CSS variable on the element or an ancestor to stick below a fixed header, for example `--sticky-top: 4rem`. A `top-*` class still wins, and an element with a `bottom-*` class gets no top. The default top edge needs `@vaneui/ui` 1.5.0 or later.
 
 ## Display
 

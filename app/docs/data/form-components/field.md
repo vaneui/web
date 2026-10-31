@@ -9,7 +9,7 @@ Use Field when a control has help text or an error message. A bare [Label](/docs
 
 ## Basic usage
 
-Field wires a control to its label, help text and error message. It generates one id, points the label at the control with `htmlFor`, and links the description and error with `aria-describedby`. Pass any control as the child. `disabled`, `required` and `readOnly` set on the Field reach the child control (and every `Radio` of a child `RadioGroup`); a prop set on the child itself wins.
+Field wires a control to its label, help text and error message. It generates one id, points the label at the control with `htmlFor`, and links the description and error with `aria-describedby`. Pass any control as the child. `disabled`, `required` and `readOnly` set on the Field reach the child control (and every `Radio` of a child `RadioGroup`); a prop set on the child itself wins. A disabled Field, or a disabled child control, also dims the label.
 
 ```tsx demo
 <Field label="Email" description="We will never share it.">
@@ -66,7 +66,7 @@ Three details are worth knowing before you reach for them.
 
 ## Error state
 
-Passing `error` renders the message and marks the control invalid, so the danger cue and the message can never disagree. You do not set `invalid` yourself.
+Passing `error` renders the message and marks the control invalid, so the danger cue and the message can never disagree. With a message you do not set `invalid` yourself.
 
 ```tsx demo
 <Col>
@@ -87,6 +87,24 @@ Passing `error` renders the message and marks the control invalid, so the danger
 When both `description` and `error` are present, the control is described by both, in that order.
 
 An invalid control gets a danger border and ring plus `aria-invalid="true"`, and on `Input` a trailing alert icon, so the state is never signalled by colour alone.
+
+## Invalid without a message
+
+Set `invalid` on the Field when the control is invalid but the reason is reported elsewhere, such as a cross-field check or a server error shown in a banner. The control gets the same danger cue and `aria-invalid` as with an `error`, and no message element is rendered. `error={true}` does the same. The `invalid` prop needs `@vaneui/ui` 1.5.0 or later.
+
+```tsx demo
+<Col>
+  <Text sm danger>The end date is before the start date.</Text>
+  <Row mobileStack>
+    <Field label="Start" invalid>
+      <Input type="date" defaultValue="2026-11-20"/>
+    </Field>
+    <Field label="End" invalid>
+      <Input type="date" defaultValue="2026-11-10"/>
+    </Field>
+  </Row>
+</Col>
+```
 
 ## Any control
 
@@ -115,6 +133,17 @@ A `radiogroup` is not a labelable element, so Field labels it by reference with 
 ```tsx demo
 <Field label="Billing period" description="Change it any time.">
   <RadioGroup name="billing" defaultValue="yearly">
+    <Label row itemsCenter><Radio value="monthly"/> Monthly</Label>
+    <Label row itemsCenter><Radio value="yearly"/> Yearly</Label>
+  </RadioGroup>
+</Field>
+```
+
+State set on the Field reaches every radio in the group, whether the group is a child or rendered with `radiogroup`: `disabled`, `readOnly` and `required` pass through, and an `error` or `invalid` marks each radio invalid. `RadioGroup` takes the same props itself (see [Radio](/docs/form-components/radio)).
+
+```tsx demo
+<Field disabled label="Billing period" description="Locked by your plan.">
+  <RadioGroup name="billing-locked" defaultValue="yearly">
     <Label row itemsCenter><Radio value="monthly"/> Monthly</Label>
     <Label row itemsCenter><Radio value="yearly"/> Yearly</Label>
   </RadioGroup>

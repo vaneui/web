@@ -107,7 +107,32 @@ Pass `href` to render a `MenuItem` as an anchor tag. For client-side navigation 
 
 A `MenuItem` with `aria-selected="true"` takes the hover fill, the same rule NavLink follows, so an item stays highlighted while the pointer and focus are elsewhere. The rule needs `@vaneui/ui` 1.4.5 or later.
 
-MenuItem always renders `role="menuitem"`, and ARIA defines no selected state for a menu item, so assistive technology may ignore `aria-selected` there. Treat the fill as a visual highlight only. For a list of options with one selected, such as search results under a search box, use NavLink with `role="option"` inside a `role="listbox"` container, where `aria-selected` is announced.
+MenuItem renders `role="menuitem"` by default, and ARIA defines no selected state for a menu item, so assistive technology may ignore `aria-selected` there. Treat the fill as a visual highlight only. For a list of options with one selected, such as search results under a search box, use NavLink with `role="option"` inside a `role="listbox"` container, where `aria-selected` is announced.
+
+## Checkable items
+
+A `MenuItem` keeps a `role` you pass, so `role="menuitemcheckbox"` or `role="menuitemradio"` with `aria-checked` makes a checkable item, and assistive technology announces the checked state. Keep your own state, show the mark yourself, and set `closeMenuOnClick={false}` to keep the menu open while the user toggles. This needs `@vaneui/ui` 1.5.0 or later.
+
+```tsx demo
+const [grid, setGrid] = useState(true);
+const [density, setDensity] = useState('comfortable');
+const mark = (on: boolean) => <Check size={14} style={{ visibility: on ? 'visible' : 'hidden' }} />;
+
+return (
+  <Menu trigger={<Button>View</Button>}>
+    <MenuItem role="menuitemcheckbox" aria-checked={grid} closeMenuOnClick={false} onClick={() => setGrid(!grid)}>
+      {mark(grid)} Show grid
+    </MenuItem>
+    <Divider />
+    <MenuItem role="menuitemradio" aria-checked={density === 'comfortable'} closeMenuOnClick={false} onClick={() => setDensity('comfortable')}>
+      {mark(density === 'comfortable')} Comfortable
+    </MenuItem>
+    <MenuItem role="menuitemradio" aria-checked={density === 'compact'} closeMenuOnClick={false} onClick={() => setDensity('compact')}>
+      {mark(density === 'compact')} Compact
+    </MenuItem>
+  </Menu>
+);
+```
 
 ## Shape, variant and appearance
 
@@ -191,6 +216,23 @@ return (
     <MenuItem>Close on click (default)</MenuItem>
   </Menu>
 );
+```
+
+## Tooltip on the trigger
+
+To label an icon-only trigger, wrap it in a [Tooltip](/docs/overlay-components/tooltip) and pass the Tooltip as the `trigger`. The menu's ref, click handler and `aria-haspopup` and `aria-expanded` attributes go to the button inside, so the menu opens on click and anchors to it, while the tooltip shows on hover and focus. This needs `@vaneui/ui` 1.5.0 or later.
+
+```tsx demo
+<Menu trigger={
+  <Tooltip content="Options">
+    <IconButton aria-label="Options"><Settings /></IconButton>
+  </Tooltip>
+}>
+  <MenuItem>Edit</MenuItem>
+  <MenuItem>Duplicate</MenuItem>
+  <Divider />
+  <MenuItem danger>Delete</MenuItem>
+</Menu>
 ```
 
 ## Advanced props

@@ -1,13 +1,13 @@
 # VaneUI Documentation
 
-> Complete documentation for the VaneUI React component library (`@vaneui/ui` 1.4.6),
+> Complete documentation for the VaneUI React component library (`@vaneui/ui` 1.5.0),
 > every doc page concatenated into one file. Each page starts with `# <page name>`, its URL and
 > one import line for the `@vaneui/ui` exports its examples use. Component pages end with
 > their props, grouped by category with defaults marked, generated from the installed package.
 
 - Repository: https://github.com/vaneui/vaneui
 - Documentation: https://vaneui.com
-- Package: `@vaneui/ui` 1.4.6
+- Package: `@vaneui/ui` 1.5.0
 - Index: https://vaneui.com/llms.txt
 - Contact: hello@vaneui.com
 
@@ -1391,7 +1391,7 @@ To mark the current item with a line as well as a tint, add `indicatorStart` or 
 </Col>
 ```
 
-`indicatorBottom` draws an accent bar under the active link only, for a tab bar. Put the tabs in a [Row](/docs/layout-components/row) with `noGap` and `borderB`, so the bar sits on the row's bottom border.
+`indicatorBottom` draws an accent bar under the active link, or under a link with `aria-selected="true"` such as a `role="tab"` tab, for a tab bar. Put the tabs in a [Row](/docs/layout-components/row) with `noGap` and `borderB`, so the bar sits on the row's bottom border.
 
 ```tsx demo
 <Row noGap borderB>
@@ -1401,7 +1401,7 @@ To mark the current item with a line as well as a tint, add `indicatorStart` or 
 </Row>
 ```
 
-Both indicators are inset shadows, so the text does not move when the active item changes. Inside a `dir="rtl"` container, the start rail moves to the right edge. The examples pair the indicators with `ghost` and `sharp`, so the lines meet square corners, and with `secondary` on the inactive links. The indicator props need `@vaneui/ui` 1.4.5 or later.
+Both indicators are inset shadows, so the text does not move when the active item changes. Inside a `dir="rtl"` container, the start rail moves to the right edge. The examples pair the indicators with `ghost` and `sharp`, so the lines meet square corners, and with `secondary` on the inactive links. The indicator props need `@vaneui/ui` 1.4.5 or later, and the `aria-selected` bar on `indicatorBottom` needs 1.5.0.
 
 ## Selected options in a listbox
 
@@ -1415,7 +1415,7 @@ A NavLink with `aria-selected="true"` takes the hover fill, so the highlighted o
 </Col>
 ```
 
-In a search box built as a combobox, keyboard focus stays in the input, and `aria-activedescendant` on the input names the selected option's `id`. `MenuItem` takes the same fill for `aria-selected="true"`, but its fixed `role="menuitem"` has no selected state, so use NavLink for options.
+In a search box built as a combobox, keyboard focus stays in the input, and `aria-activedescendant` on the input names the selected option's `id`. `MenuItem` takes the same fill for `aria-selected="true"`, but its default `role="menuitem"` has no selected state, so use NavLink for options.
 
 ## Keyboard focus
 
@@ -1728,7 +1728,7 @@ Drop an icon directly inside the chip. `gap` is on by default, so spacing is aut
 
 ## Tag lists
 
-The canonical chip pattern: a wrapping row of tokens that label or categorize content. Chip is presentational, so for clickable tags give it an `href` (see As Link) or wire your own `onClick`.
+The canonical chip pattern: a wrapping row of tokens that label or categorize content. Chip is presentational, so for clickable tags give it an `href` (see As Link) or wire your own `onClick` (see Clickable chips).
 
 ```tsx demo
 <Card>
@@ -1774,6 +1774,32 @@ Pass `href` to render the chip as an `<a>`, useful for clickable tag listings. W
   <Chip href="#" info>react</Chip>
   <Chip href="#" accent>tailwind</Chip>
 </Row>
+```
+
+## Clickable chips
+
+A Chip with `onClick` and no `href` stays a `<span>` but gets `role="button"`, a tab stop, and activation with Enter and Space. A `disabled` one stays focusable with `aria-disabled` and does nothing when activated. A `role` or `tabIndex` you pass wins. This needs `@vaneui/ui` 1.5.0 or later.
+
+```tsx demo
+const [selected, setSelected] = useState(['react']);
+const toggle = (tag: string) =>
+  setSelected(selected.includes(tag) ? selected.filter(t => t !== tag) : [...selected, tag]);
+
+return (
+  <Row flexWrap>
+    {['typescript', 'react', 'tailwind'].map(tag => (
+      <Chip
+        key={tag}
+        filled={selected.includes(tag)}
+        aria-pressed={selected.includes(tag)}
+        onClick={() => toggle(tag)}
+      >
+        {tag}
+      </Chip>
+    ))}
+    <Chip disabled onClick={() => {}}>archived</Chip>
+  </Row>
+);
 ```
 
 ## Customizing
@@ -3548,13 +3574,13 @@ Layout and utility props (Border, Cursor, Display, Flex Direction, Gap, Height, 
 
 Source: https://vaneui.com/docs/form-components/field
 
-Import: `import { Field, Card, Col, Input, Label, Radio, RadioGroup, Select, Textarea } from "@vaneui/ui"`
+Import: `import { Field, Card, Col, Input, Label, Radio, RadioGroup, Row, Select, Text, Textarea } from "@vaneui/ui"`
 
 Use Field when a control has help text or an error message. A bare [Label](/docs/form-components/label) associates text with a control but links neither message to it, so a screen reader announces that the control is invalid and never says why. For a control that needs a visible name and nothing else, a Label is enough. Field renders a `<div>` that holds a `<label>`, the control, and the help and error text as `<p>` elements.
 
 ## Basic usage
 
-Field wires a control to its label, help text and error message. It generates one id, points the label at the control with `htmlFor`, and links the description and error with `aria-describedby`. Pass any control as the child. `disabled`, `required` and `readOnly` set on the Field reach the child control (and every `Radio` of a child `RadioGroup`); a prop set on the child itself wins.
+Field wires a control to its label, help text and error message. It generates one id, points the label at the control with `htmlFor`, and links the description and error with `aria-describedby`. Pass any control as the child. `disabled`, `required` and `readOnly` set on the Field reach the child control (and every `Radio` of a child `RadioGroup`); a prop set on the child itself wins. A disabled Field, or a disabled child control, also dims the label.
 
 ```tsx demo
 <Field label="Email" description="We will never share it.">
@@ -3611,7 +3637,7 @@ Three details are worth knowing before you reach for them.
 
 ## Error state
 
-Passing `error` renders the message and marks the control invalid, so the danger cue and the message can never disagree. You do not set `invalid` yourself.
+Passing `error` renders the message and marks the control invalid, so the danger cue and the message can never disagree. With a message you do not set `invalid` yourself.
 
 ```tsx demo
 <Col>
@@ -3632,6 +3658,24 @@ Passing `error` renders the message and marks the control invalid, so the danger
 When both `description` and `error` are present, the control is described by both, in that order.
 
 An invalid control gets a danger border and ring plus `aria-invalid="true"`, and on `Input` a trailing alert icon, so the state is never signalled by colour alone.
+
+## Invalid without a message
+
+Set `invalid` on the Field when the control is invalid but the reason is reported elsewhere, such as a cross-field check or a server error shown in a banner. The control gets the same danger cue and `aria-invalid` as with an `error`, and no message element is rendered. `error={true}` does the same. The `invalid` prop needs `@vaneui/ui` 1.5.0 or later.
+
+```tsx demo
+<Col>
+  <Text sm danger>The end date is before the start date.</Text>
+  <Row mobileStack>
+    <Field label="Start" invalid>
+      <Input type="date" defaultValue="2026-11-20"/>
+    </Field>
+    <Field label="End" invalid>
+      <Input type="date" defaultValue="2026-11-10"/>
+    </Field>
+  </Row>
+</Col>
+```
 
 ## Any control
 
@@ -3660,6 +3704,17 @@ A `radiogroup` is not a labelable element, so Field labels it by reference with 
 ```tsx demo
 <Field label="Billing period" description="Change it any time.">
   <RadioGroup name="billing" defaultValue="yearly">
+    <Label row itemsCenter><Radio value="monthly"/> Monthly</Label>
+    <Label row itemsCenter><Radio value="yearly"/> Yearly</Label>
+  </RadioGroup>
+</Field>
+```
+
+State set on the Field reaches every radio in the group, whether the group is a child or rendered with `radiogroup`: `disabled`, `readOnly` and `required` pass through, and an `error` or `invalid` marks each radio invalid. `RadioGroup` takes the same props itself (see [Radio](/docs/form-components/radio)).
+
+```tsx demo
+<Field disabled label="Billing period" description="Locked by your plan.">
+  <RadioGroup name="billing-locked" defaultValue="yearly">
     <Label row itemsCenter><Radio value="monthly"/> Monthly</Label>
     <Label row itemsCenter><Radio value="yearly"/> Yearly</Label>
   </RadioGroup>
@@ -3943,8 +3998,7 @@ Selects come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. The chevron 
     <option value="usd">US dollar</option>
     <option value="gbp">Pound sterling</option>
   </Select>
-  <Select invalid defaultValue="">
-    <option value="" disabled>Select a currency</option>
+  <Select invalid placeholder="Select a currency">
     <option value="eur">Euro</option>
     <option value="usd">US dollar</option>
     <option value="gbp">Pound sterling</option>
@@ -4026,12 +4080,32 @@ Selects are `primary` by default and take the same appearance props as `Input`.
 </Row>
 ```
 
+## Placeholder
+
+`placeholder` adds a muted first option that prompts for a choice. It is disabled and hidden from the list, so it can't be picked again, and an uncontrolled Select starts on it; with `required`, the empty value fails validation. `multiple` ignores it, and `<Field select placeholder="...">` passes it through. The prop needs `@vaneui/ui` 1.5.0 or later.
+
+```tsx demo
+<Col>
+  <Select placeholder="Choose a currency">
+    <option value="eur">Euro</option>
+    <option value="usd">US dollar</option>
+    <option value="gbp">Pound sterling</option>
+  </Select>
+  <Field select required placeholder="Choose a region" label="Region" description="Required.">
+    <option>Cyprus</option>
+    <option>Estonia</option>
+    <option>Portugal</option>
+  </Field>
+</Col>
+```
+
 ## Groups and placeholders
+
+An `optgroup` labels a run of related options, and the placeholder stays above the groups.
 
 ```tsx demo
 <Field label="Region" description="Sets your default currency.">
-  <Select defaultValue="">
-    <option value="" disabled>Choose a region</option>
+  <Select placeholder="Choose a region">
     <optgroup label="Europe">
       <option>Cyprus</option>
       <option>Estonia</option>
@@ -4071,7 +4145,7 @@ Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible
 
 Source: https://vaneui.com/docs/form-components/radio
 
-Import: `import { Radio, RadioGroup, Col, Field, Label, Row } from "@vaneui/ui"`
+Import: `import { Radio, RadioGroup, Col, Field, Label, Row, Text } from "@vaneui/ui"`
 
 Radio fits a short set of choices that should all stay visible. Each one is a native `<input type="radio">`, so the browser moves the selection with the arrow keys inside a group. RadioGroup takes `value`, `defaultValue` and `onChange` for the whole set and matches each option by its `value` prop. For a long list, use a [Select](/docs/form-components/select); when more than one option can be on, use [Checkbox](/docs/form-components/checkbox).
 
@@ -4176,6 +4250,39 @@ The Radio takes its own size prop, which wins over the size inherited from the L
   <Label row itemsCenter><Radio value="no" disabled/> Disabled</Label>
 </RadioGroup>
 ```
+
+## Group state props
+
+`RadioGroup` takes `disabled`, `readOnly`, `required` and `invalid`. Each one reaches every `Radio` in the group, and a `Radio`'s own prop wins. The group element also gets the matching `aria-disabled`, `aria-readonly`, `aria-required` and `aria-invalid` attributes. These props need `@vaneui/ui` 1.5.0 or later.
+
+```tsx demo
+<Row flexWrap itemsStart>
+  <Col>
+    <Text sm secondary>disabled</Text>
+    <RadioGroup name="group-disabled" disabled defaultValue="free">
+      <Label row itemsCenter><Radio value="free"/> Free</Label>
+      <Label row itemsCenter><Radio value="pro"/> Pro</Label>
+      <Label row itemsCenter><Radio value="team" disabled={false}/> Team, enabled</Label>
+    </RadioGroup>
+  </Col>
+  <Col>
+    <Text sm secondary>readOnly</Text>
+    <RadioGroup name="group-readonly" readOnly defaultValue="pro">
+      <Label row itemsCenter><Radio value="free"/> Free</Label>
+      <Label row itemsCenter><Radio value="pro"/> Pro</Label>
+    </RadioGroup>
+  </Col>
+  <Col>
+    <Text sm secondary>invalid</Text>
+    <RadioGroup name="group-invalid" invalid>
+      <Label row itemsCenter><Radio value="free"/> Free</Label>
+      <Label row itemsCenter><Radio value="pro"/> Pro</Label>
+    </RadioGroup>
+  </Col>
+</Row>
+```
+
+Inside a [Field](/docs/form-components/field), the Field's own `disabled`, `readOnly`, `required` and `error` reach the group the same way.
 
 ## Props
 
@@ -8742,7 +8849,7 @@ Use `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton` for full c
 - `ModalHeader`: `flex row`, `itemsCenter`, `justifyBetween`, `gap`, `padding`
 - `ModalBody`: `flex column`, `gap`, `padding`, `overflowAuto`
 - `ModalFooter`: `flex row`, `itemsCenter`, `justifyEnd`, `gap`, `padding`
-- `ModalCloseButton`: `secondary`, `transparent`, `noShadow`, `noInsetRing`
+- `ModalCloseButton`: `sm`, `secondary`, `outline`, `transparent`, `noShadow`, `noInsetRing`
 
 ```tsx demo
 const [open, setOpen] = useState(false);
@@ -8770,6 +8877,43 @@ return (
     </Modal>
   </>
 );
+```
+
+## Customizing the close button
+
+`ModalCloseButton` takes the props of [Button](/docs/basic-components/button) except `href`, `tag` and `loading`. A prop you pass wins over its defaults, so `<ModalCloseButton lg />` or `<ModalCloseButton danger />` changes the × button. With children it renders a labelled button with Button's own look, such as a Cancel button in the footer. This needs `@vaneui/ui` 1.5.0 or later.
+
+```tsx demo
+const [open, setOpen] = useState(false);
+
+return (
+  <>
+    <Button onClick={() => setOpen(true)}>Rename project</Button>
+    <Modal open={open} onClose={() => setOpen(false)}>
+      <ModalHeader>
+        <Title>Rename project</Title>
+        <ModalCloseButton lg />
+      </ModalHeader>
+      <ModalBody>
+        <Input placeholder="Project name" />
+      </ModalBody>
+      <ModalFooter>
+        <ModalCloseButton secondary>Cancel</ModalCloseButton>
+        <Button filled onClick={() => setOpen(false)}>Save</Button>
+      </ModalFooter>
+    </Modal>
+  </>
+);
+```
+
+A passed `onClick` runs before the modal closes, and `event.preventDefault()` in it keeps the modal open:
+
+```tsx
+<ModalCloseButton
+  onClick={(event) => {
+    if (hasUnsavedChanges) event.preventDefault();
+  }}
+/>
 ```
 
 ## Convenience props
@@ -9302,7 +9446,7 @@ Popup is a low-level primitive. For action menus with keyboard navigation, focus
 
 ## Arrow indicator
 
-Set `arrow` to render a pointer that visually links the popup to its anchor. The arrow is positioned automatically based on the resolved placement.
+Set `arrow` to render a pointer that visually links the popup to its anchor. The arrow is positioned automatically based on the resolved placement. With an arrow, `offset` is measured from the arrow tip, so the tip sits `offset` pixels from the anchor and never overlaps it (`@vaneui/ui` 1.5.0 or later).
 
 ```tsx demo
 const [open, setOpen] = useState(false);
@@ -9359,7 +9503,8 @@ Set `disabled` on `Popup` (or `PopupTrigger`) to suppress opening regardless of 
 
 | Prop | Default | Description |
 |------|---------|-------------|
-| `offset` | `4` | Distance from anchor in pixels |
+| `offset` | `4` | Distance from anchor in pixels; with `arrow`, measured from the arrow tip |
+| `style` |   | Merged with the positioning styles, which win on a conflict (before 1.5.0 it replaced them) |
 | `closeOnEscape` | `true` | Close on `Escape` key press |
 | `closeOnClickOutside` | `true` | Close when clicking outside the popup or anchor |
 | `portal` | `true` | Render via portal into `document.body` |
@@ -9432,7 +9577,7 @@ Layout and utility props (Align Self, Border, Clamp Height, Constrain Width, Dis
 
 Source: https://vaneui.com/docs/overlay-components/menu
 
-Import: `import { Menu, Button, Divider, MenuItem, MenuLabel, Row } from "@vaneui/ui"`
+Import: `import { Menu, Button, Divider, IconButton, MenuItem, MenuLabel, Row, Tooltip } from "@vaneui/ui"`
 
 Menu holds actions that apply to one object or view, such as edit, duplicate or share. The dropdown is a Popup with `role="menu"`, each MenuItem is a `<button>` with `role="menuitem"` by default, and the trigger gets `aria-haspopup="menu"` and `aria-expanded`. To pick a value that a form submits, use [Select](/docs/form-components/select); for navigation that stays visible in a sidebar or header, use [NavLink](/docs/basic-components/navlink).
 
@@ -9536,7 +9681,32 @@ Pass `href` to render a `MenuItem` as an anchor tag. For client-side navigation 
 
 A `MenuItem` with `aria-selected="true"` takes the hover fill, the same rule NavLink follows, so an item stays highlighted while the pointer and focus are elsewhere. The rule needs `@vaneui/ui` 1.4.5 or later.
 
-MenuItem always renders `role="menuitem"`, and ARIA defines no selected state for a menu item, so assistive technology may ignore `aria-selected` there. Treat the fill as a visual highlight only. For a list of options with one selected, such as search results under a search box, use NavLink with `role="option"` inside a `role="listbox"` container, where `aria-selected` is announced.
+MenuItem renders `role="menuitem"` by default, and ARIA defines no selected state for a menu item, so assistive technology may ignore `aria-selected` there. Treat the fill as a visual highlight only. For a list of options with one selected, such as search results under a search box, use NavLink with `role="option"` inside a `role="listbox"` container, where `aria-selected` is announced.
+
+## Checkable items
+
+A `MenuItem` keeps a `role` you pass, so `role="menuitemcheckbox"` or `role="menuitemradio"` with `aria-checked` makes a checkable item, and assistive technology announces the checked state. Keep your own state, show the mark yourself, and set `closeMenuOnClick={false}` to keep the menu open while the user toggles. This needs `@vaneui/ui` 1.5.0 or later.
+
+```tsx demo
+const [grid, setGrid] = useState(true);
+const [density, setDensity] = useState('comfortable');
+const mark = (on: boolean) => <Check size={14} style={{ visibility: on ? 'visible' : 'hidden' }} />;
+
+return (
+  <Menu trigger={<Button>View</Button>}>
+    <MenuItem role="menuitemcheckbox" aria-checked={grid} closeMenuOnClick={false} onClick={() => setGrid(!grid)}>
+      {mark(grid)} Show grid
+    </MenuItem>
+    <Divider />
+    <MenuItem role="menuitemradio" aria-checked={density === 'comfortable'} closeMenuOnClick={false} onClick={() => setDensity('comfortable')}>
+      {mark(density === 'comfortable')} Comfortable
+    </MenuItem>
+    <MenuItem role="menuitemradio" aria-checked={density === 'compact'} closeMenuOnClick={false} onClick={() => setDensity('compact')}>
+      {mark(density === 'compact')} Compact
+    </MenuItem>
+  </Menu>
+);
+```
 
 ## Shape, variant and appearance
 
@@ -9622,6 +9792,23 @@ return (
 );
 ```
 
+## Tooltip on the trigger
+
+To label an icon-only trigger, wrap it in a [Tooltip](/docs/overlay-components/tooltip) and pass the Tooltip as the `trigger`. The menu's ref, click handler and `aria-haspopup` and `aria-expanded` attributes go to the button inside, so the menu opens on click and anchors to it, while the tooltip shows on hover and focus. This needs `@vaneui/ui` 1.5.0 or later.
+
+```tsx demo
+<Menu trigger={
+  <Tooltip content="Options">
+    <IconButton aria-label="Options"><Settings /></IconButton>
+  </Tooltip>
+}>
+  <MenuItem>Edit</MenuItem>
+  <MenuItem>Duplicate</MenuItem>
+  <Divider />
+  <MenuItem danger>Delete</MenuItem>
+</Menu>
+```
+
 ## Advanced props
 
 Menu supports additional configuration for fine-tuning behavior:
@@ -9674,7 +9861,7 @@ Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible
 
 Source: https://vaneui.com/docs/overlay-components/tooltip
 
-Import: `import { Tooltip, Button, IconButton, Row, Text, ThemeProvider } from "@vaneui/ui"`
+Import: `import { Tooltip, Button, IconButton, PopupTrigger, Row, Text, ThemeProvider } from "@vaneui/ui"`
 
 Tooltip is for hints of a few words, such as a keyboard shortcut or the full text of an abbreviation. The hint renders as a Popup with `role="tooltip"`, so opening it does not move focus. For content the user clicks into, such as a form or a list of links, open a [Popup](/docs/overlay-components/popup) on click instead; for a list of actions, use a [Menu](/docs/overlay-components/menu).
 
@@ -9733,7 +9920,7 @@ Tooltip defaults to `sm`. Its text, padding and corner radius follow its own siz
 
 ## Placement
 
-Tooltip opens above its trigger and flips to the other side when there is no room. All twelve `place*` props from Popup work on `Tooltip` directly, and `arrow` adds a pointer. Top and bottom tooltips stay on screen when the trigger sits at the edge of the viewport.
+Tooltip opens above its trigger and flips to the other side when there is no room. All twelve `place*` props from Popup work on `Tooltip` directly, and `arrow` adds a pointer. With `arrow`, the gap (`offset`, 4px by default) is measured from the arrow tip, so the tip sits that far from the trigger instead of touching it. Top and bottom tooltips stay on screen when the trigger sits at the edge of the viewport.
 
 ```tsx demo
 <Row flexWrap>
@@ -9828,6 +10015,18 @@ A common use is explaining a control that has no visible label.
     <IconButton secondary aria-label="About API keys">?</IconButton>
   </Tooltip>
 </Row>
+```
+
+## Tooltip on a Menu or PopupTrigger trigger
+
+A Tooltip can be the trigger of a [Menu](/docs/overlay-components/menu) or a `PopupTrigger`. The ref, event handlers and `aria-*` attributes they pass to their trigger go on to the Tooltip's child, so a click opens the popup, it anchors to the button, and the tooltip still describes it on hover and focus. This needs `@vaneui/ui` 1.5.0 or later.
+
+```tsx demo
+<PopupTrigger popup={<Text sm>Display settings</Text>}>
+  <Tooltip content="Settings">
+    <IconButton aria-label="Settings"><Settings /></IconButton>
+  </Tooltip>
+</PopupTrigger>
 ```
 
 ## Props
@@ -11569,8 +11768,8 @@ Good uses of `className`:
 {/* Custom width/height */}
 <Card className="w-full max-w-md">Fixed-width card</Card>
 
-{/* Custom positioning */}
-<Row className="sticky top-0 z-10">Sticky header</Row>
+{/* Stacking order: the sticky prop already pins the row to the top edge */}
+<Row sticky className="z-10">Sticky header</Row>
 
 {/* Animations */}
 <Badge className="animate-pulse">Live</Badge>
@@ -11918,8 +12117,10 @@ CSS positioning property values for controlling element position behavior.
 | `relative` | Relative positioning |
 | `absolute` | Absolute positioning |
 | `fixed` | Fixed positioning |
-| `sticky` | Sticky positioning |
+| `sticky` | Sticky positioning; sticks at the top edge with no `top-*` class |
 | `static` | Static positioning |
+
+`sticky` sticks at the top edge (`top: 0`) on its own. Set the `--sticky-top` CSS variable on the element or an ancestor to stick below a fixed header, for example `--sticky-top: 4rem`. A `top-*` class still wins, and an element with a `bottom-*` class gets no top. The default top edge needs `@vaneui/ui` 1.5.0 or later.
 
 ## Display
 
@@ -12231,6 +12432,53 @@ existing prop name, default, or rendered element. Releases ship when work is rea
 rather than on a fixed calendar.
 
 ## Unreleased
+
+## 1.5.0
+
+`2026-10-31`
+
+Fixes for the bugs found in the 1.4.6 component review, each covered by tests. A few fixes need
+a new prop to work, so this is a minor release.
+
+### Added
+
+- `disabled`, `readOnly`, `required` and `invalid` on `RadioGroup`: they reach every `Radio` in
+  the group, and a `Radio`'s own prop wins. The group also gets the matching `aria-*`
+  attributes.
+- `invalid` on `Field`: marks the control invalid without showing error text, for checks
+  reported elsewhere on the page.
+- `placeholder` on `Select`: a muted first option that can't be picked again. An uncontrolled
+  select starts on it, and with `required` the empty value fails validation. `<Field select
+  placeholder>` passes it through.
+- `ModalCloseButton` takes every `Button` prop and children. With children it renders a
+  labelled close button, such as a footer "Cancel", with Button's own look.
+
+### Fixed
+
+- A `Tooltip` can be the trigger of a `Menu` or `PopupTrigger`. Its ref, event handlers and
+  `aria-*` attributes now go to the child element, so the menu opens on click and anchors to
+  the button. Before, the menu never opened.
+- `RadioGroup` and `<Field radiogroup>` honour `readOnly` and `error` from the Field (and now
+  their own state props). Before, only `disabled` and `required` reached the radios.
+- `MenuItem` keeps a passed `role`, so `menuitemcheckbox` and `menuitemradio` items work.
+- `ModalCloseButton`: a passed size or appearance wins over its defaults (before, `lg` lost to
+  the built-in `sm` with a conflict warning); a passed `onClick` runs before the close instead
+  of replacing it, and `event.preventDefault()` in it keeps the modal open.
+- `sticky` sticks at the top edge without a `top-*` class. Set `--sticky-top` to stick below a
+  fixed header; a `top-*` class still wins, and an element with a `bottom-*` class gets no top.
+- `indicatorBottom` draws the accent bar for `aria-selected="true"` (a tab), like
+  `indicatorStart` does.
+- `Field`: `error={true}` marks the control invalid without rendering an empty error paragraph,
+  and a disabled Field (or a disabled child control) dims its label.
+- A clickable `Chip` (`onClick` without `href`) is reachable by keyboard: it gets
+  `role="button"`, a tab stop, and Enter and Space activation. A disabled one stays focusable
+  but does nothing.
+- A `Popup` or `Tooltip` with `arrow` measures `offset` from the arrow tip, so the tip no longer
+  touches or overlaps the trigger (by up to 3px at `xl`).
+- A `style` passed to `Popup` merges with its positioning instead of replacing it, which left
+  the popup unpositioned.
+
+[Full diff](https://github.com/vaneui/vaneui/compare/v1.4.6...v1.5.0)
 
 ## 1.4.6
 

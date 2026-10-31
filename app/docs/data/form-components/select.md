@@ -83,8 +83,7 @@ Selects come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. The chevron 
     <option value="usd">US dollar</option>
     <option value="gbp">Pound sterling</option>
   </Select>
-  <Select invalid defaultValue="">
-    <option value="" disabled>Select a currency</option>
+  <Select invalid placeholder="Select a currency">
     <option value="eur">Euro</option>
     <option value="usd">US dollar</option>
     <option value="gbp">Pound sterling</option>
@@ -166,12 +165,32 @@ Selects are `primary` by default and take the same appearance props as `Input`.
 </Row>
 ```
 
+## Placeholder
+
+`placeholder` adds a muted first option that prompts for a choice. It is disabled and hidden from the list, so it can't be picked again, and an uncontrolled Select starts on it; with `required`, the empty value fails validation. `multiple` ignores it, and `<Field select placeholder="...">` passes it through. The prop needs `@vaneui/ui` 1.5.0 or later.
+
+```tsx demo
+<Col>
+  <Select placeholder="Choose a currency">
+    <option value="eur">Euro</option>
+    <option value="usd">US dollar</option>
+    <option value="gbp">Pound sterling</option>
+  </Select>
+  <Field select required placeholder="Choose a region" label="Region" description="Required.">
+    <option>Cyprus</option>
+    <option>Estonia</option>
+    <option>Portugal</option>
+  </Field>
+</Col>
+```
+
 ## Groups and placeholders
+
+An `optgroup` labels a run of related options, and the placeholder stays above the groups.
 
 ```tsx demo
 <Field label="Region" description="Sets your default currency.">
-  <Select defaultValue="">
-    <option value="" disabled>Choose a region</option>
+  <Select placeholder="Choose a region">
     <optgroup label="Europe">
       <option>Cyprus</option>
       <option>Estonia</option>

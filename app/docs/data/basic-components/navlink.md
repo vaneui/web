@@ -161,7 +161,7 @@ To mark the current item with a line as well as a tint, add `indicatorStart` or 
 </Col>
 ```
 
-`indicatorBottom` draws an accent bar under the active link only, for a tab bar. Put the tabs in a [Row](/docs/layout-components/row) with `noGap` and `borderB`, so the bar sits on the row's bottom border.
+`indicatorBottom` draws an accent bar under the active link, or under a link with `aria-selected="true"` such as a `role="tab"` tab, for a tab bar. Put the tabs in a [Row](/docs/layout-components/row) with `noGap` and `borderB`, so the bar sits on the row's bottom border.
 
 ```tsx demo
 <Row noGap borderB>
@@ -171,7 +171,7 @@ To mark the current item with a line as well as a tint, add `indicatorStart` or 
 </Row>
 ```
 
-Both indicators are inset shadows, so the text does not move when the active item changes. Inside a `dir="rtl"` container, the start rail moves to the right edge. The examples pair the indicators with `ghost` and `sharp`, so the lines meet square corners, and with `secondary` on the inactive links. The indicator props need `@vaneui/ui` 1.4.5 or later.
+Both indicators are inset shadows, so the text does not move when the active item changes. Inside a `dir="rtl"` container, the start rail moves to the right edge. The examples pair the indicators with `ghost` and `sharp`, so the lines meet square corners, and with `secondary` on the inactive links. The indicator props need `@vaneui/ui` 1.4.5 or later, and the `aria-selected` bar on `indicatorBottom` needs 1.5.0.
 
 ## Selected options in a listbox
 
@@ -185,7 +185,7 @@ A NavLink with `aria-selected="true"` takes the hover fill, so the highlighted o
 </Col>
 ```
 
-In a search box built as a combobox, keyboard focus stays in the input, and `aria-activedescendant` on the input names the selected option's `id`. `MenuItem` takes the same fill for `aria-selected="true"`, but its fixed `role="menuitem"` has no selected state, so use NavLink for options.
+In a search box built as a combobox, keyboard focus stays in the input, and `aria-activedescendant` on the input names the selected option's `id`. `MenuItem` takes the same fill for `aria-selected="true"`, but its default `role="menuitem"` has no selected state, so use NavLink for options.
 
 ## Keyboard focus
 

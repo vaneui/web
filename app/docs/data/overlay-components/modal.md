@@ -40,7 +40,7 @@ Use `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton` for full c
 - `ModalHeader`: `flex row`, `itemsCenter`, `justifyBetween`, `gap`, `padding`
 - `ModalBody`: `flex column`, `gap`, `padding`, `overflowAuto`
 - `ModalFooter`: `flex row`, `itemsCenter`, `justifyEnd`, `gap`, `padding`
-- `ModalCloseButton`: `secondary`, `transparent`, `noShadow`, `noInsetRing`
+- `ModalCloseButton`: `sm`, `secondary`, `outline`, `transparent`, `noShadow`, `noInsetRing`
 
 ```tsx demo
 const [open, setOpen] = useState(false);
@@ -68,6 +68,43 @@ return (
     </Modal>
   </>
 );
+```
+
+## Customizing the close button
+
+`ModalCloseButton` takes the props of [Button](/docs/basic-components/button) except `href`, `tag` and `loading`. A prop you pass wins over its defaults, so `<ModalCloseButton lg />` or `<ModalCloseButton danger />` changes the × button. With children it renders a labelled button with Button's own look, such as a Cancel button in the footer. This needs `@vaneui/ui` 1.5.0 or later.
+
+```tsx demo
+const [open, setOpen] = useState(false);
+
+return (
+  <>
+    <Button onClick={() => setOpen(true)}>Rename project</Button>
+    <Modal open={open} onClose={() => setOpen(false)}>
+      <ModalHeader>
+        <Title>Rename project</Title>
+        <ModalCloseButton lg />
+      </ModalHeader>
+      <ModalBody>
+        <Input placeholder="Project name" />
+      </ModalBody>
+      <ModalFooter>
+        <ModalCloseButton secondary>Cancel</ModalCloseButton>
+        <Button filled onClick={() => setOpen(false)}>Save</Button>
+      </ModalFooter>
+    </Modal>
+  </>
+);
+```
+
+A passed `onClick` runs before the modal closes, and `event.preventDefault()` in it keeps the modal open:
+
+```tsx
+<ModalCloseButton
+  onClick={(event) => {
+    if (hasUnsavedChanges) event.preventDefault();
+  }}
+/>
 ```
 
 ## Convenience props

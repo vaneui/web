@@ -101,7 +101,7 @@ Drop an icon directly inside the chip. `gap` is on by default, so spacing is aut
 
 ## Tag lists
 
-The canonical chip pattern: a wrapping row of tokens that label or categorize content. Chip is presentational, so for clickable tags give it an `href` (see As Link) or wire your own `onClick`.
+The canonical chip pattern: a wrapping row of tokens that label or categorize content. Chip is presentational, so for clickable tags give it an `href` (see As Link) or wire your own `onClick` (see Clickable chips).
 
 ```tsx demo
 <Card>
@@ -147,6 +147,32 @@ Pass `href` to render the chip as an `<a>`, useful for clickable tag listings. W
   <Chip href="#" info>react</Chip>
   <Chip href="#" accent>tailwind</Chip>
 </Row>
+```
+
+## Clickable chips
+
+A Chip with `onClick` and no `href` stays a `<span>` but gets `role="button"`, a tab stop, and activation with Enter and Space. A `disabled` one stays focusable with `aria-disabled` and does nothing when activated. A `role` or `tabIndex` you pass wins. This needs `@vaneui/ui` 1.5.0 or later.
+
+```tsx demo
+const [selected, setSelected] = useState(['react']);
+const toggle = (tag: string) =>
+  setSelected(selected.includes(tag) ? selected.filter(t => t !== tag) : [...selected, tag]);
+
+return (
+  <Row flexWrap>
+    {['typescript', 'react', 'tailwind'].map(tag => (
+      <Chip
+        key={tag}
+        filled={selected.includes(tag)}
+        aria-pressed={selected.includes(tag)}
+        onClick={() => toggle(tag)}
+      >
+        {tag}
+      </Chip>
+    ))}
+    <Chip disabled onClick={() => {}}>archived</Chip>
+  </Row>
+);
 ```
 
 ## Customizing

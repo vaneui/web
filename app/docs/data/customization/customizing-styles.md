@@ -143,8 +143,8 @@ Good uses of `className`:
 {/* Custom width/height */}
 <Card className="w-full max-w-md">Fixed-width card</Card>
 
-{/* Custom positioning */}
-<Row className="sticky top-0 z-10">Sticky header</Row>
+{/* Stacking order: the sticky prop already pins the row to the top edge */}
+<Row sticky className="z-10">Sticky header</Row>
 
 {/* Animations */}
 <Badge className="animate-pulse">Live</Badge>

@@ -62,7 +62,7 @@ Tooltip defaults to `sm`. Its text, padding and corner radius follow its own siz
 
 ## Placement
 
-Tooltip opens above its trigger and flips to the other side when there is no room. All twelve `place*` props from Popup work on `Tooltip` directly, and `arrow` adds a pointer. Top and bottom tooltips stay on screen when the trigger sits at the edge of the viewport.
+Tooltip opens above its trigger and flips to the other side when there is no room. All twelve `place*` props from Popup work on `Tooltip` directly, and `arrow` adds a pointer. With `arrow`, the gap (`offset`, 4px by default) is measured from the arrow tip, so the tip sits that far from the trigger instead of touching it. Top and bottom tooltips stay on screen when the trigger sits at the edge of the viewport.
 
 ```tsx demo
 <Row flexWrap>
@@ -157,4 +157,16 @@ A common use is explaining a control that has no visible label.
     <IconButton secondary aria-label="About API keys">?</IconButton>
   </Tooltip>
 </Row>
+```
+
+## Tooltip on a Menu or PopupTrigger trigger
+
+A Tooltip can be the trigger of a [Menu](/docs/overlay-components/menu) or a `PopupTrigger`. The ref, event handlers and `aria-*` attributes they pass to their trigger go on to the Tooltip's child, so a click opens the popup, it anchors to the button, and the tooltip still describes it on hover and focus. This needs `@vaneui/ui` 1.5.0 or later.
+
+```tsx demo
+<PopupTrigger popup={<Text sm>Display settings</Text>}>
+  <Tooltip content="Settings">
+    <IconButton aria-label="Settings"><Settings /></IconButton>
+  </Tooltip>
+</PopupTrigger>
 ```
