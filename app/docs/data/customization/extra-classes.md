@@ -1,4 +1,4 @@
-The `extraClasses` property in VaneUI's ThemeProvider allows you to add additional CSS classes to components based on which boolean props are active. This enables custom styling, animations, and effects while maintaining VaneUI's theming architecture.
+The `extraClasses` property in VaneUI's [ThemeProvider](/docs/customization/using-theme-provider) allows you to add additional CSS classes to components based on which boolean props are active. This enables custom styling, animations, and effects while maintaining VaneUI's [theming architecture](/docs/customization/theming-overview).
 
 ## Understanding extraClasses
 
@@ -189,7 +189,7 @@ const extraClasses = {
 
 ### Avoid conflicting classes
 
-Be careful not to add classes that conflict with VaneUI's size-driven system (padding, gap, font-size, border-radius scale via the size prop):
+Be careful not to add classes that conflict with VaneUI's [size-driven system](/docs/customization/css-variables) (padding, gap, font-size, border-radius scale via the size prop):
 
 ```tsx
 // Avoid: fights the size system; padding is set by --py-unit per size

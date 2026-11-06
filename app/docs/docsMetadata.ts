@@ -49,7 +49,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         slug: 'core-concepts',
         name: 'Core Concepts',
         seoTitle: 'Core Concepts: Boolean Props for React Components | VaneUI',
-        description: 'Understand VaneUI\'s philosophy of boolean props, Tailwind CSS integration, and component customization.',
+        description: "How VaneUI's boolean props API works in React: one prop per category, how props become Tailwind CSS classes and CSS variables, and where custom classes fit.",
         mdPath: 'core-concepts.md',
       },
       {
@@ -58,6 +58,20 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         seoTitle: 'Usage Basics: Props and Layout for React Components | VaneUI',
         description: 'Core VaneUI patterns in React: boolean size and appearance props, layout components, responsive visibility, typography, icons, images and overlays.',
         mdPath: 'usage-basics.md',
+      },
+      {
+        slug: 'nextjs',
+        name: 'Next.js',
+        seoTitle: 'Next.js App Router Setup for VaneUI and Tailwind CSS v4',
+        description: 'Set up VaneUI in a Next.js App Router project: add the Tailwind CSS v4 imports, render ThemeProvider in the root layout, and add dark mode without a flash.',
+        mdPath: 'nextjs.md',
+      },
+      {
+        slug: 'ai-assistants',
+        name: 'AI Assistants',
+        seoTitle: 'Use VaneUI with AI Coding Assistants (MCP, llms.txt)',
+        description: 'Connect Claude Code, Cursor or VS Code to the VaneUI MCP server, or point any AI assistant at llms.txt and Markdown docs, so it writes correct React props.',
+        mdPath: 'ai-assistants.md',
       },
     ]
   },
@@ -221,7 +235,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'title',
         name: 'Title',
-        description: 'Renders an h3 heading for cards, dialogs and subsections, one level below SectionTitle in the page hierarchy.',
+        description: 'React Title component for Tailwind CSS v4: an h3 heading for cards, dialogs and subsections, one level below SectionTitle, with size, color and weight props.',
         componentKey: "title",
       },
       {
@@ -272,13 +286,13 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'col',
         name: 'Col',
-        description: 'Col organizes content vertically within a Row, creating responsive column-based layouts.',
+        description: 'React Col component for Tailwind CSS v4: a vertical flex column with a gap and no padding, for content inside a Row, Card or Section. See when to use Stack.',
         componentKey: "col",
       },
       {
         slug: 'stack',
         name: 'Stack',
-        description: 'Stack arranges its children with consistent spacing. Works for both vertical and horizontal layouts.',
+        description: 'React Stack component for Tailwind CSS v4: a padded, wrapping column or row with even gaps, set by boolean props. See when to use Col, Row or Card instead.',
         componentKey: "stack",
       },
       {
@@ -366,7 +380,7 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         slug: 'using-theme-provider',
         name: 'Using ThemeProvider',
         seoTitle: 'Using ThemeProvider to Style a React App | VaneUI',
-        description: 'Configure and customize themes throughout your application with ThemeProvider.',
+        description: "Wrap a React app in VaneUI's ThemeProvider to set default props for every component, add Tailwind CSS classes per prop, override the theme, or nest themes.",
         mdPath: 'using-theme-provider.md',
       },
       {
@@ -408,14 +422,14 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         slug: 'customizing-styles',
         name: 'Customizing Styles',
         seoTitle: 'Override Component Styles with Tailwind CSS Classes | VaneUI',
-        description: 'Override VaneUI component styles using Tailwind CSS classes, CSS variables, and the className prop.',
+        description: 'Override VaneUI React component styles with Tailwind CSS classes in className: which properties win, when a CSS variable or a prop fits better, and pitfalls.',
         mdPath: 'customizing-styles.md',
       },
       {
         slug: 'variant-inheritance',
         name: 'Variant Inheritance',
         seoTitle: 'Variant Inheritance: How Colors Cascade | VaneUI',
-        description: 'How components inherit colors from ancestor layouts via CSS custom-property cascade.',
+        description: 'Which VaneUI React components paint their own colors and which inherit them from a parent, why explicit props win, and how inheritAppearance works.',
         mdPath: 'variant-inheritance.md',
       },
     ]

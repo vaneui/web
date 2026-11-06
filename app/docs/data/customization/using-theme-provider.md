@@ -24,7 +24,7 @@ function App() {
 
 ### Setting default props
 
-Configure default boolean props for all components:
+Configure default [boolean props](/docs/getting-started/core-concepts) for all components:
 
 ```tsx
 import { ThemeProvider, Button, Card } from '@vaneui/ui';
@@ -93,7 +93,7 @@ Add additional CSS classes based on active props:
 
 ### themeOverride
 
-A function with direct access to the full theme, for changes the declarative options can't express (like appending to a component's base classes):
+A function with [direct access to the full theme](/docs/customization/theme-and-override), for changes the declarative options can't express (like appending to a component's base classes):
 
 ```tsx
 <ThemeProvider themeOverride={(theme) => {

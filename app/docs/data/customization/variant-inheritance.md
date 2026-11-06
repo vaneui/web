@@ -1,4 +1,4 @@
-VaneUI has two color behaviors. Components with their own appearance (Button, Card, Badge, and most others) emit `data-appearance`/`data-variant` and paint their own colors regardless of context. Inherit-mode components (the typography components, plus Icon) emit nothing and read their colors from the nearest ancestor through native CSS custom-property cascade. This page explains the split, how the cascade works, and how to control it.
+VaneUI has two color behaviors. Components with their own appearance (Button, Card, Badge, and most others) emit `data-appearance`/`data-variant` and paint their own colors regardless of context. Inherit-mode components (the typography components, plus Icon) emit nothing and read their colors from the nearest ancestor through native [CSS custom-property cascade](/docs/customization/css-variables). This page explains the split, how the cascade works, and how to control it.
 
 ## How variants and appearances cascade through nesting
 
@@ -75,7 +75,7 @@ When multiple layout components are nested, each child inherits from its **neare
 
 ## ThemeProvider overrides
 
-`ThemeProvider.themeDefaults` sets a component's default appearance for a subtree. A concrete appearance emits data attributes and pins the color; giving an inherit-mode component a concrete appearance makes it stop inheriting:
+`ThemeProvider.themeDefaults` sets a component's [default appearance](/docs/customization/theme-defaults) for a subtree. A concrete appearance emits data attributes and pins the color; giving an inherit-mode component a concrete appearance makes it stop inheriting:
 
 ```tsx
 {/* All Badges in this subtree default to danger */}
@@ -138,7 +138,7 @@ Size inheritance is separate. Only Link and Mark have `inheritSize: true` in the
 
 ### Link, Mark: exact size inheritance via `inheritSize`
 
-Link and Mark are not `inheritAppearance`-default components (Link sets no appearance and renders its own link-blue, Mark defaults to `warning`), so the `inheritAppearance` expansion does NOT fire. Instead, they have `inheritSize: true` set explicitly in their defaults. They render at the *exact* font-size of the nearest typography ancestor.
+[Link](/docs/typography-components/link) and Mark are not `inheritAppearance`-default components (Link sets no appearance and renders its own link-blue, Mark defaults to `warning`), so the `inheritAppearance` expansion does NOT fire. Instead, they have `inheritSize: true` set explicitly in their defaults. They render at the *exact* font-size of the nearest typography ancestor.
 
 ```tsx demo
 <Title lg>
@@ -151,7 +151,7 @@ Link and Mark are not `inheritAppearance`-default components (Link sets no appea
 
 ### Code, Kbd: em-relative geometry
 
-Code and Kbd use a different mechanism: their `.vane-code` / `.vane-kbd` rules override `--spacing` to `0.25em` locally, so the entire geometry pipeline (font-size, padding, border-radius, gap) resolves in em, proportional to the parent's font-size.
+[Code](/docs/basic-components/code) and Kbd use a different mechanism: their `.vane-code` / `.vane-kbd` rules override `--spacing` to `0.25em` locally, so the entire geometry pipeline (font-size, padding, border-radius, gap) resolves in em, proportional to the parent's font-size.
 
 ```tsx demo
 <Title lg>

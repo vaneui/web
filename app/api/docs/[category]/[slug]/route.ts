@@ -32,6 +32,10 @@ export async function GET(
     status: 200,
     headers: {
       'Content-Type': 'text/markdown; charset=utf-8',
+      // The page URL also answers with this body when the client asks for Markdown, so a
+      // cache must not hand it to a browser. Set here as well as in next.config.mjs, because
+      // the host can replace Vary headers that come from the config.
+      Vary: 'Accept',
     },
   });
 }

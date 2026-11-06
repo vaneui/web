@@ -64,7 +64,7 @@ Replace `{appearance}` in variable names with one of:
 - `info` - informational (cyan)
 - `inheritAppearance` - inherits from parent element
 
-> The `inheritAppearance` appearance works differently from all other appearances. Instead of setting `data-appearance` and `data-variant` attributes, it omits them entirely. This allows the semantic color CSS variables (`--text-color`, `--bg-color`, `--border-color`) to cascade from parent elements rather than being set explicitly on the component. Text, Title, SectionTitle, PageTitle, Blockquote, Label, List, Divider, and Spinner default to `inheritAppearance`.
+> The `inheritAppearance` appearance works differently from all other appearances. Instead of setting `data-appearance` and `data-variant` attributes, it omits them entirely. This allows the semantic color CSS variables (`--text-color`, `--bg-color`, `--border-color`) to [cascade from parent elements](/docs/customization/variant-inheritance) rather than being set explicitly on the component. Text, Title, SectionTitle, PageTitle, Blockquote, Label, List, Divider, and Spinner default to `inheritAppearance`.
 
 ## Color variable groups
 
@@ -158,5 +158,5 @@ To customize sizing globally, override the computed variables in your CSS:
 - Use the semantic names above; avoid inventing new variable names.
 - Values cascade. The closest definition (inline, container, :root) wins.
 - Prefer semantic overrides (primary, success, danger) for consistent theming.
-- ThemeProvider does not expose a `colors` field; use these CSS variables to change colors.
+- [ThemeProvider](/docs/customization/using-theme-provider) does not expose a `colors` field; use these CSS variables to change colors.
 - Components inherit the closest CSS variable values automatically via CSS cascade.

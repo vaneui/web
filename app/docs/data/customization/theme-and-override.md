@@ -1,4 +1,4 @@
-The `themeOverride` property is a function that receives the theme and returns it modified. Use it for changes the declarative options can't express, like adding base classes or changing defaults for any subtree of your application.
+The `themeOverride` property is a function that receives the theme and returns it modified. Use it for changes the declarative options can't express, like adding [base classes](/docs/customization/theming-overview) or changing defaults for any subtree of your application.
 
 ## Basic usage
 
@@ -87,5 +87,5 @@ Child overrides build on parent modifications:
 ## When to use themeOverride
 
 - **Use `themeOverride`** when you need to add base CSS classes to all component instances
-- **Use `themeDefaults`** when you want to change default boolean props (smaller surface)
-- **Use `extraClasses`** when you want to add classes based on active props
+- **Use `themeDefaults`** when you want to [change default boolean props](/docs/customization/theme-defaults) (smaller surface)
+- **Use `extraClasses`** when you want to [add classes based on active props](/docs/customization/extra-classes)
