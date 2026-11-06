@@ -4,7 +4,7 @@ import { BASE_OPEN_GRAPH } from '../constants';
 
 const title = 'Playground: Live React + Tailwind CSS Editor | VaneUI';
 const description =
-  'Write React and VaneUI component code and see it render live, side by side, in the browser.';
+  'Write React code with VaneUI components and Tailwind CSS v4 in the browser and see it render live, side by side, with nothing to install.';
 
 export const metadata: Metadata = {
   title,

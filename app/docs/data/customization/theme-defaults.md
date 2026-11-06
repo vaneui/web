@@ -1,4 +1,4 @@
-The `themeDefaults` property in VaneUI's ThemeProvider allows you to set default boolean props for components throughout your application. It establishes consistent defaults while still allowing individual components to override these values.
+The `themeDefaults` property in VaneUI's [ThemeProvider](/docs/customization/using-theme-provider) allows you to set default [boolean props](/docs/getting-started/core-concepts) for components throughout your application. It establishes consistent defaults while still allowing individual components to override these values.
 
 ## Understanding themeDefaults
 
@@ -6,7 +6,7 @@ The `themeDefaults` property in VaneUI's ThemeProvider allows you to set default
 
 The `themeDefaults` property accepts an object where keys are component names and values are objects with boolean props. These defaults are merged with VaneUI's built-in defaults.
 
-Most components take props directly. **Components with sub-themes** (`button`, `card`, `checkbox`, `field`, `radio`, `switch`, `modal`, `menu`, `navLink`, `table`) take a nested object keyed by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.).
+Most components take props directly. **[Components with sub-themes](/docs/customization/theming-overview)** (`button`, `card`, `checkbox`, `field`, `radio`, `switch`, `modal`, `menu`, `navLink`, `table`) take a nested object keyed by sub-theme name (`main`, `content`, `input`, `item`, `root`, etc.).
 
 ```tsx
 <ThemeProvider themeDefaults={{

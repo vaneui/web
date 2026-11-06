@@ -28,8 +28,10 @@ it has `onClick` or `tag="button"`. `noFocusVisible` opts out.
 ## Getting Started
 
 - [Installation](https://vaneui.com/docs/getting-started/installation.md): Install @vaneui/ui with npm, yarn or pnpm, add its CSS through Tailwind CSS v4 or the prebuilt bundle, and wrap your React app in ThemeProvider.
-- [Core Concepts](https://vaneui.com/docs/getting-started/core-concepts.md): Understand VaneUI's philosophy of boolean props, Tailwind CSS integration, and component customization.
+- [Core Concepts](https://vaneui.com/docs/getting-started/core-concepts.md): How VaneUI's boolean props API works in React: one prop per category, how props become Tailwind CSS classes and CSS variables, and where custom classes fit.
 - [Usage Basics](https://vaneui.com/docs/getting-started/usage-basics.md): Core VaneUI patterns in React: boolean size and appearance props, layout components, responsive visibility, typography, icons, images and overlays.
+- [Next.js](https://vaneui.com/docs/getting-started/nextjs.md): Set up VaneUI in a Next.js App Router project: add the Tailwind CSS v4 imports, render ThemeProvider in the root layout, and add dark mode without a flash.
+- [AI Assistants](https://vaneui.com/docs/getting-started/ai-assistants.md): Connect Claude Code, Cursor or VS Code to the VaneUI MCP server, or point any AI assistant at llms.txt and Markdown docs, so it writes correct React props.
 
 ## Basic Components
 
@@ -62,7 +64,7 @@ it has `onClick` or `tag="button"`. `noFocusVisible` opts out.
 - [Text](https://vaneui.com/docs/typography-components/text.md): The primary component for rendering all text content. It provides props to control typographic properties like size, weight, color, and alignment.
 - [PageTitle](https://vaneui.com/docs/typography-components/page-title.md): A specialized component for the primary heading of a page. It ensures consistent styling for top-level titles across your application.
 - [SectionTitle](https://vaneui.com/docs/typography-components/section-title.md): A component for rendering headings of major sections within a page. It helps to create a clear and accessible document structure.
-- [Title](https://vaneui.com/docs/typography-components/title.md): Renders an h3 heading for cards, dialogs and subsections, one level below SectionTitle in the page hierarchy.
+- [Title](https://vaneui.com/docs/typography-components/title.md): React Title component for Tailwind CSS v4: an h3 heading for cards, dialogs and subsections, one level below SectionTitle, with size, color and weight props.
 - [Link](https://vaneui.com/docs/typography-components/link.md): Renders an accessible and themeable anchor link for navigation. Use this to direct users to other pages or external websites.
 - [List](https://vaneui.com/docs/typography-components/list.md): A container for displaying a series of related items in an ordered or unordered fashion. Documents both List and its ListItem entries.
 - [Blockquote](https://vaneui.com/docs/typography-components/blockquote.md): Displays quoted content with a left border accent. Inherits appearance from the parent by default, so it blends into themed containers.
@@ -72,8 +74,8 @@ it has `onClick` or `tag="button"`. `noFocusVisible` opts out.
 - [Container](https://vaneui.com/docs/layout-components/container.md): Manages the main content area by centering it and applying a max-width. It ensures a consistent and readable layout across different screen sizes.
 - [Section](https://vaneui.com/docs/layout-components/section.md): Groups related content and owns the outer padding and background of a page band. Renders as a plain wrapper by default; pass tag="section" for a landmark.
 - [Row](https://vaneui.com/docs/layout-components/row.md): A fundamental layout component that arranges its children in a horizontal line. It is built on the flexbox model and is used to create columns.
-- [Col](https://vaneui.com/docs/layout-components/col.md): Col organizes content vertically within a Row, creating responsive column-based layouts.
-- [Stack](https://vaneui.com/docs/layout-components/stack.md): Stack arranges its children with consistent spacing. Works for both vertical and horizontal layouts.
+- [Col](https://vaneui.com/docs/layout-components/col.md): React Col component for Tailwind CSS v4: a vertical flex column with a gap and no padding, for content inside a Row, Card or Section. See when to use Stack.
+- [Stack](https://vaneui.com/docs/layout-components/stack.md): React Stack component for Tailwind CSS v4: a padded, wrapping column or row with even gaps, set by boolean props. See when to use Col, Row or Card instead.
 - [Card](https://vaneui.com/docs/layout-components/card.md): Card is a container that groups related content with consistent styling. It can contain text, images, and other components.
 - [Grid](https://vaneui.com/docs/layout-components/grid.md): Responsive equal-width column layouts. Grid2 through Grid6 render two to six columns that reduce on smaller screens; they share one API and differ only in column count.
 - [Divider](https://vaneui.com/docs/layout-components/divider.md): Renders a thin line to separate content and create a clear visual hierarchy. Dividers can be used to group related items in lists and layouts.
@@ -91,14 +93,14 @@ it has `onClick` or `tag="button"`. `noFocusVisible` opts out.
 ## Customization
 
 - [Theming Overview](https://vaneui.com/docs/customization/theming-overview.md): How VaneUI theming works: ComponentTheme classes, class mappers, ThemeProvider props and data attributes that style every React component via Tailwind CSS.
-- [Using ThemeProvider](https://vaneui.com/docs/customization/using-theme-provider.md): Configure and customize themes throughout your application with ThemeProvider.
+- [Using ThemeProvider](https://vaneui.com/docs/customization/using-theme-provider.md): Wrap a React app in VaneUI's ThemeProvider to set default props for every component, add Tailwind CSS classes per prop, override the theme, or nest themes.
 - [Theme & ThemeOverride](https://vaneui.com/docs/customization/theme-and-override.md): Customize themes using ThemeProvider's theme and themeOverride properties (applied to providers, not components).
 - [ThemeDefaults](https://vaneui.com/docs/customization/theme-defaults.md): Set app-wide default props with ThemeProvider themeDefaults, such as a filled VaneUI Button everywhere, and see how defaults merge with component props.
 - [ExtraClasses](https://vaneui.com/docs/customization/extra-classes.md): Attach your own Tailwind CSS classes to VaneUI components when a boolean prop is active, with ThemeProvider extraClasses: hover effects, animations, sizes.
 - [CSS Variables](https://vaneui.com/docs/customization/css-variables.md): Change VaneUI colors and sizing with CSS custom properties: the three-tier variable system, color groups, and global or scoped overrides, no component edits.
 - [Dark Mode](https://vaneui.com/docs/customization/dark-mode.md): Enable dark mode with data-theme="dark" on html or a wrapper, keep light regions with data-theme="light", and change colors in both schemes with light-dark().
-- [Customizing Styles](https://vaneui.com/docs/customization/customizing-styles.md): Override VaneUI component styles using Tailwind CSS classes, CSS variables, and the className prop.
-- [Variant Inheritance](https://vaneui.com/docs/customization/variant-inheritance.md): How components inherit colors from ancestor layouts via CSS custom-property cascade.
+- [Customizing Styles](https://vaneui.com/docs/customization/customizing-styles.md): Override VaneUI React component styles with Tailwind CSS classes in className: which properties win, when a CSS variable or a prop fits better, and pitfalls.
+- [Variant Inheritance](https://vaneui.com/docs/customization/variant-inheritance.md): Which VaneUI React components paint their own colors and which inherit them from a parent, why explicit props win, and how inheritAppearance works.
 
 ## Reference
 

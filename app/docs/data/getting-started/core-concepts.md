@@ -21,7 +21,7 @@ Props are organized into **categories**:
 - **layout**: `flex`, `column`, `itemsCenter`, `justifyBetween`, etc.
 - **inheritance**: `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder` (and `noInherit*` toggles)
 
-Text, Title, SectionTitle, PageTitle, Blockquote, Label, List, Divider, and Spinner default to `inheritAppearance`, which means they inherit colors from their parent element via CSS variable cascade rather than setting their own color. Link and Mark default to `inheritSize`, so they inherit font-size from their parent while keeping their own appearance color; Code and Kbd achieve the same effect through em-relative geometry.
+Text, Title, SectionTitle, PageTitle, Blockquote, Label, List, Divider, and Spinner default to `inheritAppearance`, which means they [inherit colors from their parent element](/docs/customization/variant-inheritance) via CSS variable cascade rather than setting their own color. Link and Mark default to `inheritSize`, so they inherit font-size from their parent while keeping their own appearance color; Code and Kbd achieve the same effect through em-relative geometry.
 
 ## Three-layer component architecture
 
@@ -74,7 +74,7 @@ Boolean props can be combined naturally to create the exact styling you need:
 
 ## CSS variable system
 
-VaneUI uses a three-tier CSS variable system:
+VaneUI uses a [three-tier CSS variable system](/docs/customization/css-variables):
 
 ### Tier 1: unit variables
 Set by component class based on `data-size`:
@@ -109,7 +109,7 @@ Set by `data-variant` + `data-appearance` attributes:
 
 ## Mixing custom classes
 
-You can always add your own Tailwind classes via `className` to fine-tune any edge case:
+You can always [add your own Tailwind classes](/docs/customization/customizing-styles) via `className` to fine-tune any edge case:
 ```tsx demo
 <Button primary lg filled className="hover:opacity-80 shadow-xl">
   Get started
@@ -131,7 +131,7 @@ Override colors globally or for any subtree:
 ```
 
 ### ThemeProvider defaults
-Set default prop values for all components, including overlay components (Overlay, Modal, Popup):
+[Set default prop values](/docs/customization/theme-defaults) for all components, including overlay components (Overlay, Modal, Popup):
 ```tsx demo
 <ThemeProvider themeDefaults={{
   button: { main: { pill: true, lg: true } }, // button is compound; defaults nest under `main`

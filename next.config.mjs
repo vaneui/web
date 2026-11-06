@@ -53,6 +53,13 @@ const nextConfig = {
       // The page URL answers with HTML or Markdown depending on Accept, so caches must key on it.
       // (`next start` replaces Vary on rendered pages, so there only the Markdown answer carries it.)
       { source: DOCS_PAGE, headers: [{ key: 'Vary', value: 'Accept' }] },
+      // Headers match the requested URL, not the rewrite target, so the Markdown answer at the
+      // page URL needs its own canonical link (the /api entry below never matches it).
+      {
+        source: DOCS_PAGE,
+        has: [{ type: 'header', key: 'accept', value: '(.*)text/markdown(.*)' }],
+        headers: [{ key: 'Link', value: canonicalPage }],
+      },
       // The Markdown copies point search engines at the HTML page instead of being noindexed
       { source: `${DOCS_PAGE}.md`, headers: [{ key: 'Link', value: canonicalPage }] },
       { source: `/api${DOCS_PAGE}`, headers: [{ key: 'Link', value: canonicalPage }] },

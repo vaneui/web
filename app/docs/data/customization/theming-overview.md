@@ -101,7 +101,7 @@ VaneUI includes themes for all components.
 
 ### themeDefaults
 
-Set default prop values for components:
+[Set default prop values](/docs/customization/theme-defaults) for components:
 
 ```tsx
 import { ThemeProvider, type ThemeDefaults } from '@vaneui/ui';
@@ -126,7 +126,7 @@ const defaults: ThemeDefaults = {
 
 ### extraClasses
 
-Add additional CSS classes based on active props:
+[Add additional CSS classes](/docs/customization/extra-classes) based on active props:
 
 ```tsx
 import type { ThemeExtraClasses } from '@vaneui/ui';
@@ -151,7 +151,7 @@ const extraClasses: ThemeExtraClasses = {
 
 ### themeOverride
 
-A function with direct access to the full theme, for changes the declarative options can't express (like appending to a component's base classes):
+A function with [direct access to the full theme](/docs/customization/theme-and-override), for changes the declarative options can't express (like appending to a component's base classes):
 
 ```tsx
 <ThemeProvider themeOverride={(theme) => {
@@ -212,7 +212,7 @@ Components emit data attributes that CSS rules use for styling:
 </button>
 ```
 
-CSS rules in `rules.css` set unit variables per `data-size` and per-component class. `--fs-unit`, `--py-unit`, and (for Icon) `--icon-size` are all set together so font-size, padding, gap, and border-radius scale together:
+CSS rules in `rules.css` set [unit variables](/docs/customization/css-variables) per `data-size` and per-component class. `--fs-unit`, `--py-unit`, and (for Icon) `--icon-size` are all set together so font-size, padding, gap, and border-radius scale together:
 
 ```css
 /* Per-component size mapping */

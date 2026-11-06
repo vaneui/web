@@ -1,4 +1,4 @@
-VaneUI components are styled through boolean props and CSS variables, but you can override any visual property using standard Tailwind CSS classes via the `className` prop. This page explains how overrides work, when to use each approach, and common pitfalls.
+VaneUI components are styled through boolean props and [CSS variables](/docs/customization/css-variables), but you can override any visual property using standard Tailwind CSS classes via the `className` prop. This page explains how overrides work, when to use each approach, and common pitfalls.
 
 ## How className overrides work
 
@@ -110,7 +110,7 @@ Instead of replacing the consumer class with a utility like `border-red-300`, se
 - **`className="border-red-300"`**: static override, ignores the theme entirely. The component's `border-(--border-color)` class is removed by twMerge.
 - **`className="[--border-color:...]"`**: theme-aware override. The component still uses its consumer class, but the variable value is different. Children inherit the new value.
 
-The CSS variable approach is especially useful when you want descendants to inherit your override:
+The CSS variable approach is especially useful when you want [descendants to inherit](/docs/customization/variant-inheritance) your override:
 
 ```tsx
 // All children of this Card inherit the custom border color
@@ -122,7 +122,7 @@ The CSS variable approach is especially useful when you want descendants to inhe
 
 ## When to use VaneUI props instead
 
-VaneUI provides boolean props for most common styling needs. Always prefer props over Tailwind classes when a prop exists. This ensures the styling integrates with the size system, responds to theme changes, and works with `ThemeProvider` overrides.
+VaneUI provides [boolean props](/docs/getting-started/core-concepts) for most common styling needs. Always prefer props over Tailwind classes when a prop exists. This ensures the styling integrates with the size system, responds to theme changes, and works with `ThemeProvider` overrides.
 
 | Instead of Tailwind | Use VaneUI Prop |
 |---------------------|-----------------|
