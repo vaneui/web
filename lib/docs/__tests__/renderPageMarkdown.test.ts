@@ -171,6 +171,7 @@ test('real pages: Button and the package-owned changelog', () => {
   const log = renderPageMarkdown(repoRoot, changelog.section, changelog.page);
   assert.match(log, /^# Changelog\n\n> .+\n\nSource: https:\/\/vaneui\.com\/docs\/reference\/changelog\n\n/);
   assert.doesNotMatch(log, /^Import:/m);
+  assert.doesNotMatch(log, /^## \[?Unreleased\]?\n\n## /m, 'an empty Unreleased section is dropped');
 
   assert.equal(findDocsPage('basic-components', 'nope'), undefined);
   assert.equal(findDocsPage('_partials', 'shared'), undefined);

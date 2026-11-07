@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Check, Copy, Terminal } from "react-feather";
 import { Highlight, Language } from 'prism-react-renderer';
 import { darkTheme, lightTheme } from './themes';
+import './prismJsx';
 import { useIsDark } from '../utils/useIsDark';
 
 export interface HighlightRange {
