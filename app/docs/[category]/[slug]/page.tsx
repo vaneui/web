@@ -8,6 +8,7 @@ import path from 'path';
 import { parseFrontmatter } from "../../../../lib/docs/frontmatter";
 import { docPageDates } from "../../../../lib/docs/gitDate";
 import { expandDocIncludes, isMissingFileError } from "../../../../lib/docs/includes.mjs";
+import { packageMarkdownBody } from "../../../../lib/docs/pageMarkdown";
 import type { DocPageFrontmatter, DocsPage } from "../../types";
 import { JsonLd, buildBreadcrumbSchema, buildTechArticleSchema } from "../../../components/JsonLd";
 import { BASE_OPEN_GRAPH } from "../../../constants";
@@ -104,8 +105,8 @@ async function readPackageMd(packageMdPath: string): Promise<string | null> {
     console.error(`Could not read package markdown from ${file}`);
     return null;
   }
-  // DocsPageContent renders the page title, so drop the file's own leading H1.
-  return raw.replace(/^\s*#\s+.*\r?\n/, '');
+  // Drops the file's own H1 (DocsPageContent renders the title) and an empty Unreleased section
+  return packageMarkdownBody(raw);
 }
 
 export default async function Page({params}: DocsPageProps) {
