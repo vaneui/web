@@ -236,13 +236,64 @@
 
 .lp-swap { animation: lp-fade .35s ease both; }
 
+/* Divider position in the dark split; registered so keyboard steps, focus and the hint glide */
+@property --lp-split { syntax: '<percentage>'; inherits: true; initial-value: 50%; }
+
+.lp-split { --lp-split: var(--lp-split-at, 50%); transition: --lp-split .3s ease; }
+.lp-split[data-dragging] { transition: none; cursor: ew-resize; }
+/* Once, on first view: the divider peeks right and back so it reads as draggable */
+.lp-split[data-hint] { animation: lp-split-hint 1.2s cubic-bezier(.45,0,.55,1) .3s; }
+@keyframes lp-split-hint { 0%, 100% { --lp-split: 50%; } 45% { --lp-split: 64%; } }
 .lp-split-layer { grid-area: 1 / 1; }
-.lp-split-dark { clip-path: inset(0 0 0 50%); transition: clip-path .3s ease; }
-.lp-split-line { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; transition: transform .3s ease; }
+.lp-split-dark { clip-path: inset(0 0 0 var(--lp-split)); }
 /* Keyboard focus lives in the light copy, so the dark half slides away to show its focus ring */
-.lp-split:has(.lp-split-light :focus-visible) .lp-split-dark { clip-path: inset(0 0 0 100%); }
-.lp-split:has(.lp-split-light :focus-visible) .lp-split-line { transform: translateX(50%); }
-.lp-split-line line { stroke: var(--lp-mark); stroke-width: 1; }
+.lp-split:has(.lp-split-light :focus-visible) { --lp-split: 100%; }
+
+/* The divider: a hairline with a round grip; the strip lets the page scroll, the grip takes the drag */
+.lp-split-handle {
+  position: absolute;
+  top: -8px;
+  bottom: -8px;
+  left: var(--lp-split);
+  width: 24px;
+  margin-left: -12px;
+  cursor: ew-resize;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+.lp-split-handle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: var(--lp-mark);
+}
+.lp-split-knob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  translate: -50% -50%;
+  border: 1px solid var(--lp-mark);
+  border-radius: 9999px;
+  background: var(--color-bg-primary);
+  color: var(--lp-mark);
+  touch-action: none;
+  transition: background-color .15s ease, color .15s ease, scale .15s ease;
+}
+.lp-split-knob::after { content: ""; position: absolute; inset: -8px; border-radius: inherit; } /* 44px touch target */
+.lp-split-knob svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.lp-split-handle:hover .lp-split-knob,
+.lp-split[data-dragging] .lp-split-knob { background: var(--lp-mark); color: var(--color-bg-primary); }
+.lp-split[data-dragging] .lp-split-knob { scale: 1.1; }
+.lp-split-handle:focus-visible .lp-split-knob { outline: 2px solid var(--lp-mark); outline-offset: 2px; }
 
 /* ---------- docs ---------- */
 
@@ -261,5 +312,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   [data-reveal] { transition: none !important; opacity: 1 !important; transform: none !important; }
-  .lp-motion, .lp-motion *, .lp-brk, .lp-nudge, .lp-split-dark, .lp-split-line { animation: none !important; transition: none !important; }
+  .lp-motion, .lp-motion *, .lp-brk, .lp-nudge, .lp-split, .lp-split-knob { animation: none !important; transition: none !important; }
 }
