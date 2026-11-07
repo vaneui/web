@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Grid2, Grid3, Col, Row, Stack, Text, Title, Button, Card, Chip, Img, Divider, Label, Switch, Mark, Code, type ButtonProps,
 } from '@vaneui/ui';
@@ -118,25 +118,92 @@ function MiniCard({ notify, onNotify, mirror = false }: { notify: boolean; onNot
   );
 }
 
-/** The same card twice, light and a dark copy clipped to the right half; each half is live and both share state */
+const SPLIT_STEP = 5;
+const SPLIT_PAGE = 20;
+const clampSplit = (v: number) => Math.min(100, Math.max(0, v));
+
+/** The same card twice, light and a dark copy clipped at a draggable divider; each half is live and both share state */
 function DarkSplit() {
   const [notify, setNotify] = useState(true);
+  const [split, setSplit] = useState(50);
+  const [dragging, setDragging] = useState(false);
+  const [hint, setHint] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const grab = useRef(0); // pointer offset from the divider, so grabbing it off-centre never makes it jump
+  const touched = useRef(false);
+
+  // Once, when the card first scrolls into view, the divider peeks right and back to show it moves
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      if (!touched.current) setHint(true);
+    }, { threshold: 0.8 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const take = () => {
+    touched.current = true;
+    setHint(false);
+  };
+  const percentAt = (clientX: number) => {
+    const r = ref.current!.getBoundingClientRect();
+    return ((clientX - r.left) / r.width) * 100;
+  };
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.button !== 0) return;
+    take();
+    grab.current = percentAt(e.clientX) - split;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    setDragging(true);
+  };
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!e.currentTarget.hasPointerCapture(e.pointerId)) return;
+    setSplit(clampSplit(percentAt(e.clientX) - grab.current));
+  };
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const keys: Record<string, number> = {
+      ArrowLeft: split - SPLIT_STEP, ArrowDown: split - SPLIT_STEP,
+      ArrowRight: split + SPLIT_STEP, ArrowUp: split + SPLIT_STEP,
+      PageDown: split - SPLIT_PAGE, PageUp: split + SPLIT_PAGE,
+      Home: 0, End: 100,
+    };
+    if (!(e.key in keys)) return;
+    e.preventDefault();
+    take();
+    setSplit(clampSplit(Math.round(keys[e.key])));
+  };
+
+  // The cards don't depend on the divider, so dragging doesn't re-render them
+  const light = useMemo(() => <MiniCard notify={notify} onNotify={setNotify}/>, [notify]);
+  const dark = useMemo(() => <MiniCard notify={notify} onNotify={setNotify} mirror/>, [notify]);
+  const value = Math.round(split);
+
   return (
     <Col sm itemsCenter wFull className="py-6">
       <Row justifyBetween aria-hidden="true" className="w-72">
         <Text xs fontMono tertiary>light</Text>
         <Text xs fontMono tertiary>dark</Text>
       </Row>
-      <div className="lp-split relative grid">
-        <div data-theme="light" className="lp-split-layer lp-split-light">
-          <MiniCard notify={notify} onNotify={setNotify}/>
+      <div ref={ref} className="lp-split relative grid" data-dragging={dragging || undefined} data-hint={hint || undefined}
+           style={{ '--lp-split-at': `${split}%` } as React.CSSProperties}
+           onAnimationEnd={e => e.animationName === 'lp-split-hint' && setHint(false)}>
+        <div data-theme="light" className="lp-split-layer lp-split-light">{light}</div>
+        <div data-theme="dark" className="lp-split-layer lp-split-dark">{dark}</div>
+        <div role="slider" tabIndex={0} aria-label="Light and dark split"
+             aria-valuemin={0} aria-valuemax={100} aria-valuenow={value} aria-valuetext={`${value}% light, ${100 - value}% dark`}
+             className="lp-split-handle"
+             onPointerDown={onPointerDown} onPointerMove={onPointerMove}
+             onPointerUp={() => setDragging(false)} onPointerCancel={() => setDragging(false)}
+             onKeyDown={onKeyDown}>
+          <span aria-hidden="true" className="lp-split-knob">
+            <svg viewBox="0 0 16 16"><path d="M6 4 2 8l4 4M10 4l4 4-4 4"/></svg>
+          </span>
         </div>
-        <div data-theme="dark" className="lp-split-layer lp-split-dark">
-          <MiniCard notify={notify} onNotify={setNotify} mirror/>
-        </div>
-        <svg aria-hidden="true" className="lp-split-line" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <line x1="50" y1="-4" x2="50" y2="104" vectorEffect="non-scaling-stroke"/>
-        </svg>
       </div>
     </Col>
   );
