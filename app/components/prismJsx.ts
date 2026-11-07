@@ -1,10 +1,13 @@
 import { Prism } from 'prism-react-renderer';
 
 /*
- * Prism's JSX grammar reads an attribute value as part of a tag only up to three braces deep, so
- * `<ThemeProvider themeDefaults={{ button: { main: { pill: true } } }}>` is not taken as a tag and
- * loses the component and prop colors. Rebuild the tag patterns the way the grammar builds them,
- * with deeper nesting. Runs once, when CodeBlock is imported.
+ * Two gaps in Prism's JSX/TSX grammars leave tags uncolored (gray component and prop names):
+ * - an attribute value is read as part of a tag only up to three braces deep, so
+ *   `<ThemeProvider themeDefaults={{ button: { main: { pill: true } } }}>` is not a tag;
+ * - in TSX a tag must follow a character it can consume, so in `<Icon><Star /></Icon>` the
+ *   `<Star />` right after `<Icon>` is not a tag.
+ * Rebuild the tag patterns the way the grammars build them, with deeper nesting and, in TSX, a
+ * lookbehind for the character before. Runs once, when CodeBlock is imported.
  */
 const DEPTH = 8;
 
@@ -33,5 +36,14 @@ function deepen(tag: Rule | undefined, pattern: RegExp) {
 
 const languages = Prism.languages as unknown as Record<string, Record<string, Rule> | undefined>;
 deepen(languages.jsx?.tag, RegExp(TAG));
-// TSX matches the tag only after a non-identifier character, as Prism's own TSX grammar does
-deepen(languages.tsx?.tag, RegExp(/(^|[^\w$]|(?=<\/))/.source + `(?:${TAG})`));
+// TSX matches a tag only after a non-identifier character (so `useState<T>` stays a generic), as
+// Prism's own TSX grammar does. Its pattern consumes that character, which a tag that ends right
+// before has already taken; a lookbehind sees it instead, where the browser supports one.
+let afterToken = '';
+try {
+  RegExp('(?<=a)');
+  afterToken = '|(?<=[^\\w$])(?=<)';
+} catch {
+  // No lookbehind support: keep Prism's own rule
+}
+deepen(languages.tsx?.tag, RegExp(`(^|[^\\w$]|(?=<\\/)${afterToken})(?:${TAG})`));
