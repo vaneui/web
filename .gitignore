@@ -47,6 +47,9 @@ web_modules/
 # TypeScript cache
 *.tsbuildinfo
 
+# Next.js rewrites it on every dev and build run (its imports differ by Next version and between dev and build)
+next-env.d.ts
+
 # Optional npm cache directory
 .npm
 
