@@ -38,19 +38,51 @@ pnpm add @vaneui/ui
 
 ## CSS setup
 
-VaneUI supports two CSS setup options depending on your project configuration.
+VaneUI supports two CSS setup options depending on your project configuration. Use one of them, not both: `@vaneui/ui/css` (Option 2) already contains everything in `@vaneui/ui/vars` (Option 1), so a project that imports both ships the variables and component rules twice.
 
 ### Option 1: with Tailwind CSS (recommended)
 
 If your project uses Tailwind CSS v4, VaneUI plugs in directly. Tailwind scans VaneUI components and generates only the CSS classes you use.
 
-Install Tailwind CSS if you haven't already:
+Tailwind CSS v4 runs as a plugin of your build tool, so a project needs the `tailwindcss` package plus one of two plugins. Skip this step if Tailwind already builds your CSS.
+
+For a build that runs PostCSS (Next.js, for example), install `@tailwindcss/postcss`:
 
 ```bash
 npm install -D tailwindcss @tailwindcss/postcss
 ```
 
-Add the following to your main CSS file:
+Then register the plugin in `postcss.config.mjs` at the project root:
+
+```js
+const config = {
+  plugins: {
+    '@tailwindcss/postcss': {},
+  },
+};
+
+export default config;
+```
+
+For a Vite project, install `@tailwindcss/vite`:
+
+```bash
+npm install -D tailwindcss @tailwindcss/vite
+```
+
+Then add it to the `plugins` array in `vite.config.ts`:
+
+```ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+});
+```
+
+With the plugin in place, add the following to your main CSS file:
 
 ```css
 @import "tailwindcss";
@@ -64,6 +96,8 @@ This setup:
 - Imports VaneUI theme tokens (registers custom breakpoints and design tokens with Tailwind)
 - Imports VaneUI CSS variables and component rules
 - Tells Tailwind to scan VaneUI components for class generation
+
+The `@source` path is relative to the CSS file that contains it, not to the project root. `../node_modules/@vaneui/ui` fits a stylesheet one folder below the root, such as `app/globals.css` or `src/index.css`. From `src/app/globals.css`, write `../../node_modules/@vaneui/ui`. A wrong path does not fail the build: Tailwind finds no VaneUI files and does not generate the utility classes the components use, so they render without their layout, spacing and colors.
 
 > The `@vaneui/ui/tokens` import is required for responsive props like `mobileStack`, `tabletHide`, and responsive typography to work. It registers VaneUI's custom breakpoints (`mobile`, `tablet`, `desktop`) with your project's Tailwind CSS instance.
 
@@ -80,6 +114,8 @@ Add the following to your main CSS file:
 This setup:
 - Imports the complete pre-built VaneUI stylesheet (component styles and CSS variables in one file)
 - Works without any Tailwind configuration
+
+Do not add `@import "@vaneui/ui/vars"` next to it. The pre-built file already contains the variables and component rules.
 
 The pre-built stylesheet is compiled for VaneUI's own components; it does not contain Tailwind's full utility set. A Tailwind class passed through `className` or `extraClasses` has no effect unless it happens to be in the bundle, and most (`max-w-md`, `p-6`, `size-8`, `ms-auto`, `z-40`) are not. For arbitrary utilities, use Option 1 or the `style` prop.
 
@@ -312,7 +348,7 @@ A function that receives the resolved theme and returns it modified. Unlike `the
 
 Source: https://vaneui.com/docs/getting-started/usage-basics
 
-Import: `import { Badge, Button, Card, Col, Container, Icon, Img, List, ListItem, Modal, ModalBody, ModalCloseButton, ModalFooter, ModalHeader, PageTitle, Popup, PopupTrigger, Row, Section, SectionTitle, Stack, Text, Title } from "@vaneui/ui"`
+Import: `import { Badge, Button, Card, Col, Container, Icon, Img, List, ListItem, Modal, ModalBody, ModalCloseButton, ModalFooter, ModalHeader, PageTitle, PopupTrigger, Row, Section, SectionTitle, Stack, Text, Title } from "@vaneui/ui"`
 
 VaneUI components share a boolean props API for size, appearance, variant, and layout. This page covers the core usage patterns: size and appearance props, layout components, responsive breakpoints, typography, icons, images, overlays, and when to prefer props over Tailwind classes.
 
@@ -320,24 +356,20 @@ VaneUI components share a boolean props API for size, appearance, variant, and l
 
 VaneUI components use boolean props for styling. Most components support size, appearance, and layout props.
 
+The examples on this page show the JSX only. Every component in them is a named export of `@vaneui/ui`, for example `import { Button } from '@vaneui/ui'`.
+
 ### Size props
 
 Components support five sizes:
 
-```tsx
-import { Button, Stack } from '@vaneui/ui';
-
-function SizeExample() {
-  return (
-    <Stack>
-      <Button xs>Extra Small</Button>
-      <Button sm>Small (Button default)</Button>
-      <Button md>Medium</Button>
-      <Button lg>Large</Button>
-      <Button xl>Extra Large</Button>
-    </Stack>
-  );
-}
+```tsx demo
+<Stack>
+  <Button xs>Extra Small</Button>
+  <Button sm>Small (Button default)</Button>
+  <Button md>Medium</Button>
+  <Button lg>Large</Button>
+  <Button xl>Extra Large</Button>
+</Stack>
 ```
 
 > Most components default to `md`. Button, IconButton, NavLink, MenuItem, MenuLabel, Label, and Tooltip default to `sm`.
@@ -346,76 +378,58 @@ function SizeExample() {
 
 Control visual appearance with semantic props:
 
-```tsx
-import { Button, Row } from '@vaneui/ui';
-
-function AppearanceExample() {
-  return (
-    <Row>
-      <Button primary>Primary</Button>
-      <Button accent>Accent</Button>
-      <Button secondary>Secondary</Button>
-      <Button tertiary>Tertiary</Button>
-      <Button success>Success</Button>
-      <Button danger>Danger</Button>
-      <Button warning>Warning</Button>
-      <Button info>Info</Button>
-    </Row>
-  );
-}
+```tsx demo
+<Row flexWrap>
+  <Button primary>Primary</Button>
+  <Button accent>Accent</Button>
+  <Button secondary>Secondary</Button>
+  <Button tertiary>Tertiary</Button>
+  <Button success>Success</Button>
+  <Button danger>Danger</Button>
+  <Button warning>Warning</Button>
+  <Button info>Info</Button>
+</Row>
 ```
 
 ### Filled and outline variants
 
 All components support `filled`, `outline`, and `ghost` variants. `outline` is the default for most components. `ghost` renders a transparent background with no border and appearance-colored text, plus a tinted hover background:
 
-```tsx
-import { Button, Card, Stack, Container, Row } from '@vaneui/ui';
+```tsx demo
+<Stack lg>
+  {/* Buttons */}
+  <Row flexWrap>
+    <Button filled>Filled Button</Button>
+    <Button>Outline Button (default)</Button>
+    <Button ghost>Ghost Button</Button>
+  </Row>
 
-function FilledOutlineExample() {
-  return (
-    <Stack lg>
-      {/* Buttons */}
-      <Row>
-        <Button filled>Filled Button</Button>
-        <Button>Outline Button (default)</Button>
-        <Button ghost>Ghost Button</Button>
-      </Row>
+  {/* Cards */}
+  <Row flexWrap>
+    <Card filled success lg>Filled Card</Card>
+    <Card danger lg>Outline Card (default)</Card>
+  </Row>
 
-      {/* Cards */}
-      <Row>
-        <Card filled success lg>Filled Card</Card>
-        <Card danger lg>Outline Card (default)</Card>
-      </Row>
-
-      {/* Layout Components */}
-      <Container filled secondary>
-        <Stack lg>Filled Container</Stack>
-      </Container>
-      <Container warning>
-        <Stack lg>Outline Container (default)</Stack>
-      </Container>
-    </Stack>
-  );
-}
+  {/* Layout Components */}
+  <Container filled secondary>
+    <Stack lg>Filled Container</Stack>
+  </Container>
+  <Container warning>
+    <Stack lg>Outline Container (default)</Stack>
+  </Container>
+</Stack>
 ```
 
 ### Shape props
 
 Control border radius:
 
-```tsx
-import { Button, Row } from '@vaneui/ui';
-
-function ShapeExample() {
-  return (
-    <Row>
-      <Button sharp>Sharp (no radius)</Button>
-      <Button>Rounded (default)</Button>
-      <Button pill>Pill (fully rounded)</Button>
-    </Row>
-  );
-}
+```tsx demo
+<Row flexWrap>
+  <Button sharp>Sharp (no radius)</Button>
+  <Button>Rounded (default)</Button>
+  <Button pill>Pill (fully rounded)</Button>
+</Row>
 ```
 
 ## Layout components
@@ -424,57 +438,39 @@ function ShapeExample() {
 
 Arrange children vertically with consistent spacing:
 
-```tsx
-import { Stack, Text } from '@vaneui/ui';
-
-function StackExample() {
-  return (
-    <Stack lg>
-      <Text>Item 1</Text>
-      <Text>Item 2</Text>
-      <Text>Item 3</Text>
-    </Stack>
-  );
-}
+```tsx demo
+<Stack lg>
+  <Text>Item 1</Text>
+  <Text>Item 2</Text>
+  <Text>Item 3</Text>
+</Stack>
 ```
 
 ### Row and Col
 
 Compose layouts:
 
-```tsx
-import { Row, Col, Card } from '@vaneui/ui';
-
-function GridExample() {
-  return (
-    <Row>
-      <Col>
-        <Card>Column 1</Card>
-      </Col>
-      <Col>
-        <Card>Column 2</Card>
-      </Col>
-    </Row>
-  );
-}
+```tsx demo
+<Row>
+  <Col>
+    <Card>Column 1</Card>
+  </Col>
+  <Col>
+    <Card>Column 2</Card>
+  </Col>
+</Row>
 ```
 
 ### Responsive breakpoints
 
 Use breakpoint props to change layout on different screen sizes:
 
-```tsx
-import { Row, Card } from '@vaneui/ui';
-
-function ResponsiveLayout() {
-  return (
-    // Row on desktop, column on tablet and below
-    <Row tabletStack>
-      <Card>Left</Card>
-      <Card>Right</Card>
-    </Row>
-  );
-}
+```tsx demo
+<Row tabletStack>
+  {/* Row on desktop, column on tablet and below */}
+  <Card>Left</Card>
+  <Card>Right</Card>
+</Row>
 ```
 
 Available breakpoint props:
@@ -486,38 +482,26 @@ Available breakpoint props:
 
 VaneUI provides typography components with consistent hierarchy:
 
-```tsx
-import { PageTitle, SectionTitle, Title, Text, Stack } from '@vaneui/ui';
-
-function TypographyExample() {
-  return (
-    <Stack>
-      <PageTitle>Page Title (h1)</PageTitle>
-      <SectionTitle>Section Title (h2)</SectionTitle>
-      <Title>Title (h3)</Title>
-      <Text>Body text (p)</Text>
-    </Stack>
-  );
-}
+```tsx demo
+<Stack>
+  <PageTitle>Page Title (h1)</PageTitle>
+  <SectionTitle>Section Title (h2)</SectionTitle>
+  <Title>Title (h3)</Title>
+  <Text>Body text (p)</Text>
+</Stack>
 ```
 
 ### Automatic responsive typography
 
 Typography components (`PageTitle`, `SectionTitle`, `Title`) and layout components (`Section`) automatically scale across breakpoints: no props needed:
 
-```tsx
-import { PageTitle, SectionTitle, Title, Section } from '@vaneui/ui';
-
-function ResponsiveTypography() {
-  return (
-    <Section>
-      {/* Font size automatically reduces on smaller screens */}
-      <PageTitle>Welcome to My App</PageTitle>
-      <SectionTitle>Section Heading</SectionTitle>
-      <Title>Content Title</Title>
-    </Section>
-  );
-}
+```tsx demo
+<Section>
+  {/* Font size automatically reduces on smaller screens */}
+  <PageTitle>Welcome to My App</PageTitle>
+  <SectionTitle>Section Heading</SectionTitle>
+  <Title>Content Title</Title>
+</Section>
 ```
 
 - `PageTitle` scales: e.g., 24 units on desktop, 21 on tablet, 18 on mobile
@@ -529,83 +513,57 @@ function ResponsiveTypography() {
 
 List items inherit appearance from their parent List component via CSS variables:
 
-```tsx
-import { List, ListItem, Stack } from '@vaneui/ui';
+```tsx demo
+<Stack lg>
+  <List success>
+    <ListItem>Inherits success color</ListItem>
+    <ListItem>Also inherits success color</ListItem>
+  </List>
 
-function ListInheritance() {
-  return (
-    <Stack lg>
-      <List success>
-        <ListItem>Inherits success color</ListItem>
-        <ListItem>Also inherits success color</ListItem>
-      </List>
-      
-      <List danger>
-        <ListItem>Inherits danger color</ListItem>
-        <ListItem>Also inherits danger color</ListItem>
-      </List>
-    </Stack>
-  );
-}
+  <List danger>
+    <ListItem>Inherits danger color</ListItem>
+    <ListItem>Also inherits danger color</ListItem>
+  </List>
+</Stack>
 ```
 
 ## Images
 
-Display images with VaneUI styling using the `Img` component:
+Display images with VaneUI styling using the [Img](/docs/layout-components/img) component:
 
-```tsx
-import { Img, Row } from '@vaneui/ui';
-
-function ImageExample() {
-  return (
-    <Row>
-      <Img src="/photo.jpg" alt="Photo" rounded border shadow />
-      <Img src="/avatar.jpg" alt="Avatar" pill />
-      <Img src="/banner.jpg" alt="Banner" sharp objectCover />
-    </Row>
-  );
-}
+```tsx hide
+<Row>
+  <Img src="/photo.jpg" alt="Photo" rounded border shadow />
+  <Img src="/avatar.jpg" alt="Avatar" pill />
+  <Img src="/banner.jpg" alt="Banner" sharp objectCover />
+</Row>
 ```
 
 `Img` supports shape props (`rounded`, `pill`, `sharp`), `border`, `shadow`, size props, and object-fit props (`objectCover`, `objectContain`, `objectFill`).
 
 ## Icons
 
-Wrap any SVG with the `Icon` component to inherit the parent's font color and scale with the size system:
+Wrap any SVG with the [Icon](/docs/basic-components/icon) component to inherit the parent's font color and scale with the size system. The icons in these examples (`Star`, `AlertCircle`, `Heart`, `Check`) are SVG components from the `react-feather` package:
 
-```tsx
-import { Icon, Row, Text } from '@vaneui/ui';
-import { Star, AlertCircle } from 'react-feather';
-
-function IconExample() {
-  return (
-    <Row>
-      <Icon sm><Star /></Icon>
-      <Icon><Star /></Icon>
-      <Icon lg success><Star /></Icon>
-      <Text danger><Icon><AlertCircle /></Icon> Inline with text</Text>
-    </Row>
-  );
-}
+```tsx demo
+<Row>
+  <Icon sm><Star /></Icon>
+  <Icon><Star /></Icon>
+  <Icon lg success><Star /></Icon>
+  <Text danger><Icon><AlertCircle /></Icon> Inline with text</Text>
+</Row>
 ```
 
 ### Icon container mode
 
 By default `Icon` renders as a bare glyph that inherits color from its parent. Adding any of `padding`, `border`, `insetRing`, `shadow`, or `filled` switches it into *container mode*: the icon gains a sized box that shape props (`rounded`, `pill`, `sharp`) can act on:
 
-```tsx
-import { Icon, Row } from '@vaneui/ui';
-import { Check, Heart, AlertCircle } from 'react-feather';
-
-function IconContainerExample() {
-  return (
-    <Row>
-      <Icon padding pill primary filled><Heart /></Icon>
-      <Icon padding pill success border><Check /></Icon>
-      <Icon padding danger filled insetRing><AlertCircle /></Icon>
-    </Row>
-  );
-}
+```tsx demo
+<Row>
+  <Icon padding pill primary filled><Heart /></Icon>
+  <Icon padding pill success border><Check /></Icon>
+  <Icon padding danger filled insetRing><AlertCircle /></Icon>
+</Row>
 ```
 
 Padding and radius scale with the size prop, so the same composition works across `xs` through `xl`.
@@ -614,55 +572,49 @@ Padding and radius scale with the size prop, so the same composition works acros
 
 Use `Modal` for dialogs that require user attention. Modals include focus trapping, scroll lock, and ARIA attributes by default. Modal provides sub-components for structured layout: `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton`.
 
-```tsx
-import { Modal, ModalHeader, ModalBody, ModalFooter, ModalCloseButton, Button, Text } from '@vaneui/ui';
-import { useState } from 'react';
+```tsx demo
+const [open, setOpen] = useState(false);
 
-function ModalExample() {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <>
-      <Button onClick={() => setOpen(true)}>Open Modal</Button>
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <ModalHeader>
-          <Text fontBold>Dialog Title</Text>
-          <ModalCloseButton />
-        </ModalHeader>
-        <ModalBody>
-          <Text>Dialog content goes here.</Text>
-        </ModalBody>
-        <ModalFooter>
-          <Button primary filled onClick={() => setOpen(false)}>Close</Button>
-        </ModalFooter>
-      </Modal>
-    </>
-  );
-}
+return (
+  <>
+    <Button onClick={() => setOpen(true)}>Open Modal</Button>
+    <Modal open={open} onClose={() => setOpen(false)}>
+      <ModalHeader>
+        <Text fontBold>Dialog Title</Text>
+        <ModalCloseButton />
+      </ModalHeader>
+      <ModalBody>
+        <Text>Dialog content goes here.</Text>
+      </ModalBody>
+      <ModalFooter>
+        <Button primary filled onClick={() => setOpen(false)}>Close</Button>
+      </ModalFooter>
+    </Modal>
+  </>
+);
 ```
 
 ### PopupTrigger
 
 Use `PopupTrigger` as a convenience wrapper that manages open/close state for `Popup` automatically. Pass the popup content via the `popup` prop and the trigger element as children:
 
-```tsx
-import { PopupTrigger, Button, Card, Text } from '@vaneui/ui';
-
-function PopupExample() {
-  return (
-    <PopupTrigger popup={<Card sm shadow><Text sm>Popup content</Text></Card>}>
-      <Button>Toggle Popup</Button>
-    </PopupTrigger>
-  );
-}
+```tsx demo
+<PopupTrigger popup={<Card sm shadow><Text sm>Popup content</Text></Card>}>
+  <Button>Toggle Popup</Button>
+</PopupTrigger>
 ```
 
 `PopupTrigger` selects its trigger mode with three boolean props: `triggerOnClick` (the default when none is set), `triggerOnHover`, and `triggerOnFocus`.
 
-`Popup` positions itself relative to its anchor through a placement prop: `placeTop`, `placeTopStart`, `placeTopEnd`, `placeBottom`, `placeBottomStart`, `placeBottomEnd`, `placeLeft`, `placeLeftStart`, `placeLeftEnd`, `placeRight`, `placeRightStart`, and `placeRightEnd`.
+`Popup` positions itself relative to its anchor through a placement prop: `placeTop`, `placeTopStart`, `placeTopEnd`, `placeBottom`, `placeBottomStart`, `placeBottomEnd`, `placeLeft`, `placeLeftStart`, `placeLeftEnd`, `placeRight`, `placeRightStart`, and `placeRightEnd`. A `Popup` rendered on its own also needs an `anchorRef` that points at its anchor element. `PopupTrigger` sets the anchor itself and passes placement, like any other `Popup` prop, through `popupProps`:
 
-```tsx
-<Popup placeBottomStart>Anchored below, aligned to the start edge</Popup>
+```tsx demo
+<PopupTrigger
+  popup={<Text sm>Anchored below, aligned to the start edge</Text>}
+  popupProps={{ placeBottomStart: true }}
+>
+  <Button>Open below start</Button>
+</PopupTrigger>
 ```
 
 See the [Overlay Components](/docs/overlay-components/overlay) section for `Overlay`, `Modal`, and `Popup` documentation.
@@ -671,26 +623,20 @@ See the [Overlay Components](/docs/overlay-components/overlay) section for `Over
 
 Hide components below a breakpoint, or show them only below one:
 
-```tsx
-import { Text, Stack } from '@vaneui/ui';
-
-function ResponsiveVisibility() {
-  return (
-    <Stack>
-      <Text>Always visible</Text>
-      <Text mobileHide>Hidden on mobile (below 48rem)</Text>
-      <Text tabletHide>Hidden on tablet (below 64rem)</Text>
-      <Text desktopHide>Hidden on desktop (below 80rem)</Text>
-      <Text mobileShow>Shown only on mobile (below 48rem)</Text>
-      <Text tabletShow>Shown only below tablet width (64rem)</Text>
-    </Stack>
-  );
-}
+```tsx demo
+<Stack>
+  <Text>Always visible</Text>
+  <Text mobileHide>Hidden on mobile (below 48rem)</Text>
+  <Text tabletHide>Hidden on tablet (below 64rem)</Text>
+  <Text desktopHide>Hidden on desktop (below 80rem)</Text>
+  <Text mobileShow>Shown only on mobile (below 48rem)</Text>
+  <Text tabletShow>Shown only below tablet width (64rem)</Text>
+</Stack>
 ```
 
 Make a component full width below a breakpoint while it keeps its own width above it:
 
-```tsx
+```tsx demo
 <Row mobileStack>
   <Button mobileWFull>Full width on mobile</Button>
   <Button mobileWFull>Fit width from 48rem</Button>
@@ -701,36 +647,24 @@ Make a component full width below a breakpoint while it keeps its own width abov
 
 Use the `tag` prop to render different HTML elements:
 
-```tsx
-import { Text, Button } from '@vaneui/ui';
-
-function TagExample() {
-  return (
-    <div>
-      <Text tag="h1">Heading rendered as h1</Text>
-      <Text tag="span">Text rendered as span</Text>
-      <Button tag="a" href="/link">Button rendered as anchor</Button>
-    </div>
-  );
-}
+```tsx hide
+<div>
+  <Text tag="h1">Heading rendered as h1</Text>
+  <Text tag="span">Text rendered as span</Text>
+  <Button tag="a" href="/link">Button rendered as anchor</Button>
+</div>
 ```
 
 ## Combining with custom classes
 
 Add custom Tailwind classes via `className`:
 
-```tsx
-import { Button, Card } from '@vaneui/ui';
-
-function CustomStyling() {
-  return (
-    <Card className="shadow-2xl">
-      <Button wFull className="hover:scale-105">
-        Full width with hover effect
-      </Button>
-    </Card>
-  );
-}
+```tsx demo
+<Card className="shadow-2xl">
+  <Button wFull className="hover:scale-105">
+    Full width with hover effect
+  </Button>
+</Card>
 ```
 
 User-provided `className` takes precedence over theme classes (via `twMerge`).
@@ -997,7 +931,7 @@ Source: https://vaneui.com/docs/basic-components/button
 
 Import: `import { Button, Col, Row, ThemeProvider } from "@vaneui/ui"`
 
-Use Button for actions, [Link](/docs/typography-components/link) for an in-prose hyperlink, and [NavLink](/docs/basic-components/navlink) for a sidebar or navigation item. An action shown only as an icon goes in an [IconButton](/docs/basic-components/icon-button). Button renders a native `<button>`, or an `<a>` when `href` is set. A `disabled` or `loading` Button with an `href` drops the `href` but stays focusable, marked with `aria-disabled`.
+Use Button for actions, [Link](/docs/typography-components/link) for an in-prose hyperlink, and [NavLink](/docs/basic-components/navlink) for a sidebar or navigation item. An action shown only as an icon goes in an [IconButton](/docs/basic-components/icon-button). Button renders a native `<button>`, or an `<a>` when `href` is set. It sets no `type`, so a Button inside a `<form>` submits the form: pass `type="button"` on every button that does anything else, as the [Forms](/docs/form-components/forms) guide shows. A `disabled` or `loading` Button with an `href` drops the `href` but stays focusable, marked with `aria-disabled`.
 
 ## Basic usage
 
@@ -1218,7 +1152,7 @@ Source: https://vaneui.com/docs/basic-components/icon-button
 
 Import: `import { IconButton, Col, Row, Text, ThemeProvider } from "@vaneui/ui"`
 
-IconButton is for a toolbar action or a dismiss control that has no room for a text label. It renders a `<button>` with the same `sm` default size as [Button](/docs/basic-components/button), so it lines up with a Button placed beside it. When the action needs visible text, use Button; for a glyph that does nothing on click, use [Icon](/docs/basic-components/icon).
+IconButton is for a toolbar action or a dismiss control that has no room for a text label. It renders a `<button>` with the same `sm` default size as [Button](/docs/basic-components/button), so it lines up with a Button placed beside it. When the action needs visible text, use Button; for a glyph that does nothing on click, use [Icon](/docs/basic-components/icon). Like Button, IconButton sets no `type`, so inside a `<form>` it submits the form unless it has `type="button"` (see [Forms](/docs/form-components/forms)).
 
 ## Basic usage
 
@@ -1237,7 +1171,7 @@ Drop an icon directly inside the `IconButton`. Each `appearance` prop maps to a 
 
 ## Accessibility
 
-An icon-only button has no visible text, so assistive technology has nothing to announce. Give every `IconButton` an accessible name with `aria-label`.
+An icon-only button has no visible text, so assistive technology has nothing to announce. Give every `IconButton` an accessible name with `aria-label`. A development build logs a console warning for an IconButton that has no `aria-label`, `aria-labelledby` or `title`.
 
 ```tsx demo
 <Row flexWrap>
@@ -1254,23 +1188,23 @@ IconButton supports five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Size dri
 ```tsx demo
 <Row flexWrap itemsEnd>
   <Col itemsCenter>
-    <IconButton xs><Star /></IconButton>
+    <IconButton xs aria-label="Favorite"><Star /></IconButton>
     <Text sm secondary>xs</Text>
   </Col>
   <Col itemsCenter>
-    <IconButton sm><Star /></IconButton>
+    <IconButton sm aria-label="Favorite"><Star /></IconButton>
     <Text sm secondary>sm</Text>
   </Col>
   <Col itemsCenter>
-    <IconButton md><Star /></IconButton>
+    <IconButton md aria-label="Favorite"><Star /></IconButton>
     <Text sm secondary>md</Text>
   </Col>
   <Col itemsCenter>
-    <IconButton lg><Star /></IconButton>
+    <IconButton lg aria-label="Favorite"><Star /></IconButton>
     <Text sm secondary>lg</Text>
   </Col>
   <Col itemsCenter>
-    <IconButton xl><Star /></IconButton>
+    <IconButton xl aria-label="Favorite"><Star /></IconButton>
     <Text sm secondary>xl</Text>
   </Col>
 </Row>
@@ -1283,20 +1217,20 @@ IconButton renders as `outline` (default) or `filled`.
 ```tsx demo
 <Col>
   <Row flexWrap>
-    <IconButton><Star /></IconButton>
-    <IconButton secondary><Heart /></IconButton>
-    <IconButton success><Check /></IconButton>
-    <IconButton danger><Trash2 /></IconButton>
-    <IconButton warning><Bell /></IconButton>
-    <IconButton info><Info /></IconButton>
+    <IconButton aria-label="Favorite"><Star /></IconButton>
+    <IconButton secondary aria-label="Like"><Heart /></IconButton>
+    <IconButton success aria-label="Confirm"><Check /></IconButton>
+    <IconButton danger aria-label="Delete"><Trash2 /></IconButton>
+    <IconButton warning aria-label="Notifications"><Bell /></IconButton>
+    <IconButton info aria-label="Show info"><Info /></IconButton>
   </Row>
   <Row flexWrap>
-    <IconButton filled><Star /></IconButton>
-    <IconButton filled secondary><Heart /></IconButton>
-    <IconButton filled success><Check /></IconButton>
-    <IconButton filled danger><Trash2 /></IconButton>
-    <IconButton filled warning><Bell /></IconButton>
-    <IconButton filled info><Info /></IconButton>
+    <IconButton filled aria-label="Favorite"><Star /></IconButton>
+    <IconButton filled secondary aria-label="Like"><Heart /></IconButton>
+    <IconButton filled success aria-label="Confirm"><Check /></IconButton>
+    <IconButton filled danger aria-label="Delete"><Trash2 /></IconButton>
+    <IconButton filled warning aria-label="Notifications"><Bell /></IconButton>
+    <IconButton filled info aria-label="Show info"><Info /></IconButton>
   </Row>
 </Col>
 ```
@@ -1308,15 +1242,15 @@ IconButton supports `rounded` (default), `pill`, and `sharp`. `pill` is especial
 ```tsx demo
 <Row flexWrap>
   <Col itemsCenter>
-    <IconButton filled><Star /></IconButton>
+    <IconButton filled aria-label="Favorite"><Star /></IconButton>
     <Text sm secondary>rounded</Text>
   </Col>
   <Col itemsCenter>
-    <IconButton pill filled><Star /></IconButton>
+    <IconButton pill filled aria-label="Favorite"><Star /></IconButton>
     <Text sm secondary>pill</Text>
   </Col>
   <Col itemsCenter>
-    <IconButton sharp filled><Star /></IconButton>
+    <IconButton sharp filled aria-label="Favorite"><Star /></IconButton>
     <Text sm secondary>sharp</Text>
   </Col>
 </Row>
@@ -1328,10 +1262,18 @@ Pass `href` to render the IconButton as an `<a>` for navigation. Use `disabled` 
 
 ```tsx demo
 <Row flexWrap>
-  <IconButton href="https://github.com" target="_blank"><ExternalLink /></IconButton>
-  <IconButton filled success href="#"><ExternalLink /></IconButton>
-  <IconButton disabled><Star /></IconButton>
-  <IconButton filled danger disabled><Trash2 /></IconButton>
+  <IconButton
+    href="https://github.com"
+    target="_blank"
+    aria-label="GitHub (opens in a new tab)"
+  >
+    <ExternalLink />
+  </IconButton>
+  <IconButton filled success href="#" aria-label="Open link">
+    <ExternalLink />
+  </IconButton>
+  <IconButton disabled aria-label="Favorite"><Star /></IconButton>
+  <IconButton filled danger disabled aria-label="Delete"><Trash2 /></IconButton>
 </Row>
 ```
 
@@ -1344,7 +1286,7 @@ import Link from 'next/link';
 import { IconButton } from '@vaneui/ui';
 import { Settings } from 'react-feather';
 
-<IconButton href="/settings" tag={Link}><Settings /></IconButton>
+<IconButton href="/settings" tag={Link} aria-label="Settings"><Settings /></IconButton>
 ```
 
 ## Loading state
@@ -1379,7 +1321,7 @@ Set app-wide IconButton defaults with `ThemeProvider`'s `themeDefaults`:
 <ThemeProvider themeDefaults={{
   iconButton: { secondary: true, pill: true, lg: true },
 }}>
-  <IconButton><Star /></IconButton>
+  <IconButton aria-label="Favorite"><Star /></IconButton>
 </ThemeProvider>
 ```
 
@@ -3095,6 +3037,341 @@ Progress has two theme nodes for [themeDefaults](/docs/customization/theme-defau
 
 Layout and utility props (Hide, Overflow, Responsive Width, Show, Transition, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
+# Forms
+
+> Build a React form with VaneUI: Field and native validation, controlled and uncontrolled inputs, error messages, control values, submit, reset and button types.
+
+Source: https://vaneui.com/docs/form-components/forms
+
+Import: `import { Alert, Button, Checkbox, Col, Field, IconButton, Input, Label, Radio, RadioGroup, Row, Select, Switch, Text } from "@vaneui/ui"`
+
+A VaneUI form is a native `<form>` element with VaneUI controls inside it. `Input`, `Textarea`, `Select`, `Checkbox`, `Radio` and `Switch` each render a native form control, so `name`, `required`, `FormData`, submit and reset behave as they do in plain HTML. [Field](/docs/form-components/field) adds the label, help text and error message. `Button` and `IconButton` set no `type`, so inside a `<form>` each one submits the form unless it has `type="button"`.
+
+## A form with Field and native validation
+
+Wrap the fields in a `<form>` and give each control a `name`. The browser checks `required`, `type="email"`, `minLength` and `pattern` before it fires `onSubmit`, and shows its own message at the first control that fails. `required` set on a Field reaches the control inside it. `name` and the other native attributes go on the control.
+
+```tsx demo
+const [message, setMessage] = useState('');
+
+return (
+  <form
+    onSubmit={(event) => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      setMessage(`Account created for ${data.get('name')} (${data.get('email')}).`);
+    }}
+  >
+    <Col>
+      <Field label="Name" required>
+        <Input name="name" autoComplete="name"/>
+      </Field>
+      <Field label="Email" description="Used to sign in." required>
+        <Input type="email" name="email" autoComplete="email"/>
+      </Field>
+      <Field label="Password" description="At least 12 characters." required>
+        <Input
+          type="password"
+          name="password"
+          minLength={12}
+          autoComplete="new-password"
+        />
+      </Field>
+      <Button type="submit" md filled>Create account</Button>
+      {message && <Alert success polite>{message}</Alert>}
+    </Col>
+  </form>
+);
+```
+
+`event.preventDefault()` stops the browser from sending the form itself and reloading the page, and `FormData` reads the values of the named controls. Pressing Enter in a text field submits the form too. A Field that renders its own control (`<Field type="email" label="Email"/>`) takes native attributes such as `name` and `required` directly.
+
+## Controlled and uncontrolled inputs
+
+The inputs above are uncontrolled: the DOM holds each value, `defaultValue` sets the starting text, and the submit handler reads the result. A controlled input takes `value` and `onChange`, and React state holds the value on every keystroke.
+
+```tsx demo
+const [name, setName] = useState('');
+const slug = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+return (
+  <Field
+    label="Workspace name"
+    description={`Address: example.com/${slug || 'your-workspace'}`}
+  >
+    <Input value={name} onChange={(event) => setName(event.target.value)}/>
+  </Field>
+);
+```
+
+Use uncontrolled inputs when the values are needed only on submit. Use a controlled input when something on screen depends on the value while the user types, such as a preview or a character count, or when JavaScript validates the value.
+
+## Showing errors with the Field `error` prop
+
+To show messages of your own, add `noValidate` to the form, validate in JavaScript, and pass the message to the `error` prop of the Field. Field renders the message, marks the control with `aria-invalid="true"`, and links the message to the control with `aria-describedby`. Check a value when its field loses focus and again on submit.
+
+```tsx demo
+const [email, setEmail] = useState('');
+const [error, setError] = useState<string>();
+const [failed, setFailed] = useState(0);
+const [sent, setSent] = useState(false);
+const emailRef = useRef<HTMLInputElement>(null);
+
+const check = (value: string) =>
+  /^\S+@\S+\.\S+$/.test(value)
+    ? undefined
+    : 'Enter an email address, such as you@company.com.';
+
+useEffect(() => {
+  if (failed > 0) emailRef.current?.focus();
+}, [failed]);
+
+return (
+  <form
+    noValidate
+    onSubmit={(event) => {
+      event.preventDefault();
+      const problem = check(email);
+      setError(problem);
+      setSent(!problem);
+      if (problem) setFailed(failed + 1);
+    }}
+  >
+    <Col>
+      <Field label="Work email" error={error}>
+        <Input
+          ref={emailRef}
+          type="email"
+          name="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          onBlur={() => setError(check(email))}
+        />
+      </Field>
+      <Button type="submit" md filled>Send invite</Button>
+      {sent && <Alert success polite>Invite sent to {email}.</Alert>}
+    </Col>
+  </form>
+);
+```
+
+Three details in this example carry over to any form:
+
+- `error` stays `undefined` while the field is valid. Field treats every other value except `null` and `false` as an error, an empty string included.
+- The input is controlled, so the value is in state when the check runs.
+- After a failed submit, the effect moves focus to the invalid control, so a keyboard or screen reader user lands on it and hears the message. With several fields, focus the first one that failed.
+
+A server error goes into `error` the same way, from the response. When the message is shown somewhere else, such as an Alert above the form, `invalid` on the Field marks the control without rendering text. That prop needs `@vaneui/ui` 1.5.0 or later.
+
+## Values of Checkbox, RadioGroup, Switch and Select
+
+Each control reports its value through the native element it renders.
+
+| Control | Uncontrolled | Controlled | Entry in `FormData` |
+|---|---|---|---|
+| `Input`, `Textarea` | `defaultValue` | `value` and `onChange`, read `event.target.value` | The text, also when it is empty |
+| `Select` | `defaultValue` | `value` and `onChange`, read `event.target.value` | The `value` of the selected option |
+| `RadioGroup` | `defaultValue` | `value` and `onChange`, read `event.target.value` | The `value` of the checked `Radio`, or no entry when none is checked |
+| `Checkbox`, `Switch` | `defaultChecked` | `checked` and `onChange`, read `event.target.checked` | Its `value` when checked (`"on"` when no `value` is set), or no entry when unchecked |
+
+Give a [RadioGroup](/docs/form-components/radio) a `name` in a form that is submitted. Without one it generates a name, which keeps the options mutually exclusive but is no use as a key in `FormData`.
+
+```tsx demo
+const [entries, setEntries] = useState('');
+
+return (
+  <form
+    onSubmit={(event) => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      setEntries(JSON.stringify(Object.fromEntries(data), null, 2));
+    }}
+  >
+    <Col>
+      <Field label="Plan">
+        <RadioGroup name="plan" defaultValue="pro">
+          <Label row itemsCenter><Radio value="free"/> Free</Label>
+          <Label row itemsCenter><Radio value="pro"/> Pro</Label>
+        </RadioGroup>
+      </Field>
+      <Field label="Region">
+        <Select name="region" placeholder="Select a region" required>
+          <option value="cy">Cyprus</option>
+          <option value="ee">Estonia</option>
+          <option value="pt">Portugal</option>
+        </Select>
+      </Field>
+      <Label row itemsCenter>
+        <Checkbox name="terms" value="accepted" required/>
+        I accept the terms
+      </Label>
+      <Label row itemsCenter>
+        <Checkbox name="updates"/>
+        Email me product updates
+      </Label>
+      <Button type="submit" md filled>Save</Button>
+      {entries && <Text tag="pre" sm fontMono>{entries}</Text>}
+    </Col>
+  </form>
+);
+```
+
+`placeholder` with `required` on a Select makes the user pick an option: the prompt has an empty value, so the browser rejects it. Several checkboxes can share one `name`, and `data.getAll(name)` returns every checked value.
+
+A [Switch](/docs/form-components/switch) reports its value the same way as a [Checkbox](/docs/form-components/checkbox). It is meant for a setting that applies at once, so it usually sits outside the submit flow as a controlled input, like the controls below. `onChange` on a `RadioGroup` receives the change event of the `Radio` that was picked.
+
+```tsx demo
+const [plan, setPlan] = useState('pro');
+const [region, setRegion] = useState('ee');
+const [updates, setUpdates] = useState(false);
+const [compact, setCompact] = useState(true);
+
+return (
+  <Col>
+    <Field label="Plan">
+      <RadioGroup value={plan} onChange={(event) => setPlan(event.target.value)}>
+        <Label row itemsCenter><Radio value="free"/> Free</Label>
+        <Label row itemsCenter><Radio value="pro"/> Pro</Label>
+      </RadioGroup>
+    </Field>
+    <Field label="Region">
+      <Select value={region} onChange={(event) => setRegion(event.target.value)}>
+        <option value="cy">Cyprus</option>
+        <option value="ee">Estonia</option>
+        <option value="pt">Portugal</option>
+      </Select>
+    </Field>
+    <Label row itemsCenter>
+      <Checkbox
+        checked={updates}
+        onChange={(event) => setUpdates(event.target.checked)}
+      />
+      Email me product updates
+    </Label>
+    <Label row itemsCenter>
+      <Switch
+        checked={compact}
+        onChange={(event) => setCompact(event.target.checked)}
+      />
+      Compact layout
+    </Label>
+    <Text sm secondary>
+      plan: {plan}, region: {region},
+      updates: {String(updates)}, compact: {String(compact)}
+    </Text>
+  </Col>
+);
+```
+
+## Disabled and read-only controls
+
+`disabled` takes a control out of the form: it cannot be focused, its value is left out of `FormData`, and validation skips it. `readOnly` keeps the control in the form: it can be focused and its value is submitted, but the user cannot change it. `Checkbox`, `Radio` and `Switch` have no native read-only state, so VaneUI cancels the click, and `Checkbox` and `Switch` also carry `aria-readonly`. A Field passes `disabled` and `readOnly` to the control inside it, and a disabled Field also dims its label.
+
+```tsx demo
+const [entries, setEntries] = useState('');
+
+return (
+  <form
+    onSubmit={(event) => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      setEntries(JSON.stringify(Object.fromEntries(data), null, 2));
+    }}
+  >
+    <Col>
+      <Field label="Account ID" description="Submitted, but not editable." readOnly>
+        <Input name="accountId" defaultValue="acct_4821"/>
+      </Field>
+      <Field label="Legacy plan" description="Left out of the form data." disabled>
+        <Input name="legacyPlan" defaultValue="Starter 2019"/>
+      </Field>
+      <Label row itemsCenter>
+        <Checkbox name="auditLog" defaultChecked readOnly/>
+        Audit log, required by your plan
+      </Label>
+      <Button type="submit" md filled>Save</Button>
+      {entries && <Text tag="pre" sm fontMono>{entries}</Text>}
+    </Col>
+  </form>
+);
+```
+
+## Submit, reset and button types
+
+`Button` and `IconButton` render a `<button>` with no `type` attribute, and a button with no `type` inside a form is a submit button. A Cancel button, a password toggle or any other button that only runs an `onClick` therefore submits the form too, unless it has `type="button"`. Set `type` on every button in a form.
+
+| `type` | Effect inside a `<form>` | Use it for |
+|---|---|---|
+| not set | Submits the form | Avoid in a form: state the type |
+| `submit` | Runs native validation, then fires `onSubmit` | The action that sends the form |
+| `button` | None, only `onClick` runs | Cancel, a password toggle, a menu trigger |
+| `reset` | Restores uncontrolled controls to their starting values and fires `onReset` | A reset button |
+
+```tsx demo
+const [status, setStatus] = useState('Nothing submitted yet.');
+const [saving, setSaving] = useState(false);
+const [visible, setVisible] = useState(false);
+
+return (
+  <form
+    onSubmit={(event) => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      setSaving(true);
+      // stands in for a request
+      setTimeout(() => {
+        setSaving(false);
+        setStatus(`Saved display name "${data.get('displayName')}".`);
+      }, 800);
+    }}
+    onReset={() => setStatus('Reset to the starting values.')}
+  >
+    <Col>
+      <Field label="Display name" required>
+        <Input name="displayName" defaultValue="Alex Rivera"/>
+      </Field>
+      <Row itemsEnd>
+        <Field label="Password" flex1>
+          <Input
+            type={visible ? 'text' : 'password'}
+            name="password"
+            defaultValue="correct horse"
+          />
+        </Field>
+        <IconButton
+          md
+          type="button"
+          aria-label="Show password"
+          aria-pressed={visible}
+          onClick={() => setVisible(!visible)}
+        >
+          {visible ? <EyeOff/> : <Eye/>}
+        </IconButton>
+      </Row>
+      <Row>
+        <Button type="submit" md filled loading={saving}>Save</Button>
+        <Button type="reset" md>Reset</Button>
+        <Button
+          type="button"
+          md
+          secondary
+          onClick={() => setStatus('Cancelled. Nothing was submitted.')}
+        >
+          Cancel
+        </Button>
+      </Row>
+      <Text sm secondary>{status}</Text>
+    </Col>
+  </form>
+);
+```
+
+`loading` on the submit [Button](/docs/basic-components/button) disables it while the request runs, so a second click cannot submit the form again. `type="reset"` restores `defaultValue` and `defaultChecked`. Controlled values live in state, so set them back in an `onReset` handler.
+
+Pressing Enter in a text field activates the first submit button in the form. A button with no `type` counts as one, so an untyped button placed before the real submit button receives that click.
+
+`NavLink` without `href` and `ModalCloseButton` already render `type="button"`. A Button with `href` renders an `<a>`, which never submits.
+
 # Input
 
 > Input lets users enter text, numbers, and other data. A form element with support for various types, validation states, and styling options.
@@ -3753,7 +4030,7 @@ Source: https://vaneui.com/docs/form-components/field
 
 Import: `import { Field, Card, Col, Input, Label, Radio, RadioGroup, Row, Select, Text, Textarea } from "@vaneui/ui"`
 
-Use Field when a control has help text or an error message. A bare [Label](/docs/form-components/label) associates text with a control but links neither message to it, so a screen reader announces that the control is invalid and never says why. For a control that needs a visible name and nothing else, a Label is enough. Field renders a `<div>` that holds a `<label>`, the control, and the help and error text as `<p>` elements.
+Use Field when a control has help text or an error message. A bare [Label](/docs/form-components/label) associates text with a control but links neither message to it, so a screen reader announces that the control is invalid and never says why. For a control that needs a visible name and nothing else, a Label is enough. Field renders a `<div>` that holds a `<label>`, the control, and the help and error text as `<p>` elements. For a whole form built from Fields, with validation, values and submit, see [Forms](/docs/form-components/forms).
 
 ## Basic usage
 
@@ -6155,7 +6432,7 @@ Use blockquotes with attribution for testimonials and customer quotes.
 - Variant: `filled`, `outline` (default), `ghost`
 - Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
 
-Layout and utility props (Cursor, Display, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Responsive Width, Show, Whitespace, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
+Layout and utility props (Border, Cursor, Display, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Responsive Width, Show, Whitespace, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
 # Container
 
@@ -8864,7 +9141,7 @@ return (
 
 ```tsx
 {/* High-level: use Modal for dialogs */}
-<Modal open={open} onClose={() => setOpen(false)}>
+<Modal open={open} onClose={() => setOpen(false)} aria-label="Details">
   <Text>Accessible dialog with focus trap</Text>
 </Modal>
 
@@ -8995,7 +9272,7 @@ Use Modal when the user has to finish or dismiss a task before returning to the 
 
 ## Basic usage
 
-A controlled modal opened by a Button. The Modal portals to `document.body`, traps focus inside the dialog while open, locks body scroll, and closes on overlay click or `Escape`.
+A controlled modal opened by a Button. The Modal portals to `document.body`, traps focus inside the dialog while open, locks body scroll, and closes on overlay click or `Escape`. This one has no header, so `aria-label` gives the dialog its accessible name.
 
 Modal content defaults: `md`, `primary`, `outline`, `rounded`, `shadow`, `flex column`, `gap`, `wFull`, `overflowAuto`, `relative`, `noPadding` (sub-components own their own padding).
 
@@ -9005,7 +9282,7 @@ const [open, setOpen] = useState(false);
 return (
   <>
     <Button onClick={() => setOpen(true)}>Open Modal</Button>
-    <Modal open={open} onClose={() => setOpen(false)}>
+    <Modal open={open} onClose={() => setOpen(false)} aria-label="Confirm action">
       <Stack>
         <Text fontBold>Confirm Action</Text>
         <Text>Are you sure?</Text>
@@ -9199,16 +9476,28 @@ return (
       <Button onClick={() => setShape('filled')}>filled secondary</Button>
       <Button onClick={() => setShape('danger')}>danger border</Button>
     </Row>
-    <Modal sharp open={shape === 'sharp'} onClose={close}>
+    <Modal sharp aria-label="Sharp modal" open={shape === 'sharp'} onClose={close}>
       <ModalBody><Text>Sharp corners</Text></ModalBody>
     </Modal>
-    <Modal pill open={shape === 'pill'} onClose={close}>
+    <Modal pill aria-label="Pill modal" open={shape === 'pill'} onClose={close}>
       <ModalBody><Text>Pill corners</Text></ModalBody>
     </Modal>
-    <Modal filled secondary open={shape === 'filled'} onClose={close}>
+    <Modal
+      filled
+      secondary
+      aria-label="Filled secondary modal"
+      open={shape === 'filled'}
+      onClose={close}
+    >
       <ModalBody><Text>Filled secondary panel</Text></ModalBody>
     </Modal>
-    <Modal danger border open={shape === 'danger'} onClose={close}>
+    <Modal
+      danger
+      border
+      aria-label="Danger border modal"
+      open={shape === 'danger'}
+      onClose={close}
+    >
       <ModalBody><Text>Danger border</Text></ModalBody>
     </Modal>
   </>
@@ -9275,8 +9564,24 @@ return (
       <Button primary filled onClick={() => setOpenPrimary(true)}>Primary modal</Button>
       <Button danger filled onClick={() => setOpenDanger(true)}>Danger modal</Button>
     </Row>
-    <Modal open={openPrimary} onClose={() => setOpenPrimary(false)} primary filled>Primary modal</Modal>
-    <Modal open={openDanger} onClose={() => setOpenDanger(false)} danger filled>Danger modal</Modal>
+    <Modal
+      open={openPrimary}
+      onClose={() => setOpenPrimary(false)}
+      aria-label="Primary appearance"
+      primary
+      filled
+    >
+      Primary modal
+    </Modal>
+    <Modal
+      open={openDanger}
+      onClose={() => setOpenDanger(false)}
+      aria-label="Danger appearance"
+      danger
+      filled
+    >
+      Danger modal
+    </Modal>
   </>
 );
 ```
@@ -9291,7 +9596,12 @@ const [open, setOpen] = useState(false);
 return (
   <>
     <Button onClick={() => setOpen(true)}>Open Modal</Button>
-    <Modal open={open} onClose={() => setOpen(false)} overlayProps={{ backdropBlur: true }}>
+    <Modal
+      open={open}
+      onClose={() => setOpen(false)}
+      aria-label="Blur overlay example"
+      overlayProps={{ backdropBlur: true }}
+    >
       <Text>Blurred background</Text>
     </Modal>
   </>
@@ -9311,6 +9621,7 @@ return (
     <Modal
       open={open}
       onClose={() => setOpen(false)}
+      aria-label="Action required"
       closeOnOverlayClick={false}
       closeOnEscape={false}
     >
@@ -9348,6 +9659,8 @@ return (
 
 Modal ships accessibility features enabled by default. The dialog renders with `role="dialog"` and `aria-modal="true"`, and is automatically wired with `aria-labelledby` (when `ModalHeader` is used) and `aria-describedby` (when `ModalBody` is used).
 
+A dialog needs an accessible name. A `ModalHeader` with title content provides it, and so does the `title` prop on a Modal without sub-components. A compound Modal does not render `title`, so put the title in its `ModalHeader`. A Modal with no visible title, like the bare examples on this page, takes `aria-label` or `aria-labelledby`. A development build logs a console warning when a Modal opens with none of these.
+
 | Prop | Default | Description |
 |------|---------|-------------|
 | `scrollLock` | `true` | Lock body scroll when modal is open |
@@ -9361,12 +9674,12 @@ Modal ships accessibility features enabled by default. The dialog renders with `
 
 ```tsx
 {/* Custom focus target */}
-<Modal open={open} onClose={onClose} initialFocus={inputRef}>
+<Modal open={open} onClose={onClose} aria-label="Search" initialFocus={inputRef}>
   <Input ref={inputRef} placeholder="Auto-focused" />
 </Modal>
 
 {/* Keep mounted for animation or state preservation */}
-<Modal open={open} onClose={onClose} keepMounted transitionDuration={300}>
+<Modal open={open} onClose={onClose} aria-label="Details" keepMounted transitionDuration={300}>
   <Text>Stays in DOM when closed</Text>
 </Modal>
 ```
@@ -9383,7 +9696,9 @@ return (
     modal: { content: { lg: true, border: true } },
   }}>
     <Button onClick={() => setOpen(true)}>Open Modal</Button>
-    <Modal open={open} onClose={() => setOpen(false)}>Content</Modal>
+    <Modal open={open} onClose={() => setOpen(false)} aria-label="Themed modal">
+      Content
+    </Modal>
   </ThemeProvider>
 );
 ```
@@ -10014,6 +10329,26 @@ Menu supports additional configuration for fine-tuning behavior:
 ## Props
 
 - Appearance: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
+- Flex: `flex1`, `flexAuto`, `flexNone`
+- Font Family: `fontSans` (default), `fontSerif`, `fontMono`, `fontHeading`
+- Font Style: `italic`, `notItalic`
+- Font Weight: `fontThin`, `fontExtralight`, `fontLight`, `fontNormal`, `fontMedium`, `fontSemibold`, `fontBold`, `fontExtrabold`, `fontBlack`
+- Padding: `padding`, `paddingX`, `paddingY`, `noPadding`
+- Placement: `placeTop`, `placeTopStart`, `placeTopEnd`, `placeBottom`, `placeBottomStart` (default), `placeBottomEnd`, `placeLeft`, `placeLeftStart`, `placeLeftEnd`, `placeRight`, `placeRightStart`, `placeRightEnd`
+- Shape: `pill`, `sharp`, `rounded` (default)
+- Shrink: `noShrink`
+- Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
+- Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
+- Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
+- Truncate: `truncate`, `lineClamp2`, `lineClamp3`, `lineClamp4`, `lineClamp5`, `noTruncate`
+- Variant: `filled`, `outline` (default), `ghost`
+
+Layout and utility props (Align Self, Border, Clamp Height, Constrain Width, Display, Flex Direction, Gap, Height, Hide, Items, Justify, Justify Self, Overflow, Pointer Events, Position, Responsive Sizing, Responsive Width, Ring, Shadow, Show, Transition, Transparent, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
+
+## MenuItem props
+
+- Appearance: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
 - Disabled: `disabled`
 - Flex: `flex1`, `flexAuto`, `flexNone`
 - Font Family: `fontSans` (default), `fontSerif`, `fontMono`, `fontHeading`
@@ -10031,6 +10366,27 @@ Menu supports additional configuration for fine-tuning behavior:
 - Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
 
 Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Responsive Width, Ring, Shadow, Show, Transition, Transparent, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
+
+## MenuLabel props
+
+- Appearance: `primary`, `accent`, `secondary` (default), `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
+- Disabled: `disabled`
+- Flex: `flex1`, `flexAuto`, `flexNone`
+- Font Family: `fontSans` (default), `fontSerif`, `fontMono`, `fontHeading`
+- Font Style: `italic`, `notItalic`
+- Font Weight: `fontThin`, `fontExtralight`, `fontLight`, `fontNormal`, `fontMedium`, `fontSemibold`, `fontBold`, `fontExtrabold`, `fontBlack`
+- Inherit Size: `inheritSize`, `noInheritSize`
+- Padding: `padding` (default), `paddingX`, `paddingY`, `noPadding`
+- Shape: `pill`, `sharp`, `rounded` (default)
+- Shrink: `noShrink`
+- Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Text Align: `textLeft` (default), `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
+- Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
+- Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
+- Variant: `filled`, `outline` (default), `ghost`
+- Word Break: `breakNormal`, `breakWords`, `breakAll`, `breakKeep`
+
+Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible, Gap, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Responsive Width, Ring, Shadow, Show, Transition, Whitespace, Width, Wrap) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
 # Tooltip
 
@@ -11798,7 +12154,7 @@ Apply it with `data-theme="ocean"` on any element, and the subtree reads the ove
 
 Source: https://vaneui.com/docs/customization/customizing-styles
 
-Import: `import { Badge, Button, Card, Divider, Img, Input, Row, Text } from "@vaneui/ui"`
+Import: `import { Badge, Blockquote, Button, Card, Divider, Img, Input, Row, Text, ThemeProvider } from "@vaneui/ui"`
 
 VaneUI components are styled through boolean props and [CSS variables](/docs/customization/css-variables), but you can override any visual property using standard Tailwind CSS classes via the `className` prop. This page explains how overrides work, when to use each approach, and common pitfalls.
 
@@ -11887,11 +12243,29 @@ From lowest to highest priority:
 | Level | Mechanism | Scope | Use When |
 |-------|-----------|-------|----------|
 | 1 | Component defaults | Library-wide | You're the library author |
-| 2 | `themeDefaults` | Provider subtree | Change defaults for all components in a section |
-| 3 | `extraClasses` | Provider subtree | Add classes based on active props |
-| 4 | `themeOverride` | Provider subtree | Modify theme internals programmatically |
+| 2 | `themeOverride` | Provider subtree | Modify theme internals programmatically |
+| 3 | `themeDefaults` | Provider subtree | Change defaults for all components in a section |
+| 4 | `extraClasses` | Provider subtree | Add classes based on active props |
 | 5 | **`className`** | Single instance | One-off style adjustments |
 | 6 | `style` | Single instance | Runtime-computed values that can't be a class |
+
+Inside one `ThemeProvider`, the [`themeOverride`](/docs/customization/theme-and-override) function runs first, and `themeDefaults` and `extraClasses` are applied to the theme it returns. A default set in `themeDefaults` therefore wins over a default that `themeOverride` set in the same category:
+
+```tsx demo
+<ThemeProvider
+  themeDefaults={{ button: { main: { success: true } } }}
+  themeOverride={(theme) => {
+    theme.button.main.defaults = {
+      ...theme.button.main.defaults,
+      primary: false,
+      danger: true,
+    };
+    return theme;
+  }}
+>
+  <Button>Success from themeDefaults</Button>
+</ThemeProvider>
+```
 
 For most use cases, `className` (level 5) is the right tool. Use `themeDefaults` or `extraClasses` when you need the override to apply across many components.
 
@@ -11910,17 +12284,23 @@ Instead of replacing the consumer class with a utility like `border-red-300`, se
 **Replacing the utility vs setting the variable:**
 
 - **`className="border-red-300"`**: static override, ignores the theme entirely. The component's `border-(--border-color)` class is removed by twMerge.
-- **`className="[--border-color:...]"`**: theme-aware override. The component still uses its consumer class, but the variable value is different. Children inherit the new value.
+- **`className="[--border-color:...]"`**: theme-aware override. The component still uses its consumer class, but the variable value is different. Descendants that set no colors of their own inherit the new value.
 
-The CSS variable approach is especially useful when you want [descendants to inherit](/docs/customization/variant-inheritance) your override:
+The CSS variable approach fits when you want [descendants to inherit](/docs/customization/variant-inheritance) your override. The value reaches every descendant that does not set the variable again. A `Row` or `Col` with `border` and the accent border of a `Blockquote` have no appearance of their own, so they take the Card's red. Components with their own appearance, such as `Input`, `Button` and `Badge`, set the color variables on their own element and keep their colors. `Divider` draws its line from `--divider-color`, a separate variable, so it stays unchanged too:
 
-```tsx
-// All children of this Card inherit the custom border color
+```tsx demo
 <Card className="[--border-color:red]">
-  <Input /> {/* This Input also gets a red border */}
-  <Divider /> {/* Red divider too */}
+  <Row border padding>
+    <Text>A bordered Row inherits the red border</Text>
+  </Row>
+  <Blockquote>The Blockquote accent border inherits it too</Blockquote>
+  <Input placeholder="Input keeps its own colors"/>
+  <Input className="[--ring-color:red]" placeholder="Variable set on this Input"/>
+  <Divider/>
 </Card>
 ```
+
+To recolor a component that has its own appearance, set the variable on that component, as the second Input does (a text field draws its outline as a ring, from `--ring-color`), or give it an appearance prop such as `danger`.
 
 ## When to use VaneUI props instead
 
