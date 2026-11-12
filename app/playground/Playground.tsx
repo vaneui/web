@@ -8,6 +8,7 @@ import { LandingHeader, MAIN_CONTENT_ID } from '../landing/LandingHeader';
 import { FRAME } from '../landing/frame';
 import { Preview } from './Preview';
 import { STARTER_CODE } from './starter';
+import { browserStorage, clearSavedCode, loadSavedCode, withoutReset, writeSavedCode } from '../../lib/playground/savedCode';
 
 /**
  * The starter code with line numbers, laid out like the editor, until CodeMirror loads. It is
@@ -30,33 +31,44 @@ const CodeEditor = dynamic(() => import('./CodeEditor').then((m) => m.CodeEditor
   loading: EditorFallback,
 });
 
-const STORAGE_KEY = 'vaneui-playground-code';
 const DEBOUNCE_MS = 400;
 
 export function Playground() {
   const [code, setCode] = React.useState(STARTER_CODE);
   const [preview, setPreview] = React.useState(STARTER_CODE);
+  // Nothing is saved until the saved snippet has been read, so the starter never overwrites it
+  const [loaded, setLoaded] = React.useState(false);
 
   React.useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
+    // `?reset` clears the saved snippet before it can run: the way out when it hangs the page
+    const { code: saved, reset } = loadSavedCode(window.location.search, browserStorage());
+    if (reset) {
+      // Dropped from the URL, so a reload keeps what is typed next
+      window.history.replaceState(window.history.state, '', withoutReset(window.location.href));
+    }
     if (saved != null) {
       setCode(saved);
       setPreview(saved);
     }
+    setLoaded(true);
   }, []);
 
   React.useEffect(() => {
-    const t = setTimeout(() => {
-      setPreview(code);
-      localStorage.setItem(STORAGE_KEY, code);
-    }, DEBOUNCE_MS);
+    const t = setTimeout(() => setPreview(code), DEBOUNCE_MS);
     return () => clearTimeout(t);
   }, [code]);
+
+  // Saved only after the snippet rendered: this effect runs once React has committed `preview`,
+  // after the snippet's own effects. A snippet that never finishes rendering (an endless loop)
+  // is therefore never saved, and the next visit starts from the last one that did render.
+  React.useEffect(() => {
+    if (loaded) writeSavedCode(browserStorage(), preview);
+  }, [loaded, preview]);
 
   const reset = () => {
     setCode(STARTER_CODE);
     setPreview(STARTER_CODE);
-    localStorage.removeItem(STORAGE_KEY);
+    clearSavedCode(browserStorage());
   };
 
   return (
