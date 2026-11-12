@@ -7,6 +7,11 @@
 
 @source "../node_modules/@vaneui/ui";
 
+/* `dark:` utilities follow the site's theme (data-theme on <html>, set by the header toggle, or on
+   an island inside the page) instead of the operating system's scheme, so they agree with the
+   VaneUI tokens around them. A light island inside a dark scope stays light. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *):not(:where([data-theme="dark"] [data-theme="light"], [data-theme="dark"] [data-theme="light"] *)));
+
 @theme inline {
     --font-sans: var(--font-plus-jakarta-sans), "Plus Jakarta Sans Fallback";
     --font-serif: var(--font-dm-serif-display), "DM Serif Display Fallback";
