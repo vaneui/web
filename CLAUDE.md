@@ -95,7 +95,8 @@ Two types of docs pages, configured in `docsMetadata.ts`:
 1. **Component example pages** — have a `componentKey` and a `.md` file with `tsx demo` fences
    - `scripts/build-examples.mjs` turns each `demo` fence into a wrapper under `app/docs/.generated/examples/`, plus one module per page (`_pages/<slug>.tsx`) that `registry.ts` loads with `next/dynamic`, so a page downloads its own demos only
    - `DocsMarkdown.tsx` renders each `demo` fence as a `LivePreview` above its `CodeBlock`
-   - Props documentation is auto-generated from `ComponentCategories` and `PropDescriptions` exported by `@vaneui/ui`
+   - Props tables are auto-generated from the installed `@vaneui/ui`: the categories and defaults of the component's theme node in `defaultTheme` (the root part of a compound theme, for example `button.main`) and `PropDescriptions`
+   - A page that documents several components or parts lists one table per part in its frontmatter: `propsTables: Menu=menu.popup, MenuItem=menu.item` (`Name=theme.node`, comma-separated, in page order). The list replaces the `componentKey` table, and a node that does not exist fails the build. `lib/docs/propsTables.ts` decides a page's tables for the page route, the `.md` route, `llms-full.txt` and search
 
 2. **Markdown guide pages** — have `mdPath` pointing to a `.md` file
    - Rendered by `DocsMarkdown.tsx` using `@vaneui/md`'s `<Md>` component

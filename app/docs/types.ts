@@ -1,8 +1,15 @@
 import { ComponentKey } from "@vaneui/ui";
+import type { PropsTable } from "../../lib/docs/propsTables";
 
 export interface DocPageFrontmatter {
   /** Matches @vaneui/ui ComponentKey — drives the auto-generated props table. */
   componentKey?: string;
+  /**
+   * The page's props tables when it documents several components or parts:
+   * `Name=theme.node` entries separated by commas (`Menu=menu.popup, MenuItem=menu.item`).
+   * Replaces the table `componentKey` gives. See lib/docs/propsTables.ts.
+   */
+  propsTables?: string;
   /** Suggested import line shown in the docs (e.g. `import { Button } from "@vaneui/ui"`). */
   importPath?: string;
   /** Deep-link to the component source on GitHub. */
@@ -29,6 +36,8 @@ export interface DocsPage {
   secondaryComponentName?: string;
   /** Parsed frontmatter for MD-first pages. */
   frontmatter?: DocPageFrontmatter;
+  /** The props tables under the page, in order (pagePropsTables). */
+  propsTables?: PropsTable[];
 }
 
 export interface DocsSection {

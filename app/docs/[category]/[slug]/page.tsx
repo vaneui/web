@@ -9,6 +9,7 @@ import { parseFrontmatter } from "../../../../lib/docs/frontmatter";
 import { docPageDates } from "../../../../lib/docs/gitDate";
 import { expandDocIncludes, isMissingFileError } from "../../../../lib/docs/includes.mjs";
 import { packageMarkdownBody } from "../../../../lib/docs/pageMarkdown";
+import { pagePropsTables } from "../../../../lib/docs/propsTables";
 import type { DocPageFrontmatter, DocsPage } from "../../types";
 import { JsonLd, buildBreadcrumbSchema, buildTechArticleSchema } from "../../../components/JsonLd";
 import { BASE_OPEN_GRAPH } from "../../../constants";
@@ -169,6 +170,8 @@ export default async function Page({params}: DocsPageProps) {
     frontmatter,
     componentKey: docsPage.componentKey
       ?? (frontmatter?.componentKey as DocsPage['componentKey'] | undefined),
+    // One table per component or part the page lists, else one for its componentKey
+    propsTables: pagePropsTables(docsPage, frontmatter),
   };
 
   const pageUrl = `https://vaneui.com/docs/${docsSection.slug}/${docsPage.slug}`;

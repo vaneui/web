@@ -1,17 +1,17 @@
 import * as VaneUI from '@vaneui/ui';
-import type { ComponentKey } from '@vaneui/ui';
 import { docsSectionsMeta, type DocPageMeta, type DocSectionMeta } from '../../app/docs/docsMetadata';
 import { getPropTableRows, type PropRow } from '../../app/docs/propTableRows';
 import { extractFences } from './extractFences';
 import { parseFrontmatter } from './frontmatter';
 import { docsMarkdownUrl, docsPageUrl } from './markdownUrls';
 import { readPageMarkdown } from './pageMarkdown';
+import { pagePropsTables } from './propsTables';
 
 // The one Markdown renderer for a docs page: the public `.md` route
 // (/docs/<category>/<slug>.md) and llms-full.txt both print pages with it.
 // The page body comes from readPageMarkdown, so includes are expanded through
 // lib/docs/includes.mjs, and the props come from the data the site's props
-// table uses (getPropTableRows).
+// tables use (pagePropsTables for which tables, getPropTableRows for their rows).
 
 export const PACKAGE_NAME = '@vaneui/ui';
 
@@ -113,12 +113,13 @@ function byCategory(rows: PropRow[]): Array<[string, PropRow[]]> {
 
 /**
  * A component's props as a Markdown section, from the rows behind the page's
- * props table. Component-specific props print in full; the layout and utility
- * categories the page folds away are named, with a link to Common Props.
- * Empty when the component has no props.
+ * props table. `node` is the table's theme node: a component key (`button`) or
+ * one part (`menu.item`). Component-specific props print in full; the layout
+ * and utility categories the page folds away are named, with a link to Common
+ * Props. Empty when the component has no props.
  */
-export function propsMarkdown(heading: string, key: ComponentKey, style: 'table' | 'list' = 'table'): string {
-  const rows = getPropTableRows(key);
+export function propsMarkdown(heading: string, node: string, style: 'table' | 'list' = 'table'): string {
+  const rows = getPropTableRows(node);
   const own = byCategory(rows.filter((r) => !r.isCommon));
   const common = byCategory(rows.filter((r) => r.isCommon)).map(([category]) => category);
   if (own.length === 0 && common.length === 0) return '';
@@ -165,11 +166,11 @@ export function renderPageMarkdown(
 
   blocks.push(md ? body.trim() : 'For interactive examples, visit the source URL above.');
 
-  const componentKey = page.componentKey ?? (frontmatter.componentKey as ComponentKey | undefined);
-  if (componentKey) blocks.push(propsMarkdown('Props', componentKey, options.props));
-  if (page.secondaryComponentKey) {
-    const name = page.secondaryComponentName ?? page.secondaryComponentKey;
-    blocks.push(propsMarkdown(`${name} props`, page.secondaryComponentKey, options.props));
+  // The component the page is named after prints as "Props"; every other component or part
+  // the page documents (ListItem on List, MenuItem on Menu) carries its name
+  for (const table of pagePropsTables(page, frontmatter)) {
+    const heading = table.name === page.name ? 'Props' : `${table.name} props`;
+    blocks.push(propsMarkdown(heading, table.node, options.props));
   }
   return blocks.filter(Boolean).join('\n\n') + '\n';
 }
