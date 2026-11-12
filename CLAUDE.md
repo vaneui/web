@@ -20,6 +20,8 @@ npm run screenshot:clean  # Delete screenshots
 
 Requires Node.js 24.x. Screenshots require Playwright browsers (`npx playwright install chromium`).
 
+`.github/workflows/test.yml` runs `npm test` and `npm run build` for every pull request and every push to `main`.
+
 ## Stack
 
 - Next.js 16 (App Router, Turbopack), React 19, TypeScript 5.9
