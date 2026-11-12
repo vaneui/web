@@ -4,7 +4,7 @@ VaneUI components share a boolean props API for size, appearance, variant, and l
 
 VaneUI components use boolean props for styling. Most components support size, appearance, and layout props.
 
-The examples on this page show the JSX only. Every component in them is a named export of `@vaneui/ui`, for example `import { Button, Stack } from '@vaneui/ui'`.
+The examples on this page show the JSX only. Every component in them is a named export of `@vaneui/ui`, for example `import { Button } from '@vaneui/ui'`.
 
 ### Size props
 

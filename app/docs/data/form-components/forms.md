@@ -37,7 +37,7 @@ return (
 );
 ```
 
-`event.preventDefault()` stops the browser from sending the form itself and reloading the page, and `FormData` reads the values of the named controls. Pressing Enter in a text field submits the form too. A Field that renders its own control takes the native attributes directly, as in `<Field type="email" name="email" label="Email" required/>`.
+`event.preventDefault()` stops the browser from sending the form itself and reloading the page, and `FormData` reads the values of the named controls. Pressing Enter in a text field submits the form too. A Field that renders its own control (`<Field type="email" label="Email"/>`) takes native attributes such as `name` and `required` directly.
 
 ## Controlled and uncontrolled inputs
 
