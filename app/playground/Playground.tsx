@@ -4,7 +4,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import { Col, Row, Container, Button, Title } from '@vaneui/ui';
 import '../landing/landing.css';
-import { LandingHeader } from '../landing/LandingHeader';
+import { LandingHeader, MAIN_CONTENT_ID } from '../landing/LandingHeader';
 import { FRAME } from '../landing/frame';
 import { Preview } from './Preview';
 import { STARTER_CODE } from './starter';
@@ -64,7 +64,9 @@ export function Playground() {
       <LandingHeader/>
       {/* The editor and preview sit in the same railed 80rem frame as every other page */}
       <Row noGap justifyCenter itemsStretch flex1 overflowHidden>
-        <Container xl noGap borderX itemsStretch relative tag="main" className={FRAME}>
+        {/* The skip link's target: focusable from script only, and no ring around the whole region */}
+        <Container xl noGap borderX itemsStretch relative tag="main" id={MAIN_CONTENT_ID} tabIndex={-1}
+                   className={`${FRAME} outline-none`}>
           <Row justifyBetween borderB noShrink className="px-4 py-2">
             <Title sm tag="h1">Playground</Title>
             <Button secondary onClick={reset}>Reset</Button>

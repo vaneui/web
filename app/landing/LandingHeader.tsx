@@ -20,11 +20,20 @@ function useCurrentHref() {
     .sort((a, b) => b.length - a.length)[0];
 }
 
+/** The id of each page's main region: the target of the skip link */
+export const MAIN_CONTENT_ID = 'main-content';
+
 /** Site header, identical on every page so nothing shifts when moving between landing, docs and playground */
 export function LandingHeader() {
   const current = useCurrentHref();
   return (
     <Row tag="header" sticky primary borderB noGap justifyCenter className="lp-chrome top-0 z-40">
+      {/* First Tab stop on every page: jumps past the header and, on docs, the sidebar. Parked above
+          the viewport until the keyboard focuses it. */}
+      <Button filled absolute href={`#${MAIN_CONTENT_ID}`}
+              className="top-2 left-2 z-50 -translate-y-[200%] focus-visible:translate-y-0">
+        Skip to content
+      </Button>
       <Container xl row noGap borderX itemsStretch relative className={`${FRAME} h-14`}>
         <Crosshairs bottom/>
         {/* Brand cell: as wide as the docs sidebar, so on docs its divider continues the sidebar's rail */}

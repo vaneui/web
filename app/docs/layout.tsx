@@ -8,7 +8,7 @@ import '../landing/landing.css';
 import { DocsNav } from './DocsNav';
 import { docsSections } from './docsSections';
 import { Logo } from "../components/Logo";
-import { LandingHeader } from '../landing/LandingHeader';
+import { LandingHeader, MAIN_CONTENT_ID } from '../landing/LandingHeader';
 import { LandingFooter } from '../landing/LandingFooter';
 import { FRAME } from '../landing/frame';
 
@@ -54,7 +54,8 @@ export default function DocsLayout({children}: DocsLayoutProps) {
             </Stack>
           </Col>
 
-          <Col noGap flex1 tag="main" className="min-w-0">
+          {/* The skip link's target: focusable from script only, and no ring around the whole region */}
+          <Col noGap flex1 tag="main" id={MAIN_CONTENT_ID} tabIndex={-1} className="min-w-0 outline-none">
             {/* Below 1024px the sidebar is hidden, so a bar under the header opens it */}
             <Row sm sticky primary borderB justifyBetween tabletShow className="top-14 z-30 px-2 py-1.5">
               {/* The dialog exists only while open, so that is when aria-controls can point at it */}
