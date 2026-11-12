@@ -93,7 +93,7 @@ app/
 Two types of docs pages, configured in `docsMetadata.ts`:
 
 1. **Component example pages** — have a `componentKey` and a `.md` file with `tsx demo` fences
-   - `scripts/build-examples.mjs` turns each `demo` fence into a wrapper under `app/docs/.generated/examples/`
+   - `scripts/build-examples.mjs` turns each `demo` fence into a wrapper under `app/docs/.generated/examples/`, plus one module per page (`_pages/<slug>.tsx`) that `registry.ts` loads with `next/dynamic`, so a page downloads its own demos only
    - `DocsMarkdown.tsx` renders each `demo` fence as a `LivePreview` above its `CodeBlock`
    - Props documentation is auto-generated from `ComponentCategories` and `PropDescriptions` exported by `@vaneui/ui`
 
