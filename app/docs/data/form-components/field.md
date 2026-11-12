@@ -5,7 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/field/Fi
 since: 1.1.0
 ---
 
-Use Field when a control has help text or an error message. A bare [Label](/docs/form-components/label) associates text with a control but links neither message to it, so a screen reader announces that the control is invalid and never says why. For a control that needs a visible name and nothing else, a Label is enough. Field renders a `<div>` that holds a `<label>`, the control, and the help and error text as `<p>` elements.
+Use Field when a control has help text or an error message. A bare [Label](/docs/form-components/label) associates text with a control but links neither message to it, so a screen reader announces that the control is invalid and never says why. For a control that needs a visible name and nothing else, a Label is enough. Field renders a `<div>` that holds a `<label>`, the control, and the help and error text as `<p>` elements. For a whole form built from Fields, with validation, values and submit, see [Forms](/docs/form-components/forms).
 
 ## Basic usage
 
