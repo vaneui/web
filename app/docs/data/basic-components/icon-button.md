@@ -5,7 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/iconButt
 since: 0.9.0
 ---
 
-IconButton is for a toolbar action or a dismiss control that has no room for a text label. It renders a `<button>` with the same `sm` default size as [Button](/docs/basic-components/button), so it lines up with a Button placed beside it. When the action needs visible text, use Button; for a glyph that does nothing on click, use [Icon](/docs/basic-components/icon).
+IconButton is for a toolbar action or a dismiss control that has no room for a text label. It renders a `<button>` with the same `sm` default size as [Button](/docs/basic-components/button), so it lines up with a Button placed beside it. When the action needs visible text, use Button; for a glyph that does nothing on click, use [Icon](/docs/basic-components/icon). Like Button, IconButton sets no `type`, so inside a `<form>` it submits the form unless it has `type="button"` (see [Forms](/docs/form-components/forms)).
 
 ## Basic usage
 

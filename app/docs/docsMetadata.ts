@@ -160,6 +160,13 @@ export const docsSectionsMeta: DocSectionMeta[] = [
     description: 'Controls for capturing user input, and the label that ties them to their text.',
     pages: [
       {
+        slug: 'forms',
+        name: 'Forms',
+        seoTitle: 'Forms in React: Validation, Values and Submit | VaneUI',
+        description: 'Build a React form with VaneUI: Field and native validation, controlled and uncontrolled inputs, error messages, control values, submit, reset and button types.',
+        mdPath: 'forms.md',
+      },
+      {
         slug: 'input',
         name: 'Input',
         description: 'Input lets users enter text, numbers, and other data. A form element with support for various types, validation states, and styling options.',
