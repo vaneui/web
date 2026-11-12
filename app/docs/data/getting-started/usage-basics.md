@@ -177,7 +177,7 @@ List items inherit appearance from their parent List component via CSS variables
 
 ## Images
 
-Display images with VaneUI styling using the `Img` component:
+Display images with VaneUI styling using the [Img](/docs/layout-components/img) component:
 
 ```tsx hide
 <Row>
@@ -191,7 +191,7 @@ Display images with VaneUI styling using the `Img` component:
 
 ## Icons
 
-Wrap any SVG with the `Icon` component to inherit the parent's font color and scale with the size system. The icons in these examples (`Star`, `AlertCircle`, `Heart`, `Check`) are SVG components from the `react-feather` package:
+Wrap any SVG with the [Icon](/docs/basic-components/icon) component to inherit the parent's font color and scale with the size system. The icons in these examples (`Star`, `AlertCircle`, `Heart`, `Check`) are SVG components from the `react-feather` package:
 
 ```tsx demo
 <Row>
