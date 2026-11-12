@@ -5,7 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/iconButt
 since: 0.9.0
 ---
 
-IconButton is for a toolbar action or a dismiss control that has no room for a text label. It renders a `<button>` with the same `sm` default size as [Button](/docs/basic-components/button), so it lines up with a Button placed beside it. When the action needs visible text, use Button; for a glyph that does nothing on click, use [Icon](/docs/basic-components/icon).
+IconButton is for a toolbar action or a dismiss control that has no room for a text label. It renders a `<button>` with the same `sm` default size as [Button](/docs/basic-components/button), so it lines up with a Button placed beside it. When the action needs visible text, use Button; for a glyph that does nothing on click, use [Icon](/docs/basic-components/icon). Like Button, IconButton sets no `type`, so inside a `<form>` it submits the form unless it has `type="button"` (see [Forms](/docs/form-components/forms)).
 
 ## Basic usage
 
@@ -24,7 +24,7 @@ Drop an icon directly inside the `IconButton`. Each `appearance` prop maps to a 
 
 ## Accessibility
 
-An icon-only button has no visible text, so assistive technology has nothing to announce. Give every `IconButton` an accessible name with `aria-label`.
+An icon-only button has no visible text, so assistive technology has nothing to announce. Give every `IconButton` an accessible name with `aria-label`. A development build logs a console warning for an IconButton that has no `aria-label`, `aria-labelledby` or `title`.
 
 ```tsx demo
 <Row flexWrap>
@@ -41,23 +41,23 @@ IconButton supports five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Size dri
 ```tsx demo
 <Row flexWrap itemsEnd>
   <Col itemsCenter>
-    <IconButton xs><Star /></IconButton>
+    <IconButton xs aria-label="Favorite"><Star /></IconButton>
     <Text sm secondary>xs</Text>
   </Col>
   <Col itemsCenter>
-    <IconButton sm><Star /></IconButton>
+    <IconButton sm aria-label="Favorite"><Star /></IconButton>
     <Text sm secondary>sm</Text>
   </Col>
   <Col itemsCenter>
-    <IconButton md><Star /></IconButton>
+    <IconButton md aria-label="Favorite"><Star /></IconButton>
     <Text sm secondary>md</Text>
   </Col>
   <Col itemsCenter>
-    <IconButton lg><Star /></IconButton>
+    <IconButton lg aria-label="Favorite"><Star /></IconButton>
     <Text sm secondary>lg</Text>
   </Col>
   <Col itemsCenter>
-    <IconButton xl><Star /></IconButton>
+    <IconButton xl aria-label="Favorite"><Star /></IconButton>
     <Text sm secondary>xl</Text>
   </Col>
 </Row>
@@ -70,20 +70,20 @@ IconButton renders as `outline` (default) or `filled`.
 ```tsx demo
 <Col>
   <Row flexWrap>
-    <IconButton><Star /></IconButton>
-    <IconButton secondary><Heart /></IconButton>
-    <IconButton success><Check /></IconButton>
-    <IconButton danger><Trash2 /></IconButton>
-    <IconButton warning><Bell /></IconButton>
-    <IconButton info><Info /></IconButton>
+    <IconButton aria-label="Favorite"><Star /></IconButton>
+    <IconButton secondary aria-label="Like"><Heart /></IconButton>
+    <IconButton success aria-label="Confirm"><Check /></IconButton>
+    <IconButton danger aria-label="Delete"><Trash2 /></IconButton>
+    <IconButton warning aria-label="Notifications"><Bell /></IconButton>
+    <IconButton info aria-label="Show info"><Info /></IconButton>
   </Row>
   <Row flexWrap>
-    <IconButton filled><Star /></IconButton>
-    <IconButton filled secondary><Heart /></IconButton>
-    <IconButton filled success><Check /></IconButton>
-    <IconButton filled danger><Trash2 /></IconButton>
-    <IconButton filled warning><Bell /></IconButton>
-    <IconButton filled info><Info /></IconButton>
+    <IconButton filled aria-label="Favorite"><Star /></IconButton>
+    <IconButton filled secondary aria-label="Like"><Heart /></IconButton>
+    <IconButton filled success aria-label="Confirm"><Check /></IconButton>
+    <IconButton filled danger aria-label="Delete"><Trash2 /></IconButton>
+    <IconButton filled warning aria-label="Notifications"><Bell /></IconButton>
+    <IconButton filled info aria-label="Show info"><Info /></IconButton>
   </Row>
 </Col>
 ```
@@ -95,15 +95,15 @@ IconButton supports `rounded` (default), `pill`, and `sharp`. `pill` is especial
 ```tsx demo
 <Row flexWrap>
   <Col itemsCenter>
-    <IconButton filled><Star /></IconButton>
+    <IconButton filled aria-label="Favorite"><Star /></IconButton>
     <Text sm secondary>rounded</Text>
   </Col>
   <Col itemsCenter>
-    <IconButton pill filled><Star /></IconButton>
+    <IconButton pill filled aria-label="Favorite"><Star /></IconButton>
     <Text sm secondary>pill</Text>
   </Col>
   <Col itemsCenter>
-    <IconButton sharp filled><Star /></IconButton>
+    <IconButton sharp filled aria-label="Favorite"><Star /></IconButton>
     <Text sm secondary>sharp</Text>
   </Col>
 </Row>
@@ -115,10 +115,18 @@ Pass `href` to render the IconButton as an `<a>` for navigation. Use `disabled` 
 
 ```tsx demo
 <Row flexWrap>
-  <IconButton href="https://github.com" target="_blank"><ExternalLink /></IconButton>
-  <IconButton filled success href="#"><ExternalLink /></IconButton>
-  <IconButton disabled><Star /></IconButton>
-  <IconButton filled danger disabled><Trash2 /></IconButton>
+  <IconButton
+    href="https://github.com"
+    target="_blank"
+    aria-label="GitHub (opens in a new tab)"
+  >
+    <ExternalLink />
+  </IconButton>
+  <IconButton filled success href="#" aria-label="Open link">
+    <ExternalLink />
+  </IconButton>
+  <IconButton disabled aria-label="Favorite"><Star /></IconButton>
+  <IconButton filled danger disabled aria-label="Delete"><Trash2 /></IconButton>
 </Row>
 ```
 
@@ -131,7 +139,7 @@ import Link from 'next/link';
 import { IconButton } from '@vaneui/ui';
 import { Settings } from 'react-feather';
 
-<IconButton href="/settings" tag={Link}><Settings /></IconButton>
+<IconButton href="/settings" tag={Link} aria-label="Settings"><Settings /></IconButton>
 ```
 
 ## Loading state
@@ -166,6 +174,6 @@ Set app-wide IconButton defaults with `ThemeProvider`'s `themeDefaults`:
 <ThemeProvider themeDefaults={{
   iconButton: { secondary: true, pill: true, lg: true },
 }}>
-  <IconButton><Star /></IconButton>
+  <IconButton aria-label="Favorite"><Star /></IconButton>
 </ThemeProvider>
 ```

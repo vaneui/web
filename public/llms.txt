@@ -50,6 +50,7 @@ it has `onClick` or `tag="button"`. `noFocusVisible` opts out.
 
 ## Form Components
 
+- [Forms](https://vaneui.com/docs/form-components/forms.md): Build a React form with VaneUI: Field and native validation, controlled and uncontrolled inputs, error messages, control values, submit, reset and button types.
 - [Input](https://vaneui.com/docs/form-components/input.md): Input lets users enter text, numbers, and other data. A form element with support for various types, validation states, and styling options.
 - [Checkbox](https://vaneui.com/docs/form-components/checkbox.md): Allows users to select one or more options from a set. Checkboxes are ideal for binary choices and multiple selections within forms.
 - [Label](https://vaneui.com/docs/form-components/label.md): Label associates text with a form control. Wrap an Input or Checkbox to make the label clickable, or use htmlFor when the control sits outside.

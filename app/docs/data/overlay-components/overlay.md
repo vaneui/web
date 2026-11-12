@@ -147,7 +147,7 @@ return (
 
 ```tsx
 {/* High-level: use Modal for dialogs */}
-<Modal open={open} onClose={() => setOpen(false)}>
+<Modal open={open} onClose={() => setOpen(false)} aria-label="Details">
   <Text>Accessible dialog with focus trap</Text>
 </Modal>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Col, Text, Title, PageTitle, Container, Divider,
-  ThemeProvider, Row, Grid3, type ComponentKey,
+  ThemeProvider, Row, Grid3,
 } from '@vaneui/ui';
 import { DocsPageProps } from './types';
 import { toHtmlId, extractMarkdownHeadings } from "../utils/stringUtils";
@@ -9,6 +9,7 @@ import { DocsMarkdown } from "./DocsMarkdown";
 import { OnThisPage } from './OnThisPage';
 import { MetaStrip } from './MetaStrip';
 import { DocsPropsTable } from './DocsPropsTable';
+import { propsTableTitle } from '../../lib/docs/propsTables';
 import Link from "next/link";
 import { docsSections } from "./docsSections";
 import { Eyebrow } from "../landing/frame";
@@ -22,18 +23,14 @@ export function DocsPageContent(
     md,
   }: DocsPageProps) {
 
-  const componentKey = pageData.componentKey;
-
   const pageTitle = pageData.name;
   const pageTitleId = toHtmlId(pageTitle);
 
-  const propsTitle = pageTitle + " Props";
-  const propsTitleId = toHtmlId(propsTitle);
-
-  // Subcomponents documented on the parent page (e.g. ListItem on List) get their own props table
-  const secondaryKey = pageData.secondaryComponentKey;
-  const secondaryTitle = (pageData.secondaryComponentName ?? secondaryKey ?? "") + " Props";
-  const secondaryTitleId = toHtmlId(secondaryTitle);
+  // One props table per component or part the page documents (Menu, MenuItem and MenuLabel on Menu)
+  const propsTables = (pageData.propsTables ?? []).map(table => {
+    const title = propsTableTitle(table);
+    return { title, id: toHtmlId(title), node: table.node };
+  });
 
   // Sections for OnThisPage; computed inline because server components don't re-render
   const sections: Array<{ title: string; id: string; level: number }> = [
@@ -45,12 +42,7 @@ export function DocsPageContent(
           level: h.level,
         }))
       : []),
-    ...(componentKey
-      ? [{ title: propsTitle, id: propsTitleId, level: 0 }]
-      : []),
-    ...(secondaryKey
-      ? [{ title: secondaryTitle, id: secondaryTitleId, level: 0 }]
-      : []),
+    ...propsTables.map(table => ({ title: table.title, id: table.id, level: 0 })),
   ];
 
   const titleClasses = "after:content-['#'] after:invisible hover:after:visible after:ml-2 after:opacity-25";
@@ -96,25 +88,16 @@ export function DocsPageContent(
               <DocsMarkdown md={md} slug={pageData.slug} />
             }
 
-            {/* One auto-generated props table; common layout categories collapse into a <details>.
-                Its heading is an h2 like the markdown sections, so it doesn't nest under the last one */}
-            {componentKey && (
-              <Col wFull id={propsTitleId}>
+            {/* Auto-generated props tables; common layout categories collapse into a <details>.
+                Each heading is an h2 like the markdown sections, so it doesn't nest under the last one */}
+            {propsTables.map(table => (
+              <Col wFull id={table.id} key={table.id}>
                 <Title xl tag="h2" className={titleClasses}>
-                  <Link href={`#${propsTitleId}`}>{propsTitle}</Link>
+                  <Link href={`#${table.id}`}>{table.title}</Link>
                 </Title>
-                <DocsPropsTable componentKey={componentKey as ComponentKey} />
+                <DocsPropsTable node={table.node} />
               </Col>
-            )}
-
-            {secondaryKey && (
-              <Col wFull id={secondaryTitleId}>
-                <Title xl tag="h2" className={titleClasses}>
-                  <Link href={`#${secondaryTitleId}`}>{secondaryTitle}</Link>
-                </Title>
-                <DocsPropsTable componentKey={secondaryKey as ComponentKey} />
-              </Col>
-            )}
+            ))}
 
             {/* Sibling pages: internal links for crawlers and readers, same tiles as the docs index */}
             {section.pages.length > 1 && (

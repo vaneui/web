@@ -2,7 +2,7 @@
 
 import React from 'react';
 import NextLink from 'next/link';
-import { Code, Text, Link as VaneLink, type ComponentKey } from '@vaneui/ui';
+import { Code, Text, Link as VaneLink } from '@vaneui/ui';
 import { getPropTableRows, type PropRow } from './propTableRows';
 
 /**
@@ -28,7 +28,8 @@ function sortRows(rows: PropRow[]): PropRow[] {
 }
 
 interface PropsTableProps {
-  componentKey: ComponentKey;
+  /** Theme node the rows come from: a component key (`button`) or one part (`menu.item`) */
+  node: string;
 }
 
 const tableClasses =
@@ -80,8 +81,8 @@ function PropsTable({ rows }: { rows: PropRow[] }) {
   );
 }
 
-export function DocsPropsTable({ componentKey }: PropsTableProps) {
-  const rows = React.useMemo(() => getPropTableRows(componentKey), [componentKey]);
+export function DocsPropsTable({ node }: PropsTableProps) {
+  const rows = React.useMemo(() => getPropTableRows(node), [node]);
   const componentRows = React.useMemo(
     () => sortRows(rows.filter((r) => !r.isCommon)),
     [rows],

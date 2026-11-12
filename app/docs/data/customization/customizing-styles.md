@@ -85,11 +85,29 @@ From lowest to highest priority:
 | Level | Mechanism | Scope | Use When |
 |-------|-----------|-------|----------|
 | 1 | Component defaults | Library-wide | You're the library author |
-| 2 | `themeDefaults` | Provider subtree | Change defaults for all components in a section |
-| 3 | `extraClasses` | Provider subtree | Add classes based on active props |
-| 4 | `themeOverride` | Provider subtree | Modify theme internals programmatically |
+| 2 | `themeOverride` | Provider subtree | Modify theme internals programmatically |
+| 3 | `themeDefaults` | Provider subtree | Change defaults for all components in a section |
+| 4 | `extraClasses` | Provider subtree | Add classes based on active props |
 | 5 | **`className`** | Single instance | One-off style adjustments |
 | 6 | `style` | Single instance | Runtime-computed values that can't be a class |
+
+Inside one `ThemeProvider`, the [`themeOverride`](/docs/customization/theme-and-override) function runs first, and `themeDefaults` and `extraClasses` are applied to the theme it returns. A default set in `themeDefaults` therefore wins over a default that `themeOverride` set in the same category:
+
+```tsx demo
+<ThemeProvider
+  themeDefaults={{ button: { main: { success: true } } }}
+  themeOverride={(theme) => {
+    theme.button.main.defaults = {
+      ...theme.button.main.defaults,
+      primary: false,
+      danger: true,
+    };
+    return theme;
+  }}
+>
+  <Button>Success from themeDefaults</Button>
+</ThemeProvider>
+```
 
 For most use cases, `className` (level 5) is the right tool. Use `themeDefaults` or `extraClasses` when you need the override to apply across many components.
 
@@ -108,17 +126,23 @@ Instead of replacing the consumer class with a utility like `border-red-300`, se
 **Replacing the utility vs setting the variable:**
 
 - **`className="border-red-300"`**: static override, ignores the theme entirely. The component's `border-(--border-color)` class is removed by twMerge.
-- **`className="[--border-color:...]"`**: theme-aware override. The component still uses its consumer class, but the variable value is different. Children inherit the new value.
+- **`className="[--border-color:...]"`**: theme-aware override. The component still uses its consumer class, but the variable value is different. Descendants that set no colors of their own inherit the new value.
 
-The CSS variable approach is especially useful when you want [descendants to inherit](/docs/customization/variant-inheritance) your override:
+The CSS variable approach fits when you want [descendants to inherit](/docs/customization/variant-inheritance) your override. The value reaches every descendant that does not set the variable again. A `Row` or `Col` with `border` and the accent border of a `Blockquote` have no appearance of their own, so they take the Card's red. Components with their own appearance, such as `Input`, `Button` and `Badge`, set the color variables on their own element and keep their colors. `Divider` draws its line from `--divider-color`, a separate variable, so it stays unchanged too:
 
-```tsx
-// All children of this Card inherit the custom border color
+```tsx demo
 <Card className="[--border-color:red]">
-  <Input /> {/* This Input also gets a red border */}
-  <Divider /> {/* Red divider too */}
+  <Row border padding>
+    <Text>A bordered Row inherits the red border</Text>
+  </Row>
+  <Blockquote>The Blockquote accent border inherits it too</Blockquote>
+  <Input placeholder="Input keeps its own colors"/>
+  <Input className="[--ring-color:red]" placeholder="Variable set on this Input"/>
+  <Divider/>
 </Card>
 ```
+
+To recolor a component that has its own appearance, set the variable on that component, as the second Input does (a text field draws its outline as a ring, from `--ring-color`), or give it an appearance prop such as `danger`.
 
 ## When to use VaneUI props instead
 
