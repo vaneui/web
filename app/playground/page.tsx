@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Playground } from './Playground';
 import { BASE_OPEN_GRAPH } from '../constants';
+import { JsonLd } from '../components/JsonLd';
+import { playgroundGraph } from '../../lib/seo/structuredData';
 
 const title = 'Playground: Live React + Tailwind CSS Editor | VaneUI';
 const description =
@@ -27,5 +29,10 @@ export const metadata: Metadata = {
 };
 
 export default function PlaygroundPage() {
-  return <Playground />;
+  return (
+    <>
+      <JsonLd data={playgroundGraph({ name: title, description })}/>
+      <Playground />
+    </>
+  );
 }

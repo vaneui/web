@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import DocsIndex from './DocsIndex';
 import { BASE_OPEN_GRAPH } from '../constants';
+import { docsSections } from './docsSections';
+import { JsonLd } from '../components/JsonLd';
+import { docsIndexGraph, SITE_URL } from '../../lib/seo/structuredData';
 
 // This page is a server component so it can own its metadata. The interactive
 // grid lives in the DocsIndex client component. Without a dedicated metadata
@@ -31,6 +34,16 @@ export const metadata: Metadata = {
   },
 };
 
+// Every docs page in sidebar order, for the hub's machine-readable list
+const pages = docsSections.flatMap(section =>
+  section.pages.map(page => ({ name: page.name, url: `${SITE_URL}/docs/${section.slug}/${page.slug}` })),
+);
+
 export default function DocsPage() {
-  return <DocsIndex />;
+  return (
+    <>
+      <JsonLd data={docsIndexGraph({ name: 'VaneUI documentation', description, pages })}/>
+      <DocsIndex />
+    </>
+  );
 }

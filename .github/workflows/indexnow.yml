@@ -1,16 +1,26 @@
-name: Submit URLs to IndexNow
+name: Submit changed URLs to IndexNow
 
-# Tells Bing and the other IndexNow engines about every sitemap URL after a production deploy.
-# Vercel's GitHub integration reports each deploy as a deployment status.
+# After a production deploy, tells Bing and the other IndexNow engines which sitemap URLs are new,
+# changed (their <lastmod> moved) or removed since the previous run (scripts/indexnow.mjs).
+# Vercel's GitHub integration reports each deploy as a deployment status. The previous run's
+# sitemap is kept in the Actions cache; without it (first run, or the cache expired after 7 days
+# unused) every URL is submitted. Run it by hand with "all" to resubmit every URL.
 on:
   deployment_status:
   workflow_dispatch:
+    inputs:
+      all:
+        description: Submit every sitemap URL, not only the changed ones
+        type: boolean
+        default: false
 
-permissions: {}
+permissions:
+  contents: read
 
+# Runs one at a time, so each one compares against the state the one before it saved
 concurrency:
   group: indexnow
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   submit:
@@ -23,23 +33,30 @@ jobs:
       HOST: vaneui.com
       # Public by design: the same key is served at https://vaneui.com/<key>.txt (public/<key>.txt)
       KEY: ec9fdd632f2ec35dadf86895f61340ac
+      STATE: .indexnow/sitemap.tsv
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Restore the previous submission
+        uses: actions/cache/restore@v4
+        with:
+          path: .indexnow
+          key: indexnow-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: indexnow-
+
       # Best effort: a failed fetch or a non-2xx answer is logged as a warning, not a failed run.
-      - name: Submit Sitemap URLs
-        run: |
-          urls=$(curl -fsS --retry 3 --max-time 30 "https://$HOST/sitemap.xml" | grep -o '<loc>[^<]*</loc>' | sed -e 's#<loc>##' -e 's#</loc>##') || urls=''
-          if [ -z "$urls" ]; then
-            echo "::warning::No URLs read from https://$HOST/sitemap.xml"
-            exit 0
-          fi
-          echo "Submitting $(echo "$urls" | wc -l) URLs"
-          jq -n --arg host "$HOST" --arg key "$KEY" --arg urls "$urls" \
-            '{host: $host, key: $key, keyLocation: "https://\($host)/\($key).txt", urlList: ($urls | split("\n"))}' > payload.json
-          status=$(curl -sS -o response.txt -w '%{http_code}' --max-time 30 \
-            -H 'Content-Type: application/json; charset=utf-8' --data @payload.json \
-            https://api.indexnow.org/indexnow) || status=000
-          echo "IndexNow answered HTTP $status"
-          case "$status" in
-            2??) ;;
-            *) echo "::warning::IndexNow answered HTTP $status: $(head -c 300 response.txt 2>/dev/null)" ;;
-          esac
+      - name: Submit new, changed and removed URLs
+        run: node scripts/indexnow.mjs ${{ inputs.all && '--all' || '' }}
+
+      - name: Save this submission
+        if: hashFiles('.indexnow/sitemap.tsv') != ''
+        uses: actions/cache/save@v4
+        with:
+          path: .indexnow
+          key: indexnow-${{ github.run_id }}-${{ github.run_attempt }}
