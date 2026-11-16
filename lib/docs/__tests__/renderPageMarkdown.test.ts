@@ -71,6 +71,15 @@ write('guide/widget.md', [
   '',
 ]);
 write('guide/notes.md', ['Plain guide with no examples.', '']);
+write('guide/parts.md', [
+  '---',
+  'componentKey: card',
+  'propsTables: Parts=card, CardHeader=card.header',
+  '---',
+  '',
+  'A page that documents a component and one of its parts.',
+  '',
+]);
 
 const section: DocSectionMeta = { name: 'Guide', slug: 'guide', description: 'Test section.', pages: [] };
 const widget: DocPageMeta = {
@@ -80,6 +89,18 @@ const widget: DocPageMeta = {
   componentKey: 'button',
 };
 const notes: DocPageMeta = { slug: 'notes', name: 'Notes', description: 'Notes page.', mdPath: 'notes.md' };
+const parts: DocPageMeta = { slug: 'parts', name: 'Parts', description: 'Parts page.', componentKey: 'card' };
+
+/** The text of one `## heading` section of a rendered page, up to the next `## ` heading */
+function sectionOf(md: string, heading: string): string {
+  const start = md.indexOf(`\n## ${heading}\n`);
+  assert.notEqual(start, -1, `no "## ${heading}" section`);
+  const end = md.indexOf('\n## ', start + 1);
+  return md.slice(start, end === -1 ? undefined : end);
+}
+
+const tableRow = (row: { prop: string; category: string; isDefault: boolean }) =>
+  `| \`${row.prop}\` | ${row.category} | ${row.isDefault ? 'yes' : ''} |`;
 
 test('URLs: the Markdown copy is the page URL plus .md', () => {
   assert.equal(docsPageUrl('basic-components', 'button'), 'https://vaneui.com/docs/basic-components/button');
@@ -159,6 +180,22 @@ test('propsMarkdown: secondary components get their own heading', () => {
   assert.match(propsMarkdown('ListItem props', 'listItem'), /^## ListItem props\n\n/);
 });
 
+test('renderPageMarkdown: a page that lists its props tables prints one section per table', () => {
+  const md = renderPageMarkdown(root, section, parts);
+  // The table named after the page prints as "Props", a part under its own name, in the listed order
+  assert.ok(md.indexOf('\n## Props\n') < md.indexOf('\n## CardHeader props\n'));
+  assert.equal(md.match(/^## /gm)?.length, 2);
+  for (const row of getPropTableRows('card').filter((r) => !r.isCommon)) {
+    assert.ok(sectionOf(md, 'Props').includes(tableRow(row)), row.prop);
+  }
+  for (const row of getPropTableRows('card.header').filter((r) => !r.isCommon)) {
+    assert.ok(sectionOf(md, 'CardHeader props').includes(tableRow(row)), row.prop);
+  }
+
+  const list = renderPageMarkdown(root, section, parts, { props: 'list' });
+  assert.match(sectionOf(list, 'CardHeader props'), /\n- Size: /);
+});
+
 test('real pages: Button and the package-owned changelog', () => {
   const button = findDocsPage('basic-components', 'button');
   assert.ok(button);
@@ -175,4 +212,21 @@ test('real pages: Button and the package-owned changelog', () => {
 
   assert.equal(findDocsPage('basic-components', 'nope'), undefined);
   assert.equal(findDocsPage('_partials', 'shared'), undefined);
+});
+
+test('real pages: Menu prints the popup props as its own and the MenuItem props under their name', () => {
+  const menu = findDocsPage('overlay-components', 'menu');
+  assert.ok(menu);
+  const md = renderPageMarkdown(repoRoot, menu.section, menu.page);
+  const own = sectionOf(md, 'Props');
+  const item = sectionOf(md, 'MenuItem props');
+  // Menu spreads its props on the popup, so its defaults and its placement props are the popup's
+  for (const row of getPropTableRows('menu.popup').filter((r) => !r.isCommon)) {
+    assert.ok(own.includes(tableRow(row)), `Menu: ${row.prop}`);
+  }
+  assert.match(own, /\| `placeTop` \| Placement \|/);
+  for (const row of getPropTableRows('menu.item').filter((r) => !r.isCommon)) {
+    assert.ok(item.includes(tableRow(row)), `MenuItem: ${row.prop}`);
+  }
+  assert.doesNotMatch(item, /\| `placeTop` \|/);
 });

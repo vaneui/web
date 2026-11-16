@@ -108,3 +108,19 @@ test('the built index covers every docs page with unique anchors per page', () =
   const anchors = built.entries.map((e) => e.url).filter((u) => u.includes('#'));
   assert.equal(new Set(anchors).size, anchors.length);
 });
+
+test('the built index has one entry per props table, each under its own heading', () => {
+  const built = buildSearchIndex(ROOT);
+  const url = '/docs/overlay-components/menu';
+  const tables = built.entries.filter((e) => e.url.startsWith(`${url}#`) && e.path.length === 1 && e.path[0].endsWith(' Props'));
+  const byTitle = new Map(tables.map((e) => [e.path[0], e]));
+  // The Menu table is the popup's: it has the placement props, the MenuItem table does not
+  assert.equal(byTitle.get('Menu Props')?.url, `${url}#menu-props`);
+  assert.match(byTitle.get('Menu Props')?.text ?? '', /\bplaceBottomStart\b/);
+  assert.equal(byTitle.get('MenuItem Props')?.url, `${url}#menuitem-props`);
+  assert.doesNotMatch(byTitle.get('MenuItem Props')?.text ?? '', /\bplace[A-Z]/);
+
+  // A page with a secondary component keeps both tables
+  const list = built.entries.filter((e) => e.url.startsWith('/docs/typography-components/list#') && e.path[0]?.endsWith(' Props'));
+  assert.deepEqual(list.map((e) => e.path[0]), ['List Props', 'ListItem Props']);
+});

@@ -4,10 +4,10 @@ import { Title, Row } from '@vaneui/ui';
 import { PRODUCT } from '../constants';
 import Link from 'next/link'
 
-export function Logo() {
+export function Logo({onClick}: { onClick?: () => void }) {
 
   return (
-    <Link href="/" aria-label={`${PRODUCT.title} home`}>
+    <Link href="/" aria-label={`${PRODUCT.title} home`} onClick={onClick}>
       <Row xs primary transparent>
         {/* currentColor keeps the mark visible in dark mode, unlike the static /vaneui.svg */}
         <svg width="36" height="27" viewBox="0 0 8 6" fill="none" aria-hidden="true">

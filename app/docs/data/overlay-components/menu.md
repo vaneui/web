@@ -1,5 +1,6 @@
 ---
 componentKey: menu
+propsTables: Menu=menu.popup, MenuItem=menu.item, MenuLabel=menu.label
 importPath: 'import { Menu } from "@vaneui/ui"'
 sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/menu/Menu.tsx
 since: 0.9.0

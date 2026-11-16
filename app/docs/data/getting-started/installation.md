@@ -14,19 +14,51 @@ pnpm add @vaneui/ui
 
 ## CSS setup
 
-VaneUI supports two CSS setup options depending on your project configuration.
+VaneUI supports two CSS setup options depending on your project configuration. Use one of them, not both: `@vaneui/ui/css` (Option 2) already contains everything in `@vaneui/ui/vars` (Option 1), so a project that imports both ships the variables and component rules twice.
 
 ### Option 1: with Tailwind CSS (recommended)
 
 If your project uses Tailwind CSS v4, VaneUI plugs in directly. Tailwind scans VaneUI components and generates only the CSS classes you use.
 
-Install Tailwind CSS if you haven't already:
+Tailwind CSS v4 runs as a plugin of your build tool, so a project needs the `tailwindcss` package plus one of two plugins. Skip this step if Tailwind already builds your CSS.
+
+For a build that runs PostCSS (Next.js, for example), install `@tailwindcss/postcss`:
 
 ```bash
 npm install -D tailwindcss @tailwindcss/postcss
 ```
 
-Add the following to your main CSS file:
+Then register the plugin in `postcss.config.mjs` at the project root:
+
+```js
+const config = {
+  plugins: {
+    '@tailwindcss/postcss': {},
+  },
+};
+
+export default config;
+```
+
+For a Vite project, install `@tailwindcss/vite`:
+
+```bash
+npm install -D tailwindcss @tailwindcss/vite
+```
+
+Then add it to the `plugins` array in `vite.config.ts`:
+
+```ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+});
+```
+
+With the plugin in place, add the following to your main CSS file:
 
 ```css
 @import "tailwindcss";
@@ -40,6 +72,8 @@ This setup:
 - Imports VaneUI theme tokens (registers custom breakpoints and design tokens with Tailwind)
 - Imports VaneUI CSS variables and component rules
 - Tells Tailwind to scan VaneUI components for class generation
+
+The `@source` path is relative to the CSS file that contains it, not to the project root. `../node_modules/@vaneui/ui` fits a stylesheet one folder below the root, such as `app/globals.css` or `src/index.css`. From `src/app/globals.css`, write `../../node_modules/@vaneui/ui`. A wrong path does not fail the build: Tailwind finds no VaneUI files and does not generate the utility classes the components use, so they render without their layout, spacing and colors.
 
 > The `@vaneui/ui/tokens` import is required for responsive props like `mobileStack`, `tabletHide`, and responsive typography to work. It registers VaneUI's custom breakpoints (`mobile`, `tablet`, `desktop`) with your project's Tailwind CSS instance.
 
@@ -56,6 +90,8 @@ Add the following to your main CSS file:
 This setup:
 - Imports the complete pre-built VaneUI stylesheet (component styles and CSS variables in one file)
 - Works without any Tailwind configuration
+
+Do not add `@import "@vaneui/ui/vars"` next to it. The pre-built file already contains the variables and component rules.
 
 The pre-built stylesheet is compiled for VaneUI's own components; it does not contain Tailwind's full utility set. A Tailwind class passed through `className` or `extraClasses` has no effect unless it happens to be in the bundle, and most (`max-w-md`, `p-6`, `size-8`, `ms-auto`, `z-40`) are not. For arbitrary utilities, use Option 1 or the `style` prop.
 

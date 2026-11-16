@@ -20,13 +20,15 @@ npm run screenshot:clean  # Delete screenshots
 
 Requires Node.js 24.x. Screenshots require Playwright browsers (`npx playwright install chromium`).
 
+`.github/workflows/test.yml` runs `npm test` and `npm run build` for every pull request and every push to `main`.
+
 ## Stack
 
 - Next.js 16 (App Router, Turbopack), React 19, TypeScript 5.9
 - Tailwind CSS v4 with `@vaneui/ui/vars` CSS variables
 - `@vaneui/ui` — component library (source in [vaneui/vaneui](https://github.com/vaneui/vaneui), see its CLAUDE.md for full API reference)
 - `@vaneui/md` — markdown renderer using Markdoc, renders into VaneUI components
-- The site always runs the latest `@vaneui/ui` and `@vaneui/md`. `.github/workflows/update-vaneui.yml` installs both `@latest` every hour, tests and builds, then pushes the bump to `main`; after a release you can bump them by hand instead of waiting.
+- The site runs the newest `@vaneui/ui` and `@vaneui/md` of the major `package.json` is on. `.github/workflows/update-vaneui.yml` installs the newest release of that major (`@vaneui/ui@^1`, the major read from `package.json`) every hour, tests and builds, then pushes the bump to `main`; after a release you can bump them by hand instead of waiting. The job never installs a new major: it prints a warning in its log, and the upgrade is made by hand in `package.json`.
 - `prism-react-renderer` — syntax highlighting in CodeBlock
 - `react-feather` — icons
 - Vercel Analytics, Ahrefs Analytics
@@ -93,9 +95,10 @@ app/
 Two types of docs pages, configured in `docsMetadata.ts`:
 
 1. **Component example pages** — have a `componentKey` and a `.md` file with `tsx demo` fences
-   - `scripts/build-examples.mjs` turns each `demo` fence into a wrapper under `app/docs/.generated/examples/`
+   - `scripts/build-examples.mjs` turns each `demo` fence into a wrapper under `app/docs/.generated/examples/`, plus one module per page (`_pages/<slug>.tsx`) that `registry.ts` loads with `next/dynamic`, so a page downloads its own demos only
    - `DocsMarkdown.tsx` renders each `demo` fence as a `LivePreview` above its `CodeBlock`
-   - Props documentation is auto-generated from `ComponentCategories` and `PropDescriptions` exported by `@vaneui/ui`
+   - Props tables are auto-generated from the installed `@vaneui/ui`: the categories and defaults of the component's theme node in `defaultTheme` (the root part of a compound theme, for example `button.main`) and `PropDescriptions`
+   - A page that documents several components or parts lists one table per part in its frontmatter: `propsTables: Menu=menu.popup, MenuItem=menu.item` (`Name=theme.node`, comma-separated, in page order). The list replaces the `componentKey` table, and a node that does not exist fails the build. `lib/docs/propsTables.ts` decides a page's tables for the page route, the `.md` route, `llms-full.txt` and search
 
 2. **Markdown guide pages** — have `mdPath` pointing to a `.md` file
    - Rendered by `DocsMarkdown.tsx` using `@vaneui/md`'s `<Md>` component

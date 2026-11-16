@@ -9,7 +9,7 @@ Use Modal when the user has to finish or dismiss a task before returning to the 
 
 ## Basic usage
 
-A controlled modal opened by a Button. The Modal portals to `document.body`, traps focus inside the dialog while open, locks body scroll, and closes on overlay click or `Escape`.
+A controlled modal opened by a Button. The Modal portals to `document.body`, traps focus inside the dialog while open, locks body scroll, and closes on overlay click or `Escape`. This one has no header, so `aria-label` gives the dialog its accessible name.
 
 Modal content defaults: `md`, `primary`, `outline`, `rounded`, `shadow`, `flex column`, `gap`, `wFull`, `overflowAuto`, `relative`, `noPadding` (sub-components own their own padding).
 
@@ -19,7 +19,7 @@ const [open, setOpen] = useState(false);
 return (
   <>
     <Button onClick={() => setOpen(true)}>Open Modal</Button>
-    <Modal open={open} onClose={() => setOpen(false)}>
+    <Modal open={open} onClose={() => setOpen(false)} aria-label="Confirm action">
       <Stack>
         <Text fontBold>Confirm Action</Text>
         <Text>Are you sure?</Text>
@@ -213,16 +213,28 @@ return (
       <Button onClick={() => setShape('filled')}>filled secondary</Button>
       <Button onClick={() => setShape('danger')}>danger border</Button>
     </Row>
-    <Modal sharp open={shape === 'sharp'} onClose={close}>
+    <Modal sharp aria-label="Sharp modal" open={shape === 'sharp'} onClose={close}>
       <ModalBody><Text>Sharp corners</Text></ModalBody>
     </Modal>
-    <Modal pill open={shape === 'pill'} onClose={close}>
+    <Modal pill aria-label="Pill modal" open={shape === 'pill'} onClose={close}>
       <ModalBody><Text>Pill corners</Text></ModalBody>
     </Modal>
-    <Modal filled secondary open={shape === 'filled'} onClose={close}>
+    <Modal
+      filled
+      secondary
+      aria-label="Filled secondary modal"
+      open={shape === 'filled'}
+      onClose={close}
+    >
       <ModalBody><Text>Filled secondary panel</Text></ModalBody>
     </Modal>
-    <Modal danger border open={shape === 'danger'} onClose={close}>
+    <Modal
+      danger
+      border
+      aria-label="Danger border modal"
+      open={shape === 'danger'}
+      onClose={close}
+    >
       <ModalBody><Text>Danger border</Text></ModalBody>
     </Modal>
   </>
@@ -289,8 +301,24 @@ return (
       <Button primary filled onClick={() => setOpenPrimary(true)}>Primary modal</Button>
       <Button danger filled onClick={() => setOpenDanger(true)}>Danger modal</Button>
     </Row>
-    <Modal open={openPrimary} onClose={() => setOpenPrimary(false)} primary filled>Primary modal</Modal>
-    <Modal open={openDanger} onClose={() => setOpenDanger(false)} danger filled>Danger modal</Modal>
+    <Modal
+      open={openPrimary}
+      onClose={() => setOpenPrimary(false)}
+      aria-label="Primary appearance"
+      primary
+      filled
+    >
+      Primary modal
+    </Modal>
+    <Modal
+      open={openDanger}
+      onClose={() => setOpenDanger(false)}
+      aria-label="Danger appearance"
+      danger
+      filled
+    >
+      Danger modal
+    </Modal>
   </>
 );
 ```
@@ -305,7 +333,12 @@ const [open, setOpen] = useState(false);
 return (
   <>
     <Button onClick={() => setOpen(true)}>Open Modal</Button>
-    <Modal open={open} onClose={() => setOpen(false)} overlayProps={{ backdropBlur: true }}>
+    <Modal
+      open={open}
+      onClose={() => setOpen(false)}
+      aria-label="Blur overlay example"
+      overlayProps={{ backdropBlur: true }}
+    >
       <Text>Blurred background</Text>
     </Modal>
   </>
@@ -325,6 +358,7 @@ return (
     <Modal
       open={open}
       onClose={() => setOpen(false)}
+      aria-label="Action required"
       closeOnOverlayClick={false}
       closeOnEscape={false}
     >
@@ -362,6 +396,8 @@ return (
 
 Modal ships accessibility features enabled by default. The dialog renders with `role="dialog"` and `aria-modal="true"`, and is automatically wired with `aria-labelledby` (when `ModalHeader` is used) and `aria-describedby` (when `ModalBody` is used).
 
+A dialog needs an accessible name. A `ModalHeader` with title content provides it, and so does the `title` prop on a Modal without sub-components. A compound Modal does not render `title`, so put the title in its `ModalHeader`. A Modal with no visible title, like the bare examples on this page, takes `aria-label` or `aria-labelledby`. A development build logs a console warning when a Modal opens with none of these.
+
 | Prop | Default | Description |
 |------|---------|-------------|
 | `scrollLock` | `true` | Lock body scroll when modal is open |
@@ -375,12 +411,12 @@ Modal ships accessibility features enabled by default. The dialog renders with `
 
 ```tsx
 {/* Custom focus target */}
-<Modal open={open} onClose={onClose} initialFocus={inputRef}>
+<Modal open={open} onClose={onClose} aria-label="Search" initialFocus={inputRef}>
   <Input ref={inputRef} placeholder="Auto-focused" />
 </Modal>
 
 {/* Keep mounted for animation or state preservation */}
-<Modal open={open} onClose={onClose} keepMounted transitionDuration={300}>
+<Modal open={open} onClose={onClose} aria-label="Details" keepMounted transitionDuration={300}>
   <Text>Stays in DOM when closed</Text>
 </Modal>
 ```
@@ -397,7 +433,9 @@ return (
     modal: { content: { lg: true, border: true } },
   }}>
     <Button onClick={() => setOpen(true)}>Open Modal</Button>
-    <Modal open={open} onClose={() => setOpen(false)}>Content</Modal>
+    <Modal open={open} onClose={() => setOpen(false)} aria-label="Themed modal">
+      Content
+    </Modal>
   </ThemeProvider>
 );
 ```

@@ -1,6 +1,7 @@
 name: Update VaneUI packages
 
-# Keeps the site on the latest @vaneui/ui and @vaneui/md releases; the push redeploys it on Vercel.
+# Keeps the site on the newest @vaneui/ui and @vaneui/md releases of the major package.json is on;
+# the push redeploys it on Vercel. A new major is never installed here: the job says so in its log.
 on:
   # Off the top of the hour: GitHub delays or drops scheduled runs at :00 under load.
   schedule:
@@ -35,11 +36,25 @@ jobs:
         id: diff
         run: |
           versions() { node -p "['ui','md'].map(p => require('./node_modules/@vaneui/' + p + '/package.json').version).join(' ')"; }
+          # The major package.json is on: the first number of the dependency's range (^1.5.0 gives 1).
+          major() { node -p "const found = /\d+/.exec(require('./package.json').dependencies['@vaneui/$1'] ?? ''); if (!found) throw new Error('package.json has no version range for @vaneui/$1'); found[0]"; }
+          # Says so when the registry has a major above the one this job stays on.
+          newer_major() {
+            latest=$(npm view "@vaneui/$1" version 2>/dev/null) || return 0
+            if [ "${latest%%.*}" -gt "$2" ] 2>/dev/null; then
+              echo "::warning::@vaneui/$1 $latest is a new major. This job stays on ^$2: move package.json to the new major by hand."
+            fi
+          }
           before=$(versions)
-          # @latest, not npm update: the caret range would hold back a new major, and package.json follows.
-          npm install @vaneui/ui@latest @vaneui/md@latest
+          ui_major=$(major ui)
+          md_major=$(major md)
+          # The newest release of the current major, not @latest: a new major can break the site, and the
+          # push below deploys. npm install with a range, not npm update, so package.json follows.
+          npm install "@vaneui/ui@^$ui_major" "@vaneui/md@^$md_major"
           after=$(versions)
           echo "Installed: $before -> $after"
+          newer_major ui "$ui_major"
+          newer_major md "$md_major"
           if [ "$before" = "$after" ]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else

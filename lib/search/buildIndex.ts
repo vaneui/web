@@ -3,12 +3,12 @@
  * @vaneui/ui props. Runs at build time (app/search-index.json/route.ts); reads the file system.
  */
 
-import type { ComponentKey } from '@vaneui/ui';
 import { docsSectionsMeta, type DocPageMeta } from '../../app/docs/docsMetadata';
 import { getPropTableRows } from '../../app/docs/propTableRows';
 import { createHeadingSlugger, toHtmlId } from '../../app/utils/stringUtils';
 import { parseFrontmatter } from '../docs/frontmatter';
 import { readPageMarkdown } from '../docs/pageMarkdown';
+import { pagePropsTables, propsTableTitle, type PropsTable } from '../docs/propsTables';
 import type { SearchEntry, SearchIndex } from './types';
 
 export interface MarkdownSection {
@@ -93,41 +93,50 @@ function headingTrails(sections: MarkdownSection[]): string[][] {
   });
 }
 
-/** Component keys of every page's props tables */
-function documentedComponents(): ComponentKey[] {
-  return docsSectionsMeta.flatMap((s) => s.pages.flatMap((p) => [p.componentKey, p.secondaryComponentKey]))
-    .filter((k): k is ComponentKey => Boolean(k));
+/** A docs page as the index reads it: its markdown body and the props tables under it */
+interface PageSource {
+  sectionIndex: number;
+  page: DocPageMeta;
+  body: string;
+  tables: PropsTable[];
+}
+
+/** Every docs page in sidebar order, with the props tables the page itself renders (pagePropsTables) */
+function readPages(root: string): PageSource[] {
+  return docsSectionsMeta.flatMap((section, sectionIndex) => section.pages.map((page) => {
+    const { frontmatter, body } = parseFrontmatter(readPageMarkdown(root, section, page) ?? '');
+    return { sectionIndex, page, body, tables: pagePropsTables(page, frontmatter) };
+  }));
 }
 
 /**
  * Props that only some components take (`loading`, `tabletStack`, `textInput`). Size, appearance and
  * variant props are on nearly every component, so listing them would match every props table.
  */
-function distinctiveProps(): Set<string> {
-  const components = documentedComponents();
+function distinctiveProps(pages: PageSource[]): Set<string> {
+  const nodes = [...new Set(pages.flatMap((p) => p.tables.map((t) => t.node)))];
   const counts = new Map<string, number>();
-  for (const key of components) {
-    for (const row of getPropTableRows(key)) {
+  for (const node of nodes) {
+    for (const row of getPropTableRows(node)) {
       if (!row.isCommon) counts.set(row.prop, (counts.get(row.prop) ?? 0) + 1);
     }
   }
-  return new Set([...counts].filter(([, n]) => n <= components.length / 4).map(([prop]) => prop));
+  return new Set([...counts].filter(([, n]) => n <= nodes.length / 4).map(([prop]) => prop));
 }
 
-/** The props table section the page renders under its markdown, listing the props that set it apart */
-function propsEntry(base: Omit<SearchEntry, 'path' | 'text'>, title: string, key: ComponentKey, distinct: Set<string>): SearchEntry {
-  const props = getPropTableRows(key).filter((r) => !r.isCommon && distinct.has(r.prop)).map((r) => r.prop);
+/** A props table section the page renders under its markdown, listing the props that set it apart */
+function propsEntry(base: Omit<SearchEntry, 'path' | 'text'>, table: PropsTable, distinct: Set<string>): SearchEntry {
+  const title = propsTableTitle(table);
+  const props = getPropTableRows(table.node).filter((r) => !r.isCommon && distinct.has(r.prop)).map((r) => r.prop);
   return { ...base, url: `${base.url}#${toHtmlId(title)}`, path: [title], text: props.join(' ') };
 }
 
-function pageEntries(root: string, sectionIndex: number, page: DocPageMeta, distinct: Set<string>): SearchEntry[] {
+function pageEntries({ sectionIndex, page, body, tables }: PageSource, distinct: Set<string>): SearchEntry[] {
   const section = docsSectionsMeta[sectionIndex];
   const url = `/docs/${section.slug}/${page.slug}`;
   // The changelog repeats "Added" and "Fixed" for every release; rank it under the guides
   const base = { url, page: page.name, section: sectionIndex, ...(page.packageMdPath ? { weight: 0.4 } : {}) };
 
-  const md = readPageMarkdown(root, section, page);
-  const { frontmatter, body } = parseFrontmatter(md ?? '');
   const { intro, sections } = splitMarkdown(body);
   const trails = headingTrails(sections);
 
@@ -136,20 +145,16 @@ function pageEntries(root: string, sectionIndex: number, page: DocPageMeta, dist
     ...sections.map((s, i) => ({ ...base, url: s.id ? `${url}#${s.id}` : url, path: trails[i], text: s.text })),
   ];
 
-  const componentKey = page.componentKey ?? (frontmatter.componentKey as ComponentKey | undefined);
-  if (componentKey) entries.push(propsEntry(base, `${page.name} Props`, componentKey, distinct));
-  if (page.secondaryComponentKey) {
-    const name = page.secondaryComponentName ?? page.secondaryComponentKey;
-    entries.push(propsEntry(base, `${name} Props`, page.secondaryComponentKey, distinct));
-  }
+  entries.push(...tables.map((table) => propsEntry(base, table, distinct)));
   return entries;
 }
 
 /** Every docs page, its headings and its props tables, in sidebar order */
 export function buildSearchIndex(root: string): SearchIndex {
-  const distinct = distinctiveProps();
+  const pages = readPages(root);
+  const distinct = distinctiveProps(pages);
   return {
     sections: docsSectionsMeta.map((s, i) => ({ name: s.name, index: String(i + 1).padStart(2, '0') })),
-    entries: docsSectionsMeta.flatMap((section, i) => section.pages.flatMap((page) => pageEntries(root, i, page, distinct))),
+    entries: pages.flatMap((page) => pageEntries(page, distinct)),
   };
 }
