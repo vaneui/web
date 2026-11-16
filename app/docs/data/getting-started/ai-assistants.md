@@ -2,7 +2,7 @@ VaneUI styles components with boolean props. An AI assistant that guesses from o
 
 ## Connect the `@vaneui/mcp` server
 
-`@vaneui/mcp` is the official [Model Context Protocol](https://modelcontextprotocol.io) server for VaneUI. It exposes every docs page as a resource and provides two tools: `search_docs` searches the docs, and `get_component_props` returns a component's boolean props with their defaults. It is listed in the official MCP Registry as `io.github.vaneui/mcp` and needs Node.js 24.
+`@vaneui/mcp` is the official [Model Context Protocol](https://modelcontextprotocol.io) server for VaneUI. It exposes every docs page as a resource and provides three tools: `search_docs` returns the docs sections that match a query best, `get_doc` returns a page's intro with its list of sections, or one section in full, and `get_component_props` returns a component's boolean props with their defaults. It is listed in the official MCP Registry as `io.github.vaneui/mcp` and needs Node.js 20 or later.
 
 ### Claude Code
 

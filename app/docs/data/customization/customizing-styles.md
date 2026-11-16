@@ -11,6 +11,8 @@ const finalClasses = twMerge(...themeGeneratedClasses, className);
 
 This means the conflict is resolved at the **JavaScript level**: the losing class is removed from the string entirely before the DOM renders. There are no CSS specificity wars or `!important` hacks.
 
+An override holds at every width. A responsive component (`Section`, `Card`, `Stack`, `Container`, `Alert`, `Modal`, `Popup` and the titles) repeats its padding, gap and font size for tablet and mobile, and a class that overrides one of those values replaces all three, so `<Section className="py-8">` keeps `py-8` on a phone. This covers `py-*`, `px-*`, `p-*`, `gap-*` and font-size classes. A one-sided class such as `pt-*` or `gap-x-*` still gives way to the component's own value below 1024px. Before `@vaneui/ui` 1.6.0, a class replaced the desktop value only.
+
 ## Properties className can override
 
 VaneUI components use CSS variable consumer classes like `border-(--border-color)`, `text-(--text-color)`, and `bg-(--bg-color)`. These compile to standard CSS (`border-color: var(--border-color)`). Any Tailwind utility that targets the same CSS property will override them.

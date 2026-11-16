@@ -402,6 +402,7 @@ A dialog needs an accessible name. A `ModalHeader` with title content provides i
 |------|---------|-------------|
 | `scrollLock` | `true` | Lock body scroll when modal is open |
 | `focusTrap` | `true` | Trap `Tab` / `Shift+Tab` focus inside the modal |
+| `inertBackground` | `true` | Make the rest of the page inert while the modal is open |
 | `returnFocus` | `true` | Return focus to the trigger element on close |
 | `initialFocus` |   | Ref to the element that should receive focus on open |
 | `portal` | `true` | Render via portal into `document.body` |
@@ -420,6 +421,29 @@ A dialog needs an accessible name. A `ModalHeader` with title content provides i
   <Text>Stays in DOM when closed</Text>
 </Modal>
 ```
+
+## Content outside the dialog that stays usable
+
+An open Modal makes everything else under `<body>` inert. VaneUI's own overlays stay usable: a `Popup`, `Menu`, `Tooltip` or `Overlay` opened while the dialog is open, and a second `Modal` on top. An element VaneUI did not render, such as a toast region or a container another library portals to `<body>`, becomes inert with the rest of the page. Three things keep it usable:
+
+- `data-vane-overlay` on a child of `<body>` spares that element.
+- The ref from `useOverlayRegistration()` registers an element as an overlay while it is mounted, and the Modal spares the child of `<body>` that holds it.
+- `inertBackground={false}` turns the inert pass off for one Modal.
+
+```tsx
+import { createPortal } from 'react-dom';
+import { useOverlayRegistration } from '@vaneui/ui';
+
+function Toasts({ message }: { message: string }) {
+  const overlayRef = useOverlayRegistration();
+  return createPortal(
+    <div ref={overlayRef} role="status">{message}</div>,
+    document.body,
+  );
+}
+```
+
+All three need `@vaneui/ui` 1.6.0 or later.
 
 ## Customizing
 

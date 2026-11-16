@@ -137,7 +137,7 @@ Checkboxes support border radius styles: `rounded` (default), `pill`, and `sharp
 
 ## Variants
 
-Checkbox is `filled` by default: the box fills with the appearance colour when checked. `outline` keeps the box transparent and marks the check itself.
+Checkbox is `filled` by default: the box fills with the appearance colour when checked. `outline` and `ghost` keep the box unfilled and draw its border and the mark in the appearance colour. Before `@vaneui/ui` 1.6.0, a checked `outline` box lost its border and a checked `ghost` box showed no mark.
 
 ```tsx demo
 <Row flexWrap>
@@ -166,7 +166,7 @@ Use the `disabled` HTML attribute to prevent interaction.
 
 ## Controlled vs uncontrolled
 
-Checkbox forwards every HTML input attribute, so use `defaultChecked` for uncontrolled state and `checked` + `onChange` for controlled state.
+Checkbox forwards every HTML input attribute, so use `defaultChecked` for uncontrolled state and `checked` + `onChange` for controlled state. `ref` points at the `<input>`, so `ref.current.checked` reads the state (`@vaneui/ui` 1.6.0 or later; before that it pointed at the wrapper element).
 
 Uncontrolled: initial value only, the input manages its own state.
 

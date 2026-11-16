@@ -66,7 +66,7 @@ The size prop scales both text and cell padding, and it cascades from the table 
 
 ## Appearances and variants
 
-An appearance on `Table` cascades to its rows and cells. `outline` (the default) colours the borders; `filled` fills the surface instead.
+An appearance on `Table` cascades to its rows and cells. `outline` (the default) colours the borders; `filled` fills the surface instead. A cell with its own appearance, such as `<Td danger>`, keeps it. This needs `@vaneui/ui` 1.6.0 or later: before that, an appearance or variant on the Table did not reach the cells.
 
 ```tsx demo
 <Col>

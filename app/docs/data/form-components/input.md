@@ -120,6 +120,8 @@ Different input states: disabled, readonly, and validation feedback. Use appeara
 </Col>
 ```
 
+Input renders a wrapper `<span>` around the `<input>`. While the input is valid the wrapper is `display: contents`, so it adds no box, and `ref`, `className` and `style` go to the `<input>`. The `<input>` stays the same node when `invalid` changes, so the field keeps focus and its text while it is validated as the user types. Before `@vaneui/ui` 1.6.0 the wrapper was rendered only while the input was invalid. A selector that expects the `<input>` as a direct child of its parent, such as `.form > input`, does not match.
+
 ## Customizing
 
 Set app-wide Input defaults with `ThemeProvider`'s `themeDefaults` and add a focus-ring colour with `extraClasses`:
