@@ -155,6 +155,7 @@ test('an unreadable sitemap is a warning, not a failure, and submits nothing', a
 /** The steps of the workflow's job, in order */
 function steps() {
   return workflow.split(/\n(?= {6}- name: )/).slice(1).map((step) => ({
+    name: /^ {6}- name: (.*)/.exec(step)?.[1],
     if: /\n {8}if: (.*)/.exec(step)?.[1],
     run: /\n {8}run: (.*)/.exec(step)?.[1],
     uses: /\n {8}uses: (.*)/.exec(step)?.[1],
@@ -165,25 +166,42 @@ function steps() {
 test('the workflow runs after production deploys, read-only, one run at a time', () => {
   assert.match(workflow, /^ {2}deployment_status:$/m);
   assert.match(workflow, /github\.event\.deployment\.environment == 'Production'/);
-  assert.match(workflow, /^permissions:\n {2}contents: read\n/m);
+  assert.match(workflow, /^permissions:\n {2}contents: read\n(?: {2}#.*\n)? {2}actions: read\n/m);
   assert.doesNotMatch(workflow, /:\s*write\b/);
   assert.match(workflow, /^ {2}cancel-in-progress: false$/m);
   assert.match(workflow, /\n {4}timeout-minutes: \d+\n/);
 });
 
-test('the workflow restores the state, runs the script, then saves the state under the same path', () => {
+test('the workflow restores the last saved state, runs the script, then saves the state as an artifact', () => {
+  // The Actions cache refuses deployment_status events ("not tied to a branch or tag ref"), so a
+  // cache step would never restore or save anything and every deploy would resubmit every URL
+  assert.doesNotMatch(workflow, /actions\/cache/);
+
   const list = steps();
-  const restore = list.findIndex((step) => step.uses?.startsWith('actions/cache/restore@'));
+  const restore = list.findIndex((step) => step.name === 'Restore the previous submission');
   const submit = list.findIndex((step) => step.run?.startsWith('node scripts/indexnow.mjs'));
-  const save = list.findIndex((step) => step.uses?.startsWith('actions/cache/save@'));
+  const save = list.findIndex((step) => step.uses?.startsWith('actions/upload-artifact@'));
   assert.ok(restore !== -1 && submit !== -1 && save !== -1, 'a step is missing');
   assert.ok(restore < submit && submit < save, 'steps out of order');
 
   const state = /\n {6}STATE: (\S+)\n/.exec(workflow)?.[1];
   assert.ok(state, 'no STATE');
-  const dirOf = path.posix.dirname(state);
-  for (const index of [restore, save]) assert.match(list[index].text, new RegExp(`\\n {10}path: ${dirOf}\\n`));
+  const name = /\n {10}name: (\S+)\n/.exec(list[save].text)?.[1];
+  assert.ok(name, 'the artifact has no name');
+
+  // Restore: the newest unexpired artifact of that name, unzipped next to STATE, best effort
+  const text = list[restore].text;
+  assert.ok(text.includes(`actions/artifacts?name=${name}&`), 'restores another artifact');
+  assert.ok(text.includes('select(.expired | not)'), 'may pick an expired artifact');
+  assert.ok(text.includes('-d "$(dirname "$STATE")"'), 'unzips somewhere else');
+  assert.match(text, /\n {8}continue-on-error: true\n/);
+
+  // Save: the state file itself, only when there is one, dot directory included
+  assert.match(list[save].text, new RegExp(`\\n {10}path: ${state.replace(/[.]/g, '\\.')}\\n`));
   assert.ok(list[save].if?.includes(state), 'the save step does not check that the state exists');
+  if (path.posix.dirname(state).split('/').some((part) => part.startsWith('.'))) {
+    assert.match(list[save].text, /\n {10}include-hidden-files: true\n/);
+  }
 
   for (const action of list.filter((step) => step.uses).map((step) => step.uses)) {
     assert.match(action, /@(v\d+(\.\d+){0,2}|[0-9a-f]{40})$/, action);
