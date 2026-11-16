@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import { Landing } from './landing/Landing';
+import { VERSION } from './landing/content';
+import { JsonLd } from './components/JsonLd';
+import { homeGraph } from '../lib/seo/structuredData';
 
 // The root layout sets title/description/OG; the homepage adds its own canonical and the llms.txt hint.
 export const metadata: Metadata = {
@@ -12,5 +15,10 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <Landing/>;
+  return (
+    <>
+      <JsonLd data={homeGraph({ version: VERSION })}/>
+      <Landing/>
+    </>
+  );
 }

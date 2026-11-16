@@ -11,7 +11,8 @@ import { expandDocIncludes, isMissingFileError } from "../../../../lib/docs/incl
 import { packageMarkdownBody } from "../../../../lib/docs/pageMarkdown";
 import { pagePropsTables } from "../../../../lib/docs/propsTables";
 import type { DocPageFrontmatter, DocsPage } from "../../types";
-import { JsonLd, buildBreadcrumbSchema, buildTechArticleSchema } from "../../../components/JsonLd";
+import { JsonLd } from "../../../components/JsonLd";
+import { docsPageGraph, SITE_URL } from "../../../../lib/seo/structuredData";
 import { BASE_OPEN_GRAPH } from "../../../constants";
 
 interface DocsPageProps {
@@ -174,28 +175,22 @@ export default async function Page({params}: DocsPageProps) {
     propsTables: pagePropsTables(docsPage, frontmatter),
   };
 
-  const pageUrl = `https://vaneui.com/docs/${docsSection.slug}/${docsPage.slug}`;
   const dates = docPageDates(docsSection.slug, docsPage);
-  const datePublished = dates.published?.toISOString();
-  const dateModified = dates.modified?.toISOString();
-  const breadcrumb = buildBreadcrumbSchema({
+  const structuredData = docsPageGraph({
     category: docsSection.slug,
     slug: docsPage.slug,
     pageName: docsPage.name,
-  });
-  const techArticle = buildTechArticleSchema({
-    pageName: docsPage.name,
     description: docsPage.description,
-    url: pageUrl,
     articleSection: docsSection.name,
-    datePublished,
-    dateModified,
+    // The page's own social card (the co-located opengraph-image route, image id "card")
+    image: `${SITE_URL}/docs/${docsSection.slug}/${docsPage.slug}/opengraph-image/card`,
+    datePublished: dates.published?.toISOString(),
+    dateModified: dates.modified?.toISOString(),
   });
 
   return (
     <>
-      <JsonLd data={breadcrumb} />
-      <JsonLd data={techArticle} />
+      <JsonLd data={structuredData} />
       <DocsPageContent
         pageData={enrichedPage}
         section={docsSection}

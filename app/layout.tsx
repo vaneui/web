@@ -4,7 +4,6 @@ import React from 'react';
 import ThemeWrapper from "./themeWrapper";
 import { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next"
-import { JsonLd, WEBSITE_SCHEMA, SOFTWARE_SCHEMA } from "./components/JsonLd"
 import { BASE_OPEN_GRAPH } from "./constants"
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -92,8 +91,6 @@ export default function RootLayout({children}: {
       <script src="https://analytics.ahrefs.com/analytics.js" data-key="+JtunyPZi10uLSHXMP+3ug" async></script>
     </head>
     <body className={`${plusJakartaSans.variable} ${dmSerifDisplay.variable} ${jetBrainsMono.variable} font-sans min-w-xs`}>
-    <JsonLd data={WEBSITE_SCHEMA} />
-    <JsonLd data={SOFTWARE_SCHEMA} />
     <ThemeWrapper>
       {children}
     </ThemeWrapper>
