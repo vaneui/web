@@ -218,7 +218,7 @@ return (
 
 ## Disabled and read-only controls
 
-`disabled` takes a control out of the form: it cannot be focused, its value is left out of `FormData`, and validation skips it. `readOnly` keeps the control in the form: it can be focused and its value is submitted, but the user cannot change it. `Checkbox`, `Radio` and `Switch` have no native read-only state, so VaneUI cancels the click, and `Checkbox` and `Switch` also carry `aria-readonly`. A Field passes `disabled` and `readOnly` to the control inside it, and a disabled Field also dims its label.
+`disabled` takes a control out of the form: it cannot be focused, its value is left out of `FormData`, and validation skips it. `readOnly` keeps the control in the form: it can be focused and its value is submitted, but the user cannot change it. `Checkbox`, `Radio` and `Switch` have no native read-only state, so VaneUI cancels the click, and `Checkbox` and `Switch` also carry `aria-readonly`. A read-only toggle does not call `onChange` (`@vaneui/ui` 1.6.0 or later; earlier versions called it with the flipped value). A Field passes `disabled` and `readOnly` to the control inside it, and a disabled Field also dims its label.
 
 ```tsx demo
 const [entries, setEntries] = useState('');

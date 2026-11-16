@@ -144,3 +144,5 @@ import { useTheme } from '@vaneui/ui/theme';
 This is optional. Importing from `@vaneui/ui` works the same way. Per-component imports can reduce bundle size when using only a few components with bundlers that don't fully tree-shake barrel exports.
 
 Available subpath imports include: `@vaneui/ui/button`, `@vaneui/ui/iconButton`, `@vaneui/ui/icon`, `@vaneui/ui/badge`, `@vaneui/ui/card`, `@vaneui/ui/checkbox`, `@vaneui/ui/chip`, `@vaneui/ui/code`, `@vaneui/ui/divider`, `@vaneui/ui/img`, `@vaneui/ui/input`, `@vaneui/ui/kbd`, `@vaneui/ui/label`, `@vaneui/ui/mark`, `@vaneui/ui/menu`, `@vaneui/ui/modal`, `@vaneui/ui/navLink`, `@vaneui/ui/overlay`, `@vaneui/ui/popup`, `@vaneui/ui/section`, `@vaneui/ui/container`, `@vaneui/ui/row`, `@vaneui/ui/col`, `@vaneui/ui/stack`, `@vaneui/ui/grid`, `@vaneui/ui/typography`, `@vaneui/ui/layout`, `@vaneui/ui/theme`, `@vaneui/ui/props`.
+
+`@vaneui/ui` 1.6.0 adds `@vaneui/ui/alert`, `@vaneui/ui/field`, `@vaneui/ui/progress`, `@vaneui/ui/radio`, `@vaneui/ui/select`, `@vaneui/ui/spinner`, `@vaneui/ui/switch`, `@vaneui/ui/textarea` and `@vaneui/ui/tooltip`.

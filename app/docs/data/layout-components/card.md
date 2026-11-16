@@ -193,6 +193,8 @@ Use `CardHeader`, `CardBody`, and `CardFooter` to give a card explicit structura
 </Card>
 ```
 
+A part counts when it renders as the Card's direct child: written in the Card's JSX, inside a fragment, behind `memo()`, returned by your own component or rendered from a Server Component. A part nested inside another element does not count, and the Card keeps its own padding. An explicit `padding`, `paddingX` or `paddingY` on the Card keeps its inset next to the parts. Before `@vaneui/ui` 1.6.0, only a part written directly in the Card's JSX switched the Card to compound mode.
+
 ## Responsive layout
 
 Use `row` for horizontal layout and `mobileStack` or `tabletStack` to switch to column on smaller screens.

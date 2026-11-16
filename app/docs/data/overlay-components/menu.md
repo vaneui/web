@@ -12,6 +12,8 @@ Menu holds actions that apply to one object or view, such as edit, duplicate or 
 
 A dropdown menu triggered by a button. Pass the trigger as a React element via the `trigger` prop; children are the menu contents. Includes full keyboard navigation (Arrow keys, Enter, Escape, Tab) and focus management with a keyboard-visible outline on each item. Focus returns to the trigger when the menu closes. Escape closes only the topmost layer: a submenu before its parent menu, and a menu inside a `Modal` before the dialog. Moving the pointer to another item closes a submenu that is open.
 
+The popup takes its accessible name from the trigger through `aria-labelledby`, and a trigger without an `id` gets a generated one. An `aria-label` or `aria-labelledby` you set on the menu is kept. The item focused last is the menu's one tab stop, and hovering an item focuses it. These need `@vaneui/ui` 1.6.0 or later.
+
 ```tsx demo
 <Menu trigger={<Button>Actions</Button>}>
   <MenuItem>Edit</MenuItem>
@@ -233,6 +235,18 @@ To label an icon-only trigger, wrap it in a [Tooltip](/docs/overlay-components/t
   <MenuItem>Duplicate</MenuItem>
   <Divider />
   <MenuItem danger>Delete</MenuItem>
+</Menu>
+```
+
+## Menus with more items than fit on screen
+
+A menu that is taller than the space on screen scrolls inside its popup. Add `clampHeight` to cap the scrolling area at a maximum height that follows the menu's size. Scrolling needs `@vaneui/ui` 1.6.0 or later: before that, the last items ran off the screen.
+
+```tsx demo
+<Menu clampHeight trigger={<Button>City</Button>}>
+  {['Honolulu', 'Anchorage', 'Los Angeles', 'Denver', 'Chicago', 'New York', 'Halifax', 'London', 'Berlin', 'Athens', 'Dubai', 'Karachi', 'Dhaka', 'Bangkok', 'Shanghai', 'Tokyo', 'Sydney', 'Auckland'].map((city) => (
+    <MenuItem key={city}>{city}</MenuItem>
+  ))}
 </Menu>
 ```
 

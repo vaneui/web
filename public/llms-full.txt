@@ -1,13 +1,13 @@
 # VaneUI Documentation
 
-> Complete documentation for the VaneUI React component library (`@vaneui/ui` 1.5.0),
+> Complete documentation for the VaneUI React component library (`@vaneui/ui` 1.6.0),
 > every doc page concatenated into one file. Each page starts with `# <page name>`, its URL and
 > one import line for the `@vaneui/ui` exports its examples use. Component pages end with
 > their props, grouped by category with defaults marked, generated from the installed package.
 
 - Repository: https://github.com/vaneui/vaneui
 - Documentation: https://vaneui.com
-- Package: `@vaneui/ui` 1.5.0
+- Package: `@vaneui/ui` 1.6.0
 - Index: https://vaneui.com/llms.txt
 - Contact: hello@vaneui.com
 
@@ -168,6 +168,8 @@ import { useTheme } from '@vaneui/ui/theme';
 This is optional. Importing from `@vaneui/ui` works the same way. Per-component imports can reduce bundle size when using only a few components with bundlers that don't fully tree-shake barrel exports.
 
 Available subpath imports include: `@vaneui/ui/button`, `@vaneui/ui/iconButton`, `@vaneui/ui/icon`, `@vaneui/ui/badge`, `@vaneui/ui/card`, `@vaneui/ui/checkbox`, `@vaneui/ui/chip`, `@vaneui/ui/code`, `@vaneui/ui/divider`, `@vaneui/ui/img`, `@vaneui/ui/input`, `@vaneui/ui/kbd`, `@vaneui/ui/label`, `@vaneui/ui/mark`, `@vaneui/ui/menu`, `@vaneui/ui/modal`, `@vaneui/ui/navLink`, `@vaneui/ui/overlay`, `@vaneui/ui/popup`, `@vaneui/ui/section`, `@vaneui/ui/container`, `@vaneui/ui/row`, `@vaneui/ui/col`, `@vaneui/ui/stack`, `@vaneui/ui/grid`, `@vaneui/ui/typography`, `@vaneui/ui/layout`, `@vaneui/ui/theme`, `@vaneui/ui/props`.
+
+`@vaneui/ui` 1.6.0 adds `@vaneui/ui/alert`, `@vaneui/ui/field`, `@vaneui/ui/progress`, `@vaneui/ui/radio`, `@vaneui/ui/select`, `@vaneui/ui/spinner`, `@vaneui/ui/switch`, `@vaneui/ui/textarea` and `@vaneui/ui/tooltip`.
 
 # Core Concepts
 
@@ -863,7 +865,7 @@ VaneUI styles components with boolean props. An AI assistant that guesses from o
 
 ## Connect the `@vaneui/mcp` server
 
-`@vaneui/mcp` is the official [Model Context Protocol](https://modelcontextprotocol.io) server for VaneUI. It exposes every docs page as a resource and provides two tools: `search_docs` searches the docs, and `get_component_props` returns a component's boolean props with their defaults. It is listed in the official MCP Registry as `io.github.vaneui/mcp` and needs Node.js 24.
+`@vaneui/mcp` is the official [Model Context Protocol](https://modelcontextprotocol.io) server for VaneUI. It exposes every docs page as a resource and provides three tools: `search_docs` returns the docs sections that match a query best, `get_doc` returns a page's intro with its list of sections, or one section in full, and `get_component_props` returns a component's boolean props with their defaults. It is listed in the official MCP Registry as `io.github.vaneui/mcp` and needs Node.js 20 or later.
 
 ### Claude Code
 
@@ -3265,7 +3267,7 @@ return (
 
 ## Disabled and read-only controls
 
-`disabled` takes a control out of the form: it cannot be focused, its value is left out of `FormData`, and validation skips it. `readOnly` keeps the control in the form: it can be focused and its value is submitted, but the user cannot change it. `Checkbox`, `Radio` and `Switch` have no native read-only state, so VaneUI cancels the click, and `Checkbox` and `Switch` also carry `aria-readonly`. A Field passes `disabled` and `readOnly` to the control inside it, and a disabled Field also dims its label.
+`disabled` takes a control out of the form: it cannot be focused, its value is left out of `FormData`, and validation skips it. `readOnly` keeps the control in the form: it can be focused and its value is submitted, but the user cannot change it. `Checkbox`, `Radio` and `Switch` have no native read-only state, so VaneUI cancels the click, and `Checkbox` and `Switch` also carry `aria-readonly`. A read-only toggle does not call `onChange` (`@vaneui/ui` 1.6.0 or later; earlier versions called it with the flipped value). A Field passes `disabled` and `readOnly` to the control inside it, and a disabled Field also dims its label.
 
 ```tsx demo
 const [entries, setEntries] = useState('');
@@ -3495,6 +3497,8 @@ Different input states: disabled, readonly, and validation feedback. Use appeara
 </Col>
 ```
 
+Input renders a wrapper `<span>` around the `<input>`. While the input is valid the wrapper is `display: contents`, so it adds no box, and `ref`, `className` and `style` go to the `<input>`. The `<input>` stays the same node when `invalid` changes, so the field keeps focus and its text while it is validated as the user types. Before `@vaneui/ui` 1.6.0 the wrapper was rendered only while the input was invalid. A selector that expects the `<input>` as a direct child of its parent, such as `.form > input`, does not match.
+
 ## Customizing
 
 Set app-wide Input defaults with `ThemeProvider`'s `themeDefaults` and add a focus-ring colour with `extraClasses`:
@@ -3670,7 +3674,7 @@ Checkboxes support border radius styles: `rounded` (default), `pill`, and `sharp
 
 ## Variants
 
-Checkbox is `filled` by default: the box fills with the appearance colour when checked. `outline` keeps the box transparent and marks the check itself.
+Checkbox is `filled` by default: the box fills with the appearance colour when checked. `outline` and `ghost` keep the box unfilled and draw its border and the mark in the appearance colour. Before `@vaneui/ui` 1.6.0, a checked `outline` box lost its border and a checked `ghost` box showed no mark.
 
 ```tsx demo
 <Row flexWrap>
@@ -3699,7 +3703,7 @@ Use the `disabled` HTML attribute to prevent interaction.
 
 ## Controlled vs uncontrolled
 
-Checkbox forwards every HTML input attribute, so use `defaultChecked` for uncontrolled state and `checked` + `onChange` for controlled state.
+Checkbox forwards every HTML input attribute, so use `defaultChecked` for uncontrolled state and `checked` + `onChange` for controlled state. `ref` points at the `<input>`, so `ref.current.checked` reads the state (`@vaneui/ui` 1.6.0 or later; before that it pointed at the wrapper element).
 
 Uncontrolled: initial value only, the input manages its own state.
 
@@ -4028,7 +4032,7 @@ Layout and utility props (Border, Cursor, Display, Flex Direction, Gap, Height, 
 
 Source: https://vaneui.com/docs/form-components/field
 
-Import: `import { Field, Card, Col, Input, Label, Radio, RadioGroup, Row, Select, Text, Textarea } from "@vaneui/ui"`
+Import: `import { Field, Card, Col, Input, Label, Radio, RadioGroup, Row, Select, Text, Textarea, useFieldControlProps } from "@vaneui/ui"`
 
 Use Field when a control has help text or an error message. A bare [Label](/docs/form-components/label) associates text with a control but links neither message to it, so a screen reader announces that the control is invalid and never says why. For a control that needs a visible name and nothing else, a Label is enough. Field renders a `<div>` that holds a `<label>`, the control, and the help and error text as `<p>` elements. For a whole form built from Fields, with validation, values and submit, see [Forms](/docs/form-components/forms).
 
@@ -4074,7 +4078,7 @@ Three details are worth knowing before you reach for them.
   onChange={(e) => setSubscribed((e.target as HTMLInputElement).checked)}/>
 ```
 
-`ref` points at the rendered control for every kind except `checkbox`, where it lands on the element wrapping the box. A form library that reads `.checked` straight off the ref will not find it there; pass the control as a child and put the ref on it instead.
+`ref` points at the rendered control for every kind. Before `@vaneui/ui` 1.6.0, the ref of a `checkbox` kind landed on the element wrapping the box, where a form library that reads `.checked` off the ref did not find it.
 
 `className` stays on the wrapper, but `style` goes to the control, since only `className` and `tag` are treated as wrapper props. Use `className` to size or place the whole field block.
 
@@ -4110,6 +4114,8 @@ Passing `error` renders the message and marks the control invalid, so the danger
 ```
 
 When both `description` and `error` are present, the control is described by both, in that order.
+
+An empty string for `error` or `description` means no message, so `error={errors.email ?? ''}` leaves the field valid. This needs `@vaneui/ui` 1.6.0 or later: before that, `error=""` marked the control invalid.
 
 An invalid control gets a danger border and ring plus `aria-invalid="true"`, and on `Input` a trailing alert icon, so the state is never signalled by colour alone.
 
@@ -4149,6 +4155,20 @@ Every form control reads the Field it sits in: `Input`, `Textarea`, `Select`, `C
     <Textarea placeholder="What changed?"/>
   </Field>
 </Col>
+```
+
+A control VaneUI does not ship, such as a plain `<input>`, a masked input or a date picker, joins a Field through `useFieldControlProps`. Spread its result on the control: it adds the Field's `id`, `aria-describedby`, `aria-invalid`, `required`, `disabled` and `readOnly`. The control's own props win, and outside a Field the props come back unchanged. The hook needs `@vaneui/ui` 1.6.0 or later.
+
+```tsx
+import { Field, useFieldControlProps } from '@vaneui/ui';
+
+function DateInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
+  return <input type="date" {...useFieldControlProps(props)} />;
+}
+
+<Field label="Start date" description="The first day of the booking.">
+  <DateInput />
+</Field>
 ```
 
 ## Radio groups
@@ -7980,6 +8000,8 @@ Use `CardHeader`, `CardBody`, and `CardFooter` to give a card explicit structura
 </Card>
 ```
 
+A part counts when it renders as the Card's direct child: written in the Card's JSX, inside a fragment, behind `memo()`, returned by your own component or rendered from a Server Component. A part nested inside another element does not count, and the Card keeps its own padding. An explicit `padding`, `paddingX` or `paddingY` on the Card keeps its inset next to the parts. Before `@vaneui/ui` 1.6.0, only a part written directly in the Card's JSX switched the Card to compound mode.
+
 ## Responsive layout
 
 Use `row` for horizontal layout and `mobileStack` or `tabletStack` to switch to column on smaller screens.
@@ -8796,7 +8818,7 @@ The size prop scales both text and cell padding, and it cascades from the table 
 
 ## Appearances and variants
 
-An appearance on `Table` cascades to its rows and cells. `outline` (the default) colours the borders; `filled` fills the surface instead.
+An appearance on `Table` cascades to its rows and cells. `outline` (the default) colours the borders; `filled` fills the surface instead. A cell with its own appearance, such as `<Td danger>`, keeps it. This needs `@vaneui/ui` 1.6.0 or later: before that, an appearance or variant on the Table did not reach the cells.
 
 ```tsx demo
 <Col>
@@ -9266,7 +9288,7 @@ Layout and utility props (Blur, Display, Height, Hide, Items, Justify, Overflow,
 
 Source: https://vaneui.com/docs/overlay-components/modal
 
-Import: `import { Modal, Button, Checkbox, Input, Label, ModalBody, ModalCloseButton, ModalFooter, ModalHeader, Row, Stack, Text, ThemeProvider, Title } from "@vaneui/ui"`
+Import: `import { Modal, Button, Checkbox, Input, Label, ModalBody, ModalCloseButton, ModalFooter, ModalHeader, Row, Stack, Text, ThemeProvider, Title, useOverlayRegistration } from "@vaneui/ui"`
 
 Use Modal when the user has to finish or dismiss a task before returning to the page, such as a confirmation, a short form or a detail view. While it is open, the rest of the page gets `inert` and `aria-hidden`. A panel that leaves the page usable belongs in a [Popup](/docs/overlay-components/popup), and a message that needs no response in an [Alert](/docs/basic-components/alert).
 
@@ -9665,6 +9687,7 @@ A dialog needs an accessible name. A `ModalHeader` with title content provides i
 |------|---------|-------------|
 | `scrollLock` | `true` | Lock body scroll when modal is open |
 | `focusTrap` | `true` | Trap `Tab` / `Shift+Tab` focus inside the modal |
+| `inertBackground` | `true` | Make the rest of the page inert while the modal is open |
 | `returnFocus` | `true` | Return focus to the trigger element on close |
 | `initialFocus` |   | Ref to the element that should receive focus on open |
 | `portal` | `true` | Render via portal into `document.body` |
@@ -9683,6 +9706,29 @@ A dialog needs an accessible name. A `ModalHeader` with title content provides i
   <Text>Stays in DOM when closed</Text>
 </Modal>
 ```
+
+## Content outside the dialog that stays usable
+
+An open Modal makes everything else under `<body>` inert. VaneUI's own overlays stay usable: a `Popup`, `Menu`, `Tooltip` or `Overlay` opened while the dialog is open, and a second `Modal` on top. An element VaneUI did not render, such as a toast region or a container another library portals to `<body>`, becomes inert with the rest of the page. Three things keep it usable:
+
+- `data-vane-overlay` on a child of `<body>` spares that element.
+- The ref from `useOverlayRegistration()` registers an element as an overlay while it is mounted, and the Modal spares the child of `<body>` that holds it.
+- `inertBackground={false}` turns the inert pass off for one Modal.
+
+```tsx
+import { createPortal } from 'react-dom';
+import { useOverlayRegistration } from '@vaneui/ui';
+
+function Toasts({ message }: { message: string }) {
+  const overlayRef = useOverlayRegistration();
+  return createPortal(
+    <div ref={overlayRef} role="status">{message}</div>,
+    document.body,
+  );
+}
+```
+
+All three need `@vaneui/ui` 1.6.0 or later.
 
 ## Customizing
 
@@ -10077,6 +10123,8 @@ Menu holds actions that apply to one object or view, such as edit, duplicate or 
 
 A dropdown menu triggered by a button. Pass the trigger as a React element via the `trigger` prop; children are the menu contents. Includes full keyboard navigation (Arrow keys, Enter, Escape, Tab) and focus management with a keyboard-visible outline on each item. Focus returns to the trigger when the menu closes. Escape closes only the topmost layer: a submenu before its parent menu, and a menu inside a `Modal` before the dialog. Moving the pointer to another item closes a submenu that is open.
 
+The popup takes its accessible name from the trigger through `aria-labelledby`, and a trigger without an `id` gets a generated one. An `aria-label` or `aria-labelledby` you set on the menu is kept. The item focused last is the menu's one tab stop, and hovering an item focuses it. These need `@vaneui/ui` 1.6.0 or later.
+
 ```tsx demo
 <Menu trigger={<Button>Actions</Button>}>
   <MenuItem>Edit</MenuItem>
@@ -10298,6 +10346,18 @@ To label an icon-only trigger, wrap it in a [Tooltip](/docs/overlay-components/t
   <MenuItem>Duplicate</MenuItem>
   <Divider />
   <MenuItem danger>Delete</MenuItem>
+</Menu>
+```
+
+## Menus with more items than fit on screen
+
+A menu that is taller than the space on screen scrolls inside its popup. Add `clampHeight` to cap the scrolling area at a maximum height that follows the menu's size. Scrolling needs `@vaneui/ui` 1.6.0 or later: before that, the last items ran off the screen.
+
+```tsx demo
+<Menu clampHeight trigger={<Button>City</Button>}>
+  {['Honolulu', 'Anchorage', 'Los Angeles', 'Denver', 'Chicago', 'New York', 'Halifax', 'London', 'Berlin', 'Athens', 'Dubai', 'Karachi', 'Dhaka', 'Bangkok', 'Shanghai', 'Tokyo', 'Sydney', 'Auckland'].map((city) => (
+    <MenuItem key={city}>{city}</MenuItem>
+  ))}
 </Menu>
 ```
 
@@ -12169,6 +12229,8 @@ const finalClasses = twMerge(...themeGeneratedClasses, className);
 
 This means the conflict is resolved at the **JavaScript level**: the losing class is removed from the string entirely before the DOM renders. There are no CSS specificity wars or `!important` hacks.
 
+An override holds at every width. A responsive component (`Section`, `Card`, `Stack`, `Container`, `Alert`, `Modal`, `Popup` and the titles) repeats its padding, gap and font size for tablet and mobile, and a class that overrides one of those values replaces all three, so `<Section className="py-8">` keeps `py-8` on a phone. This covers `py-*`, `px-*`, `p-*`, `gap-*` and font-size classes. A one-sided class such as `pt-*` or `gap-x-*` still gives way to the component's own value below 1024px. Before `@vaneui/ui` 1.6.0, a class replaced the desktop value only.
+
 ## Properties className can override
 
 VaneUI components use CSS variable consumer classes like `border-(--border-color)`, `text-(--text-color)`, and `bg-(--bg-color)`. These compile to standard CSS (`border-color: var(--border-color)`). Any Tailwind utility that targets the same CSS property will override them.
@@ -12987,6 +13049,127 @@ package follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html): patc
 fixes, minor for additive props and components, major for anything that changes an
 existing prop name, default, or rendered element. Releases ship when work is ready
 rather than on a fixed calendar.
+
+## 1.6.0
+
+`2026-11-16`
+
+Fixes from a review of 1.5.0, each covered by tests. Overlays keep their content while they
+close, an `Input` keeps focus while it is validated, read-only toggles stop reporting changes,
+a `Card` finds its parts wherever they render, and a `className` overrides a responsive value
+at every width. Some fixes change the rendered markup or where a `ref` points; those are under
+Changed.
+
+### Added
+
+- `inertBackground` on [Modal](https://vaneui.com/docs/overlay-components/modal), `true` by
+  default. An open Modal makes the rest of the page inert, and `false` turns that off for one
+  modal.
+- `data-vane-overlay`: a child of `<body>` with this attribute stays usable while a Modal is
+  open. Use it on a toast region or on a container another library portals to `<body>`.
+- `useOverlayRegistration()`, with the `OverlayRegistrationRef` type: the ref it returns
+  registers an element as an overlay while it is mounted, so an open Modal leaves the
+  element's container under `<body>` usable.
+- `useFieldControlProps`, with the `FieldControlProps` type: a control VaneUI does not ship (a
+  plain `<input>`, a masked input, a date picker) takes the
+  [Field](https://vaneui.com/docs/form-components/field)'s `id`, `aria-describedby`,
+  `aria-invalid`, `required`, `disabled` and `readOnly` by spreading
+  `useFieldControlProps(props)`. The control's own props win, and outside a Field the props
+  come back unchanged.
+- Import paths for nine more components: `@vaneui/ui/alert`, `/field`, `/progress`, `/radio`,
+  `/select`, `/spinner`, `/switch`, `/textarea` and `/tooltip`. They were built like the other
+  component entries but missing from the package's `exports`, so the import failed.
+
+### Changed
+
+- [Input](https://vaneui.com/docs/form-components/input): the root element is a wrapper
+  `<span>` with the `<input>` inside, in every state. Before, the wrapper was rendered only
+  while the input was invalid. A valid Input's wrapper is `display: contents`, so the layout
+  is the same, and `ref`, `className` and `style` still go to the `<input>`. A selector that
+  expects the `<input>` as a direct child of its parent (`.form > input`) no longer matches.
+- [Checkbox](https://vaneui.com/docs/form-components/checkbox): `ref` points at the `<input>`
+  and is typed `HTMLInputElement`, like `Radio` and `Switch`. It pointed at the wrapper span.
+  Code that used the ref to reach the wrapper reads `ref.current.parentElement`.
+- [Table](https://vaneui.com/docs/layout-components/table): `Td` and `Th` default to
+  `inheritAppearance` where they had `secondary`, so they follow the Table (see Fixed). The
+  default table looks the same, but its cells no longer carry `data-appearance` and
+  `data-variant` attributes.
+- [Menu](https://vaneui.com/docs/overlay-components/menu): the item focused last is the
+  menu's one tab stop (`tabindex="0"`, every other item `-1`), and hovering an item focuses
+  it.
+- `Menu` and `PopupTrigger` give a trigger without an `id` a generated one, which the popup's
+  `aria-labelledby` points at (see Accessibility).
+- `Modal`: when the element that opened a dialog is gone at close, focus goes to the opener of
+  the overlay that element was in, or stays where it is. It went to the first focusable
+  element of the page.
+
+### Fixed
+
+- Closing a `Modal`, [Popup](https://vaneui.com/docs/overlay-components/popup), `Menu`,
+  [Tooltip](https://vaneui.com/docs/overlay-components/tooltip) or
+  [Overlay](https://vaneui.com/docs/overlay-components/overlay) keeps its content mounted
+  until the exit animation ends. Before, the content was unmounted and mounted again for the
+  exit: child effects ran twice on every close, and text typed into an uncontrolled field was
+  gone during the fade.
+- `Input` keeps focus and the typed text when `invalid` changes, on its own and through
+  `<Field error>`. Before, the `<input>` was replaced each time, so validating while the user
+  typed dropped the focus.
+- A `Tooltip` and a `Menu` or `PopupTrigger` on one trigger keep separate anchors. Before, in
+  browsers with CSS anchor positioning, the menu jumped to the corner of the page once the
+  tooltip had closed.
+- `Modal`: selecting text inside the dialog and releasing the mouse over the backdrop no
+  longer closes it. A press that starts on the backdrop closes it as before.
+- `Modal`: with two modals open, Escape closes the top one. Before, a lower modal that
+  rendered again could close first.
+- `Modal`: a dialog opened from a `MenuItem` returns focus to the menu's trigger when it
+  closes. Before, focus jumped to the first focusable element of the page and the page
+  scrolled to it.
+- `Menu`: a menu with more items than fit on screen scrolls, and `clampHeight` limits the
+  scrolling area. Before, the last items ran off the screen, or out of the clamped box.
+- An `Overlay` opened while a `Modal` is open stays usable. Before, the Modal made it inert.
+- `Checkbox`, [Switch](https://vaneui.com/docs/form-components/switch) and
+  [Radio](https://vaneui.com/docs/form-components/radio): a `readOnly` control no longer calls
+  `onChange`, also when the state comes from a `RadioGroup` or a Field. Before, a controlled
+  form received the flipped value while the control on screen stayed as it was. `onClick` is
+  still called.
+- [Chip](https://vaneui.com/docs/basic-components/chip),
+  [Badge](https://vaneui.com/docs/basic-components/badge) and
+  [Code](https://vaneui.com/docs/basic-components/code): `disabled` with `href` renders a link
+  that cannot be followed (no `href`, `aria-disabled="true"`, still focusable), like a
+  disabled `Button` link. Before, the link stayed in the tab order and Enter followed it.
+- `Checkbox` and `Radio`: the checked state is visible in the `outline` and `ghost` variants.
+  Before, the box took the page color and the mark floated on the page, and a `ghost` Checkbox
+  showed no mark at all.
+- `Field`: an empty string for `error` or `description` means no message. Before,
+  `error=""` marked the control invalid and rendered an empty paragraph.
+- [Card](https://vaneui.com/docs/layout-components/card): `CardHeader`, `CardBody` and
+  `CardFooter` are found inside a fragment, behind `memo()`, when your own component renders
+  them and when they come from a Server Component. Before, such a Card kept its own padding
+  and the inset doubled. A Card with an explicit `padding`, `paddingX` or `paddingY` keeps its
+  inset next to its parts.
+- `Table`: an appearance or variant on the Table reaches its rows and cells. `<Table success>`
+  colors the row rules and the header text, and `<Table filled>` fills the table. Before, both
+  changed nothing. A `Tr`, `Thead`, `Tbody` or `Tfoot` with its own appearance and variant
+  passes them to its cells, and a cell with its own appearance (`<Td danger>`) keeps it.
+- A `className` that overrides a responsive value holds at every width:
+  `<Section className="py-8">` keeps `py-8` on a phone. Before, the class replaced the desktop
+  value only, and the component's own tablet and mobile padding, gap or font size came back
+  below 1024px. This covers `py-*`, `px-*`, `p-*`, `gap-*` and font-size classes; a one-sided
+  class such as `pt-*` still gives way below 1024px.
+- `ThemeProvider` with `themeDefaults`, `extraClasses` or `theme` copies only the theme nodes
+  it changes. `Tooltip` and `Menu` each mount one, and rendering 300 of either on the server
+  took about 270ms; it now takes about 20ms.
+
+### Accessibility
+
+- The popup of a `PopupTrigger` or a `Menu` is named by its trigger through
+  `aria-labelledby`. Before, the dialog had no accessible name. An `aria-label` or
+  `aria-labelledby` you set on the popup is kept. A `Popup` used on its own warns in
+  development when it opens with a dialog role and no name.
+- `Radio`: a read-only radio no longer carries `aria-readonly`, which the radio role does not
+  allow. The `RadioGroup` keeps it.
+
+[Full diff](https://github.com/vaneui/vaneui/compare/v1.5.0...v1.6.0)
 
 ## 1.5.0
 

@@ -49,7 +49,7 @@ Three details are worth knowing before you reach for them.
   onChange={(e) => setSubscribed((e.target as HTMLInputElement).checked)}/>
 ```
 
-`ref` points at the rendered control for every kind except `checkbox`, where it lands on the element wrapping the box. A form library that reads `.checked` straight off the ref will not find it there; pass the control as a child and put the ref on it instead.
+`ref` points at the rendered control for every kind. Before `@vaneui/ui` 1.6.0, the ref of a `checkbox` kind landed on the element wrapping the box, where a form library that reads `.checked` off the ref did not find it.
 
 `className` stays on the wrapper, but `style` goes to the control, since only `className` and `tag` are treated as wrapper props. Use `className` to size or place the whole field block.
 
@@ -85,6 +85,8 @@ Passing `error` renders the message and marks the control invalid, so the danger
 ```
 
 When both `description` and `error` are present, the control is described by both, in that order.
+
+An empty string for `error` or `description` means no message, so `error={errors.email ?? ''}` leaves the field valid. This needs `@vaneui/ui` 1.6.0 or later: before that, `error=""` marked the control invalid.
 
 An invalid control gets a danger border and ring plus `aria-invalid="true"`, and on `Input` a trailing alert icon, so the state is never signalled by colour alone.
 
@@ -124,6 +126,20 @@ Every form control reads the Field it sits in: `Input`, `Textarea`, `Select`, `C
     <Textarea placeholder="What changed?"/>
   </Field>
 </Col>
+```
+
+A control VaneUI does not ship, such as a plain `<input>`, a masked input or a date picker, joins a Field through `useFieldControlProps`. Spread its result on the control: it adds the Field's `id`, `aria-describedby`, `aria-invalid`, `required`, `disabled` and `readOnly`. The control's own props win, and outside a Field the props come back unchanged. The hook needs `@vaneui/ui` 1.6.0 or later.
+
+```tsx
+import { Field, useFieldControlProps } from '@vaneui/ui';
+
+function DateInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
+  return <input type="date" {...useFieldControlProps(props)} />;
+}
+
+<Field label="Start date" description="The first day of the booking.">
+  <DateInput />
+</Field>
 ```
 
 ## Radio groups
