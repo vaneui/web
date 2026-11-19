@@ -1,13 +1,13 @@
 # VaneUI Documentation
 
-> Complete documentation for the VaneUI React component library (`@vaneui/ui` 1.6.0),
+> Complete documentation for the VaneUI React component library (`@vaneui/ui` 1.6.1),
 > every doc page concatenated into one file. Each page starts with `# <page name>`, its URL and
 > one import line for the `@vaneui/ui` exports its examples use. Component pages end with
 > their props, grouped by category with defaults marked, generated from the installed package.
 
 - Repository: https://github.com/vaneui/vaneui
 - Documentation: https://vaneui.com
-- Package: `@vaneui/ui` 1.6.0
+- Package: `@vaneui/ui` 1.6.1
 - Index: https://vaneui.com/llms.txt
 - Contact: hello@vaneui.com
 
@@ -13441,6 +13441,23 @@ package follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html): patc
 fixes, minor for additive props and components, major for anything that changes an
 existing prop name, default, or rendered element. Releases ship when work is ready
 rather than on a fixed calendar.
+
+## 1.6.1
+
+`2026-11-19`
+
+The stylesheet import paths resolve for TypeScript, so a project on TypeScript 6 or later can
+import `@vaneui/ui/css` from a `.ts` or `.tsx` file.
+
+### Fixed
+
+- `import '@vaneui/ui/css'` in a TypeScript file passes the type check on TypeScript 6 and
+  later. The stylesheet import paths (`@vaneui/ui/css`, `/vars` and `/tokens`) had no type
+  declarations. TypeScript 6 reports a side-effect import it cannot resolve as an error
+  (`TS2882`), where earlier versions skipped it unless `noUncheckedSideEffectImports` was set.
+  Each path now has a `types` target, an empty module, under the `bundler`, `node16` and
+  `nodenext` resolution modes. `@import "@vaneui/ui/css"` in a CSS file was not affected and
+  resolves to the same file as before.
 
 ## 1.6.0
 
