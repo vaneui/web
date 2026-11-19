@@ -113,7 +113,7 @@ function Root() {
 
 `ThemeProvider` needs no props to apply the built-in defaults. To set application-wide defaults, extra classes, or theme overrides, see [Using ThemeProvider](/docs/customization/using-theme-provider).
 
-For a Next.js App Router project, see [Next.js](/docs/getting-started/nextjs); to connect an AI coding assistant through the MCP server, llms.txt or the Markdown copy of each page, see [AI Assistants](/docs/getting-started/ai-assistants).
+For a Next.js App Router project, see [Next.js](/docs/getting-started/nextjs), and for a Vite project, see [Vite](/docs/getting-started/vite). To render Markdown with VaneUI components, see [Markdown Rendering](/docs/getting-started/markdown). To connect an AI coding assistant through the MCP server, llms.txt or the Markdown copy of each page, see [AI Assistants](/docs/getting-started/ai-assistants).
 
 ## Usage
 
