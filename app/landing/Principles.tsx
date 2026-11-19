@@ -4,22 +4,25 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Grid2, Grid3, Col, Row, Stack, Text, Title, Button, Card, Chip, Img, Divider, Label, Switch, Mark, Code, type ButtonProps,
 } from '@vaneui/ui';
-import { Pause, Play } from 'react-feather';
+import Link from 'next/link';
+import { ArrowRight, Pause, Play } from 'react-feather';
 import { CodeBlock } from '../components/CodeBlock';
 import { FEATURES, dog } from './content';
 import { Reveal, usePrefersReducedMotion } from './Reveal';
 import { FrameRow, SectionHead } from './frame';
+import { DEMO_PROPS, propsHref, toggleProp, type DemoProp } from '../../lib/playground/propsSnippet';
 
-type PropKey = 'filled' | 'pill' | 'accent' | 'lg' | 'sharp';
+type PropKey = DemoProp;
 
-// Each step adds or swaps one prop; `sharp` replaces `pill` because a group holds one value
+// Each step adds or swaps one prop; `sharp` replaces `pill` because a group holds one value.
+// No appearance prop: this page recolors `accent`, and the playground the demo links to shows
+// the stock colors. `ghost` is a toggle only.
 const STEPS: { props: PropKey[]; changed?: PropKey }[] = [
   { props: [] },
   { props: ['filled'], changed: 'filled' },
   { props: ['filled', 'pill'], changed: 'pill' },
-  { props: ['accent', 'filled', 'pill'], changed: 'accent' },
-  { props: ['accent', 'filled', 'pill', 'lg'], changed: 'lg' },
-  { props: ['accent', 'filled', 'sharp', 'lg'], changed: 'sharp' },
+  { props: ['filled', 'pill', 'lg'], changed: 'lg' },
+  { props: ['filled', 'sharp', 'lg'], changed: 'sharp' },
 ];
 const STEP_MS = 2200;
 
@@ -36,12 +39,15 @@ function Index({ n }: { n: string }) {
   return <Text xs fontMono tertiary>{n}</Text>;
 }
 
-/** A Button whose props change on a timer, with the matching line of code */
+/** A Button whose props change on a timer, with the matching line of code; a click on a prop takes over */
 function PropDemo() {
   const reduced = usePrefersReducedMotion();
   const [step, setStep] = useState(0);
   const [userPaused, setUserPaused] = useState<boolean | null>(null);
-  const paused = userPaused ?? reduced;
+  // Set once the visitor toggles a prop: the demo stops and shows their combination.
+  // `n` counts the clicks, so the highlight replays when the same prop comes back on.
+  const [own, setOwn] = useState<{ props: PropKey[]; changed?: PropKey; n: number } | null>(null);
+  const paused = own != null || (userPaused ?? reduced);
 
   useEffect(() => {
     if (paused) return;
@@ -49,8 +55,17 @@ function PropDemo() {
     return () => clearTimeout(t);
   }, [step, paused]);
 
-  const current = STEPS[step];
+  const current = own ?? STEPS[step];
   const buttonProps = Object.fromEntries(current.props.map(p => [p, true])) as Partial<ButtonProps>;
+
+  const toggle = (p: PropKey) => {
+    const on = current.props.includes(p);
+    setOwn({ props: toggleProp(current.props, p), changed: on ? undefined : p, n: (own?.n ?? 0) + 1 });
+  };
+  const playPause = () => {
+    if (own) { setOwn(null); setUserPaused(false); return; }
+    setUserPaused(!paused);
+  };
 
   return (
     <Col noGap wFull hFull>
@@ -67,24 +82,37 @@ function PropDemo() {
             <React.Fragment key={p}>
               {' '}
               {p === current.changed
-                ? <Mark accent key={`${p}-${step}`} className="lp-swap px-1">{p}</Mark>
+                ? <Mark accent key={`${p}-${own ? `own${own.n}` : step}`} className="lp-swap px-1">{p}</Mark>
                 : <Text tag="span" fontMono inheritSize>{p}</Text>}
             </React.Fragment>
           ))}
           <Text tag="span" fontMono tertiary inheritSize>&gt;</Text>
         </Text>
       </Row>
-      {/* Timeline: progress, step, pause */}
+      {/* The props to toggle, lit while they are on */}
+      <Row xs flexWrap borderT role="group" aria-label="Button props" className="px-8 py-3 max-tablet:px-6 max-mobile:px-4">
+        {DEMO_PROPS.map(p => {
+          const on = current.props.includes(p);
+          return (
+            <Button key={p} xs pill fontMono fontNormal accent={on} filled={on} secondary={!on}
+                    aria-pressed={on} onClick={() => toggle(p)}>
+              {p}
+            </Button>
+          );
+        })}
+      </Row>
+      {/* Timeline: progress, play or pause, and the same button in the playground */}
       <Row borderT className="px-8 py-2 max-tablet:px-6 max-mobile:px-4">
         <div aria-hidden="true" className="lp-track">
           <div key={`${step}-${paused}`} className="lp-progress" data-paused={paused}
                style={{ '--lp-step': `${STEP_MS}ms` } as React.CSSProperties}/>
         </div>
-        <Text xs fontMono tertiary>{step + 1}/{STEPS.length}</Text>
-        <Button xs ghost secondary pill onClick={() => setUserPaused(!paused)}
+        <Button xs ghost secondary pill onClick={playPause}
                 aria-label={paused ? 'Play prop demo' : 'Pause prop demo'}>
           {paused ? <Play aria-hidden="true"/> : <Pause aria-hidden="true"/>}
-          {paused ? 'Play' : 'Pause'}
+        </Button>
+        <Button xs ghost pill tag={Link} href={propsHref(current.props)}>
+          Open in playground <ArrowRight aria-hidden="true"/>
         </Button>
       </Row>
     </Col>
@@ -249,7 +277,7 @@ export function Principles() {
             </Reveal>
             <Reveal delay={60}>
               <Text sm tertiary>
-                One value per group: <Code sm>sharp</Code> replaces <Code sm>pill</Code>.
+                Click a prop to try it. One value per group: <Code sm>sharp</Code> replaces <Code sm>pill</Code>.
               </Text>
             </Reveal>
           </Stack>
