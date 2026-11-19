@@ -202,6 +202,9 @@ export function DocsMarkdown({md, slug}: DocsMarkdownProps) {
     <FenceLookupContext.Provider value={lookup}>
       <Md
         content={md}
+        // Docs pages show Markdoc syntax in their samples and use none themselves:
+        // includes are expanded before this point (lib/docs/includes.mjs).
+        tagSyntax={false}
         transform={anchorHeadings}
         config={{
           components: {

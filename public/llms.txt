@@ -31,7 +31,9 @@ it has `onClick` or `tag="button"`. `noFocusVisible` opts out.
 - [Core Concepts](https://vaneui.com/docs/getting-started/core-concepts.md): How VaneUI's boolean props API works in React: one prop per category, how props become Tailwind CSS classes and CSS variables, and where custom classes fit.
 - [Usage Basics](https://vaneui.com/docs/getting-started/usage-basics.md): Core VaneUI patterns in React: boolean size and appearance props, layout components, responsive visibility, typography, icons, images and overlays.
 - [Next.js](https://vaneui.com/docs/getting-started/nextjs.md): Set up VaneUI in a Next.js App Router project: add the Tailwind CSS v4 imports, render ThemeProvider in the root layout, and add dark mode without a flash.
+- [Vite](https://vaneui.com/docs/getting-started/vite.md): Set up VaneUI in a Vite React project: add the Tailwind CSS v4 plugin and the CSS imports, wrap the app in ThemeProvider, add dark mode without a flash, and link with React Router.
 - [AI Assistants](https://vaneui.com/docs/getting-started/ai-assistants.md): Connect Claude Code, Cursor or VS Code to the VaneUI MCP server, or point any AI assistant at llms.txt and Markdown docs, so it writes correct React props.
+- [Markdown Rendering](https://vaneui.com/docs/getting-started/markdown.md): Render Markdown as VaneUI components with @vaneui/md: use Md in server and client components, place components with vaneui fences, restyle each element, and handle untrusted content.
 
 ## Basic Components
 

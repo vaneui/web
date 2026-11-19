@@ -67,11 +67,25 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         mdPath: 'nextjs.md',
       },
       {
+        slug: 'vite',
+        name: 'Vite',
+        seoTitle: 'Vite Setup for VaneUI, React and Tailwind CSS v4',
+        description: 'Set up VaneUI in a Vite React project: add the Tailwind CSS v4 plugin and the CSS imports, wrap the app in ThemeProvider, add dark mode without a flash, and link with React Router.',
+        mdPath: 'vite.md',
+      },
+      {
         slug: 'ai-assistants',
         name: 'AI Assistants',
         seoTitle: 'Use VaneUI with AI Coding Assistants (MCP, llms.txt)',
         description: 'Connect Claude Code, Cursor or VS Code to the VaneUI MCP server, or point any AI assistant at llms.txt and Markdown docs, so it writes correct React props.',
         mdPath: 'ai-assistants.md',
+      },
+      {
+        slug: 'markdown',
+        name: 'Markdown Rendering',
+        seoTitle: 'Render Markdown with React Components | @vaneui/md',
+        description: 'Render Markdown as VaneUI components with @vaneui/md: use Md in server and client components, place components with vaneui fences, restyle each element, and handle untrusted content.',
+        mdPath: 'markdown.md',
       },
     ]
   },
