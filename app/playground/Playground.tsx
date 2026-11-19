@@ -9,6 +9,7 @@ import { FRAME } from '../landing/frame';
 import { Preview } from './Preview';
 import { STARTER_CODE } from './starter';
 import { browserStorage, clearSavedCode, loadSavedCode, withoutReset, writeSavedCode } from '../../lib/playground/savedCode';
+import { parseDemoProps, propsSnippet, withoutProps } from '../../lib/playground/propsSnippet';
 
 /**
  * The starter code with line numbers, laid out like the editor, until CodeMirror loads. It is
@@ -38,17 +39,23 @@ export function Playground() {
   const [preview, setPreview] = React.useState(STARTER_CODE);
   // Nothing is saved until the saved snippet has been read, so the starter never overwrites it
   const [loaded, setLoaded] = React.useState(false);
+  // The Button the landing's prop demo opened, kept out of storage until it is edited
+  const linked = React.useRef<string | null>(null);
 
   React.useEffect(() => {
     // `?reset` clears the saved snippet before it can run: the way out when it hangs the page
     const { code: saved, reset } = loadSavedCode(window.location.search, browserStorage());
-    if (reset) {
+    // `?props=` from the landing's prop demo opens that Button in place of the saved snippet
+    const props = parseDemoProps(window.location.search);
+    if (reset || props) {
       // Dropped from the URL, so a reload keeps what is typed next
-      window.history.replaceState(window.history.state, '', withoutReset(window.location.href));
+      window.history.replaceState(window.history.state, '', withoutProps(withoutReset(window.location.href)));
     }
-    if (saved != null) {
-      setCode(saved);
-      setPreview(saved);
+    if (props) linked.current = propsSnippet(props);
+    const start = linked.current ?? saved;
+    if (start != null) {
+      setCode(start);
+      setPreview(start);
     }
     setLoaded(true);
   }, []);
@@ -61,8 +68,9 @@ export function Playground() {
   // Saved only after the snippet rendered: this effect runs once React has committed `preview`,
   // after the snippet's own effects. A snippet that never finishes rendering (an endless loop)
   // is therefore never saved, and the next visit starts from the last one that did render.
+  // The linked Button is not saved as it is, so following the link keeps an earlier snippet.
   React.useEffect(() => {
-    if (loaded) writeSavedCode(browserStorage(), preview);
+    if (loaded && preview !== linked.current) writeSavedCode(browserStorage(), preview);
   }, [loaded, preview]);
 
   const reset = () => {
