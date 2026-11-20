@@ -45,21 +45,38 @@ Render an Alert only when the message appears. An Alert present on first paint i
 
 ## With a title and actions
 
-Alert is a flex row, so compose whatever the message needs.
+A `Text`, `Col`, `Stack` or `Row` placed directly in an Alert takes the free width of the row, so a `Button` after the message sits at the end edge. `itemsCenter` centres the button on a short message.
 
 ```tsx demo
-<Alert warning>
+<Alert warning itemsCenter>
   <Col noGap>
     <Text fontSemibold>Your trial ends in three days</Text>
     <Text sm>Add a payment method to keep your projects running.</Text>
   </Col>
-  <Button sm warning filled>Add card</Button>
+  <Button warning filled>Add card</Button>
+</Alert>
+```
+
+For a message of several lines, or more than one button, put the buttons in the `Col`, under the text.
+
+```tsx demo
+<Alert danger>
+  <Col>
+    <Col noGap>
+      <Text fontSemibold>Payment failed</Text>
+      <Text sm>The card ending in 4242 was declined. Update the card or try another payment method. Your projects keep running for seven days.</Text>
+    </Col>
+    <Row>
+      <Button danger filled>Update card</Button>
+      <Button danger ghost>Contact support</Button>
+    </Row>
+  </Col>
 </Alert>
 ```
 
 ## With an icon
 
-A leading icon spans one text line, so it centres on the first line of the message.
+A leading icon spans one text line, so it centres on the first line of the message. The Alert sets its width from the size prop: 20px at `md`. An icon with a `size-*` class keeps that size.
 
 ```tsx demo
 <Alert info>
@@ -89,6 +106,16 @@ Alert is `rounded` by default. `sharp` suits an alert pinned to the edge of a pa
 ```
 
 ## Sizes
+
+The size prop sets the text, radius, padding, gap and icon together. Alert text runs one step below body text, so `md` renders 14px text, and the radius matches an Input of the same size.
+
+| Size | Text | Radius | Padding | Gap | Icon |
+|------|------|--------|---------|-----|------|
+| `xs` | 12px | 6px | 8px | 6px | 17px |
+| `sm` | 13px | 7px | 12px | 8px | 19px |
+| `md` | 14px | 8px | 16px | 12px | 20px |
+| `lg` | 16px | 10px | 20px | 16px | 23px |
+| `xl` | 18px | 12px | 24px | 20px | 26px |
 
 ```tsx demo
 <Col>
