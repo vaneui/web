@@ -170,6 +170,27 @@ import { Button } from '@vaneui/ui';
 <Button href="/docs" tag={Link}>Documentation</Button>
 ```
 
+## How Button centers its label
+
+A browser centers the line box of a font, and that box is rarely even around the letters. A label therefore sits a fraction of a pixel above or below the middle of its button, in a direction that depends on the font. Since 1.7.0, Button renders each run of its own text in a `<span class="vane-text-run">`, and the stylesheet trims that span to the height of the capital letters with `text-box`. The label sits in the middle with any font, and the button keeps its size.
+
+```tsx
+<Button><Download/> Download</Button>
+```
+
+```html
+<button class="vane-button ...">
+  <svg></svg>
+  <span class="vane-text-run"> Download</span>
+</button>
+```
+
+[IconButton](/docs/basic-components/icon-button), [Badge](/docs/basic-components/badge), [Chip](/docs/basic-components/chip), [Alert](/docs/basic-components/alert), [Tooltip](/docs/overlay-components/tooltip) and the items and labels of a [Menu](/docs/overlay-components/menu) wrap their text the same way. [NavLink](/docs/basic-components/navlink) trims the label span it already renders. The markup has three consequences:
+
+- In a test, find the component by its role or its class, for example `getByRole('button', { name: 'Download' })`. `getByText('Download')` returns the span, not the button.
+- Text passed as an element (a translation component, a fragment, a `<span>` of your own) is not wrapped and renders where the line box of the font puts it. Give your own span `className="vane-text-run"` to center it the same way.
+- The trim needs the CSS `text-box` property: Chrome and Edge 133, Safari 18.2 or Firefox 154. An older browser renders the span without the trim, so the text stays where it was before 1.7.0.
+
 ## Customizing
 
 Set app-wide Button defaults with `ThemeProvider`'s `themeDefaults`:

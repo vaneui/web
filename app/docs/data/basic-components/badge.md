@@ -27,7 +27,7 @@ Badge highlights a short piece of information such as a count or status, and eac
 
 ## Sizes
 
-Badges come in different sizes such as `xs`, `sm`, `md` (default), `lg`, `xl`.
+Badges come in different sizes such as `xs`, `sm`, `md` (default), `lg`, `xl`. At every size the text is centered by the height of its capital letters. It sits in a `<span class="vane-text-run">`, which [How Button centers its label](/docs/basic-components/button#how-button-centers-its-label) explains.
 
 ```tsx demo
 <Row flexWrap>

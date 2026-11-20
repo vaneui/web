@@ -38,7 +38,7 @@ A tooltip that only opens on hover is invisible to keyboard users, so Tooltip op
 
 ## Sizes
 
-Tooltip defaults to `sm`. Its text, padding and corner radius follow its own size, `xs` to `xl`, and the text sits one font step under a Button of the same size. The tooltip does not shrink on phones.
+Tooltip defaults to `sm`. Its text, padding and corner radius follow its own size, `xs` to `xl`, and the text sits one font step under a Button of the same size. The tooltip does not shrink on phones. Text placed directly in the tooltip is centered by the height of its capital letters, in the `<span class="vane-text-run">` that [How Button centers its label](/docs/basic-components/button#how-button-centers-its-label) explains.
 
 ```tsx demo
 <Row flexWrap>
