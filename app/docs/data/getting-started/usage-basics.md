@@ -20,7 +20,7 @@ Components support five sizes:
 </Stack>
 ```
 
-> Most components default to `md`. Button, IconButton, NavLink, MenuItem, MenuLabel, Label, and Tooltip default to `sm`.
+> Most components default to `md`. The controls and the dense components default to `sm`: Button, IconButton, Input, Textarea, Select, Field, Label, NavLink, MenuItem, MenuLabel, Tooltip, Badge, and Table.
 
 ### Appearance props
 

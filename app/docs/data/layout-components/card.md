@@ -175,7 +175,7 @@ The shadow props share one category with `shadow` and `noShadow`, so set one of 
 
 ## Card with sub-components
 
-Use `CardHeader`, `CardBody`, and `CardFooter` to give a card explicit structural regions. When any sub-component is present the parent Card switches to compound mode and the sub-components own padding.
+Use `CardHeader`, `CardBody`, and `CardFooter` to give a card explicit structural regions. When any sub-component is present the parent Card switches to compound mode and the sub-components own padding. The parts meet one inset apart: the body keeps its padding, the header drops its bottom padding, the footer drops its top padding, and the Card puts no gap between them. For a divider, add `borderB` to the header or `borderT` to the footer. A part with a line, and a `filled` part, keeps its padding on that side.
 
 ```tsx demo
 <Card>

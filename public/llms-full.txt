@@ -374,7 +374,7 @@ Components support five sizes:
 </Stack>
 ```
 
-> Most components default to `md`. Button, IconButton, NavLink, MenuItem, MenuLabel, Label, and Tooltip default to `sm`.
+> Most components default to `md`. The controls and the dense components default to `sm`: Button, IconButton, Input, Textarea, Select, Field, Label, NavLink, MenuItem, MenuLabel, Tooltip, Badge, and Table.
 
 ### Appearance props
 
@@ -1999,7 +1999,7 @@ Badge adds a short label, such as an unread count, "Live" or "Pro", next to a ti
 
 ## Basic usage
 
-Badge highlights a short piece of information such as a count or status, and each `appearance` prop maps to a semantic color from the active theme. Badge defaults to `md`, `secondary`, `outline`, `pill`, and `fontSemibold` in normal case. Add `uppercase` for a status-chip look.
+Badge highlights a short piece of information such as a count or status, and each `appearance` prop maps to a semantic color from the active theme. Badge defaults to `sm`, `secondary`, `outline`, `pill`, and `fontSemibold` in normal case. Add `uppercase` for a status-chip look.
 
 ```tsx demo
 <Row flexWrap>
@@ -2017,12 +2017,12 @@ Badge highlights a short piece of information such as a count or status, and eac
 
 ## Sizes
 
-Badges come in different sizes such as `xs`, `sm`, `md` (default), `lg`, `xl`.
+Badges come in five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. The default has 12px text and is 20px tall.
 
 ```tsx demo
 <Row flexWrap>
   <Badge xs>xs</Badge>
-  <Badge sm>sm</Badge>
+  <Badge>sm</Badge>
   <Badge md>md</Badge>
   <Badge lg>lg</Badge>
   <Badge xl>xl</Badge>
@@ -2128,7 +2128,7 @@ Set app-wide Badge defaults with `ThemeProvider`'s `themeDefaults`:
 - Padding: `padding` (default), `paddingX`, `paddingY`, `noPadding`
 - Shape: `pill` (default), `sharp`, `rounded`
 - Shrink: `noShrink`
-- Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Size: `xs`, `sm` (default), `md`, `lg`, `xl`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -2846,7 +2846,7 @@ Wrap any SVG inside `Icon` to apply consistent sizing and color inheritance.
 
 ## Sizes
 
-Icons support five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
+Icons support five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. The glyph is 12, 16, 20, 24 and 32px, so the default sits next to body text. For a larger glyph, give the SVG a `size-*` class.
 
 ```tsx demo
 <Row flexWrap itemsEnd>
@@ -3805,7 +3805,7 @@ Input takes a single-line value, such as a name, an email address or a search qu
 
 ## Basic usage
 
-Input renders a styled text field for entering text, numbers, and other data. It defaults to `md`, `primary`, `outline`, and `rounded`, with `insetRing` and `focusVisible`. Input is `wFull` by default, so it spans its container. Constrain the width with a sized parent or `className="w-64"`.
+Input renders a styled text field for entering text, numbers, and other data. It defaults to `sm`, `primary`, `outline`, and `rounded`, with `insetRing` and `focusVisible`. Input is `wFull` by default, so it spans its container. Constrain the width with a sized parent or `className="w-64"`.
 
 ```tsx demo
 <Input placeholder="Enter text..." />
@@ -3813,20 +3813,20 @@ Input renders a styled text field for entering text, numbers, and other data. It
 
 ## Sizes
 
-Inputs come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. At the same size an Input is as tall as a `Button` and has the same corner radius. Button defaults to `sm` and Input to `md`, so give a button beside a field the field's size.
+Inputs come in different sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. At the same size an Input is as tall as a `Button` and has the same corner radius. Both default to `sm`, so a field and a button with no size prop line up. When you size one, give the other the same prop.
 
 ```tsx demo
 <Row>
   <Input placeholder="you@company.com" />
-  <Button md filled>Subscribe</Button>
+  <Button filled>Subscribe</Button>
 </Row>
 ```
 
 ```tsx demo
 <Col>
   <Input xs placeholder="Extra small" />
-  <Input sm placeholder="Small" />
-  <Input placeholder="Medium (default)" />
+  <Input placeholder="Small (default)" />
+  <Input md placeholder="Medium" />
   <Input lg placeholder="Large" />
   <Input xl placeholder="Extra large" />
 </Col>
@@ -3943,7 +3943,7 @@ Set app-wide Input defaults with `ThemeProvider`'s `themeDefaults` and add a foc
 - Read Only: `readOnly`
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
-- Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Size: `xs`, `sm` (default), `md`, `lg`, `xl`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -4623,10 +4623,10 @@ Field's size sets the whole block: the label and the control both take it, and t
   <Field xs label="Extra small">
     <Input placeholder="xs"/>
   </Field>
-  <Field sm label="Small">
+  <Field label="Small (default)">
     <Input placeholder="sm"/>
   </Field>
-  <Field label="Medium (default)">
+  <Field md label="Medium">
     <Input placeholder="md"/>
   </Field>
   <Field lg label="Large">
@@ -4691,7 +4691,7 @@ If the control already carries an `id`, Field adopts it rather than generating o
 - Padding: `padding`, `paddingX`, `paddingY`, `noPadding` (default)
 - Shape: `pill`, `sharp` (default), `rounded`
 - Shrink: `noShrink`
-- Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Size: `xs`, `sm` (default), `md`, `lg`, `xl`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
@@ -4722,8 +4722,8 @@ It resizes vertically by default and has a minimum height of three lines, so an 
 ```tsx demo
 <Col>
   <Textarea xs placeholder="xs"/>
-  <Textarea sm placeholder="sm"/>
-  <Textarea placeholder="md (default)"/>
+  <Textarea placeholder="sm (default)"/>
+  <Textarea md placeholder="md"/>
   <Textarea lg placeholder="lg"/>
   <Textarea xl placeholder="xl"/>
 </Col>
@@ -4795,7 +4795,7 @@ Note that the value itself never turns red. Colouring what the user typed hurts 
 - Read Only: `readOnly`
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
-- Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Size: `xs`, `sm` (default), `md`, `lg`, `xl`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -4843,7 +4843,7 @@ Nothing is required to opt in, and nothing breaks on engines without it: the enh
 
 ## Sizes
 
-Selects come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. The chevron and the room reserved for it scale with the field.
+Selects come in five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. The chevron and the room reserved for it scale with the field.
 
 ```tsx demo
 <Col>
@@ -4853,13 +4853,13 @@ Selects come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. The chevron 
     <option value="md">Medium</option>
     <option value="lg">Large</option>
   </Select>
-  <Select sm defaultValue="sm">
+  <Select defaultValue="sm">
     <option value="xs">Extra small</option>
     <option value="sm">Small</option>
     <option value="md">Medium</option>
     <option value="lg">Large</option>
   </Select>
-  <Select defaultValue="sm">
+  <Select md defaultValue="sm">
     <option value="xs">Extra small</option>
     <option value="sm">Small</option>
     <option value="md">Medium</option>
@@ -5022,7 +5022,7 @@ An `optgroup` labels a run of related options, and the placeholder stays above t
 - Read Only: `readOnly`
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
-- Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Size: `xs`, `sm` (default), `md`, `lg`, `xl`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -6110,11 +6110,11 @@ Titles pair naturally with badges, chips, and other inline components.
 <Col>
   <Row>
     <Title>Release Notes</Title>
-    <Badge sm success>New</Badge>
+    <Badge success>New</Badge>
   </Row>
   <Row>
     <Title>Deprecated API</Title>
-    <Badge sm danger>Removed</Badge>
+    <Badge danger>Removed</Badge>
   </Row>
 </Col>
 ```
@@ -8401,7 +8401,7 @@ The shadow props share one category with `shadow` and `noShadow`, so set one of 
 
 ## Card with sub-components
 
-Use `CardHeader`, `CardBody`, and `CardFooter` to give a card explicit structural regions. When any sub-component is present the parent Card switches to compound mode and the sub-components own padding.
+Use `CardHeader`, `CardBody`, and `CardFooter` to give a card explicit structural regions. When any sub-component is present the parent Card switches to compound mode and the sub-components own padding. The parts meet one inset apart: the body keeps its padding, the header drops its bottom padding, the footer drops its top padding, and the Card puts no gap between them. For a divider, add `borderB` to the header or `borderT` to the footer. A part with a line, and a `filled` part, keeps its padding on that side.
 
 ```tsx demo
 <Card>
@@ -9180,7 +9180,7 @@ Use Table for data that readers compare across rows and down columns, such as a 
 
 ## Basic usage
 
-Compose a table from `Table`, `Thead`, `Tbody`, `Tr`, `Th`, and `Td`. Header cells (`Th`) render semibold with muted text, and every cell gets a bottom row rule. `Table` defaults to `md`, `wFull`, `noBorder`, and `fontSans`. Add `scope="col"` to header cells so assistive technology associates each column with its data.
+Compose a table from `Table`, `Thead`, `Tbody`, `Tr`, `Th`, and `Td`. Header cells (`Th`) render semibold with muted text, and every cell gets a bottom row rule. `Table` defaults to `sm`, `wFull`, `noBorder`, and `fontSans`. Add `scope="col"` to header cells so assistive technology associates each column with its data.
 
 ```tsx demo
 <Table>
@@ -9208,7 +9208,7 @@ Compose a table from `Table`, `Thead`, `Tbody`, `Tr`, `Th`, and `Td`. Header cel
 
 ## Sizes
 
-The size prop scales both text and cell padding, and it cascades from the table to every cell. Set it once on `Table` to size the whole table: `xs`, `sm`, `md` (default), `lg`, `xl`.
+The size prop scales both text and cell padding, and it cascades from the table to every cell. Set it once on `Table` to size the whole table: `xs`, `sm` (default), `md`, `lg`, `xl`. The default has 14px text.
 
 ```tsx demo
 <Stack>
@@ -9216,13 +9216,13 @@ The size prop scales both text and cell padding, and it cascades from the table 
     <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
     <Tbody><Tr><Td>xs table</Td><Td textRight>tightest</Td></Tr></Tbody>
   </Table>
-  <Table sm>
-    <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
-    <Tbody><Tr><Td>sm table</Td><Td textRight>compact</Td></Tr></Tbody>
-  </Table>
   <Table>
     <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
-    <Tbody><Tr><Td>md table</Td><Td textRight>default</Td></Tr></Tbody>
+    <Tbody><Tr><Td>sm table</Td><Td textRight>default</Td></Tr></Tbody>
+  </Table>
+  <Table md>
+    <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
+    <Tbody><Tr><Td>md table</Td><Td textRight>roomy</Td></Tr></Tbody>
   </Table>
   <Table lg>
     <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
@@ -9387,7 +9387,7 @@ Cells accept any VaneUI component. Drop a `Badge` into a status column.
 Cells render in the sans font (`fontSans`, the default), whatever font the page around them uses. Pass `fontMono` for machine output such as ids and hashes, or `fontSerif` / `fontHeading`.
 
 ```tsx demo
-<Table fontMono sm>
+<Table fontMono>
   <Thead><Tr><Th scope="col">Commit</Th><Th scope="col">Message</Th></Tr></Thead>
   <Tbody>
     <Tr><Td>6aba224</Td><Td>fix: make components consistent</Td></Tr>
@@ -9429,7 +9429,7 @@ Set table defaults with `ThemeProvider`'s `themeDefaults`. The `table` node has 
 - Appearance: `primary`, `accent`, `secondary` (default), `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
 - Font Family: `fontSans` (default), `fontSerif`, `fontMono`, `fontHeading`
 - Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin`
-- Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Size: `xs`, `sm` (default), `md`, `lg`, `xl`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
@@ -9748,6 +9748,8 @@ Use `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton` for full c
 - `ModalBody`: `flex column`, `gap`, `padding`, `overflowAuto`
 - `ModalFooter`: `flex row`, `itemsCenter`, `justifyEnd`, `gap`, `padding`
 - `ModalCloseButton`: `sm`, `secondary`, `outline`, `transparent`, `noShadow`, `noInsetRing`
+
+The parts meet one inset apart: `ModalBody` keeps its padding, `ModalHeader` drops its bottom padding, `ModalFooter` drops its top padding, and the Modal puts no gap between them. A header with `borderB`, a footer with `borderT` and a `filled` part keep their padding on that side.
 
 ```tsx demo
 const [open, setOpen] = useState(false);
@@ -13071,7 +13073,7 @@ Source: https://vaneui.com/docs/reference/common-props
 
 Layout and utility props shared across most VaneUI components. Documented here once instead of on every component page. Per-component pages link here from the "Layout & utility props" disclosure under their props table.
 
-Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inheritAppearance`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except `Button`, `IconButton`, `NavLink`, `Label`, `MenuItem`, `MenuLabel`, and `Tooltip` which default to `sm`. The `ghost` variant renders a transparent background with no border and appearance-colored text, plus a tinted hover background.
+Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inheritAppearance`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except the controls and the dense components, which default to `sm`: `Button`, `IconButton`, `Input`, `Textarea`, `Select`, `Field`, `Label`, `NavLink`, `MenuItem`, `MenuLabel`, `Tooltip`, `Badge`, and `Table`. The `ghost` variant renders a transparent background with no border and appearance-colored text, plus a tinted hover background.
 
 ## Hide
 
@@ -13471,6 +13473,29 @@ package follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html): patc
 fixes, minor for additive props and components, major for anything that changes an
 existing prop name, default, or rendered element. Releases ship when work is ready
 rather than on a fixed calendar.
+
+## Unreleased
+
+### Changed
+
+- `Input`, `Textarea`, `Select` and `Field` default to `sm`, the size `Button` already
+  defaults to. A field and a button written with no size prop were 37px and 30px tall, with
+  16px and 14px text; both are now 30px with 14px text. Pass `md` to keep the earlier size.
+  To keep it everywhere, set
+  `themeDefaults={{ input: { md: true }, textarea: { md: true }, select: { md: true }, field: { main: { md: true } } }}`.
+- `Badge` defaults to `sm`: 12px text and 20px tall, where it was 14px and 25px. Pass `md`
+  for the earlier size.
+- `Table` defaults to `sm`: 14px text and 6px by 12px cell padding, where it was 16px and 8px
+  by 16px. Pass `md` for the earlier size.
+- `Icon` sizes are 12, 16, 20, 24 and 32px for `xs` to `xl`. They were 16, 24, 32, 48 and
+  64px, so a default `Icon` next to body text was 32px. For a larger glyph, give the SVG a
+  `size-*` class.
+- The parts of a `Card` and a `Modal` meet one inset apart. Each part padded all four sides
+  and the surface added its gap, which left 64px between a Modal title and its body at `md`
+  (60px in a Card). The body keeps its padding, the header drops its bottom padding, the
+  footer drops its top padding, and the surface has no gap between parts: 24px at `md`. A
+  header with `borderB`, a footer with `borderT` and a `filled` part keep their padding on
+  that side, and a padding class on a part still wins.
 
 ## 1.6.3
 

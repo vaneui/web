@@ -22,8 +22,8 @@ It resizes vertically by default and has a minimum height of three lines, so an 
 ```tsx demo
 <Col>
   <Textarea xs placeholder="xs"/>
-  <Textarea sm placeholder="sm"/>
-  <Textarea placeholder="md (default)"/>
+  <Textarea placeholder="sm (default)"/>
+  <Textarea md placeholder="md"/>
   <Textarea lg placeholder="lg"/>
   <Textarea xl placeholder="xl"/>
 </Col>

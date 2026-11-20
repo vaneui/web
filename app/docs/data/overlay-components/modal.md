@@ -42,6 +42,8 @@ Use `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton` for full c
 - `ModalFooter`: `flex row`, `itemsCenter`, `justifyEnd`, `gap`, `padding`
 - `ModalCloseButton`: `sm`, `secondary`, `outline`, `transparent`, `noShadow`, `noInsetRing`
 
+The parts meet one inset apart: `ModalBody` keeps its padding, `ModalHeader` drops its bottom padding, `ModalFooter` drops its top padding, and the Modal puts no gap between them. A header with `borderB`, a footer with `borderT` and a `filled` part keep their padding on that side.
+
 ```tsx demo
 const [open, setOpen] = useState(false);
 

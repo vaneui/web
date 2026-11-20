@@ -9,7 +9,7 @@ Input takes a single-line value, such as a name, an email address or a search qu
 
 ## Basic usage
 
-Input renders a styled text field for entering text, numbers, and other data. It defaults to `md`, `primary`, `outline`, and `rounded`, with `insetRing` and `focusVisible`. Input is `wFull` by default, so it spans its container. Constrain the width with a sized parent or `className="w-64"`.
+Input renders a styled text field for entering text, numbers, and other data. It defaults to `sm`, `primary`, `outline`, and `rounded`, with `insetRing` and `focusVisible`. Input is `wFull` by default, so it spans its container. Constrain the width with a sized parent or `className="w-64"`.
 
 ```tsx demo
 <Input placeholder="Enter text..." />
@@ -17,20 +17,20 @@ Input renders a styled text field for entering text, numbers, and other data. It
 
 ## Sizes
 
-Inputs come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. At the same size an Input is as tall as a `Button` and has the same corner radius. Button defaults to `sm` and Input to `md`, so give a button beside a field the field's size.
+Inputs come in different sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. At the same size an Input is as tall as a `Button` and has the same corner radius. Both default to `sm`, so a field and a button with no size prop line up. When you size one, give the other the same prop.
 
 ```tsx demo
 <Row>
   <Input placeholder="you@company.com" />
-  <Button md filled>Subscribe</Button>
+  <Button filled>Subscribe</Button>
 </Row>
 ```
 
 ```tsx demo
 <Col>
   <Input xs placeholder="Extra small" />
-  <Input sm placeholder="Small" />
-  <Input placeholder="Medium (default)" />
+  <Input placeholder="Small (default)" />
+  <Input md placeholder="Medium" />
   <Input lg placeholder="Large" />
   <Input xl placeholder="Extra large" />
 </Col>
