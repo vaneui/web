@@ -9,7 +9,7 @@ Badge adds a short label, such as an unread count, "Live" or "Pro", next to a ti
 
 ## Basic usage
 
-Badge highlights a short piece of information such as a count or status, and each `appearance` prop maps to a semantic color from the active theme. Badge defaults to `md`, `secondary`, `outline`, `pill`, and `fontSemibold` in normal case. Add `uppercase` for a status-chip look.
+Badge highlights a short piece of information such as a count or status, and each `appearance` prop maps to a semantic color from the active theme. Badge defaults to `sm`, `secondary`, `outline`, `pill`, and `fontSemibold` in normal case. Add `uppercase` for a status-chip look.
 
 ```tsx demo
 <Row flexWrap>
@@ -27,12 +27,12 @@ Badge highlights a short piece of information such as a count or status, and eac
 
 ## Sizes
 
-Badges come in different sizes such as `xs`, `sm`, `md` (default), `lg`, `xl`. At every size the text is centered by the height of its capital letters. It sits in a `<span class="vane-text-run">`, which [How Button centers its label](/docs/basic-components/button#how-button-centers-its-label) explains.
+Badges come in five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. The default has 12px text and is 20px tall. At every size the text is centered by the height of its capital letters. It sits in a `<span class="vane-text-run">`, which [How Button centers its label](/docs/basic-components/button#how-button-centers-its-label) explains.
 
 ```tsx demo
 <Row flexWrap>
   <Badge xs>xs</Badge>
-  <Badge sm>sm</Badge>
+  <Badge>sm</Badge>
   <Badge md>md</Badge>
   <Badge lg>lg</Badge>
   <Badge xl>xl</Badge>

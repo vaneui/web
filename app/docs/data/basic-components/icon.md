@@ -23,7 +23,7 @@ Wrap any SVG inside `Icon` to apply consistent sizing and color inheritance.
 
 ## Sizes
 
-Icons support five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
+Icons support five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. The glyph is 12, 16, 20, 24 and 32px, so the default sits next to body text. For a larger glyph, give the SVG a `size-*` class.
 
 ```tsx demo
 <Row flexWrap itemsEnd>

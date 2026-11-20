@@ -175,10 +175,10 @@ Field's size sets the whole block: the label and the control both take it, and t
   <Field xs label="Extra small">
     <Input placeholder="xs"/>
   </Field>
-  <Field sm label="Small">
+  <Field label="Small (default)">
     <Input placeholder="sm"/>
   </Field>
-  <Field label="Medium (default)">
+  <Field md label="Medium">
     <Input placeholder="md"/>
   </Field>
   <Field lg label="Large">

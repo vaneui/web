@@ -116,7 +116,7 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
       <Row noShrink borderB className="pl-4 pr-14 py-1">
         <Search aria-hidden="true" className="size-4 shrink-0 opacity-60"/>
         {/* The field fills the bar, so the bar itself is the focused control: no ring or outline of its own */}
-        <Input ref={inputRef} paddingY transparent noInsetRing noFocusVisible className="outline-none"
+        <Input ref={inputRef} md paddingY transparent noInsetRing noFocusVisible className="outline-none"
                placeholder="Search docs" enterKeyHint="go" autoComplete="off" spellCheck={false}
                role="combobox" aria-label="Search documentation" aria-autocomplete="list"
                aria-expanded={hits.length > 0} aria-controls={listId}

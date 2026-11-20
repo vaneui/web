@@ -9,7 +9,7 @@ Use Table for data that readers compare across rows and down columns, such as a 
 
 ## Basic usage
 
-Compose a table from `Table`, `Thead`, `Tbody`, `Tr`, `Th`, and `Td`. Header cells (`Th`) render semibold with muted text, and every cell gets a bottom row rule. `Table` defaults to `md`, `wFull`, `noBorder`, and `fontSans`. Add `scope="col"` to header cells so assistive technology associates each column with its data.
+Compose a table from `Table`, `Thead`, `Tbody`, `Tr`, `Th`, and `Td`. Header cells (`Th`) render semibold with muted text, and every cell gets a bottom row rule. `Table` defaults to `sm`, `wFull`, `noBorder`, and `fontSans`. Add `scope="col"` to header cells so assistive technology associates each column with its data.
 
 ```tsx demo
 <Table>
@@ -37,7 +37,7 @@ Compose a table from `Table`, `Thead`, `Tbody`, `Tr`, `Th`, and `Td`. Header cel
 
 ## Sizes
 
-The size prop scales both text and cell padding, and it cascades from the table to every cell. Set it once on `Table` to size the whole table: `xs`, `sm`, `md` (default), `lg`, `xl`.
+The size prop scales both text and cell padding, and it cascades from the table to every cell. Set it once on `Table` to size the whole table: `xs`, `sm` (default), `md`, `lg`, `xl`. The default has 14px text.
 
 ```tsx demo
 <Stack>
@@ -45,13 +45,13 @@ The size prop scales both text and cell padding, and it cascades from the table 
     <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
     <Tbody><Tr><Td>xs table</Td><Td textRight>tightest</Td></Tr></Tbody>
   </Table>
-  <Table sm>
-    <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
-    <Tbody><Tr><Td>sm table</Td><Td textRight>compact</Td></Tr></Tbody>
-  </Table>
   <Table>
     <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
-    <Tbody><Tr><Td>md table</Td><Td textRight>default</Td></Tr></Tbody>
+    <Tbody><Tr><Td>sm table</Td><Td textRight>default</Td></Tr></Tbody>
+  </Table>
+  <Table md>
+    <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
+    <Tbody><Tr><Td>md table</Td><Td textRight>roomy</Td></Tr></Tbody>
   </Table>
   <Table lg>
     <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
@@ -216,7 +216,7 @@ Cells accept any VaneUI component. Drop a `Badge` into a status column.
 Cells render in the sans font (`fontSans`, the default), whatever font the page around them uses. Pass `fontMono` for machine output such as ids and hashes, or `fontSerif` / `fontHeading`.
 
 ```tsx demo
-<Table fontMono sm>
+<Table fontMono>
   <Thead><Tr><Th scope="col">Commit</Th><Th scope="col">Message</Th></Tr></Thead>
   <Tbody>
     <Tr><Td>6aba224</Td><Td>fix: make components consistent</Td></Tr>

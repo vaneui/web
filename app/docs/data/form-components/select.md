@@ -35,7 +35,7 @@ Nothing is required to opt in, and nothing breaks on engines without it: the enh
 
 ## Sizes
 
-Selects come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. The chevron and the room reserved for it scale with the field.
+Selects come in five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. The chevron and the room reserved for it scale with the field.
 
 ```tsx demo
 <Col>
@@ -45,13 +45,13 @@ Selects come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. The chevron 
     <option value="md">Medium</option>
     <option value="lg">Large</option>
   </Select>
-  <Select sm defaultValue="sm">
+  <Select defaultValue="sm">
     <option value="xs">Extra small</option>
     <option value="sm">Small</option>
     <option value="md">Medium</option>
     <option value="lg">Large</option>
   </Select>
-  <Select defaultValue="sm">
+  <Select md defaultValue="sm">
     <option value="xs">Extra small</option>
     <option value="sm">Small</option>
     <option value="md">Medium</option>

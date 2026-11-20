@@ -149,11 +149,11 @@ Titles pair naturally with badges, chips, and other inline components.
 <Col>
   <Row>
     <Title>Release Notes</Title>
-    <Badge sm success>New</Badge>
+    <Badge success>New</Badge>
   </Row>
   <Row>
     <Title>Deprecated API</Title>
-    <Badge sm danger>Removed</Badge>
+    <Badge danger>Removed</Badge>
   </Row>
 </Col>
 ```
