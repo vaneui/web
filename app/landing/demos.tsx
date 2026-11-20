@@ -92,15 +92,15 @@ export const GALLERY_TILES: { name: string; parts: { name: string; href: string 
     parts: [{ name: 'Table', href: DOCS.table }, { name: 'Badge', href: DOCS.badge }],
     href: DOCS.table,
     demo: (
-      <Table sm>
+      <Table>
         <Thead>
           <Tr><Th scope="col">Service</Th><Th scope="col">Status</Th><Th scope="col" textRight>Latency</Th></Tr>
         </Thead>
         <Tbody>
-          <Tr><Td>api</Td><Td><Badge sm success>Up</Badge></Td><Td textRight>42ms</Td></Tr>
-          <Tr><Td>auth</Td><Td><Badge sm warning>Slow</Badge></Td><Td textRight>380ms</Td></Tr>
-          <Tr><Td>billing</Td><Td><Badge sm danger>Down</Badge></Td><Td textRight>none</Td></Tr>
-          <Tr><Td>search</Td><Td><Badge sm success>Up</Badge></Td><Td textRight>65ms</Td></Tr>
+          <Tr><Td>api</Td><Td><Badge success>Up</Badge></Td><Td textRight>42ms</Td></Tr>
+          <Tr><Td>auth</Td><Td><Badge warning>Slow</Badge></Td><Td textRight>380ms</Td></Tr>
+          <Tr><Td>billing</Td><Td><Badge danger>Down</Badge></Td><Td textRight>none</Td></Tr>
+          <Tr><Td>search</Td><Td><Badge success>Up</Badge></Td><Td textRight>65ms</Td></Tr>
         </Tbody>
       </Table>
     ),
@@ -157,7 +157,7 @@ export const GALLERY_TILES: { name: string; parts: { name: string; href: string 
     demo: (
       <Col noGap>
         <NavLink active><Home aria-hidden="true"/> Overview</NavLink>
-        <NavLink><BarChart2 aria-hidden="true"/> Analytics <Badge sm info>New</Badge></NavLink>
+        <NavLink><BarChart2 aria-hidden="true"/> Analytics <Badge info>New</Badge></NavLink>
         <NavLink><Users aria-hidden="true"/> Team</NavLink>
         <NavLink><Settings aria-hidden="true"/> Settings</NavLink>
       </Col>
