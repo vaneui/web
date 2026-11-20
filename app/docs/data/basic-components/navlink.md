@@ -21,7 +21,7 @@ NavLink renders as an `<a>` when `href` is provided. Defaults to `sm` size, `pri
 
 ## Sizes
 
-NavLink supports five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
+NavLink supports five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables. At every size the label is centered by the height of its capital letters: NavLink trims its label span (`vane-nav-link-label`) the way [Button trims its text](/docs/basic-components/button#how-button-centers-its-label).
 
 ```tsx demo
 <Col className="w-72">

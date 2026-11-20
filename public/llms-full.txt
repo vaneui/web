@@ -1,13 +1,13 @@
 # VaneUI Documentation
 
-> Complete documentation for the VaneUI React component library (`@vaneui/ui` 1.6.3),
+> Complete documentation for the VaneUI React component library (`@vaneui/ui` 1.7.0),
 > every doc page concatenated into one file. Each page starts with `# <page name>`, its URL and
 > one import line for the `@vaneui/ui` exports its examples use. Component pages end with
 > their props, grouped by category with defaults marked, generated from the installed package.
 
 - Repository: https://github.com/vaneui/vaneui
 - Documentation: https://vaneui.com
-- Package: `@vaneui/ui` 1.6.3
+- Package: `@vaneui/ui` 1.7.0
 - Index: https://vaneui.com/llms.txt
 - Contact: hello@vaneui.com
 
@@ -374,7 +374,7 @@ Components support five sizes:
 </Stack>
 ```
 
-> Most components default to `md`. The controls and the dense components default to `sm`: Button, IconButton, Input, Textarea, Select, Field, Label, NavLink, MenuItem, MenuLabel, Tooltip, Badge, and Table.
+> Most components default to `md`. Button, IconButton, NavLink, MenuItem, MenuLabel, Label, and Tooltip default to `sm`.
 
 ### Appearance props
 
@@ -1490,6 +1490,27 @@ import { Button } from '@vaneui/ui';
 <Button href="/docs" tag={Link}>Documentation</Button>
 ```
 
+## How Button centers its label
+
+A browser centers the line box of a font, and that box is rarely even around the letters. A label therefore sits a fraction of a pixel above or below the middle of its button, in a direction that depends on the font. Since 1.7.0, Button renders each run of its own text in a `<span class="vane-text-run">`, and the stylesheet trims that span to the height of the capital letters with `text-box`. The label sits in the middle with any font, and the button keeps its size.
+
+```tsx
+<Button><Download/> Download</Button>
+```
+
+```html
+<button class="vane-button ...">
+  <svg></svg>
+  <span class="vane-text-run"> Download</span>
+</button>
+```
+
+[IconButton](/docs/basic-components/icon-button), [Badge](/docs/basic-components/badge), [Chip](/docs/basic-components/chip), [Alert](/docs/basic-components/alert), [Tooltip](/docs/overlay-components/tooltip) and the items and labels of a [Menu](/docs/overlay-components/menu) wrap their text the same way. [NavLink](/docs/basic-components/navlink) trims the label span it already renders. The markup has three consequences:
+
+- In a test, find the component by its role or its class, for example `getByRole('button', { name: 'Download' })`. `getByText('Download')` returns the span, not the button.
+- Text passed as an element (a translation component, a fragment, a `<span>` of your own) is not wrapped and renders where the line box of the font puts it. Give your own span `className="vane-text-run"` to center it the same way.
+- The trim needs the CSS `text-box` property: Chrome and Edge 133, Safari 18.2 or Firefox 154. An older browser renders the span without the trim, so the text stays where it was before 1.7.0.
+
 ## Customizing
 
 Set app-wide Button defaults with `ThemeProvider`'s `themeDefaults`:
@@ -1764,7 +1785,7 @@ NavLink renders as an `<a>` when `href` is provided. Defaults to `sm` size, `pri
 
 ## Sizes
 
-NavLink supports five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
+NavLink supports five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables. At every size the label is centered by the height of its capital letters: NavLink trims its label span (`vane-nav-link-label`) the way [Button trims its text](/docs/basic-components/button#how-button-centers-its-label).
 
 ```tsx demo
 <Col className="w-72">
@@ -1999,7 +2020,7 @@ Badge adds a short label, such as an unread count, "Live" or "Pro", next to a ti
 
 ## Basic usage
 
-Badge highlights a short piece of information such as a count or status, and each `appearance` prop maps to a semantic color from the active theme. Badge defaults to `sm`, `secondary`, `outline`, `pill`, and `fontSemibold` in normal case. Add `uppercase` for a status-chip look.
+Badge highlights a short piece of information such as a count or status, and each `appearance` prop maps to a semantic color from the active theme. Badge defaults to `md`, `secondary`, `outline`, `pill`, and `fontSemibold` in normal case. Add `uppercase` for a status-chip look.
 
 ```tsx demo
 <Row flexWrap>
@@ -2017,12 +2038,12 @@ Badge highlights a short piece of information such as a count or status, and eac
 
 ## Sizes
 
-Badges come in five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. The default has 12px text and is 20px tall.
+Badges come in different sizes such as `xs`, `sm`, `md` (default), `lg`, `xl`. At every size the text is centered by the height of its capital letters. It sits in a `<span class="vane-text-run">`, which [How Button centers its label](/docs/basic-components/button#how-button-centers-its-label) explains.
 
 ```tsx demo
 <Row flexWrap>
   <Badge xs>xs</Badge>
-  <Badge>sm</Badge>
+  <Badge sm>sm</Badge>
   <Badge md>md</Badge>
   <Badge lg>lg</Badge>
   <Badge xl>xl</Badge>
@@ -2128,7 +2149,7 @@ Set app-wide Badge defaults with `ThemeProvider`'s `themeDefaults`:
 - Padding: `padding` (default), `paddingX`, `paddingY`, `noPadding`
 - Shape: `pill` (default), `sharp`, `rounded`
 - Shrink: `noShrink`
-- Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Size: `xs`, `sm`, `md` (default), `lg`, `xl`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -2167,7 +2188,7 @@ Chip is a compact token for tags or attributes, and each `appearance` prop maps 
 
 ## Sizes
 
-Chips come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
+Chips come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables. At every size the text is centered by the height of its capital letters. It sits in a `<span class="vane-text-run">`, which [How Button centers its label](/docs/basic-components/button#how-button-centers-its-label) explains.
 
 ```tsx demo
 <Row flexWrap>
@@ -2846,7 +2867,7 @@ Wrap any SVG inside `Icon` to apply consistent sizing and color inheritance.
 
 ## Sizes
 
-Icons support five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. The glyph is 12, 16, 20, 24 and 32px, so the default sits next to body text. For a larger glyph, give the SVG a `size-*` class.
+Icons support five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ```tsx demo
 <Row flexWrap itemsEnd>
@@ -3159,7 +3180,7 @@ Alert is `rounded` by default. `sharp` suits an alert pinned to the edge of a pa
 
 ## Sizes
 
-The size prop sets the text, radius, padding, gap and icon together. Alert text runs one step below body text, so `md` renders 14px text, and the radius matches an Input of the same size.
+The size prop sets the text, radius, padding, gap and icon together. Alert text runs one step below body text, so `md` renders 14px text, and the radius matches an Input of the same size. Text placed directly in the Alert is centered by the height of its capital letters, in the `<span class="vane-text-run">` that [How Button centers its label](/docs/basic-components/button#how-button-centers-its-label) explains.
 
 | Size | Text | Radius | Padding | Gap | Icon |
 |------|------|--------|---------|-----|------|
@@ -3805,7 +3826,7 @@ Input takes a single-line value, such as a name, an email address or a search qu
 
 ## Basic usage
 
-Input renders a styled text field for entering text, numbers, and other data. It defaults to `sm`, `primary`, `outline`, and `rounded`, with `insetRing` and `focusVisible`. Input is `wFull` by default, so it spans its container. Constrain the width with a sized parent or `className="w-64"`.
+Input renders a styled text field for entering text, numbers, and other data. It defaults to `md`, `primary`, `outline`, and `rounded`, with `insetRing` and `focusVisible`. Input is `wFull` by default, so it spans its container. Constrain the width with a sized parent or `className="w-64"`.
 
 ```tsx demo
 <Input placeholder="Enter text..." />
@@ -3813,20 +3834,20 @@ Input renders a styled text field for entering text, numbers, and other data. It
 
 ## Sizes
 
-Inputs come in different sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. At the same size an Input is as tall as a `Button` and has the same corner radius. Both default to `sm`, so a field and a button with no size prop line up. When you size one, give the other the same prop.
+Inputs come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. At the same size an Input is as tall as a `Button` and has the same corner radius. Button defaults to `sm` and Input to `md`, so give a button beside a field the field's size.
 
 ```tsx demo
 <Row>
   <Input placeholder="you@company.com" />
-  <Button filled>Subscribe</Button>
+  <Button md filled>Subscribe</Button>
 </Row>
 ```
 
 ```tsx demo
 <Col>
   <Input xs placeholder="Extra small" />
-  <Input placeholder="Small (default)" />
-  <Input md placeholder="Medium" />
+  <Input sm placeholder="Small" />
+  <Input placeholder="Medium (default)" />
   <Input lg placeholder="Large" />
   <Input xl placeholder="Extra large" />
 </Col>
@@ -3943,7 +3964,7 @@ Set app-wide Input defaults with `ThemeProvider`'s `themeDefaults` and add a foc
 - Read Only: `readOnly`
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
-- Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Size: `xs`, `sm`, `md` (default), `lg`, `xl`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -4623,10 +4644,10 @@ Field's size sets the whole block: the label and the control both take it, and t
   <Field xs label="Extra small">
     <Input placeholder="xs"/>
   </Field>
-  <Field label="Small (default)">
+  <Field sm label="Small">
     <Input placeholder="sm"/>
   </Field>
-  <Field md label="Medium">
+  <Field label="Medium (default)">
     <Input placeholder="md"/>
   </Field>
   <Field lg label="Large">
@@ -4691,7 +4712,7 @@ If the control already carries an `id`, Field adopts it rather than generating o
 - Padding: `padding`, `paddingX`, `paddingY`, `noPadding` (default)
 - Shape: `pill`, `sharp` (default), `rounded`
 - Shrink: `noShrink`
-- Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Size: `xs`, `sm`, `md` (default), `lg`, `xl`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
@@ -4722,8 +4743,8 @@ It resizes vertically by default and has a minimum height of three lines, so an 
 ```tsx demo
 <Col>
   <Textarea xs placeholder="xs"/>
-  <Textarea placeholder="sm (default)"/>
-  <Textarea md placeholder="md"/>
+  <Textarea sm placeholder="sm"/>
+  <Textarea placeholder="md (default)"/>
   <Textarea lg placeholder="lg"/>
   <Textarea xl placeholder="xl"/>
 </Col>
@@ -4795,7 +4816,7 @@ Note that the value itself never turns red. Colouring what the user typed hurts 
 - Read Only: `readOnly`
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
-- Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Size: `xs`, `sm`, `md` (default), `lg`, `xl`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -4843,7 +4864,7 @@ Nothing is required to opt in, and nothing breaks on engines without it: the enh
 
 ## Sizes
 
-Selects come in five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. The chevron and the room reserved for it scale with the field.
+Selects come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. The chevron and the room reserved for it scale with the field.
 
 ```tsx demo
 <Col>
@@ -4853,13 +4874,13 @@ Selects come in five sizes: `xs`, `sm` (default), `md`, `lg`, `xl`. The chevron 
     <option value="md">Medium</option>
     <option value="lg">Large</option>
   </Select>
-  <Select defaultValue="sm">
+  <Select sm defaultValue="sm">
     <option value="xs">Extra small</option>
     <option value="sm">Small</option>
     <option value="md">Medium</option>
     <option value="lg">Large</option>
   </Select>
-  <Select md defaultValue="sm">
+  <Select defaultValue="sm">
     <option value="xs">Extra small</option>
     <option value="sm">Small</option>
     <option value="md">Medium</option>
@@ -5022,7 +5043,7 @@ An `optgroup` labels a run of related options, and the placeholder stays above t
 - Read Only: `readOnly`
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
-- Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Size: `xs`, `sm`, `md` (default), `lg`, `xl`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -6110,11 +6131,11 @@ Titles pair naturally with badges, chips, and other inline components.
 <Col>
   <Row>
     <Title>Release Notes</Title>
-    <Badge success>New</Badge>
+    <Badge sm success>New</Badge>
   </Row>
   <Row>
     <Title>Deprecated API</Title>
-    <Badge danger>Removed</Badge>
+    <Badge sm danger>Removed</Badge>
   </Row>
 </Col>
 ```
@@ -8401,7 +8422,7 @@ The shadow props share one category with `shadow` and `noShadow`, so set one of 
 
 ## Card with sub-components
 
-Use `CardHeader`, `CardBody`, and `CardFooter` to give a card explicit structural regions. When any sub-component is present the parent Card switches to compound mode and the sub-components own padding. The parts meet one inset apart: the body keeps its padding, the header drops its bottom padding, the footer drops its top padding, and the Card puts no gap between them. For a divider, add `borderB` to the header or `borderT` to the footer. A part with a line, and a `filled` part, keeps its padding on that side.
+Use `CardHeader`, `CardBody`, and `CardFooter` to give a card explicit structural regions. When any sub-component is present the parent Card switches to compound mode and the sub-components own padding.
 
 ```tsx demo
 <Card>
@@ -9180,7 +9201,7 @@ Use Table for data that readers compare across rows and down columns, such as a 
 
 ## Basic usage
 
-Compose a table from `Table`, `Thead`, `Tbody`, `Tr`, `Th`, and `Td`. Header cells (`Th`) render semibold with muted text, and every cell gets a bottom row rule. `Table` defaults to `sm`, `wFull`, `noBorder`, and `fontSans`. Add `scope="col"` to header cells so assistive technology associates each column with its data.
+Compose a table from `Table`, `Thead`, `Tbody`, `Tr`, `Th`, and `Td`. Header cells (`Th`) render semibold with muted text, and every cell gets a bottom row rule. `Table` defaults to `md`, `wFull`, `noBorder`, and `fontSans`. Add `scope="col"` to header cells so assistive technology associates each column with its data.
 
 ```tsx demo
 <Table>
@@ -9208,7 +9229,7 @@ Compose a table from `Table`, `Thead`, `Tbody`, `Tr`, `Th`, and `Td`. Header cel
 
 ## Sizes
 
-The size prop scales both text and cell padding, and it cascades from the table to every cell. Set it once on `Table` to size the whole table: `xs`, `sm` (default), `md`, `lg`, `xl`. The default has 14px text.
+The size prop scales both text and cell padding, and it cascades from the table to every cell. Set it once on `Table` to size the whole table: `xs`, `sm`, `md` (default), `lg`, `xl`.
 
 ```tsx demo
 <Stack>
@@ -9216,13 +9237,13 @@ The size prop scales both text and cell padding, and it cascades from the table 
     <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
     <Tbody><Tr><Td>xs table</Td><Td textRight>tightest</Td></Tr></Tbody>
   </Table>
+  <Table sm>
+    <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
+    <Tbody><Tr><Td>sm table</Td><Td textRight>compact</Td></Tr></Tbody>
+  </Table>
   <Table>
     <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
-    <Tbody><Tr><Td>sm table</Td><Td textRight>default</Td></Tr></Tbody>
-  </Table>
-  <Table md>
-    <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
-    <Tbody><Tr><Td>md table</Td><Td textRight>roomy</Td></Tr></Tbody>
+    <Tbody><Tr><Td>md table</Td><Td textRight>default</Td></Tr></Tbody>
   </Table>
   <Table lg>
     <Thead><Tr><Th scope="col">Size</Th><Th scope="col" textRight>Value</Th></Tr></Thead>
@@ -9387,7 +9408,7 @@ Cells accept any VaneUI component. Drop a `Badge` into a status column.
 Cells render in the sans font (`fontSans`, the default), whatever font the page around them uses. Pass `fontMono` for machine output such as ids and hashes, or `fontSerif` / `fontHeading`.
 
 ```tsx demo
-<Table fontMono>
+<Table fontMono sm>
   <Thead><Tr><Th scope="col">Commit</Th><Th scope="col">Message</Th></Tr></Thead>
   <Tbody>
     <Tr><Td>6aba224</Td><Td>fix: make components consistent</Td></Tr>
@@ -9429,7 +9450,7 @@ Set table defaults with `ThemeProvider`'s `themeDefaults`. The `table` node has 
 - Appearance: `primary`, `accent`, `secondary` (default), `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
 - Font Family: `fontSans` (default), `fontSerif`, `fontMono`, `fontHeading`
 - Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin`
-- Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Size: `xs`, `sm`, `md` (default), `lg`, `xl`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
@@ -9748,8 +9769,6 @@ Use `ModalHeader`, `ModalBody`, `ModalFooter`, and `ModalCloseButton` for full c
 - `ModalBody`: `flex column`, `gap`, `padding`, `overflowAuto`
 - `ModalFooter`: `flex row`, `itemsCenter`, `justifyEnd`, `gap`, `padding`
 - `ModalCloseButton`: `sm`, `secondary`, `outline`, `transparent`, `noShadow`, `noInsetRing`
-
-The parts meet one inset apart: `ModalBody` keeps its padding, `ModalHeader` drops its bottom padding, `ModalFooter` drops its top padding, and the Modal puts no gap between them. A header with `borderB`, a footer with `borderT` and a `filled` part keep their padding on that side.
 
 ```tsx demo
 const [open, setOpen] = useState(false);
@@ -10699,7 +10718,7 @@ The props you set on `Menu` reach the dropdown frame, so the popup takes the sha
 
 ## Sizes
 
-Set a size on `Menu` (e.g. `<Menu lg>`) and the dropdown popup, every `MenuItem`, `MenuLabel`, and nested `Divider` scale together automatically. No need to repeat the size on every child. Items render with larger font-size and padding, the popup frame lifts its inner padding, and dividers match. Individual children can still override with their own size prop.
+Set a size on `Menu` (e.g. `<Menu lg>`) and the dropdown popup, every `MenuItem`, `MenuLabel`, and nested `Divider` scale together automatically. No need to repeat the size on every child. Items render with larger font-size and padding, the popup frame lifts its inner padding, and dividers match. Individual children can still override with their own size prop. At every size the text of a `MenuItem` and a `MenuLabel` is centered by the height of its capital letters, in the `<span class="vane-text-run">` that [How Button centers its label](/docs/basic-components/button#how-button-centers-its-label) explains.
 
 ```tsx demo
 <Row flexWrap>
@@ -10913,7 +10932,7 @@ A tooltip that only opens on hover is invisible to keyboard users, so Tooltip op
 
 ## Sizes
 
-Tooltip defaults to `sm`. Its text, padding and corner radius follow its own size, `xs` to `xl`, and the text sits one font step under a Button of the same size. The tooltip does not shrink on phones.
+Tooltip defaults to `sm`. Its text, padding and corner radius follow its own size, `xs` to `xl`, and the text sits one font step under a Button of the same size. The tooltip does not shrink on phones. Text placed directly in the tooltip is centered by the height of its capital letters, in the `<span class="vane-text-run">` that [How Button centers its label](/docs/basic-components/button#how-button-centers-its-label) explains.
 
 ```tsx demo
 <Row flexWrap>
@@ -13073,7 +13092,7 @@ Source: https://vaneui.com/docs/reference/common-props
 
 Layout and utility props shared across most VaneUI components. Documented here once instead of on every component page. Per-component pages link here from the "Layout & utility props" disclosure under their props table.
 
-Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inheritAppearance`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except the controls and the dense components, which default to `sm`: `Button`, `IconButton`, `Input`, `Textarea`, `Select`, `Field`, `Label`, `NavLink`, `MenuItem`, `MenuLabel`, `Tooltip`, `Badge`, and `Table`. The `ghost` variant renders a transparent background with no border and appearance-colored text, plus a tinted hover background.
+Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inheritAppearance`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except `Button`, `IconButton`, `NavLink`, `Label`, `MenuItem`, `MenuLabel`, and `Tooltip` which default to `sm`. The `ghost` variant renders a transparent background with no border and appearance-colored text, plus a tinted hover background.
 
 ## Hide
 
@@ -13474,28 +13493,46 @@ fixes, minor for additive props and components, major for anything that changes 
 existing prop name, default, or rendered element. Releases ship when work is ready
 rather than on a fixed calendar.
 
-## Unreleased
+## 1.7.0
+
+`2026-11-20`
+
+The text of Button, Badge, Chip and six more components is centered by the height of its
+capital letters.
 
 ### Changed
 
-- `Input`, `Textarea`, `Select` and `Field` default to `sm`, the size `Button` already
-  defaults to. A field and a button written with no size prop were 37px and 30px tall, with
-  16px and 14px text; both are now 30px with 14px text. Pass `md` to keep the earlier size.
-  To keep it everywhere, set
-  `themeDefaults={{ input: { md: true }, textarea: { md: true }, select: { md: true }, field: { main: { md: true } } }}`.
-- `Badge` defaults to `sm`: 12px text and 20px tall, where it was 14px and 25px. Pass `md`
-  for the earlier size.
-- `Table` defaults to `sm`: 14px text and 6px by 12px cell padding, where it was 16px and 8px
-  by 16px. Pass `md` for the earlier size.
-- `Icon` sizes are 12, 16, 20, 24 and 32px for `xs` to `xl`. They were 16, 24, 32, 48 and
-  64px, so a default `Icon` next to body text was 32px. For a larger glyph, give the SVG a
-  `size-*` class.
-- The parts of a `Card` and a `Modal` meet one inset apart. Each part padded all four sides
-  and the surface added its gap, which left 64px between a Modal title and its body at `md`
-  (60px in a Card). The body keeps its padding, the header drops its bottom padding, the
-  footer drops its top padding, and the surface has no gap between parts: 24px at `md`. A
-  header with `borderB`, a footer with `borderT` and a `filled` part keep their padding on
-  that side, and a padding class on a part still wins.
+- Text in [Button](https://vaneui.com/docs/basic-components/button), IconButton, Badge, Chip,
+  MenuItem, MenuLabel, Alert, Tooltip and NavLink is centered by the height of its capital
+  letters. A browser centers the line box of the font, which is rarely even around the letters,
+  so a label sat up to 1.4px above or below the middle of its component, in a direction that
+  depended on the font. Measured over five sizes, seven fonts and three display densities, a
+  capital was 0.5px from the middle on average and is now 0.2px. The size of each component
+  and the place of its icons stay the same.
+
+  The components now render each run of their own text in a `<span class="vane-text-run">`,
+  and the stylesheet trims that span to the capital height with `text-box` and pads it back to
+  the line height. NavLink trims the label span it already had. What to check in an app:
+
+  - A test or a style that reaches the text by its tag (`button > span`,
+    `querySelector('span')`), or that expects `getByText('Save')` to return the button itself,
+    now finds the new span. Find the component by its role or its class instead.
+  - Text passed as an element (a translation component, a fragment, a span of your own) is
+    not wrapped and renders as before. Give your own span `className="vane-text-run"` to
+    center it the same way.
+  - In a row aligned by baseline (`itemsBaseline`) and inline in a paragraph, the text keeps
+    its baseline, so the box around it moves by up to 1.2px and the line can change height
+    by up to 1px. In a flex or grid parent with any other alignment nothing moves.
+  - The line box of the trimmed text reaches up to 2px past its span. The padding of the
+    component covers that. A component with `noPadding` that touches the end edge of a
+    scroll container can add that much scrolling to it.
+
+  The trim needs `text-box` (Chrome and Edge 133, Safari 18.2, Firefox 154). Other browsers
+  render the text where it was. Label, Input, Select, Textarea, table cells, Code, Kbd and
+  Mark are not changed.
+- The label of a [NavLink](https://vaneui.com/docs/basic-components/navlink) clips its
+  overflow (`overflowClip`) where it hid it. The ellipsis of a long label is the same; the
+  label can no longer be scrolled sideways by a text search or a selection drag.
 
 ## 1.6.3
 

@@ -27,7 +27,7 @@ Chip is a compact token for tags or attributes, and each `appearance` prop maps 
 
 ## Sizes
 
-Chips come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables.
+Chips come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size drives font-size, padding, gap, and border-radius simultaneously via CSS variables. At every size the text is centered by the height of its capital letters. It sits in a `<span class="vane-text-run">`, which [How Button centers its label](/docs/basic-components/button#how-button-centers-its-label) explains.
 
 ```tsx demo
 <Row flexWrap>
