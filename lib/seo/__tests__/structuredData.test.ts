@@ -36,8 +36,21 @@ const docsPage = docsPageGraph({
   datePublished: '2025-01-01T00:00:00.000Z',
   dateModified: '2026-11-01T00:00:00.000Z',
 });
+const faqPage = docsPageGraph({
+  category: 'basic-components',
+  slug: 'button',
+  pageName: 'Button',
+  description: 'A button.',
+  articleSection: 'Basic Components',
+  image: `${SITE_URL}/docs/basic-components/button/opengraph-image/card`,
+  faq: [
+    { question: 'Can a Button be a link?', answer: 'Yes. Pass href and it renders an <a>.' },
+    { question: 'Does it submit forms?', answer: 'Inside a form it does, unless type="button" is set.' },
+  ],
+});
 const all: [string, JsonLdGraph][] = [
   ['home', home], ['playground', playground], ['docs index', docsIndex], ['docs page', docsPage],
+  ['docs page with an FAQ', faqPage],
 ];
 
 const nodesOfType = (g: JsonLdGraph, type: string) => g['@graph'].filter(n => n['@type'] === type);
@@ -137,6 +150,37 @@ test('a docs page is an Article (not TechArticle) with breadcrumb, image and dat
 
   const crumbs = only(docsPage, 'BreadcrumbList').itemListElement as JsonLdNode[];
   assert.deepEqual(crumbs.map(c => c.item), [SITE_URL, `${SITE_URL}/docs`, url]);
+});
+
+test('a docs page with an FAQ adds one FAQPage with its questions in order', () => {
+  const url = `${SITE_URL}/docs/basic-components/button`;
+  const faq = only(faqPage, 'FAQPage');
+  assert.equal(faq['@id'], `${url}#faq`);
+  assert.equal(faq.url, url);
+  assert.deepEqual(faq.isPartOf, { '@id': IDS.website });
+  assert.deepEqual(faq.mainEntity, [
+    {
+      '@type': 'Question',
+      name: 'Can a Button be a link?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. Pass href and it renders an <a>.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does it submit forms?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Inside a form it does, unless type="button" is set.' },
+    },
+  ]);
+  // The Article stays the page's main node
+  only(faqPage, 'Article');
+  assert.ok(!serializeJsonLd(faqPage).includes('<'), 'answers are escaped like the rest');
+});
+
+test('a docs page without questions has no FAQPage', () => {
+  assert.equal(nodesOfType(docsPage, 'FAQPage').length, 0);
+  const empty = docsPageGraph({
+    category: 'c', slug: 's', pageName: 'P', description: 'D', articleSection: 'S', image: `${SITE_URL}/x`, faq: [],
+  });
+  assert.equal(nodesOfType(empty, 'FAQPage').length, 0);
 });
 
 test('unknown dates are left out, never filled in', () => {

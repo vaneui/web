@@ -13,6 +13,7 @@ import { pagePropsTables } from "../../../../lib/docs/propsTables";
 import type { DocPageFrontmatter, DocsPage } from "../../types";
 import { JsonLd } from "../../../components/JsonLd";
 import { docsPageGraph, SITE_URL } from "../../../../lib/seo/structuredData";
+import { faqEntries } from "../../../../lib/seo/faq";
 import { BASE_OPEN_GRAPH } from "../../../constants";
 
 interface DocsPageProps {
@@ -186,6 +187,8 @@ export default async function Page({params}: DocsPageProps) {
     image: `${SITE_URL}/docs/${docsSection.slug}/${docsPage.slug}/opengraph-image/card`,
     datePublished: dates.published?.toISOString(),
     dateModified: dates.modified?.toISOString(),
+    // The page's "Frequently asked questions" section, as an FAQPage node
+    faq: faqEntries(md),
   });
 
   return (
