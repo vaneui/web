@@ -456,6 +456,20 @@ export const docsSectionsMeta: DocSectionMeta[] = [
     ]
   },
   {
+    name: 'Guides',
+    slug: 'guides',
+    description: 'Technical articles on dark mode tokens, OKLCH color scales, contrast checks, Markdown rendering and responsive page sections.',
+    pages: [
+      {
+        slug: 'light-dark-tailwind-v4',
+        name: 'Dark Mode Tokens with light-dark() and Tailwind CSS v4',
+        seoTitle: 'Dark Mode Tokens with CSS light-dark() and Tailwind CSS v4',
+        description: 'Build dark mode tokens with CSS light-dark() and Tailwind CSS v4: how color-scheme picks a value, where VaneUI declares pairs, and how to override them.',
+        mdPath: 'light-dark-tailwind-v4.md',
+      },
+    ]
+  },
+  {
     name: 'Reference',
     slug: 'reference',
     description: 'Shared prop reference, cross-component documentation, and release notes.',
