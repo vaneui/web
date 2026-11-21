@@ -125,8 +125,11 @@ export const AI_CLIENTS = [
   },
 ];
 
-export const NAV = [
+/** Header links; `wide` ones leave the header bar below 1280px (the menu and the footer keep them) */
+export const NAV: { label: string; href: string; wide?: boolean }[] = [
   { label: 'Documentation', href: '/docs' },
+  { label: 'Blocks', href: '/blocks' },
+  { label: 'Tools', href: '/tools' },
   { label: 'Playground', href: '/playground' },
-  { label: 'Changelog', href: '/docs/reference/changelog' },
+  { label: 'Changelog', href: '/docs/reference/changelog', wide: true },
 ];

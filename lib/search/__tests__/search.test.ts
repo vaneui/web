@@ -124,3 +124,12 @@ test('the built index has one entry per props table, each under its own heading'
   const list = built.entries.filter((e) => e.url.startsWith('/docs/typography-components/list#') && e.path[0]?.endsWith(' Props'));
   assert.deepEqual(list.map((e) => e.path[0]), ['List Props', 'ListItem Props']);
 });
+
+test('the built index lists the free tools and the UI blocks', () => {
+  const built = buildSearchIndex(ROOT);
+  const last = built.sections.length - 1;
+  assert.equal(built.sections[last].name, 'Tools and blocks');
+  const urls = built.entries.filter((e) => e.section === last).map((e) => e.url);
+  assert.ok(urls.includes('/tools/theme-generator'));
+  assert.ok(urls.includes('/blocks/pricing'));
+});

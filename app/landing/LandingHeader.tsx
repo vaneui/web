@@ -48,10 +48,11 @@ export function LandingHeader() {
           {NAV.map(item => (
             <React.Fragment key={item.label}>
               <NavLink ghost sharp secondary={item.href !== current} active={item.href === current} indicatorBottom
-                       fontNormal hFull wAuto tag={Link} href={item.href} className="px-5">
+                       fontNormal hFull wAuto desktopHide={item.wide} tag={Link} href={item.href}
+                       className="px-5 max-desktop:px-4">
                 {item.label}
               </NavLink>
-              <Divider vertical/>
+              <Divider vertical desktopHide={item.wide}/>
             </React.Fragment>
           ))}
         </Row>
