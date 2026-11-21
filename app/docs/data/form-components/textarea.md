@@ -82,3 +82,17 @@ Note that the value itself never turns red. Colouring what the user typed hurts 
   <Textarea rows={3} placeholder="What changed?"/>
 </Field>
 ```
+
+## Frequently asked questions
+
+### How do I set the height of a Textarea?
+
+Pass `rows`. Without `rows`, a Textarea is at least three lines tall; with `rows` set, that minimum no longer applies, so `rows={2}` gives a two-line box and `rows={8}` a taller one. The font size follows the size prop, so the same `rows` gives a taller box at `lg` than at `sm`. The user can still drag the bottom edge to resize it.
+
+### Can a Textarea grow with its content?
+
+Not by itself: Textarea adds no auto-grow, and the user resizes it by dragging, since it resizes vertically by default. The CSS `field-sizing: content` property makes a textarea grow with its text in browsers that support it, so set it in a class of your own stylesheet. To turn off manual resizing, pass `style={{ resize: 'none' }}`, which wins over the stylesheet.
+
+### How do I show a character count?
+
+Make the Textarea controlled, set `maxLength`, and put the count in the `description` of the [Field](/docs/form-components/field) around it, for example `description={text.length + ' of 280 characters'}`. The browser stops input at `maxLength`. The description is linked to the textarea with `aria-describedby`, so a screen reader reads the count when the field gets focus.

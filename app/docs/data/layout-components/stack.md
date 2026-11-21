@@ -335,3 +335,17 @@ import { Stack, PageTitle, Text, Button } from '@vaneui/ui';
   <Button filled>Read the guide</Button>
 </Stack>
 ```
+
+## Frequently asked questions
+
+### Why does my Stack have less padding on a phone?
+
+`responsiveSizing` is on by default, so a Stack scales its padding and gap down below 1024px and again below 768px, and nested Stacks do not use up a narrow screen. Pass `responsiveSizing={false}` to keep one value at every width, or a smaller size prop to tighten it everywhere. `Section`, `Card`, `Container` and `Modal` scale their padding the same way.
+
+### Why do the items of my Stack sit in two columns?
+
+`flexWrap` is a Stack default, so when the Stack has a fixed or maximum height and its children need more, the extra items wrap into a second column. Pass `flexNoWrap` to keep one column, and add `overflowYAuto` to scroll the overflow instead. Without a height limit the Stack grows with its content and never wraps.
+
+### How do I pad only the sides or only the top and bottom of a Stack?
+
+Use `paddingX` for the left and right sides or `paddingY` for the top and bottom; both scale with the size prop like `padding`. For a single side, such as the top, a class like `pt-6` applies on desktop, and below 1024px the theme's own padding returns on that side. `noPadding` removes all of it.

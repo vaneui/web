@@ -279,3 +279,17 @@ Set app-wide Card defaults with `ThemeProvider`'s `themeDefaults`:
   <Card>Content</Card>
 </ThemeProvider>
 ```
+
+## Frequently asked questions
+
+### Why are the cards in my Row different heights?
+
+A Row centers its children on the cross axis (`itemsCenter` is a default), so each Card is as tall as its own content. Put the cards in a [Grid](/docs/layout-components/grid) such as `Grid3`, whose cells stretch to the height of the tallest one in their row, or add `itemsStretch` to the Row. A Grid also gives every card the same width.
+
+### How do I line up the footers of cards with different content?
+
+Build each card from `CardBody` and `CardFooter`, and put the cards in a Grid. The Grid stretches every card in a row to the same height, and `CardBody` grows to fill the height the card has left, so each `CardFooter` sits at the bottom edge whatever the length of the text above it. The parts are described under [Card with sub-components](#card-with-sub-components).
+
+### Why does a Button in a filled Card keep its own colors?
+
+Button paints its own colors: its default `primary` `outline` palette stays the same on any surface, while `Text` and `Title` take the colors of the Card. Give the Button an appearance and variant that read on the fill, for example `<Button secondary filled>` on a `filled primary` Card. [Which components set vs. inherit](/docs/customization/variant-inheritance#which-components-set-vs-inherit) lists both groups.

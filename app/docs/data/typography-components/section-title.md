@@ -187,3 +187,17 @@ Combine SectionTitle with Divider and content for a structured section.
   <Text>Customize the settings to match your requirements.</Text>
 </Col>
 ```
+
+## Frequently asked questions
+
+### Why doesn't `textCenter` center my SectionTitle?
+
+SectionTitle is `wFit` by default, so its box is as wide as its text, and centering the text inside that box moves nothing. Add `wFull` so the box spans its parent and the text centers in it, as in [Text alignment](#text-alignment). To center the heading box itself, put `itemsCenter` on the parent; a heading that wraps onto several lines then also needs `textCenter`.
+
+### How do I add an anchor link to a SectionTitle?
+
+Give the SectionTitle an `id` and nest a [Link](/docs/typography-components/link) with `href` set to `#` and that id inside it. Do not pass `href` to the SectionTitle itself: it then renders an `<a>` in place of the `<h2>`, and the page loses the heading. Link takes the heading's size, but it is `fontSans` by default, so add `fontHeading` when your heading font differs.
+
+### How do I put an action next to a SectionTitle?
+
+Put both in `<Row justifyBetween>`: the SectionTitle keeps its fit width, and the Button or Link after it moves to the end edge. Add `itemsBaseline` to line the action up with the heading text rather than its box, and `flexWrap` so that on a narrow screen the action drops below a long heading instead of squeezing it.

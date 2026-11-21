@@ -144,3 +144,17 @@ The canonical page layout: a Section owns vertical padding and full-width backgr
   </Container>
 </Section>
 ```
+
+## Frequently asked questions
+
+### Why are the children of my Container narrower than it is?
+
+Container centers its children on the cross axis (`itemsCenter` is a default), so each child shrinks to its content width and sits in the middle. Add `itemsStretch` to the Container to make every child full width, or `wFull` to one child. Text alignment is separate: the lines inside a centered `Text` still start at the left unless it has `textCenter`.
+
+### Why does my content touch the screen edges on a phone?
+
+Container has no padding by default: it only caps the width. The [Section](/docs/layout-components/section) around it supplies the padding and scales it down on tablet and mobile, as in the [page layout pattern](#page-layout-pattern). Without a Section, add `padding` to the Container, which also shrinks on smaller screens because `responsiveSizing` is on by default.
+
+### How do I set a max-width between two sizes?
+
+Pass your own max-width class, such as `className="max-w-[68rem]"`: it replaces the `max-w-*` class of the size, because a class you pass wins over the theme's. The prebuilt `@vaneui/ui/css` has no arbitrary utilities, so with it use `style={{ maxWidth: '68rem' }}` instead. The size prop still sets the gap between the children.

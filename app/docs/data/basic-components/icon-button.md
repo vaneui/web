@@ -177,3 +177,21 @@ Set app-wide IconButton defaults with `ThemeProvider`'s `themeDefaults`:
   <IconButton aria-label="Favorite"><Star /></IconButton>
 </ThemeProvider>
 ```
+
+## Frequently asked questions
+
+### Why don't my Button theme defaults apply to IconButton?
+
+IconButton has its own theme node, `iconButton`, so defaults set on `button.main` never reach it. Set both when the two should match: `themeDefaults={{ button: { main: { pill: true } }, iconButton: { pill: true } }}`. The `iconButton` node is flat, with no `main` level, and the same split applies to `extraClasses`.
+
+### Does a Tooltip give an IconButton its accessible name?
+
+No. A [Tooltip](/docs/overlay-components/tooltip) describes its trigger through `aria-describedby`, and only while it is open, so it adds a description rather than a name. Keep the `aria-label` on the IconButton and add the Tooltip for sighted pointer and keyboard users. The label and the hint can use the same words.
+
+### Why does my icon's `size` prop have no effect inside an IconButton?
+
+IconButton sizes every SVG inside it from its own size prop, with CSS `width` and `height`, and CSS wins over the `width` and `height` attributes an icon component sets from its `size` prop. Change the button's size instead (`lg`, `xl`), or give the SVG a `size-*` class, which opts it out of that rule. `Button` and `Icon` size their SVGs the same way.
+
+### Can an IconButton use the `ghost` variant?
+
+Yes. IconButton takes the same three variants as Button: `outline` (the default), `filled` and `ghost`. `ghost` renders a transparent background with no border and an appearance-colored icon, and tints the background on hover. It suits a close control or a row of secondary toolbar actions; the [removable chips](/docs/basic-components/chip#removable-chips) example uses `<IconButton xs ghost>`.

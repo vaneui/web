@@ -221,3 +221,17 @@ Set app-wide NavLink defaults with `ThemeProvider`'s `themeDefaults`. Style the 
   font-weight: 600;
 }
 ```
+
+## Frequently asked questions
+
+### How do I set `active` from the current route in Next.js?
+
+Read the path with `usePathname()` in a client component and compare it with the link's `href`: `active={pathname === '/docs'}`. For an item whose section has child pages, `pathname.startsWith('/docs/')` keeps it active on those pages too. The active link gets `aria-current="page"` and a `data-active` attribute, and `tag={Link}` keeps the navigation on the client.
+
+### Should a sidebar item be a NavLink or a Button?
+
+Use NavLink. It renders an `<a>` with `href`, marks the current page with `active` and `aria-current="page"`, fills the column with `wFull`, aligns its text left and truncates a long label. Button is built for actions: it centers its label, fits its content and has no active state. A NavLink without `href` renders a `<button>` with `type="button"` for an item that runs an action.
+
+### Why do my NavLink theme defaults have no effect?
+
+NavLink's theme has two parts, `root` for the link and `label` for its text span, so defaults go under `root`: `themeDefaults={{ navLink: { root: { md: true } } }}`. The flat form `{ navLink: { md: true } }` matches no theme node, and a development build warns about it. The active state is not a theme prop, so style it through the `data-active` attribute, as [Customizing](#customizing) shows.

@@ -182,3 +182,17 @@ In a flex [Row](/docs/layout-components/row), an image is a flex item that can g
   decoding="async"
 />
 ```
+
+## Frequently asked questions
+
+### How do I make a round avatar?
+
+Add `pill` and give the image the same width and height in CSS, for example `style={{ width: 40, height: 40 }}` or `className="size-10"`. `objectCover`, a default, crops a photo that is not square to fill the circle. The `width` and `height` attributes alone are not enough under Tailwind's base styles, which set `height: auto` on images and so keep the photo's own proportions.
+
+### How do I add a caption to an image?
+
+Wrap the Img and its caption in `<Col tag="figure">`, and render the caption with `<Text tag="figcaption" sm secondary>`. The caption then names the figure for assistive technology. Keep the `alt` text as well: it describes what the image shows, while the caption adds context such as a credit, a date or a place.
+
+### Can I use Img with the Next.js Image component?
+
+Yes: pass it as the `tag`, as in `<Img tag={Image} src="/team.jpg" alt="The team" width={600} height={400}/>` with `Image` imported from `next/image`. Img then renders that component with its own classes, so the shape, border and object-fit props still apply, while Next.js resizes and lazy-loads the file. Next.js still requires `width` and `height`, or `fill`.

@@ -217,3 +217,21 @@ Add prop-conditional classes with `extraClasses`, applied whenever the matching 
   <Button primary>Glowing Primary</Button>
 </ThemeProvider>
 ```
+
+## Frequently asked questions
+
+### Why do my Button theme defaults have no effect?
+
+Button's theme has sub-themes, so its defaults sit one level down, under `main`: write `themeDefaults={{ button: { main: { filled: true } } }}`, not `{ button: { filled: true } }`. The flat form matches no theme node and does nothing, and a development build logs a console warning about it. `IconButton` has a theme node of its own, `iconButton`, so set both when the two should match.
+
+### How do I make a Button full width?
+
+Pass `wFull`. Button defaults to `wFit`, so it is as wide as its label wherever it sits. For a button that fills its container only on small screens, use `mobileWFull` (below 768px) or `tabletWFull` (below 1024px), and it keeps its fit width above that. In your own Tailwind build, the responsive props need the `@vaneui/ui/tokens` import from the [installation guide](/docs/getting-started/installation#css-setup).
+
+### How do I make a Button as tall as the Input next to it?
+
+Give both the same size prop. `Button`, `IconButton`, `Input` and `Select` all default to `sm` and share one height scale, so a field and a button written without a size prop line up in a `Row`. When you change one, such as `<Input md>`, pass the same prop to the other (`<Button md>`). A `Field` passes its size to the control inside it, but not to a Button placed beside it.
+
+### Can I wrap a Button in a Next.js Link?
+
+No. A `<button>` inside an `<a>` nests two interactive elements, which HTML does not allow and which confuses keyboard and screen reader users. Pass `href` and `tag={Link}` to the Button instead, so it renders a single anchor through Next.js `Link`, as [Next.js Link integration](#next-js-link-integration) shows. A Button that only runs code takes `onClick` and no `href`.

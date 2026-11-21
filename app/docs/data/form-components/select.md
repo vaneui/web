@@ -201,3 +201,17 @@ An `optgroup` labels a run of related options, and the placeholder stays above t
   </Select>
 </Field>
 ```
+
+## Frequently asked questions
+
+### Can a Select filter its options as the user types?
+
+No. Select is a native `<select>`: typing jumps to the first option that starts with those letters, but nothing is filtered. VaneUI ships no combobox. A searchable list needs one built from an `Input`, a `Popup` and options with `role="option"`, such as NavLinks with `aria-selected` as in [Selected options in a listbox](/docs/basic-components/navlink#selected-options-in-a-listbox), plus the keyboard handling of the combobox pattern.
+
+### How do I make a Select narrower?
+
+Pass the width in `className`, for example `className="w-48"`. Select is `wFull` by default, and `className` and the width props go to the wrapper that holds the field and its chevron, so the chevron stays at the field's edge. `style` goes to the `<select>` itself, so a width set there narrows the field while the chevron stays at the far edge of the full-width wrapper.
+
+### How do I clear a Select back to its placeholder?
+
+Set its `value` to an empty string. The `placeholder` renders as a first option with an empty value, so a controlled Select with `value=""` shows the prompt again, and with `required` it fails validation until the user picks an option. A Select without a `placeholder` needs its own `<option value="">` to return to. In an uncontrolled form, a reset button restores `defaultValue`.

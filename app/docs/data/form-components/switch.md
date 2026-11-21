@@ -98,3 +98,17 @@ A `readOnly` switch keeps its value when clicked and dims like a read-only text 
   <Label row itemsCenter><Switch readOnly defaultChecked/> Read-only</Label>
 </Col>
 ```
+
+## Frequently asked questions
+
+### How do I put the Switch at the end of a settings row?
+
+Put the text first and the Switch last in `<Label row itemsCenter justifyBetween wFull>`. The row fills its container and pushes the Switch to the end edge, and a click anywhere on the text still toggles it. For a description under the setting name, wrap the two lines in `<Col noGap tag="span">` and give each line `<Text tag="span">`, since a label holds no `<p>` or `<div>`.
+
+### How do I name a Switch that has no visible text?
+
+Pass `aria-label`, for example `<Switch aria-label="Email notifications"/>`. Switch hands it to the native input, so a screen reader announces the name, the switch role and whether it is on. When the setting name is visible elsewhere, such as in the first cell of a table row, point `aria-labelledby` at that text instead of repeating it.
+
+### What does a Switch send with the form?
+
+The same as a Checkbox: its `value`, or `"on"` without one, when it is on, and no entry when it is off. A Switch usually applies its setting at once through `checked` and `onChange` instead of waiting for a submit, as in the controlled example under [Values of Checkbox, RadioGroup, Switch and Select](/docs/form-components/forms#values-of-checkbox-radiogroup-switch-and-select).

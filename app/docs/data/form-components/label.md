@@ -181,3 +181,17 @@ Use appearances to indicate field status: `danger` for errors, `success` for val
   <Text sm secondary>All fields marked with * are required.</Text>
 </Col>
 ```
+
+## Frequently asked questions
+
+### Which controls take their size from a Label?
+
+`Input`, `Textarea`, `Select`, `Checkbox`, `Radio` and `Switch` inside a Label take the Label's size, which is `sm` unless you set another. A size prop on the control still wins. Other children, such as a `Text` hint or a `Button`, keep their own sizes. A [Field](/docs/form-components/field#sizes) passes its size to the control inside it in the same way.
+
+### How do I label a group of checkboxes?
+
+A Label names one control, so a set of checkboxes needs a group name of its own. Wrap the set in a native `<fieldset>` with a `<legend>`, or in a `Col` with `role="group"` and `aria-labelledby` set to the id of the text that names the group. For one choice out of several, use a `RadioGroup` inside a [Field](/docs/form-components/field#radio-groups), which labels the group for you.
+
+### Why does clicking a Label not focus my custom control?
+
+A `<label>` passes its clicks and its text only to labelable native elements, such as `<input>`, `<select>`, `<textarea>` and `<button>`. A control built from a `div` with a role gets neither. Give that control `aria-labelledby` set to the Label's `id` for its name, and focus the control from the Label's `onClick` if a click on the text should reach it.

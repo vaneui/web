@@ -187,3 +187,17 @@ The canonical full-bleed page band: a Section owns the outer padding and backgro
   </Container>
 </Section>
 ```
+
+## Frequently asked questions
+
+### Why doesn't my Section paint a background?
+
+A Section has no appearance by default, so it paints nothing and shows whatever is behind it. Give it one: `<Section primary>` paints the page surface, which a `data-theme="dark"` wrapper needs, and `<Section secondary filled>` paints a tinted band like the ones under [Appearances](#appearances). Add `border` when the band also needs a line around it.
+
+### How do I change a Section's padding with a class?
+
+Pass a class that sets the whole value, such as `py-16`, `px-8` or `p-12`. The theme repeats its padding for tablet and mobile, and a class like these replaces it at every width, phones included. A one-sided class such as `pt-16` wins only on desktop and gives way to the theme's padding below 1024px. A size prop such as `lg` keeps the scaling for smaller screens.
+
+### Should a Section render as a `<section>` element?
+
+Use `tag="section"` when the band has its own heading, and point `aria-labelledby` at that heading's `id`: a `<section>` with an accessible name is exposed as a region landmark, while one without a name is no different from a `<div>`. Bands that only hold layout can stay `<div>`. For the site header and footer outside `<main>`, `tag="header"` and `tag="footer"` give the banner and contentinfo landmarks.
