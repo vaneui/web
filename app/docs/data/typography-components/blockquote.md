@@ -139,3 +139,17 @@ Use blockquotes with attribution for testimonials and customer quotes.
   </Card>
 </Col>
 ```
+
+## Frequently asked questions
+
+### Does Blockquote add quotation marks?
+
+No. Blockquote renders the text as you pass it, with an accent border on the start edge, and adds no quotation marks before or after it. When the design calls for marks, type them into the quoted text. Screen readers announce the `<blockquote>` element as a quote, so the marks are visual only.
+
+### How do I remove the accent border?
+
+Pass `noBorder`. The accent border is the `borderStart` default, a border on the start edge that moves to the right under `dir="rtl"`, and `noBorder` resets every side. Without a border, the quote has nothing to set it apart from the text around it, so give it another cue, such as `italic`, a larger size prop or a filled `Card` around it.
+
+### How do I link a quote to its source?
+
+`cite` renders plain text, not a link, and also sets the native `cite` attribute to that same text. For a source the reader can open, leave out `cite` and add your own line at the end of the quote, for example a `<Text sm secondary>` that holds a [Link](/docs/typography-components/link) to the article or talk.

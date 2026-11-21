@@ -224,3 +224,17 @@ Combining text properties for real-world use cases.
   </Card>
 </Col>
 ```
+
+## Frequently asked questions
+
+### Why does React warn about a `<p>` inside a `<p>`?
+
+Text renders a `<p>`, and a paragraph cannot hold another paragraph or a block element such as a `<div>`, so a Text inside a Text, or a Col inside a Text, is invalid HTML. The browser closes the outer paragraph early, and React reports a hydration error on a server-rendered page. Give the inner Text `tag="span"`, as you would for a Text inside a Button or a Label.
+
+### Why doesn't `truncate` cut off my text?
+
+Text is `wFit` by default, so its box grows with the text and there is nothing to cut. Add `wFull`, as in [Truncate and line clamp](#truncate-and-line-clamp), so the box takes the width of its parent. Inside a Row, the flex item that holds the Text, such as a Col, also needs `className="min-w-0"`, because a flex item does not shrink below its content otherwise.
+
+### Should I give Text an `href` or use Link?
+
+Use [Link](/docs/typography-components/link). Text with `href` renders an `<a>` that keeps the look of body text, with no link color and no underline, so readers cannot tell that it is a link. Link adds both, a keyboard focus outline, the new-tab handling of `external` and the size of the text around it. For a whole clickable block, use a Card or a Col with `href`.

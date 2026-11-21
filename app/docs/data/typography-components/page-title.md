@@ -172,3 +172,17 @@ Combine an `xl` PageTitle with a large subtitle and a call to action for a marke
   </Row>
 </Stack>
 ```
+
+## Frequently asked questions
+
+### Can a page have more than one PageTitle?
+
+Use one. PageTitle renders an `<h1>`, and a page reads best with a single top-level heading that names it, which screen reader users often jump to first. For a large heading further down, use a SectionTitle with a size prop such as `xl`, or `<PageTitle tag="h2">`, which keeps the look and renders an `<h2>`.
+
+### Does PageTitle set the title in the browser tab?
+
+No. PageTitle renders an `<h1>` in the page, and the document `<title>` comes from your framework, such as the `metadata` export of a Next.js page or layout. Set both, and keep their wording close: the tab title can add the site name, while the PageTitle names the page itself.
+
+### How do I keep a PageTitle the same size on a phone?
+
+Pass `responsiveSizing={false}`. `responsiveSizing` is on by default for the headings, so a PageTitle steps its font size down below 1024px and again below 768px. Turned off, it keeps the size of its size prop at every width, so pick a size whose longest title still fits a narrow screen in a few lines.

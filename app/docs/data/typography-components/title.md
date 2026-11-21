@@ -172,3 +172,17 @@ Titles work well with other typography components in cards and sections.
   <Text>Built with ARIA best practices.</Text>
 </Card>
 ```
+
+## Frequently asked questions
+
+### How do I change the font of every heading?
+
+Re-declare the `--font-heading` token, which `Title`, `SectionTitle` and `PageTitle` read through their default `fontHeading` prop. It points at the sans font, so headings match the body text until you set it, for example with `:root { --font-heading: Georgia, serif; }` after the VaneUI stylesheet. A web font has to be loaded before the token can name it.
+
+### Why does my page outline jump from h1 to h3?
+
+Title renders an `<h3>`, so a page with a PageTitle and Titles but no SectionTitle skips the second level, which screen reader users notice when they move from heading to heading. Use a SectionTitle for the `<h2>` level, or keep the look of a Title and pass `tag="h2"`, as under [Custom HTML tag](#custom-html-tag). Each heading should be one level below the heading of its section.
+
+### How do I change every Title at once?
+
+Set the defaults on the flat `title` node, for example `themeDefaults={{ title: { fontBold: true } }}`. A Modal renders its plain-text `title` as a Title, so dialog titles follow the same node. `SectionTitle` and `PageTitle` have their own nodes, `sectionTitle` and `pageTitle`, so a change to `title` leaves them as they are.
