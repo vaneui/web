@@ -105,11 +105,32 @@ it has `onClick` or `tag="button"`. `noFocusVisible` opts out.
 - [Customizing Styles](https://vaneui.com/docs/customization/customizing-styles.md): Override VaneUI React component styles with Tailwind CSS classes in className: which properties win, when a CSS variable or a prop fits better, and pitfalls.
 - [Variant Inheritance](https://vaneui.com/docs/customization/variant-inheritance.md): Which VaneUI React components paint their own colors and which inherit them from a parent, why explicit props win, and how inheritAppearance works.
 
+## Guides
+
+- [Dark Mode Tokens with light-dark() and Tailwind CSS v4](https://vaneui.com/docs/guides/light-dark-tailwind-v4.md): Build dark mode tokens with CSS light-dark() and Tailwind CSS v4: how color-scheme picks a value, where VaneUI declares pairs, and how to override them.
+- [OKLCH Color Scales for UI Themes](https://vaneui.com/docs/guides/oklch-color-scales.md): Build an 11-step OKLCH color scale for a UI theme: lightness targets, chroma per step, sRGB gamut limits, hex conversion and mapping steps to VaneUI roles.
+- [Checking Color Contrast in Light and Dark Mode](https://vaneui.com/docs/guides/color-contrast-light-dark.md): Check color contrast in light and dark mode against WCAG 2.2 AA: the luminance formula, testing light-dark() pairs, and choosing text for filled buttons.
+- [Render Markdown as React Components](https://vaneui.com/docs/guides/markdown-react-components.md): Render Markdown as React components with @vaneui/md: Server Components or the client entry, frontmatter, vaneui fences, rendererTheme and untrustedPreset.
+- [Responsive Page Sections Without Breakpoint Classes](https://vaneui.com/docs/guides/responsive-sections.md): Build responsive page sections in React without breakpoint classes: mobileStack, tabletStack, hide and show props, responsive padding and a pricing example.
+
 ## Reference
 
 - [Common Props](https://vaneui.com/docs/reference/common-props.md): Layout and utility props shared by most VaneUI React components, written as booleans: responsive hide, flex alignment, position, display, overflow and gap.
+- [Tailwind CSS Classes to VaneUI Props](https://vaneui.com/docs/reference/tailwind-to-props.md): Look up the VaneUI boolean prop for a Tailwind CSS class: layout, flex alignment, spacing, typography, borders, shadows, colors and responsive variants.
 
 ## Optional
 
 - [Changelog](https://vaneui.com/docs/reference/changelog.md): Release notes for every @vaneui/ui version: added props and components, changes and fixes in the VaneUI React and Tailwind CSS library, newest first.
+- [Landing Page block](https://vaneui.com/blocks/landing): A header, a hero with text beside a visual, a feature grid, a call-to-action band and a footer, all on one page column.
+- [Pricing block](https://vaneui.com/blocks/pricing): A centered heading and three plan cards of equal height, with the button at the bottom of each card.
+- [Sign-In block](https://vaneui.com/blocks/sign-in): One narrow card centered in the window, with the email and password form in one column.
+- [App Shell block](https://vaneui.com/blocks/app-shell): A sticky header, a sidebar of navigation links and the page content, with a menu button in place of the sidebar on small screens.
+- [Settings block](https://vaneui.com/blocks/settings): Section navigation beside a column of forms, with the sections turning into a row of tabs on small screens.
+- [List and Detail block](https://vaneui.com/blocks/list-detail): A message list beside the open message, split into two screens with a back button on small screens.
+- [Dashboard block](https://vaneui.com/blocks/dashboard): A header with a period picker, a row of stat cards, a chart beside a short list, and an activity table.
+- [Data Table block](https://vaneui.com/blocks/data-table): An orders table with an export action, a filter toolbar and pagination, shown as one card per order on a phone.
+- [Theme Generator](https://vaneui.com/tools/theme-generator): One brand color in: an OKLCH scale and light and dark tokens out, checked for contrast.
+- [OKLCH Converter](https://vaneui.com/tools/oklch-converter): Hex, RGB and HSL to OKLCH and back, with sliders and a gamut check.
+- [Contrast Checker](https://vaneui.com/tools/contrast-checker): WCAG ratios for a text and background pair in light and dark at once.
+- [Markdown Editor](https://vaneui.com/tools/markdown-editor): Write Markdown, see it as styled components, copy it as HTML or JSX.
 - [All docs in one file](https://vaneui.com/llms-full.txt): every page above concatenated, for bulk ingestion

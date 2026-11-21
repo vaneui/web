@@ -125,3 +125,17 @@ Set app-wide Badge defaults with `ThemeProvider`'s `themeDefaults`:
   <Badge>Live</Badge>
 </ThemeProvider>
 ```
+
+## Frequently asked questions
+
+### Why is my Badge gray?
+
+Badge defaults to the `secondary` appearance, a neutral gray, so a bare Badge reads as a plain label. Name the status with an appearance prop such as `success`, `warning` or `danger`, and add `filled` for a solid fill: `<Badge success filled>Live</Badge>`. To change the default across an app, set it once on `ThemeProvider`, as [Customizing](#customizing) shows.
+
+### Can I make a Badge clickable?
+
+Give it an `href`, and it renders an `<a>` with a keyboard focus outline. A Badge with only `onClick` stays a plain `<span>`: it gets no role, no tab stop and no keyboard activation, so keyboard users cannot reach it. For a token that runs an action, use a [Chip](/docs/basic-components/chip#clickable-chips), which takes button semantics from `onClick`, or a [Button](/docs/basic-components/button).
+
+### Why doesn't a Badge take the color of the Card it sits in?
+
+Badge paints its own colors. It emits its appearance and variant, so a default Badge stays secondary outline inside a filled or colored Card. Set an appearance on the Badge itself, or pass `inheritAppearance` to take the colors of its parent. [Variant inheritance](/docs/customization/variant-inheritance#which-components-set-vs-inherit) lists which components paint their own colors and which inherit them.

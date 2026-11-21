@@ -296,3 +296,17 @@ import { Row, Text, Badge } from '@vaneui/ui';
   <Badge primary filled>12</Badge>
 </Row>
 ```
+
+## Frequently asked questions
+
+### Why does `mobileStack` do nothing in my app?
+
+With your own Tailwind build, the responsive props need the `@vaneui/ui/tokens` import. It registers the `mobile`, `tablet` and `desktop` breakpoints, and without it Tailwind emits no CSS for `mobileStack`, `tabletStack` or the hide and show props, with no build error. Add it next to `@vaneui/ui/vars` as shown in [CSS setup](/docs/getting-started/installation#css-setup). The prebuilt `@vaneui/ui/css` already contains it.
+
+### How do I push one item to the end of a Row?
+
+Give the item before it `flex1`, so that item takes the free width and everything after it moves to the end edge. For two groups, such as a title on the left and buttons on the right, use `justifyBetween` on a Row with two children, and wrap each group in its own `Row`. `justifyEnd` moves every child to the end.
+
+### Why do the items in my Row overflow on a phone?
+
+A Row keeps its children on one line, so when they need more width than the screen has, they run past its edge. Add `flexWrap` to let them wrap onto a new line, or `mobileStack` to stack them below 768px. A long word or URL in a child can still overflow; `breakWords` on that `Text` lets it break.

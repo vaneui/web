@@ -15,6 +15,8 @@ import { getPropTableRows } from '../app/docs/propTableRows';
 import { docsMarkdownUrl, SITE_URL } from '../lib/docs/markdownUrls';
 import { readPageMarkdown as readPageMarkdownFrom } from '../lib/docs/pageMarkdown';
 import { PACKAGE_NAME, renderPageMarkdown } from '../lib/docs/renderPageMarkdown';
+import { TOOLS, toolHref } from '../app/tools/tools';
+import { BLOCKS, blockHref } from '../app/blocks/blocks';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -109,7 +111,12 @@ function generateCompact(): string {
     }
     lines.push('');
   }
-  lines.push('## Optional', '', ...optional, `- [All docs in one file](${BASE_URL}/llms-full.txt): every page above concatenated, for bulk ingestion`);
+  // Copy-paste blocks and browser tools: HTML pages, after the docs
+  const extras = [
+    ...BLOCKS.map((b) => `- [${b.name} block](${BASE_URL}${blockHref(b.slug)}): ${b.description}`),
+    ...TOOLS.map((t) => `- [${t.name}](${BASE_URL}${toolHref(t.slug)}): ${t.summary}`),
+  ];
+  lines.push('## Optional', '', ...optional, ...extras, `- [All docs in one file](${BASE_URL}/llms-full.txt): every page above concatenated, for bulk ingestion`);
   return lines.join('\n').replace(/\n{3,}/g, '\n\n').trimEnd() + '\n';
 }
 

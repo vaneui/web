@@ -9,6 +9,8 @@ import { createHeadingSlugger, toHtmlId } from '../../app/utils/stringUtils';
 import { parseFrontmatter } from '../docs/frontmatter';
 import { readPageMarkdown } from '../docs/pageMarkdown';
 import { pagePropsTables, propsTableTitle, type PropsTable } from '../docs/propsTables';
+import { TOOLS, toolHref } from '../../app/tools/tools';
+import { BLOCKS, blockHref } from '../../app/blocks/blocks';
 import type { SearchEntry, SearchIndex } from './types';
 
 export interface MarkdownSection {
@@ -150,11 +152,20 @@ function pageEntries({ sectionIndex, page, body, tables }: PageSource, distinct:
 }
 
 /** Every docs page, its headings and its props tables, in sidebar order */
+/** The free tools and the UI blocks, one entry per page, in a section after the docs categories */
+function toolAndBlockEntries(section: number): SearchEntry[] {
+  return [
+    ...TOOLS.map((t) => ({ url: toolHref(t.slug), page: t.name, section, path: [], text: `${t.summary} ${t.description}` })),
+    ...BLOCKS.map((b) => ({ url: blockHref(b.slug), page: `${b.name} block`, section, path: [], text: b.description })),
+  ];
+}
+
 export function buildSearchIndex(root: string): SearchIndex {
   const pages = readPages(root);
   const distinct = distinctiveProps(pages);
+  const sections = docsSectionsMeta.map((s, i) => ({ name: s.name, index: String(i + 1).padStart(2, '0') }));
   return {
-    sections: docsSectionsMeta.map((s, i) => ({ name: s.name, index: String(i + 1).padStart(2, '0') })),
-    entries: pages.flatMap((page) => pageEntries(page, distinct)),
+    sections: [...sections, { name: 'Tools and blocks', index: String(sections.length + 1).padStart(2, '0') }],
+    entries: [...pages.flatMap((page) => pageEntries(page, distinct)), ...toolAndBlockEntries(sections.length)],
   };
 }

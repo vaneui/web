@@ -132,3 +132,17 @@ import { Code, Text } from '@vaneui/ui';
   Read the <Code href="/docs/getting-started" tag={Link}>getting started guide</Code> for setup steps.
 </Text>
 ```
+
+## Frequently asked questions
+
+### How do I show a multi-line code block?
+
+Code is for inline snippets: it renders a `<code>` whose text does not wrap. For a listing of several lines, render a `<pre>` through your own syntax highlighter, or a `Text` with `tag="pre"` and `fontMono` for plain output such as a log. With [@vaneui/md](/docs/getting-started/markdown), a fenced code block in Markdown renders as a code block on its own.
+
+### Why does inline code overflow its container on a phone?
+
+Code defaults to `whitespaceNowrap`, so a long command or package name never breaks and can run past a narrow column. Pass `whitespaceNormal` to let it wrap at spaces, and add `breakWords` or `breakAll` for a long string with no spaces, such as a URL or a hash. Code takes the same `whitespace` and `wordBreak` props as the other inline components.
+
+### Why is inline code gray when I set no appearance?
+
+Code defaults to the `secondary` appearance, a neutral tint. Pass another appearance, such as `info` or `success`, on a snippet that should stand out, as in [Appearances](#appearances). To change the default for an app, set `themeDefaults={{ code: { info: true } }}` on a `ThemeProvider`; Code has a flat theme node.

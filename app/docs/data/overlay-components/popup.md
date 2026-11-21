@@ -317,3 +317,17 @@ return (
   </>
 );
 ```
+
+## Frequently asked questions
+
+### Does focus move into a Popup when it opens?
+
+Only when you ask for it. `PopupTrigger` in click mode moves focus to the first focusable element inside, but a Popup used on its own leaves focus on its trigger unless you set `autoFocus`. The Popup renders at the end of `<body>`, so `Tab` from the trigger does not reach it otherwise. `modal` also traps `Tab` inside the Popup, returns focus on close and sets `aria-modal`.
+
+### Why don't the styles of the surrounding element reach my Popup?
+
+The Popup renders through a portal at the end of `<body>`, so a selector such as `.sidebar .vane-popup`, the color or font a parent sets, and the `data-theme` of a wrapper do not apply to it. Style it with its own props and `className`. `portal={false}` renders it in place, but an ancestor with a `transform` or `filter` then becomes its containing block, which can shift or clip it.
+
+### How do I close a PopupTrigger popup from a button inside it?
+
+Control the PopupTrigger: keep the open state in your component, pass it as `open`, update it in `onOpenChange`, and set it to `false` in the button's `onClick`. A click on the trigger, an outside click and `Escape` still call `onOpenChange` with the new state, so setting your state there keeps them working. Uncontrolled, PopupTrigger offers no close function to call.

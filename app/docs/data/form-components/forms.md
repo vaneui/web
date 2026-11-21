@@ -324,3 +324,25 @@ return (
 Pressing Enter in a text field activates the first submit button in the form. A button with no `type` counts as one, so an untyped button placed before the real submit button receives that click.
 
 `NavLink` without `href` and `ModalCloseButton` already render `type="button"`. A Button with `href` renders an `<a>`, which never submits.
+
+## Frequently asked questions
+
+### Can I use VaneUI controls with a form library?
+
+Yes. `Input`, `Textarea`, `Select`, `Checkbox`, `Radio` and `Switch` forward `ref` to the native element and pass `name`, `value`, `onChange` and `onBlur` through, so the props a form library spreads onto a native control work unchanged. Pass the library's error message to the `error` prop of the [Field](/docs/form-components/field) around the control to get the message, the danger cue and `aria-invalid` in one place.
+
+### Do VaneUI forms work with React 19 form actions?
+
+Yes, because the controls are native elements. Pass a function to the form's `action` prop: React calls it with the form's `FormData` and, after it succeeds, resets the uncontrolled fields. To disable the submit button while the action runs, call `useFormStatus` from `react-dom` in a component rendered inside the form and pass its `pending` value to the `loading` prop of the submit Button.
+
+### How do I put two fields side by side?
+
+Put the Fields in `<Row itemsStart mobileStack>`. Each Field is full width, so two of them split the row evenly. `itemsStart` keeps the controls aligned when only one field has help or error text, and `mobileStack` stacks the fields on screens narrower than 768px. With your own Tailwind build, `mobileStack` needs the `@vaneui/ui/tokens` import from [CSS setup](/docs/getting-started/installation#css-setup).
+
+### How do I submit a form from a button outside it?
+
+Give the `<form>` an `id`, and give the button `type="submit"` and `form` set to that id. The native `form` attribute ties a button to a form anywhere in the document, so a Save button in a `ModalFooter` submits a form that sits in the `ModalBody`. Native validation runs and `onSubmit` fires the same way as for a button inside the form.
+
+### Why don't fields that fail browser validation turn red?
+
+VaneUI draws the invalid state from the `invalid` prop and a Field's `error`, not from the CSS `:invalid` state, so a control the browser rejects keeps its usual border while the browser shows its own message. For the danger border and messages of your own, add `noValidate` to the form and pass each message to `error`, as in [Showing errors with the Field `error` prop](#showing-errors-with-the-field-error-prop).

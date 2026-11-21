@@ -288,3 +288,17 @@ import { Col, Title, Text } from '@vaneui/ui';
   <Text secondary>Browse guides and API reference.</Text>
 </Col>
 ```
+
+## Frequently asked questions
+
+### How do I make a Col scroll?
+
+Give it a height limit and `overflowYAuto`. The limit can be a class such as `max-h-96` or `style={{ maxHeight: 400 }}`; without one the Col grows with its content and there is nothing to scroll. When a column flex parent sets the height instead, such as a full-height sidebar, the Col also needs `min-h-0`, because a flex item does not shrink below its content otherwise.
+
+### How do I keep a sidebar Col in view while the page scrolls?
+
+Add `sticky`, which sticks the Col at the top edge of the scroll area. Set the `--sticky-top` CSS variable on it to stop it lower, below a fixed header. Give the Row that holds the sidebar `itemsStart`: a Col stretched to the full height of the row has no room to move, so it scrolls away with the page.
+
+### Why does `mobileStack` do nothing on my Col?
+
+A Col is already a column, and `mobileStack` only turns a row into a column, so on a Col it changes nothing. Put `mobileStack` on the `Row` that holds the Cols, as under [Responsive layout](/docs/layout-components/row#responsive-layout) on the Row page, and add `itemsStretch` to that Row if the stacked Cols should fill its width.

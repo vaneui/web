@@ -2,8 +2,8 @@ import { Plus_Jakarta_Sans, DM_Serif_Display, JetBrains_Mono } from 'next/font/g
 import './globals.css';
 import React from 'react';
 import ThemeWrapper from "./themeWrapper";
+import { SiteAnalytics } from "./components/SiteAnalytics";
 import { Metadata, Viewport } from "next";
-import { Analytics } from "@vercel/analytics/next"
 import { BASE_OPEN_GRAPH } from "./constants"
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -94,7 +94,7 @@ export default function RootLayout({children}: {
     <ThemeWrapper>
       {children}
     </ThemeWrapper>
-    <Analytics />
+    <SiteAnalytics/>
     </body>
     </html>
   );

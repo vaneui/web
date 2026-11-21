@@ -1,6 +1,8 @@
 import type { MetadataRoute } from 'next';
 import { docsSections } from './docs/docsSections';
 import { docPageDates, lastPathsDate } from '../lib/docs/gitDate';
+import { TOOLS, toolHref } from './tools/tools';
+import { BLOCKS, blockHref } from './blocks/blocks';
 
 const BASE_URL = 'https://vaneui.com';
 
@@ -17,12 +19,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry(BASE_URL, lastPathsDate(['app/page.tsx', 'app/landing'])),
     entry(`${BASE_URL}/docs`, lastPathsDate(['app/docs/page.tsx', 'app/docs/DocsIndex.tsx', 'app/docs/docsMetadata.ts'])),
     entry(`${BASE_URL}/playground`, lastPathsDate(['app/playground'])),
+    entry(`${BASE_URL}/tools`, lastPathsDate(['app/tools/page.tsx', 'app/tools/ToolsHub.tsx', 'app/tools/tools.ts'])),
+    entry(`${BASE_URL}/blocks`, lastPathsDate(['app/blocks/page.tsx', 'app/blocks/BlocksGallery.tsx', 'app/blocks/blocks.ts'])),
   ];
+
+  // The preview pages under /blocks/<slug>/preview are noindex and stay out
+  const toolPages: MetadataRoute.Sitemap = TOOLS.map(tool =>
+    entry(`${BASE_URL}${toolHref(tool.slug)}`, lastPathsDate([`app/tools/${tool.slug}`, 'app/tools/ToolShell.tsx', 'lib/color'])));
+  const blockPages: MetadataRoute.Sitemap = BLOCKS.map(block =>
+    entry(`${BASE_URL}${blockHref(block.slug)}`, lastPathsDate([`app/blocks/library/${block.slug}.tsx`, 'app/blocks/[slug]'])));
 
   const docPages: MetadataRoute.Sitemap = docsSections.flatMap(section =>
     section.pages.map(page =>
       entry(`${BASE_URL}/docs/${section.slug}/${page.slug}`, docPageDates(section.slug, page).modified)),
   );
 
-  return [...staticPages, ...docPages];
+  return [...staticPages, ...toolPages, ...blockPages, ...docPages];
 }

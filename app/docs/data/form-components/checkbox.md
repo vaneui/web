@@ -273,3 +273,17 @@ Set app-wide Checkbox defaults with `ThemeProvider`'s `themeDefaults` and tune t
   </Label>
 </ThemeProvider>
 ```
+
+## Frequently asked questions
+
+### Do screen readers announce the indeterminate state?
+
+Yes. Checkbox sets the native `indeterminate` property on its `<input>`, and browsers report a checkbox in that state as mixed, which screen readers announce as mixed or partly checked. The dash on screen is decorative. The `checked` value and what the form submits do not change, so a "Select all" box still needs `checked` and `onChange` from your own state, as in the [indeterminate example](#indeterminate-state).
+
+### Can a Checkbox label contain a link?
+
+Yes. A click on a link inside the Label follows the link and leaves the box as it is, while a click anywhere else on the text toggles the box, as in the terms example under [Basic usage](#basic-usage). Keep the link text short and specific, because the whole Label text, the link included, becomes the accessible name of the checkbox.
+
+### What does a Checkbox send with the form?
+
+A checked Checkbox adds its `value` to the form data, or `"on"` when it has no `value`. An unchecked one adds no entry, so treat a missing name as false. Several checkboxes can share one `name`, and `formData.getAll(name)` returns every checked value. The [Forms](/docs/form-components/forms#values-of-checkbox-radiogroup-switch-and-select) page compares this with the other controls.

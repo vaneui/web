@@ -243,3 +243,17 @@ Set app-wide Grid defaults with `ThemeProvider`'s `themeDefaults`. Each column c
   </Grid3>
 </ThemeProvider>
 ```
+
+## Frequently asked questions
+
+### How do I keep two columns on a phone?
+
+Pass the column count for that width as a class: `<Grid2 className="max-mobile:grid-cols-2">` keeps two columns below 768px. A class with the same breakpoint replaces the grid's own, while a class without one, such as `grid-cols-2`, does not reach the smaller widths. A class that VaneUI does not use itself needs your own Tailwind build with the `@vaneui/ui/tokens` import, which defines `max-mobile`.
+
+### How do I make one cell span two columns?
+
+Give the cell `className="col-span-2"`. Below 768px a `Grid2` or `Grid3` has one column, and a cell that spans two adds a second column there, so add `max-mobile:col-span-1` to the same class list. `Grid4` to `Grid6` keep two columns on a phone, so a span of two fits them at every width. Both classes need your own Tailwind build.
+
+### Why are all the cards in a grid row the same height?
+
+Grid cells stretch to the height of the tallest cell in their row, which is what keeps a row of Cards even. To keep each cell at its own content height, add `itemsStart` to the grid, or `itemsCenter` to center the shorter cells. The row still takes the height of its tallest cell, so the space between rows does not change.

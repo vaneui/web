@@ -456,6 +456,48 @@ export const docsSectionsMeta: DocSectionMeta[] = [
     ]
   },
   {
+    name: 'Guides',
+    slug: 'guides',
+    description: 'Technical articles on dark mode tokens, OKLCH color scales, contrast checks, Markdown rendering and responsive page sections.',
+    pages: [
+      {
+        slug: 'light-dark-tailwind-v4',
+        name: 'Dark Mode Tokens with light-dark() and Tailwind CSS v4',
+        seoTitle: 'Dark Mode Tokens with CSS light-dark() and Tailwind CSS v4',
+        description: 'Build dark mode tokens with CSS light-dark() and Tailwind CSS v4: how color-scheme picks a value, where VaneUI declares pairs, and how to override them.',
+        mdPath: 'light-dark-tailwind-v4.md',
+      },
+      {
+        slug: 'oklch-color-scales',
+        name: 'OKLCH Color Scales for UI Themes',
+        seoTitle: 'OKLCH Color Scales for UI Themes: Ramps and Roles | VaneUI',
+        description: 'Build an 11-step OKLCH color scale for a UI theme: lightness targets, chroma per step, sRGB gamut limits, hex conversion and mapping steps to VaneUI roles.',
+        mdPath: 'oklch-color-scales.md',
+      },
+      {
+        slug: 'color-contrast-light-dark',
+        name: 'Checking Color Contrast in Light and Dark Mode',
+        seoTitle: 'Color Contrast in Light and Dark Mode: WCAG 2.2 AA | VaneUI',
+        description: 'Check color contrast in light and dark mode against WCAG 2.2 AA: the luminance formula, testing light-dark() pairs, and choosing text for filled buttons.',
+        mdPath: 'color-contrast-light-dark.md',
+      },
+      {
+        slug: 'markdown-react-components',
+        name: 'Render Markdown as React Components',
+        seoTitle: 'Render Markdown as React Components with @vaneui/md',
+        description: 'Render Markdown as React components with @vaneui/md: Server Components or the client entry, frontmatter, vaneui fences, rendererTheme and untrustedPreset.',
+        mdPath: 'markdown-react-components.md',
+      },
+      {
+        slug: 'responsive-sections',
+        name: 'Responsive Page Sections Without Breakpoint Classes',
+        seoTitle: 'Responsive Page Sections Without Breakpoint Classes | VaneUI',
+        description: 'Build responsive page sections in React without breakpoint classes: mobileStack, tabletStack, hide and show props, responsive padding and a pricing example.',
+        mdPath: 'responsive-sections.md',
+      },
+    ]
+  },
+  {
     name: 'Reference',
     slug: 'reference',
     description: 'Shared prop reference, cross-component documentation, and release notes.',
@@ -465,6 +507,13 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         name: 'Common Props',
         seoTitle: 'Common Props Shared by VaneUI React Components',
         description: 'Layout and utility props shared by most VaneUI React components, written as booleans: responsive hide, flex alignment, position, display, overflow and gap.',
+      },
+      {
+        slug: 'tailwind-to-props',
+        name: 'Tailwind CSS Classes to VaneUI Props',
+        seoTitle: 'Tailwind CSS Classes to VaneUI Props: Cheat Sheet',
+        description: 'Look up the VaneUI boolean prop for a Tailwind CSS class: layout, flex alignment, spacing, typography, borders, shadows, colors and responsive variants.',
+        mdPath: 'tailwind-to-props.md',
       },
       {
         slug: 'changelog',

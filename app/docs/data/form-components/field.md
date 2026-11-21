@@ -232,3 +232,17 @@ If the control already carries an `id`, Field adopts it rather than generating o
   <Input id="coupon" defaultValue="LAUNCH25"/>
 </Field>
 ```
+
+## Frequently asked questions
+
+### How do I mark a field as required with an asterisk?
+
+Field draws no required marker of its own. Put the asterisk in the `label`, for example `label={<>Email <Text tag="span" danger inheritSize aria-hidden>*</Text></>}`, as on the [Label](/docs/form-components/label#required-and-status) page. `aria-hidden` keeps screen readers from reading the symbol, since `required` on the Field already makes the control announce itself as required.
+
+### Can one Field hold two controls?
+
+No. A Field publishes one id, and every VaneUI control inside it takes that id, so two inputs would share it and the label would point at the first one only. Give each control its own Field, or use a [RadioGroup](/docs/form-components/radio) for a set of options. A Button next to the control, such as a password toggle, is fine: buttons do not read the Field.
+
+### Why isn't the error message read out when it appears?
+
+The message is a `<p>` linked to the control with `aria-describedby`, not a live region, so a screen reader reads it while focus is on the control. An error set on blur is therefore heard when the user comes back to the field. After a failed submit, move focus to the first invalid control, as the example in [Forms](/docs/form-components/forms#showing-errors-with-the-field-error-prop) does.

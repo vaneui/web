@@ -465,3 +465,17 @@ return (
   </ThemeProvider>
 );
 ```
+
+## Frequently asked questions
+
+### Why does my Modal ignore the `data-theme` of a wrapper?
+
+Modal renders through a portal at the end of `<body>`, outside the wrapper, so it resolves the theme set on `<html>` or `<body>` instead. Put `data-theme="dark"` on `<html>` for a dark page, as described under [Overlays follow the page theme](/docs/customization/dark-mode#overlays-follow-the-page-theme). The same holds for `Popup`, `Menu` and `Tooltip`, which render through a portal too.
+
+### How do I make a Modal wider than `xl`?
+
+Re-declare the width token of a size in your own stylesheet, for example `:root { --modal-width-xl: 48rem; }`, and use `<Modal xl>`. Every `xl` Modal then takes the new width. The size still caps the dialog at the viewport width minus 2rem, so it keeps a margin on a phone. For a dialog that fills the whole viewport, use `fullScreen` instead.
+
+### Why does the Cancel button in my form Modal submit the form?
+
+Inside a `<form>`, a Button without a `type` is a submit button, Cancel included. Give Cancel `type="button"` and the main action `type="submit"`; `ModalCloseButton` already renders `type="button"`. When the form sits in the `ModalBody` and the buttons in the `ModalFooter`, link the submit button to the form with its `form` attribute, as described in the [Forms FAQ](/docs/form-components/forms#how-do-i-submit-a-form-from-a-button-outside-it).

@@ -4,7 +4,8 @@
  * Every page starts with the site nodes (Organization and WebSite). The home page adds the
  * library (SoftwareSourceCode) and a Product with its free offer, the playground repeats the
  * Product, the docs hub lists its pages, and each docs page is an Article with its
- * breadcrumb. Nodes point at each other by `@id`, so each entity is described once per page.
+ * breadcrumb, plus an FAQPage when the page has an FAQ section. Nodes point at each other by
+ * `@id`, so each entity is described once per page.
  *
  * Docs pages use Article, not its TechArticle subtype: AI readiness audits match the Article
  * type exactly and report TechArticle pages as missing it, and search engines treat the two
@@ -174,9 +175,26 @@ export function docsIndexGraph(args: {
   });
 }
 
+/** The questions of a docs page's FAQ section (lib/seo/faq.ts), in page order */
+function faqPageNode(url: string, faq: { question: string; answer: string }[]): JsonLdNode {
+  return {
+    '@type': 'FAQPage',
+    '@id': `${url}#faq`,
+    url,
+    inLanguage: 'en',
+    isPartOf: ref(IDS.website),
+    mainEntity: faq.map(entry => ({
+      '@type': 'Question',
+      name: entry.question,
+      acceptedAnswer: { '@type': 'Answer', text: entry.answer },
+    })),
+  };
+}
+
 /**
  * Docs page: the breadcrumb (VaneUI > Documentation > Page; /docs/<category> has no page of
- * its own, so the category is the Article's articleSection instead) and the Article.
+ * its own, so the category is the Article's articleSection instead), the Article, and an
+ * FAQPage when the page has questions.
  */
 export function docsPageGraph(args: {
   category: string;
@@ -188,8 +206,11 @@ export function docsPageGraph(args: {
   image: string;
   datePublished?: string;
   dateModified?: string;
+  /** The page's FAQ as plain text; no node is added when it is empty or missing */
+  faq?: { question: string; answer: string }[];
 }): JsonLdGraph {
   const url = `${SITE_URL}/docs/${args.category}/${args.slug}`;
+  const faq = args.faq?.length ? [faqPageNode(url, args.faq)] : [];
   return graph(
     {
       '@type': 'BreadcrumbList',
@@ -218,10 +239,75 @@ export function docsPageGraph(args: {
       isPartOf: ref(IDS.website),
       about: { '@type': 'SoftwareSourceCode', '@id': IDS.software, name: SITE_NAME },
     },
+    ...faq,
   );
 }
 
 /** JSON for a `<script type="application/ld+json">` body: `<` is escaped so text can never close the tag */
 export function serializeJsonLd(data: JsonLdGraph): string {
   return JSON.stringify(data).replace(/</g, '\\u003c');
+}
+
+/**
+ * A free tool: a WebApplication that runs in the browser at no cost, with its breadcrumb
+ * (VaneUI > Free tools > Tool).
+ */
+export function toolGraph(args: { path: string; name: string; description: string; category: string }): JsonLdGraph {
+  const url = `${SITE_URL}${args.path}`;
+  return graph(
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${url}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: SITE_NAME, item: SITE_URL },
+        { '@type': 'ListItem', position: 2, name: 'Free tools', item: `${SITE_URL}/tools` },
+        { '@type': 'ListItem', position: 3, name: args.name, item: url },
+      ],
+    },
+    {
+      '@type': 'WebApplication',
+      '@id': `${url}#app`,
+      name: args.name,
+      description: args.description,
+      url,
+      applicationCategory: 'DeveloperApplication',
+      applicationSubCategory: args.category,
+      operatingSystem: 'Any (runs in the browser)',
+      browserRequirements: 'Requires JavaScript',
+      isAccessibleForFree: true,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      inLanguage: 'en',
+      isPartOf: ref(IDS.website),
+      publisher: ref(IDS.organization),
+    },
+  );
+}
+
+/** A hub page (free tools, blocks): a collection page listing its items */
+export function collectionGraph(args: {
+  path: string;
+  name: string;
+  description: string;
+  items: { name: string; url: string }[];
+}): JsonLdGraph {
+  const url = `${SITE_URL}${args.path}`;
+  return graph({
+    '@type': 'CollectionPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: args.name,
+    description: args.description,
+    inLanguage: 'en',
+    isPartOf: ref(IDS.website),
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: args.items.length,
+      itemListElement: args.items.map((item, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: item.name,
+        url: item.url,
+      })),
+    },
+  });
 }

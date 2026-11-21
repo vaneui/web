@@ -13,6 +13,8 @@ const COLUMNS: { title: string; links: { text: string; href: string }[] }[] = [
     links: [
       { text: 'Documentation', href: '/docs' },
       { text: 'Playground', href: '/playground' },
+      { text: 'UI blocks', href: '/blocks' },
+      { text: 'Free tools', href: '/tools' },
       { text: 'Core concepts', href: '/docs/getting-started/core-concepts' },
       { text: 'Installation', href: '/docs/getting-started/installation' },
       { text: 'Changelog', href: '/docs/reference/changelog' },

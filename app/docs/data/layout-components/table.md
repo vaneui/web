@@ -252,3 +252,17 @@ Set table defaults with `ThemeProvider`'s `themeDefaults`. The `table` node has 
   </Table>
 </ThemeProvider>
 ```
+
+## Frequently asked questions
+
+### Can a Table sort or paginate its rows?
+
+No: Table renders the markup and leaves the data to you. To sort, keep the rows in state, put a `<Button type="button" ghost>` in each sortable `Th`, and set `aria-sort="ascending"` or `"descending"` on the `Th` of the sorted column so screen readers announce the order. Render the pagination controls, such as a `Row` of Buttons, below the Table.
+
+### How do I make a whole table row a link?
+
+A `<tr>` cannot be a link, so put a `Link` in the cell that names the row, usually the first one. That gives keyboard and screen reader users one focusable link per row. An `onClick` on the `Tr` adds a larger mouse target but no keyboard access, so keep the Link when you add one.
+
+### How do I highlight one row?
+
+Give the `Tr` an appearance and a variant, such as `<Tr filled info>` or `<Tr danger outline>`. The cells of the row have no appearance of their own, so they follow the row as they follow the Table: `filled` paints the row background and switches its text and row rule to the fill. A cell with its own appearance, such as `<Td danger>`, keeps it.

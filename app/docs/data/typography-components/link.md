@@ -188,3 +188,17 @@ Set app-wide Link defaults with `ThemeProvider`'s `themeDefaults`:
   <Link href="/docs">Read more</Link>
 </ThemeProvider>
 ```
+
+## Frequently asked questions
+
+### How do I change the link color across the site?
+
+Re-declare the `--color-text-link` token, which every Link without an appearance reads. For a site with dark mode, set it as a `light-dark()` pair on the `data-theme` elements and the light value on `:root`, as described under [Changing a color in both schemes](/docs/customization/dark-mode#changing-a-color-in-both-schemes). To give every link an appearance color instead, use `themeDefaults={{ link: { info: true } }}`, as under [Customizing](#customizing).
+
+### How do I disable a Link?
+
+Pass `disabled`. An `<a>` has no native disabled state, so Link removes the `href`, blocks clicks and `Enter`, and sets `aria-disabled="true"`. The link stays focusable, so a screen reader user still finds it and hears that it is unavailable. Say near the link why it is disabled, since a disabled link gives no reason of its own.
+
+### Why is my Link in a different font from the text around it?
+
+Link is `fontSans` by default, so inside a `Text` with `fontSerif` or `fontMono`, or a heading whose `--font-heading` names another font, it switches to the sans font. Give the Link the same font prop as its parent, such as `fontMono` or `fontHeading`, or set that font on the `link` node in `themeDefaults` to change every Link.
