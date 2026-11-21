@@ -474,6 +474,13 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         description: 'Build an 11-step OKLCH color scale for a UI theme: lightness targets, chroma per step, sRGB gamut limits, hex conversion and mapping steps to VaneUI roles.',
         mdPath: 'oklch-color-scales.md',
       },
+      {
+        slug: 'color-contrast-light-dark',
+        name: 'Checking Color Contrast in Light and Dark Mode',
+        seoTitle: 'Color Contrast in Light and Dark Mode: WCAG 2.2 AA | VaneUI',
+        description: 'Check color contrast in light and dark mode against WCAG 2.2 AA: the luminance formula, testing light-dark() pairs, and choosing text for filled buttons.',
+        mdPath: 'color-contrast-light-dark.md',
+      },
     ]
   },
   {
