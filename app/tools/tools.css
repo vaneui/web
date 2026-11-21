@@ -1,0 +1,44 @@
+/* Native range inputs on the free tools: a track painted with what the slider changes, and a
+   round thumb in the page's own colors. VaneUI ships no slider, so these stay plain inputs. */
+.tool-range {
+  appearance: none;
+  width: 100%;
+  height: 1.25rem;
+  background: transparent;
+  cursor: pointer;
+}
+.tool-range::-webkit-slider-runnable-track {
+  height: 0.625rem;
+  border-radius: 9999px;
+  background: var(--track);
+  box-shadow: inset 0 0 0 1px var(--color-border-primary);
+}
+.tool-range::-moz-range-track {
+  height: 0.625rem;
+  border-radius: 9999px;
+  background: var(--track);
+  box-shadow: inset 0 0 0 1px var(--color-border-primary);
+}
+.tool-range::-webkit-slider-thumb {
+  appearance: none;
+  margin-top: -0.3125rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+  background: var(--color-bg-primary);
+  border: 2px solid var(--color-text-primary);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.25);
+}
+.tool-range::-moz-range-thumb {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 9999px;
+  background: var(--color-bg-primary);
+  border: 2px solid var(--color-text-primary);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.25);
+}
+.tool-range:focus-visible {
+  outline: 2px solid var(--color-focus-primary, currentColor);
+  outline-offset: 2px;
+  border-radius: 9999px;
+}
