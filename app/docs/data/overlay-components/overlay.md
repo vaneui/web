@@ -259,3 +259,17 @@ return (
   </>
 );
 ```
+
+## Frequently asked questions
+
+### Does Overlay trap focus or lock page scrolling?
+
+No. Overlay closes on `Escape` and on a backdrop click when it has an `onClose`, but it does not move focus, trap `Tab`, lock the page scroll, make the page inert or set a dialog role. Keyboard users can still tab to the page behind it. For content that takes input or must be dismissed first, use [Modal](/docs/overlay-components/modal), which does all of these.
+
+### How do I show a backdrop that blocks clicks but never closes?
+
+Leave out `onClose`. Without it the Overlay ignores backdrop clicks and `Escape`, while still covering the page, so a click cannot reach the content behind it. `pointerEventsNone`, used under [Non-dismissible Overlay](#non-dismissible-overlay), does the opposite: clicks pass through to the page. Keyboard focus can still reach the page in both cases, since Overlay makes nothing inert.
+
+### Why is my Overlay missing from the server-rendered HTML?
+
+A portaled Overlay renders nothing on the server and while the page hydrates, because `document.body` does not exist on the server, and it appears right after hydration. This keeps the server and client markup the same, so React reports no hydration mismatch. An Overlay with `portal={false}` renders in place, so it is part of the server HTML.

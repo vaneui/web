@@ -170,3 +170,17 @@ A Tooltip can be the trigger of a [Menu](/docs/overlay-components/menu) or a `Po
   </Tooltip>
 </PopupTrigger>
 ```
+
+## Frequently asked questions
+
+### Should I use Tooltip or a PopupTrigger with the tooltip role?
+
+Use Tooltip. It is a PopupTrigger with the tooltip settings already made: `role="tooltip"`, so the trigger gets `aria-describedby` and no `aria-haspopup` or `aria-expanded`, opening on focus as well as hover, a 300ms open delay, and the ink label with its width cap. Keep a hover `PopupTrigger` for floating content that is not a description of its trigger.
+
+### How do I use my own component as a Tooltip trigger?
+
+Forward the ref to the component's DOM element and spread the rest of its props onto that element. Tooltip passes a `ref`, `onMouseEnter`, `onMouseLeave`, `onFocus`, `onBlur` and `aria-describedby` to its child, and a component that drops them never opens the hint. In React 19 a function component can take `ref` as a regular prop and pass it on.
+
+### Can a Tooltip contain a link or a button?
+
+No. The hint closes when focus leaves the trigger, and it renders at the end of `<body>`, so a keyboard user can never reach a control inside it, and a screen reader reads its text as the description of the trigger. Put interactive content in a Popup that opens on click through `PopupTrigger`, which moves focus into it.

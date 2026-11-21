@@ -274,3 +274,17 @@ Menu supports additional configuration for fine-tuning behavior:
 | `disabled` | `false` | Prevent interaction |
 | `focusVisible` | `true` | Render a keyboard focus-visible outline |
 | `noFocusVisible` |   | Disable the keyboard focus-visible outline |
+
+## Frequently asked questions
+
+### How do I add a submenu?
+
+Nest a `Menu` inside a Menu and give it a `MenuItem` as its `trigger`, as in `<Menu trigger={<MenuItem>Share</MenuItem>}>`. The submenu opens on hover, on click and with `ArrowRight`, and `ArrowLeft` or `Escape` closes only that level. It opens to the right of its item and flips when there is no room, and picking an item in it closes every level.
+
+### Why doesn't my own trigger component open the Menu?
+
+Menu clones the `trigger` element and passes it a `ref`, `onClick`, `onKeyDown`, `aria-haspopup`, `aria-expanded` and `aria-controls`. A component that does not hand the ref to its DOM element and spread the other props onto it drops them, so the click never reaches the Menu and the popup has nothing to anchor to. Forward the ref and spread the rest of the props onto the button.
+
+### Why do my Menu theme defaults have no effect?
+
+Menu has a theme node for each part: `menu.popup` for the dropdown, `menu.item` for `MenuItem`, `menu.label` for `MenuLabel` and `menu.divider` for a `Divider` inside it. A flat `menu: { md: true }` matches no node and does nothing, and a development build warns about it. Use the nested form, for example `themeDefaults={{ menu: { item: { md: true } } }}`.
