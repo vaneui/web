@@ -467,6 +467,13 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         description: 'Build dark mode tokens with CSS light-dark() and Tailwind CSS v4: how color-scheme picks a value, where VaneUI declares pairs, and how to override them.',
         mdPath: 'light-dark-tailwind-v4.md',
       },
+      {
+        slug: 'oklch-color-scales',
+        name: 'OKLCH Color Scales for UI Themes',
+        seoTitle: 'OKLCH Color Scales for UI Themes: Ramps and Roles | VaneUI',
+        description: 'Build an 11-step OKLCH color scale for a UI theme: lightness targets, chroma per step, sRGB gamut limits, hex conversion and mapping steps to VaneUI roles.',
+        mdPath: 'oklch-color-scales.md',
+      },
     ]
   },
   {
