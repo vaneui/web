@@ -225,3 +225,67 @@ export function docsPageGraph(args: {
 export function serializeJsonLd(data: JsonLdGraph): string {
   return JSON.stringify(data).replace(/</g, '\\u003c');
 }
+
+/**
+ * A free tool: a WebApplication that runs in the browser at no cost, with its breadcrumb
+ * (VaneUI > Free tools > Tool).
+ */
+export function toolGraph(args: { path: string; name: string; description: string; category: string }): JsonLdGraph {
+  const url = `${SITE_URL}${args.path}`;
+  return graph(
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${url}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: SITE_NAME, item: SITE_URL },
+        { '@type': 'ListItem', position: 2, name: 'Free tools', item: `${SITE_URL}/tools` },
+        { '@type': 'ListItem', position: 3, name: args.name, item: url },
+      ],
+    },
+    {
+      '@type': 'WebApplication',
+      '@id': `${url}#app`,
+      name: args.name,
+      description: args.description,
+      url,
+      applicationCategory: 'DeveloperApplication',
+      applicationSubCategory: args.category,
+      operatingSystem: 'Any (runs in the browser)',
+      browserRequirements: 'Requires JavaScript',
+      isAccessibleForFree: true,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      inLanguage: 'en',
+      isPartOf: ref(IDS.website),
+      publisher: ref(IDS.organization),
+    },
+  );
+}
+
+/** A hub page (free tools, blocks): a collection page listing its items */
+export function collectionGraph(args: {
+  path: string;
+  name: string;
+  description: string;
+  items: { name: string; url: string }[];
+}): JsonLdGraph {
+  const url = `${SITE_URL}${args.path}`;
+  return graph({
+    '@type': 'CollectionPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: args.name,
+    description: args.description,
+    inLanguage: 'en',
+    isPartOf: ref(IDS.website),
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: args.items.length,
+      itemListElement: args.items.map((item, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: item.name,
+        url: item.url,
+      })),
+    },
+  });
+}
