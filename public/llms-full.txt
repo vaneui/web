@@ -11,7 +11,7 @@
 - Index: https://vaneui.com/llms.txt
 - Contact: hello@vaneui.com
 
-Pages follow the site navigation: Getting Started, Basic Components, Form Components, Typography Components, Layout Components, Overlay Components, Customization, Reference.
+Pages follow the site navigation: Getting Started, Basic Components, Form Components, Typography Components, Layout Components, Overlay Components, Customization, Guides, Reference.
 Each page is also available on its own as Markdown at its URL plus `.md`.
 
 # Installation
@@ -1538,6 +1538,24 @@ Add prop-conditional classes with `extraClasses`, applied whenever the matching 
 </ThemeProvider>
 ```
 
+## Frequently asked questions
+
+### Why do my Button theme defaults have no effect?
+
+Button's theme has sub-themes, so its defaults sit one level down, under `main`: write `themeDefaults={{ button: { main: { filled: true } } }}`, not `{ button: { filled: true } }`. The flat form matches no theme node and does nothing, and a development build logs a console warning about it. `IconButton` has a theme node of its own, `iconButton`, so set both when the two should match.
+
+### How do I make a Button full width?
+
+Pass `wFull`. Button defaults to `wFit`, so it is as wide as its label wherever it sits. For a button that fills its container only on small screens, use `mobileWFull` (below 768px) or `tabletWFull` (below 1024px), and it keeps its fit width above that. In your own Tailwind build, the responsive props need the `@vaneui/ui/tokens` import from the [installation guide](/docs/getting-started/installation#css-setup).
+
+### How do I make a Button as tall as the Input next to it?
+
+Give both the same size prop. `Button`, `IconButton`, `Input` and `Select` all default to `sm` and share one height scale, so a field and a button written without a size prop line up in a `Row`. When you change one, such as `<Input md>`, pass the same prop to the other (`<Button md>`). A `Field` passes its size to the control inside it, but not to a Button placed beside it.
+
+### Can I wrap a Button in a Next.js Link?
+
+No. A `<button>` inside an `<a>` nests two interactive elements, which HTML does not allow and which confuses keyboard and screen reader users. Pass `href` and `tag={Link}` to the Button instead, so it renders a single anchor through Next.js `Link`, as [Next.js Link integration](#next-js-link-integration) shows. A Button that only runs code takes `onClick` and no `href`.
+
 ## Props
 
 - Appearance: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
@@ -1739,6 +1757,24 @@ Set app-wide IconButton defaults with `ThemeProvider`'s `themeDefaults`:
   <IconButton aria-label="Favorite"><Star /></IconButton>
 </ThemeProvider>
 ```
+
+## Frequently asked questions
+
+### Why don't my Button theme defaults apply to IconButton?
+
+IconButton has its own theme node, `iconButton`, so defaults set on `button.main` never reach it. Set both when the two should match: `themeDefaults={{ button: { main: { pill: true } }, iconButton: { pill: true } }}`. The `iconButton` node is flat, with no `main` level, and the same split applies to `extraClasses`.
+
+### Does a Tooltip give an IconButton its accessible name?
+
+No. A [Tooltip](/docs/overlay-components/tooltip) describes its trigger through `aria-describedby`, and only while it is open, so it adds a description rather than a name. Keep the `aria-label` on the IconButton and add the Tooltip for sighted pointer and keyboard users. The label and the hint can use the same words.
+
+### Why does my icon's `size` prop have no effect inside an IconButton?
+
+IconButton sizes every SVG inside it from its own size prop, with CSS `width` and `height`, and CSS wins over the `width` and `height` attributes an icon component sets from its `size` prop. Change the button's size instead (`lg`, `xl`), or give the SVG a `size-*` class, which opts it out of that rule. `Button` and `Icon` size their SVGs the same way.
+
+### Can an IconButton use the `ghost` variant?
+
+Yes. IconButton takes the same three variants as Button: `outline` (the default), `filled` and `ghost`. `ghost` renders a transparent background with no border and an appearance-colored icon, and tints the background on hover. It suits a close control or a row of secondary toolbar actions; the [removable chips](/docs/basic-components/chip#removable-chips) example uses `<IconButton xs ghost>`.
 
 ## Props
 
@@ -1986,6 +2022,20 @@ Set app-wide NavLink defaults with `ThemeProvider`'s `themeDefaults`. Style the 
 }
 ```
 
+## Frequently asked questions
+
+### How do I set `active` from the current route in Next.js?
+
+Read the path with `usePathname()` in a client component and compare it with the link's `href`: `active={pathname === '/docs'}`. For an item whose section has child pages, `pathname.startsWith('/docs/')` keeps it active on those pages too. The active link gets `aria-current="page"` and a `data-active` attribute, and `tag={Link}` keeps the navigation on the client.
+
+### Should a sidebar item be a NavLink or a Button?
+
+Use NavLink. It renders an `<a>` with `href`, marks the current page with `active` and `aria-current="page"`, fills the column with `wFull`, aligns its text left and truncates a long label. Button is built for actions: it centers its label, fits its content and has no active state. A NavLink without `href` renders a `<button>` with `type="button"` for an item that runs an action.
+
+### Why do my NavLink theme defaults have no effect?
+
+NavLink's theme has two parts, `root` for the link and `label` for its text span, so defaults go under `root`: `themeDefaults={{ navLink: { root: { md: true } } }}`. The flat form `{ navLink: { md: true } }` matches no theme node, and a development build warns about it. The active state is not a theme prop, so style it through the `data-active` attribute, as [Customizing](#customizing) shows.
+
 ## Props
 
 - Appearance: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
@@ -2136,6 +2186,20 @@ Set app-wide Badge defaults with `ThemeProvider`'s `themeDefaults`:
   <Badge>Live</Badge>
 </ThemeProvider>
 ```
+
+## Frequently asked questions
+
+### Why is my Badge gray?
+
+Badge defaults to the `secondary` appearance, a neutral gray, so a bare Badge reads as a plain label. Name the status with an appearance prop such as `success`, `warning` or `danger`, and add `filled` for a solid fill: `<Badge success filled>Live</Badge>`. To change the default across an app, set it once on `ThemeProvider`, as [Customizing](#customizing) shows.
+
+### Can I make a Badge clickable?
+
+Give it an `href`, and it renders an `<a>` with a keyboard focus outline. A Badge with only `onClick` stays a plain `<span>`: it gets no role, no tab stop and no keyboard activation, so keyboard users cannot reach it. For a token that runs an action, use a [Chip](/docs/basic-components/chip#clickable-chips), which takes button semantics from `onClick`, or a [Button](/docs/basic-components/button).
+
+### Why doesn't a Badge take the color of the Card it sits in?
+
+Badge paints its own colors. It emits its appearance and variant, so a default Badge stays secondary outline inside a filled or colored Card. Set an appearance on the Badge itself, or pass `inheritAppearance` to take the colors of its parent. [Variant inheritance](/docs/customization/variant-inheritance#which-components-set-vs-inherit) lists which components paint their own colors and which inherit them.
 
 ## Props
 
@@ -2361,6 +2425,20 @@ Add prop-conditional classes with `extraClasses`, applied whenever the matching 
 </ThemeProvider>
 ```
 
+## Frequently asked questions
+
+### Why is a Chip gray instead of primary?
+
+Chip defaults to the `secondary` appearance, while Button, Card and the form controls default to `primary`. A bare Chip is a neutral token, and an appearance prop such as `primary`, `info` or `success` colors the ones that should stand out. To change the default for a whole app, set it once on `ThemeProvider`, as [Customizing](#customizing) shows: `themeDefaults={{ chip: { primary: true } }}`.
+
+### Why does removing a Chip submit my form?
+
+The remove control in [removable chips](#removable-chips) is an `IconButton`, and IconButton sets no `type`. Inside a `<form>`, the browser treats a button with no `type` as a submit button, so a click on it submits the form. Pass `type="button"` to the IconButton. A Chip with `tag="button"` also renders a `<button>` with no `type` and needs the same fix.
+
+### How do I let a long Chip label wrap?
+
+Pass `whitespaceNormal`. Chip defaults to `whitespaceNowrap`, so its label stays on one line and a long one widens the chip instead of wrapping. With `whitespaceNormal`, the text wraps once the chip runs out of room in its parent. `Badge` has the same default and takes the same prop.
+
 ## Props
 
 - Appearance: `primary`, `accent`, `secondary` (default), `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
@@ -2517,6 +2595,20 @@ import { Code, Text } from '@vaneui/ui';
   Read the <Code href="/docs/getting-started" tag={Link}>getting started guide</Code> for setup steps.
 </Text>
 ```
+
+## Frequently asked questions
+
+### How do I show a multi-line code block?
+
+Code is for inline snippets: it renders a `<code>` whose text does not wrap. For a listing of several lines, render a `<pre>` through your own syntax highlighter, or a `Text` with `tag="pre"` and `fontMono` for plain output such as a log. With [@vaneui/md](/docs/getting-started/markdown), a fenced code block in Markdown renders as a code block on its own.
+
+### Why does inline code overflow its container on a phone?
+
+Code defaults to `whitespaceNowrap`, so a long command or package name never breaks and can run past a narrow column. Pass `whitespaceNormal` to let it wrap at spaces, and add `breakWords` or `breakAll` for a long string with no spaces, such as a URL or a hash. Code takes the same `whitespace` and `wordBreak` props as the other inline components.
+
+### Why is inline code gray when I set no appearance?
+
+Code defaults to the `secondary` appearance, a neutral tint. Pass another appearance, such as `info` or `success`, on a snippet that should stand out, as in [Appearances](#appearances). To change the default for an app, set `themeDefaults={{ code: { info: true } }}` on a `ThemeProvider`; Code has a flat theme node.
 
 ## Props
 
@@ -3059,6 +3151,20 @@ Icons work naturally alongside text and inside buttons.
 </Col>
 ```
 
+## Frequently asked questions
+
+### Do I need to wrap icons in Icon inside a Button?
+
+No. `Button`, `IconButton`, `NavLink` and `Alert` size an SVG child from their own size prop, so `<Button><Download/> Download</Button>` needs no wrapper. Use Icon for a glyph that stands on its own, such as an icon beside a line of `Text`: it sets the size, centers the glyph, keeps it from shrinking in a flex row and hides it from screen readers when it has no name.
+
+### How do I make an icon larger than `xl`?
+
+Give the SVG a `size-*` class, such as `size-10` for 40px. Icon's own sizing skips an SVG that carries a `size-*` class, so the class sets the size instead. The prebuilt `@vaneui/ui/css` stylesheet contains only the utilities VaneUI uses, so in that setup an SVG whose class is missing from the bundle falls back to its own `width` and `height` attributes. Your own Tailwind v4 build generates the class.
+
+### Can I use any icon set with Icon?
+
+Yes, as long as the icon renders an inline `<svg>`. Icon wraps whatever SVG element you pass, so icon components from any package work, and so does an `<svg>` written by hand. An icon loaded as an image file (`<img src="icon.svg">`) is not inline: Icon cannot size it or color it with `currentColor`, so render it with [Img](/docs/layout-components/img) instead.
+
 ## Props
 
 - Appearance: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
@@ -3199,6 +3305,20 @@ The size prop sets the text, radius, padding, gap and icon together. Alert text 
   <Alert xl>Extra large</Alert>
 </Col>
 ```
+
+## Frequently asked questions
+
+### How do I make an Alert dismissible?
+
+Alert has no close button of its own. Put an `IconButton` with an `aria-label`, such as `aria-label="Dismiss"`, after the message, and remove the Alert from your state in its `onClick`. Wrap the message in a `Text` so it takes the free width and the button sits at the end edge, as in [With a title and actions](#with-a-title-and-actions). Inside a form, give the IconButton `type="button"`.
+
+### How do I stack an Alert's button under the message on phones?
+
+Pass `mobileStack`. An Alert is a flex row and takes the same breakpoint props as `Row`, so below 768px the message and the button stack into a column, and the default `itemsStart` aligns them at the start edge. Use `tabletStack` to stack below 1024px. With your own Tailwind build, the breakpoint props need the `@vaneui/ui/tokens` import.
+
+### Can I use Alert as a toast?
+
+Alert is an inline message: it renders in the page flow where you place it, and VaneUI ships no toast container. For toasts, render Alerts inside a fixed container of your own. While a [Modal](/docs/overlay-components/modal#content-outside-the-dialog-that-stays-usable) is open, that container becomes inert with the rest of the page, unless it is a child of `<body>` that carries the `data-vane-overlay` attribute.
 
 ## Props
 
@@ -3814,6 +3934,28 @@ Pressing Enter in a text field activates the first submit button in the form. A 
 
 `NavLink` without `href` and `ModalCloseButton` already render `type="button"`. A Button with `href` renders an `<a>`, which never submits.
 
+## Frequently asked questions
+
+### Can I use VaneUI controls with a form library?
+
+Yes. `Input`, `Textarea`, `Select`, `Checkbox`, `Radio` and `Switch` forward `ref` to the native element and pass `name`, `value`, `onChange` and `onBlur` through, so the props a form library spreads onto a native control work unchanged. Pass the library's error message to the `error` prop of the [Field](/docs/form-components/field) around the control to get the message, the danger cue and `aria-invalid` in one place.
+
+### Do VaneUI forms work with React 19 form actions?
+
+Yes, because the controls are native elements. Pass a function to the form's `action` prop: React calls it with the form's `FormData` and, after it succeeds, resets the uncontrolled fields. To disable the submit button while the action runs, call `useFormStatus` from `react-dom` in a component rendered inside the form and pass its `pending` value to the `loading` prop of the submit Button.
+
+### How do I put two fields side by side?
+
+Put the Fields in `<Row itemsStart mobileStack>`. Each Field is full width, so two of them split the row evenly. `itemsStart` keeps the controls aligned when only one field has help or error text, and `mobileStack` stacks the fields on screens narrower than 768px. With your own Tailwind build, `mobileStack` needs the `@vaneui/ui/tokens` import from [CSS setup](/docs/getting-started/installation#css-setup).
+
+### How do I submit a form from a button outside it?
+
+Give the `<form>` an `id`, and give the button `type="submit"` and `form` set to that id. The native `form` attribute ties a button to a form anywhere in the document, so a Save button in a `ModalFooter` submits a form that sits in the `ModalBody`. Native validation runs and `onSubmit` fires the same way as for a button inside the form.
+
+### Why don't fields that fail browser validation turn red?
+
+VaneUI draws the invalid state from the `invalid` prop and a Field's `error`, not from the CSS `:invalid` state, so a control the browser rejects keeps its usual border while the browser shows its own message. For the danger border and messages of your own, add `noValidate` to the form and pass each message to `error`, as in [Showing errors with the Field `error` prop](#showing-errors-with-the-field-error-prop).
+
 # Input
 
 > Input lets users enter text, numbers, and other data. A form element with support for various types, validation states, and styling options.
@@ -3951,6 +4093,20 @@ Set app-wide Input defaults with `ThemeProvider`'s `themeDefaults` and add a foc
   <Input placeholder="Email" />
 </ThemeProvider>
 ```
+
+## Frequently asked questions
+
+### Should I use `danger` or `invalid` to mark a wrong value?
+
+Use `invalid`, or an `error` on the [Field](/docs/form-components/field) around the Input. `invalid` adds the danger border and ring over the current appearance, sets `aria-invalid="true"` and shows the trailing alert icon. `danger` only changes the colors, so screen readers hear nothing and no icon appears. Keep `danger` for a field that is not in error, such as the box where a user types a project name to confirm deleting it.
+
+### Why don't my Input theme defaults reach Textarea or Select?
+
+Each control has its own theme node. `themeDefaults={{ input: { md: true } }}` sizes every Input, while Textarea reads the `textarea` node and Select reads `select`. To keep a form consistent, set the same defaults on all three: `{ input: { md: true }, textarea: { md: true }, select: { md: true } }`. All three are flat nodes, with no `main` level like the one Button has.
+
+### How do I put an icon or a button inside an Input?
+
+Input has no slot for one, and while the value is invalid its trailing edge holds the alert icon. Place the icon, or an [IconButton](/docs/basic-components/icon-button), next to the Input in a `Row`, as the password toggle under [Submit, reset and button types](/docs/form-components/forms#submit-reset-and-button-types) does. Give that IconButton `type="button"` so it does not submit the form, and an `aria-label` for its name.
 
 ## Props
 
@@ -4251,6 +4407,20 @@ Set app-wide Checkbox defaults with `ThemeProvider`'s `themeDefaults` and tune t
 </ThemeProvider>
 ```
 
+## Frequently asked questions
+
+### Do screen readers announce the indeterminate state?
+
+Yes. Checkbox sets the native `indeterminate` property on its `<input>`, and browsers report a checkbox in that state as mixed, which screen readers announce as mixed or partly checked. The dash on screen is decorative. The `checked` value and what the form submits do not change, so a "Select all" box still needs `checked` and `onChange` from your own state, as in the [indeterminate example](#indeterminate-state).
+
+### Can a Checkbox label contain a link?
+
+Yes. A click on a link inside the Label follows the link and leaves the box as it is, while a click anywhere else on the text toggles the box, as in the terms example under [Basic usage](#basic-usage). Keep the link text short and specific, because the whole Label text, the link included, becomes the accessible name of the checkbox.
+
+### What does a Checkbox send with the form?
+
+A checked Checkbox adds its `value` to the form data, or `"on"` when it has no `value`. An unchecked one adds no entry, so treat a missing name as false. Several checkboxes can share one `name`, and `formData.getAll(name)` returns every checked value. The [Forms](/docs/form-components/forms#values-of-checkbox-radiogroup-switch-and-select) page compares this with the other controls.
+
 ## Props
 
 - Appearance: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
@@ -4447,6 +4617,20 @@ Use appearances to indicate field status: `danger` for errors, `success` for val
   <Text sm secondary>All fields marked with * are required.</Text>
 </Col>
 ```
+
+## Frequently asked questions
+
+### Which controls take their size from a Label?
+
+`Input`, `Textarea`, `Select`, `Checkbox`, `Radio` and `Switch` inside a Label take the Label's size, which is `sm` unless you set another. A size prop on the control still wins. Other children, such as a `Text` hint or a `Button`, keep their own sizes. A [Field](/docs/form-components/field#sizes) passes its size to the control inside it in the same way.
+
+### How do I label a group of checkboxes?
+
+A Label names one control, so a set of checkboxes needs a group name of its own. Wrap the set in a native `<fieldset>` with a `<legend>`, or in a `Col` with `role="group"` and `aria-labelledby` set to the id of the text that names the group. For one choice out of several, use a `RadioGroup` inside a [Field](/docs/form-components/field#radio-groups), which labels the group for you.
+
+### Why does clicking a Label not focus my custom control?
+
+A `<label>` passes its clicks and its text only to labelable native elements, such as `<input>`, `<select>`, `<textarea>` and `<button>`. A control built from a `div` with a role gets neither. Give that control `aria-labelledby` set to the Label's `id` for its name, and focus the control from the Label's `onClick` if a click on the text should reach it.
 
 ## Props
 
@@ -4702,6 +4886,20 @@ If the control already carries an `id`, Field adopts it rather than generating o
 </Field>
 ```
 
+## Frequently asked questions
+
+### How do I mark a field as required with an asterisk?
+
+Field draws no required marker of its own. Put the asterisk in the `label`, for example `label={<>Email <Text tag="span" danger inheritSize aria-hidden>*</Text></>}`, as on the [Label](/docs/form-components/label#required-and-status) page. `aria-hidden` keeps screen readers from reading the symbol, since `required` on the Field already makes the control announce itself as required.
+
+### Can one Field hold two controls?
+
+No. A Field publishes one id, and every VaneUI control inside it takes that id, so two inputs would share it and the label would point at the first one only. Give each control its own Field, or use a [RadioGroup](/docs/form-components/radio) for a set of options. A Button next to the control, such as a password toggle, is fine: buttons do not read the Field.
+
+### Why isn't the error message read out when it appears?
+
+The message is a `<p>` linked to the control with `aria-describedby`, not a live region, so a screen reader reads it while focus is on the control. An error set on blur is therefore heard when the user comes back to the field. After a failed submit, move focus to the first invalid control, as the example in [Forms](/docs/form-components/forms#showing-errors-with-the-field-error-prop) does.
+
 ## Props
 
 - Appearance: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
@@ -4803,6 +5001,20 @@ Note that the value itself never turns red. Colouring what the user typed hurts 
   <Textarea rows={3} placeholder="What changed?"/>
 </Field>
 ```
+
+## Frequently asked questions
+
+### How do I set the height of a Textarea?
+
+Pass `rows`. Without `rows`, a Textarea is at least three lines tall; with `rows` set, that minimum no longer applies, so `rows={2}` gives a two-line box and `rows={8}` a taller one. The font size follows the size prop, so the same `rows` gives a taller box at `lg` than at `sm`. The user can still drag the bottom edge to resize it.
+
+### Can a Textarea grow with its content?
+
+Not by itself: Textarea adds no auto-grow, and the user resizes it by dragging, since it resizes vertically by default. The CSS `field-sizing: content` property makes a textarea grow with its text in browsers that support it, so set it in a class of your own stylesheet. To turn off manual resizing, pass `style={{ resize: 'none' }}`, which wins over the stylesheet.
+
+### How do I show a character count?
+
+Make the Textarea controlled, set `maxLength`, and put the count in the `description` of the [Field](/docs/form-components/field) around it, for example `description={text.length + ' of 280 characters'}`. The browser stops input at `maxLength`. The description is linked to the textarea with `aria-describedby`, so a screen reader reads the count when the field gets focus.
 
 ## Props
 
@@ -5031,6 +5243,20 @@ An `optgroup` labels a run of related options, and the placeholder stays above t
 </Field>
 ```
 
+## Frequently asked questions
+
+### Can a Select filter its options as the user types?
+
+No. Select is a native `<select>`: typing jumps to the first option that starts with those letters, but nothing is filtered. VaneUI ships no combobox. A searchable list needs one built from an `Input`, a `Popup` and options with `role="option"`, such as NavLinks with `aria-selected` as in [Selected options in a listbox](/docs/basic-components/navlink#selected-options-in-a-listbox), plus the keyboard handling of the combobox pattern.
+
+### How do I make a Select narrower?
+
+Pass the width in `className`, for example `className="w-48"`. Select is `wFull` by default, and `className` and the width props go to the wrapper that holds the field and its chevron, so the chevron stays at the field's edge. `style` goes to the `<select>` itself, so a width set there narrows the field while the chevron stays at the far edge of the full-width wrapper.
+
+### How do I clear a Select back to its placeholder?
+
+Set its `value` to an empty string. The `placeholder` renders as a first option with an empty value, so a controlled Select with `value=""` shows the prompt again, and with `required` it fails validation until the user picks an option. A Select without a `placeholder` needs its own `<option value="">` to return to. In an uncontrolled form, a reset button restores `defaultValue`.
+
 ## Props
 
 - Appearance: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
@@ -5198,6 +5424,20 @@ The Radio takes its own size prop, which wins over the size inherited from the L
 
 Inside a [Field](/docs/form-components/field), the Field's own `disabled`, `readOnly`, `required` and `error` reach the group the same way.
 
+## Frequently asked questions
+
+### How do I lay out radio options in a row?
+
+Add `row` to the RadioGroup. It is a flex column by default and takes the layout props of a `Col`, so `<RadioGroup row flexWrap>` puts the options side by side and wraps them on a narrow screen, and `mobileStack` returns them to a column below 768px. The arrow keys move the selection in either layout.
+
+### How do I let the user clear a radio selection?
+
+Give the group a way back, because a native radio cannot be unchecked by clicking it again. Add an option such as "None" with its own `value`, or a reset button. In a controlled group, set `value` to an empty string: no Radio matches it, so none is checked. In an uncontrolled form, a `type="reset"` button restores the group's `defaultValue`.
+
+### Can I use Radio without a RadioGroup?
+
+Yes. Radios that share a `name` are mutually exclusive in the browser, as in the size examples on this page. Without a RadioGroup the set loses the `radiogroup` role, the generated name, the shared `value` and `onChange`, and the group state props, and a [Field](/docs/form-components/field#radio-groups) around bare radios gives all of them its single id. Keep the group for any set a user fills in.
+
 ## Props
 
 - Appearance: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
@@ -5311,6 +5551,20 @@ A `readOnly` switch keeps its value when clicked and dims like a read-only text 
   <Label row itemsCenter><Switch readOnly defaultChecked/> Read-only</Label>
 </Col>
 ```
+
+## Frequently asked questions
+
+### How do I put the Switch at the end of a settings row?
+
+Put the text first and the Switch last in `<Label row itemsCenter justifyBetween wFull>`. The row fills its container and pushes the Switch to the end edge, and a click anywhere on the text still toggles it. For a description under the setting name, wrap the two lines in `<Col noGap tag="span">` and give each line `<Text tag="span">`, since a label holds no `<p>` or `<div>`.
+
+### How do I name a Switch that has no visible text?
+
+Pass `aria-label`, for example `<Switch aria-label="Email notifications"/>`. Switch hands it to the native input, so a screen reader announces the name, the switch role and whether it is on. When the setting name is visible elsewhere, such as in the first cell of a table row, point `aria-labelledby` at that text instead of repeating it.
+
+### What does a Switch send with the form?
+
+The same as a Checkbox: its `value`, or `"on"` without one, when it is on, and no entry when it is off. A Switch usually applies its setting at once through `checked` and `onChange` instead of waiting for a submit, as in the controlled example under [Values of Checkbox, RadioGroup, Switch and Select](/docs/form-components/forms#values-of-checkbox-radiogroup-switch-and-select).
 
 ## Props
 
@@ -5552,6 +5806,20 @@ Combining text properties for real-world use cases.
 </Col>
 ```
 
+## Frequently asked questions
+
+### Why does React warn about a `<p>` inside a `<p>`?
+
+Text renders a `<p>`, and a paragraph cannot hold another paragraph or a block element such as a `<div>`, so a Text inside a Text, or a Col inside a Text, is invalid HTML. The browser closes the outer paragraph early, and React reports a hydration error on a server-rendered page. Give the inner Text `tag="span"`, as you would for a Text inside a Button or a Label.
+
+### Why doesn't `truncate` cut off my text?
+
+Text is `wFit` by default, so its box grows with the text and there is nothing to cut. Add `wFull`, as in [Truncate and line clamp](#truncate-and-line-clamp), so the box takes the width of its parent. Inside a Row, the flex item that holds the Text, such as a Col, also needs `className="min-w-0"`, because a flex item does not shrink below its content otherwise.
+
+### Should I give Text an `href` or use Link?
+
+Use [Link](/docs/typography-components/link). Text with `href` renders an `<a>` that keeps the look of body text, with no link color and no underline, so readers cannot tell that it is a link. Link adds both, a keyboard focus outline, the new-tab handling of `external` and the size of the text around it. For a whole clickable block, use a Card or a Col with `href`.
+
 ## Props
 
 - Appearance: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance` (default)
@@ -5747,6 +6015,20 @@ Combine an `xl` PageTitle with a large subtitle and a call to action for a marke
   </Row>
 </Stack>
 ```
+
+## Frequently asked questions
+
+### Can a page have more than one PageTitle?
+
+Use one. PageTitle renders an `<h1>`, and a page reads best with a single top-level heading that names it, which screen reader users often jump to first. For a large heading further down, use a SectionTitle with a size prop such as `xl`, or `<PageTitle tag="h2">`, which keeps the look and renders an `<h2>`.
+
+### Does PageTitle set the title in the browser tab?
+
+No. PageTitle renders an `<h1>` in the page, and the document `<title>` comes from your framework, such as the `metadata` export of a Next.js page or layout. Set both, and keep their wording close: the tab title can add the site name, while the PageTitle names the page itself.
+
+### How do I keep a PageTitle the same size on a phone?
+
+Pass `responsiveSizing={false}`. `responsiveSizing` is on by default for the headings, so a PageTitle steps its font size down below 1024px and again below 768px. Turned off, it keeps the size of its size prop at every width, so pick a size whose longest title still fits a narrow screen in a few lines.
 
 ## Props
 
@@ -5959,6 +6241,20 @@ Combine SectionTitle with Divider and content for a structured section.
 </Col>
 ```
 
+## Frequently asked questions
+
+### Why doesn't `textCenter` center my SectionTitle?
+
+SectionTitle is `wFit` by default, so its box is as wide as its text, and centering the text inside that box moves nothing. Add `wFull` so the box spans its parent and the text centers in it, as in [Text alignment](#text-alignment). To center the heading box itself, put `itemsCenter` on the parent; a heading that wraps onto several lines then also needs `textCenter`.
+
+### How do I add an anchor link to a SectionTitle?
+
+Give the SectionTitle an `id` and nest a [Link](/docs/typography-components/link) with `href` set to `#` and that id inside it. Do not pass `href` to the SectionTitle itself: it then renders an `<a>` in place of the `<h2>`, and the page loses the heading. Link takes the heading's size, but it is `fontSans` by default, so add `fontHeading` when your heading font differs.
+
+### How do I put an action next to a SectionTitle?
+
+Put both in `<Row justifyBetween>`: the SectionTitle keeps its fit width, and the Button or Link after it moves to the end edge. Add `itemsBaseline` to line the action up with the heading text rather than its box, and `flexWrap` so that on a narrow screen the action drops below a long heading instead of squeezing it.
+
 ## Props
 
 - Appearance: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance` (default)
@@ -6154,6 +6450,20 @@ Titles work well with other typography components in cards and sections.
   <Text>Built with ARIA best practices.</Text>
 </Card>
 ```
+
+## Frequently asked questions
+
+### How do I change the font of every heading?
+
+Re-declare the `--font-heading` token, which `Title`, `SectionTitle` and `PageTitle` read through their default `fontHeading` prop. It points at the sans font, so headings match the body text until you set it, for example with `:root { --font-heading: Georgia, serif; }` after the VaneUI stylesheet. A web font has to be loaded before the token can name it.
+
+### Why does my page outline jump from h1 to h3?
+
+Title renders an `<h3>`, so a page with a PageTitle and Titles but no SectionTitle skips the second level, which screen reader users notice when they move from heading to heading. Use a SectionTitle for the `<h2>` level, or keep the look of a Title and pass `tag="h2"`, as under [Custom HTML tag](#custom-html-tag). Each heading should be one level below the heading of its section.
+
+### How do I change every Title at once?
+
+Set the defaults on the flat `title` node, for example `themeDefaults={{ title: { fontBold: true } }}`. A Modal renders its plain-text `title` as a Title, so dialog titles follow the same node. `SectionTitle` and `PageTitle` have their own nodes, `sectionTitle` and `pageTitle`, so a change to `title` leaves them as they are.
 
 ## Props
 
@@ -6366,6 +6676,20 @@ Set app-wide Link defaults with `ThemeProvider`'s `themeDefaults`:
   <Link href="/docs">Read more</Link>
 </ThemeProvider>
 ```
+
+## Frequently asked questions
+
+### How do I change the link color across the site?
+
+Re-declare the `--color-text-link` token, which every Link without an appearance reads. For a site with dark mode, set it as a `light-dark()` pair on the `data-theme` elements and the light value on `:root`, as described under [Changing a color in both schemes](/docs/customization/dark-mode#changing-a-color-in-both-schemes). To give every link an appearance color instead, use `themeDefaults={{ link: { info: true } }}`, as under [Customizing](#customizing).
+
+### How do I disable a Link?
+
+Pass `disabled`. An `<a>` has no native disabled state, so Link removes the `href`, blocks clicks and `Enter`, and sets `aria-disabled="true"`. The link stays focusable, so a screen reader user still finds it and hears that it is unavailable. Say near the link why it is disabled, since a disabled link gives no reason of its own.
+
+### Why is my Link in a different font from the text around it?
+
+Link is `fontSans` by default, so inside a `Text` with `fontSerif` or `fontMono`, or a heading whose `--font-heading` names another font, it switches to the sans font. Give the Link the same font prop as its parent, such as `fontMono` or `fontHeading`, or set that font on the `link` node in `themeDefaults` to change every Link.
 
 ## Props
 
@@ -6874,6 +7198,20 @@ Use blockquotes with attribution for testimonials and customer quotes.
 </Col>
 ```
 
+## Frequently asked questions
+
+### Does Blockquote add quotation marks?
+
+No. Blockquote renders the text as you pass it, with an accent border on the start edge, and adds no quotation marks before or after it. When the design calls for marks, type them into the quoted text. Screen readers announce the `<blockquote>` element as a quote, so the marks are visual only.
+
+### How do I remove the accent border?
+
+Pass `noBorder`. The accent border is the `borderStart` default, a border on the start edge that moves to the right under `dir="rtl"`, and `noBorder` resets every side. Without a border, the quote has nothing to set it apart from the text around it, so give it another cue, such as `italic`, a larger size prop or a filled `Card` around it.
+
+### How do I link a quote to its source?
+
+`cite` renders plain text, not a link, and also sets the native `cite` attribute to that same text. For a source the reader can open, leave out `cite` and add your own line at the end of the quote, for example a `<Text sm secondary>` that holds a [Link](/docs/typography-components/link) to the article or talk.
+
 ## Props
 
 - Appearance: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance` (default)
@@ -7041,6 +7379,20 @@ The canonical page layout: a Section owns vertical padding and full-width backgr
   </Container>
 </Section>
 ```
+
+## Frequently asked questions
+
+### Why are the children of my Container narrower than it is?
+
+Container centers its children on the cross axis (`itemsCenter` is a default), so each child shrinks to its content width and sits in the middle. Add `itemsStretch` to the Container to make every child full width, or `wFull` to one child. Text alignment is separate: the lines inside a centered `Text` still start at the left unless it has `textCenter`.
+
+### Why does my content touch the screen edges on a phone?
+
+Container has no padding by default: it only caps the width. The [Section](/docs/layout-components/section) around it supplies the padding and scales it down on tablet and mobile, as in the [page layout pattern](#page-layout-pattern). Without a Section, add `padding` to the Container, which also shrinks on smaller screens because `responsiveSizing` is on by default.
+
+### How do I set a max-width between two sizes?
+
+Pass your own max-width class, such as `className="max-w-[68rem]"`: it replaces the `max-w-*` class of the size, because a class you pass wins over the theme's. The prebuilt `@vaneui/ui/css` has no arbitrary utilities, so with it use `style={{ maxWidth: '68rem' }}` instead. The size prop still sets the gap between the children.
 
 ## Props
 
@@ -7248,6 +7600,20 @@ The canonical full-bleed page band: a Section owns the outer padding and backgro
   </Container>
 </Section>
 ```
+
+## Frequently asked questions
+
+### Why doesn't my Section paint a background?
+
+A Section has no appearance by default, so it paints nothing and shows whatever is behind it. Give it one: `<Section primary>` paints the page surface, which a `data-theme="dark"` wrapper needs, and `<Section secondary filled>` paints a tinted band like the ones under [Appearances](#appearances). Add `border` when the band also needs a line around it.
+
+### How do I change a Section's padding with a class?
+
+Pass a class that sets the whole value, such as `py-16`, `px-8` or `p-12`. The theme repeats its padding for tablet and mobile, and a class like these replaces it at every width, phones included. A one-sided class such as `pt-16` wins only on desktop and gives way to the theme's padding below 1024px. A size prop such as `lg` keeps the scaling for smaller screens.
+
+### Should a Section render as a `<section>` element?
+
+Use `tag="section"` when the band has its own heading, and point `aria-labelledby` at that heading's `id`: a `<section>` with an accessible name is exposed as a region landmark, while one without a name is no different from a `<div>`. Bands that only hold layout can stay `<div>`. For the site header and footer outside `<main>`, `tag="header"` and `tag="footer"` give the banner and contentinfo landmarks.
 
 ## Props
 
@@ -7565,6 +7931,20 @@ import { Row, Text, Badge } from '@vaneui/ui';
 </Row>
 ```
 
+## Frequently asked questions
+
+### Why does `mobileStack` do nothing in my app?
+
+With your own Tailwind build, the responsive props need the `@vaneui/ui/tokens` import. It registers the `mobile`, `tablet` and `desktop` breakpoints, and without it Tailwind emits no CSS for `mobileStack`, `tabletStack` or the hide and show props, with no build error. Add it next to `@vaneui/ui/vars` as shown in [CSS setup](/docs/getting-started/installation#css-setup). The prebuilt `@vaneui/ui/css` already contains it.
+
+### How do I push one item to the end of a Row?
+
+Give the item before it `flex1`, so that item takes the free width and everything after it moves to the end edge. For two groups, such as a title on the left and buttons on the right, use `justifyBetween` on a Row with two children, and wrap each group in its own `Row`. `justifyEnd` moves every child to the end.
+
+### Why do the items in my Row overflow on a phone?
+
+A Row keeps its children on one line, so when they need more width than the screen has, they run past its edge. Add `flexWrap` to let them wrap onto a new line, or `mobileStack` to stack them below 768px. A long word or URL in a child can still overflow; `breakWords` on that `Text` lets it break.
+
 ## Props
 
 - Appearance: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
@@ -7872,6 +8252,20 @@ import { Col, Title, Text } from '@vaneui/ui';
   <Text secondary>Browse guides and API reference.</Text>
 </Col>
 ```
+
+## Frequently asked questions
+
+### How do I make a Col scroll?
+
+Give it a height limit and `overflowYAuto`. The limit can be a class such as `max-h-96` or `style={{ maxHeight: 400 }}`; without one the Col grows with its content and there is nothing to scroll. When a column flex parent sets the height instead, such as a full-height sidebar, the Col also needs `min-h-0`, because a flex item does not shrink below its content otherwise.
+
+### How do I keep a sidebar Col in view while the page scrolls?
+
+Add `sticky`, which sticks the Col at the top edge of the scroll area. Set the `--sticky-top` CSS variable on it to stop it lower, below a fixed header. Give the Row that holds the sidebar `itemsStart`: a Col stretched to the full height of the row has no room to move, so it scrolls away with the page.
+
+### Why does `mobileStack` do nothing on my Col?
+
+A Col is already a column, and `mobileStack` only turns a row into a column, so on a Col it changes nothing. Put `mobileStack` on the `Row` that holds the Cols, as under [Responsive layout](/docs/layout-components/row#responsive-layout) on the Row page, and add `itemsStretch` to that Row if the stacked Cols should fill its width.
 
 ## Props
 
@@ -8228,6 +8622,20 @@ import { Stack, PageTitle, Text, Button } from '@vaneui/ui';
 </Stack>
 ```
 
+## Frequently asked questions
+
+### Why does my Stack have less padding on a phone?
+
+`responsiveSizing` is on by default, so a Stack scales its padding and gap down below 1024px and again below 768px, and nested Stacks do not use up a narrow screen. Pass `responsiveSizing={false}` to keep one value at every width, or a smaller size prop to tighten it everywhere. `Section`, `Card`, `Container` and `Modal` scale their padding the same way.
+
+### Why do the items of my Stack sit in two columns?
+
+`flexWrap` is a Stack default, so when the Stack has a fixed or maximum height and its children need more, the extra items wrap into a second column. Pass `flexNoWrap` to keep one column, and add `overflowYAuto` to scroll the overflow instead. Without a height limit the Stack grows with its content and never wraps.
+
+### How do I pad only the sides or only the top and bottom of a Stack?
+
+Use `paddingX` for the left and right sides or `paddingY` for the top and bottom; both scale with the size prop like `padding`. For a single side, such as the top, a class like `pt-6` applies on desktop, and below 1024px the theme's own padding returns on that side. `noPadding` removes all of it.
+
 ## Props
 
 - Appearance: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
@@ -8527,6 +8935,20 @@ Set app-wide Card defaults with `ThemeProvider`'s `themeDefaults`:
 </ThemeProvider>
 ```
 
+## Frequently asked questions
+
+### Why are the cards in my Row different heights?
+
+A Row centers its children on the cross axis (`itemsCenter` is a default), so each Card is as tall as its own content. Put the cards in a [Grid](/docs/layout-components/grid) such as `Grid3`, whose cells stretch to the height of the tallest one in their row, or add `itemsStretch` to the Row. A Grid also gives every card the same width.
+
+### How do I line up the footers of cards with different content?
+
+Build each card from `CardBody` and `CardFooter`, and put the cards in a Grid. The Grid stretches every card in a row to the same height, and `CardBody` grows to fill the height the card has left, so each `CardFooter` sits at the bottom edge whatever the length of the text above it. The parts are described under [Card with sub-components](#card-with-sub-components).
+
+### Why does a Button in a filled Card keep its own colors?
+
+Button paints its own colors: its default `primary` `outline` palette stays the same on any surface, while `Text` and `Title` take the colors of the Card. Give the Button an appearance and variant that read on the fill, for example `<Button secondary filled>` on a `filled primary` Card. [Which components set vs. inherit](/docs/customization/variant-inheritance#which-components-set-vs-inherit) lists both groups.
+
 ## Props
 
 - Appearance: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
@@ -8789,6 +9211,20 @@ Set app-wide Grid defaults with `ThemeProvider`'s `themeDefaults`. Each column c
   </Grid3>
 </ThemeProvider>
 ```
+
+## Frequently asked questions
+
+### How do I keep two columns on a phone?
+
+Pass the column count for that width as a class: `<Grid2 className="max-mobile:grid-cols-2">` keeps two columns below 768px. A class with the same breakpoint replaces the grid's own, while a class without one, such as `grid-cols-2`, does not reach the smaller widths. A class that VaneUI does not use itself needs your own Tailwind build with the `@vaneui/ui/tokens` import, which defines `max-mobile`.
+
+### How do I make one cell span two columns?
+
+Give the cell `className="col-span-2"`. Below 768px a `Grid2` or `Grid3` has one column, and a cell that spans two adds a second column there, so add `max-mobile:col-span-1` to the same class list. `Grid4` to `Grid6` keep two columns on a phone, so a span of two fits them at every width. Both classes need your own Tailwind build.
+
+### Why are all the cards in a grid row the same height?
+
+Grid cells stretch to the height of the tallest cell in their row, which is what keeps a row of Cards even. To keep each cell at its own content height, add `itemsStart` to the grid, or `itemsCenter` to center the shorter cells. The row still takes the height of its tallest cell, so the space between rows does not change.
 
 ## Props
 
@@ -9179,6 +9615,20 @@ In a flex [Row](/docs/layout-components/row), an image is a flex item that can g
 />
 ```
 
+## Frequently asked questions
+
+### How do I make a round avatar?
+
+Add `pill` and give the image the same width and height in CSS, for example `style={{ width: 40, height: 40 }}` or `className="size-10"`. `objectCover`, a default, crops a photo that is not square to fill the circle. The `width` and `height` attributes alone are not enough under Tailwind's base styles, which set `height: auto` on images and so keep the photo's own proportions.
+
+### How do I add a caption to an image?
+
+Wrap the Img and its caption in `<Col tag="figure">`, and render the caption with `<Text tag="figcaption" sm secondary>`. The caption then names the figure for assistive technology. Keep the `alt` text as well: it describes what the image shows, while the caption adds context such as a credit, a date or a place.
+
+### Can I use Img with the Next.js Image component?
+
+Yes: pass it as the `tag`, as in `<Img tag={Image} src="/team.jpg" alt="The team" width={600} height={400}/>` with `Image` imported from `next/image`. Img then renders that component with its own classes, so the shape, border and object-fit props still apply, while Next.js resizes and lazy-loads the file. Next.js still requires `width` and `height`, or `fill`.
+
 ## Props
 
 - Appearance: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
@@ -9444,6 +9894,20 @@ Set table defaults with `ThemeProvider`'s `themeDefaults`. The `table` node has 
   </Table>
 </ThemeProvider>
 ```
+
+## Frequently asked questions
+
+### Can a Table sort or paginate its rows?
+
+No: Table renders the markup and leaves the data to you. To sort, keep the rows in state, put a `<Button type="button" ghost>` in each sortable `Th`, and set `aria-sort="ascending"` or `"descending"` on the `Th` of the sorted column so screen readers announce the order. Render the pagination controls, such as a `Row` of Buttons, below the Table.
+
+### How do I make a whole table row a link?
+
+A `<tr>` cannot be a link, so put a `Link` in the cell that names the row, usually the first one. That gives keyboard and screen reader users one focusable link per row. An `onClick` on the `Tr` adds a larger mouse target but no keyboard access, so keep the Link when you add one.
+
+### How do I highlight one row?
+
+Give the `Tr` an appearance and a variant, such as `<Tr filled info>` or `<Tr danger outline>`. The cells of the row have no appearance of their own, so they follow the row as they follow the Table: `filled` paints the row background and switches its text and row rule to the fill. A cell with its own appearance, such as `<Td danger>`, keeps it.
 
 ## Props
 
@@ -9718,6 +10182,20 @@ return (
   </>
 );
 ```
+
+## Frequently asked questions
+
+### Does Overlay trap focus or lock page scrolling?
+
+No. Overlay closes on `Escape` and on a backdrop click when it has an `onClose`, but it does not move focus, trap `Tab`, lock the page scroll, make the page inert or set a dialog role. Keyboard users can still tab to the page behind it. For content that takes input or must be dismissed first, use [Modal](/docs/overlay-components/modal), which does all of these.
+
+### How do I show a backdrop that blocks clicks but never closes?
+
+Leave out `onClose`. Without it the Overlay ignores backdrop clicks and `Escape`, while still covering the page, so a click cannot reach the content behind it. `pointerEventsNone`, used under [Non-dismissible Overlay](#non-dismissible-overlay), does the opposite: clicks pass through to the page. Keyboard focus can still reach the page in both cases, since Overlay makes nothing inert.
+
+### Why is my Overlay missing from the server-rendered HTML?
+
+A portaled Overlay renders nothing on the server and while the page hydrates, because `document.body` does not exist on the server, and it appears right after hydration. This keeps the server and client markup the same, so React reports no hydration mismatch. An Overlay with `portal={false}` renders in place, so it is part of the server HTML.
 
 ## Props
 
@@ -10194,6 +10672,20 @@ return (
 );
 ```
 
+## Frequently asked questions
+
+### Why does my Modal ignore the `data-theme` of a wrapper?
+
+Modal renders through a portal at the end of `<body>`, outside the wrapper, so it resolves the theme set on `<html>` or `<body>` instead. Put `data-theme="dark"` on `<html>` for a dark page, as described under [Overlays follow the page theme](/docs/customization/dark-mode#overlays-follow-the-page-theme). The same holds for `Popup`, `Menu` and `Tooltip`, which render through a portal too.
+
+### How do I make a Modal wider than `xl`?
+
+Re-declare the width token of a size in your own stylesheet, for example `:root { --modal-width-xl: 48rem; }`, and use `<Modal xl>`. Every `xl` Modal then takes the new width. The size still caps the dialog at the viewport width minus 2rem, so it keeps a margin on a phone. For a dialog that fills the whole viewport, use `fullScreen` instead.
+
+### Why does the Cancel button in my form Modal submit the form?
+
+Inside a `<form>`, a Button without a `type` is a submit button, Cancel included. Give Cancel `type="button"` and the main action `type="submit"`; `ModalCloseButton` already renders `type="button"`. When the form sits in the `ModalBody` and the buttons in the `ModalFooter`, link the submit button to the form with its `form` attribute, as described in the [Forms FAQ](/docs/form-components/forms#how-do-i-submit-a-form-from-a-button-outside-it).
+
 ## Props
 
 - Appearance: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
@@ -10534,6 +11026,20 @@ return (
 );
 ```
 
+## Frequently asked questions
+
+### Does focus move into a Popup when it opens?
+
+Only when you ask for it. `PopupTrigger` in click mode moves focus to the first focusable element inside, but a Popup used on its own leaves focus on its trigger unless you set `autoFocus`. The Popup renders at the end of `<body>`, so `Tab` from the trigger does not reach it otherwise. `modal` also traps `Tab` inside the Popup, returns focus on close and sets `aria-modal`.
+
+### Why don't the styles of the surrounding element reach my Popup?
+
+The Popup renders through a portal at the end of `<body>`, so a selector such as `.sidebar .vane-popup`, the color or font a parent sets, and the `data-theme` of a wrapper do not apply to it. Style it with its own props and `className`. `portal={false}` renders it in place, but an ancestor with a `transform` or `filter` then becomes its containing block, which can shift or clip it.
+
+### How do I close a PopupTrigger popup from a button inside it?
+
+Control the PopupTrigger: keep the open state in your component, pass it as `open`, update it in `onOpenChange`, and set it to `false` in the button's `onClick`. A click on the trigger, an outside click and `Escape` still call `onOpenChange` with the new state, so setting your state there keeps them working. Uncontrolled, PopupTrigger offers no close function to call.
+
 ## Props
 
 - Appearance: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
@@ -10831,6 +11337,20 @@ Menu supports additional configuration for fine-tuning behavior:
 | `focusVisible` | `true` | Render a keyboard focus-visible outline |
 | `noFocusVisible` |   | Disable the keyboard focus-visible outline |
 
+## Frequently asked questions
+
+### How do I add a submenu?
+
+Nest a `Menu` inside a Menu and give it a `MenuItem` as its `trigger`, as in `<Menu trigger={<MenuItem>Share</MenuItem>}>`. The submenu opens on hover, on click and with `ArrowRight`, and `ArrowLeft` or `Escape` closes only that level. It opens to the right of its item and flips when there is no room, and picking an item in it closes every level.
+
+### Why doesn't my own trigger component open the Menu?
+
+Menu clones the `trigger` element and passes it a `ref`, `onClick`, `onKeyDown`, `aria-haspopup`, `aria-expanded` and `aria-controls`. A component that does not hand the ref to its DOM element and spread the other props onto it drops them, so the click never reaches the Menu and the popup has nothing to anchor to. Forward the ref and spread the rest of the props onto the button.
+
+### Why do my Menu theme defaults have no effect?
+
+Menu has a theme node for each part: `menu.popup` for the dropdown, `menu.item` for `MenuItem`, `menu.label` for `MenuLabel` and `menu.divider` for a `Divider` inside it. A flat `menu: { md: true }` matches no node and does nothing, and a development build warns about it. Use the nested form, for example `themeDefaults={{ menu: { item: { md: true } } }}`.
+
 ## Props
 
 - Appearance: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
@@ -11066,6 +11586,20 @@ A Tooltip can be the trigger of a [Menu](/docs/overlay-components/menu) or a `Po
   </Tooltip>
 </PopupTrigger>
 ```
+
+## Frequently asked questions
+
+### Should I use Tooltip or a PopupTrigger with the tooltip role?
+
+Use Tooltip. It is a PopupTrigger with the tooltip settings already made: `role="tooltip"`, so the trigger gets `aria-describedby` and no `aria-haspopup` or `aria-expanded`, opening on focus as well as hover, a 300ms open delay, and the ink label with its width cap. Keep a hover `PopupTrigger` for floating content that is not a description of its trigger.
+
+### How do I use my own component as a Tooltip trigger?
+
+Forward the ref to the component's DOM element and spread the rest of its props onto that element. Tooltip passes a `ref`, `onMouseEnter`, `onMouseLeave`, `onFocus`, `onBlur` and `aria-describedby` to its child, and a component that drops them never opens the hint. In React 19 a function component can take `ref` as a regular prop and pass it on.
+
+### Can a Tooltip contain a link or a button?
+
+No. The hint closes when focus leaves the trigger, and it renders at the end of `<body>`, so a keyboard user can never reach a control inside it, and a screen reader reads its text as the description of the trigger. Put interactive content in a Popup that opens on click through `PopupTrigger`, which moves focus into it.
 
 ## Props
 
@@ -13086,6 +13620,859 @@ The Link renders at its default `md` size while the Title is `lg`. For Code/Kbd,
 
 Title, PageTitle, and SectionTitle have `responsiveSizing: true` in their defaults. Responsive sizing takes priority over `inheritSize`: a responsive heading always uses its viewport-scaled size, even if `inheritSize` is set.
 
+# Dark Mode Tokens with light-dark() and Tailwind CSS v4
+
+> Build dark mode tokens with CSS light-dark() and Tailwind CSS v4: how color-scheme picks a value, where VaneUI declares pairs, and how to override them.
+
+Source: https://vaneui.com/docs/guides/light-dark-tailwind-v4
+
+Import: `import { Card, Grid2, Text } from "@vaneui/ui"`
+
+Dark mode tokens are color variables that hold two values, one per color scheme. CSS can now store both values in one declaration with `light-dark()`, and VaneUI ships its dark theme that way: every scheme color is a `light-dark()` pair, and the `data-theme` attribute picks the side. This guide covers how the function resolves, where VaneUI declares its pairs, and how to override a token so it changes in both schemes. The [theme generator](/tools/theme-generator) builds token CSS from one brand color; the sections below explain what that CSS does and where it goes.
+
+## How light-dark() picks a value from color-scheme
+
+`light-dark(a, b)` returns `a` when the element's used color scheme is light and `b` when it is dark. The used color scheme comes from the `color-scheme` property, which is inherited:
+
+| `color-scheme` | `light-dark(a, b)` returns |
+|----------------|----------------------------|
+| `light` | `a` |
+| `dark` | `b` |
+| `light dark` | `a` or `b`, following the operating system preference |
+| `normal` (the initial value) | `a`, unless a `<meta name="color-scheme">` tag sets dark |
+
+```css
+.note {
+  color-scheme: dark;
+  background: light-dark(#ffffff, #030712);
+  color: light-dark(#101828, #f9fafb);
+}
+```
+
+`color-scheme` also switches the browser's own surfaces: scrollbars, form controls and the default canvas follow it. The function accepts colors only, so lengths, shadows and images still need a separate rule per scheme.
+
+Inside a custom property, the browser keeps `light-dark(a, b)` as written and resolves it on the element that reads the variable. A token declared on `:root` therefore resolves against the `color-scheme` of each element that uses it, which matters for the bundler section below.
+
+## How VaneUI declares its pairs on data-theme elements
+
+`@vaneui/ui/tokens` declares the tokens in three parts. The `@theme` block sets the light values on `:root`, for pages without `data-theme`:
+
+```css
+@theme {
+  --color-text-accent: var(--color-rose-700);
+  --color-bg-primary: var(--color-white);
+}
+```
+
+Two rules set the scheme. `data-theme="dark"` sets `color-scheme: dark` and raises the shadow alphas; `data-theme="light"` on an element below `<html>` sets `color-scheme: light` and resets them. A third rule declares every scheme color as a pair on the same elements (shortened here; the shipped rule also lists `:host()` forms for shadow DOM):
+
+```css
+:root[data-theme="dark"],
+[data-theme="dark"],
+[data-theme="light"]:not(:root) {
+  --color-text-accent: light-dark(oklch(51.4% 0.222 16.935), oklch(71.2% 0.194 13.428)); /* rose-700 / rose-400 */
+  --color-bg-primary: light-dark(#fff, oklch(13% 0.028 261.692)); /* white / gray-950 */
+}
+```
+
+Each value is a literal color, not a `var()` reference to a palette step, so a build that drops unused palette variables cannot leave a pair empty. Tokens that keep one value in both schemes are not in the list. Most of them are filled text colors: `--color-text-filled-accent` stays white on the accent fill in both schemes.
+
+The result for a page:
+
+| Markup | Colors |
+|--------|--------|
+| no `data-theme` | the `@theme` light values |
+| `<html data-theme="dark">` | every pair resolves to its dark side, portals included |
+| `<div data-theme="dark">` | the wrapper's subtree turns dark |
+| `<div data-theme="light">` inside a dark page | that subtree turns light again |
+
+The [Dark Mode](/docs/customization/dark-mode) page covers whole-page and subtree theming in detail. To follow the operating system preference, set `data-theme` from `matchMedia('(prefers-color-scheme: dark)')` in a `<head>` script, as the [Next.js setup](/docs/getting-started/nextjs) does.
+
+The default `info` surface in each scheme, with a light and a dark wrapper:
+
+```tsx demo
+<Grid2>
+  <div data-theme="light">
+    <Card info>
+      <Text>Light side of the --color-bg-info and --color-text-info pairs</Text>
+    </Card>
+  </div>
+  <div data-theme="dark">
+    <Card info>
+      <Text>Dark side of the same pairs</Text>
+    </Card>
+  </div>
+</Grid2>
+```
+
+## Point the Tailwind CSS dark variant at data-theme
+
+Tailwind CSS v4's `dark:` variant follows `prefers-color-scheme` by default, so a `dark:` utility next to a VaneUI component can disagree with the tokens around it. Point the variant at the same attribute in your CSS entry:
+
+```css
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+```
+
+A `dark:bg-*` class on your own markup then switches together with the VaneUI tokens. A `data-theme="light"` region inside a dark page still matches this selector, so a page with light regions adds a `:not()` that excludes them.
+
+## Override a dark mode token in both schemes
+
+A token re-declared on `:root` alone reaches pages without `data-theme`. On a dark page the pair rule declares the token again on the `data-theme` element, so the change does not show there. To change a color in both schemes, keep the light value on `:root` and declare the pair on the `data-theme` elements:
+
+```css
+/* after @import "@vaneui/ui/vars", or after the prebuilt @vaneui/ui/css */
+:root {
+  --color-text-accent: oklch(48.8% 0.243 264.376); /* blue-700 */
+}
+
+:root[data-theme],
+[data-theme]:not(:root) {
+  --color-text-accent: light-dark(oklch(48.8% 0.243 264.376), oklch(70.7% 0.165 254.624)); /* blue-700 / blue-400 */
+}
+```
+
+The selectors are chosen for specificity. `:root[data-theme]` and `[data-theme]:not(:root)` both weigh one pseudo-class and one attribute, the same as the built-in `[data-theme="light"]:not(:root)` and `:root[data-theme="dark"]`. With equal weight, the rule that comes later wins, so the override must follow the VaneUI stylesheet. A bare `[data-theme]` weighs less and loses inside a light region of a dark page.
+
+The pair covers both schemes, so `<html data-theme="light">` reads it too: VaneUI sets no `color-scheme` on the root for the light theme, and `normal` resolves to the light side.
+
+## Why the pairs stay off a :root-only rule
+
+Uncompiled, a pair declared once on `:root` would switch in every `data-theme` subtree: the browser resolves it where the variable is read, and each subtree sets its own `color-scheme`. Bundlers that compile `light-dark()` for older browsers change that. Next.js does so by default. The compiled form replaces each pair with two fallbacks that helper variables switch on and off, and the `color-scheme` declarations set those helpers. Custom properties substitute other variables where they are declared, so a token compiled on `:root` keeps the root's result, and a `data-theme="dark"` wrapper further down inherits the light value.
+
+Declaring the pair on every `data-theme` element gives each scheme root its own declaration, and the compiled form resolves again there. Write your own pairs the same way: the light value on `:root`, the pair on `:root[data-theme], [data-theme]:not(:root)`.
+
+## Portals read the theme of the page root
+
+[Modal](/docs/overlay-components/modal), Popup and Overlay render through a portal at the end of `<body>`, and so do Menu and Tooltip, which float in a Popup. Their tokens come from `<html>` and `<body>`, not from the wrapper around the button that opened them. A `data-theme="dark"` wrapper themes in-flow content, and a dialog opened from inside it stays light. For an app whose overlays must match the page, put the attribute on `<html>`.
+
+## Browser support for light-dark()
+
+Uncompiled, `light-dark()` needs Chrome 123, Firefox 120 or Safari 17.5, and Edge follows Chrome. A compiled build supports older browsers through its fallbacks. A page without `data-theme` never reads a pair, so it renders the `@theme` values in every browser, with or without support for the function.
+
+To produce the pairs for a brand color, including the filled, hover, border and focus tokens, use the [theme generator](/tools/theme-generator), and place its CSS after the VaneUI stylesheet as described above. How the steps of a scale map to those roles is covered in [OKLCH Color Scales for UI Themes](/docs/guides/oklch-color-scales).
+
+# OKLCH Color Scales for UI Themes
+
+> Build an 11-step OKLCH color scale for a UI theme: lightness targets, chroma per step, sRGB gamut limits, hex conversion and mapping steps to VaneUI roles.
+
+Source: https://vaneui.com/docs/guides/oklch-color-scales
+
+Import: `import { Button, Card, Grid2, Row, Text } from "@vaneui/ui"`
+
+An OKLCH color scale is a ramp of 11 steps, 50 to 950, built in a color space whose lightness axis follows human perception. One table of lightness targets then works for every hue, and each step can map to a fixed role in a UI theme: text, tinted background, border, fill or focus ring. This guide builds such a ramp from one brand color, keeps it inside the sRGB gamut, and maps it onto VaneUI's accent tokens. The [OKLCH converter](/tools/oklch-converter) runs the conversions below on any color you paste.
+
+## Why OKLCH lightness matches what people see
+
+HSL calls `hsl(60 100% 50%)` (pure yellow) and `hsl(240 100% 50%)` (pure blue) equally light, yet the yellow is close to white and the blue close to navy. OKLCH measures them at 96.8% and 45.2% lightness. Its three components are:
+
+| Component | Range | Meaning |
+|-----------|-------|---------|
+| `L` | 0 to 100% | perceived lightness |
+| `C` | 0 to about 0.37 for screen colors | chroma, the distance from gray |
+| `h` | 0 to 360 | hue angle |
+
+```css
+.brand {
+  background: oklch(54.6% 0.215 262.9);
+}
+```
+
+Because equal `L` reads as equal lightness across hues, a blue, a teal and an amber ramp can share the same lightness table, and their steps line up visually. `oklch()` works in Chrome 111, Firefox 113 and Safari 15.4 and later.
+
+## Lightness targets for an 11-step ramp
+
+Each step gets a fixed lightness and a share of the brand color's chroma:
+
+| Step | Lightness | Chroma share | Typical role |
+|------|-----------|--------------|--------------|
+| 50 | 97% | 0.12 | tinted surface |
+| 100 | 93% | 0.25 | hover tint |
+| 200 | 87% | 0.45 | pressed tint |
+| 300 | 80% | 0.70 | border |
+| 400 | 71% | 0.90 | text on dark surfaces |
+| 500 | 63% | 1.00 | accents, icons |
+| 600 | 56% | 1.00 | fill under white text |
+| 700 | 49% | 0.90 | text on light surfaces |
+| 800 | 43% | 0.78 | pressed fill |
+| 900 | 37% | 0.65 | dark hover tint |
+| 950 | 27% | 0.50 | dark tinted surface |
+
+The light end moves in smaller lightness steps than the middle: near white, a few points of lightness already separate two tints. Chroma peaks at 500 and 600 and tapers toward both ends: a tint with full chroma looks neon, and a dark step with full chroma glows against a dark page.
+
+The targets sit close to the palette VaneUI's default accent uses. Its rose steps run 96.9, 94.1, 89.2, 81, 71.2, 64.5, 58.6, 51.4, 45.5, 41 and 27.1% lightness.
+
+Keep the hue fixed for most colors. Yellows and oranges are the exception: sRGB holds less chroma for them at every step below about 80% lightness, so their dark steps turn brown. Rotating the hue toward orange at the dark end helps. VaneUI's warning tokens use an amber ramp that does this, from hue 95.3 at step 50 to 45.6 at step 950.
+
+## Keep every step inside the sRGB gamut
+
+OKLCH can describe colors a standard screen cannot show. How much chroma fits depends on both lightness and hue: at hue 262.9 (blue), sRGB holds a chroma of 0.014 at 97% lightness and 0.242 at 56%. A color past that limit is mapped by the browser, and an exported hex value clips it, so the shown color and the stored token disagree. Wide-gamut values appear in shipped palettes too: VaneUI's light filled accent, rose-600 at `oklch(58.6% 0.253 17.585)`, sits outside sRGB, whose limit at that lightness and hue is a chroma of 0.235.
+
+Lowering chroma at fixed lightness and hue keeps the step's place in the ramp. A binary search finds the highest chroma that fits, the same direction CSS Color 4 gamut mapping takes:
+
+```ts
+function oklchToLinearSrgb(L: number, C: number, h: number): number[] {
+  const a = C * Math.cos((h * Math.PI) / 180);
+  const b = C * Math.sin((h * Math.PI) / 180);
+  const l = (L + 0.3963377774 * a + 0.2158037573 * b) ** 3;
+  const m = (L - 0.1055613458 * a - 0.0638541728 * b) ** 3;
+  const s = (L - 0.0894841775 * a - 1.291485548 * b) ** 3;
+  return [
+    4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
+    -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
+    -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s,
+  ];
+}
+
+const inSrgb = (L: number, C: number, h: number) =>
+  oklchToLinearSrgb(L, C, h).every((v) => v >= -1e-6 && v <= 1 + 1e-6);
+
+/** The highest chroma sRGB can show at this lightness and hue */
+function maxChroma(L: number, h: number): number {
+  let lo = 0;
+  let hi = 0.4;
+  for (let i = 0; i < 30; i++) {
+    const mid = (lo + hi) / 2;
+    if (inSrgb(L, mid, h)) lo = mid;
+    else hi = mid;
+  }
+  return lo;
+}
+
+const STEPS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
+const LIGHTNESS = [0.97, 0.93, 0.87, 0.8, 0.71, 0.63, 0.56, 0.49, 0.43, 0.37, 0.27];
+const CHROMA_SHARE = [0.12, 0.25, 0.45, 0.7, 0.9, 1, 1, 0.9, 0.78, 0.65, 0.5];
+
+function buildRamp(brandHex: string): Record<number, string> {
+  const [, brandChroma, hue] = hexToOklch(brandHex); // see the last section
+  return Object.fromEntries(STEPS.map((step, i) => {
+    const L = LIGHTNESS[i];
+    const C = Math.min(brandChroma * CHROMA_SHARE[i], maxChroma(L, hue));
+    // Round chroma down, so the rounded value stays inside the gamut
+    return [step, `oklch(${(L * 100).toFixed(0)}% ${(Math.floor(C * 1000) / 1000).toFixed(3)} ${hue.toFixed(1)})`];
+  }));
+}
+```
+
+`buildRamp('#2563eb')` returns this ramp. Steps 50 to 500 hit the gamut limit; from 600 down, the chroma share decides:
+
+| Step | Chroma wanted | sRGB limit | Result | Hex |
+|------|---------------|------------|--------|-----|
+| 50 | 0.026 | 0.014 | `oklch(97% 0.014 262.9)` | `#f0f5ff` |
+| 100 | 0.054 | 0.033 | `oklch(93% 0.033 262.9)` | `#dce8ff` |
+| 200 | 0.097 | 0.063 | `oklch(87% 0.063 262.9)` | `#bfd5ff` |
+| 300 | 0.151 | 0.100 | `oklch(80% 0.100 262.9)` | `#9cbeff` |
+| 400 | 0.194 | 0.151 | `oklch(71% 0.150 262.9)` | `#6f9fff` |
+| 500 | 0.215 | 0.198 | `oklch(63% 0.198 262.9)` | `#4581ff` |
+| 600 | 0.215 | 0.242 | `oklch(56% 0.215 262.9)` | `#2968f0` |
+| 700 | 0.194 | 0.245 | `oklch(49% 0.193 262.9)` | `#1f55cb` |
+| 800 | 0.168 | 0.215 | `oklch(43% 0.167 262.9)` | `#1946a9` |
+| 900 | 0.140 | 0.185 | `oklch(37% 0.139 262.9)` | `#143888` |
+| 950 | 0.108 | 0.135 | `oklch(27% 0.107 262.9)` | `#072159` |
+
+## Map ramp steps to roles: VaneUI's accent tokens
+
+A theme does not use steps directly. It assigns each role a step per color scheme, and each assignment is a `light-dark()` pair. VaneUI's accent appearance in `@vaneui/ui` 1.7.1 assigns these:
+
+| Role | Token | Light | Dark |
+|------|-------|-------|------|
+| Text | `--color-text-accent` | 700 | 400 |
+| Background | `--color-bg-accent` | 50 | 950 |
+| Hover background | `--color-bg-hover-accent` | 100 | 900 |
+| Pressed background | `--color-bg-active-accent` | 200 | 950 |
+| Filled background | `--color-bg-filled-accent` | 600 | 700 |
+| Filled hover | `--color-bg-filled-hover-accent` | 700 | 800 |
+| Filled pressed | `--color-bg-filled-active-accent` | 800 | 900 |
+| Border | `--color-border-accent` | 300 | 700 |
+| Focus ring | `--color-focus-accent` | 600 | 400 |
+| Text on the fill | `--color-text-filled-accent` | white | white |
+
+The dark column mirrors the light one around the middle of the ramp, with two adjustments for contrast. The filled background moves one step darker in dark mode (600 to 700), which keeps white text well above 4.5:1. The pressed background returns to 950 instead of going lighter than the hover step: a pressed tint at 800 would put the 400 text at 2.76:1, below 3:1. [Checking Color Contrast in Light and Dark Mode](/docs/guides/color-contrast-light-dark) covers how to measure each pair.
+
+VaneUI's default accent with both schemes side by side:
+
+```tsx demo
+<Grid2>
+  <div data-theme="light">
+    <Card accent>
+      <Text>Light: text 700 on background 50, border 300</Text>
+      <Row flexWrap>
+        <Button accent>Outline</Button>
+        <Button accent filled>Filled 600</Button>
+      </Row>
+    </Card>
+  </div>
+  <div data-theme="dark">
+    <Card accent>
+      <Text>Dark: text 400 on background 950, border 700</Text>
+      <Row flexWrap>
+        <Button accent>Outline</Button>
+        <Button accent filled>Filled 700</Button>
+      </Row>
+    </Card>
+  </div>
+</Grid2>
+```
+
+To apply the generated blue ramp, write the light steps on `:root` and the pairs on the `data-theme` elements, after the VaneUI stylesheet. [Dark Mode Tokens with light-dark() and Tailwind CSS v4](/docs/guides/light-dark-tailwind-v4) explains the selectors:
+
+```css
+:root {
+  --color-text-accent: oklch(49% 0.193 262.9);
+  --color-bg-accent: oklch(97% 0.014 262.9);
+  --color-bg-hover-accent: oklch(93% 0.033 262.9);
+  --color-bg-active-accent: oklch(87% 0.063 262.9);
+  --color-bg-filled-accent: oklch(56% 0.215 262.9);
+  --color-bg-filled-hover-accent: oklch(49% 0.193 262.9);
+  --color-bg-filled-active-accent: oklch(43% 0.167 262.9);
+  --color-border-accent: oklch(80% 0.100 262.9);
+  --color-focus-accent: oklch(56% 0.215 262.9);
+}
+
+:root[data-theme],
+[data-theme]:not(:root) {
+  --color-text-accent: light-dark(oklch(49% 0.193 262.9), oklch(71% 0.150 262.9));
+  --color-bg-accent: light-dark(oklch(97% 0.014 262.9), oklch(27% 0.107 262.9));
+  --color-bg-hover-accent: light-dark(oklch(93% 0.033 262.9), oklch(37% 0.139 262.9));
+  --color-bg-active-accent: light-dark(oklch(87% 0.063 262.9), oklch(27% 0.107 262.9));
+  --color-bg-filled-accent: light-dark(oklch(56% 0.215 262.9), oklch(49% 0.193 262.9));
+  --color-bg-filled-hover-accent: light-dark(oklch(49% 0.193 262.9), oklch(43% 0.167 262.9));
+  --color-bg-filled-active-accent: light-dark(oklch(43% 0.167 262.9), oklch(37% 0.139 262.9));
+  --color-border-accent: light-dark(oklch(80% 0.100 262.9), oklch(49% 0.193 262.9));
+  --color-focus-accent: light-dark(oklch(56% 0.215 262.9), oklch(71% 0.150 262.9));
+}
+```
+
+With this ramp, accent text measures 6.52:1 on white and 7.74:1 on VaneUI's gray-950 dark page, and white text measures 4.84:1 on the light fill and 6.52:1 on the dark one. Measure again after changing the lightness table: equal OKLCH lightness does not give equal WCAG contrast across hues, and the 600 step of a teal ramp built from `#14b8a6` measures 4.42:1 against white, under the 4.5:1 minimum.
+
+## Convert a hex brand color to OKLCH
+
+A hex color is sRGB, so its OKLCH form is always inside the gamut. The conversion has four steps: read each channel as a number from 0 to 1, undo the sRGB transfer curve to get linear light, multiply by the OKLab matrix into a cone-response space and take cube roots, then multiply again into OKLab and turn `a` and `b` into chroma and hue:
+
+```ts
+function hexToOklch(hex: string): [l: number, c: number, h: number] {
+  const toLinear = (v: number) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
+  const [r, g, b] = [1, 3, 5].map((i) => toLinear(parseInt(hex.slice(i, i + 2), 16) / 255));
+  const l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b);
+  const m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b);
+  const s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
+  const L = 0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s;
+  const A = 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s;
+  const B = 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s;
+  return [L, Math.hypot(A, B), (Math.atan2(B, A) * 180 / Math.PI + 360) % 360];
+}
+```
+
+`hexToOklch('#2563eb')` returns a lightness of 0.546, a chroma of 0.215 and a hue of 262.9, written as `oklch(54.6% 0.215 262.9)`. The function expects a six-digit `#rrggbb` value. The way back to hex runs `oklchToLinearSrgb`, applies the sRGB curve to each channel and scales to 0 to 255; check the gamut first, or the channels clip.
+
+The [OKLCH converter](/tools/oklch-converter) converts in both directions and shows when a color falls outside sRGB. To turn a brand hex into the full set of accent tokens for both schemes, continue in the [theme generator](/tools/theme-generator), and see [CSS Variables](/docs/customization/css-variables) for the other color groups VaneUI reads.
+
+# Checking Color Contrast in Light and Dark Mode
+
+> Check color contrast in light and dark mode against WCAG 2.2 AA: the luminance formula, testing light-dark() pairs, and choosing text for filled buttons.
+
+Source: https://vaneui.com/docs/guides/color-contrast-light-dark
+
+Import: `import { Button, Card, Grid2, Row } from "@vaneui/ui"`
+
+Color contrast is the ratio between the relative luminance of two colors, and WCAG sets the minimum ratio for text and controls. A theme with dark mode has two sets of colors, so every text and surface pairing needs two checks, one per scheme. This guide covers the WCAG 2.2 AA thresholds, the luminance formula behind them, how to check a `light-dark()` pair, and when a filled button needs dark text instead of white. The [contrast checker](/tools/contrast-checker) measures any two colors with the same formula.
+
+## WCAG 2.2 AA contrast thresholds
+
+Two success criteria set the AA minimums:
+
+| What is measured | Criterion | Minimum |
+|------------------|-----------|---------|
+| Text and images of text | 1.4.3 Contrast (Minimum) | 4.5:1 |
+| Large text: 24px, or 18.66px bold (18pt and 14pt) | 1.4.3 Contrast (Minimum) | 3:1 |
+| The visual parts needed to identify a control and its state, such as an input's border or a checkbox's box | 1.4.11 Non-text Contrast | 3:1 against adjacent colors |
+| A focus indicator | 1.4.11 Non-text Contrast | 3:1 against adjacent colors |
+
+The thresholds are not rounded: 4.49:1 fails 4.5:1. Disabled controls, logos and decorative text are exempt. A border that only decorates a control whose label already identifies it, such as the outline of a text button, does not need 3:1. The border of an empty text input does, because it is the only thing that shows where the field is. 2.4.13 Focus Appearance adds size rules for focus indicators, but it sits at level AAA.
+
+## The relative luminance formula
+
+WCAG computes contrast from relative luminance, the light a color emits on a 0 to 1 scale:
+
+1. Divide each sRGB channel by 255.
+2. Linearize each channel: a value `c` at or below 0.04045 becomes `c / 12.92`, a larger one `((c + 0.055) / 1.055) ^ 2.4`.
+3. Weight the channels: `L = 0.2126 R + 0.7152 G + 0.0722 B`.
+4. Divide the lighter luminance plus 0.05 by the darker plus 0.05. The result runs from 1:1 to 21:1.
+
+```ts
+function luminance(hex: string): number {
+  const [r, g, b] = [1, 3, 5].map((i) => {
+    const c = parseInt(hex.slice(i, i + 2), 16) / 255;
+    return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+function contrast(a: string, b: string): number {
+  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return (hi + 0.05) / (lo + 0.05);
+}
+
+contrast('#2563eb', '#ffffff'); // 5.168...
+```
+
+An OKLCH color needs converting to sRGB first. `oklchToLinearSrgb` from [OKLCH Color Scales for UI Themes](/docs/guides/oklch-color-scales) returns linear channels, so a color inside the gamut goes straight to step 3. A color outside the gamut has to be brought inside first, and the method changes the result: VaneUI's light filled accent, rose-600, gives white text 4.52:1 when clipped to sRGB and 4.71:1 when its chroma is reduced instead. Unless noted, the ratios on this page come from colors clipped to sRGB, truncated to two decimals so a value shown as passing is never rounded up.
+
+OKLCH lightness is not WCAG luminance. The 600 steps of three ramps built with the OKLCH guide's code, from `#2563eb`, `#f5b700` and `#14b8a6`, all sit at 56% lightness. They give white text 4.84:1, 4.72:1 and 4.42:1, so the teal fails although all three look equally light.
+
+## Why each color scheme needs its own check
+
+A `light-dark()` token holds two colors, and in dark mode the text and the surface under it both change. A pairing that passes in one scheme says nothing about the other. Rose-700 text measures 6.03:1 on white, but on VaneUI's gray-950 dark page it measures 3.33:1. That is why `--color-text-accent` moves to rose-400 in dark mode.
+
+VaneUI's accent pairs, checked per scheme:
+
+| Pairing | Light | Dark |
+|---------|-------|------|
+| `--color-text-accent` on `--color-bg-primary` | 6.03:1 (rose-700 on white) | 7.03:1 (rose-400 on gray-950) |
+| `--color-text-accent` on `--color-bg-accent` | 5.49:1 (rose-700 on rose-50) | 5.48:1 (rose-400 on rose-950) |
+| `--color-text-filled-accent` on `--color-bg-filled-accent` | 4.52:1 (white on rose-600) | 6.03:1 (white on rose-700) |
+| `--color-focus-accent` against `--color-bg-primary` | 4.52:1 (rose-600 on white) | 7.03:1 (rose-400 on gray-950) |
+
+Check each state as well. A hover or pressed background sits under the same text, so the text needs its minimum against every background a control can show. The [Dark Mode](/docs/customization/dark-mode) page describes which token groups switch between schemes.
+
+## Check a light-dark() pair
+
+Split each pair into its light and dark color, then compare light with light and dark with dark. A text pair is checked against every surface pair it can sit on. Never compare across schemes: light text on a dark surface never renders.
+
+```ts
+type Pair = [light: string, dark: string];
+
+function checkPair(text: Pair, surface: Pair, minimum = 4.5) {
+  return (['light', 'dark'] as const).map((scheme, i) => {
+    const ratio = contrast(text[i], surface[i]);
+    return { scheme, ratio: Math.floor(ratio * 100) / 100, pass: ratio >= minimum };
+  });
+}
+
+// --color-text-accent on --color-bg-primary, as sRGB hex
+checkPair(['#c70036', '#ff637e'], ['#ffffff', '#030712']);
+// [{ scheme: 'light', ratio: 6.03, pass: true }, { scheme: 'dark', ratio: 7.03, pass: true }]
+```
+
+Pass `minimum = 3` for large text, borders that identify a control, and focus rings. In a running app, set `data-theme` on `<html>`, inspect a text element, and read the ratio in the browser dev tools color picker; then switch the attribute and read it again.
+
+Filled buttons of each appearance in both schemes, with their default text tokens:
+
+```tsx demo
+<Grid2>
+  <div data-theme="light">
+    <Card>
+      <Row flexWrap>
+        <Button filled>Primary</Button>
+        <Button accent filled>Accent</Button>
+        <Button success filled>Success</Button>
+        <Button warning filled>Warning</Button>
+        <Button danger filled>Danger</Button>
+      </Row>
+    </Card>
+  </div>
+  <div data-theme="dark">
+    <Card>
+      <Row flexWrap>
+        <Button filled>Primary</Button>
+        <Button accent filled>Accent</Button>
+        <Button success filled>Success</Button>
+        <Button warning filled>Warning</Button>
+        <Button danger filled>Danger</Button>
+      </Row>
+    </Card>
+  </div>
+</Grid2>
+```
+
+## White or dark text on a filled button
+
+The formula fixes where white stops working. White text reaches 4.5:1 on a fill whose luminance is 0.183 or less, and black text on a fill of 0.175 or more, so every fill passes with one of the two. A dark gray is a different case: gray-900 text (luminance 0.009) needs a fill of 0.216 or more. A fill between 0.183 and 0.216 passes with neither white nor gray-900. Move the fill out of that band, or use a darker text color such as gray-950, which passes from 0.185.
+
+VaneUI's filled text tokens follow the same rule: each is the lightest text that keeps 4.5:1 on its fill. That gives white on the primary, accent and danger fills, gray-50 on tertiary, and a 100-level tint on the others, such as emerald-100 on emerald-700 (4.72:1) and amber-100 on amber-700 (4.51:1).
+
+A light brand color reverses the choice. A yellow fill, `#facc15`, gives white text 1.53:1 and gray-900 text 11.58:1. To use it as the accent fill, set the fill steps in both schemes and switch the filled text to dark gray:
+
+```css
+/* after the VaneUI stylesheet */
+:root,
+:root[data-theme],
+[data-theme]:not(:root) {
+  --color-bg-filled-accent: #facc15;
+  --color-bg-filled-hover-accent: #eab308;
+  --color-bg-filled-active-accent: #ca8a04;
+}
+
+:root {
+  --color-text-filled-accent: oklch(21% 0.034 264.665); /* gray-900 */
+  --color-focus-accent: #a16207;
+}
+
+:root[data-theme],
+[data-theme]:not(:root) {
+  --color-focus-accent: light-dark(#a16207, #facc15);
+}
+```
+
+Gray-900 text keeps 9.25:1 on the hover step and 6.04:1 on the pressed step. `--color-text-filled-accent` needs only the `:root` rule, because VaneUI keeps it out of the dark scheme pairs. The focus ring needs its own pair: the yellow measures 1.53:1 against a white page, under the 3:1 a focus indicator needs, while `#a16207` measures 4.92:1. On the gray-950 dark page the yellow itself measures 13.14:1. The props a filled [Button](/docs/basic-components/button) takes are listed on its page.
+
+Paste any of the pairs above into the [contrast checker](/tools/contrast-checker) to read both schemes at once, and change a step there until both sides pass.
+
+# Render Markdown as React Components
+
+> Render Markdown as React components with @vaneui/md: Server Components or the client entry, frontmatter, vaneui fences, rendererTheme and untrustedPreset.
+
+Source: https://vaneui.com/docs/guides/markdown-react-components
+
+`@vaneui/md` renders Markdown as React components: every heading, paragraph, list and code block becomes a VaneUI component, so a blog post or a model's answer takes the same theme as the rest of the app. The [Markdown Rendering](/docs/getting-started/markdown) page covers installation and the main props. This guide goes further: how a string turns into components, which entry to import in Server and Client Components, a blog route with frontmatter metadata, components placed with `vaneui` fences, per-element styling, and Markdown from untrusted sources. To try any snippet below in the browser, paste it into the [Markdown editor](/tools/markdown-editor).
+
+## How a Markdown string becomes VaneUI components
+
+`<Md>` runs three steps on every render. Markdoc parses the string into a syntax tree. A transform applies the configuration: variables such as the frontmatter, tags, partials and your `transform` hook. Then each node renders through a renderer component that wraps one VaneUI component:
+
+| Markdown | Renderer | VaneUI component |
+|----------|----------|------------------|
+| `#` to `######` headings | `MdHeading` | `Title`, sized `xl`, `lg`, `md`, `sm`, `xs`, `xs` by level |
+| Paragraph | `MdParagraph` | `Text` |
+| List and list item | `MdList`, `MdItem` | `List` (`listDecimal` when ordered), `ListItem` |
+| `> quote` | `MdBlockquote` | `Card` |
+| Code block | `MdFence` | `Card` around a `<pre>` |
+| Inline code | `MdCode` | `Code` |
+| Link, image | `MdLink`, `MdImage` | `Link`, `Img` |
+| Table | `MdTable` | `Table` in a horizontally scrolling `Col` |
+| `---` | `MdHr` | `Divider` |
+
+Markdoc reads `{% ... %}` as tags and variables but has no JSX and no imports, so a document is data: it cannot run code or reach a component you did not register. Colors and sizes come from the nearest `ThemeProvider`, like any other VaneUI component.
+
+## Server Components or the client entry
+
+The package has two entries for rendering. Pick by where the Markdown comes from:
+
+| Situation | Import |
+|-----------|--------|
+| Markdown read on the server: files, a CMS, a database | `Md` from `@vaneui/md` in a Server Component |
+| Text that grows while it shows, such as a model's answer | `MdStream` from `@vaneui/md/client` |
+| Custom renderers that read React context, or one theme provider above several documents | `Md` from `@vaneui/md/client` |
+
+`Md` from the main entry uses no context and no hooks. In a Server Component it parses on the server, and Markdoc stays out of the browser bundle; the VaneUI components it outputs still hydrate as client components. `@vaneui/md/client` is a `"use client"` module. A Server Component cannot pass it functions such as `highlight`, `transform` or `parseFrontmatter`, so render the client entry from a Client Component:
+
+```tsx
+'use client';
+
+import { MdStream } from '@vaneui/md/client';
+import { prismHighlighter } from '@vaneui/md/prism';
+
+// Created once: a new function on every render would re-highlight every block
+const highlight = prismHighlighter();
+
+export function Answer({ text }: { text: string }) {
+  return <MdStream content={text} highlight={highlight} />;
+}
+```
+
+`MdStream` parses the whole source on each update and renders again only the top-level blocks whose content changed. The client `Md` also reads a `RendererThemeContext.Provider` from the same entry, which the main `Md` ignores.
+
+## Frontmatter for page metadata
+
+A blog route needs the frontmatter twice: once for `generateMetadata` and once inside the document, where `$markdoc.frontmatter` exposes it. Parse it once in a loader and pass the result as the `frontmatter` prop, which `<Md>` uses instead of parsing again:
+
+```tsx
+// app/blog/[slug]/page.tsx: a Server Component
+import { readFile } from 'node:fs/promises';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { Md } from '@vaneui/md';
+import { parseYamlFrontmatter } from '@vaneui/md/yaml';
+import { defaultRegistry } from '@vaneui/md/registry';
+
+type Props = { params: Promise<{ slug: string }> };
+
+async function loadPost(slug: string) {
+  // The slug becomes a file path: allow plain names only
+  if (!/^[a-z0-9-]+$/.test(slug)) notFound();
+  const source = await readFile(`content/blog/${slug}.md`, 'utf8').catch(() => notFound());
+  const raw = /^---\r?\n([\s\S]*?)\r?\n---/.exec(source)?.[1] ?? '';
+  return { source, data: parseYamlFrontmatter(raw) };
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { data } = await loadPost((await params).slug);
+  return { title: String(data.title ?? 'Blog'), description: String(data.summary ?? '') };
+}
+
+export default async function Post({ params }: Props) {
+  const { source, data } = await loadPost((await params).slug);
+  return (
+    <Md
+      content={source}
+      frontmatter={data}
+      parseFrontmatter={parseYamlFrontmatter}
+      components={defaultRegistry}
+    />
+  );
+}
+```
+
+`parseYamlFrontmatter` needs the `yaml` package, and `parseFrontmatter` stays on `<Md>` because `vaneui` fences use the same parser. Inside `<Md>`, malformed YAML renders an error card above the body and never throws; called directly, as in `loadPost`, the parser throws, so catch it there if authors can break the file. The raw text between the `---` lines is also available as `$markdoc.frontmatterRaw`.
+
+## Components inside Markdown with vaneui fences
+
+A code block with the language `vaneui` is parsed as YAML and rendered as a component tree in its place. In the shorthand form, the key holds the component name and its boolean props, and the value's shape decides the rest:
+
+| Value | Becomes |
+|-------|---------|
+| empty | a component with no children |
+| a string | its children |
+| a list | child components, read the same way |
+| a map | props such as `href`, `src` or `text`, plus `children` when it needs both |
+
+A release note with a feature grid and a link button:
+
+````md
+---
+title: Release 2.4
+summary: Faster exports and a new billing page.
+---
+
+# {% $markdoc.frontmatter.title %}
+
+{% $markdoc.frontmatter.summary %}
+
+```vaneui
+Grid3:
+  - Card:
+      - Title sm: Exports
+      - Text: CSV exports finish in a third of the time.
+  - Card:
+      - Title sm: Billing
+      - Text: Invoices download as PDF.
+  - Card success:
+      - Title sm: Uptime
+      - Text: 99.98% over the last 90 days.
+```
+
+```vaneui
+Button filled:
+  href: /changelog
+  text: Read the full changelog
+```
+````
+
+A name must start with an uppercase letter; lowercase keys stay plain data. Names resolve through the `components` registry. `defaultRegistry` lists 36 presentational components and leaves out those that need callbacks, such as Modal, Menu and Input. Failures stay local:
+
+| Condition | Result |
+|-----------|--------|
+| No `parseFrontmatter` on `<Md>` | the fence renders as a code block showing the YAML |
+| Malformed YAML | an error card above the code block |
+| A name not in the registry | that node renders nothing; the rest of the page renders |
+
+Add your own components by spreading the registry:
+
+```tsx
+import type { ReactNode } from 'react';
+import { Card, Text, Title } from '@vaneui/ui';
+import { defaultRegistry } from '@vaneui/md/registry';
+
+function PlanCard({ name, price, children }: { name?: string; price?: string; children?: ReactNode }) {
+  return (
+    <Card>
+      <Title sm>{name}</Title>
+      <Text xl fontBold>{price}</Text>
+      {children}
+    </Card>
+  );
+}
+
+export const registry = { ...defaultRegistry, PlanCard };
+```
+
+## Restyle Markdown elements with rendererTheme
+
+`rendererTheme` holds one slot per renderer, and each slot takes VaneUI boolean props for that element only. Quotes and code blocks both render a [Card](/docs/layout-components/card), yet `mdBlockquote` and `mdFence` style them apart.
+
+The merge with the package defaults works per category. `mdBlockquote` defaults to `{ secondary: true, borderL: true }`:
+
+| Your slot | Result |
+|-----------|--------|
+| `{ primary: true }` | `primary`, `borderL`: the appearance is replaced, the left bar stays |
+| `{ border: true }` | `secondary`, `border`: the border is replaced, the appearance stays |
+| `{ primary: true, border: true }` | both categories replaced |
+
+Heading size comes from the heading level and is applied after the slot, so `mdHeading` can change weight, font or appearance but not size. To share one theme across documents, also from Server Components, bake it into a component:
+
+```tsx
+import { createMd } from '@vaneui/md';
+
+export const DocMd = createMd().use({
+  rendererTheme: {
+    mdBlockquote: { info: true },
+    mdFence: { tertiary: true },
+    mdHeading: { fontMono: true },
+  },
+});
+```
+
+A change for every `Card` in the app, inside Markdown and outside it, belongs in `themeDefaults` on [ThemeProvider](/docs/customization/using-theme-provider) instead.
+
+## Sanitize untrusted Markdown
+
+Markdown from users or a model needs limits beyond the default. Some checks always run on fence props: event handlers, `dangerouslySetInnerHTML`, `javascript:` URLs and a `tag` such as `script` or `iframe` are dropped at every level. Every other prop passes, including `className`, `style` and `id`, which is right for documents your team writes.
+
+`untrustedPreset` turns on an allow-list. Fences keep VaneUI's boolean props, `children`, `text`, `aria-*` and attributes such as `href`, `src` and `alt`, and URLs must be `http:`, `https:`, `mailto:`, `tel:` or relative. `tagSyntax={false}` leaves every `{% ... %}` in the text as written, so the content cannot read variables or call tags and partials.
+
+Two gaps remain. Boolean layout props such as `fixed` and `absolute` pass the allow-list, and props of your own registry components, such as `name` and `price` on `PlanCard`, are dropped unless you allow them. A preset built on `strictSanitizePolicy` handles both:
+
+```tsx
+import { createMd, strictSanitizePolicy, type MdPreset } from '@vaneui/md';
+
+const userContent: MdPreset = {
+  sanitize: {
+    ...strictSanitizePolicy,
+    blockedProps: ['fixed', 'absolute', 'sticky'],
+    allowedProps: ['name', 'price'],
+  },
+  tagSyntax: false,
+};
+
+export const UserMd = createMd().use(userContent);
+```
+
+A `sanitize` prop on `<Md>` replaces the preset's policy instead of merging with it, so start from the policy you mean to keep. To narrow the components as well, pass a smaller registry or list the allowed names in `allowComponents`.
+
+Paste a document into the [Markdown editor](/tools/markdown-editor) to see how fences, frontmatter and the renderer theme come out before you ship it, and turn to the Markdown Rendering page for syntax highlighting, partials and file includes.
+
+# Responsive Page Sections Without Breakpoint Classes
+
+> Build responsive page sections in React without breakpoint classes: mobileStack, tabletStack, hide and show props, responsive padding and a pricing example.
+
+Source: https://vaneui.com/docs/guides/responsive-sections
+
+Import: `import { Badge, Button, Card, Col, List, ListItem, Row, Section, SectionTitle, Text, Title } from "@vaneui/ui"`
+
+Responsive page sections in VaneUI need no breakpoint classes in your markup. Layout changes are boolean props such as `tabletStack` or `mobileHide`, and the padding, gaps and heading sizes of padded surfaces step down for tablets and phones without any prop. This guide covers the desktop-first props, the spacing that scales by itself, the CSS import the props depend on, and a pricing section built with both. The [blocks gallery](/blocks) has more complete sections written the same way.
+
+## Desktop-first breakpoints
+
+VaneUI styles the desktop layout first and adapts it below three widths. Each responsive prop compiles to a Tailwind CSS class with a `max-*` variant, so it applies below the width and not at it:
+
+| Breakpoint | Applies below | Example prop | Class it adds |
+|------------|---------------|--------------|---------------|
+| `mobile` | 768px (48rem) | `mobileStack` | `max-mobile:flex-col` |
+| `tablet` | 1024px (64rem) | `tabletHide` | `max-tablet:hidden` |
+| `desktop` | 1280px (80rem) | `desktopWFull` | `max-desktop:w-full` |
+
+At exactly 768, 1024 or 1280px the larger tier applies. The widths match Tailwind's `md`, `lg` and `xl`, so `<Row mobileStack>` behaves like `flex flex-col md:flex-row`, written from the other end.
+
+## Stack a Row below a width
+
+`mobileStack`, `tabletStack` and `desktopStack` turn a [Row](/docs/layout-components/row) into a column below their width. They only affect row-direction components: Col, Stack, Section and Container are already columns, so the prop does nothing there. Set several on one Row and the widest applies.
+
+A stacked Row keeps its default `itemsCenter`, so each child shrinks to its content width and centers. Cards in a stacked row usually should fill it, which `itemsStretch` does: in the row it gives the children equal height, and in the column it gives them full width.
+
+```tsx
+<Row tabletStack itemsStretch>
+  <Card flex1>Equal width in the row, full width when stacked</Card>
+  <Card flex1>Equal width in the row, full width when stacked</Card>
+</Row>
+```
+
+Grids collapse without a prop: Grid3 shows three columns, two below 1024px and one below 768px. Pick a Row with `tabletStack` when every item must stay in one line or one column, and a Grid when the items can wrap into rows. The [Grid](/docs/layout-components/grid) page lists the column counts for each width.
+
+## Hide and show by width
+
+`mobileHide`, `tabletHide` and `desktopHide` hide an element below their width and keep its own display above it. The `*Show` props do the reverse: `mobileShow` shows an element only below 768px. Hide and show are separate categories, so `mobileHide tabletShow` shows an element only between 768 and 1024px.
+
+```tsx
+<Text mobileHide>Every plan starts with a 14-day trial of the features above it.</Text>
+<Text mobileShow>Every plan starts with a 14-day trial.</Text>
+```
+
+A hidden element gets `display: none`, so screen readers skip it too. Two versions of a sentence never read twice.
+
+## Full-width buttons on phones
+
+Button and IconButton are `wFit`: as wide as their label. `mobileWFull` makes one full width below 768px and keeps the fit width above, and `tabletWFull` and `desktopWFull` do the same at their widths. In a stacked Row, give fit-width children such as Button and Badge `mobileWFull` to fill the column, since `itemsStretch` does not widen a child that sets its own width.
+
+## Padding that steps down with the viewport
+
+Section, Card, Stack, Container, Modal and Popup are padded surfaces with `responsiveSizing` on by default. Each repeats its padding and gap for tablet and mobile, so a Card inside a Section inside a phone screen keeps room for its content. At the default `md` size:
+
+| Component | Padding from 1024px | Below 1024px | Below 768px |
+|-----------|---------------------|--------------|-------------|
+| [Section](/docs/layout-components/section) | 48px | 24px | 16px |
+| Card | 24px | 20px | 16px |
+| Stack | 16px | 12px | 8px |
+
+Section's gap follows the same curve, 32px, then 24px, then 16px. The headings scale too: a SectionTitle at `md` is 36px on desktop, 32px below 1024px and 28px below 768px. Row, Col and Grid default to `noPadding` and add no inset, so they never double the padding of the surface around them.
+
+The size prop moves the whole curve: `<Section lg>` pads 72px on desktop and 36px top and bottom below 1024px, while its side padding stops at 32px there and at 16px on phones.
+
+A `className` that sets the whole value, such as `py-8` or `gap-4`, holds at every width, because it replaces the desktop, tablet and mobile values together. A one-sided class such as `pt-8` gives way to the theme's tablet and mobile padding below 1024px.
+
+## The tokens import in a Tailwind CSS v4 build
+
+The breakpoints are theme variables in `@vaneui/ui/tokens`. A project that runs its own Tailwind CSS v4 build needs all four lines in its CSS entry:
+
+```css
+@import "tailwindcss";
+@import "@vaneui/ui/tokens";
+@import "@vaneui/ui/vars";
+@source "../node_modules/@vaneui/ui";
+```
+
+Without the tokens import, Tailwind does not know the `mobile`, `tablet` and `desktop` breakpoints and emits no CSS for any `max-mobile:`, `max-tablet:` or `max-desktop:` class. The build passes with no warning, but every responsive prop and the responsive padding and font sizes stop working. The prebuilt `@vaneui/ui/css` stylesheet already contains them. The [Installation](/docs/getting-started/installation) page covers both setups.
+
+## A pricing section, worked through
+
+The section below combines these props. Resize the window below 1024px and 768px to see the plans stack and the buttons widen:
+
+```tsx demo
+<Section secondary itemsStretch>
+  <Col itemsCenter>
+    <SectionTitle textCenter>Pricing for every team size</SectionTitle>
+    <Text secondary textCenter mobileHide>Start free, add seats when your team grows, and switch plans at any time.</Text>
+    <Text secondary textCenter mobileShow>Start free, add seats later.</Text>
+  </Col>
+  <Row tabletStack itemsStretch>
+    <Card flex1>
+      <Col flex1>
+        <Title>Starter</Title>
+        <Text xl fontBold>$0</Text>
+        <List>
+          <ListItem>Three projects</ListItem>
+          <ListItem>Community support</ListItem>
+        </List>
+      </Col>
+      <Button mobileWFull>Start free</Button>
+    </Card>
+    <Card flex1 accent>
+      <Col flex1>
+        <Row justifyBetween>
+          <Title>Team</Title>
+          <Badge accent>Popular</Badge>
+        </Row>
+        <Text xl fontBold>$12 per seat</Text>
+        <List>
+          <ListItem>Unlimited projects</ListItem>
+          <ListItem>Email support</ListItem>
+          <ListItem>90-day history</ListItem>
+        </List>
+      </Col>
+      <Button accent filled mobileWFull>Start a trial</Button>
+    </Card>
+  </Row>
+</Section>
+```
+
+What each part does:
+
+- `Section secondary` paints a gray band, and its padding and gap step down from 48px and 32px on desktop to 16px each on phones. `itemsStretch` lets the heading block and the plan row span the section, since Section aligns its children to the start by default.
+- `itemsCenter` centers the title and the subtitle in their column. Text and SectionTitle align their lines left by default, so each one also takes `textCenter` for when it wraps. `mobileHide` and `mobileShow` swap the long subtitle for a short one below 768px.
+- `Row tabletStack itemsStretch` lays the plans out side by side from 1024px, with equal heights, and stacks them at full width below it. `flex1` gives the two cards equal widths in the row.
+- In each Card, a `Col flex1` takes the height that the shorter plan leaves free, so both buttons sit at the bottom edge in the row. The Card's padding steps from 24px to 20px and then 16px.
+- `mobileWFull` turns each Button into a full-width target on phones and leaves it at its label width on larger screens.
+
+No class in the section names a breakpoint, and the same markup serves every width. More sections built from these props, from headers to feature grids, are in the [blocks gallery](/blocks).
+
 # Common Props
 
 > Layout and utility props shared by most VaneUI React components, written as booleans: responsive hide, flex alignment, position, display, overflow and gap.
@@ -13480,6 +14867,381 @@ Horizontal or vertical layout direction for certain components.
 |------|-------------|
 | `horizontal` | Display as a horizontal line (default) |
 | `vertical` | Display as a vertical line instead of horizontal |
+
+# Tailwind CSS Classes to VaneUI Props
+
+> Look up the VaneUI boolean prop for a Tailwind CSS class: layout, flex alignment, spacing, typography, borders, shadows, colors and responsive variants.
+
+Source: https://vaneui.com/docs/reference/tailwind-to-props
+
+Import: `import { Badge, Row } from "@vaneui/ui"`
+
+Most Tailwind CSS utility classes that style a VaneUI component have a boolean prop named after the class in camelCase: `items-center` is `itemsCenter`, `font-semibold` is `fontSemibold`, `flex-1` is `flex1`. A few take a shorter name, such as `pill` for `rounded-full`. The tables below map each class to its prop, grouped by category, for `@vaneui/ui` 1.7.1. A prop works on the components that include its category; each component page lists its props, and [Common Props](/docs/reference/common-props) describes the shared layout props.
+
+Rows marked **size-driven** have no fixed value of their own. Gap, padding, margin, border radius, shadow and font size come from the component's size prop, `xs` to `xl`, so `<Card lg>` enlarges its padding, gap and radius together. To change one of those amounts, change the size prop rather than add a class. [Core Concepts](/docs/getting-started/core-concepts) explains the size system.
+
+A row of badges that stacks on phones, written with classes and then with props:
+
+```tsx
+// Classes
+<div className="flex flex-col md:flex-row items-stretch gap-6">
+  <span className="rounded-full border px-2 font-semibold uppercase">Active</span>
+</div>
+
+// Props: Badge is already a pill and semibold
+<Row mobileStack itemsStretch lg>
+  <Badge uppercase>Active</Badge>
+</Row>
+```
+
+Leave out the props that are already defaults. Row is `flex`, `row` and `itemsCenter` from the start, and Badge is `pill`, `fontSemibold` and `sm`, so writing them again changes nothing.
+
+## Layout: display, direction, position and overflow
+
+| Tailwind CSS class | VaneUI prop |
+|--------------------|-------------|
+| `block` | `block` |
+| `inline` | `inline` |
+| `inline-block` | `inlineBlock` |
+| `flex` | `flex` |
+| `inline-flex` | `inlineFlex` |
+| `grid` | `grid` |
+| `inline-grid` | `inlineGrid` |
+| `contents` | `contents` |
+| `table` | `table` |
+| `table-cell` | `tableCell` |
+| `hidden` | `hidden` |
+| `flex-row` | `row` |
+| `flex-col` | `column` |
+| `flex-row-reverse` | `rowReverse` |
+| `flex-col-reverse` | `columnReverse` |
+| `relative` | `relative` |
+| `absolute` | `absolute` |
+| `fixed` | `fixed` |
+| `sticky top-0` | `sticky` |
+| `static` | `static` |
+
+Row is a flex row by default, and Col, Stack, Card and Section are flex columns, so `flex`, `row` and `column` rarely need writing. `sticky` also sets `top` to the `--sticky-top` variable, 0 unless you set it, which leaves room for a fixed header.
+
+| Tailwind CSS class | VaneUI prop |
+|--------------------|-------------|
+| `overflow-auto` | `overflowAuto` |
+| `overflow-hidden` | `overflowHidden` |
+| `overflow-clip` | `overflowClip` |
+| `overflow-visible` | `overflowVisible` |
+| `overflow-scroll` | `overflowScroll` |
+| `overflow-x-auto` | `overflowXAuto` |
+| `overflow-x-hidden` | `overflowXHidden` |
+| `overflow-x-clip` | `overflowXClip` |
+| `overflow-x-visible` | `overflowXVisible` |
+| `overflow-x-scroll` | `overflowXScroll` |
+| `overflow-y-auto` | `overflowYAuto` |
+| `overflow-y-hidden` | `overflowYHidden` |
+| `overflow-y-clip` | `overflowYClip` |
+| `overflow-y-visible` | `overflowYVisible` |
+| `overflow-y-scroll` | `overflowYScroll` |
+
+## Flex and grid alignment
+
+| Tailwind CSS class | VaneUI prop |
+|--------------------|-------------|
+| `items-start` | `itemsStart` |
+| `items-end` | `itemsEnd` |
+| `items-center` | `itemsCenter` |
+| `items-baseline` | `itemsBaseline` |
+| `items-stretch` | `itemsStretch` |
+| `justify-start` | `justifyStart` |
+| `justify-end` | `justifyEnd` |
+| `justify-center` | `justifyCenter` |
+| `justify-between` | `justifyBetween` |
+| `justify-around` | `justifyAround` |
+| `justify-evenly` | `justifyEvenly` |
+| `justify-stretch` | `justifyStretch` |
+| `justify-baseline` | `justifyBaseline` |
+| `self-auto` | `alignSelfAuto` |
+| `self-start` | `alignSelfStart` |
+| `self-end` | `alignSelfEnd` |
+| `self-center` | `alignSelfCenter` |
+| `self-stretch` | `alignSelfStretch` |
+| `self-baseline` | `alignSelfBaseline` |
+| `justify-self-auto` | `justifySelfAuto` |
+| `justify-self-start` | `justifySelfStart` |
+| `justify-self-end` | `justifySelfEnd` |
+| `justify-self-center` | `justifySelfCenter` |
+| `justify-self-stretch` | `justifySelfStretch` |
+| `flex-wrap` | `flexWrap` |
+| `flex-nowrap` | `flexNoWrap` |
+| `flex-wrap-reverse` | `flexWrapReverse` |
+| `flex-1` | `flex1` |
+| `flex-auto` | `flexAuto` |
+| `flex-none` | `flexNone` |
+| `shrink-0` | `noShrink` |
+
+Row centers its children on the cross axis by default, and Section aligns them to the start. `itemsStretch` makes the children of either fill it. The `alignSelf*` and `justifySelf*` props exist only on Popup, Tooltip and the Checkbox, Radio and Switch controls; on a Card or Col, `self-*` stays in `className`.
+
+## Spacing: gap, padding and margin
+
+| Tailwind CSS class | VaneUI prop | Notes |
+|--------------------|-------------|-------|
+| `gap-*` | `gap` | Size-driven, on by default in layout components |
+| `gap-0` | `noGap` | |
+| `p-*` | `padding` | Size-driven |
+| `px-*` | `paddingX` | Size-driven |
+| `py-*` | `paddingY` | Size-driven |
+| `p-0` | `noPadding` | Default on Row, Col, Grid and Container |
+| `m-*` | `margin` | Size-driven, equal to the component's gap |
+| `mx-*` | `marginX` | Size-driven |
+| `my-*` | `marginY` | Size-driven |
+| `mt-*` | `marginT` | Size-driven |
+| `mb-*` | `marginB` | Size-driven |
+| `m-0` | `noMargin` | Default on Text and the title components |
+
+On Row, Col and Grid the size prop lands on Tailwind's spacing scale, so a gap class converts to a size:
+
+| Tailwind CSS class | Row, Col or Grid prop |
+|--------------------|-----------------------|
+| `gap-2` (8px) | `xs` |
+| `gap-3` (12px) | `sm` |
+| `gap-4` (16px) | none: `md` is the default |
+| `gap-6` (24px) | `lg` |
+| `gap-8` (32px) | `xl` |
+
+Section, Card, Stack and Container set their own padding and gap for each size and step them down on tablets and phones. A `gap-4` or `p-6` class in `className` overrides the size-driven value at every width, which also turns that step-down off.
+
+## Width and height
+
+| Tailwind CSS class | VaneUI prop |
+|--------------------|-------------|
+| `w-full` | `wFull` |
+| `w-fit` | `wFit` |
+| `w-auto` | `wAuto` |
+| `w-screen max-w-none` | `wScreen` |
+| `h-full` | `hFull` |
+| `h-fit` | `hFit` |
+| `h-auto` | `hAuto` |
+| `h-screen max-h-none` | `hScreen` |
+
+Button, Badge and Text are `wFit`; Input, NavLink, Section and Container are `wFull`.
+
+## Typography: size, weight, case and wrapping
+
+### Font size from the size prop
+
+Font size is size-driven: there is no font size prop apart from the size props. On Text they match Tailwind's text scale:
+
+| Tailwind CSS class | Text prop |
+|--------------------|-----------|
+| `text-xs` (12px) | `xs` |
+| `text-sm` (14px) | `sm` |
+| `text-base` (16px) | none: `md` is the default |
+| `text-lg` (18px) | `lg` |
+| `text-xl` (20px) | `xl` |
+
+The titles, Button, Badge and the other components keep their own scales, and on Button or Card the size prop also moves the padding, gap and radius.
+
+### Font weight and family
+
+| Tailwind CSS class | VaneUI prop |
+|--------------------|-------------|
+| `font-thin` | `fontThin` |
+| `font-extralight` | `fontExtralight` |
+| `font-light` | `fontLight` |
+| `font-normal` | `fontNormal` |
+| `font-medium` | `fontMedium` |
+| `font-semibold` | `fontSemibold` |
+| `font-bold` | `fontBold` |
+| `font-extrabold` | `fontExtrabold` |
+| `font-black` | `fontBlack` |
+| `font-sans` | `fontSans` |
+| `font-serif` | `fontSerif` |
+| `font-mono` | `fontMono` |
+| `font-heading` | `fontHeading` |
+| `italic` | `italic` |
+| `not-italic` | `notItalic` |
+
+`font-heading` is not a Tailwind CSS default class: it uses the heading font from VaneUI's theme, which the title components use by default.
+
+### Decoration, case and alignment
+
+| Tailwind CSS class | VaneUI prop |
+|--------------------|-------------|
+| `underline` | `underline` |
+| `line-through` | `lineThrough` |
+| `no-underline` | `noUnderline` |
+| `overline` | `overline` |
+| `uppercase` | `uppercase` |
+| `lowercase` | `lowercase` |
+| `capitalize` | `capitalize` |
+| `normal-case` | `normalCase` |
+| `text-left` | `textLeft` |
+| `text-center` | `textCenter` |
+| `text-right` | `textRight` |
+| `text-justify` | `textJustify` |
+| `text-start` | `textStart` |
+| `text-end` | `textEnd` |
+
+`textStart` and `textEnd` follow the reading direction and flip under `dir="rtl"`; `textLeft` and `textRight` never flip. Text and the title components are `textLeft` by default, so `textCenter` on a parent does not center their lines: put it on the Text itself.
+
+### Truncation, letter spacing and wrapping
+
+| Tailwind CSS class | VaneUI prop |
+|--------------------|-------------|
+| `truncate` | `truncate` |
+| `line-clamp-2` | `lineClamp2` |
+| `line-clamp-3` | `lineClamp3` |
+| `line-clamp-4` | `lineClamp4` |
+| `line-clamp-5` | `lineClamp5` |
+| `line-clamp-none` | `noTruncate` |
+| `tracking-tighter` | `trackingTighter` |
+| `tracking-tight` | `trackingTight` |
+| `tracking-normal` | `trackingNormal` |
+| `tracking-wide` | `trackingWide` |
+| `tracking-wider` | `trackingWider` |
+| `tracking-widest` | `trackingWidest` |
+| `whitespace-normal` | `whitespaceNormal` |
+| `whitespace-nowrap` | `whitespaceNowrap` |
+| `whitespace-pre` | `whitespacePre` |
+| `whitespace-pre-wrap` | `whitespacePreWrap` |
+| `whitespace-pre-line` | `whitespacePreLine` |
+| `whitespace-break-spaces` | `whitespaceBreakSpaces` |
+| `break-normal` | `breakNormal` |
+| `break-words` | `breakWords` |
+| `break-all` | `breakAll` |
+| `break-keep` | `breakKeep` |
+
+The letter spacing props are on Text, the title components, Link and Blockquote. Truncation and word breaking also reach List, ListItem and several form parts.
+
+### List markers
+
+| Tailwind CSS class | VaneUI prop |
+|--------------------|-------------|
+| `list-disc` | `listDisc` |
+| `list-decimal` | `listDecimal` |
+| `list-[circle]` | `listCircle` |
+| `list-[square]` | `listSquare` |
+| `list-[lower-alpha]` | `listLowerAlpha` |
+| `list-[lower-roman]` | `listLowerRoman` |
+| `list-inside` | `listInside` |
+| `list-outside` | `listOutside` |
+
+## Borders and border radius
+
+| Tailwind CSS class | VaneUI prop | Notes |
+|--------------------|-------------|-------|
+| `border` | `border` | Width from the `--bw` variable, color from the appearance |
+| `border-t` | `borderT` | |
+| `border-b` | `borderB` | |
+| `border-l` | `borderL` | |
+| `border-r` | `borderR` | |
+| `border-x` | `borderX` | |
+| `border-y` | `borderY` | |
+| `border-s` | `borderStart` | Flips under `dir="rtl"` |
+| `border-e` | `borderEnd` | Flips under `dir="rtl"` |
+| `border-0` | `noBorder` | |
+| `rounded-*` | `rounded` | Size-driven, the default shape |
+| `rounded-full` | `pill` | |
+| `rounded-none` | `sharp` | |
+
+Side props combine: `borderT borderB` draws both lines, and `noBorder` removes every side. A border color class has no prop; `strongBorder` switches to the stronger border color of the component's appearance.
+
+## Shadows, rings and focus outlines
+
+| Tailwind CSS class | VaneUI prop | Notes |
+|--------------------|-------------|-------|
+| `shadow-*` | `shadow` | Size-driven |
+| `shadow-xs` to `shadow-xl` | `shadowXs`, `shadowSm`, `shadowMd`, `shadowLg`, `shadowXl` | A fixed step of VaneUI's shadow scale, whatever the size |
+| `shadow-none` | `noShadow` | |
+| `ring-1 ring-inset` | `insetRing` | Width from the `--rw` variable |
+| `ring-0` | `noInsetRing` | |
+| `focus-visible:outline-2 focus-visible:outline-offset-2` | `focusVisible` | Default on Button, Input, Link and the other controls |
+| none | `noFocusVisible` | Leaves out the outline classes of `focusVisible` |
+
+## Colors and appearance
+
+No prop sets a single background, text or border color. One appearance prop picks the color family, one variant prop picks how it is applied, and both switch with dark mode:
+
+| Tailwind CSS classes | VaneUI props |
+|----------------------|--------------|
+| A solid `bg-*` with light `text-*` and a darker `hover:bg-*` | `filled` plus an appearance |
+| A light `bg-*` with colored `text-*` and `border-*` | an appearance alone: `outline` is the default variant |
+| Colored `text-*` on `bg-transparent`, tinted on hover | `ghost` plus an appearance |
+| `bg-transparent` | `transparent` |
+| `text-inherit` | `inheritAppearance`, the default on typography |
+
+| Color family | Appearance prop |
+|--------------|-----------------|
+| Gray, the neutral default | `primary` |
+| Light gray, subtle | `secondary` |
+| Darker gray, muted | `tertiary` |
+| Rose, highlight | `accent` |
+| Green, positive | `success` |
+| Red, error or destructive | `danger` |
+| Amber, caution | `warning` |
+| Cyan, informational | `info` |
+
+So `bg-red-600 text-white` on a button becomes `<Button danger filled>`. A `dark:` class has no prop and needs none: the color tokens change when `<html data-theme="dark">` is set, as the [Dark Mode](/docs/customization/dark-mode) page describes.
+
+## Responsive variants
+
+VaneUI's `mobile`, `tablet` and `desktop` breakpoints sit at 48rem, 64rem and 80rem, the same widths as Tailwind's `md`, `lg` and `xl`. The props are desktop-first, so each one matches a `max-*` class:
+
+| Tailwind CSS classes | VaneUI prop |
+|----------------------|-------------|
+| `max-md:flex-col`, or `flex-col md:flex-row` | `mobileStack` |
+| `max-lg:flex-col`, or `flex-col lg:flex-row` | `tabletStack` |
+| `max-xl:flex-col`, or `flex-col xl:flex-row` | `desktopStack` |
+| `max-md:hidden` | `mobileHide` |
+| `max-lg:hidden` | `tabletHide` |
+| `max-xl:hidden` | `desktopHide` |
+| `md:hidden` | `mobileShow` |
+| `lg:hidden` | `tabletShow` |
+| `xl:hidden` | `desktopShow` |
+| `max-md:w-full` | `mobileWFull` |
+| `max-lg:w-full` | `tabletWFull` |
+| `max-xl:w-full` | `desktopWFull` |
+| `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3` | `Grid3`, with no prop |
+| `p-4 md:p-6 lg:p-12 gap-4 md:gap-6 lg:gap-8` | `Section`, with no prop |
+
+The stack props only change row-direction components, which in practice means Row. A Tailwind CSS v4 build needs `@import "@vaneui/ui/tokens"` for these props to emit any CSS, as the [Installation](/docs/getting-started/installation) page shows. [Responsive Page Sections Without Breakpoint Classes](/docs/guides/responsive-sections) builds a full section with them.
+
+## Cursor, pointer events, images and motion
+
+| Tailwind CSS class | VaneUI prop |
+|--------------------|-------------|
+| `cursor-pointer` | `cursorPointer` |
+| `cursor-default` | `cursorDefault` |
+| `cursor-not-allowed` | `cursorNotAllowed` |
+| `cursor-none` | `cursorNone` |
+| `cursor-text` | `cursorText` |
+| `cursor-move` | `cursorMove` |
+| `cursor-wait` | `cursorWait` |
+| `pointer-events-none` | `pointerEventsNone` |
+| `pointer-events-auto` | `pointerEventsAuto` |
+| `object-cover` | `objectCover` |
+| `object-contain` | `objectContain` |
+| `object-fill` | `objectFill` |
+| `object-none` | `objectNone` |
+| `object-scale-down` | `objectScaleDown` |
+| `transition` | `transition`, with duration and easing from theme variables |
+| `transition-none` | `noTransition` |
+| `backdrop-blur-*` | `backdropBlur`, with the amount from `--overlay-blur` |
+| `h-px w-full` on a rule | Divider, horizontal by default |
+| `w-px h-full` on a rule | `vertical` on Divider |
+
+The cursor props are on Button, Badge, Card, the typography components and the form controls, not on Row, Col or Stack. The transition props are on the controls, `object*` on Img and `backdropBlur` on Overlay.
+
+## Classes with no prop
+
+These stay in `className`:
+
+- Widths and heights other than full, fit, auto and screen: `w-64`, `max-w-3xl`, `min-h-screen`, `size-8`.
+- Offsets and stacking order: `top-4`, `inset-0`, `z-10`.
+- Grid placement: `col-span-2`, `grid-cols-[200px_1fr]`.
+- Margins on the inline sides, or an exact amount: `ml-4`, `me-2`, `mt-[13px]`.
+- Gradients, opacity, `aspect-*` and `sr-only`.
+- `hover:` and `focus:` styles beyond the states a component already has.
+
+A class you add wins over the theme's class for the same property. The prebuilt `@vaneui/ui/css` stylesheet contains only the utilities VaneUI's own components use, so most of these classes work only in a project with its own Tailwind CSS v4 build; without one, use the `style` prop.
 
 # Changelog
 
