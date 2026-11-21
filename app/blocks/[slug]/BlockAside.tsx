@@ -51,6 +51,9 @@ export function BlockFacts({ components, adapts }: { components: ComponentLink[]
         <List sm>
           {adapts.map(line => <ListItem key={line}>{line}</ListItem>)}
         </List>
+        <Text sm tertiary>
+          How these props work is in <InlineLink href="/docs/guides/responsive-sections">responsive page sections without breakpoint classes</InlineLink>.
+        </Text>
       </Stack>
 
       <Stack xl flexNoWrap primary>
