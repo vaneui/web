@@ -488,6 +488,13 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         description: 'Render Markdown as React components with @vaneui/md: Server Components or the client entry, frontmatter, vaneui fences, rendererTheme and untrustedPreset.',
         mdPath: 'markdown-react-components.md',
       },
+      {
+        slug: 'responsive-sections',
+        name: 'Responsive Page Sections Without Breakpoint Classes',
+        seoTitle: 'Responsive Page Sections Without Breakpoint Classes | VaneUI',
+        description: 'Build responsive page sections in React without breakpoint classes: mobileStack, tabletStack, hide and show props, responsive padding and a pricing example.',
+        mdPath: 'responsive-sections.md',
+      },
     ]
   },
   {
