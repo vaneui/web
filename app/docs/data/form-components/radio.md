@@ -141,3 +141,17 @@ The Radio takes its own size prop, which wins over the size inherited from the L
 ```
 
 Inside a [Field](/docs/form-components/field), the Field's own `disabled`, `readOnly`, `required` and `error` reach the group the same way.
+
+## Frequently asked questions
+
+### How do I lay out radio options in a row?
+
+Add `row` to the RadioGroup. It is a flex column by default and takes the layout props of a `Col`, so `<RadioGroup row flexWrap>` puts the options side by side and wraps them on a narrow screen, and `mobileStack` returns them to a column below 768px. The arrow keys move the selection in either layout.
+
+### How do I let the user clear a radio selection?
+
+Give the group a way back, because a native radio cannot be unchecked by clicking it again. Add an option such as "None" with its own `value`, or a reset button. In a controlled group, set `value` to an empty string: no Radio matches it, so none is checked. In an uncontrolled form, a `type="reset"` button restores the group's `defaultValue`.
+
+### Can I use Radio without a RadioGroup?
+
+Yes. Radios that share a `name` are mutually exclusive in the browser, as in the size examples on this page. Without a RadioGroup the set loses the `radiogroup` role, the generated name, the shared `value` and `onChange`, and the group state props, and a [Field](/docs/form-components/field#radio-groups) around bare radios gives all of them its single id. Keep the group for any set a user fills in.

@@ -134,3 +134,17 @@ Set app-wide Input defaults with `ThemeProvider`'s `themeDefaults` and add a foc
   <Input placeholder="Email" />
 </ThemeProvider>
 ```
+
+## Frequently asked questions
+
+### Should I use `danger` or `invalid` to mark a wrong value?
+
+Use `invalid`, or an `error` on the [Field](/docs/form-components/field) around the Input. `invalid` adds the danger border and ring over the current appearance, sets `aria-invalid="true"` and shows the trailing alert icon. `danger` only changes the colors, so screen readers hear nothing and no icon appears. Keep `danger` for a field that is not in error, such as the box where a user types a project name to confirm deleting it.
+
+### Why don't my Input theme defaults reach Textarea or Select?
+
+Each control has its own theme node. `themeDefaults={{ input: { md: true } }}` sizes every Input, while Textarea reads the `textarea` node and Select reads `select`. To keep a form consistent, set the same defaults on all three: `{ input: { md: true }, textarea: { md: true }, select: { md: true } }`. All three are flat nodes, with no `main` level like the one Button has.
+
+### How do I put an icon or a button inside an Input?
+
+Input has no slot for one, and while the value is invalid its trailing edge holds the alert icon. Place the icon, or an [IconButton](/docs/basic-components/icon-button), next to the Input in a `Row`, as the password toggle under [Submit, reset and button types](/docs/form-components/forms#submit-reset-and-button-types) does. Give that IconButton `type="button"` so it does not submit the form, and an `aria-label` for its name.
