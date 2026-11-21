@@ -481,6 +481,13 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         description: 'Check color contrast in light and dark mode against WCAG 2.2 AA: the luminance formula, testing light-dark() pairs, and choosing text for filled buttons.',
         mdPath: 'color-contrast-light-dark.md',
       },
+      {
+        slug: 'markdown-react-components',
+        name: 'Render Markdown as React Components',
+        seoTitle: 'Render Markdown as React Components with @vaneui/md',
+        description: 'Render Markdown as React components with @vaneui/md: Server Components or the client entry, frontmatter, vaneui fences, rendererTheme and untrustedPreset.',
+        mdPath: 'markdown-react-components.md',
+      },
     ]
   },
   {
