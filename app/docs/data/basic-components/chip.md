@@ -199,3 +199,17 @@ Add prop-conditional classes with `extraClasses`, applied whenever the matching 
   <Chip danger>blocked</Chip>
 </ThemeProvider>
 ```
+
+## Frequently asked questions
+
+### Why is a Chip gray instead of primary?
+
+Chip defaults to the `secondary` appearance, while Button, Card and the form controls default to `primary`. A bare Chip is a neutral token, and an appearance prop such as `primary`, `info` or `success` colors the ones that should stand out. To change the default for a whole app, set it once on `ThemeProvider`, as [Customizing](#customizing) shows: `themeDefaults={{ chip: { primary: true } }}`.
+
+### Why does removing a Chip submit my form?
+
+The remove control in [removable chips](#removable-chips) is an `IconButton`, and IconButton sets no `type`. Inside a `<form>`, the browser treats a button with no `type` as a submit button, so a click on it submits the form. Pass `type="button"` to the IconButton. A Chip with `tag="button"` also renders a `<button>` with no `type` and needs the same fix.
+
+### How do I let a long Chip label wrap?
+
+Pass `whitespaceNormal`. Chip defaults to `whitespaceNowrap`, so its label stays on one line and a long one widens the chip instead of wrapping. With `whitespaceNormal`, the text wraps once the chip runs out of room in its parent. `Badge` has the same default and takes the same prop.

@@ -214,3 +214,17 @@ Icons work naturally alongside text and inside buttons.
   </Row>
 </Col>
 ```
+
+## Frequently asked questions
+
+### Do I need to wrap icons in Icon inside a Button?
+
+No. `Button`, `IconButton`, `NavLink` and `Alert` size an SVG child from their own size prop, so `<Button><Download/> Download</Button>` needs no wrapper. Use Icon for a glyph that stands on its own, such as an icon beside a line of `Text`: it sets the size, centers the glyph, keeps it from shrinking in a flex row and hides it from screen readers when it has no name.
+
+### How do I make an icon larger than `xl`?
+
+Give the SVG a `size-*` class, such as `size-10` for 40px. Icon's own sizing skips an SVG that carries a `size-*` class, so the class sets the size instead. The prebuilt `@vaneui/ui/css` stylesheet contains only the utilities VaneUI uses, so in that setup an SVG whose class is missing from the bundle falls back to its own `width` and `height` attributes. Your own Tailwind v4 build generates the class.
+
+### Can I use any icon set with Icon?
+
+Yes, as long as the icon renders an inline `<svg>`. Icon wraps whatever SVG element you pass, so icon components from any package work, and so does an `<svg>` written by hand. An icon loaded as an image file (`<img src="icon.svg">`) is not inline: Icon cannot size it or color it with `currentColor`, so render it with [Img](/docs/layout-components/img) instead.
