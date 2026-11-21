@@ -509,6 +509,13 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         description: 'Layout and utility props shared by most VaneUI React components, written as booleans: responsive hide, flex alignment, position, display, overflow and gap.',
       },
       {
+        slug: 'tailwind-to-props',
+        name: 'Tailwind CSS Classes to VaneUI Props',
+        seoTitle: 'Tailwind CSS Classes to VaneUI Props: Cheat Sheet',
+        description: 'Look up the VaneUI boolean prop for a Tailwind CSS class: layout, flex alignment, spacing, typography, borders, shadows, colors and responsive variants.',
+        mdPath: 'tailwind-to-props.md',
+      },
+      {
         slug: 'changelog',
         name: 'Changelog',
         seoTitle: '@vaneui/ui Changelog: Release Notes by Version | VaneUI',
