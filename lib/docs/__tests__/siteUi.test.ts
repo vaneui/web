@@ -6,11 +6,29 @@
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createElement } from 'react';
+import Module from 'node:module';
+import { createElement, type ReactElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
+import { AppRouterContext, type AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { PathnameContext } from 'next/dist/shared/lib/hooks-client-context.shared-runtime';
 
 import { DocsMarkdown } from '../../../app/docs/DocsMarkdown';
 import { CodeBlock } from '../../../app/components/CodeBlock';
+
+// The layouts import their stylesheets, which Node cannot load: they read as empty modules here.
+// Modules that do are imported inside their test, after this hook is in place.
+(Module as unknown as { _extensions: Record<string, (m: { exports: unknown }) => void> })
+  ._extensions['.css'] = (m) => { m.exports = {}; };
+
+const router = {
+  push() {}, replace() {}, back() {}, forward() {}, refresh() {}, prefetch() {},
+} as unknown as AppRouterInstance;
+
+/** Static markup of an element rendered as the App Router would at `pathname` */
+function renderAt(element: ReactElement, pathname: string): string {
+  return renderToStaticMarkup(createElement(AppRouterContext.Provider, { value: router },
+    createElement(PathnameContext.Provider, { value: pathname }, element)));
+}
 
 /** The class list of the first element matching `tag` (and containing `text`, when given) */
 function classOf(html: string, tag: string, text = ''): string[] {
@@ -38,4 +56,15 @@ test('a code sample is block lines of inline tokens, so a copied selection keeps
   assert.ok(!/class="[^"]*\b(inline-)?flex\b/.test(inner), 'no line or token is a flex container');
   const text = lines.map((l) => l.replace(/<[^>]+>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/^\n$/, ''));
   assert.deepEqual(text, ['<Row flexWrap>', '  <Button accent>accent</Button>', '', '</Row>']);
+});
+
+test('the docs sidebar does not wrap, so its links stay inside the 16rem column', async () => {
+  const { default: DocsLayout } = await import('../../../app/docs/layout');
+  const html = renderAt(createElement(DocsLayout, null, 'page'), '/docs/guides/color-contrast-light-dark');
+  const nav = html.match(/<nav\b[^>]*aria-label="Documentation"[^>]*>/)?.[0];
+  assert.ok(nav, 'the sidebar nav is rendered');
+  const classes = nav.match(/class="([^"]*)"/)![1].split(/\s+/);
+  // A wrapping column flex sizes its line to the widest link, past the column, so no ellipsis showed
+  assert.ok(classes.includes('flex-nowrap'), `sidebar classes: ${classes.join(' ')}`);
+  assert.ok(!classes.includes('flex-wrap'), 'the sidebar must not wrap');
 });
