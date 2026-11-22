@@ -76,7 +76,7 @@ export function Segmented<T extends string>({ label, options, value, onChange }:
       {options.map(o => {
         const on = o.value === value;
         return (
-          <Button key={o.value} xs type="button" aria-pressed={on} onClick={() => onChange(o.value)}
+          <Button key={o.value} type="button" aria-pressed={on} onClick={() => onChange(o.value)}
                   filled={on} ghost={!on} secondary={!on} noInsetRing={!on}>
             {o.label}
           </Button>
