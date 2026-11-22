@@ -114,7 +114,7 @@ export function SectionHead({ index, eyebrow, title, children }: {
 }
 
 /** Copy-to-clipboard icon button with a short confirmation */
-export function CopyButton({ value, label }: { value: string; label: string }) {
+export function CopyButton({ value, label, md }: { value: string; label: string; md?: boolean }) {
   const [copied, setCopied] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
   useEffect(() => () => clearTimeout(timer.current), []);
@@ -127,7 +127,7 @@ export function CopyButton({ value, label }: { value: string; label: string }) {
   };
   return (
     <>
-      <IconButton xs ghost pill secondary={!copied} success={copied} onClick={copy}
+      <IconButton xs={!md} md={md} ghost pill secondary={!copied} success={copied} onClick={copy}
                   aria-label={copied ? 'Copied' : label}>
         {copied ? <Check aria-hidden="true"/> : <Copy aria-hidden="true"/>}
       </IconButton>
@@ -137,15 +137,19 @@ export function CopyButton({ value, label }: { value: string; label: string }) {
   );
 }
 
-/** `$ npm install @vaneui/ui` in a bordered mono pill with a copy button */
+/**
+ * `$ npm install @vaneui/ui` in an outlined mono pill with a copy button. It sits next to `md`
+ * Buttons, so it takes their height at every width: the pill is as tall as its `md` copy button,
+ * with no padding, and its outline is an inset ring, which adds no height.
+ */
 export function InstallBox({ command }: { command: string }) {
   return (
-    <Stack row xs flexNoWrap pill border primary itemsCenter justifyBetween className="pl-4">
+    <Row xs pill insetRing primary justifyBetween className="pl-4">
       <Text sm fontMono whitespaceNowrap>
         <Text tag="span" fontMono tertiary inheritSize>{'$\u00a0'}</Text>{command}
       </Text>
-      <CopyButton value={command} label="Copy install command"/>
-    </Stack>
+      <CopyButton md value={command} label="Copy install command"/>
+    </Row>
   );
 }
 
