@@ -22,7 +22,7 @@ export function Inbox({ selectedId }: { selectedId?: string }) {
                   <Text sm fontSemibold>{m.from}</Text>
                   <Text xs secondary>{m.date}</Text>
                 </Row>
-                <Text sm truncate>{m.subject}</Text>
+                <Text sm truncate wFull>{m.subject}</Text>
               </Col>
             </NavLink>
           ))}
