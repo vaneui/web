@@ -67,6 +67,31 @@ const insertBlock = (block: string) => ({ value, start }: Selection): Selection 
 
 const TABLE = '| Column | Column |\n|:--|:--|\n| Cell | Cell |';
 
+/**
+ * Replaces the textarea's text with `next` through the browser's own editing command, which puts
+ * the change on the field's undo stack (setting `value` from React clears it, so Ctrl+Z did
+ * nothing). Only the part that differs is replaced. Returns false when the browser has no such
+ * command, and the caller sets the value itself.
+ */
+function editText(el: HTMLTextAreaElement, next: string): boolean {
+  const prev = el.value;
+  if (prev === next) return true;
+  let start = 0;
+  while (start < prev.length && start < next.length && prev[start] === next[start]) start++;
+  let end = 0;
+  while (end < prev.length - start && end < next.length - start && prev[prev.length - 1 - end] === next[next.length - 1 - end]) end++;
+  el.focus();
+  el.setSelectionRange(start, prev.length - end);
+  const inserted = next.slice(start, next.length - end);
+  try {
+    // Deprecated, but still the only way to edit a text field that the undo stack records
+    const done = inserted ? document.execCommand('insertText', false, inserted) : document.execCommand('delete');
+    return done && el.value === next;
+  } catch {
+    return false;
+  }
+}
+
 const ACTIONS = [
   { label: 'Bold', key: 'b', icon: Bold, run: wrap('**', '**', 'bold text') },
   { label: 'Italic', key: 'i', icon: Italic, run: wrap('*', '*', 'italic text') },
@@ -163,6 +188,11 @@ export function MarkdownEditor() {
     const el = area.current;
     if (!el) return;
     const next = run({ value: el.value, start: el.selectionStart, end: el.selectionEnd });
+    // The edit fires an input event, and onChange takes the new text from there
+    if (editText(el, next.value)) {
+      el.setSelectionRange(next.start, next.end);
+      return;
+    }
     setText(next.value);
     requestAnimationFrame(() => {
       el.focus();
