@@ -113,7 +113,10 @@ export function OnThisPage({sections}: OnThisPageProps) {
   };
 
   return (
-    <Col ref={containerRef} overflowYAuto sm hFit className="lp-chrome">
+    // The scroller clips at its padding edge, and the links fill its width: the padding makes room for
+    // their focus ring (2px at a 2px offset), and the negative margin keeps them where they were. The
+    // scroll padding does the same for a link that focus scrolls to the top or bottom edge
+    <Col ref={containerRef} overflowYAuto sm hFit className="lp-chrome -m-1.5 p-1.5 scroll-py-2">
       <Text xs fontMono uppercase trackingWider tertiary>On this page</Text>
       <Col noGap>
         {sections.map((section, index) => {

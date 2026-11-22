@@ -17,7 +17,7 @@ import { DocsMarkdown } from '../../../app/docs/DocsMarkdown';
 import { CodeBlock } from '../../../app/components/CodeBlock';
 import { MetaStrip } from '../../../app/docs/MetaStrip';
 import { DocsPropsTable } from '../../../app/docs/DocsPropsTable';
-import { TocAnchor } from '../../../app/docs/OnThisPage';
+import { OnThisPage, TocAnchor } from '../../../app/docs/OnThisPage';
 import { goBack, GO_BACK_FALLBACK } from '../../../app/not-found-actions';
 
 // The layouts import their stylesheets, which Node cannot load: they read as empty modules here.
@@ -143,4 +143,21 @@ test('a header nav cell is the current page only on its own page, and the curren
   assert.deepEqual(currents('/docs'), ['page /docs']);
   assert.deepEqual(currents('/docs/reference/changelog'), ['page /docs/reference/changelog']);
   assert.deepEqual(currents('/playground'), ['page /playground']);
+});
+
+test('the "On this page" scroller leaves room for its links\' focus ring', () => {
+  const html = renderToStaticMarkup(createElement(OnThisPage, {
+    sections: [{ title: 'Button', id: 'button', level: 0 }, { title: 'Sizes', id: 'sizes', level: 1 }],
+  }));
+  const scroller = html.match(/<div\b[^>]*class="([^"]*\boverflow-y-auto\b[^"]*)"/)?.[1].split(/\s+/);
+  assert.ok(scroller, 'the TOC scroller is rendered');
+  // The links are as wide as the scroller, which clips at its padding edge: the 2px ring at a 2px
+  // offset needs at least 4px of padding on every side, and as much scroll padding at top and bottom
+  const spacing = (prefixes: string[]) => Math.max(0, ...scroller
+    .map((c) => c.match(/^(-?)([a-z-]+)-(\d+(?:\.\d+)?)$/))
+    .filter((m): m is RegExpMatchArray => !!m && !m[1] && prefixes.includes(m[2]))
+    .map((m) => Number(m[3]) * 4));
+  assert.ok(spacing(['p', 'px']) >= 4, `inline padding: ${scroller.join(' ')}`);
+  assert.ok(spacing(['p', 'py']) >= 4, `block padding: ${scroller.join(' ')}`);
+  assert.ok(spacing(['scroll-p', 'scroll-py']) >= 4, `scroll padding: ${scroller.join(' ')}`);
 });
