@@ -14,6 +14,7 @@ import { PathnameContext } from 'next/dist/shared/lib/hooks-client-context.share
 
 import { DocsMarkdown } from '../../../app/docs/DocsMarkdown';
 import { CodeBlock } from '../../../app/components/CodeBlock';
+import { MetaStrip } from '../../../app/docs/MetaStrip';
 
 // The layouts import their stylesheets, which Node cannot load: they read as empty modules here.
 // Modules that do are imported inside their test, after this hook is in place.
@@ -67,4 +68,17 @@ test('the docs sidebar does not wrap, so its links stay inside the 16rem column'
   // A wrapping column flex sizes its line to the widest link, past the column, so no ellipsis showed
   assert.ok(classes.includes('flex-nowrap'), `sidebar classes: ${classes.join(' ')}`);
   assert.ok(!classes.includes('flex-wrap'), 'the sidebar must not wrap');
+});
+
+test('the import button in the page header wraps a long import', () => {
+  const importPath = 'import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, Caption } from "@vaneui/ui"';
+  const html = renderToStaticMarkup(createElement(MetaStrip, {
+    frontmatter: { componentKey: 'table', importPath }, slug: 'table', category: 'layout-components',
+  }));
+  const button = html.match(/<button\b[^>]*aria-label="Copy import statement"[^>]*>/)?.[0];
+  assert.ok(button, 'the import button is rendered');
+  const classes = button.match(/class="([^"]*)"/)![1].split(/\s+/);
+  // On one line, the Table import made the button 583px wide on a 390px phone
+  assert.ok(classes.includes('whitespace-normal'), `import button classes: ${classes.join(' ')}`);
+  assert.ok(!classes.includes('whitespace-nowrap'), 'the import must be able to wrap');
 });

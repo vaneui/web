@@ -106,11 +106,14 @@ export function MetaStrip({ frontmatter, slug, category }: MetaStripProps) {
   return (
     <Row justifyBetween flexWrap>
       {importPath && (
+        // A long import (Table, Grid) wraps inside the button instead of running past a phone's edge
         <Button
           xs
           secondary
           noShadow
           fontMono
+          whitespaceNormal
+          textLeft
           onClick={handleCopyImport}
           title={importStatus === 'copied' ? 'Copied!' : `Click to copy: ${importPath}`}
           aria-label="Copy import statement"
