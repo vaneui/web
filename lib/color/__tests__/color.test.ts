@@ -5,8 +5,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  contrastRatio, fixContrast, formatRatio, inGamut, oklchToRgb, parseColor, rgbToOklch,
-  toGamut, toHex, toHslString, toOklchString, toRgb8, toRgbString,
+  composite, contrastRatio, fixContrast, formatRatio, inGamut, oklchToRgb, parseColor, rgbToOklch,
+  shownPair, toGamut, toHex, toHslString, toOklchString, toRgb8, toRgbString,
 } from '../color';
 import {
   ROLES, STEPS, buildScale, generateTheme, nearestStep, plainCss, tailwindTheme, tokensJson, vaneuiCss,
@@ -226,4 +226,32 @@ test('fixContrast suggests a color that still passes once written as hex or OKLC
   const gray = fixContrast(parseColor('#888888')!.oklch, { r: 1, g: 1, b: 1 }, 4.5);
   assert.ok(gray);
   assert.equal(toHex(oklchToRgb(gray)), '#767676');
+});
+
+test('translucent colors are checked as they show: text over the background, the background over the page', () => {
+  const white = { r: 1, g: 1, b: 1 };
+  const black = { r: 0, g: 0, b: 0 };
+  const c = (s: string) => parseColor(s)!;
+  const ratioOf = (fg: string, bg: string, page = white) => {
+    const f = c(fg);
+    const b = c(bg);
+    const shown = shownPair(f.oklch, f.alpha, b.oklch, b.alpha, page);
+    return contrastRatio(shown.fg, shown.bg);
+  };
+  // Half-transparent black on white shows as mid gray: about 3.95:1, below AA, not 21:1
+  for (const half of ['#00000080', 'rgb(0 0 0 / 50%)', 'rgba(0, 0, 0, 0.5)']) {
+    const ratio = ratioOf(half, '#ffffff');
+    assert.ok(ratio > 3.9 && ratio < 4.1, `${half}: ${ratio}`);
+  }
+  assert.equal(toHex(shownPair(c('#00000080').oklch, 128 / 255, c('#fff').oklch, 1, white).fg), '#7f7f7f');
+  // A translucent background is blended over the page first
+  const bg = shownPair(c('#000').oklch, 1, c('#00000080').oklch, 128 / 255, white).bg;
+  assert.equal(toHex(bg), '#7f7f7f');
+  assert.equal(toHex(shownPair(c('#fff').oklch, 1, c('#ffffff80').oklch, 128 / 255, black).bg), '#808080');
+  // Opaque colors are unchanged
+  assert.equal(formatRatio(ratioOf('#000', '#fff')), '21.00:1');
+  // Formatters write the alpha back
+  assert.equal(toHex({ r: 0, g: 0, b: 0 }, 128 / 255), '#00000080');
+  assert.equal(toOklchString({ l: 0.5, c: 0.1, h: 30 }, 0.5), 'oklch(50% 0.1 30 / 50%)');
+  assert.deepEqual(composite(white, 0.25, black), { r: 0.25, g: 0.25, b: 0.25 });
 });

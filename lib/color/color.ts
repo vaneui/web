@@ -106,8 +106,16 @@ export function toRgb8(rgb: Rgb): Rgb {
   return { r: q(rgb.r), g: q(rgb.g), b: q(rgb.b) };
 }
 
-export function toHex(rgb: Rgb): string {
-  return `#${hex2(rgb.r)}${hex2(rgb.g)}${hex2(rgb.b)}`;
+/** `#rrggbb`, or `#rrggbbaa` when `alpha` is below 1 */
+export function toHex(rgb: Rgb, alpha = 1): string {
+  return `#${hex2(rgb.r)}${hex2(rgb.g)}${hex2(rgb.b)}${alpha < 1 ? hex2(alpha) : ''}`;
+}
+
+/** `top` drawn at `alpha` over `under`, blended in sRGB the way browsers blend */
+export function composite(top: Rgb, alpha: number, under: Rgb): Rgb {
+  const a = clamp01(alpha);
+  const mix = (t: number, u: number) => t * a + u * (1 - a);
+  return { r: mix(top.r, under.r), g: mix(top.g, under.g), b: mix(top.b, under.b) };
 }
 
 const round = (v: number, digits: number) => {
@@ -141,9 +149,10 @@ export function toHslString(rgb: Rgb): string {
   return `hsl(${round(h, 1)} ${round(s * 100, 1)}% ${round(l * 100, 1)}%)`;
 }
 
-/** CSS `oklch()` with lightness as a percentage, rounded the way design tokens usually are */
-export function toOklchString(c: Oklch): string {
-  return `oklch(${round(c.l * 100, 1)}% ${round(c.c, 3)} ${round(c.c < 1e-4 ? 0 : c.h, 1)})`;
+/** CSS `oklch()` with lightness as a percentage, rounded the way design tokens usually are, and `/ alpha` below 1 */
+export function toOklchString(c: Oklch, alpha = 1): string {
+  const a = alpha < 1 ? ` / ${round(clamp01(alpha) * 100, 1)}%` : '';
+  return `oklch(${round(c.l * 100, 1)}% ${round(c.c, 3)} ${round(c.c < 1e-4 ? 0 : c.h, 1)}${a})`;
 }
 
 // ---------- Parsing ----------
@@ -278,6 +287,15 @@ export function parseColor(input: string): ParsedColor | null {
 export function relativeLuminance({ r, g, b }: Rgb): number {
   const lin = (v: number) => (v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
   return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+}
+
+/**
+ * Text and its background as an 8-bit screen shows them: a translucent background blended over
+ * `page` first, then translucent text over that background. WCAG contrast applies to these.
+ */
+export function shownPair(fg: Oklch, fgAlpha: number, bg: Oklch, bgAlpha: number, page: Rgb): { fg: Rgb; bg: Rgb } {
+  const back = toRgb8(composite(oklchToRgb(bg), bgAlpha, page));
+  return { fg: toRgb8(composite(oklchToRgb(fg), fgAlpha, back)), bg: back };
 }
 
 /** WCAG contrast ratio, 1 to 21 */
