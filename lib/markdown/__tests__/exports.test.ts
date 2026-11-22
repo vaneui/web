@@ -4,8 +4,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { parse as parseYaml } from 'yaml';
+import ts from 'typescript';
 
-import { markdownToHtml, markdownToJsx, textStats } from '../exports';
+import { markdownToHtml, markdownToHtmlDocument, markdownToJsx, textStats } from '../exports';
+import { SAMPLES } from '../../../app/tools/markdown-editor/samples';
 
 const SAMPLE = [
   '# Title',
@@ -90,4 +92,78 @@ test('frontmatter variables resolve like they do in Md', () => {
   assert.ok(jsx.includes('<Title xl tag="h1">Hello</Title>'));
   assert.ok(jsx.includes('By {/* $markdoc.frontmatter.missing */}.'));
   assert.ok(markdownToHtml(md, { parseYaml }).startsWith('<h1>Hello</h1>'));
+});
+
+test('an include keeps the content after it, and a tag exports its content like the preview', () => {
+  // GitBook-style include, never closed: the content after it used to be lost
+  const include = markdownToJsx('# A\n\n{% include "x.md" %}\n\n# After include\n\ntext after\n');
+  assert.ok(include.includes('{/* Markdoc tag "include" left out */}'));
+  assert.ok(include.includes('<Title xl tag="h1">After include</Title>'));
+  assert.ok(include.includes('<Text>text after</Text>'));
+  assert.ok(markdownToHtml('{% include "x.md" %}\n\n# After\n').includes('<h1>After</h1>'));
+
+  // A tag left open inside a paragraph ends with it instead of swallowing the heading
+  const open = markdownToJsx('para {% if true %} unclosed\n\n# After\n\nmore\n');
+  assert.ok(open.includes('<Text>para  unclosed</Text>'), open);
+  assert.ok(open.includes('<Title xl tag="h1">After</Title>'));
+  const html = markdownToHtml('para {% if true %} unclosed\n\n# After\n');
+  assert.ok(!/<p>[^]*<p>/.test(html.split('\n')[0]), html);
+  assert.ok(html.includes('<h1>After</h1>'));
+
+  // Conditions pick a branch, other tags export their content
+  const md = '---\nbeta: true\n---\n{% if $markdoc.frontmatter.beta %}\nBeta on\n{% else /%}\nBeta off\n{% /if %}\n\n'
+    + 'Inline {% if false %}hidden{% else /%}shown{% /if %} and {% badge %}**kept**{% /badge %}.\n\n'
+    + '{% callout %}\nInside a callout\n{% /callout %}\n';
+  const jsx = markdownToJsx(md, { parseYaml });
+  assert.ok(jsx.includes('<Text>Beta on</Text>'));
+  assert.ok(!jsx.includes('Beta off'));
+  assert.ok(jsx.includes('<Text>Inline shown and <Text tag="strong" fontBold>kept</Text>.</Text>'), jsx);
+  assert.ok(jsx.includes('<Text>Inside a callout</Text>'));
+  assert.ok(!jsx.includes('left out'));
+  assert.ok(markdownToHtml(md, { parseYaml }).includes('<p>Beta on</p>'));
+});
+
+/** Compiles exported JSX and returns the props of every element it renders */
+function renderedProps(jsx: string): Record<string, unknown>[] {
+  const out = ts.transpileModule(jsx, {
+    fileName: 'Content.tsx',
+    reportDiagnostics: true,
+    compilerOptions: { jsx: ts.JsxEmit.React, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
+  });
+  assert.deepEqual(out.diagnostics?.map(d => ts.flattenDiagnosticMessageText(d.messageText, '\n')), [], jsx);
+  const props: Record<string, unknown>[] = [];
+  const React = { createElement: (_type: unknown, p: Record<string, unknown> | null) => { if (p) props.push(p); return null; } };
+  const ui = new Proxy({}, { get: (_t, name) => name });
+  const mod = { exports: {} as Record<string, () => unknown> };
+  new Function('require', 'module', 'exports', 'React', out.outputText)((id: string) => (id === 'react' ? React : ui), mod, mod.exports, React);
+  mod.exports.Content();
+  return props;
+}
+
+test('attribute values with quotes, backslashes or entities export as valid JSX that reads back the same', () => {
+  const values = ['a "quoted" word', 'He said "hi"', 'back\\slash', 'a &amp; b', 'plain alt'];
+  for (const v of values) {
+    // Escaped for a Markdown title, which reads backslash escapes and entities
+    const alt = v.replace(/&/g, '&amp;').replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    const props = renderedProps(markdownToJsx(`![${v.replace(/\\/g, '\\\\')}](pic.png "${alt}")`));
+    const img = props.find(p => p.src === 'pic.png');
+    assert.ok(img, v);
+    assert.equal(img.title, v);
+  }
+  const link = renderedProps(markdownToJsx(`[link](https://a.com 'He said "hi"')`)).find(p => p.href);
+  assert.equal(link?.title, 'He said "hi"');
+  // Plain values stay plain attribute strings
+  assert.ok(markdownToJsx('![plain](pic.png)').includes('<Img src="pic.png" alt="plain"/>'));
+});
+
+test('the downloaded HTML page is titled with the heading as the preview renders it', () => {
+  const blog = SAMPLES.find(s => s.id === 'post');
+  assert.ok(blog);
+  const page = markdownToHtmlDocument(blog.body, { parseYaml });
+  assert.ok(page.includes('<title>What we learned shipping dark mode</title>'), page.slice(0, 400));
+  assert.ok(!page.includes('{%'));
+  assert.ok(markdownToHtmlDocument('# Tom & *Jerry*\n').includes('<title>Tom &amp; Jerry</title>'));
+  assert.ok(markdownToHtmlDocument('---\ntitle: A <b> & c\n---\nNo heading\n', { parseYaml }).includes('<title>A &lt;b&gt; &amp; c</title>'));
+  assert.ok(markdownToHtmlDocument('Just text\n').includes('<title>Document</title>'));
+  assert.ok(markdownToHtmlDocument('# Hi\n').startsWith('<!doctype html>'));
 });

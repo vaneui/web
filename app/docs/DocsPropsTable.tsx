@@ -2,7 +2,7 @@
 
 import React from 'react';
 import NextLink from 'next/link';
-import { Code, Text, Link as VaneLink } from '@vaneui/ui';
+import { Code, Col, Text, Link as VaneLink } from '@vaneui/ui';
 import { getPropTableRows, type PropRow } from './propTableRows';
 
 /**
@@ -97,17 +97,22 @@ export function DocsPropsTable({ node }: PropsTableProps) {
       {componentRows.length > 0 && <PropsTable rows={componentRows}/>}
       {commonRows.length > 0 && (
         <details className="mt-4">
+          {/* A summary is one control, so the Common Props link goes in the body: inside the
+              summary it was a link nested in a button that some screen readers never reach */}
           <summary className="cursor-pointer">
             <Text sm secondary tag="span">
-              Layout &amp; utility props (gap, padding, hide, items, justify, ...) — documented on{' '}
-              <VaneLink href="/docs/reference/common-props" tag={NextLink}>
-                Common Props
-              </VaneLink>
+              Layout &amp; utility props (gap, padding, hide, items, justify, ...)
             </Text>
           </summary>
-          <div className="mt-3">
+          <Col sm className="mt-3">
+            <Text sm secondary>
+              Documented on{' '}
+              <VaneLink href="/docs/reference/common-props" tag={NextLink}>
+                Common Props
+              </VaneLink>.
+            </Text>
             <PropsTable rows={commonRows}/>
-          </div>
+          </Col>
         </details>
       )}
     </>

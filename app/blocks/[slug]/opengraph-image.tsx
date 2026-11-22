@@ -13,9 +13,11 @@ export function generateStaticParams(): Params[] {
 
 export function generateImageMetadata({ params }: { params: Params }) {
   const block = findBlock(params.slug);
+  // No image for a slug that is not a block: Next answers 404, as for the block page
+  if (!block) return [];
   return [{
     id: 'card',
-    alt: `${block?.name ?? params.slug}: a responsive React block built with VaneUI`,
+    alt: `${block.name}: a responsive React block built with VaneUI`,
     size: OG_SIZE,
     contentType: 'image/png',
   }];
@@ -24,9 +26,10 @@ export function generateImageMetadata({ params }: { params: Params }) {
 export default async function Image({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
   const block = findBlock(slug);
+  if (!block) return new Response('Not Found', { status: 404 });
   return new ImageResponse(
-    <PageCard eyebrow={block ? `${block.category} block` : 'Block'} name={block?.name ?? slug}
-              description={block?.description ?? ''} right="vaneui.com/blocks"/>,
+    <PageCard eyebrow={`${block.category} block`} name={block.name}
+              description={block.description} right="vaneui.com/blocks"/>,
     { ...OG_SIZE, fonts: await ogFonts() },
   );
 }

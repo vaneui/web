@@ -3,6 +3,16 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Col, NavLink, Text } from '@vaneui/ui';
 
+/**
+ * The anchor of a TOC entry. NavLink marks an `active` link `aria-current="page"`, but the entry in
+ * view is a location in this page: "page" belongs to the sidebar link, so it becomes "location".
+ */
+export const TocAnchor = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWithoutRef<'a'>>(
+  function TocAnchor(props, ref) {
+    return <a ref={ref} {...props} aria-current={props['aria-current'] ? 'location' : undefined}/>;
+  },
+);
+
 interface OnThisPageProps {
   sections: Array<{
     title: string;
@@ -103,7 +113,10 @@ export function OnThisPage({sections}: OnThisPageProps) {
   };
 
   return (
-    <Col ref={containerRef} overflowYAuto sm hFit className="lp-chrome">
+    // The scroller clips at its padding edge, and the links fill its width: the padding makes room for
+    // their focus ring (2px at a 2px offset), and the negative margin keeps them where they were. The
+    // scroll padding does the same for a link that focus scrolls to the top or bottom edge
+    <Col ref={containerRef} overflowYAuto sm hFit className="lp-chrome -m-1.5 p-1.5 scroll-py-2">
       <Text xs fontMono uppercase trackingWider tertiary>On this page</Text>
       <Col noGap>
         {sections.map((section, index) => {
@@ -112,6 +125,7 @@ export function OnThisPage({sections}: OnThisPageProps) {
             <NavLink
               key={index}
               href={`#${section.id}`}
+              tag={TocAnchor}
               active={isActive}
               xs ghost sharp noPadding secondary={!isActive} indicatorStart
               className={`py-1.5 ${

@@ -46,9 +46,11 @@ export default function DocsLayout({children}: DocsLayoutProps) {
 
       <Row noGap justifyCenter itemsStretch flex1>
         <Container xl row noGap borderX itemsStretch relative className={FRAME}>
-          {/* Sidebar: a full-height railed column; the list inside sticks below the header */}
+          {/* Sidebar: a full-height railed column; the list inside sticks below the header. A wrapping
+              column sizes itself to its widest link, so flexNoWrap keeps the links (and their ellipsis)
+              inside the 16rem column */}
           <Col noGap noShrink borderR tabletHide className="w-64">
-            <Stack sticky overflowYAuto tag="nav" aria-label="Documentation"
+            <Stack sticky overflowYAuto flexNoWrap tag="nav" aria-label="Documentation"
                    className="styled-scrollbar top-14 max-h-[calc(100dvh-3.5rem)] px-4 py-8">
               <DocsNav currentPath={pathname}/>
             </Stack>
@@ -94,7 +96,7 @@ export default function DocsLayout({children}: DocsLayoutProps) {
           </Row>
         </Row>
         <ModalBody noPadding noGap tag="nav" aria-label="Documentation" className="styled-scrollbar">
-          <Stack xl>
+          <Stack xl flexNoWrap>
             <DocsNav currentPath={pathname} onMenuItemClickAction={closeMenu}/>
           </Stack>
         </ModalBody>

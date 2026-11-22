@@ -5,8 +5,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  contrastRatio, fixContrast, formatRatio, inGamut, oklchToRgb, parseColor, rgbToOklch,
-  toGamut, toHex, toHslString, toOklchString, toRgbString,
+  composite, contrastRatio, fixContrast, formatRatio, inGamut, oklchToRgb, parseColor, rgbToOklch,
+  shownPair, toGamut, toHex, toHslString, toOklchString, toRgb8, toRgbString,
 } from '../color';
 import {
   ROLES, STEPS, buildScale, generateTheme, nearestStep, plainCss, tailwindTheme, tokensJson, vaneuiCss,
@@ -59,6 +59,31 @@ test('parseColor reads every supported syntax', () => {
   assert.equal(hexOf('oklch(62.8 0.2577 29.23)'), '#ff0000');
   assert.equal(hexOf('White'), '#ffffff');
   for (const bad of ['', 'red', '#12', 'rgb(1,2)', 'oklch(a b c)', 'hsl(0 0 0 0)']) {
+    assert.equal(parseColor(bad), null, bad);
+  }
+});
+
+test('parseColor reads the alpha of every syntax, including the legacy comma form', () => {
+  const alpha = (s: string) => {
+    const p = parseColor(s);
+    assert.ok(p, `could not parse ${s}`);
+    return p.alpha;
+  };
+  assert.equal(hexOf('rgba(255, 0, 0, 0.5)'), '#ff0000');
+  assert.equal(hexOf('hsla(0, 100%, 50%, 0.5)'), '#ff0000');
+  assert.equal(hexOf('rgb(255, 0, 0, 50%)'), '#ff0000');
+  assert.equal(alpha('rgba(0, 0, 0, 0.5)'), 0.5);
+  assert.equal(alpha('rgba(0, 0, 0, 25%)'), 0.25);
+  assert.equal(alpha('hsla(0, 0%, 0%, 0.5)'), 0.5);
+  assert.equal(alpha('rgb(0 0 0 / 50%)'), 0.5);
+  assert.equal(alpha('hsl(0 0% 0% / 0.2)'), 0.2);
+  assert.equal(alpha('oklch(50% 0.1 30 / 0.4)'), 0.4);
+  assert.equal(alpha('#00000080'), 128 / 255);
+  assert.equal(alpha('#0008'), 136 / 255);
+  assert.equal(alpha('#000000'), 1);
+  assert.equal(alpha('rgba(0, 0, 0, 2)'), 1);
+  // Four arguments need commas; a slash takes exactly one alpha
+  for (const bad of ['rgba(0 0 0 0.5)', 'rgb(0 0 0 / )', 'rgb(0 0 0 / 1 / 2)', 'rgba(0, 0, 0, x)', 'oklch(50%, 0.1, 30, 0.5)']) {
     assert.equal(parseColor(bad), null, bad);
   }
 });
@@ -156,4 +181,93 @@ test('exports name every role and step', () => {
   const json = JSON.parse(tokensJson(theme));
   assert.equal(Object.keys(json.brand).length, 11);
   assert.match(json.roles.dark['text-accent'].hex, /^#[0-9a-f]{6}$/);
+});
+
+test('contrast of the colors as written: black on white reads 21:1 after the OKLCH round trip', () => {
+  const shown = (s: string) => {
+    const p = parseColor(s);
+    assert.ok(p, `could not parse ${s}`);
+    return toRgb8(oklchToRgb(p.oklch));
+  };
+  // The float round trip lands a hair under 21; the 8-bit color is exact
+  assert.ok(contrastRatio(oklchToRgb(parseColor('#000000')!.oklch), oklchToRgb(parseColor('#ffffff')!.oklch)) < 21);
+  assert.equal(formatRatio(contrastRatio(shown('#000000'), shown('#ffffff'))), '21.00:1');
+  assert.equal(formatRatio(contrastRatio(shown('#ffffff'), { r: 0, g: 0, b: 0 })), '21.00:1');
+  assert.equal(formatRatio(contrastRatio(shown('#777777'), shown('#ffffff'))), '4.47:1');
+  assert.equal(formatRatio(contrastRatio(shown('#767676'), shown('#ffffff'))), '4.54:1');
+  assert.deepEqual(toRgb8({ r: 0.99999995, g: 1.2, b: -0.1 }), { r: 1, g: 1, b: 0 });
+});
+
+test('fixContrast suggests a color that still passes once written as hex or OKLCH', () => {
+  // A small seeded generator, so a failure names a pair that reproduces
+  let seed = 7;
+  const rand = () => ((seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648);
+  const hex = () => `#${Math.floor(rand() * 0x1000000).toString(16).padStart(6, '0')}`;
+  const shown = (c: { l: number; c: number; h: number }) => toRgb8(oklchToRgb(c));
+  const pairs: [string, string][] = [['#888888', '#ffffff'], ['#999999', '#ffffff'], ['#6b7280', '#111827']];
+  while (pairs.length < 1500) pairs.push([hex(), hex()]);
+  let fixedCount = 0;
+  for (const [fgHex, bgHex] of pairs) {
+    const fg = parseColor(fgHex)!.oklch;
+    const bg = shown(parseColor(bgHex)!.oklch);
+    if (contrastRatio(shown(fg), bg) >= 4.5) continue;
+    const fixed = fixContrast(fg, bg, 4.5);
+    if (!fixed) continue;
+    fixedCount++;
+    const asHex = toHex(oklchToRgb(fixed));
+    assert.notEqual(asHex, fgHex, `${fgHex} on ${bgHex}: suggested the same color`);
+    assert.ok(contrastRatio(shown(parseColor(asHex)!.oklch), bg) >= 4.5, `${fgHex} on ${bgHex}: ${asHex} fails as hex`);
+    const written = parseColor(toOklchString(fixed))!.oklch;
+    assert.ok(contrastRatio(oklchToRgb(written), bg) >= 4.5, `${fgHex} on ${bgHex}: ${toOklchString(fixed)} fails`);
+    assert.ok(contrastRatio(shown(written), bg) >= 4.5, `${fgHex} on ${bgHex}: ${toOklchString(fixed)} fails on screen`);
+  }
+  assert.ok(fixedCount > 500, `only ${fixedCount} pairs needed a fix`);
+  // The case from the report: #888 on white used to suggest #777777, which is 4.47:1
+  const gray = fixContrast(parseColor('#888888')!.oklch, { r: 1, g: 1, b: 1 }, 4.5);
+  assert.ok(gray);
+  assert.equal(toHex(oklchToRgb(gray)), '#767676');
+});
+
+test('translucent colors are checked as they show: text over the background, the background over the page', () => {
+  const white = { r: 1, g: 1, b: 1 };
+  const black = { r: 0, g: 0, b: 0 };
+  const c = (s: string) => parseColor(s)!;
+  const ratioOf = (fg: string, bg: string, page = white) => {
+    const f = c(fg);
+    const b = c(bg);
+    const shown = shownPair(f.oklch, f.alpha, b.oklch, b.alpha, page);
+    return contrastRatio(shown.fg, shown.bg);
+  };
+  // Half-transparent black on white shows as mid gray: about 3.95:1, below AA, not 21:1
+  for (const half of ['#00000080', 'rgb(0 0 0 / 50%)', 'rgba(0, 0, 0, 0.5)']) {
+    const ratio = ratioOf(half, '#ffffff');
+    assert.ok(ratio > 3.9 && ratio < 4.1, `${half}: ${ratio}`);
+  }
+  assert.equal(toHex(shownPair(c('#00000080').oklch, 128 / 255, c('#fff').oklch, 1, white).fg), '#7f7f7f');
+  // An alpha counts in 255ths, as the 8-digit hex in the share link stores it, so the link reopens the same ratio
+  assert.equal(ratioOf('rgba(0, 0, 0, 0.5)', '#fff'), ratioOf('#00000080', '#fff'));
+  assert.equal(ratioOf('rgb(10 20 30 / 0.33)', '#fafafa'), ratioOf(toHex(oklchToRgb(c('rgb(10 20 30)').oklch), 0.33), '#fafafa'));
+  // A translucent background is blended over the page first
+  const bg = shownPair(c('#000').oklch, 1, c('#00000080').oklch, 128 / 255, white).bg;
+  assert.equal(toHex(bg), '#7f7f7f');
+  assert.equal(toHex(shownPair(c('#fff').oklch, 1, c('#ffffff80').oklch, 128 / 255, black).bg), '#808080');
+  // Opaque colors are unchanged
+  assert.equal(formatRatio(ratioOf('#000', '#fff')), '21.00:1');
+  // Formatters write the alpha back
+  assert.equal(toHex({ r: 0, g: 0, b: 0 }, 128 / 255), '#00000080');
+  assert.equal(toOklchString({ l: 0.5, c: 0.1, h: 30 }, 0.5), 'oklch(50% 0.1 30 / 50%)');
+  assert.deepEqual(composite(white, 0.25, black), { r: 0.25, g: 0.25, b: 0.25 });
+});
+
+test('HSL of white, black and grays after the OKLCH round trip has no hue and no saturation', () => {
+  const hsl = (s: string) => toHslString(oklchToRgb(parseColor(s)!.oklch));
+  assert.equal(hsl('#ffffff'), 'hsl(0 0% 100%)');
+  assert.equal(hsl('#000000'), 'hsl(0 0% 0%)');
+  assert.equal(hsl('#808080'), 'hsl(0 0% 50.2%)');
+  for (let v = 0; v < 256; v += 5) {
+    const gray = `#${v.toString(16).padStart(2, '0').repeat(3)}`;
+    assert.match(hsl(gray), /^hsl\(0 0% [\d.]+%\)$/, gray);
+  }
+  assert.equal(hsl('#ff0000'), 'hsl(0 100% 50%)');
+  assert.equal(hsl('#7c3aed'), 'hsl(262.1 83.3% 57.8%)');
 });

@@ -13,7 +13,7 @@ npm run dev          # Dev server (localhost:3000), runs typecheck + lint first
 npm run build        # Production build (runs typecheck + lint first)
 npm run typecheck    # TypeScript type checking
 npm run lint         # ESLint
-npm test             # Unit tests (lib/**/__tests__ via tsx, scripts/__tests__ via node)
+npm test             # Unit tests (lib/**/__tests__ via tsx, scripts/__tests__ via node); pretest generates the examples
 npm run screenshot   # Take full-page + section screenshots to screenshots/
 npm run screenshot:clean  # Delete screenshots
 ```

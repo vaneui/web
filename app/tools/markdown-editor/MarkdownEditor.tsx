@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useDeferredValue, useEffect, useId, useMemo, useRef, useState } from 'react';
 import {
   Bold, Code as CodeIcon, Download, Hash, Italic, Link as LinkIcon, List as ListIcon, MessageSquare, Table as TableIcon,
 } from 'react-feather';
@@ -8,13 +8,16 @@ import { Md, strictSanitizePolicy } from '@vaneui/md';
 import { parseYamlFrontmatter } from '@vaneui/md/yaml';
 import { defaultRegistry } from '@vaneui/md/registry';
 import { prismHighlighter } from '@vaneui/md/prism';
-import { Alert, Button, Card, Col, IconButton, Row, Text, Textarea } from '@vaneui/ui';
+import {
+  Alert, Button, Card, Col, IconButton, Modal, ModalBody, ModalFooter, ModalHeader, Row, Text, Textarea, Title,
+} from '@vaneui/ui';
 import { ToolShell } from '../ToolShell';
 import { Segmented } from '../_components/controls';
 import { CodeBlock } from '../../components/CodeBlock';
 import { darkTheme, lightTheme } from '../../components/themes';
-import { markdownToHtml, markdownToJsx, textStats } from '../../../lib/markdown/exports';
-import { SAMPLES } from './samples';
+import { markdownToHtml, markdownToHtmlDocument, markdownToJsx, textStats } from '../../../lib/markdown/exports';
+import { SAMPLES, type Sample } from './samples';
+import { draftNeedsConfirm, editText, takeShortcut } from './editing';
 
 const STORAGE_KEY = 'vaneui-markdown-editor';
 const SAVE_DELAY_MS = 400;
@@ -126,24 +129,6 @@ function download(name: string, type: string, body: string) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-function htmlDocument(text: string): string {
-  const title = text.match(/^#\s+(.+)$/m)?.[1]?.replace(/[<>&"]/g, '') ?? 'Document';
-  return [
-    '<!doctype html>',
-    '<html lang="en">',
-    '<head>',
-    '<meta charset="utf-8">',
-    '<meta name="viewport" content="width=device-width, initial-scale=1">',
-    `<title>${title}</title>`,
-    '</head>',
-    '<body>',
-    markdownToHtml(text, { parseYaml: parseYamlFrontmatter }).trimEnd(),
-    '</body>',
-    '</html>',
-    '',
-  ].join('\n');
-}
-
 export function MarkdownEditor() {
   const [text, setText] = useState(SAMPLES[0].body);
   const [tab, setTab] = useState<Tab>('preview');
@@ -181,6 +166,11 @@ export function MarkdownEditor() {
     const el = area.current;
     if (!el) return;
     const next = run({ value: el.value, start: el.selectionStart, end: el.selectionEnd });
+    // The edit fires an input event, and onChange takes the new text from there
+    if (editText(el, next.value)) {
+      el.setSelectionRange(next.start, next.end);
+      return;
+    }
     setText(next.value);
     requestAnimationFrame(() => {
       el.focus();
@@ -188,13 +178,37 @@ export function MarkdownEditor() {
     });
   };
 
-  const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (!(e.metaKey || e.ctrlKey) || e.altKey || e.shiftKey) return;
-    const action = ACTIONS.find(a => a.key === e.key.toLowerCase());
-    if (action) {
-      e.preventDefault();
-      apply(action.run);
+  // A sample replaces the text as an edit, so Ctrl+Z brings the draft back
+  const replaceWith = (sample: Sample) => {
+    const el = area.current;
+    if (el && editText(el, sample.body)) {
+      el.setSelectionRange(0, 0);
+      el.scrollTop = 0;
+    } else {
+      setText(sample.body);
     }
+  };
+
+  // The draft is kept nowhere else, so a sample asks first unless the draft is empty or an untouched sample
+  const [confirm, setConfirm] = useState<{ sample: Sample; button: HTMLElement; open: boolean; replace: boolean } | null>(null);
+  const confirmTitle = useId();
+  const loadSample = (sample: Sample, button: HTMLElement) => {
+    if (draftNeedsConfirm(text, SAMPLES)) setConfirm({ sample, button, open: true, replace: false });
+    else replaceWith(sample);
+  };
+  const closeConfirm = (replace: boolean) => setConfirm(c => c && { ...c, open: false, replace });
+  // The page behind the dialog is inert until it closes, so the edit waits for the dialog to go
+  const afterConfirm = () => {
+    if (!confirm) return;
+    if (confirm.replace) replaceWith(confirm.sample);
+    confirm.button.focus();
+    setConfirm(null);
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // The editor owns its shortcuts: Ctrl+K is Link here, not the site search
+    const action = takeShortcut(e, ACTIONS);
+    if (action) apply(action.run);
   };
 
   const output = useMemo(() => {
@@ -212,7 +226,7 @@ export function MarkdownEditor() {
         <Button type="button" secondary onClick={() => download('document.md', 'text/markdown', text)}>
           <Download aria-hidden="true"/> Download .md
         </Button>
-        <Button type="button" secondary onClick={() => download('document.html', 'text/html', htmlDocument(text))}>
+        <Button type="button" secondary onClick={() => download('document.html', 'text/html', markdownToHtmlDocument(text, { parseYaml: parseYamlFrontmatter }))}>
           <Download aria-hidden="true"/> Download .html
         </Button>
       </>
@@ -230,7 +244,7 @@ export function MarkdownEditor() {
         <Row xs flexWrap>
           <Text sm secondary>Start from</Text>
           {SAMPLES.map(s => (
-            <Button key={s.id} xs secondary type="button" onClick={() => setText(s.body)}>{s.label}</Button>
+            <Button key={s.id} xs secondary type="button" onClick={e => loadSample(s, e.currentTarget)}>{s.label}</Button>
           ))}
         </Row>
       </Row>
@@ -267,6 +281,23 @@ export function MarkdownEditor() {
           )}
         </Col>
       </Row>
+
+      <Modal sm open={!!confirm?.open} onClose={() => closeConfirm(false)} onExitComplete={afterConfirm}
+             aria-labelledby={confirmTitle}>
+        <ModalHeader>
+          <Title sm tag="h2" id={confirmTitle}>Replace your draft?</Title>
+        </ModalHeader>
+        <ModalBody>
+          <Text sm>
+            The {confirm?.sample.label} sample replaces your text. Your draft is kept only in this browser:
+            to get it back, press Ctrl+Z in the editor.
+          </Text>
+        </ModalBody>
+        <ModalFooter>
+          <Button type="button" secondary onClick={() => closeConfirm(false)}>Cancel</Button>
+          <Button type="button" filled onClick={() => closeConfirm(true)}>Replace</Button>
+        </ModalFooter>
+      </Modal>
     </ToolShell>
   );
 }

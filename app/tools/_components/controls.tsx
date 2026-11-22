@@ -12,16 +12,18 @@ import { oklchToRgb, parseColor, toHex, type Oklch } from '../../../lib/color/co
 /**
  * A color typed as any CSS color (hex, rgb(), hsl(), oklch()) or picked with the native picker.
  * The text the person types is kept while they type; it follows `value` when it changes elsewhere.
+ * `onChange` also gets the alpha that was typed (1 when opaque); pass `alpha` back to show it.
  */
-export function ColorField({ label, value, onChange, description, display }: {
+export function ColorField({ label, value, alpha = 1, onChange, description, display }: {
   label: string;
   value: Oklch;
-  onChange: (c: Oklch) => void;
+  alpha?: number;
+  onChange: (c: Oklch, alpha: number) => void;
   description?: string;
   /** How the value is written back into the field when it changes elsewhere */
   display?: (c: Oklch) => string;
 }) {
-  const show = display ?? ((c: Oklch) => toHex(oklchToRgb(c)));
+  const show = display ?? ((c: Oklch) => toHex(oklchToRgb(c), alpha));
   const [text, setText] = useState(() => show(value));
   const [error, setError] = useState('');
   const [focused, setFocused] = useState(false);
@@ -36,12 +38,12 @@ export function ColorField({ label, value, onChange, description, display }: {
     setError('');
   }
 
-  const commit = (raw: string) => {
+  const commit = (raw: string, keepAlpha = false) => {
     setText(raw);
     const parsed = parseColor(raw);
     if (parsed) {
       setError('');
-      onChange(parsed.oklch);
+      onChange(parsed.oklch, keepAlpha ? alpha : parsed.alpha);
     } else {
       setError(raw.trim() ? 'Use hex, rgb(), hsl() or oklch().' : '');
     }
@@ -51,7 +53,7 @@ export function ColorField({ label, value, onChange, description, display }: {
     <Field label={label} description={description} error={error}>
       <Row xs>
         <input type="color" aria-label={`${label}: color picker`} value={toHex(oklchToRgb(value))}
-               onChange={e => commit(e.target.value)}
+               onChange={e => commit(e.target.value, true)}
                className="h-8 w-10 shrink-0 cursor-pointer rounded-md border border-(--color-border-primary) bg-transparent p-0.5"/>
         <Input fontMono value={text} spellCheck={false} autoComplete="off"
                onChange={e => commit(e.target.value)}
@@ -74,7 +76,7 @@ export function Segmented<T extends string>({ label, options, value, onChange }:
       {options.map(o => {
         const on = o.value === value;
         return (
-          <Button key={o.value} xs type="button" aria-pressed={on} onClick={() => onChange(o.value)}
+          <Button key={o.value} type="button" aria-pressed={on} onClick={() => onChange(o.value)}
                   filled={on} ghost={!on} secondary={!on} noInsetRing={!on}>
             {o.label}
           </Button>
@@ -84,11 +86,17 @@ export function Segmented<T extends string>({ label, options, value, onChange }:
   );
 }
 
-/** A label and a monospace value with a copy button; `dense` fits a narrow column */
-export function CopyValue({ label, value, dense }: { label: string; value: string; dense?: boolean }) {
+/**
+ * A label and a monospace value with a copy button; `dense` fits a narrow column. `mark` adds a dot
+ * after the label, read out as its text, and the copy button keeps the plain label as its name.
+ */
+export function CopyValue({ label, value, dense, mark }: { label: string; value: string; dense?: boolean; mark?: string }) {
   return (
     <Row justifyBetween borderB sm={dense} className="py-1.5 last:border-b-0">
-      <Text sm secondary className={`${dense ? 'w-10' : 'w-16'} shrink-0`}>{label}</Text>
+      <Text sm secondary className={`${dense ? 'w-10' : 'w-16'} shrink-0`}>
+        {label}
+        {mark && <><span aria-hidden="true"> ●</span><span className="sr-only">, {mark}</span></>}
+      </Text>
       <Text sm={!dense} xs={dense} fontMono truncate className="min-w-0 flex-1">{value}</Text>
       <CopyButton value={value} label={`Copy ${label}`}/>
     </Row>

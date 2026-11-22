@@ -20,6 +20,19 @@ function useCurrentHref() {
     .sort((a, b) => b.length - a.length)[0];
 }
 
+/**
+ * A nav cell's link. NavLink marks the `active` cell `aria-current="page"`, which is true only on
+ * the page the cell links to; on a page inside its section (a docs page under Documentation) the
+ * cell is the current section, `aria-current="true"`, and "page" stays with the sidebar link.
+ */
+const NavCellLink = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWithoutRef<typeof Link>>(
+  function NavCellLink(props, ref) {
+    const pathname = usePathname();
+    const current = props['aria-current'] && props.href !== pathname ? 'true' : props['aria-current'];
+    return <Link ref={ref} {...props} aria-current={current}/>;
+  },
+);
+
 /** The id of each page's main region: the target of the skip link */
 export const MAIN_CONTENT_ID = 'main-content';
 
@@ -48,7 +61,7 @@ export function LandingHeader() {
           {NAV.map(item => (
             <React.Fragment key={item.label}>
               <NavLink ghost sharp secondary={item.href !== current} active={item.href === current} indicatorBottom
-                       fontNormal hFull wAuto desktopHide={item.wide} tag={Link} href={item.href}
+                       fontNormal hFull wAuto desktopHide={item.wide} tag={NavCellLink} href={item.href}
                        className="px-5 max-desktop:px-4">
                 {item.label}
               </NavLink>

@@ -5,11 +5,12 @@ import NextLink from 'next/link';
 import { Badge, Button, Card, Col, Grid3, Link, Row, Text, Title } from '@vaneui/ui';
 import { ToolShell } from '../ToolShell';
 import { ColorField, CopyLinkButton, CopyValue, Slider } from '../_components/controls';
-import { hexParam, useShareableState } from '../_components/useShareableState';
+import { useShareableState } from '../_components/useShareableState';
 import {
-  contrastRatio, formatRatio, inGamut, oklchToRgb, parseColor, toGamut, toHex, toHslString, toOklchString,
-  toRgbString, WCAG, type Oklch,
+  contrastRatio, formatRatio, inGamut, oklchToRgb, toGamut, toHex, toHslString, toOklchString,
+  toRgb8, toRgbString, WCAG, type Oklch,
 } from '../../../lib/color/color';
+import { colorParams, readColorParams } from '../../../lib/color/links';
 import { STEPS, buildScale } from '../../../lib/color/theme';
 
 // Written out, not parsed at load: the server and the browser can differ in the last digit of a float
@@ -18,28 +19,11 @@ const MAX_CHROMA = 0.37;
 const WHITE = { r: 1, g: 1, b: 1 };
 const BLACK = { r: 0, g: 0, b: 0 };
 
-/** `?oklch=54.6,0.245,262.9` (lightness in percent), or `?c=2563eb` */
-function readColor(params: URLSearchParams, fallback: Oklch): Oklch {
-  const raw = params.get('oklch');
-  if (raw) {
-    const [l, c, h] = raw.split(',').map(Number);
-    if ([l, c, h].every(Number.isFinite)) {
-      return { l: Math.min(Math.max(l / 100, 0), 1), c: Math.min(Math.max(c, 0), MAX_CHROMA), h: ((h % 360) + 360) % 360 };
-    }
-  }
-  const c = hexParam(params.get('c'));
-  return (c && parseColor(c)?.oklch) || fallback;
-}
-
-function writeColor(c: Oklch): URLSearchParams {
-  const round = (n: number, d: number) => Number(n.toFixed(d));
-  return new URLSearchParams({ oklch: [round(c.l * 100, 1), round(c.c, 3), round(c.h, 1)].join(',') });
-}
-
 const percent = (l: number) => `${(l * 100).toFixed(1)}%`;
 
 export function OklchConverter() {
-  const [color, setColor] = useShareableState(DEFAULT, readColor, writeColor);
+  // The link is `?oklch=54.6,0.245,262.9` (lightness in percent), or `?c=2563eb` for a hex color
+  const [color, setColor] = useShareableState(DEFAULT, readColorParams, colorParams);
   const fits = inGamut(color);
   const mapped = toGamut(color);
   const rgb = oklchToRgb(color);
@@ -54,7 +38,7 @@ export function OklchConverter() {
   const hues = Array.from({ length: 13 }, (_, i) => `oklch(${percent(l)} ${cs} ${i * 30})`).join(', ');
 
   return (
-    <ToolShell slug="oklch-converter" actions={<CopyLinkButton query={writeColor(color)} label="Copy link to this color"/>}>
+    <ToolShell slug="oklch-converter" actions={<CopyLinkButton query={colorParams(color)} label="Copy link to this color"/>}>
       <Row xl itemsStart tabletStack>
         {/* Input and sliders */}
         <Col noShrink tabletWFull className="w-96">
@@ -116,7 +100,8 @@ export function OklchConverter() {
             <Title sm tag="h2">Contrast</Title>
             <Row mobileStack itemsStretch>
               {[{ name: 'On white', bg: WHITE, fg: '#ffffff' }, { name: 'On black', bg: BLACK, fg: '#000000' }].map(s => {
-                const ratio = contrastRatio(rgb, s.bg);
+                // As the screen shows the color (its hex), so white reads 21:1 on black, not 20.99:1
+                const ratio = contrastRatio(toRgb8(rgb), s.bg);
                 return (
                   <Row key={s.name} justifyBetween className="flex-1 rounded-lg border border-(--color-border-primary) p-3"
                        style={{ background: s.fg }}>
@@ -136,7 +121,7 @@ export function OklchConverter() {
           <Card>
             <Row justifyBetween flexWrap>
               <Title sm tag="h2">The same hue, 50 to 950</Title>
-              <Button sm secondary tag={NextLink} href={`/tools/theme-generator?c=${toHex(oklchToRgb(mapped)).slice(1)}`}>
+              <Button sm secondary tag={NextLink} href={`/tools/theme-generator?${colorParams(mapped)}`}>
                 Make a theme from it
               </Button>
             </Row>

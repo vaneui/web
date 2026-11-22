@@ -206,6 +206,9 @@ export function DocsMarkdown({md, slug}: DocsMarkdownProps) {
         // includes are expanded before this point (lib/docs/includes.mjs).
         tagSyntax={false}
         transform={anchorHeadings}
+        // Code keeps its text on one line by default, so a long `inline code` span in a
+        // paragraph pushed the page sideways on phones. Here it wraps with the prose.
+        rendererTheme={{ mdCode: { whitespaceNormal: true } }}
         config={{
           components: {
             MdFence: FenceWithLivePreview,
