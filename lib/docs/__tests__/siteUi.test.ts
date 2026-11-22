@@ -15,6 +15,7 @@ import { PathnameContext } from 'next/dist/shared/lib/hooks-client-context.share
 import { DocsMarkdown } from '../../../app/docs/DocsMarkdown';
 import { CodeBlock } from '../../../app/components/CodeBlock';
 import { MetaStrip } from '../../../app/docs/MetaStrip';
+import { DocsPropsTable } from '../../../app/docs/DocsPropsTable';
 import { goBack, GO_BACK_FALLBACK } from '../../../app/not-found-actions';
 
 // The layouts import their stylesheets, which Node cannot load: they read as empty modules here.
@@ -109,4 +110,14 @@ test('the 404 page has the site header and footer, and its message is in <main> 
   assert.match(main[0], /^<main\b[^>]*\bid="main-content"/, 'the skip link target is the main region');
   assert.match(main[1], /<h1\b[^>]*>404<\/h1>/, 'the message is inside <main>');
   assert.match(html, /href="#main-content"/, 'the skip link is there');
+});
+
+test('the props table summary holds no link; the Common Props link is in the details body', () => {
+  const html = renderToStaticMarkup(createElement(DocsPropsTable, { node: 'button' }));
+  const details = html.match(/<details\b[^>]*>(.*)<\/details>/s)?.[1];
+  assert.ok(details, 'the common props are in a <details>');
+  const summary = details.match(/<summary\b[^>]*>(.*?)<\/summary>/s)?.[1] ?? '';
+  // A summary is a button: a link inside it is nested interactive content (axe nested-interactive)
+  assert.doesNotMatch(summary, /<(a|button|input|select|textarea)\b/, 'no interactive element in the summary');
+  assert.match(details.slice(details.indexOf('</summary>')), /<a\b[^>]*href="\/docs\/reference\/common-props"/);
 });
