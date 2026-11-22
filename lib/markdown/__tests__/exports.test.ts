@@ -4,6 +4,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { parse as parseYaml } from 'yaml';
+import ts from 'typescript';
 
 import { markdownToHtml, markdownToJsx, textStats } from '../exports';
 
@@ -119,4 +120,37 @@ test('an include keeps the content after it, and a tag exports its content like 
   assert.ok(jsx.includes('<Text>Inside a callout</Text>'));
   assert.ok(!jsx.includes('left out'));
   assert.ok(markdownToHtml(md, { parseYaml }).includes('<p>Beta on</p>'));
+});
+
+/** Compiles exported JSX and returns the props of every element it renders */
+function renderedProps(jsx: string): Record<string, unknown>[] {
+  const out = ts.transpileModule(jsx, {
+    fileName: 'Content.tsx',
+    reportDiagnostics: true,
+    compilerOptions: { jsx: ts.JsxEmit.React, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
+  });
+  assert.deepEqual(out.diagnostics?.map(d => ts.flattenDiagnosticMessageText(d.messageText, '\n')), [], jsx);
+  const props: Record<string, unknown>[] = [];
+  const React = { createElement: (_type: unknown, p: Record<string, unknown> | null) => { if (p) props.push(p); return null; } };
+  const ui = new Proxy({}, { get: (_t, name) => name });
+  const mod = { exports: {} as Record<string, () => unknown> };
+  new Function('require', 'module', 'exports', 'React', out.outputText)((id: string) => (id === 'react' ? React : ui), mod, mod.exports, React);
+  mod.exports.Content();
+  return props;
+}
+
+test('attribute values with quotes, backslashes or entities export as valid JSX that reads back the same', () => {
+  const values = ['a "quoted" word', 'He said "hi"', 'back\\slash', 'a &amp; b', 'plain alt'];
+  for (const v of values) {
+    // Escaped for a Markdown title, which reads backslash escapes and entities
+    const alt = v.replace(/&/g, '&amp;').replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    const props = renderedProps(markdownToJsx(`![${v.replace(/\\/g, '\\\\')}](pic.png "${alt}")`));
+    const img = props.find(p => p.src === 'pic.png');
+    assert.ok(img, v);
+    assert.equal(img.title, v);
+  }
+  const link = renderedProps(markdownToJsx(`[link](https://a.com 'He said "hi"')`)).find(p => p.href);
+  assert.equal(link?.title, 'He said "hi"');
+  // Plain values stay plain attribute strings
+  assert.ok(markdownToJsx('![plain](pic.png)').includes('<Img src="pic.png" alt="plain"/>'));
 });

@@ -37,7 +37,9 @@ function jsxText(text: string): string {
 function attr(name: string, value: unknown): string | null {
   if (DROPPED_PROP.test(name) || value == null) return null;
   if (value === true) return name;
-  if (typeof value === 'string') return `${name}=${JSON.stringify(value)}`;
+  // A JSX attribute string has no backslash escapes and decodes `&` entities, so a value that needs
+  // either is written as a string expression
+  if (typeof value === 'string') return /["\\&\u0000-\u001f]/.test(value) ? `${name}={${JSON.stringify(value)}}` : `${name}="${value}"`;
   if (typeof value === 'number' || typeof value === 'boolean') return `${name}={${value}}`;
   return null;
 }
