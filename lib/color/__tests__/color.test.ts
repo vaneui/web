@@ -197,3 +197,33 @@ test('contrast of the colors as written: black on white reads 21:1 after the OKL
   assert.equal(formatRatio(contrastRatio(shown('#767676'), shown('#ffffff'))), '4.54:1');
   assert.deepEqual(toRgb8({ r: 0.99999995, g: 1.2, b: -0.1 }), { r: 1, g: 1, b: 0 });
 });
+
+test('fixContrast suggests a color that still passes once written as hex or OKLCH', () => {
+  // A small seeded generator, so a failure names a pair that reproduces
+  let seed = 7;
+  const rand = () => ((seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648);
+  const hex = () => `#${Math.floor(rand() * 0x1000000).toString(16).padStart(6, '0')}`;
+  const shown = (c: { l: number; c: number; h: number }) => toRgb8(oklchToRgb(c));
+  const pairs: [string, string][] = [['#888888', '#ffffff'], ['#999999', '#ffffff'], ['#6b7280', '#111827']];
+  while (pairs.length < 1500) pairs.push([hex(), hex()]);
+  let fixedCount = 0;
+  for (const [fgHex, bgHex] of pairs) {
+    const fg = parseColor(fgHex)!.oklch;
+    const bg = shown(parseColor(bgHex)!.oklch);
+    if (contrastRatio(shown(fg), bg) >= 4.5) continue;
+    const fixed = fixContrast(fg, bg, 4.5);
+    if (!fixed) continue;
+    fixedCount++;
+    const asHex = toHex(oklchToRgb(fixed));
+    assert.notEqual(asHex, fgHex, `${fgHex} on ${bgHex}: suggested the same color`);
+    assert.ok(contrastRatio(shown(parseColor(asHex)!.oklch), bg) >= 4.5, `${fgHex} on ${bgHex}: ${asHex} fails as hex`);
+    const written = parseColor(toOklchString(fixed))!.oklch;
+    assert.ok(contrastRatio(oklchToRgb(written), bg) >= 4.5, `${fgHex} on ${bgHex}: ${toOklchString(fixed)} fails`);
+    assert.ok(contrastRatio(shown(written), bg) >= 4.5, `${fgHex} on ${bgHex}: ${toOklchString(fixed)} fails on screen`);
+  }
+  assert.ok(fixedCount > 500, `only ${fixedCount} pairs needed a fix`);
+  // The case from the report: #888 on white used to suggest #777777, which is 4.47:1
+  const gray = fixContrast(parseColor('#888888')!.oklch, { r: 1, g: 1, b: 1 }, 4.5);
+  assert.ok(gray);
+  assert.equal(toHex(oklchToRgb(gray)), '#767676');
+});

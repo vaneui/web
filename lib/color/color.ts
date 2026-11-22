@@ -305,23 +305,30 @@ export const WCAG = {
 } as const;
 
 /**
- * The closest color to `fg` (same hue and chroma, lightness moved) that reaches `target` against `bg`.
- * Returns null when no lightness in either direction gets there.
+ * The closest color to `fg` (same hue and chroma, lightness moved) that reaches `target` against
+ * `bg` however it is written: as its hex (the 8-bit color a screen shows), as `toOklchString` writes
+ * it, and as the value itself. Pass `bg` as the screen shows it too (`toRgb8`). Returns `fg` when it
+ * already passes, and null when no lightness in either direction gets there.
  */
 export function fixContrast(fg: Oklch, bg: Rgb, target: number): Oklch | null {
-  const ratioAt = (l: number) => contrastRatio(oklchToRgb({ ...fg, l }), bg);
-  if (ratioAt(fg.l) >= target) return fg;
+  const reaches = (rgb: Rgb) => contrastRatio(rgb, bg) >= target && contrastRatio(toRgb8(rgb), bg) >= target;
+  const passes = (c: Oklch) => {
+    const written = parseColor(toOklchString(c));
+    return reaches(oklchToRgb(c)) && !!written && reaches(oklchToRgb(written.oklch));
+  };
+  const at = (l: number) => toGamut({ ...fg, l });
+  if (passes(fg)) return fg;
   const candidates: Oklch[] = [];
   for (const end of [0, 1]) {
-    if (ratioAt(end) < target) continue;
-    // Binary search between the current lightness (fails) and the end (passes)
+    if (!passes(at(end))) continue;
+    // Binary search between the current lightness (fails) and the end (passes); `pass` always passes
     let fail = fg.l;
     let pass = end;
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 40; i++) {
       const mid = (fail + pass) / 2;
-      if (ratioAt(mid) >= target) pass = mid; else fail = mid;
+      if (passes(at(mid))) pass = mid; else fail = mid;
     }
-    candidates.push(toGamut({ ...fg, l: pass }));
+    candidates.push(at(pass));
   }
   if (!candidates.length) return null;
   return candidates.sort((x, y) => Math.abs(x.l - fg.l) - Math.abs(y.l - fg.l))[0];
