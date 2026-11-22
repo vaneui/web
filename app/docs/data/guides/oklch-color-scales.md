@@ -110,7 +110,7 @@ function buildRamp(brandHex: string): Record<number, string> {
 
 ## Map ramp steps to roles: VaneUI's accent tokens
 
-A theme does not use steps directly. It assigns each role a step per color scheme, and each assignment is a `light-dark()` pair. VaneUI's accent appearance in `@vaneui/ui` 1.7.1 assigns these:
+A theme does not use steps directly. It assigns each role a step per color scheme, and each assignment is a `light-dark()` pair. VaneUI's accent appearance in `@vaneui/ui` 1.7.2 assigns these:
 
 | Role | Token | Light | Dark |
 |------|-------|-------|------|

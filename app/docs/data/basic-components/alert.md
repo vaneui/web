@@ -109,6 +109,8 @@ Alert is `rounded` by default. `sharp` suits an alert pinned to the edge of a pa
 
 The size prop sets the text, radius, padding, gap and icon together. Alert text runs one step below body text, so `md` renders 14px text, and the radius matches an Input of the same size. Text placed directly in the Alert is centered by the height of its capital letters, in the `<span class="vane-text-run">` that [How Button centers its label](/docs/basic-components/button#how-button-centers-its-label) explains.
 
+A `Text` that carries the message, on its own or in a `Col`, follows the Alert's size too: an unsized `Text` takes the Alert's text size, and `<Text sm>` sits one step below it. This needs `@vaneui/ui` 1.7.2 or later. Before it, such a `Text` stayed at 16px at every Alert size.
+
 | Size | Text | Radius | Padding | Gap | Icon |
 |------|------|--------|---------|-----|------|
 | `xs` | 12px | 6px | 8px | 6px | 17px |
