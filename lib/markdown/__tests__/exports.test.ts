@@ -91,3 +91,32 @@ test('frontmatter variables resolve like they do in Md', () => {
   assert.ok(jsx.includes('By {/* $markdoc.frontmatter.missing */}.'));
   assert.ok(markdownToHtml(md, { parseYaml }).startsWith('<h1>Hello</h1>'));
 });
+
+test('an include keeps the content after it, and a tag exports its content like the preview', () => {
+  // GitBook-style include, never closed: the content after it used to be lost
+  const include = markdownToJsx('# A\n\n{% include "x.md" %}\n\n# After include\n\ntext after\n');
+  assert.ok(include.includes('{/* Markdoc tag "include" left out */}'));
+  assert.ok(include.includes('<Title xl tag="h1">After include</Title>'));
+  assert.ok(include.includes('<Text>text after</Text>'));
+  assert.ok(markdownToHtml('{% include "x.md" %}\n\n# After\n').includes('<h1>After</h1>'));
+
+  // A tag left open inside a paragraph ends with it instead of swallowing the heading
+  const open = markdownToJsx('para {% if true %} unclosed\n\n# After\n\nmore\n');
+  assert.ok(open.includes('<Text>para  unclosed</Text>'), open);
+  assert.ok(open.includes('<Title xl tag="h1">After</Title>'));
+  const html = markdownToHtml('para {% if true %} unclosed\n\n# After\n');
+  assert.ok(!/<p>[^]*<p>/.test(html.split('\n')[0]), html);
+  assert.ok(html.includes('<h1>After</h1>'));
+
+  // Conditions pick a branch, other tags export their content
+  const md = '---\nbeta: true\n---\n{% if $markdoc.frontmatter.beta %}\nBeta on\n{% else /%}\nBeta off\n{% /if %}\n\n'
+    + 'Inline {% if false %}hidden{% else /%}shown{% /if %} and {% badge %}**kept**{% /badge %}.\n\n'
+    + '{% callout %}\nInside a callout\n{% /callout %}\n';
+  const jsx = markdownToJsx(md, { parseYaml });
+  assert.ok(jsx.includes('<Text>Beta on</Text>'));
+  assert.ok(!jsx.includes('Beta off'));
+  assert.ok(jsx.includes('<Text>Inline shown and <Text tag="strong" fontBold>kept</Text>.</Text>'), jsx);
+  assert.ok(jsx.includes('<Text>Inside a callout</Text>'));
+  assert.ok(!jsx.includes('left out'));
+  assert.ok(markdownToHtml(md, { parseYaml }).includes('<p>Beta on</p>'));
+});

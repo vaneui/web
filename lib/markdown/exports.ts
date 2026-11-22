@@ -3,6 +3,7 @@
 // renders the document with.
 import Markdoc, { type Node } from '@markdoc/markdoc';
 import { expandShorthand } from '@vaneui/md';
+import { parseMarkdown } from './parse';
 
 type YamlParser = (raw: string) => unknown;
 
@@ -74,6 +75,36 @@ function variablesOf(ast: Node, parseYaml?: YamlParser): Record<string, unknown>
   }
 }
 
+/** A tag's condition with its variables and functions resolved, as `{% if %}` and `{% else %}` read it */
+function condition(tag: Node, w: Writer): unknown {
+  const shallow = new Markdoc.Ast.Node('tag', tag.attributes, [], tag.tag);
+  return shallow.resolve({ variables: w.variables, functions: Markdoc.functions }).attributes.primary;
+}
+
+const truthy = (v: unknown) => v !== false && v !== undefined && v !== null;
+
+/**
+ * The nodes a Markdoc tag puts in the document, as the preview renders it: the branch an
+ * `{% if %}` picks, and the content of any other tag. Null for `include` and `partial`, which
+ * the preview cannot fill in either.
+ */
+function tagContent(n: Node, w: Writer): Node[] | null {
+  if (n.tag === 'include' || n.tag === 'partial') return null;
+  if (n.tag === 'else') return [];
+  if (n.tag !== 'if') return n.children;
+  const branches = [{ condition: condition(n, w), children: [] as Node[] }];
+  for (const child of n.children) {
+    if (child.type === 'tag' && child.tag === 'else') {
+      branches.push({ condition: 'primary' in child.attributes ? condition(child, w) : true, children: [] });
+    } else {
+      branches[branches.length - 1].children.push(child);
+    }
+  }
+  return branches.find(b => truthy(b.condition))?.children ?? [];
+}
+
+const leftOut = (n: Node) => `{/* Markdoc tag "${n.tag}" left out */}`;
+
 /** The inline content of a paragraph, heading, list item or cell, on one line */
 function inline(nodes: Node[], w: Writer): string {
   return nodes.map(n => inlineNode(n, w)).join('');
@@ -107,8 +138,10 @@ function inlineNode(n: Node, w: Writer): string {
         .filter(Boolean).join(' ');
       return open(w.use('Img'), props, true);
     }
-    case 'tag':
-      return `{/* Markdoc tag "${n.tag}" left out */}`;
+    case 'tag': {
+      const content = tagContent(n, w);
+      return content ? inline(content, w) : leftOut(n);
+    }
     default:
       return kids();
   }
@@ -229,9 +262,12 @@ function block(n: Node, depth: number, w: Writer, parseYaml?: YamlParser): void 
       w.lines.push(`${pad}${open(w.use(name), props)}${inline(n.children, w)}</${name}>`);
       return;
     }
-    case 'tag':
-      w.lines.push(`${pad}{/* Markdoc tag "${n.tag}" left out */}`);
+    case 'tag': {
+      const content = tagContent(n, w);
+      if (content) content.forEach(c => block(c, depth, w, parseYaml));
+      else w.lines.push(pad + leftOut(n));
       return;
+    }
     case 'comment':
     case 'error':
       return;
@@ -242,7 +278,7 @@ function block(n: Node, depth: number, w: Writer, parseYaml?: YamlParser): void 
 
 /** The document as a React component written with VaneUI components */
 export function markdownToJsx(source: string, options: { parseYaml?: YamlParser; name?: string } = {}): string {
-  const ast = Markdoc.parse(source);
+  const ast = parseMarkdown(source);
   const w = new Writer(variablesOf(ast, options.parseYaml));
   w.lines.push(`${INDENT}${INDENT}${open(w.use('Col'), '')}`);
   ast.children.forEach(n => block(n, 3, w, options.parseYaml));
@@ -264,7 +300,7 @@ const BLOCK_END = /(<\/(?:h[1-6]|p|li|ul|ol|pre|blockquote|table|thead|tbody|tr|
 
 /** The document as plain, unstyled HTML, one block per line */
 export function markdownToHtml(source: string, options: { parseYaml?: YamlParser } = {}): string {
-  const ast = Markdoc.parse(source);
+  const ast = parseMarkdown(source);
   const html = Markdoc.renderers.html(Markdoc.transform(ast, { variables: variablesOf(ast, options.parseYaml) }));
   return `${html
     .replace(/^<article>|<\/article>$/g, '')
