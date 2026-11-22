@@ -142,25 +142,45 @@ export function toOklchString(c: Oklch): string {
 
 // ---------- Parsing ----------
 
-function parseHex(s: string): Rgb | null {
+function parseHex(s: string): { rgb: Rgb; alpha: number } | null {
   const m = /^#?([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.exec(s);
   if (!m) return null;
   let h = m[1];
   if (h.length <= 4) h = h.split('').map(ch => ch + ch).join('');
   return {
-    r: parseInt(h.slice(0, 2), 16) / 255,
-    g: parseInt(h.slice(2, 4), 16) / 255,
-    b: parseInt(h.slice(4, 6), 16) / 255,
+    rgb: {
+      r: parseInt(h.slice(0, 2), 16) / 255,
+      g: parseInt(h.slice(2, 4), 16) / 255,
+      b: parseInt(h.slice(4, 6), 16) / 255,
+    },
+    alpha: h.length === 8 ? parseInt(h.slice(6, 8), 16) / 255 : 1,
   };
 }
 
-/** The arguments of a CSS color function, accepting commas or spaces and an optional `/ alpha` */
-function fnArgs(s: string, names: string[]): string[] | null {
+/**
+ * The three arguments of a CSS color function and its alpha token, from the modern syntax
+ * (`rgb(0 0 0 / 50%)`, commas or spaces) or, with `legacyAlpha`, the comma syntax with a fourth
+ * argument (`rgba(0, 0, 0, 0.5)`)
+ */
+function fnArgs(s: string, names: string[], legacyAlpha = false): { parts: string[]; alpha: string | null } | null {
   const m = /^([a-z]+)\(\s*(.*?)\s*\)$/i.exec(s);
   if (!m || !names.includes(m[1].toLowerCase())) return null;
-  const body = m[2].split('/')[0];
+  const [body, slash, ...rest] = m[2].split('/');
+  if (rest.length) return null;
   const parts = body.split(/[\s,]+/).filter(Boolean);
-  return parts.length === 3 ? parts : null;
+  if (slash !== undefined) {
+    const alpha = slash.trim();
+    return parts.length === 3 && /^\S+$/.test(alpha) ? { parts, alpha } : null;
+  }
+  if (legacyAlpha && parts.length === 4 && body.includes(',')) return { parts: parts.slice(0, 3), alpha: parts[3] };
+  return parts.length === 3 ? { parts, alpha: null } : null;
+}
+
+/** An alpha from `0.5` or `50%`, clamped to 0 to 1; 1 when there is none, null when it does not read */
+function alphaOf(token: string | null): number | null {
+  if (token == null) return 1;
+  const v = num(token, 1);
+  return v == null ? null : clamp01(v);
 }
 
 /** A number, or a percentage scaled so that 100% is `full` */
@@ -191,50 +211,57 @@ function hslToRgb(h: number, s: number, l: number): Rgb {
 
 const NAMED: Record<string, string> = { white: '#ffffff', black: '#000000' };
 
-export type ParsedColor = { oklch: Oklch; source: 'hex' | 'rgb' | 'hsl' | 'oklch' };
+/** A parsed color: the color itself and its alpha, 0 (transparent) to 1 (opaque) */
+export type ParsedColor = { oklch: Oklch; alpha: number; source: 'hex' | 'rgb' | 'hsl' | 'oklch' };
 
 /**
- * Parses hex, `rgb()`, `hsl()` and `oklch()` (modern or comma syntax; alpha ignored), plus `white`
- * and `black`. Returns null for anything else. OKLCH input keeps its own values, even outside sRGB.
+ * Parses hex (3, 4, 6 or 8 digits), `rgb()`/`rgba()`, `hsl()`/`hsla()` and `oklch()`, in the
+ * modern syntax or the legacy comma syntax, with or without an alpha, plus `white` and `black`.
+ * Returns null for anything else. OKLCH input keeps its own values, even outside sRGB.
  */
 export function parseColor(input: string): ParsedColor | null {
   const s = input.trim().toLowerCase();
   if (!s) return null;
   const named = NAMED[s];
   const hex = parseHex(named ?? s);
-  if (hex) return { oklch: rgbToOklch(hex), source: 'hex' };
+  if (hex) return { oklch: rgbToOklch(hex.rgb), alpha: hex.alpha, source: 'hex' };
 
-  const rgbArgs = fnArgs(s, ['rgb', 'rgba']);
+  const rgbArgs = fnArgs(s, ['rgb', 'rgba'], true);
   if (rgbArgs) {
-    const [r, g, b] = rgbArgs.map(t => num(t, 255));
-    if (r == null || g == null || b == null) return null;
-    return { oklch: rgbToOklch({ r: clamp01(r / 255), g: clamp01(g / 255), b: clamp01(b / 255) }), source: 'rgb' };
+    const [r, g, b] = rgbArgs.parts.map(t => num(t, 255));
+    const alpha = alphaOf(rgbArgs.alpha);
+    if (r == null || g == null || b == null || alpha == null) return null;
+    return { oklch: rgbToOklch({ r: clamp01(r / 255), g: clamp01(g / 255), b: clamp01(b / 255) }), alpha, source: 'rgb' };
   }
 
-  const hslArgs = fnArgs(s, ['hsl', 'hsla']);
+  const hslArgs = fnArgs(s, ['hsl', 'hsla'], true);
   if (hslArgs) {
-    const h = hue(hslArgs[0]);
-    const sat = num(hslArgs[1], 1);
-    const light = num(hslArgs[2], 1);
-    if (h == null || sat == null || light == null) return null;
+    const [hTok, sTok, lTok] = hslArgs.parts;
+    const h = hue(hTok);
+    const sat = num(sTok, 1);
+    const light = num(lTok, 1);
+    const alpha = alphaOf(hslArgs.alpha);
+    if (h == null || sat == null || light == null || alpha == null) return null;
     // Without a % sign, modern syntax reads saturation and lightness as 0 to 100
     const norm = (v: number, token: string) => (token.endsWith('%') ? v : v / 100);
     return {
-      oklch: rgbToOklch(hslToRgb(h, clamp01(norm(sat, hslArgs[1])), clamp01(norm(light, hslArgs[2])))),
+      oklch: rgbToOklch(hslToRgb(h, clamp01(norm(sat, sTok)), clamp01(norm(light, lTok)))),
+      alpha,
       source: 'hsl',
     };
   }
 
   const oklchArgs = fnArgs(s, ['oklch']);
   if (oklchArgs) {
-    const lTok = oklchArgs[0];
+    const [lTok, cTok, hTok] = oklchArgs.parts;
     let l = num(lTok, 1);
     // A bare number above 1 is almost always a percentage typed without the sign
     if (l != null && !lTok.endsWith('%') && l > 1) l /= 100;
-    const c = num(oklchArgs[1], 0.4);
-    const h = hue(oklchArgs[2]);
-    if (l == null || c == null || h == null) return null;
-    return { oklch: { l: clamp01(l), c: Math.max(0, c), h }, source: 'oklch' };
+    const c = num(cTok, 0.4);
+    const h = hue(hTok);
+    const alpha = alphaOf(oklchArgs.alpha);
+    if (l == null || c == null || h == null || alpha == null) return null;
+    return { oklch: { l: clamp01(l), c: Math.max(0, c), h }, alpha, source: 'oklch' };
   }
   return null;
 }

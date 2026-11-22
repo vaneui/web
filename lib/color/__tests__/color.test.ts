@@ -63,6 +63,31 @@ test('parseColor reads every supported syntax', () => {
   }
 });
 
+test('parseColor reads the alpha of every syntax, including the legacy comma form', () => {
+  const alpha = (s: string) => {
+    const p = parseColor(s);
+    assert.ok(p, `could not parse ${s}`);
+    return p.alpha;
+  };
+  assert.equal(hexOf('rgba(255, 0, 0, 0.5)'), '#ff0000');
+  assert.equal(hexOf('hsla(0, 100%, 50%, 0.5)'), '#ff0000');
+  assert.equal(hexOf('rgb(255, 0, 0, 50%)'), '#ff0000');
+  assert.equal(alpha('rgba(0, 0, 0, 0.5)'), 0.5);
+  assert.equal(alpha('rgba(0, 0, 0, 25%)'), 0.25);
+  assert.equal(alpha('hsla(0, 0%, 0%, 0.5)'), 0.5);
+  assert.equal(alpha('rgb(0 0 0 / 50%)'), 0.5);
+  assert.equal(alpha('hsl(0 0% 0% / 0.2)'), 0.2);
+  assert.equal(alpha('oklch(50% 0.1 30 / 0.4)'), 0.4);
+  assert.equal(alpha('#00000080'), 128 / 255);
+  assert.equal(alpha('#0008'), 136 / 255);
+  assert.equal(alpha('#000000'), 1);
+  assert.equal(alpha('rgba(0, 0, 0, 2)'), 1);
+  // Four arguments need commas; a slash takes exactly one alpha
+  for (const bad of ['rgba(0 0 0 0.5)', 'rgb(0 0 0 / )', 'rgb(0 0 0 / 1 / 2)', 'rgba(0, 0, 0, x)', 'oklch(50%, 0.1, 30, 0.5)']) {
+    assert.equal(parseColor(bad), null, bad);
+  }
+});
+
 test('formatters', () => {
   const red = { r: 1, g: 0, b: 0 };
   assert.equal(toRgbString(red), 'rgb(255 0 0)');
