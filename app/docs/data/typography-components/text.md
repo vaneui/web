@@ -198,6 +198,19 @@ Control letter spacing with `trackingTighter`, `trackingTight`, `trackingNormal`
 </Col>
 ```
 
+## Hidden text for screen readers
+
+`srOnly` hides the text from view and keeps it for screen readers, for a label that the layout already shows with an icon or a position, such as the name of an icon-only control or the "(opens in a new tab)" note after a link. It needs `@vaneui/ui` 1.8.0 or later, and the other typography components and [Label](/docs/form-components/label) take it too.
+
+```tsx demo
+<Button secondary>
+  <svg viewBox="0 0 24 24" width={16} height={16} fill="currentColor" aria-hidden="true">
+    <path d="M12 2.5l2.95 5.98 6.6.96-4.78 4.66 1.13 6.58L12 17.6l-5.9 3.1 1.13-6.58-4.78-4.66 6.6-.96L12 2.5z"/>
+  </svg>
+  <Text tag="span" srOnly>Add to favorites</Text>
+</Button>
+```
+
 ## Margins
 
 Block typography (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`) accepts size-driven margin props: `margin` (all sides), `marginX`, `marginY`, `marginT`, and `marginB`. `Text` defaults to `noMargin`, so opt in where you need vertical rhythm outside a gap-based layout. The margin scales with the size prop. Side props compose: `marginT marginB` applies both. `noMargin` resets and wins.

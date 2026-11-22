@@ -1,6 +1,6 @@
 Layout and utility props shared across most VaneUI components. Documented here once instead of on every component page. Per-component pages link here from the "Layout & utility props" disclosure under their props table.
 
-Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inheritAppearance`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except the controls and the dense components, which default to `sm`: `Button`, `IconButton`, `Input`, `Textarea`, `Select`, `Field`, `Label`, `NavLink`, `MenuItem`, `MenuLabel`, `Tooltip`, `Badge`, and `Table`. The `ghost` variant renders a transparent background with no border and appearance-colored text, plus a tinted hover background.
+Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inheritAppearance`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except the controls and the dense components, which default to `sm`: `Button`, `IconButton`, `Input`, `Textarea`, `Select`, `Field`, `Label`, `NavLink`, `MenuItem`, `MenuLabel`, `Tooltip`, `Badge`, `Table` and `Breadcrumb`. The `ghost` variant renders a transparent background with no border and appearance-colored text, plus a tinted hover background.
 
 ## Hide
 
@@ -148,8 +148,15 @@ Spacing between flex/grid items.
 
 | Prop | Description |
 |------|-------------|
-| `gap` | Enable gap spacing between children |
+| `gap` | Enable gap spacing between children; the gap follows the size prop |
 | `noGap` | Disable gap spacing |
+| `gapXs` | Fixed extra-small gap: 8px on layout components, 4px on the others |
+| `gapSm` | Fixed small gap: 12px on layout components, 6px on the others |
+| `gapMd` | Fixed medium gap: 16px on layout components, 8px on the others |
+| `gapLg` | Fixed large gap: 24px on layout components, 10px on the others |
+| `gapXl` | Fixed extra-large gap: 32px on layout components, 12px on the others |
+
+A fixed step stays the same at every size and every screen width, where `gap` grows with the size prop and, with `responsiveSizing`, shrinks on tablet and mobile. `<Row lg gapSm>` keeps the large text and padding of `lg` with a 12px gap. The fixed steps need `@vaneui/ui` 1.8.0 or later.
 
 ## Flex direction
 
@@ -343,6 +350,24 @@ Image and video sizing within their containers.
 | `objectFill` | Fill - image stretches to fill container |
 | `objectNone` | None - image displays at natural size |
 | `objectScaleDown` | Scale down - like contain, but never scales up |
+
+## Aspect ratio
+
+Fixed width-to-height ratio. `Img`, `Card`, `Row`, `Col` and `Stack` take these props from `@vaneui/ui` 1.8.0. Set the width, and the height follows.
+
+| Prop | Description |
+|------|-------------|
+| `aspectSquare` | 1:1 (`aspect-ratio: 1 / 1`) |
+| `aspectVideo` | 16:9 (`aspect-ratio: 16 / 9`) |
+| `aspectAuto` | The element's own ratio (`aspect-ratio: auto`) |
+
+## Screen reader only
+
+| Prop | Description |
+|------|-------------|
+| `srOnly` | Hide the element visually and keep it in the accessibility tree, so screen readers still read it |
+
+`Text`, `Title`, `SectionTitle`, `PageTitle`, `Link`, `List`, `ListItem`, `Blockquote` and `Label` take `srOnly` from `@vaneui/ui` 1.8.0. It wins over the component's own width, padding and margin, so the text stays hidden whatever other props it has.
 
 ## Blur
 

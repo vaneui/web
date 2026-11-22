@@ -136,6 +136,17 @@ Control how an image fills a sized container with `objectCover` (default), `obje
 </Row>
 ```
 
+## Aspect ratio
+
+`aspectSquare` and `aspectVideo` fix the shape of the image at 1:1 and 16:9: set the width, and the height follows. With `objectCover`, the default, the photo is cropped to fill that shape, so a gallery of photos of different sizes lines up. `aspectAuto` goes back to the photo's own shape. These props need `@vaneui/ui` 1.8.0 or later.
+
+```tsx demo
+<Row flexWrap itemsStart>
+  <Img aspectSquare src={placeholderSrc} alt="Square crop" className="w-32" />
+  <Img aspectVideo src={portraitSrc} alt="16:9 crop of a portrait photo" className="w-56" />
+</Row>
+```
+
 ## Inside a Card
 
 `Img` composes naturally inside `Card` for media tiles. Use `wFull` so the image spans the card width.
@@ -187,7 +198,7 @@ In a flex [Row](/docs/layout-components/row), an image is a flex item that can g
 
 ### How do I make a round avatar?
 
-Add `pill` and give the image the same width and height in CSS, for example `style={{ width: 40, height: 40 }}` or `className="size-10"`. `objectCover`, a default, crops a photo that is not square to fill the circle. The `width` and `height` attributes alone are not enough under Tailwind's base styles, which set `height: auto` on images and so keep the photo's own proportions.
+Use [Avatar](/docs/basic-components/avatar). It sizes the circle with the size prop, crops the photo to fill it, and falls back to the initials of `name` when the image is missing or fails to load. For a round Img of your own, add `pill` and `aspectSquare` and set a width, for example `<Img pill aspectSquare className="w-10" />`. `objectCover`, a default, crops a photo that is not square to fill the circle.
 
 ### How do I add a caption to an image?
 

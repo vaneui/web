@@ -163,8 +163,20 @@ export const docsSectionsMeta: DocSectionMeta[] = [
       {
         slug: 'progress',
         name: 'Progress',
-        description: 'Progress is a determinate bar for a task with a known size, such as an upload or a setup step. A role="progressbar" track whose fill grows with value.',
+        description: 'Progress is a role="progressbar" bar for a task such as an upload or a setup step: a fill that grows with value, or a sliding fill when the length is unknown.',
         componentKey: "progress",
+      },
+      {
+        slug: 'avatar',
+        name: 'Avatar',
+        description: 'Avatar is a picture of a person or a team: an image, the initials of the name when there is none, or a person icon. AvatarGroup overlaps several in one row.',
+        componentKey: "avatar",
+      },
+      {
+        slug: 'breadcrumb',
+        name: 'Breadcrumb',
+        description: 'Breadcrumb shows where a page sits in the site: a labelled nav with an ordered list of links that ends at the current page, marked with aria-current.',
+        componentKey: "breadcrumb",
       },
     ]
   },

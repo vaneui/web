@@ -84,6 +84,22 @@ An appearance on `Table` cascades to its rows and cells. `outline` (the default)
 </Col>
 ```
 
+## Striped and hoverable rows
+
+`striped` tints every other body row, which helps the eye follow a wide row across the table. `hoverable` tints the row under the pointer. Both tints are a mix of the row's own text color, so they read on any appearance, in both color schemes, and a row or cell with its own fill keeps it. These props need `@vaneui/ui` 1.8.0 or later.
+
+```tsx demo
+<Table striped hoverable>
+  <Thead><Tr><Th scope="col">Region</Th><Th scope="col" textRight>Latency</Th></Tr></Thead>
+  <Tbody>
+    <Tr><Td>Europe</Td><Td textRight>24ms</Td></Tr>
+    <Tr><Td>North America</Td><Td textRight>61ms</Td></Tr>
+    <Tr><Td>Asia Pacific</Td><Td textRight>142ms</Td></Tr>
+    <Tr><Td>South America</Td><Td textRight>118ms</Td></Tr>
+  </Tbody>
+</Table>
+```
+
 ## Per-cell and per-row size
 
 A size on a `Th`, `Td`, or `Tr` overrides the table for that cell or row. Here an `xs` table keeps one `xl` cell and one `lg` row. An explicit `md` cell also holds `md` against a differently sized table.

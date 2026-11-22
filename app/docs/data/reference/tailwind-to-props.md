@@ -1,4 +1,4 @@
-Most Tailwind CSS utility classes that style a VaneUI component have a boolean prop named after the class in camelCase: `items-center` is `itemsCenter`, `font-semibold` is `fontSemibold`, `flex-1` is `flex1`. A few take a shorter name, such as `pill` for `rounded-full`. The tables below map each class to its prop, grouped by category, for `@vaneui/ui` 1.7.2. A prop works on the components that include its category; each component page lists its props, and [Common Props](/docs/reference/common-props) describes the shared layout props.
+Most Tailwind CSS utility classes that style a VaneUI component have a boolean prop named after the class in camelCase: `items-center` is `itemsCenter`, `font-semibold` is `fontSemibold`, `flex-1` is `flex1`. A few take a shorter name, such as `pill` for `rounded-full`. The tables below map each class to its prop, grouped by category, for `@vaneui/ui` 1.8.0. A prop works on the components that include its category; each component page lists its props, and [Common Props](/docs/reference/common-props) describes the shared layout props.
 
 Rows marked **size-driven** have no fixed value of their own. Gap, padding, margin, border radius, shadow and font size come from the component's size prop, `xs` to `xl`, so `<Card lg>` enlarges its padding, gap and radius together. To change one of those amounts, change the size prop rather than add a class. [Core Concepts](/docs/getting-started/core-concepts) explains the size system.
 
@@ -107,6 +107,7 @@ Row centers its children on the cross axis by default, and Section aligns them t
 |--------------------|-------------|-------|
 | `gap-*` | `gap` | Size-driven, on by default in layout components |
 | `gap-0` | `noGap` | |
+| `gap-*` at one fixed step | `gapXs`, `gapSm`, `gapMd`, `gapLg`, `gapXl` | The same gap at every size and screen width |
 | `p-*` | `padding` | Size-driven |
 | `px-*` | `paddingX` | Size-driven |
 | `py-*` | `paddingY` | Size-driven |
@@ -326,7 +327,7 @@ VaneUI's `mobile`, `tablet` and `desktop` breakpoints sit at 48rem, 64rem and 80
 
 The stack props only change row-direction components, which in practice means Row. A Tailwind CSS v4 build needs `@import "@vaneui/ui/tokens"` for these props to emit any CSS, as the [Installation](/docs/getting-started/installation) page shows. [Responsive Page Sections Without Breakpoint Classes](/docs/guides/responsive-sections) builds a full section with them.
 
-## Cursor, pointer events, images and motion
+## Cursor, pointer events, images, screen reader text and motion
 
 | Tailwind CSS class | VaneUI prop |
 |--------------------|-------------|
@@ -344,13 +345,22 @@ The stack props only change row-direction components, which in practice means Ro
 | `object-fill` | `objectFill` |
 | `object-none` | `objectNone` |
 | `object-scale-down` | `objectScaleDown` |
+| `aspect-square` | `aspectSquare` |
+| `aspect-video` | `aspectVideo` |
+| `aspect-auto` | `aspectAuto` |
+| `sr-only` | `srOnly` |
+| `resize-y` | `resizeY`, the Textarea default |
+| `resize-x` | `resizeX` |
+| `resize` | `resize` |
+| `resize-none` | `resizeNone` |
+| `field-sizing-content` | `autosize` on Textarea, with a script fallback |
 | `transition` | `transition`, with duration and easing from theme variables |
 | `transition-none` | `noTransition` |
 | `backdrop-blur-*` | `backdropBlur`, with the amount from `--overlay-blur` |
 | `h-px w-full` on a rule | Divider, horizontal by default |
 | `w-px h-full` on a rule | `vertical` on Divider |
 
-The cursor props are on Button, Badge, Card, the typography components and the form controls, not on Row, Col or Stack. The transition props are on the controls, `object*` on Img and `backdropBlur` on Overlay.
+The cursor props are on Button, Badge, Card, the typography components and the form controls, not on Row, Col or Stack. The transition props are on the controls, `object*` on Img and `backdropBlur` on Overlay. The `aspect*` props are on Img, Card, Row, Col and Stack, `srOnly` on the typography components and Label, and the resize props and `autosize` on Textarea.
 
 ## Classes with no prop
 
@@ -360,7 +370,7 @@ These stay in `className`:
 - Offsets and stacking order: `top-4`, `inset-0`, `z-10`.
 - Grid placement: `col-span-2`, `grid-cols-[200px_1fr]`.
 - Margins on the inline sides, or an exact amount: `ml-4`, `me-2`, `mt-[13px]`.
-- Gradients, opacity, `aspect-*` and `sr-only`.
+- Gradients, opacity and aspect ratios other than square and 16:9: `aspect-[4/3]`.
 - `hover:` and `focus:` styles beyond the states a component already has.
 
 A class you add wins over the theme's class for the same property. The prebuilt `@vaneui/ui/css` stylesheet contains only the utilities VaneUI's own components use, so most of these classes work only in a project with its own Tailwind CSS v4 build; without one, use the `style` prop.

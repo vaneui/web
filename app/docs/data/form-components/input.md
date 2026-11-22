@@ -120,7 +120,45 @@ Different input states: disabled, readonly, and validation feedback. Use appeara
 </Col>
 ```
 
-Input renders a wrapper `<span>` around the `<input>`. While the input is valid the wrapper is `display: contents`, so it adds no box, and `ref`, `className` and `style` go to the `<input>`. The `<input>` stays the same node when `invalid` changes, so the field keeps focus and its text while it is validated as the user types. Before `@vaneui/ui` 1.6.0 the wrapper was rendered only while the input was invalid. A selector that expects the `<input>` as a direct child of its parent, such as `.form > input`, does not match.
+Input renders a wrapper `<span>` around the `<input>`. While the input is valid and has no section, the wrapper is `display: contents`, so it adds no box, and `ref`, `className` and `style` go to the `<input>`. The `<input>` stays the same node when `invalid` changes, so the field keeps focus and its text while it is validated as the user types. Before `@vaneui/ui` 1.6.0 the wrapper was rendered only while the input was invalid. A selector that expects the `<input>` as a direct child of its parent, such as `.form > input`, does not match.
+
+## Icons, prefixes and units inside the field
+
+`startSection` and `endSection` put content inside the field, at its start and end: a search icon, a prefix such as `https://`, a unit, a keyboard hint or a button. The field reserves the measured width of each section, so a long prefix pushes the text as far as it needs, and the section takes the field's size. Sections need `@vaneui/ui` 1.8.0 or later.
+
+```tsx demo
+<Col className="max-w-sm">
+  <Input aria-label="Search" placeholder="Search docs" startSection={
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+      <circle cx="11" cy="11" r="7"/>
+      <path d="M20 20l-3.5-3.5"/>
+    </svg>
+  }/>
+  <Input aria-label="Website" startSection="https://" placeholder="vaneui.com"/>
+  <Input aria-label="Weight" type="number" defaultValue="72" endSection="kg"/>
+  <Input lg aria-label="Command" placeholder="Run a command" endSection={<Kbd>⌘K</Kbd>}/>
+</Col>
+```
+
+A section ignores the pointer, so a click on an icon or a unit focuses the field. A button or a link inside a section stays clickable. Give an icon-only button an `aria-label`, and `type="button"` inside a form:
+
+```tsx demo
+const [query, setQuery] = useState('');
+
+return (
+  <Input
+    aria-label="Search"
+    placeholder="Type to search"
+    value={query}
+    onChange={event => setQuery(event.target.value)}
+    endSection={query ? (
+      <Button type="button" xs ghost secondary onClick={() => setQuery('')}>Clear</Button>
+    ) : null}
+  />
+);
+```
+
+The `<input>` stays the same node when a section appears or goes away, so the field keeps focus and its text. With a section, the wrapper becomes the box the sections sit in: `className`, `wFit` and the other width props, and the sizing part of `style` (width, margin, flex) go to the wrapper, and `ref` and the other attributes stay on the `<input>`. An invalid field shows the alert icon just inside an end section. [Field](/docs/form-components/field) passes `startSection` and `endSection` to the Input it renders.
 
 ## Customizing
 
@@ -147,4 +185,4 @@ Each control has its own theme node. `themeDefaults={{ input: { md: true } }}` s
 
 ### How do I put an icon or a button inside an Input?
 
-Input has no slot for one, and while the value is invalid its trailing edge holds the alert icon. Place the icon, or an [IconButton](/docs/basic-components/icon-button), next to the Input in a `Row`, as the password toggle under [Submit, reset and button types](/docs/form-components/forms#submit-reset-and-button-types) does. Give that IconButton `type="button"` so it does not submit the form, and an `aria-label` for its name.
+Pass it in `startSection` or `endSection`, as [Icons, prefixes and units inside the field](#icons-prefixes-and-units-inside-the-field) shows. The field reserves room for it, and an invalid field puts the alert icon next to an end section. Give a button there `type="button"` so it does not submit the form, and an `aria-label` when it has no text. Before `@vaneui/ui` 1.8.0, place the icon or an [IconButton](/docs/basic-components/icon-button) next to the Input in a `Row` instead.

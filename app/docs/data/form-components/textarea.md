@@ -75,6 +75,25 @@ Note that the value itself never turns red. Colouring what the user typed hurts 
 </Col>
 ```
 
+## Growing with the text
+
+`autosize` makes the box grow as the user types, from its minimum height (three lines, or `rows`) up, and drops the resize handle. Browsers with `field-sizing: content` size it in CSS; in the others, Textarea fits the height to the text on every input. Set a `max-h-*` class to stop the growth, and the box scrolls from there. `autosize` needs `@vaneui/ui` 1.8.0 or later.
+
+```tsx demo
+<Textarea autosize rows={2} placeholder="Type a few lines, the box grows with them"/>
+```
+
+## Resize handle
+
+The default `resizeY` lets the user drag the box taller. `resizeNone` removes the handle, `resizeX` resizes the width and `resize` both. These props need `@vaneui/ui` 1.8.0 or later.
+
+```tsx demo
+<Col>
+  <Textarea resizeNone placeholder="resizeNone: a fixed box"/>
+  <Textarea resize placeholder="resize: drag in both directions"/>
+</Col>
+```
+
 ## With a label and help text
 
 ```tsx demo
@@ -87,11 +106,11 @@ Note that the value itself never turns red. Colouring what the user typed hurts 
 
 ### How do I set the height of a Textarea?
 
-Pass `rows`. Without `rows`, a Textarea is at least three lines tall; with `rows` set, that minimum no longer applies, so `rows={2}` gives a two-line box and `rows={8}` a taller one. The font size follows the size prop, so the same `rows` gives a taller box at `lg` than at `sm`. The user can still drag the bottom edge to resize it.
+Pass `rows`. Without `rows`, a Textarea is at least three lines tall; with `rows` set, that minimum no longer applies, so `rows={2}` gives a two-line box and `rows={8}` a taller one. The font size follows the size prop, so the same `rows` gives a taller box at `lg` than at `sm`. The user can still drag the bottom edge to resize it, unless you pass `resizeNone`.
 
 ### Can a Textarea grow with its content?
 
-Not by itself: Textarea adds no auto-grow, and the user resizes it by dragging, since it resizes vertically by default. The CSS `field-sizing: content` property makes a textarea grow with its text in browsers that support it, so set it in a class of your own stylesheet. To turn off manual resizing, pass `style={{ resize: 'none' }}`, which wins over the stylesheet.
+Yes, with `autosize`, as [Growing with the text](#growing-with-the-text) shows. It uses `field-sizing: content` where the browser has it and fits the height to the text on every input where it does not. To turn off manual resizing without the growth, pass `resizeNone`. Before `@vaneui/ui` 1.8.0, set `field-sizing: content` in a class of your own and `style={{ resize: 'none' }}`.
 
 ### How do I show a character count?
 

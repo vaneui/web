@@ -5,11 +5,11 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/progress
 since: 1.4.5
 ---
 
-Progress is a determinate bar: it shows how much of a task with a known size is done, such as a file upload, an import or step 3 of 8 in a setup flow. It renders a `role="progressbar"` track with `aria-valuenow`, `aria-valuemin` and `aria-valuemax`, and a fill that grows with `value`. It takes no children, so a label or a percentage goes beside it. When the end of the wait is unknown, use [Spinner](/docs/basic-components/spinner) instead. Progress needs `@vaneui/ui` 1.4.5 or later.
+Progress shows how much of a task is done, such as a file upload, an import or step 3 of 8 in a setup flow. It renders a `role="progressbar"` track with `aria-valuenow`, `aria-valuemin` and `aria-valuemax`, and a fill that grows with `value`. When the length of the task is unknown, `indeterminate` slides a fill across the track instead. It takes no children, so a label or a percentage goes beside it. For a small busy mark inside a button or next to text, use [Spinner](/docs/basic-components/spinner). Progress needs `@vaneui/ui` 1.4.5 or later.
 
 ## Basic usage
 
-`value` is required and fills the bar against `max`, which is 100 by default. Give the bar an `aria-label`, since the track itself carries no text.
+`value` fills the bar against `max`, which is 100 by default, and is required unless the bar is `indeterminate`. Give the bar an `aria-label`, since the track itself carries no text.
 
 ```tsx demo
 <Progress value={40} aria-label="Upload"/>
@@ -25,6 +25,17 @@ Set `max` when the value counts something other than percent, such as steps or m
 <Col>
   <Progress value={3} max={8} aria-label="Setup, step 3 of 8"/>
   <Progress value={8} max={8} aria-label="Setup, step 8 of 8"/>
+</Col>
+```
+
+## Unknown length with indeterminate
+
+`indeterminate` is for work whose length is not known yet, such as a request waiting on a server or a sync that has not counted its files. A fill 40% of the track wide slides across it, the other way in a right-to-left layout, and stands still in the middle for users who ask for reduced motion. The bar leaves out `aria-valuenow`, so assistive technology reports it as busy rather than at a value. Switch to a `value` as soon as the total is known. `indeterminate` needs `@vaneui/ui` 1.8.0 or later.
+
+```tsx demo
+<Col>
+  <Progress indeterminate aria-label="Syncing files"/>
+  <Progress indeterminate success sm aria-label="Uploading"/>
 </Col>
 ```
 

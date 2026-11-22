@@ -202,6 +202,23 @@ An `optgroup` labels a run of related options, and the placeholder stays above t
 </Field>
 ```
 
+## Icon or prefix at the start
+
+`startSection` puts an icon or a short prefix inside the field, before the selected option. The field reserves the measured width of the section, and the section takes the field's size. The end of a Select holds its chevron, so it takes no `endSection`. Sections need `@vaneui/ui` 1.8.0 or later.
+
+```tsx demo
+<Select aria-label="Region" className="max-w-xs" startSection={
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+    <circle cx="12" cy="12" r="9"/>
+    <path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/>
+  </svg>
+}>
+  <option>Europe</option>
+  <option>North America</option>
+  <option>Asia Pacific</option>
+</Select>
+```
+
 ## Frequently asked questions
 
 ### Can a Select filter its options as the user types?

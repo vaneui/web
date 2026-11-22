@@ -88,6 +88,20 @@ Badges support different font weights.
 </Row>
 ```
 
+## Status dot
+
+`dot` draws a small dot before the text, in the text color, for a status such as online, away or failing. With no text, the badge itself becomes the dot: an outline or ghost dot takes the text color and a filled one keeps its fill. Give a dot without text an `aria-label`, and it gets `role="img"`, so a screen reader reads the status. `dot` needs `@vaneui/ui` 1.8.0 or later.
+
+```tsx demo
+<Row flexWrap>
+  <Badge success dot>Online</Badge>
+  <Badge warning dot>Away</Badge>
+  <Badge danger filled dot>Failing</Badge>
+  <Badge success dot aria-label="Online"/>
+  <Badge danger filled dot aria-label="Failing"/>
+</Row>
+```
+
 ## As Link
 
 Pass `href` to render the badge as an `<a>`, useful for clickable status labels. When `href` is set, the badge gains a keyboard focus-visible outline by default (opt out with `noFocusVisible`).

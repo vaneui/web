@@ -21,7 +21,7 @@ A horizontal flex container. `Row` defaults to `gap`, `itemsCenter`, `noPadding`
 
 ## Spacing
 
-Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to control the gap amount, or `noGap` to disable.
+Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to control the gap amount, or `noGap` to disable. `gapXs` to `gapXl` fix the gap at one step for every size and screen width: `<Row gapSm>` always has a 12px gap. [Common Props](/docs/reference/common-props) lists each step.
 
 ```tsx demo
 <Col>
