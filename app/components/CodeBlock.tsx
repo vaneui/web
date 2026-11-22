@@ -99,8 +99,10 @@ export function CodeBlock({
               >
                 <code className="mono text-sm">
                   {tokens.map((line, lineIndex) => {
+                    // Lines are plain blocks and tokens stay inline: a flex line turns every token into a
+                    // block of its own, so copying a selection put each token on a line of its own
                     const lineResult = (
-                      <div key={lineIndex} {...getLineProps({line})} className="flex w-full items-center">
+                      <div key={lineIndex} {...getLineProps({line})}>
                         {line.map((token, tokenIndex) => {
                           const tokenStart = globalCharIndex;
                           const tokenContent = token.content;
@@ -142,14 +144,14 @@ export function CodeBlock({
                               parts.push(
                                 <span
                                   key={`cursor-${charIndex}`}
-                                  className="inline-flex w-0.5 h-5 bg-green-500 dark:bg-green-400 animate-pulse"
+                                  className="inline-flex align-top w-0.5 h-5 bg-green-500 dark:bg-green-400 animate-pulse"
                                 />
                               );
                             }
                           });
 
                           return (
-                            <span key={tokenIndex} {...getTokenProps({token})} className="flex">
+                            <span key={tokenIndex} {...getTokenProps({token})}>
                               {parts}
                             </span>
                           );
