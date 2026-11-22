@@ -100,8 +100,22 @@ export function oklchToRgb(c: Oklch): Rgb {
 
 const hex2 = (v: number) => Math.round(clamp01(v) * 255).toString(16).padStart(2, '0');
 
-export function toHex(rgb: Rgb): string {
-  return `#${hex2(rgb.r)}${hex2(rgb.g)}${hex2(rgb.b)}`;
+/** The color an 8-bit screen shows, and the one its hex names: each channel rounded to a 255th */
+export function toRgb8(rgb: Rgb): Rgb {
+  const q = (v: number) => Math.round(clamp01(v) * 255) / 255;
+  return { r: q(rgb.r), g: q(rgb.g), b: q(rgb.b) };
+}
+
+/** `#rrggbb`, or `#rrggbbaa` when `alpha` is below 1 */
+export function toHex(rgb: Rgb, alpha = 1): string {
+  return `#${hex2(rgb.r)}${hex2(rgb.g)}${hex2(rgb.b)}${alpha < 1 ? hex2(alpha) : ''}`;
+}
+
+/** `top` drawn at `alpha` over `under`, blended in sRGB the way browsers blend */
+export function composite(top: Rgb, alpha: number, under: Rgb): Rgb {
+  const a = clamp01(alpha);
+  const mix = (t: number, u: number) => t * a + u * (1 - a);
+  return { r: mix(top.r, under.r), g: mix(top.g, under.g), b: mix(top.b, under.b) };
 }
 
 const round = (v: number, digits: number) => {
@@ -114,13 +128,18 @@ export function toRgbString(rgb: Rgb): string {
   return `rgb(${ch(rgb.r)} ${ch(rgb.g)} ${ch(rgb.b)})`;
 }
 
+/** Below this spread between channels a color is a gray: the OKLCH round trip leaves about 1e-7 of noise */
+const ACHROMATIC = 1e-5;
+
 export function rgbToHsl({ r, g, b }: Rgb): { h: number; s: number; l: number } {
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
   const l = (max + min) / 2;
   const d = max - min;
-  if (d === 0) return { h: 0, s: 0, l };
-  const s = d / (1 - Math.abs(2 * l - 1));
+  // A gray (white and black included) has no hue and no saturation, whatever the noise says
+  const room = 1 - Math.abs(2 * l - 1);
+  if (d < ACHROMATIC || room < ACHROMATIC) return { h: 0, s: 0, l };
+  const s = Math.min(1, d / room);
   let h: number;
   if (max === r) h = ((g - b) / d) % 6;
   else if (max === g) h = (b - r) / d + 2;
@@ -132,35 +151,57 @@ export function rgbToHsl({ r, g, b }: Rgb): { h: number; s: number; l: number } 
 
 export function toHslString(rgb: Rgb): string {
   const { h, s, l } = rgbToHsl(rgb);
-  return `hsl(${round(h, 1)} ${round(s * 100, 1)}% ${round(l * 100, 1)}%)`;
+  const sat = round(s * 100, 1);
+  return `hsl(${sat === 0 ? 0 : round(h, 1)} ${sat}% ${round(l * 100, 1)}%)`;
 }
 
-/** CSS `oklch()` with lightness as a percentage, rounded the way design tokens usually are */
-export function toOklchString(c: Oklch): string {
-  return `oklch(${round(c.l * 100, 1)}% ${round(c.c, 3)} ${round(c.c < 1e-4 ? 0 : c.h, 1)})`;
+/** CSS `oklch()` with lightness as a percentage, rounded the way design tokens usually are, and `/ alpha` below 1 */
+export function toOklchString(c: Oklch, alpha = 1): string {
+  const a = alpha < 1 ? ` / ${round(clamp01(alpha) * 100, 1)}%` : '';
+  return `oklch(${round(c.l * 100, 1)}% ${round(c.c, 3)} ${round(c.c < 1e-4 ? 0 : c.h, 1)}${a})`;
 }
 
 // ---------- Parsing ----------
 
-function parseHex(s: string): Rgb | null {
+function parseHex(s: string): { rgb: Rgb; alpha: number } | null {
   const m = /^#?([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.exec(s);
   if (!m) return null;
   let h = m[1];
   if (h.length <= 4) h = h.split('').map(ch => ch + ch).join('');
   return {
-    r: parseInt(h.slice(0, 2), 16) / 255,
-    g: parseInt(h.slice(2, 4), 16) / 255,
-    b: parseInt(h.slice(4, 6), 16) / 255,
+    rgb: {
+      r: parseInt(h.slice(0, 2), 16) / 255,
+      g: parseInt(h.slice(2, 4), 16) / 255,
+      b: parseInt(h.slice(4, 6), 16) / 255,
+    },
+    alpha: h.length === 8 ? parseInt(h.slice(6, 8), 16) / 255 : 1,
   };
 }
 
-/** The arguments of a CSS color function, accepting commas or spaces and an optional `/ alpha` */
-function fnArgs(s: string, names: string[]): string[] | null {
+/**
+ * The three arguments of a CSS color function and its alpha token, from the modern syntax
+ * (`rgb(0 0 0 / 50%)`, commas or spaces) or, with `legacyAlpha`, the comma syntax with a fourth
+ * argument (`rgba(0, 0, 0, 0.5)`)
+ */
+function fnArgs(s: string, names: string[], legacyAlpha = false): { parts: string[]; alpha: string | null } | null {
   const m = /^([a-z]+)\(\s*(.*?)\s*\)$/i.exec(s);
   if (!m || !names.includes(m[1].toLowerCase())) return null;
-  const body = m[2].split('/')[0];
+  const [body, slash, ...rest] = m[2].split('/');
+  if (rest.length) return null;
   const parts = body.split(/[\s,]+/).filter(Boolean);
-  return parts.length === 3 ? parts : null;
+  if (slash !== undefined) {
+    const alpha = slash.trim();
+    return parts.length === 3 && /^\S+$/.test(alpha) ? { parts, alpha } : null;
+  }
+  if (legacyAlpha && parts.length === 4 && body.includes(',')) return { parts: parts.slice(0, 3), alpha: parts[3] };
+  return parts.length === 3 ? { parts, alpha: null } : null;
+}
+
+/** An alpha from `0.5` or `50%`, clamped to 0 to 1; 1 when there is none, null when it does not read */
+function alphaOf(token: string | null): number | null {
+  if (token == null) return 1;
+  const v = num(token, 1);
+  return v == null ? null : clamp01(v);
 }
 
 /** A number, or a percentage scaled so that 100% is `full` */
@@ -191,50 +232,57 @@ function hslToRgb(h: number, s: number, l: number): Rgb {
 
 const NAMED: Record<string, string> = { white: '#ffffff', black: '#000000' };
 
-export type ParsedColor = { oklch: Oklch; source: 'hex' | 'rgb' | 'hsl' | 'oklch' };
+/** A parsed color: the color itself and its alpha, 0 (transparent) to 1 (opaque) */
+export type ParsedColor = { oklch: Oklch; alpha: number; source: 'hex' | 'rgb' | 'hsl' | 'oklch' };
 
 /**
- * Parses hex, `rgb()`, `hsl()` and `oklch()` (modern or comma syntax; alpha ignored), plus `white`
- * and `black`. Returns null for anything else. OKLCH input keeps its own values, even outside sRGB.
+ * Parses hex (3, 4, 6 or 8 digits), `rgb()`/`rgba()`, `hsl()`/`hsla()` and `oklch()`, in the
+ * modern syntax or the legacy comma syntax, with or without an alpha, plus `white` and `black`.
+ * Returns null for anything else. OKLCH input keeps its own values, even outside sRGB.
  */
 export function parseColor(input: string): ParsedColor | null {
   const s = input.trim().toLowerCase();
   if (!s) return null;
   const named = NAMED[s];
   const hex = parseHex(named ?? s);
-  if (hex) return { oklch: rgbToOklch(hex), source: 'hex' };
+  if (hex) return { oklch: rgbToOklch(hex.rgb), alpha: hex.alpha, source: 'hex' };
 
-  const rgbArgs = fnArgs(s, ['rgb', 'rgba']);
+  const rgbArgs = fnArgs(s, ['rgb', 'rgba'], true);
   if (rgbArgs) {
-    const [r, g, b] = rgbArgs.map(t => num(t, 255));
-    if (r == null || g == null || b == null) return null;
-    return { oklch: rgbToOklch({ r: clamp01(r / 255), g: clamp01(g / 255), b: clamp01(b / 255) }), source: 'rgb' };
+    const [r, g, b] = rgbArgs.parts.map(t => num(t, 255));
+    const alpha = alphaOf(rgbArgs.alpha);
+    if (r == null || g == null || b == null || alpha == null) return null;
+    return { oklch: rgbToOklch({ r: clamp01(r / 255), g: clamp01(g / 255), b: clamp01(b / 255) }), alpha, source: 'rgb' };
   }
 
-  const hslArgs = fnArgs(s, ['hsl', 'hsla']);
+  const hslArgs = fnArgs(s, ['hsl', 'hsla'], true);
   if (hslArgs) {
-    const h = hue(hslArgs[0]);
-    const sat = num(hslArgs[1], 1);
-    const light = num(hslArgs[2], 1);
-    if (h == null || sat == null || light == null) return null;
+    const [hTok, sTok, lTok] = hslArgs.parts;
+    const h = hue(hTok);
+    const sat = num(sTok, 1);
+    const light = num(lTok, 1);
+    const alpha = alphaOf(hslArgs.alpha);
+    if (h == null || sat == null || light == null || alpha == null) return null;
     // Without a % sign, modern syntax reads saturation and lightness as 0 to 100
     const norm = (v: number, token: string) => (token.endsWith('%') ? v : v / 100);
     return {
-      oklch: rgbToOklch(hslToRgb(h, clamp01(norm(sat, hslArgs[1])), clamp01(norm(light, hslArgs[2])))),
+      oklch: rgbToOklch(hslToRgb(h, clamp01(norm(sat, sTok)), clamp01(norm(light, lTok)))),
+      alpha,
       source: 'hsl',
     };
   }
 
   const oklchArgs = fnArgs(s, ['oklch']);
   if (oklchArgs) {
-    const lTok = oklchArgs[0];
+    const [lTok, cTok, hTok] = oklchArgs.parts;
     let l = num(lTok, 1);
     // A bare number above 1 is almost always a percentage typed without the sign
     if (l != null && !lTok.endsWith('%') && l > 1) l /= 100;
-    const c = num(oklchArgs[1], 0.4);
-    const h = hue(oklchArgs[2]);
-    if (l == null || c == null || h == null) return null;
-    return { oklch: { l: clamp01(l), c: Math.max(0, c), h }, source: 'oklch' };
+    const c = num(cTok, 0.4);
+    const h = hue(hTok);
+    const alpha = alphaOf(oklchArgs.alpha);
+    if (l == null || c == null || h == null || alpha == null) return null;
+    return { oklch: { l: clamp01(l), c: Math.max(0, c), h }, alpha, source: 'oklch' };
   }
   return null;
 }
@@ -245,6 +293,19 @@ export function parseColor(input: string): ParsedColor | null {
 export function relativeLuminance({ r, g, b }: Rgb): number {
   const lin = (v: number) => (v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
   return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+}
+
+/** An alpha in 255ths, as 8-digit hex stores it */
+export const toAlpha8 = (alpha: number) => Math.round(clamp01(alpha) * 255) / 255;
+
+/**
+ * Text and its background as an 8-bit screen shows them: a translucent background blended over
+ * `page` first, then translucent text over that background. WCAG contrast applies to these. The
+ * alphas count in 255ths too, so a color and its 8-digit hex give the same result.
+ */
+export function shownPair(fg: Oklch, fgAlpha: number, bg: Oklch, bgAlpha: number, page: Rgb): { fg: Rgb; bg: Rgb } {
+  const back = toRgb8(composite(oklchToRgb(bg), toAlpha8(bgAlpha), page));
+  return { fg: toRgb8(composite(oklchToRgb(fg), toAlpha8(fgAlpha), back)), bg: back };
 }
 
 /** WCAG contrast ratio, 1 to 21 */
@@ -272,23 +333,30 @@ export const WCAG = {
 } as const;
 
 /**
- * The closest color to `fg` (same hue and chroma, lightness moved) that reaches `target` against `bg`.
- * Returns null when no lightness in either direction gets there.
+ * The closest color to `fg` (same hue and chroma, lightness moved) that reaches `target` against
+ * `bg` however it is written: as its hex (the 8-bit color a screen shows), as `toOklchString` writes
+ * it, and as the value itself. Pass `bg` as the screen shows it too (`toRgb8`). Returns `fg` when it
+ * already passes, and null when no lightness in either direction gets there.
  */
 export function fixContrast(fg: Oklch, bg: Rgb, target: number): Oklch | null {
-  const ratioAt = (l: number) => contrastRatio(oklchToRgb({ ...fg, l }), bg);
-  if (ratioAt(fg.l) >= target) return fg;
+  const reaches = (rgb: Rgb) => contrastRatio(rgb, bg) >= target && contrastRatio(toRgb8(rgb), bg) >= target;
+  const passes = (c: Oklch) => {
+    const written = parseColor(toOklchString(c));
+    return reaches(oklchToRgb(c)) && !!written && reaches(oklchToRgb(written.oklch));
+  };
+  const at = (l: number) => toGamut({ ...fg, l });
+  if (passes(fg)) return fg;
   const candidates: Oklch[] = [];
   for (const end of [0, 1]) {
-    if (ratioAt(end) < target) continue;
-    // Binary search between the current lightness (fails) and the end (passes)
+    if (!passes(at(end))) continue;
+    // Binary search between the current lightness (fails) and the end (passes); `pass` always passes
     let fail = fg.l;
     let pass = end;
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 40; i++) {
       const mid = (fail + pass) / 2;
-      if (ratioAt(mid) >= target) pass = mid; else fail = mid;
+      if (passes(at(mid))) pass = mid; else fail = mid;
     }
-    candidates.push(toGamut({ ...fg, l: pass }));
+    candidates.push(at(pass));
   }
   if (!candidates.length) return null;
   return candidates.sort((x, y) => Math.abs(x.l - fg.l) - Math.abs(y.l - fg.l))[0];

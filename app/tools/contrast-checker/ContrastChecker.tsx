@@ -7,19 +7,27 @@ import { ToolShell } from '../ToolShell';
 import { CodeTabs, ColorField, CopyLinkButton, Segmented } from '../_components/controls';
 import { hexParam, useShareableState } from '../_components/useShareableState';
 import {
-  contrastRatio, fixContrast, formatRatio, oklchToRgb, parseColor, toHex, toOklchString, WCAG, type Oklch,
+  contrastRatio, fixContrast, formatRatio, oklchToRgb, parseColor, rgbToOklch, shownPair, toHex, toOklchString, toRgb8,
+  WCAG, type Oklch, type Rgb,
 } from '../../../lib/color/color';
 
 type Scheme = 'light' | 'dark';
-interface Pair { fg: Oklch; bg: Oklch }
+/** Text and background colors, each with its alpha (1 is opaque) */
+interface Pair { fg: Oklch; bg: Oklch; fgAlpha: number; bgAlpha: number }
 interface Settings { light: Pair; dark: Pair; both: boolean }
 
 const color = (hex: string) => parseColor(hex)!.oklch;
 
 const DEFAULTS: Settings = {
-  light: { fg: color('#6d28d9'), bg: color('#ffffff') },
-  dark: { fg: color('#a78bfa'), bg: color('#030712') },
+  light: { fg: color('#6d28d9'), bg: color('#ffffff'), fgAlpha: 1, bgAlpha: 1 },
+  dark: { fg: color('#a78bfa'), bg: color('#030712'), fgAlpha: 1, bgAlpha: 1 },
   both: true,
+};
+
+/** What a translucent background is checked over: a white page in light mode, a black one in dark */
+const PAGE: Record<Scheme, { rgb: Rgb; name: string }> = {
+  light: { rgb: { r: 1, g: 1, b: 1 }, name: 'white' },
+  dark: { rgb: { r: 0, g: 0, b: 0 }, name: 'black' },
 };
 
 const PARAMS: Record<Scheme, { fg: string; bg: string }> = {
@@ -27,23 +35,28 @@ const PARAMS: Record<Scheme, { fg: string; bg: string }> = {
   dark: { fg: 'dfg', bg: 'dbg' },
 };
 
-/** `?fg=6d28d9&bg=ffffff&dfg=a78bfa&dbg=030712`, and `dark=0` for one scheme only */
+/** `?fg=6d28d9&bg=ffffff&dfg=a78bfa&dbg=030712` (8 digits with an alpha), and `dark=0` for one scheme only */
 function readSettings(params: URLSearchParams, d: Settings): Settings {
-  const pick = (key: string, fallback: Oklch) => {
+  const pick = (key: string, fallback: Oklch, fallbackAlpha: number) => {
     const raw = hexParam(params.get(key));
-    return (raw && parseColor(raw)?.oklch) || fallback;
+    const parsed = raw ? parseColor(raw) : null;
+    return parsed ? { color: parsed.oklch, alpha: parsed.alpha } : { color: fallback, alpha: fallbackAlpha };
   };
-  const pair = (s: Scheme): Pair => ({ fg: pick(PARAMS[s].fg, d[s].fg), bg: pick(PARAMS[s].bg, d[s].bg) });
+  const pair = (s: Scheme): Pair => {
+    const fg = pick(PARAMS[s].fg, d[s].fg, d[s].fgAlpha);
+    const bg = pick(PARAMS[s].bg, d[s].bg, d[s].bgAlpha);
+    return { fg: fg.color, bg: bg.color, fgAlpha: fg.alpha, bgAlpha: bg.alpha };
+  };
   return { light: pair('light'), dark: pair('dark'), both: params.get('dark') !== '0' };
 }
 
-const hexOf = (c: Oklch) => toHex(oklchToRgb(c));
+const hexOf = (c: Oklch, alpha = 1) => toHex(oklchToRgb(c), alpha);
 
 function writeSettings(s: Settings): URLSearchParams {
   const params = new URLSearchParams();
   for (const scheme of ['light', 'dark'] as const) {
-    params.set(PARAMS[scheme].fg, hexOf(s[scheme].fg).slice(1));
-    params.set(PARAMS[scheme].bg, hexOf(s[scheme].bg).slice(1));
+    params.set(PARAMS[scheme].fg, hexOf(s[scheme].fg, s[scheme].fgAlpha).slice(1));
+    params.set(PARAMS[scheme].bg, hexOf(s[scheme].bg, s[scheme].bgAlpha).slice(1));
   }
   if (!s.both) params.set('dark', '0');
   return params;
@@ -59,29 +72,37 @@ const LEVELS = [
 ];
 
 function PairCard({ scheme, pair, onChange }: { scheme: Scheme; pair: Pair; onChange: (p: Pair) => void }) {
-  const fgRgb = oklchToRgb(pair.fg);
-  const bgRgb = oklchToRgb(pair.bg);
+  // The colors as the screen shows them and their hex writes them, so the ratio is the one the link reopens.
+  // Translucent colors are blended first: the text over the background, the background over the page.
+  const page = PAGE[scheme];
+  const { fg: fgRgb, bg: bgRgb } = shownPair(pair.fg, pair.fgAlpha, pair.bg, pair.bgAlpha, page.rgb);
   const ratio = contrastRatio(fgRgb, bgRgb);
-  const fixed = ratio < WCAG.text ? fixContrast(pair.fg, bgRgb, WCAG.text) : null;
-  const fg = hexOf(pair.fg);
-  const bg = hexOf(pair.bg);
+  // A translucent text color is fixed from the color it shows as, and the suggestion is opaque
+  const fixed = ratio < WCAG.text ? fixContrast(pair.fgAlpha < 1 ? rgbToOklch(fgRgb) : pair.fg, bgRgb, WCAG.text) : null;
+  const fg = toHex(fgRgb);
+  const bg = toHex(bgRgb);
   const name = scheme === 'light' ? 'Light' : 'Dark';
+  const opacity = (alpha: number) => `${Math.round(alpha * 100)}%`;
 
   return (
     <Card className="min-w-0 flex-1">
       <Row justifyBetween>
         <Title sm tag="h2">{name} mode</Title>
         <IconButton xs ghost secondary type="button" aria-label={`Swap ${name.toLowerCase()} text and background`}
-                    onClick={() => onChange({ fg: pair.bg, bg: pair.fg })}>
+                    onClick={() => onChange({ fg: pair.bg, bg: pair.fg, fgAlpha: pair.bgAlpha, bgAlpha: pair.fgAlpha })}>
           <RefreshCw aria-hidden="true"/>
         </IconButton>
       </Row>
       <Row sm itemsStart mobileStack>
         <Col flex1 mobileWFull className="min-w-0">
-          <ColorField label="Text" value={pair.fg} onChange={c => onChange({ ...pair, fg: c })}/>
+          <ColorField label="Text" value={pair.fg} alpha={pair.fgAlpha}
+                      onChange={(c, a) => onChange({ ...pair, fg: c, fgAlpha: a })}
+                      description={pair.fgAlpha < 1 ? `At ${opacity(pair.fgAlpha)} opacity it shows as ${fg} on this background, and that is the color checked.` : undefined}/>
         </Col>
         <Col flex1 mobileWFull className="min-w-0">
-          <ColorField label="Background" value={pair.bg} onChange={c => onChange({ ...pair, bg: c })}/>
+          <ColorField label="Background" value={pair.bg} alpha={pair.bgAlpha}
+                      onChange={(c, a) => onChange({ ...pair, bg: c, bgAlpha: a })}
+                      description={pair.bgAlpha < 1 ? `At ${opacity(pair.bgAlpha)} opacity it shows as ${bg} on a ${page.name} page, and that is the color checked.` : undefined}/>
         </Col>
       </Row>
 
@@ -120,10 +141,10 @@ function PairCard({ scheme, pair, onChange }: { scheme: Scheme; pair: Pair; onCh
                   style={{ background: hexOf(fixed) }}/>
             <Text sm>
               Nearest text color that passes AA: <Text tag="span" sm fontMono>{hexOf(fixed)}</Text>{' '}
-              ({formatRatio(contrastRatio(oklchToRgb(fixed), bgRgb))})
+              ({formatRatio(contrastRatio(toRgb8(oklchToRgb(fixed)), bgRgb))})
             </Text>
           </Row>
-          <Button sm type="button" onClick={() => onChange({ ...pair, fg: fixed })}>Use it</Button>
+          <Button sm type="button" onClick={() => onChange({ ...pair, fg: fixed, fgAlpha: 1 })}>Use it</Button>
         </Row>
       )}
     </Card>
@@ -135,13 +156,20 @@ const FORMATS = [
   { value: 'oklch', label: 'OKLCH' },
 ] as const;
 
+/** The pair's text and background as CSS values, each with its alpha */
+function written(p: Pair, format: 'hex' | 'oklch') {
+  const f = (c: Oklch, alpha: number) => (format === 'hex' ? hexOf(c, alpha) : toOklchString(c, alpha));
+  return { fg: f(p.fg, p.fgAlpha), bg: f(p.bg, p.bgAlpha) };
+}
+
 function cssFor(s: Settings, format: 'hex' | 'oklch'): string {
-  const f = (c: Oklch) => (format === 'hex' ? hexOf(c) : toOklchString(c));
+  const light = written(s.light, format);
+  const dark = written(s.dark, format);
   if (!s.both) {
     return [
       '.card {',
-      `  color: ${f(s.light.fg)};`,
-      `  background-color: ${f(s.light.bg)};`,
+      `  color: ${light.fg};`,
+      `  background-color: ${light.bg};`,
       '}',
       '',
     ].join('\n');
@@ -153,20 +181,21 @@ function cssFor(s: Settings, format: 'hex' | 'oklch'): string {
     '}',
     '',
     '.card {',
-    `  color: light-dark(${f(s.light.fg)}, ${f(s.dark.fg)});`,
-    `  background-color: light-dark(${f(s.light.bg)}, ${f(s.dark.bg)});`,
+    `  color: light-dark(${light.fg}, ${dark.fg});`,
+    `  background-color: light-dark(${light.bg}, ${dark.bg});`,
     '}',
     '',
   ].join('\n');
 }
 
 function tokensFor(s: Settings, format: 'hex' | 'oklch'): string {
-  const f = (c: Oklch) => (format === 'hex' ? hexOf(c) : toOklchString(c));
+  const light = written(s.light, format);
+  const dark = written(s.dark, format);
   const lines = [
     '/* Custom properties, one value per scheme */',
     ':root {',
-    `  --text: ${f(s.light.fg)};`,
-    `  --surface: ${f(s.light.bg)};`,
+    `  --text: ${light.fg};`,
+    `  --surface: ${light.bg};`,
     '}',
   ];
   if (s.both) {
@@ -174,8 +203,8 @@ function tokensFor(s: Settings, format: 'hex' | 'oklch'): string {
       '',
       '@media (prefers-color-scheme: dark) {',
       '  :root {',
-      `    --text: ${f(s.dark.fg)};`,
-      `    --surface: ${f(s.dark.bg)};`,
+      `    --text: ${dark.fg};`,
+      `    --surface: ${dark.bg};`,
       '  }',
       '}',
     );

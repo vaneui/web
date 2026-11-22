@@ -88,7 +88,6 @@ export default function RootLayout({children}: {
       <link rel="shortcut icon" href="/favicon.ico"/>
       <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
       <link rel="manifest" href="/site.webmanifest"/>
-      <script src="https://analytics.ahrefs.com/analytics.js" data-key="+JtunyPZi10uLSHXMP+3ug" async></script>
     </head>
     <body className={`${plusJakartaSans.variable} ${dmSerifDisplay.variable} ${jetBrainsMono.variable} font-sans min-w-xs`}>
     <ThemeWrapper>

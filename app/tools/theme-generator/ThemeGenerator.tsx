@@ -7,10 +7,11 @@ import {
 } from '@vaneui/ui';
 import { ToolShell } from '../ToolShell';
 import { CodeTabs, ColorField, CopyLinkButton, CopyValue, Segmented } from '../_components/controls';
-import { hexParam, useShareableState } from '../_components/useShareableState';
+import { useShareableState } from '../_components/useShareableState';
 import {
   formatRatio, oklchToRgb, parseColor, toHex, toOklchString, type Oklch,
 } from '../../../lib/color/color';
+import { colorParams, readColorParams } from '../../../lib/color/links';
 import {
   STEPS, generateTheme, plainCss, roleStyle, tailwindTheme, tokensJson, vaneuiCss,
   type ColorFormat, type GeneratedTheme, type Mode, type Scheme,
@@ -49,18 +50,17 @@ interface Settings { brand: Oklch; mode: Mode; links: boolean }
 
 const DEFAULTS: Settings = { brand: DEFAULT_BRAND, mode: 'accessible', links: false };
 
-/** A shared link opens its theme: ?c=7c3aed&mode=exact&links=1 */
+/** A shared link opens its theme: ?c=7c3aed&mode=exact&links=1, or ?oklch=70,0.3,150 for a color that is not hex */
 function readSettings(params: URLSearchParams, defaults: Settings): Settings {
-  const c = hexParam(params.get('c'));
   return {
-    brand: (c && parseColor(c)?.oklch) || defaults.brand,
+    brand: readColorParams(params, defaults.brand),
     mode: params.get('mode') === 'exact' ? 'exact' : defaults.mode,
     links: params.get('links') === '1',
   };
 }
 
 function writeSettings(s: Settings): URLSearchParams {
-  const params = new URLSearchParams({ c: toHex(oklchToRgb(s.brand)).slice(1) });
+  const params = colorParams(s.brand);
   if (s.mode === 'exact') params.set('mode', 'exact');
   if (s.links) params.set('links', '1');
   return params;
@@ -194,7 +194,7 @@ export function ThemeGenerator() {
             </Row>
             <Col noGap>
               {STEPS.map(s => (
-                <CopyValue key={s} dense label={s === theme.brandStep ? `${s} ●` : s}
+                <CopyValue key={s} dense label={s} mark={s === theme.brandStep ? 'nearest your color' : undefined}
                            value={format === 'hex' ? toHex(oklchToRgb(theme.scale[s])) : toOklchString(theme.scale[s])}/>
               ))}
             </Col>
