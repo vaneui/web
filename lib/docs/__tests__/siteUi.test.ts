@@ -11,11 +11,13 @@ import { createElement, type ReactElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { AppRouterContext, type AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { PathnameContext } from 'next/dist/shared/lib/hooks-client-context.shared-runtime';
+import { NavLink } from '@vaneui/ui';
 
 import { DocsMarkdown } from '../../../app/docs/DocsMarkdown';
 import { CodeBlock } from '../../../app/components/CodeBlock';
 import { MetaStrip } from '../../../app/docs/MetaStrip';
 import { DocsPropsTable } from '../../../app/docs/DocsPropsTable';
+import { TocAnchor } from '../../../app/docs/OnThisPage';
 import { goBack, GO_BACK_FALLBACK } from '../../../app/not-found-actions';
 
 // The layouts import their stylesheets, which Node cannot load: they read as empty modules here.
@@ -120,4 +122,25 @@ test('the props table summary holds no link; the Common Props link is in the det
   // A summary is a button: a link inside it is nested interactive content (axe nested-interactive)
   assert.doesNotMatch(summary, /<(a|button|input|select|textarea)\b/, 'no interactive element in the summary');
   assert.match(details.slice(details.indexOf('</summary>')), /<a\b[^>]*href="\/docs\/reference\/common-props"/);
+});
+
+test('only the page link says aria-current="page": the TOC entry in view is a location', () => {
+  const html = renderToStaticMarkup(createElement(NavLink, { href: '#sizes', tag: TocAnchor, active: true }, 'Sizes'));
+  assert.match(html, /<a\b[^>]*aria-current="location"/);
+  assert.match(html, /\bdata-active="true"/, 'the entry keeps its active style');
+  const idle = renderToStaticMarkup(createElement(NavLink, { href: '#sizes', tag: TocAnchor }, 'Sizes'));
+  assert.doesNotMatch(idle, /aria-current/);
+});
+
+test('a header nav cell is the current page only on its own page, and the current section below it', async () => {
+  const { LandingHeader } = await import('../../../app/landing/LandingHeader');
+  const currents = (pathname: string) => [...renderAt(createElement(LandingHeader), pathname)
+    .matchAll(/<a\b[^>]*>/g)]
+    .map((m) => m[0])
+    .filter((a) => a.includes('aria-current'))
+    .map((a) => `${a.match(/aria-current="([^"]*)"/)![1]} ${a.match(/href="([^"]*)"/)![1]}`);
+  assert.deepEqual(currents('/docs/basic-components/button'), ['true /docs']);
+  assert.deepEqual(currents('/docs'), ['page /docs']);
+  assert.deepEqual(currents('/docs/reference/changelog'), ['page /docs/reference/changelog']);
+  assert.deepEqual(currents('/playground'), ['page /playground']);
 });

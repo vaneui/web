@@ -3,6 +3,16 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Col, NavLink, Text } from '@vaneui/ui';
 
+/**
+ * The anchor of a TOC entry. NavLink marks an `active` link `aria-current="page"`, but the entry in
+ * view is a location in this page: "page" belongs to the sidebar link, so it becomes "location".
+ */
+export const TocAnchor = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWithoutRef<'a'>>(
+  function TocAnchor(props, ref) {
+    return <a ref={ref} {...props} aria-current={props['aria-current'] ? 'location' : undefined}/>;
+  },
+);
+
 interface OnThisPageProps {
   sections: Array<{
     title: string;
@@ -112,6 +122,7 @@ export function OnThisPage({sections}: OnThisPageProps) {
             <NavLink
               key={index}
               href={`#${section.id}`}
+              tag={TocAnchor}
               active={isActive}
               xs ghost sharp noPadding secondary={!isActive} indicatorStart
               className={`py-1.5 ${
