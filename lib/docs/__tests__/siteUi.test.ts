@@ -98,3 +98,15 @@ test('Go Back on the 404 returns to the previous page, or goes to the docs when 
   assert.deepEqual(calls, [GO_BACK_FALLBACK]);
   assert.equal(GO_BACK_FALLBACK, '/docs');
 });
+
+test('the 404 page has the site header and footer, and its message is in <main> at the skip link target', async () => {
+  const { default: NotFound } = await import('../../../app/not-found');
+  const html = renderAt(createElement(NotFound), '/no-such-page');
+  assert.match(html, /<header\b/);
+  assert.match(html, /<footer\b/);
+  const main = html.match(/<main\b[^>]*>(.*)<\/main>/s);
+  assert.ok(main, 'the 404 page has a <main> landmark');
+  assert.match(main[0], /^<main\b[^>]*\bid="main-content"/, 'the skip link target is the main region');
+  assert.match(main[1], /<h1\b[^>]*>404<\/h1>/, 'the message is inside <main>');
+  assert.match(html, /href="#main-content"/, 'the skip link is there');
+});

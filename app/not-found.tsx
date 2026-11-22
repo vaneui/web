@@ -1,6 +1,10 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { Container, Col, PageTitle, Text, SectionTitle } from '@vaneui/ui';
+import { Container, Col, Row, Section, PageTitle, Text, SectionTitle } from '@vaneui/ui';
+import './landing/landing.css';
+import { LandingHeader, MAIN_CONTENT_ID } from './landing/LandingHeader';
+import { LandingFooter } from './landing/LandingFooter';
+import { FRAME } from './landing/frame';
 import { NotFoundActions } from './not-found-actions';
 import { BASE_OPEN_GRAPH } from './constants';
 
@@ -27,17 +31,29 @@ export const metadata: Metadata = {
   },
 };
 
+// The site header and footer of every other page, so the skip link has its target and the
+// message sits in a <main> landmark
 export default function NotFound() {
   return (
-    <Container justifyCenter className="min-h-screen">
-      <Col xl itemsCenter>
-        <PageTitle xl fontMono secondary fontBold>404</PageTitle>
-        <SectionTitle>Page Not Found</SectionTitle>
-        <Text textCenter secondary className="max-w-sm">
-          {description}
-        </Text>
-        <NotFoundActions />
-      </Col>
-    </Container>
+    <Col noGap primary className="lp-site min-h-screen">
+      <LandingHeader/>
+      <Row noGap justifyCenter itemsStretch flex1>
+        {/* The skip link's target: focusable from script only, and no ring around the whole region */}
+        <Container xl noGap borderX justifyCenter relative tag="main" id={MAIN_CONTENT_ID} tabIndex={-1}
+                   className={`${FRAME} outline-none`}>
+          <Section xl itemsCenter>
+            <Col xl itemsCenter>
+              <PageTitle xl fontMono secondary fontBold>404</PageTitle>
+              <SectionTitle>Page Not Found</SectionTitle>
+              <Text textCenter secondary className="max-w-sm">
+                {description}
+              </Text>
+              <NotFoundActions />
+            </Col>
+          </Section>
+        </Container>
+      </Row>
+      <LandingFooter/>
+    </Col>
   );
 }
