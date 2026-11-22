@@ -8,7 +8,7 @@ import { ColorField, CopyLinkButton, CopyValue, Slider } from '../_components/co
 import { hexParam, useShareableState } from '../_components/useShareableState';
 import {
   contrastRatio, formatRatio, inGamut, oklchToRgb, parseColor, toGamut, toHex, toHslString, toOklchString,
-  toRgbString, WCAG, type Oklch,
+  toRgb8, toRgbString, WCAG, type Oklch,
 } from '../../../lib/color/color';
 import { STEPS, buildScale } from '../../../lib/color/theme';
 
@@ -116,7 +116,8 @@ export function OklchConverter() {
             <Title sm tag="h2">Contrast</Title>
             <Row mobileStack itemsStretch>
               {[{ name: 'On white', bg: WHITE, fg: '#ffffff' }, { name: 'On black', bg: BLACK, fg: '#000000' }].map(s => {
-                const ratio = contrastRatio(rgb, s.bg);
+                // As the screen shows the color (its hex), so white reads 21:1 on black, not 20.99:1
+                const ratio = contrastRatio(toRgb8(rgb), s.bg);
                 return (
                   <Row key={s.name} justifyBetween className="flex-1 rounded-lg border border-(--color-border-primary) p-3"
                        style={{ background: s.fg }}>

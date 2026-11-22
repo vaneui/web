@@ -100,6 +100,12 @@ export function oklchToRgb(c: Oklch): Rgb {
 
 const hex2 = (v: number) => Math.round(clamp01(v) * 255).toString(16).padStart(2, '0');
 
+/** The color an 8-bit screen shows, and the one its hex names: each channel rounded to a 255th */
+export function toRgb8(rgb: Rgb): Rgb {
+  const q = (v: number) => Math.round(clamp01(v) * 255) / 255;
+  return { r: q(rgb.r), g: q(rgb.g), b: q(rgb.b) };
+}
+
 export function toHex(rgb: Rgb): string {
   return `#${hex2(rgb.r)}${hex2(rgb.g)}${hex2(rgb.b)}`;
 }

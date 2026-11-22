@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 
 import {
   contrastRatio, fixContrast, formatRatio, inGamut, oklchToRgb, parseColor, rgbToOklch,
-  toGamut, toHex, toHslString, toOklchString, toRgbString,
+  toGamut, toHex, toHslString, toOklchString, toRgb8, toRgbString,
 } from '../color';
 import {
   ROLES, STEPS, buildScale, generateTheme, nearestStep, plainCss, tailwindTheme, tokensJson, vaneuiCss,
@@ -181,4 +181,19 @@ test('exports name every role and step', () => {
   const json = JSON.parse(tokensJson(theme));
   assert.equal(Object.keys(json.brand).length, 11);
   assert.match(json.roles.dark['text-accent'].hex, /^#[0-9a-f]{6}$/);
+});
+
+test('contrast of the colors as written: black on white reads 21:1 after the OKLCH round trip', () => {
+  const shown = (s: string) => {
+    const p = parseColor(s);
+    assert.ok(p, `could not parse ${s}`);
+    return toRgb8(oklchToRgb(p.oklch));
+  };
+  // The float round trip lands a hair under 21; the 8-bit color is exact
+  assert.ok(contrastRatio(oklchToRgb(parseColor('#000000')!.oklch), oklchToRgb(parseColor('#ffffff')!.oklch)) < 21);
+  assert.equal(formatRatio(contrastRatio(shown('#000000'), shown('#ffffff'))), '21.00:1');
+  assert.equal(formatRatio(contrastRatio(shown('#ffffff'), { r: 0, g: 0, b: 0 })), '21.00:1');
+  assert.equal(formatRatio(contrastRatio(shown('#777777'), shown('#ffffff'))), '4.47:1');
+  assert.equal(formatRatio(contrastRatio(shown('#767676'), shown('#ffffff'))), '4.54:1');
+  assert.deepEqual(toRgb8({ r: 0.99999995, g: 1.2, b: -0.1 }), { r: 1, g: 1, b: 0 });
 });

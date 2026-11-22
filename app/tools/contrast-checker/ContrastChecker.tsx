@@ -7,7 +7,7 @@ import { ToolShell } from '../ToolShell';
 import { CodeTabs, ColorField, CopyLinkButton, Segmented } from '../_components/controls';
 import { hexParam, useShareableState } from '../_components/useShareableState';
 import {
-  contrastRatio, fixContrast, formatRatio, oklchToRgb, parseColor, toHex, toOklchString, WCAG, type Oklch,
+  contrastRatio, fixContrast, formatRatio, oklchToRgb, parseColor, toHex, toOklchString, toRgb8, WCAG, type Oklch,
 } from '../../../lib/color/color';
 
 type Scheme = 'light' | 'dark';
@@ -59,8 +59,9 @@ const LEVELS = [
 ];
 
 function PairCard({ scheme, pair, onChange }: { scheme: Scheme; pair: Pair; onChange: (p: Pair) => void }) {
-  const fgRgb = oklchToRgb(pair.fg);
-  const bgRgb = oklchToRgb(pair.bg);
+  // The colors as the screen shows them and their hex writes them, so the ratio is the one the link reopens
+  const fgRgb = toRgb8(oklchToRgb(pair.fg));
+  const bgRgb = toRgb8(oklchToRgb(pair.bg));
   const ratio = contrastRatio(fgRgb, bgRgb);
   const fixed = ratio < WCAG.text ? fixContrast(pair.fg, bgRgb, WCAG.text) : null;
   const fg = hexOf(pair.fg);
@@ -120,7 +121,7 @@ function PairCard({ scheme, pair, onChange }: { scheme: Scheme; pair: Pair; onCh
                   style={{ background: hexOf(fixed) }}/>
             <Text sm>
               Nearest text color that passes AA: <Text tag="span" sm fontMono>{hexOf(fixed)}</Text>{' '}
-              ({formatRatio(contrastRatio(oklchToRgb(fixed), bgRgb))})
+              ({formatRatio(contrastRatio(toRgb8(oklchToRgb(fixed)), bgRgb))})
             </Text>
           </Row>
           <Button sm type="button" onClick={() => onChange({ ...pair, fg: fixed })}>Use it</Button>
