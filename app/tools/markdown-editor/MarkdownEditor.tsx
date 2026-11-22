@@ -17,6 +17,7 @@ import { CodeBlock } from '../../components/CodeBlock';
 import { darkTheme, lightTheme } from '../../components/themes';
 import { markdownToHtml, markdownToHtmlDocument, markdownToJsx, textStats } from '../../../lib/markdown/exports';
 import { SAMPLES, type Sample } from './samples';
+import { draftNeedsConfirm, editText, takeShortcut } from './editing';
 
 const STORAGE_KEY = 'vaneui-markdown-editor';
 const SAVE_DELAY_MS = 400;
@@ -68,31 +69,6 @@ const insertBlock = (block: string) => ({ value, start }: Selection): Selection 
 };
 
 const TABLE = '| Column | Column |\n|:--|:--|\n| Cell | Cell |';
-
-/**
- * Replaces the textarea's text with `next` through the browser's own editing command, which puts
- * the change on the field's undo stack (setting `value` from React clears it, so Ctrl+Z did
- * nothing). Only the part that differs is replaced. Returns false when the browser has no such
- * command, and the caller sets the value itself.
- */
-function editText(el: HTMLTextAreaElement, next: string): boolean {
-  const prev = el.value;
-  if (prev === next) return true;
-  let start = 0;
-  while (start < prev.length && start < next.length && prev[start] === next[start]) start++;
-  let end = 0;
-  while (end < prev.length - start && end < next.length - start && prev[prev.length - 1 - end] === next[next.length - 1 - end]) end++;
-  el.focus();
-  el.setSelectionRange(start, prev.length - end);
-  const inserted = next.slice(start, next.length - end);
-  try {
-    // Deprecated, but still the only way to edit a text field that the undo stack records
-    const done = inserted ? document.execCommand('insertText', false, inserted) : document.execCommand('delete');
-    return done && el.value === next;
-  } catch {
-    return false;
-  }
-}
 
 const ACTIONS = [
   { label: 'Bold', key: 'b', icon: Bold, run: wrap('**', '**', 'bold text') },
@@ -217,8 +193,7 @@ export function MarkdownEditor() {
   const [confirm, setConfirm] = useState<{ sample: Sample; button: HTMLElement; open: boolean; replace: boolean } | null>(null);
   const confirmTitle = useId();
   const loadSample = (sample: Sample, button: HTMLElement) => {
-    const edited = text.trim() !== '' && !SAMPLES.some(s => s.body === text);
-    if (edited) setConfirm({ sample, button, open: true, replace: false });
+    if (draftNeedsConfirm(text, SAMPLES)) setConfirm({ sample, button, open: true, replace: false });
     else replaceWith(sample);
   };
   const closeConfirm = (replace: boolean) => setConfirm(c => c && { ...c, open: false, replace });
@@ -231,14 +206,9 @@ export function MarkdownEditor() {
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (!(e.metaKey || e.ctrlKey) || e.altKey || e.shiftKey) return;
-    const action = ACTIONS.find(a => a.key === e.key.toLowerCase());
-    if (action) {
-      // The editor owns its shortcuts: Ctrl+K is Link here, not the site search
-      e.preventDefault();
-      e.stopPropagation();
-      apply(action.run);
-    }
+    // The editor owns its shortcuts: Ctrl+K is Link here, not the site search
+    const action = takeShortcut(e, ACTIONS);
+    if (action) apply(action.run);
   };
 
   const output = useMemo(() => {
