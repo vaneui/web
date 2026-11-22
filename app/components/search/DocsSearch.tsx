@@ -23,6 +23,8 @@ export function DocsSearch({ className }: { className?: string }) {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      // A shortcut a field already handled (Ctrl+K is Link in the Markdown editor) is not for the search
+      if (e.defaultPrevented) return;
       // Cmd+K on Apple devices, Ctrl+K elsewhere (Ctrl+K on a Mac is the editor's delete-to-line-end)
       if ((isApple() ? e.metaKey : e.ctrlKey) && !e.altKey && e.key.toLowerCase() === 'k') {
         e.preventDefault();

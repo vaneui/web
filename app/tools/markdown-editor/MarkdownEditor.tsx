@@ -174,7 +174,9 @@ export function MarkdownEditor() {
     if (!(e.metaKey || e.ctrlKey) || e.altKey || e.shiftKey) return;
     const action = ACTIONS.find(a => a.key === e.key.toLowerCase());
     if (action) {
+      // The editor owns its shortcuts: Ctrl+K is Link here, not the site search
       e.preventDefault();
+      e.stopPropagation();
       apply(action.run);
     }
   };
