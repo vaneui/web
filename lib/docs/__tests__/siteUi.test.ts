@@ -1,4 +1,5 @@
-// Rendered markup of the site's own UI: the docs page parts, the code sample and the 404 page.
+// Rendered markup of the site's own UI: the docs page parts, the code sample, the 404 page and
+// the landing page's install box.
 // What only a browser shows (page width, copied text, focus rings) is checked by hand with
 // Playwright; these tests pin the markup those checks depend on.
 // Run with:
@@ -160,4 +161,32 @@ test('the "On this page" scroller leaves room for its links\' focus ring', () =>
   assert.ok(spacing(['p', 'px']) >= 4, `inline padding: ${scroller.join(' ')}`);
   assert.ok(spacing(['p', 'py']) >= 4, `block padding: ${scroller.join(' ')}`);
   assert.ok(spacing(['scroll-p', 'scroll-py']) >= 4, `scroll padding: ${scroller.join(' ')}`);
+});
+
+/** The attributes of the opening tag of the element nearest before `marker` whose tag is `tag` */
+function openingTagBefore(html: string, marker: string, tag: string): string {
+  const at = html.indexOf(marker);
+  assert.ok(at !== -1, `no ${marker} in the markup`);
+  const start = html.lastIndexOf(`<${tag} `, at);
+  assert.ok(start !== -1, `no <${tag}> before ${marker}`);
+  return html.slice(start, html.indexOf('>', start) + 1);
+}
+
+const attr = (openingTag: string, name: string): string | undefined =>
+  openingTag.match(new RegExp(`\\s${name}="([^"]*)"`))?.[1];
+
+test('the install box is as tall as the Get started button next to it, at every width', async () => {
+  const { Hero } = await import('../../../app/landing/Hero');
+  const html = renderAt(createElement(Hero), '/');
+  const button = openingTagBefore(html, 'Get started', 'a');
+  const copy = openingTagBefore(html, 'aria-label="Copy install command"', 'button');
+  // The box was a padded, bordered Stack around an xs copy button: 42px tall next to the
+  // 37px md Button (34px on a phone, where the Stack's padding shrinks). Now nothing but its
+  // copy button sets its height, and that button takes the size of the Button.
+  assert.equal(attr(copy, 'data-size'), attr(button, 'data-size'));
+  const box = openingTagBefore(html, 'aria-label="Copy install command"', 'div');
+  const classes = (attr(box, 'class') ?? '').split(/\s+/);
+  assert.ok(classes.includes('rounded-full'), `not the install box: ${classes.join(' ')}`);
+  const height = classes.filter((c) => /(^|:)(p|py|pt|pb)-/.test(c) || /(^|:)border-\[length/.test(c));
+  assert.deepEqual(height, [], 'vertical padding or a border would make the box taller than its copy button');
 });
