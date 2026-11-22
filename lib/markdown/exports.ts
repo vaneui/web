@@ -312,6 +312,34 @@ export function markdownToHtml(source: string, options: { parseYaml?: YamlParser
     .trim()}\n`;
 }
 
+/**
+ * A standalone HTML page for the document, titled with the text of its first heading as rendered
+ * (variables filled in), else the frontmatter `title`, else "Document"
+ */
+export function markdownToHtmlDocument(source: string, options: { parseYaml?: YamlParser } = {}): string {
+  const body = markdownToHtml(source, options);
+  const heading = /<h1(?: [^>]*)?>([^]*?)<\/h1>/.exec(body)?.[1].replace(/<[^>]*>/g, '').trim();
+  const frontmatter = (variablesOf(parseMarkdown(source), options.parseYaml).markdoc as { frontmatter?: { title?: unknown } })
+    .frontmatter?.title;
+  const escape = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  // The heading is already HTML (its text escaped); a frontmatter title is plain text
+  const title = heading || (typeof frontmatter === 'string' && frontmatter.trim() ? escape(frontmatter.trim()) : 'Document');
+  return [
+    '<!doctype html>',
+    '<html lang="en">',
+    '<head>',
+    '<meta charset="utf-8">',
+    '<meta name="viewport" content="width=device-width, initial-scale=1">',
+    `<title>${title}</title>`,
+    '</head>',
+    '<body>',
+    body.trimEnd(),
+    '</body>',
+    '</html>',
+    '',
+  ].join('\n');
+}
+
 /** Words, characters and minutes to read (at 230 words a minute) */
 export function textStats(source: string): { words: number; characters: number; minutes: number } {
   const body = source.replace(/^---\n[\s\S]*?\n---\n/, '');

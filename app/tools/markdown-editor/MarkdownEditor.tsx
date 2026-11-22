@@ -13,7 +13,7 @@ import { ToolShell } from '../ToolShell';
 import { Segmented } from '../_components/controls';
 import { CodeBlock } from '../../components/CodeBlock';
 import { darkTheme, lightTheme } from '../../components/themes';
-import { markdownToHtml, markdownToJsx, textStats } from '../../../lib/markdown/exports';
+import { markdownToHtml, markdownToHtmlDocument, markdownToJsx, textStats } from '../../../lib/markdown/exports';
 import { SAMPLES } from './samples';
 
 const STORAGE_KEY = 'vaneui-markdown-editor';
@@ -126,24 +126,6 @@ function download(name: string, type: string, body: string) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-function htmlDocument(text: string): string {
-  const title = text.match(/^#\s+(.+)$/m)?.[1]?.replace(/[<>&"]/g, '') ?? 'Document';
-  return [
-    '<!doctype html>',
-    '<html lang="en">',
-    '<head>',
-    '<meta charset="utf-8">',
-    '<meta name="viewport" content="width=device-width, initial-scale=1">',
-    `<title>${title}</title>`,
-    '</head>',
-    '<body>',
-    markdownToHtml(text, { parseYaml: parseYamlFrontmatter }).trimEnd(),
-    '</body>',
-    '</html>',
-    '',
-  ].join('\n');
-}
-
 export function MarkdownEditor() {
   const [text, setText] = useState(SAMPLES[0].body);
   const [tab, setTab] = useState<Tab>('preview');
@@ -212,7 +194,7 @@ export function MarkdownEditor() {
         <Button type="button" secondary onClick={() => download('document.md', 'text/markdown', text)}>
           <Download aria-hidden="true"/> Download .md
         </Button>
-        <Button type="button" secondary onClick={() => download('document.html', 'text/html', htmlDocument(text))}>
+        <Button type="button" secondary onClick={() => download('document.html', 'text/html', markdownToHtmlDocument(text, { parseYaml: parseYamlFrontmatter }))}>
           <Download aria-hidden="true"/> Download .html
         </Button>
       </>

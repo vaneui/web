@@ -6,7 +6,8 @@ import assert from 'node:assert/strict';
 import { parse as parseYaml } from 'yaml';
 import ts from 'typescript';
 
-import { markdownToHtml, markdownToJsx, textStats } from '../exports';
+import { markdownToHtml, markdownToHtmlDocument, markdownToJsx, textStats } from '../exports';
+import { SAMPLES } from '../../../app/tools/markdown-editor/samples';
 
 const SAMPLE = [
   '# Title',
@@ -153,4 +154,16 @@ test('attribute values with quotes, backslashes or entities export as valid JSX 
   assert.equal(link?.title, 'He said "hi"');
   // Plain values stay plain attribute strings
   assert.ok(markdownToJsx('![plain](pic.png)').includes('<Img src="pic.png" alt="plain"/>'));
+});
+
+test('the downloaded HTML page is titled with the heading as the preview renders it', () => {
+  const blog = SAMPLES.find(s => s.id === 'post');
+  assert.ok(blog);
+  const page = markdownToHtmlDocument(blog.body, { parseYaml });
+  assert.ok(page.includes('<title>What we learned shipping dark mode</title>'), page.slice(0, 400));
+  assert.ok(!page.includes('{%'));
+  assert.ok(markdownToHtmlDocument('# Tom & *Jerry*\n').includes('<title>Tom &amp; Jerry</title>'));
+  assert.ok(markdownToHtmlDocument('---\ntitle: A <b> & c\n---\nNo heading\n', { parseYaml }).includes('<title>A &lt;b&gt; &amp; c</title>'));
+  assert.ok(markdownToHtmlDocument('Just text\n').includes('<title>Document</title>'));
+  assert.ok(markdownToHtmlDocument('# Hi\n').startsWith('<!doctype html>'));
 });
