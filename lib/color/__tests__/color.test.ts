@@ -255,3 +255,16 @@ test('translucent colors are checked as they show: text over the background, the
   assert.equal(toOklchString({ l: 0.5, c: 0.1, h: 30 }, 0.5), 'oklch(50% 0.1 30 / 50%)');
   assert.deepEqual(composite(white, 0.25, black), { r: 0.25, g: 0.25, b: 0.25 });
 });
+
+test('HSL of white, black and grays after the OKLCH round trip has no hue and no saturation', () => {
+  const hsl = (s: string) => toHslString(oklchToRgb(parseColor(s)!.oklch));
+  assert.equal(hsl('#ffffff'), 'hsl(0 0% 100%)');
+  assert.equal(hsl('#000000'), 'hsl(0 0% 0%)');
+  assert.equal(hsl('#808080'), 'hsl(0 0% 50.2%)');
+  for (let v = 0; v < 256; v += 5) {
+    const gray = `#${v.toString(16).padStart(2, '0').repeat(3)}`;
+    assert.match(hsl(gray), /^hsl\(0 0% [\d.]+%\)$/, gray);
+  }
+  assert.equal(hsl('#ff0000'), 'hsl(0 100% 50%)');
+  assert.equal(hsl('#7c3aed'), 'hsl(262.1 83.3% 57.8%)');
+});
