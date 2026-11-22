@@ -15,6 +15,7 @@ import { PathnameContext } from 'next/dist/shared/lib/hooks-client-context.share
 import { DocsMarkdown } from '../../../app/docs/DocsMarkdown';
 import { CodeBlock } from '../../../app/components/CodeBlock';
 import { MetaStrip } from '../../../app/docs/MetaStrip';
+import { goBack, GO_BACK_FALLBACK } from '../../../app/not-found-actions';
 
 // The layouts import their stylesheets, which Node cannot load: they read as empty modules here.
 // Modules that do are imported inside their test, after this hook is in place.
@@ -81,4 +82,19 @@ test('the import button in the page header wraps a long import', () => {
   // On one line, the Table import made the button 583px wide on a 390px phone
   assert.ok(classes.includes('whitespace-normal'), `import button classes: ${classes.join(' ')}`);
   assert.ok(!classes.includes('whitespace-nowrap'), 'the import must be able to wrap');
+});
+
+test('Go Back on the 404 returns to the previous page, or goes to the docs when the tab has none', () => {
+  const calls: string[] = [];
+  const history = (length: number) => ({ length, back: () => { calls.push('back'); } });
+  const navigate = (href: string) => { calls.push(href); };
+
+  goBack(history(3), navigate);
+  assert.deepEqual(calls, ['back']);
+
+  // A dead link opened in a new tab: history.back() would do nothing
+  calls.length = 0;
+  goBack(history(1), navigate);
+  assert.deepEqual(calls, [GO_BACK_FALLBACK]);
+  assert.equal(GO_BACK_FALLBACK, '/docs');
 });
