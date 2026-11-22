@@ -86,11 +86,17 @@ export function Segmented<T extends string>({ label, options, value, onChange }:
   );
 }
 
-/** A label and a monospace value with a copy button; `dense` fits a narrow column */
-export function CopyValue({ label, value, dense }: { label: string; value: string; dense?: boolean }) {
+/**
+ * A label and a monospace value with a copy button; `dense` fits a narrow column. `mark` adds a dot
+ * after the label, read out as its text, and the copy button keeps the plain label as its name.
+ */
+export function CopyValue({ label, value, dense, mark }: { label: string; value: string; dense?: boolean; mark?: string }) {
   return (
     <Row justifyBetween borderB sm={dense} className="py-1.5 last:border-b-0">
-      <Text sm secondary className={`${dense ? 'w-10' : 'w-16'} shrink-0`}>{label}</Text>
+      <Text sm secondary className={`${dense ? 'w-10' : 'w-16'} shrink-0`}>
+        {label}
+        {mark && <><span aria-hidden="true"> ●</span><span className="sr-only">, {mark}</span></>}
+      </Text>
       <Text sm={!dense} xs={dense} fontMono truncate className="min-w-0 flex-1">{value}</Text>
       <CopyButton value={value} label={`Copy ${label}`}/>
     </Row>

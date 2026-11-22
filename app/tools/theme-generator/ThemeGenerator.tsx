@@ -194,7 +194,7 @@ export function ThemeGenerator() {
             </Row>
             <Col noGap>
               {STEPS.map(s => (
-                <CopyValue key={s} dense label={s === theme.brandStep ? `${s} ●` : s}
+                <CopyValue key={s} dense label={s} mark={s === theme.brandStep ? 'nearest your color' : undefined}
                            value={format === 'hex' ? toHex(oklchToRgb(theme.scale[s])) : toOklchString(theme.scale[s])}/>
               ))}
             </Col>
