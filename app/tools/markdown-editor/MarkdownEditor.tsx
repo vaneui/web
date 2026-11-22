@@ -200,6 +200,20 @@ export function MarkdownEditor() {
     });
   };
 
+  // A sample replaces the draft, which is kept nowhere else: ask first unless it is empty or an
+  // untouched sample, and replace it as an edit, so Ctrl+Z brings the draft back
+  const loadSample = (sample: typeof SAMPLES[number]) => {
+    const el = area.current;
+    const edited = text.trim() !== '' && !SAMPLES.some(s => s.body === text);
+    if (edited && !window.confirm(`Replace your draft with the ${sample.label} sample?`)) return;
+    if (el && editText(el, sample.body)) {
+      el.setSelectionRange(0, 0);
+      el.scrollTop = 0;
+    } else {
+      setText(sample.body);
+    }
+  };
+
   const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (!(e.metaKey || e.ctrlKey) || e.altKey || e.shiftKey) return;
     const action = ACTIONS.find(a => a.key === e.key.toLowerCase());
@@ -244,7 +258,7 @@ export function MarkdownEditor() {
         <Row xs flexWrap>
           <Text sm secondary>Start from</Text>
           {SAMPLES.map(s => (
-            <Button key={s.id} xs secondary type="button" onClick={() => setText(s.body)}>{s.label}</Button>
+            <Button key={s.id} xs secondary type="button" onClick={() => loadSample(s)}>{s.label}</Button>
           ))}
         </Row>
       </Row>
