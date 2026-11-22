@@ -244,6 +244,9 @@ test('translucent colors are checked as they show: text over the background, the
     assert.ok(ratio > 3.9 && ratio < 4.1, `${half}: ${ratio}`);
   }
   assert.equal(toHex(shownPair(c('#00000080').oklch, 128 / 255, c('#fff').oklch, 1, white).fg), '#7f7f7f');
+  // An alpha counts in 255ths, as the 8-digit hex in the share link stores it, so the link reopens the same ratio
+  assert.equal(ratioOf('rgba(0, 0, 0, 0.5)', '#fff'), ratioOf('#00000080', '#fff'));
+  assert.equal(ratioOf('rgb(10 20 30 / 0.33)', '#fafafa'), ratioOf(toHex(oklchToRgb(c('rgb(10 20 30)').oklch), 0.33), '#fafafa'));
   // A translucent background is blended over the page first
   const bg = shownPair(c('#000').oklch, 1, c('#00000080').oklch, 128 / 255, white).bg;
   assert.equal(toHex(bg), '#7f7f7f');

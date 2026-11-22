@@ -82,7 +82,7 @@ function PairCard({ scheme, pair, onChange }: { scheme: Scheme; pair: Pair; onCh
   const fg = toHex(fgRgb);
   const bg = toHex(bgRgb);
   const name = scheme === 'light' ? 'Light' : 'Dark';
-  const opacity = (alpha: number) => `${Math.round(alpha * 1000) / 10}%`;
+  const opacity = (alpha: number) => `${Math.round(alpha * 100)}%`;
 
   return (
     <Card className="min-w-0 flex-1">
@@ -97,12 +97,12 @@ function PairCard({ scheme, pair, onChange }: { scheme: Scheme; pair: Pair; onCh
         <Col flex1 mobileWFull className="min-w-0">
           <ColorField label="Text" value={pair.fg} alpha={pair.fgAlpha}
                       onChange={(c, a) => onChange({ ...pair, fg: c, fgAlpha: a })}
-                      description={pair.fgAlpha < 1 ? `At ${opacity(pair.fgAlpha)} opacity it shows as ${fg} on the background, the color checked.` : undefined}/>
+                      description={pair.fgAlpha < 1 ? `At ${opacity(pair.fgAlpha)} opacity it shows as ${fg} on this background, and that is the color checked.` : undefined}/>
         </Col>
         <Col flex1 mobileWFull className="min-w-0">
           <ColorField label="Background" value={pair.bg} alpha={pair.bgAlpha}
                       onChange={(c, a) => onChange({ ...pair, bg: c, bgAlpha: a })}
-                      description={pair.bgAlpha < 1 ? `At ${opacity(pair.bgAlpha)} opacity it shows as ${bg} on a ${page.name} page, the color checked.` : undefined}/>
+                      description={pair.bgAlpha < 1 ? `At ${opacity(pair.bgAlpha)} opacity it shows as ${bg} on a ${page.name} page, and that is the color checked.` : undefined}/>
         </Col>
       </Row>
 

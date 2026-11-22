@@ -295,13 +295,17 @@ export function relativeLuminance({ r, g, b }: Rgb): number {
   return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
 }
 
+/** An alpha in 255ths, as 8-digit hex stores it */
+export const toAlpha8 = (alpha: number) => Math.round(clamp01(alpha) * 255) / 255;
+
 /**
  * Text and its background as an 8-bit screen shows them: a translucent background blended over
- * `page` first, then translucent text over that background. WCAG contrast applies to these.
+ * `page` first, then translucent text over that background. WCAG contrast applies to these. The
+ * alphas count in 255ths too, so a color and its 8-digit hex give the same result.
  */
 export function shownPair(fg: Oklch, fgAlpha: number, bg: Oklch, bgAlpha: number, page: Rgb): { fg: Rgb; bg: Rgb } {
-  const back = toRgb8(composite(oklchToRgb(bg), bgAlpha, page));
-  return { fg: toRgb8(composite(oklchToRgb(fg), fgAlpha, back)), bg: back };
+  const back = toRgb8(composite(oklchToRgb(bg), toAlpha8(bgAlpha), page));
+  return { fg: toRgb8(composite(oklchToRgb(fg), toAlpha8(fgAlpha), back)), bg: back };
 }
 
 /** WCAG contrast ratio, 1 to 21 */
