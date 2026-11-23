@@ -369,6 +369,14 @@ Fixed width-to-height ratio. `Img`, `Card`, `Row`, `Col` and `Stack` take these 
 
 `Text`, `Title`, `SectionTitle`, `PageTitle`, `Link`, `List`, `ListItem`, `Blockquote` and `Label` take `srOnly` from `@vaneui/ui` 1.8.0. It wins over the component's own width, padding and margin, so the text stays hidden whatever other props it has.
 
+## Skeleton
+
+| Prop | Description |
+|------|-------------|
+| `skeleton` | Show the component as a loading placeholder in its own layout. On a container it reaches every component inside |
+
+Every component takes `skeleton` from `@vaneui/ui` 1.8.0. Text turns into bars as long as each line, the box components (buttons, badges, fields, avatars, images, icons) into solid shapes of their own size, and a container keeps its surface and border. The element gets `aria-busy="true"` and `inert`. See [Skeleton](/docs/basic-components/skeleton).
+
 ## Blur
 
 Backdrop blur effect for overlays and visual effects.

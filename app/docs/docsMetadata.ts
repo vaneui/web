@@ -178,6 +178,12 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         description: 'Breadcrumb shows where a page sits in the site: a labelled nav with an ordered list of links that ends at the current page, marked with aria-current.',
         componentKey: "breadcrumb",
       },
+      {
+        slug: 'skeleton',
+        name: 'Skeleton',
+        description: 'The skeleton prop shows any component as a loading placeholder in its own layout, and on a container reaches everything inside. Skeleton is a plain box for custom areas.',
+        componentKey: "skeleton",
+      },
     ]
   },
   {
