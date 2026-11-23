@@ -1,13 +1,13 @@
 # VaneUI Documentation
 
-> Complete documentation for the VaneUI React component library (`@vaneui/ui` 1.7.2),
+> Complete documentation for the VaneUI React component library (`@vaneui/ui` 1.8.0),
 > every doc page concatenated into one file. Each page starts with `# <page name>`, its URL and
 > one import line for the `@vaneui/ui` exports its examples use. Component pages end with
 > their props, grouped by category with defaults marked, generated from the installed package.
 
 - Repository: https://github.com/vaneui/vaneui
 - Documentation: https://vaneui.com
-- Package: `@vaneui/ui` 1.7.2
+- Package: `@vaneui/ui` 1.8.0
 - Index: https://vaneui.com/llms.txt
 - Contact: hello@vaneui.com
 
@@ -273,7 +273,7 @@ Calculated from unit variables using base multipliers:
   --fs: calc(var(--fs-unit) * var(--fs-base));  /* --fs-base = 0.125rem */
   --py: calc(var(--py-unit) * var(--spacing));  /* --spacing = 0.25rem */
   --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing));
-  --br: calc(var(--br-unit) * var(--br-base));  /* --br-base = 0.25rem */
+  --br: calc(var(--br-unit) * var(--br-base) * var(--br-scale));  /* --br-base = 0.25rem, --br-scale = 1 */
   --gap: calc(var(--gap-unit) * var(--spacing));
 }
 ```
@@ -1569,6 +1569,7 @@ No. A `<button>` inside an `<a>` nests two interactive elements, which HTML does
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
 - Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft`, `textCenter` (default), `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -1789,6 +1790,7 @@ Yes. IconButton takes the same three variants as Button: `outline` (the default)
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
 - Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -2050,6 +2052,7 @@ NavLink's theme has two parts, `root` for the link and `label` for its text span
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
 - Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft` (default), `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -2149,6 +2152,20 @@ Badges support different font weights.
 </Row>
 ```
 
+## Status dot
+
+`dot` draws a small dot before the text, in the text color, for a status such as online, away or failing. With no text, the badge itself becomes the dot: an outline or ghost dot takes the text color and a filled one keeps its fill. Give a dot without text an `aria-label`, and it gets `role="img"`, so a screen reader reads the status. `dot` needs `@vaneui/ui` 1.8.0 or later.
+
+```tsx demo
+<Row flexWrap>
+  <Badge success dot>Online</Badge>
+  <Badge warning dot>Away</Badge>
+  <Badge danger filled dot>Failing</Badge>
+  <Badge success dot aria-label="Online"/>
+  <Badge danger filled dot aria-label="Failing"/>
+</Row>
+```
+
 ## As Link
 
 Pass `href` to render the badge as an `<a>`, useful for clickable status labels. When `href` is set, the badge gains a keyboard focus-visible outline by default (opt out with `noFocusVisible`).
@@ -2205,6 +2222,7 @@ Badge paints its own colors. It emits its appearance and variant, so a default B
 
 - Appearance: `primary`, `accent`, `secondary` (default), `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
 - Disabled: `disabled`
+- Dot: `dot`
 - Flex: `flex1`, `flexAuto`, `flexNone`
 - Font Family: `fontSans` (default), `fontSerif`, `fontMono`, `fontHeading`
 - Font Style: `italic`, `notItalic`
@@ -2214,6 +2232,7 @@ Badge paints its own colors. It emits its appearance and variant, so a default B
 - Shape: `pill` (default), `sharp`, `rounded`
 - Shrink: `noShrink`
 - Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -2452,6 +2471,7 @@ Pass `whitespaceNormal`. Chip defaults to `whitespaceNowrap`, so its label stays
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -2623,6 +2643,7 @@ Code defaults to the `secondary` appearance, a neutral tint. Pass another appear
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -2788,6 +2809,7 @@ Display a set of keyboard shortcuts in a structured layout.
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -2925,6 +2947,7 @@ Use Mark to highlight search matches within text content.
 - Shape: `pill`, `sharp` (default), `rounded`
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -3172,6 +3195,7 @@ Yes, as long as the icon renders an inline `<svg>`. Icon wraps whatever SVG elem
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink` (default)
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Variant: `filled`, `outline` (default), `ghost`
 
 Layout and utility props (Border, Display, Height, Hide, Items, Justify, Position, Responsive Width, Ring, Shadow, Show, Transition, Transparent, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
@@ -3333,6 +3357,7 @@ Alert is an inline message: it renders in the page flow where you place it, and 
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
@@ -3446,23 +3471,24 @@ Because the ring is sized in em, it matches the surrounding text without any man
 - Appearance: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance` (default)
 - Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin` (default)
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Variant: `filled`, `outline` (default), `ghost`
 
 Layout and utility props (Display, Hide, Show) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
 # Progress
 
-> Progress is a determinate bar for a task with a known size, such as an upload or a setup step. A role="progressbar" track whose fill grows with value.
+> Progress is a role="progressbar" bar for a task such as an upload or a setup step: a fill that grows with value, or a sliding fill when the length is unknown.
 
 Source: https://vaneui.com/docs/basic-components/progress
 
 Import: `import { Progress, Button, Card, Col, Row, Text, ThemeProvider } from "@vaneui/ui"`
 
-Progress is a determinate bar: it shows how much of a task with a known size is done, such as a file upload, an import or step 3 of 8 in a setup flow. It renders a `role="progressbar"` track with `aria-valuenow`, `aria-valuemin` and `aria-valuemax`, and a fill that grows with `value`. It takes no children, so a label or a percentage goes beside it. When the end of the wait is unknown, use [Spinner](/docs/basic-components/spinner) instead. Progress needs `@vaneui/ui` 1.4.5 or later.
+Progress shows how much of a task is done, such as a file upload, an import or step 3 of 8 in a setup flow. It renders a `role="progressbar"` track with `aria-valuenow`, `aria-valuemin` and `aria-valuemax`, and a fill that grows with `value`. When the length of the task is unknown, `indeterminate` slides a fill across the track instead. It takes no children, so a label or a percentage goes beside it. For a small busy mark inside a button or next to text, use [Spinner](/docs/basic-components/spinner). Progress needs `@vaneui/ui` 1.4.5 or later.
 
 ## Basic usage
 
-`value` is required and fills the bar against `max`, which is 100 by default. Give the bar an `aria-label`, since the track itself carries no text.
+`value` fills the bar against `max`, which is 100 by default, and is required unless the bar is `indeterminate`. Give the bar an `aria-label`, since the track itself carries no text.
 
 ```tsx demo
 <Progress value={40} aria-label="Upload"/>
@@ -3478,6 +3504,17 @@ Set `max` when the value counts something other than percent, such as steps or m
 <Col>
   <Progress value={3} max={8} aria-label="Setup, step 3 of 8"/>
   <Progress value={8} max={8} aria-label="Setup, step 8 of 8"/>
+</Col>
+```
+
+## Unknown length with indeterminate
+
+`indeterminate` is for work whose length is not known yet, such as a request waiting on a server or a sync that has not counted its files. A fill 40% of the track wide slides across it, the other way in a right-to-left layout, and stands still in the middle for users who ask for reduced motion. The bar leaves out `aria-valuenow`, so assistive technology reports it as busy rather than at a value. Switch to a `value` as soon as the total is known. `indeterminate` needs `@vaneui/ui` 1.8.0 or later.
+
+```tsx demo
+<Col>
+  <Progress indeterminate aria-label="Syncing files"/>
+  <Progress indeterminate success sm aria-label="Uploading"/>
 </Col>
 ```
 
@@ -3598,8 +3635,654 @@ Progress has two theme nodes for [themeDefaults](/docs/customization/theme-defau
 - Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin` (default)
 - Shape: `pill` (default), `sharp`, `rounded`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 
 Layout and utility props (Hide, Overflow, Responsive Width, Show, Transition, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
+
+# Avatar
+
+> Avatar is a picture of a person or a team: an image, the initials of the name when there is none, or a person icon. AvatarGroup overlaps several in one row.
+
+Source: https://vaneui.com/docs/basic-components/avatar
+
+Import: `import { Avatar, AvatarGroup, Col, Row, Text, ThemeProvider } from "@vaneui/ui"`
+
+Avatar is a small picture of a person, a team or a workspace: in a comment thread, a member list, a header or next to an assignee. It renders a `<span>` of a fixed size that shows the image from `src`, the initials of `name` when there is no image or it fails to load, or a person icon when there is neither. AvatarGroup shows several avatars as one overlapping row. For a photo that is part of the content, use [Img](/docs/layout-components/img). Avatar needs `@vaneui/ui` 1.8.0 or later.
+
+```tsx setup
+const photo = "/puppy.webp";
+```
+
+## Basic usage
+
+Pass the image in `src` and the person's name in `name`. The name becomes the image's text alternative, so a screen reader reads "Biscuit" for the avatar below.
+
+```tsx demo
+<Row>
+  <Avatar src={photo} name="Biscuit"/>
+  <Text>Biscuit commented on your pull request.</Text>
+</Row>
+```
+
+Pass `alt` when the text alternative should differ from the name. With neither `name` nor `alt`, the image is decorative and gets `alt=""`.
+
+## Initials and the person icon
+
+Without an image, Avatar shows the first letters of the first and last word of `name`, in upper case. An image that fails to load falls back to the same initials, and a new `src` is tried again. With no image and no name, Avatar shows a person icon that is hidden from assistive technology.
+
+```tsx demo
+<Row>
+  <Avatar name="Ada Lovelace"/>
+  <Avatar src="/missing-photo.png" name="Grace Brewster Hopper"/>
+  <Avatar name="élodie durand"/>
+  <Avatar/>
+</Row>
+```
+
+Initials get `role="img"` and the name as their `aria-label`, so the letters are read as the person's name rather than spelled out.
+
+## Sizes
+
+Size sets the box, the corner radius and the initials together: 24, 32, 40, 48 and 64px from `xs` to `xl`, with `md` (40px) as the default.
+
+```tsx demo
+<Row>
+  <Avatar xs name="Ada Lovelace"/>
+  <Avatar sm name="Ada Lovelace"/>
+  <Avatar name="Ada Lovelace"/>
+  <Avatar lg name="Ada Lovelace"/>
+  <Avatar xl name="Ada Lovelace"/>
+</Row>
+```
+
+## Appearances and variants
+
+The default is a neutral `secondary` `outline` circle with a thin edge. An appearance colors the initials and the icon, and `filled` paints the circle in the appearance color.
+
+```tsx demo
+<Col>
+  <Row>
+    <Avatar name="Ada Lovelace"/>
+    <Avatar primary name="Ada Lovelace"/>
+    <Avatar accent name="Ada Lovelace"/>
+    <Avatar success name="Ada Lovelace"/>
+    <Avatar info name="Ada Lovelace"/>
+  </Row>
+  <Row>
+    <Avatar filled name="Ada Lovelace"/>
+    <Avatar primary filled name="Ada Lovelace"/>
+    <Avatar accent filled name="Ada Lovelace"/>
+    <Avatar success filled name="Ada Lovelace"/>
+    <Avatar info filled name="Ada Lovelace"/>
+  </Row>
+</Col>
+```
+
+## Circle or square
+
+`pill` (a circle) is the default. `rounded` gives a square with corners a quarter of the size, which suits a team, a workspace or a company logo. `sharp` drops the corners.
+
+```tsx demo
+<Row>
+  <Avatar name="Design Team"/>
+  <Avatar rounded name="Design Team"/>
+  <Avatar sharp name="Design Team"/>
+  <Avatar rounded src={photo} name="Biscuit"/>
+</Row>
+```
+
+## Icons and other content
+
+Children take the place of the initials, so an Avatar can hold an icon or an emoji. With a `name`, the box still gets `role="img"` and the name as its label.
+
+```tsx demo
+<Row>
+  <Avatar rounded accent name="Billing">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+      <rect x="2" y="5" width="20" height="14" rx="2"/>
+      <path d="M2 10h20"/>
+    </svg>
+  </Avatar>
+  <Avatar name="Party">🎉</Avatar>
+</Row>
+```
+
+## Overlapping avatars with AvatarGroup
+
+AvatarGroup lays avatars out in one row, each overlapping the one before it by a quarter of its size, with a ring in the surface color between them. A size on the group reaches every avatar in it, and an avatar with its own size keeps it. Give the group an `aria-label`, since it renders `role="group"`.
+
+```tsx demo
+<AvatarGroup aria-label="Editors">
+  <Avatar src={photo} name="Biscuit"/>
+  <Avatar name="Ada Lovelace"/>
+  <Avatar name="Alan Turing"/>
+  <Avatar name="Grace Hopper"/>
+</AvatarGroup>
+```
+
+`max` shows that many avatars and counts the rest in one "+N" avatar. When only the first few people are loaded, `total` sets the full count, and the "+N" avatar counts against it.
+
+```tsx demo
+<Col>
+  <AvatarGroup lg max={3} aria-label="Reviewers">
+    <Avatar src={photo} name="Biscuit"/>
+    <Avatar name="Ada Lovelace"/>
+    <Avatar name="Alan Turing"/>
+    <Avatar name="Grace Hopper"/>
+    <Avatar name="Barbara Liskov"/>
+  </AvatarGroup>
+  <AvatarGroup sm total={12} aria-label="Members">
+    <Avatar name="Ada Lovelace"/>
+    <Avatar name="Alan Turing"/>
+    <Avatar name="Grace Hopper"/>
+  </AvatarGroup>
+</Col>
+```
+
+## Image attributes
+
+`imgProps` reaches the inner `<img>`, for `loading`, `referrerPolicy`, `srcSet` and an `onError` handler of your own, which still runs before the fallback to initials.
+
+```tsx demo
+<Avatar src={photo} name="Biscuit" imgProps={{ loading: 'lazy', decoding: 'async' }}/>
+```
+
+## Customizing
+
+Set app-wide defaults with `ThemeProvider`'s `themeDefaults`. Avatar and AvatarGroup each have their own node.
+
+```tsx demo
+<ThemeProvider themeDefaults={{
+  avatar: { rounded: true, primary: true },
+  avatarGroup: { sm: true },
+}}>
+  <AvatarGroup aria-label="Owners">
+    <Avatar name="Ada Lovelace"/>
+    <Avatar name="Alan Turing"/>
+  </AvatarGroup>
+</ThemeProvider>
+```
+
+## Frequently asked questions
+
+### What does Avatar show when the image fails to load?
+
+The initials of `name`, the same as with no `src` at all. Avatar listens to the image's `error` event, and a failure before React hydrates the page is caught too. When `src` changes, the new image is tried again. Without a `name`, a failed image falls back to the person icon.
+
+### Should I pass `name` or `alt`?
+
+Pass `name`. It gives the initials, and it is also the text alternative of the image, so one prop covers both. Use `alt` only when the image needs a different description, such as "Ada, profile photo". An avatar next to the person's name in text can drop both, since the image adds nothing to what the text already says.
+
+### How do I make an avatar a link or a button?
+
+Wrap it in a [Link](/docs/typography-components/link) or a [Button](/docs/basic-components/button) with an accessible name, or pass `tag` to render another element. Avatar itself has no `href` and no button semantics, so an `onClick` on it is not reachable from the keyboard.
+
+## Props
+
+- Appearance: `primary`, `accent`, `secondary` (default), `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
+- Font Weight: `fontThin`, `fontExtralight`, `fontLight`, `fontNormal`, `fontMedium` (default), `fontSemibold`, `fontBold`, `fontExtrabold`, `fontBlack`
+- Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin`
+- Shape: `pill` (default), `sharp`, `rounded`
+- Shrink: `noShrink` (default)
+- Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
+- Variant: `filled`, `outline` (default), `ghost`
+
+Layout and utility props (Border, Display, Hide, Items, Justify, Overflow, Position, Ring, Show) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
+
+## AvatarGroup props
+
+- Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin` (default)
+- Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
+
+Layout and utility props (Display, Flex Direction, Hide, Items, Justify, Overflow, Position, Show) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
+
+# Breadcrumb
+
+> Breadcrumb shows where a page sits in the site: a labelled nav with an ordered list of links that ends at the current page, marked with aria-current.
+
+Source: https://vaneui.com/docs/basic-components/breadcrumb
+
+Import: `import { Breadcrumb, BreadcrumbItem, Card, Col, PageTitle, ThemeProvider } from "@vaneui/ui"`
+
+Breadcrumb shows where the current page sits in the site's hierarchy, as a trail of links from the top level down to the page itself. It renders a `<nav>` landmark labelled "Breadcrumb" around an ordered list, one `<li>` per BreadcrumbItem, with a chevron between items that assistive technology skips. For the main navigation of a site or a section, use [NavLink](/docs/basic-components/navlink) in a sidebar or tab bar. Breadcrumb needs `@vaneui/ui` 1.8.0 or later.
+
+## Basic usage
+
+Each BreadcrumbItem with `href` renders a link. An item without `href` renders text. The last item is the current page: it gets `aria-current="page"` and the stronger text color.
+
+```tsx demo
+<Breadcrumb>
+  <BreadcrumbItem href="#home">Home</BreadcrumbItem>
+  <BreadcrumbItem href="#docs">Docs</BreadcrumbItem>
+  <BreadcrumbItem href="#components">Components</BreadcrumbItem>
+  <BreadcrumbItem>Breadcrumb</BreadcrumbItem>
+</Breadcrumb>
+```
+
+`sm`, `secondary` and `outline` are defaults, so a bare Breadcrumb has 14px text in the secondary text color, one step below body text.
+
+## Marking the current page
+
+When the current page is not the last item, for example in a trail that ends with a tab or a filter, set `current` on that item. An item with `current={false}` opts out, so a trail can mark no item at all.
+
+```tsx demo
+<Col>
+  <Breadcrumb>
+    <BreadcrumbItem href="#settings">Settings</BreadcrumbItem>
+    <BreadcrumbItem href="#billing" current>Billing</BreadcrumbItem>
+    <BreadcrumbItem href="#invoices">Invoices</BreadcrumbItem>
+  </Breadcrumb>
+  <Breadcrumb>
+    <BreadcrumbItem href="#settings">Settings</BreadcrumbItem>
+    <BreadcrumbItem href="#billing" current={false}>Billing</BreadcrumbItem>
+  </Breadcrumb>
+</Col>
+```
+
+## Separators
+
+`separator` replaces the chevron with any node: a character, an icon or an element of your own. The separator is drawn before every item but the first, in the tertiary text color, and is hidden from assistive technology.
+
+```tsx demo
+<Col>
+  <Breadcrumb separator="/">
+    <BreadcrumbItem href="#home">Home</BreadcrumbItem>
+    <BreadcrumbItem href="#projects">Projects</BreadcrumbItem>
+    <BreadcrumbItem>vaneui</BreadcrumbItem>
+  </Breadcrumb>
+  <Breadcrumb separator="·">
+    <BreadcrumbItem href="#home">Home</BreadcrumbItem>
+    <BreadcrumbItem href="#blog">Blog</BreadcrumbItem>
+    <BreadcrumbItem>Release notes</BreadcrumbItem>
+  </Breadcrumb>
+</Col>
+```
+
+## Sizes
+
+The size prop on Breadcrumb sets the text, the separator and the gap between items for the whole trail.
+
+```tsx demo
+<Col>
+  <Breadcrumb xs>
+    <BreadcrumbItem href="#home">Home</BreadcrumbItem>
+    <BreadcrumbItem>xs</BreadcrumbItem>
+  </Breadcrumb>
+  <Breadcrumb>
+    <BreadcrumbItem href="#home">Home</BreadcrumbItem>
+    <BreadcrumbItem>sm</BreadcrumbItem>
+  </Breadcrumb>
+  <Breadcrumb md>
+    <BreadcrumbItem href="#home">Home</BreadcrumbItem>
+    <BreadcrumbItem>md</BreadcrumbItem>
+  </Breadcrumb>
+  <Breadcrumb lg>
+    <BreadcrumbItem href="#home">Home</BreadcrumbItem>
+    <BreadcrumbItem>lg</BreadcrumbItem>
+  </Breadcrumb>
+  <Breadcrumb xl>
+    <BreadcrumbItem href="#home">Home</BreadcrumbItem>
+    <BreadcrumbItem>xl</BreadcrumbItem>
+  </Breadcrumb>
+</Col>
+```
+
+## Appearances
+
+An appearance on Breadcrumb colors the links and the current page. The default `secondary` keeps the trail quieter than the page title under it.
+
+```tsx demo
+<Col>
+  <Breadcrumb primary>
+    <BreadcrumbItem href="#home">Home</BreadcrumbItem>
+    <BreadcrumbItem>Primary</BreadcrumbItem>
+  </Breadcrumb>
+  <Breadcrumb accent>
+    <BreadcrumbItem href="#home">Home</BreadcrumbItem>
+    <BreadcrumbItem>Accent</BreadcrumbItem>
+  </Breadcrumb>
+  <Breadcrumb info>
+    <BreadcrumbItem href="#home">Home</BreadcrumbItem>
+    <BreadcrumbItem>Info</BreadcrumbItem>
+  </Breadcrumb>
+</Col>
+```
+
+## Long trails on narrow screens
+
+The list wraps, and each item keeps its text on one line, so a long trail breaks between items rather than inside one. The separator stays with the item that follows it.
+
+```tsx demo
+<Card className="max-w-xs">
+  <Breadcrumb>
+    <BreadcrumbItem href="#home">Home</BreadcrumbItem>
+    <BreadcrumbItem href="#docs">Documentation</BreadcrumbItem>
+    <BreadcrumbItem href="#components">Form components</BreadcrumbItem>
+    <BreadcrumbItem>Field sections</BreadcrumbItem>
+  </Breadcrumb>
+</Card>
+```
+
+## A page header with a breadcrumb
+
+Put the Breadcrumb above the page title, so the trail reads first and the title names the last item.
+
+```tsx demo
+<Col>
+  <Breadcrumb>
+    <BreadcrumbItem href="#projects">Projects</BreadcrumbItem>
+    <BreadcrumbItem href="#website">Website</BreadcrumbItem>
+    <BreadcrumbItem>Settings</BreadcrumbItem>
+  </Breadcrumb>
+  <PageTitle>Settings</PageTitle>
+</Col>
+```
+
+## Next.js Link integration
+
+Pass the router's link component through `tag`, like on [Button](/docs/basic-components/button) and [NavLink](/docs/basic-components/navlink). The item keeps its styles and `aria-current`, and the router handles the click:
+
+```tsx
+import Link from "next/link";
+
+<Breadcrumb>
+  <BreadcrumbItem tag={Link} href="/">Home</BreadcrumbItem>
+  <BreadcrumbItem tag={Link} href="/docs">Docs</BreadcrumbItem>
+  <BreadcrumbItem>Button</BreadcrumbItem>
+</Breadcrumb>
+```
+
+## Customizing
+
+Breadcrumb has four theme nodes: `breadcrumb.main` (the `<nav>`), `breadcrumb.list` (the `<ol>`), `breadcrumb.item` (each link or text) and `breadcrumb.separator`.
+
+```tsx demo
+<ThemeProvider themeDefaults={{
+  breadcrumb: { main: { md: true }, item: { fontMedium: true } },
+}}>
+  <Breadcrumb>
+    <BreadcrumbItem href="#home">Home</BreadcrumbItem>
+    <BreadcrumbItem>Customized</BreadcrumbItem>
+  </Breadcrumb>
+</ThemeProvider>
+```
+
+## Frequently asked questions
+
+### Should the last item be a link?
+
+No. The last item is the page you are on, so a link to it goes nowhere. Leave out its `href`, and it renders as text with `aria-current="page"`. Give it an `href` only when the item stands for a parent view, such as a list the current page was opened from.
+
+### How do I translate the "Breadcrumb" label?
+
+Pass `aria-label` on Breadcrumb, for example `aria-label="Fil d'Ariane"`. It replaces the default label of the `<nav>` landmark, which screen reader users hear when they move between landmarks.
+
+### Can a page have more than one Breadcrumb?
+
+It can, but each `<nav>` landmark then needs a label of its own, such as "Breadcrumb" and "Related sections", so screen reader users can tell them apart. Most pages need one trail, at the top of the main content.
+
+## Props
+
+- Appearance: `primary`, `accent`, `secondary` (default), `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
+- Font Family: `fontSans` (default), `fontSerif`, `fontMono`, `fontHeading`
+- Font Weight: `fontThin`, `fontExtralight`, `fontLight`, `fontNormal`, `fontMedium`, `fontSemibold`, `fontBold`, `fontExtrabold`, `fontBlack`
+- Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin`
+- Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Skeleton: `skeleton`
+- Variant: `filled`, `outline` (default), `ghost`
+
+Layout and utility props (Display, Hide, Items, Justify, Overflow, Position, Show) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
+
+## BreadcrumbItem props
+
+- Font Weight: `fontThin`, `fontExtralight`, `fontLight`, `fontNormal`, `fontMedium`, `fontSemibold`, `fontBold`, `fontExtrabold`, `fontBlack`
+
+Layout and utility props (Cursor, Focus Visible, Transition, Whitespace) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
+
+# Skeleton
+
+> The skeleton prop shows any component as a loading placeholder in its own layout, and on a container reaches everything inside. Skeleton is a plain box for custom areas.
+
+Source: https://vaneui.com/docs/basic-components/skeleton
+
+Import: `import { Skeleton, Avatar, Badge, Button, Card, Checkbox, Col, Input, Label, NavLink, Row, Switch, Table, Tbody, Td, Text, Th, Thead, ThemeProvider, Title, Tr } from "@vaneui/ui"`
+
+A skeleton is a placeholder that holds the shape of content while it loads. In VaneUI it is a prop, not a separate set of components: add `skeleton` to a component and it is drawn as a placeholder in its own layout, at its own size. On a container, every component inside turns into a placeholder too. For an area that has no component of its own, such as a chart or a map, use the `Skeleton` box. Both need `@vaneui/ui` 1.8.0 or later.
+
+```tsx setup
+const photo = "/puppy.webp";
+```
+
+## Turn a card into a placeholder with one prop
+
+`skeleton` on a [Card](/docs/layout-components/card) reaches everything inside it. Text turns into bars, one per line and as long as the line. Buttons, badges, fields and avatars turn into solid shapes of their own size and corners. The Card keeps its surface and border, so the page reads before the data arrives.
+
+```tsx demo
+<Row tabletStack itemsStart>
+  <Card skeleton className="w-80">
+    <Row>
+      <Avatar src={photo} name="Biscuit"/>
+      <Col noGap>
+        <Title sm>Biscuit</Title>
+        <Text sm secondary>Head of snacks</Text>
+      </Col>
+    </Row>
+    <Text>Reviews every pull request that mentions treats, usually within the hour.</Text>
+    <Row>
+      <Badge success dot>Online</Badge>
+      <Button filled>Follow</Button>
+    </Row>
+  </Card>
+  <Card className="w-80">
+    <Row>
+      <Avatar src={photo} name="Biscuit"/>
+      <Col noGap>
+        <Title sm>Biscuit</Title>
+        <Text sm secondary>Head of snacks</Text>
+      </Col>
+    </Row>
+    <Text>Reviews every pull request that mentions treats, usually within the hour.</Text>
+    <Row>
+      <Badge success dot>Online</Badge>
+      <Button filled>Follow</Button>
+    </Row>
+  </Card>
+</Row>
+```
+
+## Switch between loading and loaded
+
+Render the real components while the data loads and pass the loading state to `skeleton`. A text with no data yet draws one bar 12 characters long, so the components need no filler text. The placeholders take the size and lines of the finished content, so nothing moves when it arrives.
+
+```tsx demo
+const [loading, setLoading] = useState(true);
+const user = loading ? undefined : { name: 'Biscuit', role: 'Head of snacks' };
+
+return (
+  <Col>
+    <Label row>
+      <Checkbox checked={loading} onChange={() => setLoading(!loading)}/>
+      Loading
+    </Label>
+    <Card skeleton={loading} className="w-80">
+      <Row>
+        <Avatar src={user ? photo : undefined} name={user?.name}/>
+        <Col noGap>
+          <Title sm>{user?.name}</Title>
+          <Text sm secondary>{user?.role}</Text>
+        </Col>
+      </Row>
+      <Button filled>Follow</Button>
+    </Card>
+  </Col>
+);
+```
+
+For a bar closer to the loaded length, pass placeholder text of about that length, such as `{user?.role ?? 'Head of snacks'}`. It is never shown or read while `skeleton` is on, and two sentences of filler give a two-line bar where a two-line bio goes.
+
+## Bars for text that has not loaded yet
+
+A text with nothing in it yet draws one bar 12 characters long and one line tall, at the text's own size. An empty Button, Badge, Chip, Code, Kbd or Mark takes the room of a 6-character label, at its usual height. This covers a Text, Title, Link, ListItem, Blockquote, table cell, NavLink, MenuItem or BreadcrumbItem whose data is still `undefined`:
+
+```tsx demo
+<Card skeleton className="w-80">
+  <Row>
+    <Avatar/>
+    <Col noGap>
+      <Title sm/>
+      <Text sm secondary/>
+    </Col>
+  </Row>
+  <Text/>
+  <Row>
+    <Badge success/>
+    <Button filled/>
+  </Row>
+</Card>
+```
+
+Set `--skeleton-text-width` to change the length of those text bars, and `--skeleton-label-width` for the empty boxes. A Badge with `dot` and no text stays a dot.
+
+```css
+.loading-list {
+  --skeleton-text-width: 100%;
+}
+```
+
+## What each component turns into
+
+| Component | Placeholder |
+|------|-------------|
+| Text, titles, links, labels, list items, table cells, NavLink and MenuItem text | A bar per line, as long as the line, at the text's own size |
+| Button, IconButton, Badge, Chip, Code, Kbd, Mark | A solid shape of the same size and corners |
+| Input, Textarea, Select, Checkbox, Radio, Switch, Progress, Spinner | A solid shape of the control, without its value, check mark, sections or chevron |
+| Avatar, Img, Icon and bare `<svg>` icons | A solid shape of the same size |
+| Card, Row, Col, Stack, Section, Table, Field, Alert and other containers | Their own surface and border stay; their content turns into placeholders |
+
+Put text in a component of its own, such as `Text`, rather than straight inside a `Row`, `Col`, `Card`, `Stack`, `Section` or `Container`. Safari draws a bar over text that sits straight in one of those layout containers as a thin line, while Chrome and Firefox draw the full bar.
+
+All placeholders share one fill, so a bar that runs over a shape adds nothing to it. A component that carries `skeleton` itself turns into a placeholder in the same way, whatever it sits in:
+
+```tsx demo
+<Row flexWrap>
+  <Button skeleton>Save changes</Button>
+  <Badge skeleton>Paid</Badge>
+  <Input skeleton aria-label="Email" placeholder="you@example.com" wFit/>
+  <Switch skeleton aria-label="Notifications" defaultChecked/>
+  <Text skeleton>Last synced a minute ago</Text>
+</Row>
+```
+
+## Lists, tables and navigation
+
+The prop works the same on any container, so a table or a sidebar keeps its rows, lines and active item while the bars stand in for the text.
+
+```tsx demo
+<Row tabletStack itemsStart>
+  <Col skeleton noGap className="w-56">
+    <NavLink href="#home" active>Dashboard</NavLink>
+    <NavLink href="#projects">Projects</NavLink>
+    <NavLink href="#settings">Settings</NavLink>
+  </Col>
+  <Table skeleton>
+    <Thead><Tr><Th>Name</Th><Th>Role</Th></Tr></Thead>
+    <Tbody>
+      <Tr><Td>Biscuit</Td><Td>Head of snacks</Td></Tr>
+      <Tr><Td>Pepper</Td><Td>Night watch</Td></Tr>
+    </Tbody>
+  </Table>
+</Row>
+```
+
+## The Skeleton box for areas with no component
+
+`Skeleton` is a plain box. It is full width and one line of text tall at its size, from 18px at `xs` to 30px at `xl`, with corners that follow the size. Aspect props, a height or a class set its shape. Use it for a chart, a map, an embed or any block you draw yourself.
+
+```tsx demo
+<Row itemsStart flexWrap>
+  <Skeleton aspectVideo className="w-64"/>
+  <Col className="w-64">
+    <Skeleton xs/>
+    <Skeleton/>
+    <Skeleton xl/>
+    <Skeleton className="h-16"/>
+  </Col>
+  <Skeleton pill aspectSquare className="w-12"/>
+</Row>
+```
+
+For a component that VaneUI has, prefer the component with `skeleton` over a box of the same size: an `Avatar` keeps its exact size and shape, and the swap to the loaded content does not move the layout.
+
+## Focus, clicks and screen readers
+
+The element with `skeleton` gets `aria-busy="true"` and the `inert` attribute. Nothing inside it takes focus, clicks or text selection, so a placeholder button cannot be pressed. `inert` also hides the placeholder from screen readers, which is right for placeholder text, so tell them about the wait in a status message outside it:
+
+```tsx
+<Col>
+  <Text srOnly role="status">{loading ? 'Loading profile' : ''}</Text>
+  <Card skeleton={loading}>...</Card>
+</Col>
+```
+
+The `Skeleton` box is decorative and renders `aria-hidden="true"`.
+
+## Pulse and reduced motion
+
+The placeholders pulse between two shades of the fill. The pulse runs on the outermost element with `skeleton`, so every placeholder inside it pulses in step, and the surface of the container stays still. With `prefers-reduced-motion: reduce`, the placeholders do not move.
+
+## Placeholder color and dark mode
+
+The fill is a light shade of the secondary text color, mixed into the page surface, so it follows the theme: a dark subtree or a page with `data-theme="dark"` gets a dark fill. Set `--skeleton-color` to tint it:
+
+```css
+.brand-skeletons {
+  --skeleton-color: var(--color-text-info);
+}
+```
+
+## Customizing
+
+`skeleton` is a boolean prop like any other, so `themeDefaults` can turn it on for a component node, and the Skeleton box has its own `skeleton` node for its defaults.
+
+```tsx demo
+<ThemeProvider themeDefaults={{ skeleton: { pill: true, sm: true } }}>
+  <Col className="w-64">
+    <Skeleton/>
+    <Skeleton className="w-1/2"/>
+  </Col>
+</ThemeProvider>
+```
+
+## Frequently asked questions
+
+### Do I need a separate skeleton layout for each page?
+
+No. Render the page you already have with `skeleton` on the container that waits for data. Text that has not arrived draws a default bar, and placeholder text of the expected length draws a closer one. The placeholders keep the same sizes and positions as the loaded content, so there is one layout to maintain and the page does not jump when the data arrives.
+
+### Why is a placeholder missing?
+
+A component that is not rendered draws nothing, as in `{user && <Text>{user.bio}</Text>}`. Render the component and leave its text empty while it loads, `<Text>{user?.bio}</Text>`, and it draws a default bar. For an area with no text at all, such as a chart, use the `Skeleton` box with a size or an aspect prop.
+
+### Can a part of a card stay live while the rest loads?
+
+Put `skeleton` on the part that waits instead of on the card. The prop reaches only the components inside the element that carries it, so a `Col skeleton` inside a Card turns that column into placeholders and leaves the header and its buttons usable.
+
+### Does `skeleton` change the HTML that is rendered?
+
+It adds three attributes to the element that carries it: `data-skeleton`, `aria-busy="true"` and `inert`. The components inside it render the same elements as before. The placeholder look comes from the stylesheet, so it also applies to server-rendered HTML before hydration.
+
+## Props
+
+- Aspect: `aspectSquare`, `aspectVideo`, `aspectAuto`
+- Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin`
+- Shape: `pill`, `sharp`, `rounded` (default)
+- Shrink: `noShrink`
+- Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton` (default)
+
+Layout and utility props (Display, Height, Hide, Items, Justify, Overflow, Position, Responsive Width, Show, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
 # Forms
 
@@ -3964,7 +4647,7 @@ VaneUI draws the invalid state from the `invalid` prop and a Field's `error`, no
 
 Source: https://vaneui.com/docs/form-components/input
 
-Import: `import { Input, Button, Col, Label, Row, ThemeProvider } from "@vaneui/ui"`
+Import: `import { Input, Button, Col, Kbd, Label, Row, ThemeProvider } from "@vaneui/ui"`
 
 Input takes a single-line value, such as a name, an email address or a search query, and renders a native `<input>`. With `invalid` set, it adds `aria-invalid="true"` and a trailing alert icon that screen readers skip. Text that runs over several lines needs a [Textarea](/docs/form-components/textarea), and a [Field](/docs/form-components/field) around an Input links its label, help text and error message.
 
@@ -4081,7 +4764,45 @@ Different input states: disabled, readonly, and validation feedback. Use appeara
 </Col>
 ```
 
-Input renders a wrapper `<span>` around the `<input>`. While the input is valid the wrapper is `display: contents`, so it adds no box, and `ref`, `className` and `style` go to the `<input>`. The `<input>` stays the same node when `invalid` changes, so the field keeps focus and its text while it is validated as the user types. Before `@vaneui/ui` 1.6.0 the wrapper was rendered only while the input was invalid. A selector that expects the `<input>` as a direct child of its parent, such as `.form > input`, does not match.
+Input renders a wrapper `<span>` around the `<input>`. While the input is valid and has no section, the wrapper is `display: contents`, so it adds no box, and `ref`, `className` and `style` go to the `<input>`. The `<input>` stays the same node when `invalid` changes, so the field keeps focus and its text while it is validated as the user types. Before `@vaneui/ui` 1.6.0 the wrapper was rendered only while the input was invalid. A selector that expects the `<input>` as a direct child of its parent, such as `.form > input`, does not match.
+
+## Icons, prefixes and units inside the field
+
+`startSection` and `endSection` put content inside the field, at its start and end: a search icon, a prefix such as `https://`, a unit, a keyboard hint or a button. The field reserves the measured width of each section, so a long prefix pushes the text as far as it needs, and the section takes the field's size. Sections need `@vaneui/ui` 1.8.0 or later.
+
+```tsx demo
+<Col className="max-w-sm">
+  <Input aria-label="Search" placeholder="Search docs" startSection={
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+      <circle cx="11" cy="11" r="7"/>
+      <path d="M20 20l-3.5-3.5"/>
+    </svg>
+  }/>
+  <Input aria-label="Website" startSection="https://" placeholder="vaneui.com"/>
+  <Input aria-label="Weight" type="number" defaultValue="72" endSection="kg"/>
+  <Input lg aria-label="Command" placeholder="Run a command" endSection={<Kbd>⌘K</Kbd>}/>
+</Col>
+```
+
+A section ignores the pointer, so a click on an icon or a unit focuses the field. A button or a link inside a section stays clickable. Give an icon-only button an `aria-label`, and `type="button"` inside a form:
+
+```tsx demo
+const [query, setQuery] = useState('');
+
+return (
+  <Input
+    aria-label="Search"
+    placeholder="Type to search"
+    value={query}
+    onChange={event => setQuery(event.target.value)}
+    endSection={query ? (
+      <Button type="button" xs ghost secondary onClick={() => setQuery('')}>Clear</Button>
+    ) : null}
+  />
+);
+```
+
+The `<input>` stays the same node when a section appears or goes away, so the field keeps focus and its text. With a section, the wrapper becomes the box the sections sit in: `className`, `wFit` and the other width props, and the sizing part of `style` (width, margin, flex) go to the wrapper, and `ref` and the other attributes stay on the `<input>`. An invalid field shows the alert icon just inside an end section. [Field](/docs/form-components/field) passes `startSection` and `endSection` to the Input it renders.
 
 ## Customizing
 
@@ -4108,7 +4829,7 @@ Each control has its own theme node. `themeDefaults={{ input: { md: true } }}` s
 
 ### How do I put an icon or a button inside an Input?
 
-Input has no slot for one, and while the value is invalid its trailing edge holds the alert icon. Place the icon, or an [IconButton](/docs/basic-components/icon-button), next to the Input in a `Row`, as the password toggle under [Submit, reset and button types](/docs/form-components/forms#submit-reset-and-button-types) does. Give that IconButton `type="button"` so it does not submit the form, and an `aria-label` for its name.
+Pass it in `startSection` or `endSection`, as [Icons, prefixes and units inside the field](#icons-prefixes-and-units-inside-the-field) shows. The field reserves room for it, and an invalid field puts the alert icon next to an end section. Give a button there `type="button"` so it does not submit the form, and an `aria-label` when it has no text. Before `@vaneui/ui` 1.8.0, place the icon or an [IconButton](/docs/basic-components/icon-button) next to the Input in a `Row` instead.
 
 ## Props
 
@@ -4123,6 +4844,7 @@ Input has no slot for one, and while the value is invalid its trailing edge hold
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
 - Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -4430,6 +5152,7 @@ A checked Checkbox adds its `value` to the form data, or `"on"` when it has no `
 - Read Only: `readOnly`
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Validity: `invalid`
 - Variant: `filled` (default), `outline`, `ghost`
 
@@ -4644,6 +5367,8 @@ A `<label>` passes its clicks and its text only to labelable native elements, su
 - Font Weight: `fontThin`, `fontExtralight`, `fontLight`, `fontNormal`, `fontMedium` (default), `fontSemibold`, `fontBold`, `fontExtrabold`, `fontBlack`
 - Shrink: `noShrink`
 - Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Skeleton: `skeleton`
+- Sr Only: `srOnly`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -4913,6 +5638,7 @@ The message is a `<p>` linked to the control with `aria-describedby`, not a live
 - Shape: `pill`, `sharp` (default), `rounded`
 - Shrink: `noShrink`
 - Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
@@ -4996,6 +5722,25 @@ Note that the value itself never turns red. Colouring what the user typed hurts 
 </Col>
 ```
 
+## Growing with the text
+
+`autosize` makes the box grow as the user types, from its minimum height (three lines, or `rows`) up, and drops the resize handle. Browsers with `field-sizing: content` size it in CSS; in the others, Textarea fits the height to the text on every input. Set a `max-h-*` class to stop the growth, and the box scrolls from there. `autosize` needs `@vaneui/ui` 1.8.0 or later.
+
+```tsx demo
+<Textarea autosize rows={2} placeholder="Type a few lines, the box grows with them"/>
+```
+
+## Resize handle
+
+The default `resizeY` lets the user drag the box taller. `resizeNone` removes the handle, `resizeX` resizes the width and `resize` both. These props need `@vaneui/ui` 1.8.0 or later.
+
+```tsx demo
+<Col>
+  <Textarea resizeNone placeholder="resizeNone: a fixed box"/>
+  <Textarea resize placeholder="resize: drag in both directions"/>
+</Col>
+```
+
 ## With a label and help text
 
 ```tsx demo
@@ -5008,11 +5753,11 @@ Note that the value itself never turns red. Colouring what the user typed hurts 
 
 ### How do I set the height of a Textarea?
 
-Pass `rows`. Without `rows`, a Textarea is at least three lines tall; with `rows` set, that minimum no longer applies, so `rows={2}` gives a two-line box and `rows={8}` a taller one. The font size follows the size prop, so the same `rows` gives a taller box at `lg` than at `sm`. The user can still drag the bottom edge to resize it.
+Pass `rows`. Without `rows`, a Textarea is at least three lines tall; with `rows` set, that minimum no longer applies, so `rows={2}` gives a two-line box and `rows={8}` a taller one. The font size follows the size prop, so the same `rows` gives a taller box at `lg` than at `sm`. The user can still drag the bottom edge to resize it, unless you pass `resizeNone`.
 
 ### Can a Textarea grow with its content?
 
-Not by itself: Textarea adds no auto-grow, and the user resizes it by dragging, since it resizes vertically by default. The CSS `field-sizing: content` property makes a textarea grow with its text in browsers that support it, so set it in a class of your own stylesheet. To turn off manual resizing, pass `style={{ resize: 'none' }}`, which wins over the stylesheet.
+Yes, with `autosize`, as [Growing with the text](#growing-with-the-text) shows. It uses `field-sizing: content` where the browser has it and fits the height to the text on every input where it does not. To turn off manual resizing without the growth, pass `resizeNone`. Before `@vaneui/ui` 1.8.0, set `field-sizing: content` in a class of your own and `style={{ resize: 'none' }}`.
 
 ### How do I show a character count?
 
@@ -5021,6 +5766,7 @@ Make the Textarea controlled, set `maxLength`, and put the count in the `descrip
 ## Props
 
 - Appearance: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
+- Autosize: `autosize`
 - Disabled: `disabled`
 - Flex: `flex1`, `flexAuto`, `flexNone`
 - Font Family: `fontSans` (default), `fontSerif`, `fontMono`, `fontHeading`
@@ -5028,9 +5774,11 @@ Make the Textarea controlled, set `maxLength`, and put the count in the `descrip
 - Font Weight: `fontThin`, `fontExtralight`, `fontLight`, `fontNormal` (default), `fontMedium`, `fontSemibold`, `fontBold`, `fontExtrabold`, `fontBlack`
 - Padding: `padding` (default), `paddingX`, `paddingY`, `noPadding`
 - Read Only: `readOnly`
+- Resize: `resizeY` (default), `resizeX`, `resize`, `resizeNone`
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
 - Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -5245,6 +5993,23 @@ An `optgroup` labels a run of related options, and the placeholder stays above t
 </Field>
 ```
 
+## Icon or prefix at the start
+
+`startSection` puts an icon or a short prefix inside the field, before the selected option. The field reserves the measured width of the section, and the section takes the field's size. The end of a Select holds its chevron, so it takes no `endSection`. Sections need `@vaneui/ui` 1.8.0 or later.
+
+```tsx demo
+<Select aria-label="Region" className="max-w-xs" startSection={
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+    <circle cx="12" cy="12" r="9"/>
+    <path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/>
+  </svg>
+}>
+  <option>Europe</option>
+  <option>North America</option>
+  <option>Asia Pacific</option>
+</Select>
+```
+
 ## Frequently asked questions
 
 ### Can a Select filter its options as the user types?
@@ -5272,6 +6037,7 @@ Set its `value` to an empty string. The `placeholder` renders as a first option 
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
 - Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -5289,7 +6055,7 @@ Source: https://vaneui.com/docs/form-components/radio
 
 Import: `import { Radio, RadioGroup, Col, Field, Label, Row, Text } from "@vaneui/ui"`
 
-Radio fits a short set of choices that should all stay visible. Each one is a native `<input type="radio">`, so the browser moves the selection with the arrow keys inside a group. RadioGroup takes `value`, `defaultValue` and `onChange` for the whole set and matches each option by its `value` prop. For a long list, use a [Select](/docs/form-components/select); when more than one option can be on, use [Checkbox](/docs/form-components/checkbox).
+Radio fits a short set of choices that should all stay visible. Each one is a native `<input type="radio">`, so the browser moves the selection with the arrow keys inside a group. RadioGroup takes `value`, `defaultValue` and `onChange` for the whole set and matches each option by its `value` prop. For a long list, use a [Select](/docs/form-components/select); for a few short options shown side by side, such as a filter, use a [SegmentedControl](/docs/form-components/segmented-control); when more than one option can be on, use [Checkbox](/docs/form-components/checkbox).
 
 ## Basic usage
 
@@ -5447,10 +6213,258 @@ Yes. Radios that share a `name` are mutually exclusive in the browser, as in the
 - Read Only: `readOnly`
 - Shape: `pill` (default), `sharp`, `rounded`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Validity: `invalid`
 - Variant: `filled` (default), `outline`, `ghost`
 
 Layout and utility props (Align Self, Border, Cursor, Display, Focus Visible, Height, Hide, Items, Justify, Overflow, Position, Responsive Sizing, Responsive Width, Ring, Shadow, Show, Transition, Transparent, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
+
+# SegmentedControl
+
+> SegmentedControl picks one option out of a few short ones shown side by side, such as a status filter or a view switch. Each segment is a native radio.
+
+Source: https://vaneui.com/docs/form-components/segmented-control
+
+Import: `import { SegmentedControl, SegmentedControlItem, Button, Col, Field, Row, Text, ThemeProvider } from "@vaneui/ui"`
+
+SegmentedControl picks one option out of a few short ones that sit side by side, such as a status filter, a list or grid view, or a billing period. Each segment is a native radio inside a `<label>`, so a click anywhere on it selects it, the arrow keys move the selection and a form submits the value. For a long list of options, use a [Select](/docs/form-components/select); for options that need a line of description each, use a [Radio](/docs/form-components/radio) group; to move between pages, use [NavLink](/docs/basic-components/navlink) with `indicatorBottom`. SegmentedControl needs `@vaneui/ui` 1.8.0 or later.
+
+## Basic usage
+
+Give each `SegmentedControlItem` a `value`, and the control an `aria-label` or a [Field](/docs/form-components/field) label. `defaultValue` selects a segment without state.
+
+```tsx demo
+<SegmentedControl aria-label="Status" defaultValue="open">
+  <SegmentedControlItem value="all">All</SegmentedControlItem>
+  <SegmentedControlItem value="open">Open</SegmentedControlItem>
+  <SegmentedControlItem value="closed">Closed</SegmentedControlItem>
+</SegmentedControl>
+```
+
+The control renders `role="radiogroup"` on a neutral track. The selected segment is raised as a surface with a shadow, and a thin line separates two segments that are not selected.
+
+## Filter a list with a controlled value
+
+`value` and `onChange` work as on `RadioGroup`: `onChange` receives the change event of the radio, and `event.target.value` is the segment's `value`.
+
+```tsx demo
+const issues = [
+  { title: 'Focus ring is cut off in Safari', status: 'open' },
+  { title: 'Add a dark theme to the docs', status: 'closed' },
+  { title: 'Table header loses its color', status: 'open' },
+];
+const [status, setStatus] = useState('all');
+const shown = issues.filter(issue => status === 'all' || issue.status === status);
+
+return (
+  <Col>
+    <SegmentedControl aria-label="Status" value={status} onChange={event => setStatus(event.target.value)}>
+      <SegmentedControlItem value="all">All</SegmentedControlItem>
+      <SegmentedControlItem value="open">Open</SegmentedControlItem>
+      <SegmentedControlItem value="closed">Closed</SegmentedControlItem>
+    </SegmentedControl>
+    {shown.map(issue => <Text key={issue.title}>{issue.title}</Text>)}
+  </Col>
+);
+```
+
+## Sizes match Button and Input
+
+The control is `sm` by default, as are Button and Input, and at every size it is as tall as a Button of that size, with the same corners. The size reaches the segments, so their text, padding and icons follow it.
+
+```tsx demo
+<Col>
+  {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+    <Row key={size}>
+      <SegmentedControl {...{ [size]: true }} aria-label={`Period, ${size}`} defaultValue="week">
+        <SegmentedControlItem value="day">Day</SegmentedControlItem>
+        <SegmentedControlItem value="week">Week</SegmentedControlItem>
+        <SegmentedControlItem value="month">Month</SegmentedControlItem>
+      </SegmentedControl>
+      <Button {...{ [size]: true }}>Apply</Button>
+    </Row>
+  ))}
+</Col>
+```
+
+## Colors and variants of the selected segment
+
+The appearance and the variant color the selected segment, and the track stays neutral. `outline`, the default, raises a segment in the page color with a border in the appearance color; `filled` fills it with the appearance color; `ghost` drops the track and tints the selected segment.
+
+```tsx demo
+<Col>
+  <SegmentedControl accent aria-label="View, accent outline" defaultValue="board">
+    <SegmentedControlItem value="list">List</SegmentedControlItem>
+    <SegmentedControlItem value="board">Board</SegmentedControlItem>
+    <SegmentedControlItem value="calendar">Calendar</SegmentedControlItem>
+  </SegmentedControl>
+  <SegmentedControl accent filled aria-label="View, accent filled" defaultValue="board">
+    <SegmentedControlItem value="list">List</SegmentedControlItem>
+    <SegmentedControlItem value="board">Board</SegmentedControlItem>
+    <SegmentedControlItem value="calendar">Calendar</SegmentedControlItem>
+  </SegmentedControl>
+  <SegmentedControl accent ghost aria-label="View, accent ghost" defaultValue="board">
+    <SegmentedControlItem value="list">List</SegmentedControlItem>
+    <SegmentedControlItem value="board">Board</SegmentedControlItem>
+    <SegmentedControlItem value="calendar">Calendar</SegmentedControlItem>
+  </SegmentedControl>
+</Col>
+```
+
+A segment with its own appearance or variant keeps it, which suits a choice where each option has a meaning of its own:
+
+```tsx demo
+<SegmentedControl filled aria-label="Result" defaultValue="passed">
+  <SegmentedControlItem value="passed" success>Passed</SegmentedControlItem>
+  <SegmentedControlItem value="failed" danger>Failed</SegmentedControlItem>
+  <SegmentedControlItem value="skipped">Skipped</SegmentedControlItem>
+</SegmentedControl>
+```
+
+## Shapes
+
+`rounded` is the default. `pill` and `sharp` reach the track and the segments together.
+
+```tsx demo
+<Col>
+  <SegmentedControl pill aria-label="Billing, pill" defaultValue="year">
+    <SegmentedControlItem value="month">Monthly</SegmentedControlItem>
+    <SegmentedControlItem value="year">Yearly</SegmentedControlItem>
+  </SegmentedControl>
+  <SegmentedControl sharp aria-label="Billing, sharp" defaultValue="year">
+    <SegmentedControlItem value="month">Monthly</SegmentedControlItem>
+    <SegmentedControlItem value="year">Yearly</SegmentedControlItem>
+  </SegmentedControl>
+</Col>
+```
+
+## Icons in segments
+
+An icon takes the size of the segment's text. A segment with only an icon needs an `aria-label`, which goes to its radio.
+
+```tsx demo
+<Row flexWrap>
+  <SegmentedControl md aria-label="Color scheme" defaultValue="light">
+    <SegmentedControlItem value="light"><Sun /> Light</SegmentedControlItem>
+    <SegmentedControlItem value="dark"><Moon /> Dark</SegmentedControlItem>
+    <SegmentedControlItem value="system"><Monitor /> System</SegmentedControlItem>
+  </SegmentedControl>
+  <SegmentedControl md aria-label="Layout" defaultValue="grid">
+    <SegmentedControlItem value="rows" aria-label="Rows"><AlignJustify /></SegmentedControlItem>
+    <SegmentedControlItem value="grid" aria-label="Grid"><Grid /></SegmentedControlItem>
+  </SegmentedControl>
+</Row>
+```
+
+## Fill the width
+
+`wFull` stretches the control to the width of its container and shares it out between the segments.
+
+```tsx demo
+<SegmentedControl wFull aria-label="Billing" defaultValue="year">
+  <SegmentedControlItem value="month">Monthly</SegmentedControlItem>
+  <SegmentedControlItem value="year">Yearly</SegmentedControlItem>
+</SegmentedControl>
+```
+
+## Disabled segments and controls
+
+`disabled` on a segment dims it and the arrow keys skip it. `disabled` on the control dims every segment and keeps the selection.
+
+```tsx demo
+<Col>
+  <SegmentedControl aria-label="Period" defaultValue="week">
+    <SegmentedControlItem value="day">Day</SegmentedControlItem>
+    <SegmentedControlItem value="week">Week</SegmentedControlItem>
+    <SegmentedControlItem value="month" disabled>Month</SegmentedControlItem>
+  </SegmentedControl>
+  <SegmentedControl disabled aria-label="Period, disabled" defaultValue="week">
+    <SegmentedControlItem value="day">Day</SegmentedControlItem>
+    <SegmentedControlItem value="week">Week</SegmentedControlItem>
+    <SegmentedControlItem value="month">Month</SegmentedControlItem>
+  </SegmentedControl>
+</Col>
+```
+
+## In a form or a Field
+
+Inside a [Field](/docs/form-components/field), the control is labelled by the Field's label and described by its help text, and it takes the Field's `disabled` and `required`. `name` is the key the form submits; without one the control generates a name, so its segments still act as one group.
+
+```tsx demo
+<form onSubmit={event => event.preventDefault()}>
+  <Col>
+    <Field label="Delivery" description="Express arrives the next working day.">
+      <SegmentedControl name="delivery" defaultValue="standard">
+        <SegmentedControlItem value="standard">Standard</SegmentedControlItem>
+        <SegmentedControlItem value="express">Express</SegmentedControlItem>
+        <SegmentedControlItem value="pickup">Pickup</SegmentedControlItem>
+      </SegmentedControl>
+    </Field>
+    <Button type="submit" filled>Continue</Button>
+  </Col>
+</form>
+```
+
+## Keyboard and screen readers
+
+Tab moves the focus to the selected segment, and the arrow keys move the selection to the previous or next segment, as in any radio group. The focus ring is drawn on the segment itself, inside the track. Screen readers announce the control as a radio group with its label, and each segment as a radio button with its text and its position, such as "Open, radio button, 2 of 3".
+
+A segment's `className` and `style` go to its `<label>`, so they change how the segment looks. `ref`, `aria-label`, `id` and the other attributes go to its radio.
+
+## Loading placeholder
+
+`skeleton` on the control, or on a container around it, draws it as one solid shape of its own size until the data arrives. See [Skeleton](/docs/basic-components/skeleton).
+
+```tsx demo
+<SegmentedControl skeleton aria-label="Status" defaultValue="all">
+  <SegmentedControlItem value="all">All</SegmentedControlItem>
+  <SegmentedControlItem value="open">Open</SegmentedControlItem>
+  <SegmentedControlItem value="closed">Closed</SegmentedControlItem>
+</SegmentedControl>
+```
+
+## Customizing
+
+SegmentedControl has two theme nodes: `segmentedControl.main` for the track and `segmentedControl.item` for the segments. Set app-wide defaults with `ThemeProvider`'s `themeDefaults`. A size, appearance, variant or shape set on `main` reaches the segments.
+
+```tsx demo
+<ThemeProvider themeDefaults={{ segmentedControl: { main: { md: true, pill: true }, item: { fontSemibold: true } } }}>
+  <SegmentedControl aria-label="Status" defaultValue="all">
+    <SegmentedControlItem value="all">All</SegmentedControlItem>
+    <SegmentedControlItem value="open">Open</SegmentedControlItem>
+    <SegmentedControlItem value="closed">Closed</SegmentedControlItem>
+  </SegmentedControl>
+</ThemeProvider>
+```
+
+## Props
+
+- Appearance: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
+- Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin`
+- Padding: `padding` (default), `paddingX`, `paddingY`, `noPadding`
+- Shape: `pill`, `sharp`, `rounded` (default)
+- Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Skeleton: `skeleton`
+- Variant: `filled`, `outline` (default), `ghost`
+
+Layout and utility props (Display, Hide, Items, Justify, Overflow, Position, Responsive Width, Show, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
+
+## SegmentedControlItem props
+
+- Appearance: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
+- Disabled: `disabled`
+- Font Family: `fontSans` (default), `fontSerif`, `fontMono`, `fontHeading`
+- Font Style: `italic`, `notItalic`
+- Font Weight: `fontThin`, `fontExtralight`, `fontLight`, `fontNormal`, `fontMedium` (default), `fontSemibold`, `fontBold`, `fontExtrabold`, `fontBlack`
+- Padding: `padding` (default), `paddingX`, `paddingY`, `noPadding`
+- Shape: `pill`, `sharp`, `rounded` (default)
+- Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Skeleton: `skeleton`
+- Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
+- Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
+- Variant: `filled`, `outline` (default), `ghost`
+
+Layout and utility props (Cursor, Display, Gap, Hide, Items, Justify, Overflow, Position, Show, Transition, Whitespace) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
 # Switch
 
@@ -5575,6 +6589,7 @@ The same as a Checkbox: its `value`, or `"on"` without one, when it is on, and n
 - Read Only: `readOnly`
 - Shape: `pill` (default), `sharp`, `rounded`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Validity: `invalid`
 - Variant: `filled` (default), `outline`, `ghost`
 
@@ -5586,7 +6601,7 @@ Layout and utility props (Align Self, Border, Cursor, Display, Focus Visible, He
 
 Source: https://vaneui.com/docs/typography-components/text
 
-Import: `import { Text, Card, Col, Row } from "@vaneui/ui"`
+Import: `import { Text, Button, Card, Col, Row } from "@vaneui/ui"`
 
 Use Text for paragraphs, captions and helper copy. It renders a `<p>` element, or an `<a>` when `href` is set. Headings belong in [Title](/docs/typography-components/title) and its siblings, which render `<h1>` to `<h3>` elements. For a link inside a sentence, nest a [Link](/docs/typography-components/link) in the Text: it keeps the link color and matches the size of the text around it.
 
@@ -5781,6 +6796,19 @@ Control letter spacing with `trackingTighter`, `trackingTight`, `trackingNormal`
 </Col>
 ```
 
+## Hidden text for screen readers
+
+`srOnly` hides the text from view and keeps it for screen readers, for a label that the layout already shows with an icon or a position, such as the name of an icon-only control or the "(opens in a new tab)" note after a link. It needs `@vaneui/ui` 1.8.0 or later, and the other typography components and [Label](/docs/form-components/label) take it too.
+
+```tsx demo
+<Button secondary>
+  <svg viewBox="0 0 24 24" width={16} height={16} fill="currentColor" aria-hidden="true">
+    <path d="M12 2.5l2.95 5.98 6.6.96-4.78 4.66 1.13 6.58L12 17.6l-5.9 3.1 1.13-6.58-4.78-4.66 6.6-.96L12 2.5z"/>
+  </svg>
+  <Text tag="span" srOnly>Add to favorites</Text>
+</Button>
+```
+
 ## Margins
 
 Block typography (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`) accepts size-driven margin props: `margin` (all sides), `marginX`, `marginY`, `marginT`, and `marginB`. `Text` defaults to `noMargin`, so opt in where you need vertical rhythm outside a gap-based layout. The margin scales with the size prop. Side props compose: `marginT marginB` applies both. `noMargin` resets and wins.
@@ -5833,6 +6861,8 @@ Use [Link](/docs/typography-components/link). Text with `href` renders an `<a>` 
 - Letter Spacing: `trackingTighter`, `trackingTight`, `trackingNormal`, `trackingWide`, `trackingWider`, `trackingWidest`
 - Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin` (default)
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
+- Sr Only: `srOnly`
 - Text Align: `textLeft` (default), `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -6043,6 +7073,8 @@ Pass `responsiveSizing={false}`. `responsiveSizing` is on by default for the hea
 - Letter Spacing: `trackingTighter`, `trackingTight` (default), `trackingNormal`, `trackingWide`, `trackingWider`, `trackingWidest`
 - Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
+- Sr Only: `srOnly`
 - Text Align: `textLeft` (default), `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -6268,6 +7300,8 @@ Put both in `<Row justifyBetween>`: the SectionTitle keeps its fit width, and th
 - Letter Spacing: `trackingTighter`, `trackingTight`, `trackingNormal`, `trackingWide`, `trackingWider`, `trackingWidest`
 - Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
+- Sr Only: `srOnly`
 - Text Align: `textLeft` (default), `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -6478,6 +7512,8 @@ Set the defaults on the flat `title` node, for example `themeDefaults={{ title: 
 - Letter Spacing: `trackingTighter`, `trackingTight`, `trackingNormal`, `trackingWide`, `trackingWider`, `trackingWidest`
 - Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
+- Sr Only: `srOnly`
 - Text Align: `textLeft` (default), `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -6705,6 +7741,8 @@ Link is `fontSans` by default, so inside a `Text` with `fontSerif` or `fontMono`
 - Letter Spacing: `trackingTighter`, `trackingTight`, `trackingNormal`, `trackingWide`, `trackingWider`, `trackingWidest`
 - Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
+- Sr Only: `srOnly`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline` (default), `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -7030,6 +8068,7 @@ Use `truncate` for a single clipped line, or `lineClamp2` through `lineClamp5` t
 - List Style: `listDisc` (default), `listDecimal`, `listCircle`, `listSquare`, `listLowerAlpha`, `listLowerRoman`
 - Padding: `padding` (default), `paddingX`, `paddingY`, `noPadding`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -7048,6 +8087,8 @@ Layout and utility props (Display, Gap, Height, Hide, Items, Justify, Overflow, 
 - Inherit Color: `inheritColor`, `noInheritColor`
 - Inherit Size: `inheritSize`, `noInheritSize`
 - Size: `xs`, `sm`, `md`, `lg`, `xl`
+- Skeleton: `skeleton`
+- Sr Only: `srOnly`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -7225,6 +8266,8 @@ Pass `noBorder`. The accent border is the `borderStart` default, a border on the
 - Letter Spacing: `trackingTighter`, `trackingTight`, `trackingNormal`, `trackingWide`, `trackingWider`, `trackingWidest`
 - Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin` (default)
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
+- Sr Only: `srOnly`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart` (default), `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -7406,6 +8449,7 @@ Pass your own max-width class, such as `className="max-w-[68rem]"`: it replaces 
 - Shape: `pill`, `sharp` (default), `rounded`
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Strong Border: `strongBorder`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
@@ -7627,6 +8671,7 @@ Use `tag="section"` when the band has its own heading, and point `aria-labelledb
 - Shape: `pill`, `sharp` (default), `rounded`
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Strong Border: `strongBorder`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
@@ -7657,7 +8702,7 @@ A horizontal flex container. `Row` defaults to `gap`, `itemsCenter`, `noPadding`
 
 ## Spacing
 
-Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to control the gap amount, or `noGap` to disable.
+Use size props (`xs`, `sm`, `md`, `lg`, `xl`) to control the gap amount, or `noGap` to disable. `gapXs` to `gapXl` fix the gap at one step for every size and screen width: `<Row gapSm>` always has a 12px gap. [Common Props](/docs/reference/common-props) lists each step.
 
 ```tsx demo
 <Col>
@@ -7950,6 +8995,7 @@ A Row keeps its children on one line, so when they need more width than the scre
 ## Props
 
 - Appearance: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
+- Aspect: `aspectSquare`, `aspectVideo`, `aspectAuto`
 - Breakpoint: `desktopStack`, `tabletStack`, `mobileStack`
 - Flex: `flex1`, `flexAuto`, `flexNone`
 - Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin`
@@ -7957,6 +9003,7 @@ A Row keeps its children on one line, so when they need more width than the scre
 - Shape: `pill`, `sharp` (default), `rounded`
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Strong Border: `strongBorder`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
@@ -8272,6 +9319,7 @@ A Col is already a column, and `mobileStack` only turns a row into a column, so 
 ## Props
 
 - Appearance: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
+- Aspect: `aspectSquare`, `aspectVideo`, `aspectAuto`
 - Breakpoint: `desktopStack`, `tabletStack`, `mobileStack`
 - Flex: `flex1`, `flexAuto`, `flexNone`
 - Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin`
@@ -8279,6 +9327,7 @@ A Col is already a column, and `mobileStack` only turns a row into a column, so 
 - Shape: `pill`, `sharp` (default), `rounded`
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Strong Border: `strongBorder`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
@@ -8641,6 +9690,7 @@ Use `paddingX` for the left and right sides or `paddingY` for the top and bottom
 ## Props
 
 - Appearance: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
+- Aspect: `aspectSquare`, `aspectVideo`, `aspectAuto`
 - Breakpoint: `desktopStack`, `tabletStack`, `mobileStack`
 - Flex: `flex1`, `flexAuto`, `flexNone`
 - Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin`
@@ -8648,6 +9698,7 @@ Use `paddingX` for the left and right sides or `paddingY` for the top and bottom
 - Shape: `pill`, `sharp` (default), `rounded`
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Strong Border: `strongBorder`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
@@ -8954,6 +10005,7 @@ Button paints its own colors: its default `primary` `outline` palette stays the 
 ## Props
 
 - Appearance: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
+- Aspect: `aspectSquare`, `aspectVideo`, `aspectAuto`
 - Breakpoint: `desktopStack`, `tabletStack`, `mobileStack`
 - Flex: `flex1`, `flexAuto`, `flexNone`
 - Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin`
@@ -8961,6 +10013,7 @@ Button paints its own colors: its default `primary` `outline` palette stays the 
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Strong Border: `strongBorder`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
@@ -9238,6 +10291,7 @@ Grid cells stretch to the height of the tallest cell in their row, which is what
 - Shape: `pill`, `sharp` (default), `rounded`
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Strong Border: `strongBorder`
 - Variant: `filled`, `outline` (default), `ghost`
 
@@ -9427,6 +10481,7 @@ Dividers also work as section breaks between larger blocks of content.
 - Appearance: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance` (default)
 - Padding: `padding`, `paddingX`, `paddingY`, `noPadding` (default)
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Variant: `filled`, `outline` (default), `ghost`
 
 Layout and utility props (Display, Height, Hide, Items, Justify, Orientation, Overflow, Position, Responsive Sizing, Responsive Width, Show, Transparent, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
@@ -9437,7 +10492,7 @@ Layout and utility props (Display, Height, Hide, Items, Justify, Orientation, Ov
 
 Source: https://vaneui.com/docs/layout-components/img
 
-Import: `import { Img, Card, Col, Row, Stack, Text, Title } from "@vaneui/ui"`
+Import: `import { Img, Card, CardBody, Col, Row, Text, Title } from "@vaneui/ui"`
 
 Img is for photos, screenshots, avatars and other content images. It renders a native `<img>` element and takes no children, so an image that needs a title or caption next to it goes in a [Card](/docs/layout-components/card) or a [Col](/docs/layout-components/col) together with its text. For an icon, use [Icon](/docs/basic-components/icon), which wraps an inline SVG in a `<span>` rather than loading an image file.
 
@@ -9570,28 +10625,41 @@ Control how an image fills a sized container with `objectCover` (default), `obje
 </Row>
 ```
 
-## Inside a Card
+## Aspect ratio
 
-`Img` composes naturally inside `Card` for media tiles. Use `wFull` so the image spans the card width.
+`aspectSquare` and `aspectVideo` fix the shape of the image at 1:1 and 16:9: set the width, and the height follows. With `objectCover`, the default, the photo is cropped to fill that shape, so a gallery of photos of different sizes lines up. `aspectAuto` goes back to the photo's own shape. These props need `@vaneui/ui` 1.8.0 or later.
 
 ```tsx demo
-<Row flexWrap>
-  <Card noPadding overflowHidden className="w-[240px]">
-    <Img sharp wFull src={placeholderSrc} alt="Sunset over the harbor" className="h-[140px]" />
-    <Stack>
+<Row flexWrap itemsStart>
+  <Img aspectSquare src={placeholderSrc} alt="Square crop" className="w-32" />
+  <Img aspectVideo src={portraitSrc} alt="16:9 crop of a portrait photo" className="w-56" />
+</Row>
+```
+
+## Inside a Card
+
+For a media tile, put the `Img` first in a Card built from parts and the text in a `CardBody`. A Card of parts has no inset of its own, so the image sits on the Card's top edge: it takes the Card's corners there, less the border, and is square where it meets the body. Use `wFull` so the image spans the card width. An `Img` that closes the Card takes the bottom corners the same way.
+
+```tsx demo
+<Row flexWrap itemsStart>
+  <Card className="w-[240px]">
+    <Img wFull src={placeholderSrc} alt="Sunset over the harbor" className="h-[140px]" />
+    <CardBody>
       <Title sm>Harbor Sunset</Title>
       <Text sm secondary>Captured last weekend on a walk along the pier.</Text>
-    </Stack>
+    </CardBody>
   </Card>
-  <Card noPadding overflowHidden className="w-[240px]">
-    <Img sharp wFull src={placeholderSrc} alt="Forest trail at dawn" className="h-[140px]" />
-    <Stack>
+  <Card className="w-[240px]">
+    <Img wFull src={placeholderSrc} alt="Forest trail at dawn" className="h-[140px]" />
+    <CardBody>
       <Title sm>Forest Trail</Title>
       <Text sm secondary>Early morning hike through the pine forest.</Text>
-    </Stack>
+    </CardBody>
   </Card>
 </Row>
 ```
+
+An `Img` inside a padded Card keeps its own corners on all four sides, as do a `sharp` or `pill` Img and one with a radius class of your own. The edge corners need `@vaneui/ui` 1.8.0 or later; on earlier releases, give the Card `noPadding` and `overflowHidden` and the Img `sharp`.
 
 ## Keeping its size in a row with noShrink
 
@@ -9621,7 +10689,7 @@ In a flex [Row](/docs/layout-components/row), an image is a flex item that can g
 
 ### How do I make a round avatar?
 
-Add `pill` and give the image the same width and height in CSS, for example `style={{ width: 40, height: 40 }}` or `className="size-10"`. `objectCover`, a default, crops a photo that is not square to fill the circle. The `width` and `height` attributes alone are not enough under Tailwind's base styles, which set `height: auto` on images and so keep the photo's own proportions.
+Use [Avatar](/docs/basic-components/avatar). It sizes the circle with the size prop, crops the photo to fill it, and falls back to the initials of `name` when the image is missing or fails to load. For a round Img of your own, add `pill` and `aspectSquare` and set a width, for example `<Img pill aspectSquare className="w-10" />`. `objectCover`, a default, crops a photo that is not square to fill the circle.
 
 ### How do I add a caption to an image?
 
@@ -9634,9 +10702,11 @@ Yes: pass it as the `tag`, as in `<Img tag={Image} src="/team.jpg" alt="The team
 ## Props
 
 - Appearance: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
+- Aspect: `aspectSquare`, `aspectVideo`, `aspectAuto`
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Variant: `filled`, `outline` (default), `ghost`
 
 Layout and utility props (Border, Display, Focus Visible, Height, Hide, Items, Justify, Object Fit, Overflow, Position, Responsive Sizing, Responsive Width, Ring, Shadow, Show, Transparent, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
@@ -9726,6 +10796,22 @@ An appearance on `Table` cascades to its rows and cells. `outline` (the default)
     </Tbody>
   </Table>
 </Col>
+```
+
+## Striped and hoverable rows
+
+`striped` tints every other body row, which helps the eye follow a wide row across the table. `hoverable` tints the row under the pointer. Both tints are a mix of the row's own text color, so they read on any appearance, in both color schemes, and a row or cell with its own fill keeps it. These props need `@vaneui/ui` 1.8.0 or later.
+
+```tsx demo
+<Table striped hoverable>
+  <Thead><Tr><Th scope="col">Region</Th><Th scope="col" textRight>Latency</Th></Tr></Thead>
+  <Tbody>
+    <Tr><Td>Europe</Td><Td textRight>24ms</Td></Tr>
+    <Tr><Td>North America</Td><Td textRight>61ms</Td></Tr>
+    <Tr><Td>Asia Pacific</Td><Td textRight>142ms</Td></Tr>
+    <Tr><Td>South America</Td><Td textRight>118ms</Td></Tr>
+  </Tbody>
+</Table>
 ```
 
 ## Per-cell and per-row size
@@ -9915,8 +11001,11 @@ Give the `Tr` an appearance and a variant, such as `<Tr filled info>` or `<Tr da
 
 - Appearance: `primary`, `accent`, `secondary` (default), `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance`
 - Font Family: `fontSans` (default), `fontSerif`, `fontMono`, `fontHeading`
+- Hoverable: `hoverable`
 - Margin: `margin`, `marginX`, `marginY`, `marginT`, `marginB`, `noMargin`
 - Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Skeleton: `skeleton`
+- Striped: `striped`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Variant: `filled`, `outline` (default), `ghost`
 
@@ -10202,6 +11291,7 @@ A portaled Overlay renders nothing on the server and while the page hydrates, be
 ## Props
 
 - Size: `xs`, `sm`, `md`, `lg`, `xl`
+- Skeleton: `skeleton`
 
 Layout and utility props (Blur, Display, Height, Hide, Items, Justify, Overflow, Pointer Events, Position, Responsive Sizing, Responsive Width, Show, Transparent, Width) are listed on [Common Props](https://vaneui.com/docs/reference/common-props.md).
 
@@ -10699,6 +11789,7 @@ Inside a `<form>`, a Button without a `type` is a submit button, Cancel included
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -11054,6 +12145,7 @@ Control the PopupTrigger: keep the open state in your component, pass it as `ope
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -11365,6 +12457,7 @@ Menu has a theme node for each part: `menu.popup` for the dropdown, `menu.item` 
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
 - Size: `xs`, `sm`, `md` (default), `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -11386,6 +12479,7 @@ Layout and utility props (Align Self, Border, Clamp Height, Constrain Width, Dis
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
 - Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft` (default), `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -11407,6 +12501,7 @@ Layout and utility props (Border, Cursor, Display, Flex Direction, Focus Visible
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
 - Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft` (default), `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -11615,6 +12710,7 @@ No. The hint closes when focus leaves the trigger, and it renders at the end of 
 - Shape: `pill`, `sharp`, `rounded` (default)
 - Shrink: `noShrink`
 - Size: `xs`, `sm` (default), `md`, `lg`, `xl`
+- Skeleton: `skeleton`
 - Text Align: `textLeft`, `textCenter`, `textRight`, `textJustify`, `textStart`, `textEnd`
 - Text Decoration: `underline`, `lineThrough`, `noUnderline`, `overline`
 - Text Transform: `uppercase`, `lowercase`, `capitalize`, `normalCase`
@@ -12922,7 +14018,7 @@ Set per-component in `rules.css` based on the `data-size` attribute. Each per-si
 
 /* --gap-unit and --br-unit (for layout) come from data-vane-type defaults */
 [data-vane-type="ui"][data-size="md"]     { --gap-unit: 2; }
-[data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; }
+[data-vane-type="layout"][data-size="md"] { --br-unit: 3; --gap-unit: 4; --py-unit: 4; }
 ```
 
 ### Tier 2: computed variables
@@ -12932,14 +14028,14 @@ Calculated from unit variables in `@layer base`:
   --fs: calc(var(--fs-unit) * var(--fs-base));                       /* Font size */
   --py: calc(var(--py-unit) * var(--spacing));                       /* Padding Y */
   --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing)); /* Padding X */
-  --br: calc(var(--br-unit) * var(--br-base));                       /* Border radius (layout) */
+  --br: calc(var(--br-unit) * var(--br-base) * var(--br-scale));     /* Border radius (layout) */
   --gap: calc(var(--gap-unit) * var(--spacing));                     /* Gap */
 }
 
 /* UI border-radius is a ratio of element height, not a flat multiplier: */
 [data-vane-type="ui"][data-size] {
   --br: calc((var(--fs-unit) * 0.5 * var(--lh) + 2 * var(--py-unit))
-             * var(--br-unit) * var(--spacing));
+             * var(--br-unit) * var(--spacing) * var(--br-scale));
 }
 ```
 
@@ -12954,11 +14050,11 @@ Set by `data-variant` + `data-appearance` attribute combinations:
 ```
 
 ### Icon sizing: decoupled from font size
-Components that render icons (`Button`, `IconButton`, `Icon`, `Badge`, `Chip`, `Menu`, `NavLink`, `Link`, `ListItem`) size icons via `--icon-size`, not `--fs`. For most components this is `var(--fs)` (the element's own font-size), but `Icon` sets it independently per size as `calc(var(--spacing) * N)`. An `<Icon md>` is 8 × `--spacing` regardless of any inherited font-size:
+Components that render icons (`Button`, `IconButton`, `Icon`, `Badge`, `Chip`, `Menu`, `NavLink`, `Link`, `ListItem`) size icons via `--icon-size`, not `--fs`. For most components this is `var(--fs)` (the element's own font-size), but `Icon` sets it independently per size as `calc(var(--spacing) * N)`. An `<Icon md>` is 5 × `--spacing` (20px) regardless of any inherited font-size:
 
 ```css
-.vane-icon[data-size="md"] { --icon-size: calc(var(--spacing) * 8); }
-.vane-icon[data-size="lg"] { --icon-size: calc(var(--spacing) * 12); }
+.vane-icon[data-size="md"] { --icon-size: calc(var(--spacing) * 5); }
+.vane-icon[data-size="lg"] { --icon-size: calc(var(--spacing) * 6); }
 ```
 
 ## Appearance values
@@ -13005,9 +14101,26 @@ VaneUI defines base variables in the `@theme` block (in `tokens.css`) that contr
 @theme {
   --fs-base: calc(var(--spacing) * 0.5);  /* Font size base (0.125rem at default spacing) */
   --br-base: var(--spacing);               /* Border radius base */
+  --br-scale: 1;                           /* Multiplies every corner radius */
   --lh-base: 1.6;                          /* Line height base */
 }
 ```
+
+### Corner radius for the whole library
+
+Every corner radius in VaneUI is multiplied by `--br-scale`: the controls (Button, Input, Checkbox, Badge, Avatar and the others), whose corners follow their height, and the surfaces (Card, Modal, Img, Popup, Tooltip, Alert), whose corners follow `--br-base`. Set it once to make the whole library sharper or rounder. `pill` and `sharp` keep their shape at any value.
+
+```css
+:root {
+  --br-scale: 0;    /* square corners everywhere */
+}
+
+[data-theme="playful"] {
+  --br-scale: 2;    /* twice as round, in one subtree */
+}
+```
+
+At the default scale, surfaces run 8, 10, 12, 14 and 16px from `xs` to `xl`, so a `md` Card has about 1.5 times the corners of the `sm` Button inside it. `--br-base` still moves the surfaces alone. `--br-scale` and these surface corners need `@vaneui/ui` 1.8.0 or later; earlier releases had 12 to 28px surfaces.
 
 ### Font size unit scale
 These variables define the font size multipliers for each size. At Tailwind's default `--spacing: 0.25rem`, `--fs-base` = 0.125rem:
@@ -13029,7 +14142,7 @@ Padding, gap, and radius values are set per-component (and per `data-vane-type`)
 [data-vane-type="ui"][data-size="md"] { --gap-unit: 2; }
 
 /* Layout defaults (Card, Row, Col, Stack, Section, Container, Grid*) */
-[data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; }
+[data-vane-type="layout"][data-size="md"] { --br-unit: 3; --gap-unit: 4; --py-unit: 4; }
 
 /* Per-component overrides: Button sets its own --py-unit per size */
 .vane-button[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
@@ -14483,7 +15596,7 @@ Source: https://vaneui.com/docs/reference/common-props
 
 Layout and utility props shared across most VaneUI components. Documented here once instead of on every component page. Per-component pages link here from the "Layout & utility props" disclosure under their props table.
 
-Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inheritAppearance`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except the controls and the dense components, which default to `sm`: `Button`, `IconButton`, `Input`, `Textarea`, `Select`, `Field`, `Label`, `NavLink`, `MenuItem`, `MenuLabel`, `Tooltip`, `Badge`, and `Table`. The `ghost` variant renders a transparent background with no border and appearance-colored text, plus a tinted hover background.
+Component-specific categories are listed on each component's own page because defaults differ. These include **size** (`xs`/`sm`/`md`/`lg`/`xl`), **appearance** (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inheritAppearance`), **variant** (`filled`/`outline`/`ghost`, default `outline`), **shape** (`pill`/`rounded`/`sharp`, default `rounded`), **padding** (`padding`/`paddingX`/`paddingY`/`noPadding`), **fontWeight**, and **textAlign**. Default **size** is `md`, except the controls and the dense components, which default to `sm`: `Button`, `IconButton`, `Input`, `Textarea`, `Select`, `Field`, `Label`, `NavLink`, `MenuItem`, `MenuLabel`, `Tooltip`, `Badge`, `Table` and `Breadcrumb`. The `ghost` variant renders a transparent background with no border and appearance-colored text, plus a tinted hover background.
 
 ## Hide
 
@@ -14631,8 +15744,15 @@ Spacing between flex/grid items.
 
 | Prop | Description |
 |------|-------------|
-| `gap` | Enable gap spacing between children |
+| `gap` | Enable gap spacing between children; the gap follows the size prop |
 | `noGap` | Disable gap spacing |
+| `gapXs` | Fixed extra-small gap: 8px on layout components, 4px on the others |
+| `gapSm` | Fixed small gap: 12px on layout components, 6px on the others |
+| `gapMd` | Fixed medium gap: 16px on layout components, 8px on the others |
+| `gapLg` | Fixed large gap: 24px on layout components, 10px on the others |
+| `gapXl` | Fixed extra-large gap: 32px on layout components, 12px on the others |
+
+A fixed step stays the same at every size and every screen width, where `gap` grows with the size prop and, with `responsiveSizing`, shrinks on tablet and mobile. `<Row lg gapSm>` keeps the large text and padding of `lg` with a 12px gap. The fixed steps need `@vaneui/ui` 1.8.0 or later.
 
 ## Flex direction
 
@@ -14827,6 +15947,32 @@ Image and video sizing within their containers.
 | `objectNone` | None - image displays at natural size |
 | `objectScaleDown` | Scale down - like contain, but never scales up |
 
+## Aspect ratio
+
+Fixed width-to-height ratio. `Img`, `Card`, `Row`, `Col` and `Stack` take these props from `@vaneui/ui` 1.8.0. Set the width, and the height follows.
+
+| Prop | Description |
+|------|-------------|
+| `aspectSquare` | 1:1 (`aspect-ratio: 1 / 1`) |
+| `aspectVideo` | 16:9 (`aspect-ratio: 16 / 9`) |
+| `aspectAuto` | The element's own ratio (`aspect-ratio: auto`) |
+
+## Screen reader only
+
+| Prop | Description |
+|------|-------------|
+| `srOnly` | Hide the element visually and keep it in the accessibility tree, so screen readers still read it |
+
+`Text`, `Title`, `SectionTitle`, `PageTitle`, `Link`, `List`, `ListItem`, `Blockquote` and `Label` take `srOnly` from `@vaneui/ui` 1.8.0. It wins over the component's own width, padding and margin, so the text stays hidden whatever other props it has.
+
+## Skeleton
+
+| Prop | Description |
+|------|-------------|
+| `skeleton` | Show the component as a loading placeholder in its own layout. On a container it reaches every component inside |
+
+Every component takes `skeleton` from `@vaneui/ui` 1.8.0. Text turns into bars as long as each line (one 12-character bar while it is empty), the box components (buttons, badges, fields, avatars, images, icons) into solid shapes of their own size, and a container keeps its surface and border. The element gets `aria-busy="true"` and `inert`. See [Skeleton](/docs/basic-components/skeleton).
+
 ## Blur
 
 Backdrop blur effect for overlays and visual effects.
@@ -14878,7 +16024,7 @@ Source: https://vaneui.com/docs/reference/tailwind-to-props
 
 Import: `import { Badge, Row } from "@vaneui/ui"`
 
-Most Tailwind CSS utility classes that style a VaneUI component have a boolean prop named after the class in camelCase: `items-center` is `itemsCenter`, `font-semibold` is `fontSemibold`, `flex-1` is `flex1`. A few take a shorter name, such as `pill` for `rounded-full`. The tables below map each class to its prop, grouped by category, for `@vaneui/ui` 1.7.2. A prop works on the components that include its category; each component page lists its props, and [Common Props](/docs/reference/common-props) describes the shared layout props.
+Most Tailwind CSS utility classes that style a VaneUI component have a boolean prop named after the class in camelCase: `items-center` is `itemsCenter`, `font-semibold` is `fontSemibold`, `flex-1` is `flex1`. A few take a shorter name, such as `pill` for `rounded-full`. The tables below map each class to its prop, grouped by category, for `@vaneui/ui` 1.8.0. A prop works on the components that include its category; each component page lists its props, and [Common Props](/docs/reference/common-props) describes the shared layout props.
 
 Rows marked **size-driven** have no fixed value of their own. Gap, padding, margin, border radius, shadow and font size come from the component's size prop, `xs` to `xl`, so `<Card lg>` enlarges its padding, gap and radius together. To change one of those amounts, change the size prop rather than add a class. [Core Concepts](/docs/getting-started/core-concepts) explains the size system.
 
@@ -14987,6 +16133,7 @@ Row centers its children on the cross axis by default, and Section aligns them t
 |--------------------|-------------|-------|
 | `gap-*` | `gap` | Size-driven, on by default in layout components |
 | `gap-0` | `noGap` | |
+| `gap-*` at one fixed step | `gapXs`, `gapSm`, `gapMd`, `gapLg`, `gapXl` | The same gap at every size and screen width |
 | `p-*` | `padding` | Size-driven |
 | `px-*` | `paddingX` | Size-driven |
 | `py-*` | `paddingY` | Size-driven |
@@ -15206,7 +16353,7 @@ VaneUI's `mobile`, `tablet` and `desktop` breakpoints sit at 48rem, 64rem and 80
 
 The stack props only change row-direction components, which in practice means Row. A Tailwind CSS v4 build needs `@import "@vaneui/ui/tokens"` for these props to emit any CSS, as the [Installation](/docs/getting-started/installation) page shows. [Responsive Page Sections Without Breakpoint Classes](/docs/guides/responsive-sections) builds a full section with them.
 
-## Cursor, pointer events, images and motion
+## Cursor, pointer events, images, screen reader text and motion
 
 | Tailwind CSS class | VaneUI prop |
 |--------------------|-------------|
@@ -15224,13 +16371,22 @@ The stack props only change row-direction components, which in practice means Ro
 | `object-fill` | `objectFill` |
 | `object-none` | `objectNone` |
 | `object-scale-down` | `objectScaleDown` |
+| `aspect-square` | `aspectSquare` |
+| `aspect-video` | `aspectVideo` |
+| `aspect-auto` | `aspectAuto` |
+| `sr-only` | `srOnly` |
+| `resize-y` | `resizeY`, the Textarea default |
+| `resize-x` | `resizeX` |
+| `resize` | `resize` |
+| `resize-none` | `resizeNone` |
+| `field-sizing-content` | `autosize` on Textarea, with a script fallback |
 | `transition` | `transition`, with duration and easing from theme variables |
 | `transition-none` | `noTransition` |
 | `backdrop-blur-*` | `backdropBlur`, with the amount from `--overlay-blur` |
 | `h-px w-full` on a rule | Divider, horizontal by default |
 | `w-px h-full` on a rule | `vertical` on Divider |
 
-The cursor props are on Button, Badge, Card, the typography components and the form controls, not on Row, Col or Stack. The transition props are on the controls, `object*` on Img and `backdropBlur` on Overlay.
+The cursor props are on Button, Badge, Card, the typography components and the form controls, not on Row, Col or Stack. The transition props are on the controls, `object*` on Img and `backdropBlur` on Overlay. The `aspect*` props are on Img, Card, Row, Col and Stack, `srOnly` on the typography components and Label, and the resize props and `autosize` on Textarea.
 
 ## Classes with no prop
 
@@ -15240,7 +16396,7 @@ These stay in `className`:
 - Offsets and stacking order: `top-4`, `inset-0`, `z-10`.
 - Grid placement: `col-span-2`, `grid-cols-[200px_1fr]`.
 - Margins on the inline sides, or an exact amount: `ml-4`, `me-2`, `mt-[13px]`.
-- Gradients, opacity, `aspect-*` and `sr-only`.
+- Gradients, opacity and aspect ratios other than square and 16:9: `aspect-[4/3]`.
 - `hover:` and `focus:` styles beyond the states a component already has.
 
 A class you add wins over the theme's class for the same property. The prebuilt `@vaneui/ui/css` stylesheet contains only the utilities VaneUI's own components use, so most of these classes work only in a project with its own Tailwind CSS v4 build; without one, use the `style` prop.
@@ -15258,6 +16414,107 @@ package follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html): patc
 fixes, minor for additive props and components, major for anything that changes an
 existing prop name, default, or rendered element. Releases ship when work is ready
 rather than on a fixed calendar.
+
+## 1.8.0
+
+`2026-11-23`
+
+New components (Avatar, AvatarGroup, Breadcrumb, SegmentedControl, Skeleton), loading placeholders
+through one `skeleton` prop, start and end sections on fields, small props that used to need a
+class or a wrapper, and gentler corners on cards, modals and images with one setting that scales
+every radius.
+
+### Added
+
+- `Avatar`: a picture of a person or thing. It shows `src`, then the initials of `name` when
+  there is no image or it fails to load, then its children, then a person icon. The `name` is the
+  image's text alternative (or `alt`), and initials or children get `role="img"` with the name as
+  their label. It takes the size, appearance, variant and shape props (a circle by default,
+  `rounded` for a square with size-driven corners), and `imgProps` for the `<img>`.
+- `AvatarGroup`: a row of overlapping avatars with a ring in the surface color between them. Its
+  size reaches the avatars, `max` shows that many and counts the rest in one "+N" avatar, and
+  `total` counts against a list you only load in part. It renders `role="group"`.
+- `Breadcrumb` and `BreadcrumbItem`: a `nav` labelled "Breadcrumb" (pass `aria-label` to
+  translate it) around an ordered list. An item with `href` is a link, one without is text, and
+  the last item is the current page (`aria-current="page"`) unless an item sets `current`.
+  `separator` replaces the chevron, and `tag` takes a router link.
+- `SegmentedControl` and `SegmentedControlItem`: one choice out of a few, shown side by side on a
+  track, for a filter or a view switch. The control is a `radiogroup` and each segment a `<label>`
+  around a native radio, so a click, the arrow keys and form submission work without script. It
+  takes `value` or `defaultValue`, `onChange`, `name` (generated when omitted), `disabled` and
+  `required`. It is as tall as a Button of its size (`sm` by default) with a Button's corners; its
+  size, appearance, variant and shape reach the segments, and a segment's own prop wins. The
+  selected segment is a raised surface by default and takes the fill with `filled`, on a neutral
+  track; with `ghost` there is no track and the selected segment is tinted. `wFull` stretches
+  it, and a `Field` names it. A segment's `className` and `style` go to the segment, and `ref`
+  and the other attributes to its radio.
+- `startSection` and `endSection` on `Input`, and `startSection` on `Select` (its end holds the
+  chevron): an icon, a prefix such as `https://`, a unit or a button inside the field. The field
+  reserves the measured width of each section, the section follows the field's size, and the
+  input keeps its place in the tree when a section comes or goes, so it keeps focus and text.
+  `Field` passes them to the control it renders. With a section, `className`, the width props
+  and the sizing part of `style` go to the wrapper, as on `Select`.
+- `gapXs`, `gapSm`, `gapMd`, `gapLg` and `gapXl` on the layout components: a fixed gap step that
+  stays the same at every size and width, where `gap` follows the size prop.
+- `Textarea`: `autosize` grows the box with its text (`field-sizing: content`, with a script
+  fallback for browsers without it), and `resizeNone`, `resizeX` and `resize` change the handle.
+  The default `resizeY` keeps the vertical handle it had.
+- `Table`: `striped` tints every other body row and `hoverable` the row under the pointer, both
+  with a tint of the row's own text color.
+- `Badge`: `dot` draws a status dot before the text. With no text and an `aria-label`, the badge
+  is the dot and gets `role="img"`.
+- `Progress`: `indeterminate` for work of unknown length. `value` becomes optional, the bar drops
+  `aria-valuenow`, and the fill slides across the track (the other way in RTL, still with reduced
+  motion).
+- `srOnly` on the typography components and `Label`: visually hidden, still read by screen
+  readers.
+- `aspectSquare`, `aspectVideo` and `aspectAuto` on `Img`, `Card`, `Row`, `Col` and `Stack`.
+- `skeleton` on every component: it shows the component as a loading placeholder in its own
+  layout. On a container (`Card`, `Row`, `Col`, `Stack`, `Section`, `Table`, `Field` and the
+  others) it reaches every component inside: text turns into bars as long as each line, and
+  buttons, badges, chips, fields, toggles, segmented controls, avatars, images and icons into
+  solid shapes of their own size and corners, while the container keeps its surface and border.
+  The element gets `data-skeleton`, `aria-busy="true"` and `inert`, so nothing inside takes focus
+  or clicks, and the placeholders pulse (still with reduced motion). `--skeleton-color` tints
+  them. A text that has nothing in it yet draws one bar 12 characters long
+  (`--skeleton-text-width`), and an empty Button, Badge, Chip, Code, Kbd or Mark takes the room
+  of a 6-character label (`--skeleton-label-width`), so a placeholder needs no filler text.
+- `Skeleton`: a placeholder box for an area that has no component of its own, such as a chart or
+  a map. It is full width and one line of text tall at its size, with size-driven corners; the
+  aspect, height and shape props or a class set its shape. It is hidden from assistive tech.
+- `--br-scale` (in the tokens, 1 by default) multiplies the corner radius of every component:
+  `0` gives square corners everywhere, `2` twice as round. `--br-base` used to move only the
+  layout components (Card, Modal, Img, Popup, Tooltip, Alert), and the controls ignored it.
+  `pill` and `sharp` keep their own shape.
+
+### Changed
+
+- Card, Modal and Img have gentler corners: 8, 10, 12, 14 and 16px from `xs` to `xl`, where they
+  were 12, 16, 20, 24 and 28px (`--br-unit` 2 to 4 on the layout scale, was 3 to 7). A `md` Card
+  now has about 1.5 times the corners of the Button inside it, where it had three times. A
+  rounded Stack, Section, Row, Col or Container follows the same scale; Popup, Tooltip and Alert
+  keep their own.
+- An Img that opens or closes a Card built from parts (`CardHeader`, `CardBody`, `CardFooter`)
+  takes the Card's corners on that edge, less the border, and is square where it meets the
+  parts. It used to keep its own corners on all four sides, which did not line up with the Card.
+  An Img inside a padded Card, a `sharp` or `pill` Img, and one with a radius class of your own
+  keep their corners.
+- The open list of a `Select` has the corners and inset of a Menu dropdown (10px and 6px at the
+  default size, growing with the size), and its options the corners of a MenuItem. It used to
+  take the field's corners and half its padding, so the two dropdowns looked different side by
+  side.
+
+- `Label` renders each run of its own text in a `<span class="vane-label-text">`, so a
+  `skeleton` draws a full bar over it in Safari, which drew a hairline over text placed straight
+  in a flex container. The span has no styles of its own and the layout does not change; in tests,
+  `getByText` on the label's text returns the span, not the label. White space and text passed as
+  an element are not wrapped.
+
+### Fixed
+
+- A filled `Icon` has corners sized for its own box (about 22% of its size, as on a Button). Its
+  corners were still worked out from the 32px box it had before 1.7.1, so a 20px Icon had 7px
+  corners and an `xs` Icon looked almost round.
 
 ## 1.7.2
 

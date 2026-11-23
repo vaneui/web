@@ -1,13 +1,13 @@
 # VaneUI
 
 > VaneUI is a React component library built on Tailwind CSS v4 with a boolean props API: write `<Button primary lg filled>` instead of variant strings.
-> Current release: `@vaneui/ui` 1.7.2.
+> Current release: `@vaneui/ui` 1.8.0.
 
 Props are grouped into mutually exclusive categories (size, appearance, variant, shape,
 padding and more), and only one value per category is active at a time. `ThemeProvider`
 sets application-wide defaults, extra classes and theme overrides.
 
-- Package: `@vaneui/ui` 1.7.2 (`npm install @vaneui/ui`)
+- Package: `@vaneui/ui` 1.8.0 (`npm install @vaneui/ui`)
 - Peer dependencies: `react ^18.0.0 || ^19.0.0`, `react-dom ^18.0.0 || ^19.0.0`
 - CSS with Tailwind CSS v4: `@import "tailwindcss"`, `@import "@vaneui/ui/tokens"`, `@import "@vaneui/ui/vars"` and `@source "../node_modules/@vaneui/ui"`
 - CSS without Tailwind: `@import "@vaneui/ui/css"`
@@ -48,7 +48,10 @@ it has `onClick` or `tag="button"`. `noFocusVisible` opts out.
 - [Icon](https://vaneui.com/docs/basic-components/icon.md): A lightweight SVG wrapper that provides consistent sizing, color inheritance, and themed appearances for icons.
 - [Alert](https://vaneui.com/docs/basic-components/alert.md): Alert is a live region for messages that follow a user action. It announces itself when it appears, assertively by default or politely on request.
 - [Spinner](https://vaneui.com/docs/basic-components/spinner.md): Spinner indicates that something is in progress. The ring is sized in em, so it scales with the size prop and lines up with text.
-- [Progress](https://vaneui.com/docs/basic-components/progress.md): Progress is a determinate bar for a task with a known size, such as an upload or a setup step. A role="progressbar" track whose fill grows with value.
+- [Progress](https://vaneui.com/docs/basic-components/progress.md): Progress is a role="progressbar" bar for a task such as an upload or a setup step: a fill that grows with value, or a sliding fill when the length is unknown.
+- [Avatar](https://vaneui.com/docs/basic-components/avatar.md): Avatar is a picture of a person or a team: an image, the initials of the name when there is none, or a person icon. AvatarGroup overlaps several in one row.
+- [Breadcrumb](https://vaneui.com/docs/basic-components/breadcrumb.md): Breadcrumb shows where a page sits in the site: a labelled nav with an ordered list of links that ends at the current page, marked with aria-current.
+- [Skeleton](https://vaneui.com/docs/basic-components/skeleton.md): The skeleton prop shows any component as a loading placeholder in its own layout, and on a container reaches everything inside. Skeleton is a plain box for custom areas.
 
 ## Form Components
 
@@ -60,6 +63,7 @@ it has `onClick` or `tag="button"`. `noFocusVisible` opts out.
 - [Textarea](https://vaneui.com/docs/form-components/textarea.md): Textarea captures multi-line input. It shares the Input size ramp and appearance props, resizes vertically, and never collapses below three lines.
 - [Select](https://vaneui.com/docs/form-components/select.md): Select presents a list of options using the native dropdown, so it stays keyboard and screen-reader correct and behaves as expected on mobile.
 - [Radio](https://vaneui.com/docs/form-components/radio.md): Radio selects exactly one option from a set. RadioGroup shares a name across its options and exposes them as a single labelled group.
+- [SegmentedControl](https://vaneui.com/docs/form-components/segmented-control.md): SegmentedControl picks one option out of a few short ones shown side by side, such as a status filter or a view switch. Each segment is a native radio.
 - [Switch](https://vaneui.com/docs/form-components/switch.md): Switch toggles a setting that takes effect immediately. Use Checkbox instead when the value is submitted with a form.
 
 ## Typography Components
