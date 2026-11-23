@@ -118,6 +118,8 @@ Set `--skeleton-text-width` to change the length of those text bars, and `--skel
 | Avatar, Img, Icon and bare `<svg>` icons | A solid shape of the same size |
 | Card, Row, Col, Stack, Section, Table, Field, Alert and other containers | Their own surface and border stay; their content turns into placeholders |
 
+Put text in a component of its own, such as `Text`, rather than straight inside a `Row`, `Col`, `Card`, `Stack`, `Section` or `Container`. Safari draws a bar over text that sits straight in one of those layout containers as a thin line, while Chrome and Firefox draw the full bar.
+
 All placeholders share one fill, so a bar that runs over a shape adds nothing to it. A component that carries `skeleton` itself turns into a placeholder in the same way, whatever it sits in:
 
 ```tsx demo
