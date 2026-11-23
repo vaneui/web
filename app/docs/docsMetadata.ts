@@ -241,6 +241,12 @@ export const docsSectionsMeta: DocSectionMeta[] = [
         componentKey: "radio",
       },
       {
+        slug: 'segmented-control',
+        name: 'SegmentedControl',
+        description: 'SegmentedControl picks one option out of a few short ones shown side by side, such as a status filter or a view switch. Each segment is a native radio.',
+        componentKey: "segmentedControl",
+      },
+      {
         slug: 'switch',
         name: 'Switch',
         description: 'Switch toggles a setting that takes effect immediately. Use Checkbox instead when the value is submitted with a form.',

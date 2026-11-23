@@ -5,7 +5,7 @@ sourceUrl: https://github.com/vaneui/vaneui/blob/main/src/components/ui/radio/Ra
 since: 1.1.0
 ---
 
-Radio fits a short set of choices that should all stay visible. Each one is a native `<input type="radio">`, so the browser moves the selection with the arrow keys inside a group. RadioGroup takes `value`, `defaultValue` and `onChange` for the whole set and matches each option by its `value` prop. For a long list, use a [Select](/docs/form-components/select); when more than one option can be on, use [Checkbox](/docs/form-components/checkbox).
+Radio fits a short set of choices that should all stay visible. Each one is a native `<input type="radio">`, so the browser moves the selection with the arrow keys inside a group. RadioGroup takes `value`, `defaultValue` and `onChange` for the whole set and matches each option by its `value` prop. For a long list, use a [Select](/docs/form-components/select); for a few short options shown side by side, such as a filter, use a [SegmentedControl](/docs/form-components/segmented-control); when more than one option can be on, use [Checkbox](/docs/form-components/checkbox).
 
 ## Basic usage
 
