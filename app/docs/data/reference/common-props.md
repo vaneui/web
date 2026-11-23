@@ -375,7 +375,7 @@ Fixed width-to-height ratio. `Img`, `Card`, `Row`, `Col` and `Stack` take these 
 |------|-------------|
 | `skeleton` | Show the component as a loading placeholder in its own layout. On a container it reaches every component inside |
 
-Every component takes `skeleton` from `@vaneui/ui` 1.8.0. Text turns into bars as long as each line, the box components (buttons, badges, fields, avatars, images, icons) into solid shapes of their own size, and a container keeps its surface and border. The element gets `aria-busy="true"` and `inert`. See [Skeleton](/docs/basic-components/skeleton).
+Every component takes `skeleton` from `@vaneui/ui` 1.8.0. Text turns into bars as long as each line (one 12-character bar while it is empty), the box components (buttons, badges, fields, avatars, images, icons) into solid shapes of their own size, and a container keeps its surface and border. The element gets `aria-busy="true"` and `inert`. See [Skeleton](/docs/basic-components/skeleton).
 
 ## Blur
 

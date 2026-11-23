@@ -51,7 +51,7 @@ const photo = "/puppy.webp";
 
 ## Switch between loading and loaded
 
-Render the real components while the data loads, with placeholder text where the data goes, and pass the loading state to `skeleton`. The placeholders take the size of the finished content, so nothing moves when it arrives.
+Render the real components while the data loads and pass the loading state to `skeleton`. A text with no data yet draws one bar 12 characters long, so the components need no filler text. The placeholders take the size and lines of the finished content, so nothing moves when it arrives.
 
 ```tsx demo
 const [loading, setLoading] = useState(true);
@@ -65,10 +65,10 @@ return (
     </Label>
     <Card skeleton={loading} className="w-80">
       <Row>
-        <Avatar src={user ? photo : undefined} name={user?.name ?? 'Loading'}/>
+        <Avatar src={user ? photo : undefined} name={user?.name}/>
         <Col noGap>
-          <Title sm>{user?.name ?? 'Placeholder name'}</Title>
-          <Text sm secondary>{user?.role ?? 'Placeholder role'}</Text>
+          <Title sm>{user?.name}</Title>
+          <Text sm secondary>{user?.role}</Text>
         </Col>
       </Row>
       <Button filled>Follow</Button>
@@ -77,7 +77,36 @@ return (
 );
 ```
 
-An empty `Text` has no line to draw, so give it placeholder text of about the length you expect. The text is never shown or read while `skeleton` is on.
+For a bar closer to the loaded length, pass placeholder text of about that length, such as `{user?.role ?? 'Head of snacks'}`. It is never shown or read while `skeleton` is on, and two sentences of filler give a two-line bar where a two-line bio goes.
+
+## Bars for text that has not loaded yet
+
+A text with nothing in it yet draws one bar 12 characters long and one line tall, at the text's own size. An empty Button, Badge, Chip, Code, Kbd or Mark takes the room of a 6-character label, at its usual height. This covers a Text, Title, Link, ListItem, Blockquote, table cell, NavLink, MenuItem or BreadcrumbItem whose data is still `undefined`:
+
+```tsx demo
+<Card skeleton className="w-80">
+  <Row>
+    <Avatar/>
+    <Col noGap>
+      <Title sm/>
+      <Text sm secondary/>
+    </Col>
+  </Row>
+  <Text/>
+  <Row>
+    <Badge success/>
+    <Button filled/>
+  </Row>
+</Card>
+```
+
+Set `--skeleton-text-width` to change the length of those text bars, and `--skeleton-label-width` for the empty boxes. A Badge with `dot` and no text stays a dot.
+
+```css
+.loading-list {
+  --skeleton-text-width: 100%;
+}
+```
 
 ## What each component turns into
 
@@ -185,11 +214,11 @@ The fill is a light shade of the secondary text color, mixed into the page surfa
 
 ### Do I need a separate skeleton layout for each page?
 
-No. Render the page you already have with `skeleton` on the container that waits for data, and placeholder text where the data goes. The placeholders keep the same sizes and positions as the loaded content, so there is one layout to maintain and the page does not jump when the data arrives.
+No. Render the page you already have with `skeleton` on the container that waits for data. Text that has not arrived draws a default bar, and placeholder text of the expected length draws a closer one. The placeholders keep the same sizes and positions as the loaded content, so there is one layout to maintain and the page does not jump when the data arrives.
 
-### Why are my text bars missing?
+### Why is a placeholder missing?
 
-The bars are drawn on the text itself, so an element with no text draws nothing. Give the component placeholder text while it loads, such as `{user?.name ?? 'Placeholder name'}`. For an area with no text at all, use the `Skeleton` box with a size or an aspect prop.
+A component that is not rendered draws nothing, as in `{user && <Text>{user.bio}</Text>}`. Render the component and leave its text empty while it loads, `<Text>{user?.bio}</Text>`, and it draws a default bar. For an area with no text at all, such as a chart, use the `Skeleton` box with a size or an aspect prop.
 
 ### Can a part of a card stay live while the rest loads?
 
