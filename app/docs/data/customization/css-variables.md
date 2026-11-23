@@ -12,7 +12,7 @@ Set per-component in `rules.css` based on the `data-size` attribute. Each per-si
 
 /* --gap-unit and --br-unit (for layout) come from data-vane-type defaults */
 [data-vane-type="ui"][data-size="md"]     { --gap-unit: 2; }
-[data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; }
+[data-vane-type="layout"][data-size="md"] { --br-unit: 3; --gap-unit: 4; --py-unit: 4; }
 ```
 
 ### Tier 2: computed variables
@@ -22,14 +22,14 @@ Calculated from unit variables in `@layer base`:
   --fs: calc(var(--fs-unit) * var(--fs-base));                       /* Font size */
   --py: calc(var(--py-unit) * var(--spacing));                       /* Padding Y */
   --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing)); /* Padding X */
-  --br: calc(var(--br-unit) * var(--br-base));                       /* Border radius (layout) */
+  --br: calc(var(--br-unit) * var(--br-base) * var(--br-scale));     /* Border radius (layout) */
   --gap: calc(var(--gap-unit) * var(--spacing));                     /* Gap */
 }
 
 /* UI border-radius is a ratio of element height, not a flat multiplier: */
 [data-vane-type="ui"][data-size] {
   --br: calc((var(--fs-unit) * 0.5 * var(--lh) + 2 * var(--py-unit))
-             * var(--br-unit) * var(--spacing));
+             * var(--br-unit) * var(--spacing) * var(--br-scale));
 }
 ```
 
@@ -44,11 +44,11 @@ Set by `data-variant` + `data-appearance` attribute combinations:
 ```
 
 ### Icon sizing: decoupled from font size
-Components that render icons (`Button`, `IconButton`, `Icon`, `Badge`, `Chip`, `Menu`, `NavLink`, `Link`, `ListItem`) size icons via `--icon-size`, not `--fs`. For most components this is `var(--fs)` (the element's own font-size), but `Icon` sets it independently per size as `calc(var(--spacing) * N)`. An `<Icon md>` is 8 × `--spacing` regardless of any inherited font-size:
+Components that render icons (`Button`, `IconButton`, `Icon`, `Badge`, `Chip`, `Menu`, `NavLink`, `Link`, `ListItem`) size icons via `--icon-size`, not `--fs`. For most components this is `var(--fs)` (the element's own font-size), but `Icon` sets it independently per size as `calc(var(--spacing) * N)`. An `<Icon md>` is 5 × `--spacing` (20px) regardless of any inherited font-size:
 
 ```css
-.vane-icon[data-size="md"] { --icon-size: calc(var(--spacing) * 8); }
-.vane-icon[data-size="lg"] { --icon-size: calc(var(--spacing) * 12); }
+.vane-icon[data-size="md"] { --icon-size: calc(var(--spacing) * 5); }
+.vane-icon[data-size="lg"] { --icon-size: calc(var(--spacing) * 6); }
 ```
 
 ## Appearance values
@@ -95,9 +95,26 @@ VaneUI defines base variables in the `@theme` block (in `tokens.css`) that contr
 @theme {
   --fs-base: calc(var(--spacing) * 0.5);  /* Font size base (0.125rem at default spacing) */
   --br-base: var(--spacing);               /* Border radius base */
+  --br-scale: 1;                           /* Multiplies every corner radius */
   --lh-base: 1.6;                          /* Line height base */
 }
 ```
+
+### Corner radius for the whole library
+
+Every corner radius in VaneUI is multiplied by `--br-scale`: the controls (Button, Input, Checkbox, Badge, Avatar and the others), whose corners follow their height, and the surfaces (Card, Modal, Img, Popup, Tooltip, Alert), whose corners follow `--br-base`. Set it once to make the whole library sharper or rounder. `pill` and `sharp` keep their shape at any value.
+
+```css
+:root {
+  --br-scale: 0;    /* square corners everywhere */
+}
+
+[data-theme="playful"] {
+  --br-scale: 2;    /* twice as round, in one subtree */
+}
+```
+
+At the default scale, surfaces run 8, 10, 12, 14 and 16px from `xs` to `xl`, so a `md` Card has about 1.5 times the corners of the `sm` Button inside it. `--br-base` still moves the surfaces alone. `--br-scale` and these surface corners need `@vaneui/ui` 1.8.0 or later; earlier releases had 12 to 28px surfaces.
 
 ### Font size unit scale
 These variables define the font size multipliers for each size. At Tailwind's default `--spacing: 0.25rem`, `--fs-base` = 0.125rem:
@@ -119,7 +136,7 @@ Padding, gap, and radius values are set per-component (and per `data-vane-type`)
 [data-vane-type="ui"][data-size="md"] { --gap-unit: 2; }
 
 /* Layout defaults (Card, Row, Col, Stack, Section, Container, Grid*) */
-[data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; }
+[data-vane-type="layout"][data-size="md"] { --br-unit: 3; --gap-unit: 4; --py-unit: 4; }
 
 /* Per-component overrides: Button sets its own --py-unit per size */
 .vane-button[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }

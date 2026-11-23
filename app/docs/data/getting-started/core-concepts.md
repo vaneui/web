@@ -92,7 +92,7 @@ Calculated from unit variables using base multipliers:
   --fs: calc(var(--fs-unit) * var(--fs-base));  /* --fs-base = 0.125rem */
   --py: calc(var(--py-unit) * var(--spacing));  /* --spacing = 0.25rem */
   --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing));
-  --br: calc(var(--br-unit) * var(--br-base));  /* --br-base = 0.25rem */
+  --br: calc(var(--br-unit) * var(--br-base) * var(--br-scale));  /* --br-base = 0.25rem, --br-scale = 1 */
   --gap: calc(var(--gap-unit) * var(--spacing));
 }
 ```

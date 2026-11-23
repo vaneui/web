@@ -149,26 +149,28 @@ Control how an image fills a sized container with `objectCover` (default), `obje
 
 ## Inside a Card
 
-`Img` composes naturally inside `Card` for media tiles. Use `wFull` so the image spans the card width.
+For a media tile, put the `Img` first in a Card built from parts and the text in a `CardBody`. A Card of parts has no inset of its own, so the image sits on the Card's top edge: it takes the Card's corners there, less the border, and is square where it meets the body. Use `wFull` so the image spans the card width. An `Img` that closes the Card takes the bottom corners the same way.
 
 ```tsx demo
-<Row flexWrap>
-  <Card noPadding overflowHidden className="w-[240px]">
-    <Img sharp wFull src={placeholderSrc} alt="Sunset over the harbor" className="h-[140px]" />
-    <Stack>
+<Row flexWrap itemsStart>
+  <Card className="w-[240px]">
+    <Img wFull src={placeholderSrc} alt="Sunset over the harbor" className="h-[140px]" />
+    <CardBody>
       <Title sm>Harbor Sunset</Title>
       <Text sm secondary>Captured last weekend on a walk along the pier.</Text>
-    </Stack>
+    </CardBody>
   </Card>
-  <Card noPadding overflowHidden className="w-[240px]">
-    <Img sharp wFull src={placeholderSrc} alt="Forest trail at dawn" className="h-[140px]" />
-    <Stack>
+  <Card className="w-[240px]">
+    <Img wFull src={placeholderSrc} alt="Forest trail at dawn" className="h-[140px]" />
+    <CardBody>
       <Title sm>Forest Trail</Title>
       <Text sm secondary>Early morning hike through the pine forest.</Text>
-    </Stack>
+    </CardBody>
   </Card>
 </Row>
 ```
+
+An `Img` inside a padded Card keeps its own corners on all four sides, as do a `sharp` or `pill` Img and one with a radius class of your own. The edge corners need `@vaneui/ui` 1.8.0 or later; on earlier releases, give the Card `noPadding` and `overflowHidden` and the Img `sharp`.
 
 ## Keeping its size in a row with noShrink
 
