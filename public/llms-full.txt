@@ -1,13 +1,13 @@
 # VaneUI Documentation
 
-> Complete documentation for the VaneUI React component library (`@vaneui/ui` 1.8.0),
+> Complete documentation for the VaneUI React component library (`@vaneui/ui` 1.8.1),
 > every doc page concatenated into one file. Each page starts with `# <page name>`, its URL and
 > one import line for the `@vaneui/ui` exports its examples use. Component pages end with
 > their props, grouped by category with defaults marked, generated from the installed package.
 
 - Repository: https://github.com/vaneui/vaneui
 - Documentation: https://vaneui.com
-- Package: `@vaneui/ui` 1.8.0
+- Package: `@vaneui/ui` 1.8.1
 - Index: https://vaneui.com/llms.txt
 - Contact: hello@vaneui.com
 
@@ -16414,6 +16414,21 @@ package follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html): patc
 fixes, minor for additive props and components, major for anything that changes an
 existing prop name, default, or rendered element. Releases ship when work is ready
 rather than on a fixed calendar.
+
+## 1.8.1
+
+`2026-11-24`
+
+The selected segment of a SegmentedControl is raised above its track in the dark scheme too.
+
+### Fixed
+
+- `SegmentedControl` in the dark scheme: the selected segment of an outline control painted the
+  page color, the darkest color of the scheme, so it sat darker than its track and read as a hole
+  instead of a raised button. It is now the track lifted toward the text color, tinted by the
+  appearance and lighter than the track, with text that keeps at least 4.5:1. The dark track sits
+  between the gray-panel color and the one above it, so the control also shows on a `secondary`
+  Section or Card. The light scheme is unchanged.
 
 ## 1.8.0
 
