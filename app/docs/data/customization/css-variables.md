@@ -79,6 +79,7 @@ Replace `{appearance}` in variable names with one of:
 - `--color-bg-filled-{appearance}` - background for filled variant
 - `--color-bg-filled-hover-{appearance}` - filled hover state
 - `--color-bg-filled-active-{appearance}` - filled active state
+- `--color-bg-raised` - the [dark-scheme surface](/docs/customization/dark-mode#raised-surfaces-in-the-dark-scheme) of a primary `Card`, `Modal`, `Popup`, Menu dropdown, open `Select` list and outline `Button`: gray-900, one step above the gray-950 page. It is set on `data-theme="dark"` elements only. Elsewhere these components take `--color-bg-primary`, so a light override of the page color still reaches them. Needs `@vaneui/ui` 1.8.2 or later.
 
 ### Border colors
 - `--color-border-{appearance}` - border color for outline variant

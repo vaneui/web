@@ -42,11 +42,24 @@ To darken a region of an otherwise light page, set `data-theme="dark"` on a wrap
 </div>
 ```
 
-The wrapper `<div>` paints nothing on its own. Give the subtree a surface: a [Card](/docs/layout-components/card), or a [Section](/docs/layout-components/section) with an explicit appearance (`<Section primary>`). Either reads the dark background token and fills the area; a bare `Section` paints nothing.
+The wrapper `<div>` paints nothing on its own. Give the subtree a surface: a [Card](/docs/layout-components/card), or a [Section](/docs/layout-components/section) with an explicit appearance (`<Section primary>`). Either reads a dark background token and fills the area; a bare `Section` paints nothing.
+
+## Raised surfaces in the dark scheme
+
+In the dark scheme a primary [Card](/docs/layout-components/card), [Modal](/docs/overlay-components/modal), `Popup`, Menu dropdown, open [Select](/docs/form-components/select) list and outline [Button](/docs/basic-components/button) paint `--color-bg-raised`: gray-900, one step lighter than the gray-950 page that `<Section primary>` paints. On a `secondary` panel, which is gray-900 too, they sit level with the panel and their border sets them apart. Fields keep `--color-bg-form`, the page color. The primary hover (gray-800) and pressed color (gray-700) sit above the raised step, so a hover shows on a Card and in a menu. Before 1.8.2 these surfaces painted the page color, and on a gray panel they looked sunken.
+
+`--color-bg-raised` is declared on `data-theme="dark"` elements only. In the light scheme and in a `data-theme="light"` subtree it is unset, and the same components take `--color-bg-primary`, so a light override of the page color, a scoped one too, still reaches them. To change the dark step, declare it after the `@vaneui/ui` stylesheet:
+
+```css
+:root[data-theme="dark"],
+[data-theme="dark"] {
+  --color-bg-raised: oklch(24% 0.03 264);
+}
+```
 
 ## Light regions inside a dark page
 
-`data-theme="light"` on an element inside a dark page or a dark wrapper makes that subtree light. It sets `color-scheme: light`, so every pair resolves to its light value, and it resets the shadow alphas. Use it for a light preview panel, an embedded document or a sample that must stay light whatever the page theme. Before 1.4.5, it only reset `color-scheme`, and the dark colors still came through.
+`data-theme="light"` on an element inside a dark page or a dark wrapper makes that subtree light. It sets `color-scheme: light`, so every pair resolves to its light value, and it resets the shadow alphas and unsets `--color-bg-raised`. Use it for a light preview panel, an embedded document or a sample that must stay light whatever the page theme. Before 1.4.5, it only reset `color-scheme`, and the dark colors still came through.
 
 ```tsx demo
 <div data-theme="dark">
