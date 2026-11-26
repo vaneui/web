@@ -51,7 +51,7 @@ A `Text`, `Col`, `Stack` or `Row` placed directly in an Alert takes the free wid
 <Alert warning itemsCenter>
   <Col noGap>
     <Text fontSemibold>Your trial ends in three days</Text>
-    <Text sm>Add a payment method to keep your projects running.</Text>
+    <Text>Add a payment method to keep your projects running.</Text>
   </Col>
   <Button warning filled>Add card</Button>
 </Alert>
@@ -64,7 +64,7 @@ For a message of several lines, or more than one button, put the buttons in the 
   <Col>
     <Col noGap>
       <Text fontSemibold>Payment failed</Text>
-      <Text sm>The card ending in 4242 was declined. Update the card or try another payment method. Your projects keep running for seven days.</Text>
+      <Text>The card ending in 4242 was declined. Update the card or try another payment method. Your projects keep running for seven days.</Text>
     </Col>
     <Row>
       <Button danger filled>Update card</Button>
@@ -109,7 +109,7 @@ Alert is `rounded` by default. `sharp` suits an alert pinned to the edge of a pa
 
 The size prop sets the text, radius, padding, gap and icon together. Alert text runs one step below body text, so `md` renders 14px text, and the radius matches an Input of the same size. Text placed directly in the Alert is centered by the height of its capital letters, in the `<span class="vane-text-run">` that [How Button centers its label](/docs/basic-components/button#how-button-centers-its-label) explains.
 
-A `Text` that carries the message, on its own or in a `Col`, follows the Alert's size too: an unsized `Text` takes the Alert's text size, and `<Text sm>` sits one step below it. This needs `@vaneui/ui` 1.7.2 or later. Before it, such a `Text` stayed at 16px at every Alert size.
+A `Text` that carries the message, on its own or in a `Col`, follows the Alert's size too: an unsized `Text` takes the Alert's text size, and `<Text sm>` sits one step below it (12px at `md`, too small for a description). Give the title and the description the same size and set the title apart with `fontSemibold`, as in the examples above. This needs `@vaneui/ui` 1.7.2 or later. Before it, such a `Text` stayed at 16px at every Alert size.
 
 | Size | Text | Radius | Padding | Gap | Icon |
 |------|------|--------|---------|-----|------|

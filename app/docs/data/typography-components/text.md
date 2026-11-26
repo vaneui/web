@@ -17,7 +17,7 @@ Text renders paragraph text with default styling.
 
 ## Sizes
 
-Text comes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
+Text comes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`: 12, 14, 16, 18 and 20px. Inside a Card or a Modal an unsized Text is 14px (see [type sizes inside a Card](/docs/layout-components/card#type-sizes-inside-a-card)).
 
 ```tsx demo
 <Col>

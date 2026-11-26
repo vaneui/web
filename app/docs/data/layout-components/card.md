@@ -47,6 +47,15 @@ Cards come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size also
 </Row>
 ```
 
+### Type sizes inside a Card
+
+A card reads one step smaller than the page. A `Title` placed in the Card, in one of its parts or in a `Col`, `Stack` or `Row` there runs 14, 16, 18, 20 and 24px from `xs` to `xl`, 18px by default, at every screen width. An unsized `Text`, `List` or `Blockquote` there is 14px, the size of `<Text sm>`. One with `xs`, `sm`, `lg` or `xl` keeps its size, so give a figure that should stand out a larger size (`<Title xl>` for a 24px stat). Text placed straight in the Card, without a `Text`, keeps the page size. Before `@vaneui/ui` 1.8.3 a Title in a Card was 24px and a Text 16px, the sizes of page headings and page copy.
+
+| Element in a Card | `xs` | `sm` | `md` (default) | `lg` | `xl` |
+|---|---|---|---|---|---|
+| `Title` | 14px | 16px | 18px | 20px | 24px |
+| `Text`, `List`, `Blockquote` | 12px | 14px | 14px | 18px | 20px |
+
 ## Appearances
 
 Cards support color appearances: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`.

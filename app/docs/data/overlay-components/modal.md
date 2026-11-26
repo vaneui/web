@@ -245,7 +245,7 @@ return (
 
 ## Sizes
 
-Size props control modal content width via `--modal-width`. Padding, gap, and border-radius scale with it.
+Size props control modal content width via `--modal-width`. Padding, gap, and border-radius scale with it. The text inside follows the [type sizes inside a Card](/docs/layout-components/card#type-sizes-inside-a-card): a `Title` in the `ModalHeader` is 18px and an unsized `Text` in the `ModalBody` 14px, at every Modal size.
 
 ```tsx demo
 const [size, setSize] = useState('');

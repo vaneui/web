@@ -1,13 +1,13 @@
 # VaneUI Documentation
 
-> Complete documentation for the VaneUI React component library (`@vaneui/ui` 1.8.2),
+> Complete documentation for the VaneUI React component library (`@vaneui/ui` 1.8.3),
 > every doc page concatenated into one file. Each page starts with `# <page name>`, its URL and
 > one import line for the `@vaneui/ui` exports its examples use. Component pages end with
 > their props, grouped by category with defaults marked, generated from the installed package.
 
 - Repository: https://github.com/vaneui/vaneui
 - Documentation: https://vaneui.com
-- Package: `@vaneui/ui` 1.8.2
+- Package: `@vaneui/ui` 1.8.3
 - Index: https://vaneui.com/llms.txt
 - Contact: hello@vaneui.com
 
@@ -3254,7 +3254,7 @@ A `Text`, `Col`, `Stack` or `Row` placed directly in an Alert takes the free wid
 <Alert warning itemsCenter>
   <Col noGap>
     <Text fontSemibold>Your trial ends in three days</Text>
-    <Text sm>Add a payment method to keep your projects running.</Text>
+    <Text>Add a payment method to keep your projects running.</Text>
   </Col>
   <Button warning filled>Add card</Button>
 </Alert>
@@ -3267,7 +3267,7 @@ For a message of several lines, or more than one button, put the buttons in the 
   <Col>
     <Col noGap>
       <Text fontSemibold>Payment failed</Text>
-      <Text sm>The card ending in 4242 was declined. Update the card or try another payment method. Your projects keep running for seven days.</Text>
+      <Text>The card ending in 4242 was declined. Update the card or try another payment method. Your projects keep running for seven days.</Text>
     </Col>
     <Row>
       <Button danger filled>Update card</Button>
@@ -3312,7 +3312,7 @@ Alert is `rounded` by default. `sharp` suits an alert pinned to the edge of a pa
 
 The size prop sets the text, radius, padding, gap and icon together. Alert text runs one step below body text, so `md` renders 14px text, and the radius matches an Input of the same size. Text placed directly in the Alert is centered by the height of its capital letters, in the `<span class="vane-text-run">` that [How Button centers its label](/docs/basic-components/button#how-button-centers-its-label) explains.
 
-A `Text` that carries the message, on its own or in a `Col`, follows the Alert's size too: an unsized `Text` takes the Alert's text size, and `<Text sm>` sits one step below it. This needs `@vaneui/ui` 1.7.2 or later. Before it, such a `Text` stayed at 16px at every Alert size.
+A `Text` that carries the message, on its own or in a `Col`, follows the Alert's size too: an unsized `Text` takes the Alert's text size, and `<Text sm>` sits one step below it (12px at `md`, too small for a description). Give the title and the description the same size and set the title apart with `fontSemibold`, as in the examples above. This needs `@vaneui/ui` 1.7.2 or later. Before it, such a `Text` stayed at 16px at every Alert size.
 
 | Size | Text | Radius | Padding | Gap | Icon |
 |------|------|--------|---------|-----|------|
@@ -3902,7 +3902,7 @@ When the current page is not the last item, for example in a trail that ends wit
 
 ## Sizes
 
-The size prop on Breadcrumb sets the text, the separator and the gap between items for the whole trail.
+The size prop on Breadcrumb sets the text, the separator and the gap between items for the whole trail. The text runs 12, 14, 16, 18 and 20px from `xs` to `xl`, and the default `sm` is 14px, the text size of a default Button. Before `@vaneui/ui` 1.8.3 the text stayed at 16px at every size.
 
 ```tsx demo
 <Col>
@@ -6615,7 +6615,7 @@ Text renders paragraph text with default styling.
 
 ## Sizes
 
-Text comes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
+Text comes in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`: 12, 14, 16, 18 and 20px. Inside a Card or a Modal an unsized Text is 14px (see [type sizes inside a Card](/docs/layout-components/card#type-sizes-inside-a-card)).
 
 ```tsx demo
 <Col>
@@ -7331,7 +7331,7 @@ Title renders an `<h3>` heading for subsection headings. It defaults to `fontSem
 
 ## Sizes
 
-Titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
+Titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. On the page they run 18, 20, 24, 30 and 36px and scale down on tablets and phones. Inside a Card or a Modal a Title runs 14, 16, 18, 20 and 24px at every width (see [type sizes inside a Card](/docs/layout-components/card#type-sizes-inside-a-card)).
 
 ```tsx demo
 <Col>
@@ -9755,6 +9755,15 @@ Cards come in different sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. Size also
 </Row>
 ```
 
+### Type sizes inside a Card
+
+A card reads one step smaller than the page. A `Title` placed in the Card, in one of its parts or in a `Col`, `Stack` or `Row` there runs 14, 16, 18, 20 and 24px from `xs` to `xl`, 18px by default, at every screen width. An unsized `Text`, `List` or `Blockquote` there is 14px, the size of `<Text sm>`. One with `xs`, `sm`, `lg` or `xl` keeps its size, so give a figure that should stand out a larger size (`<Title xl>` for a 24px stat). Text placed straight in the Card, without a `Text`, keeps the page size. Before `@vaneui/ui` 1.8.3 a Title in a Card was 24px and a Text 16px, the sizes of page headings and page copy.
+
+| Element in a Card | `xs` | `sm` | `md` (default) | `lg` | `xl` |
+|---|---|---|---|---|---|
+| `Title` | 14px | 16px | 18px | 20px | 24px |
+| `Text`, `List`, `Blockquote` | 12px | 14px | 14px | 18px | 20px |
+
 ## Appearances
 
 Cards support color appearances: `primary` (default), `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`.
@@ -11543,7 +11552,7 @@ return (
 
 ## Sizes
 
-Size props control modal content width via `--modal-width`. Padding, gap, and border-radius scale with it.
+Size props control modal content width via `--modal-width`. Padding, gap, and border-radius scale with it. The text inside follows the [type sizes inside a Card](/docs/layout-components/card#type-sizes-inside-a-card): a `Title` in the `ModalHeader` is 18px and an unsized `Text` in the `ModalBody` 14px, at every Modal size.
 
 ```tsx demo
 const [size, setSize] = useState('');
@@ -16428,6 +16437,29 @@ package follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html): patc
 fixes, minor for additive props and components, major for anything that changes an
 existing prop name, default, or rendered element. Releases ship when work is ready
 rather than on a fixed calendar.
+
+## 1.8.3
+
+`2026-11-26`
+
+Card and Modal type reads one step smaller than the page, and Breadcrumb text follows its size prop.
+
+### Changed
+
+- `Card` and `Modal`: a `Title` placed in the surface, in one of its parts (`CardHeader`,
+  `CardBody`, `CardFooter`, `ModalHeader`, `ModalBody`, `ModalFooter`) or in a `Col`, `Stack` or
+  `Row` there was 24px (20px on phones) and an unsized `Text` 16px, the sizes of page headings and
+  page copy, so a card title sat 6 to 8px above the 16 to 18px most component libraries use. There
+  a `Title` now runs 14/16/18/20/24px from `xs` to `xl` (18px by default) at every width, and an
+  unsized `Text`, `List` or `Blockquote` is 14px, the size of `Text sm` (list items follow their
+  `List`). One with `xs`, `sm`, `lg` or `xl` keeps its size, so a `<Text sm>` already used for card
+  copy renders as before. Text placed straight in a Card, without a `Text`, keeps the page size.
+
+### Fixed
+
+- `Breadcrumb` ignored its size prop for the text: it was 16px at every size, also next to the
+  14px controls of its default `sm`. It now follows the size like the other `sm`-default
+  components: 12/14/16/18/20px from `xs` to `xl`, 14px by default.
 
 ## 1.8.2
 

@@ -37,7 +37,7 @@ export function Dashboard() {
               <Card key={s.label}>
                 <Col xs>
                   <Text sm secondary>{s.label}</Text>
-                  <Title tag="p" className="tabular-nums">{s.value}</Title>
+                  <Title xl tag="p" className="tabular-nums">{s.value}</Title>
                   <Text xs success={s.up} danger={!s.up}>{s.change}</Text>
                 </Col>
               </Card>

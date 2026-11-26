@@ -17,7 +17,7 @@ Title renders an `<h3>` heading for subsection headings. It defaults to `fontSem
 
 ## Sizes
 
-Titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`.
+Titles come in five sizes: `xs`, `sm`, `md` (default), `lg`, `xl`. On the page they run 18, 20, 24, 30 and 36px and scale down on tablets and phones. Inside a Card or a Modal a Title runs 14, 16, 18, 20 and 24px at every width (see [type sizes inside a Card](/docs/layout-components/card#type-sizes-inside-a-card)).
 
 ```tsx demo
 <Col>

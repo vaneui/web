@@ -62,7 +62,7 @@ When the current page is not the last item, for example in a trail that ends wit
 
 ## Sizes
 
-The size prop on Breadcrumb sets the text, the separator and the gap between items for the whole trail.
+The size prop on Breadcrumb sets the text, the separator and the gap between items for the whole trail. The text runs 12, 14, 16, 18 and 20px from `xs` to `xl`, and the default `sm` is 14px, the text size of a default Button. Before `@vaneui/ui` 1.8.3 the text stayed at 16px at every size.
 
 ```tsx demo
 <Col>
